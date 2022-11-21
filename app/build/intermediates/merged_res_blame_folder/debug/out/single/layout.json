@@ -1,0 +1,374 @@
+[
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\logout_alert.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\logout_alert.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\messages_user_list.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\messages_user_list.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\upgrade_pro_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\upgrade_pro_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\favourites_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\favourites_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_report_choose_option_items.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fragment_report_choose_option_items.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fav_details_choose_options.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fav_details_choose_options.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\post_profile_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\post_profile_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\dash_board_items_temp.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\dash_board_items_temp.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\advance_map_bottom_sheet.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\advance_map_bottom_sheet.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fonts_list_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fonts_list_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\filter_catergories_item.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\filter_catergories_item.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\calendar_list_item.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\calendar_list_item.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\pictures_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\pictures_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\block_user_profile.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\block_user_profile.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\viewprofile_chooseoption.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\viewprofile_chooseoption.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_details_categeroy.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fragment_details_categeroy.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\open_camera_and_gallery.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\open_camera_and_gallery.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_open_categeroy.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fragment_open_categeroy.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\advance_setting_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\advance_setting_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\repository_alert.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\repository_alert.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\change_password_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\change_password_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\booking_details_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\booking_details_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\terms_use_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\terms_use_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\choose_profile_options.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\choose_profile_options.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\my_proifle_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\my_proifle_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\dash_board_items.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\dash_board_items.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\privacy_policy_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\privacy_policy_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\qr_code_generate_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\qr_code_generate_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fav_temp.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fav_temp.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\calendar_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\calendar_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\categories_list_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\categories_list_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\dash_board_events_items.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\dash_board_events_items.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\view_profile_images_list.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\view_profile_images_list.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\pictures_item_upload_image_videos.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\pictures_item_upload_image_videos.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\thank_you_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\thank_you_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\settings_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\settings_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\chat_sender.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\chat_sender.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\edit_or_delete_profile.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\edit_or_delete_profile.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\confirm_booking_timepicker.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\confirm_booking_timepicker.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_images_view_profile.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\add_images_view_profile.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\chat_receiver.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\chat_receiver.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\qr_code_scanner_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\qr_code_scanner_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\report_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\report_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\progress_layout.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\progress_layout.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\verify_email_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\verify_email_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\view_profile_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\view_profile_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\slect_cate_items.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\slect_cate_items.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\confirm_booking_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\confirm_booking_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\common_view.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\common_view.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\pictures_item_list.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\pictures_item_list.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\view_profile_videos_list.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\view_profile_videos_list.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\categories_list_items.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\categories_list_items.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\temp_edit_profile.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\temp_edit_profile.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\questionaries_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\questionaries_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_question_items.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\add_question_items.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\alert_exit.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\alert_exit.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\advance_map_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\advance_map_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\premium_edit_profile_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\premium_edit_profile_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\dash_board_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\dash_board_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\chat_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\chat_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\edit_front_page_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\edit_front_page_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_report_choose_option.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fragment_report_choose_option.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_photos_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\add_photos_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\confirm_booking_datepicker.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\confirm_booking_datepicker.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_select_category.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fragment_select_category.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\favourites_list_items.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\favourites_list_items.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\forgot_password_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\forgot_password_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\contact_us_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\contact_us_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\advance_setting_map_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\advance_setting_map_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_photos_item_list.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\add_photos_item_list.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fav_details_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\fav_details_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\edit_profile_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\edit_profile_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\messages_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\messages_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\login_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\login_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\email_verify_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\email_verify_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\splash_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\splash_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\categories_temp.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\categories_temp.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\progress_loading.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\progress_loading.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\delete_account_alert.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\delete_account_alert.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\filter_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\filter_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\advance_sett_gallery_frament_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\advance_sett_gallery_frament_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_cities_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\add_cities_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\advance_edit_look_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\advance_edit_look_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\show_picture_video_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\show_picture_video_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\signup_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\signup_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\delete_postprofile.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\delete_postprofile.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\welcome_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\welcome_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\dash_selected_events.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\dash_selected_events.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\update_email_fragment.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\update_email_fragment.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\camera_and_gallery_edit_profile.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\camera_and_gallery_edit_profile.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_questions.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\add_questions.xml"
+    },
+    {
+        "merged": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\delete_swipe_alert.xml",
+        "source": "D:\\PlazzaVikasUpdated\\Code\\app\\src\\main\\res\\layout\\delete_swipe_alert.xml"
+    }
+]

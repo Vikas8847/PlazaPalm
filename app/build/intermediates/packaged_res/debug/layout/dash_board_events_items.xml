@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                       
+                                                   
+
+    
+                                           
+                 
+                     
+                                                                       
+           
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:tag="layout/dash_board_events_items_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDashBoardSelectedEvents"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="false"
+            android:scrollbars="vertical"
+            android:tag="binding_1"                       
+            android:background="@drawable/selected_categories_bg_dashboard"
+            android:orientation="vertical"
+                                                                          
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/dash_selected_events" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+         

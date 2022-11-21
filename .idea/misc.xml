@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/drawable/checkimage_selector.xml" value="0.2" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/drawable/ic_checkbox_tick_icon.xml" value="0.185" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/drawable/ic_checkbox_unselect_tick_icon.xml" value="0.185" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/calendar_fragment.xml" value="0.15081521739130435" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/categories_list_fragment.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/categories_list_items.xml" value="0.15" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/confirm_booking_datepicker.xml" value="0.25" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/confirm_booking_fragment.xml" value="0.22" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/confirm_booking_timepicker.xml" value="0.15" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/dash_board_events_items.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/dash_board_fragment.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/dash_board_items.xml" value="0.5" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/dash_selected_events.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/edit_profile_fragment.xml" value="0.25" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/fav_details_fragment.xml" value="0.1948286229705352" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/fav_temp.xml" value="0.1" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/fragment_details_categeroy.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/fragment_open_categeroy.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/fragment_select_category.xml" value="0.18" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/logout_alert.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/settings_fragment.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/slect_cate_items.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/layout/view_profile_images_list.xml" value="0.1921875" />
+        <entry key="..\:/Live Projects/PlazaProject/Code/PlazaPalm/app/src/main/res/menu/main_menu.xml" value="0.22" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/drawable/ic_side_bar_icon.xml" value="0.1905" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/drawable/radio_button_business.xml" value="0.1605" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/drawable/radio_checked.xml" value="0.1605" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/drawable/radio_unchecked.xml" value="0.1605" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/advance_setting_fragment.xml" value="0.25" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/dash_board_events_items.xml" value="0.25" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/dash_board_fragment.xml" value="0.1921875" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/dash_selected_events.xml" value="0.1921875" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/edit_front_page_fragment.xml" value="0.25" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/fav_details_fragment.xml" value="0.1765625" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/login_fragment.xml" value="0.1921875" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/post_profile_fragment.xml" value="0.25" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/signup_fragment.xml" value="0.2574074074074074" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/upgrade_pro_fragment.xml" value="0.25" />
+        <entry key="..\:/PlazzaVikasUpdated/Code/app/src/main/res/layout/view_profile_images_list.xml" value="0.1921875" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>
