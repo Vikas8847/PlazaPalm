@@ -723,6 +723,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
     private AddPhotosFragment injectAddPhotosFragment2(AddPhotosFragment instance) {
       AddPhotosFragment_MembersInjector.injectDataStoreUtil(instance, singletonCImpl.dataStoreUtil());
       AddPhotosFragment_MembersInjector.injectPref(instance, preferenceFile());
+      AddPhotosFragment_MembersInjector.injectRepository(instance, repository());
       return instance;
     }
 
@@ -1037,7 +1038,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new AddCitiesVM(viewModelCImpl.preferenceFile());
 
           case 1: // com.example.plazapalm.views.addphotos.AddPhotosVM 
-          return (T) new AddPhotosVM(singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile());
+          return (T) new AddPhotosVM(singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile(), viewModelCImpl.repository());
 
           case 2: // com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookVM 
           return (T) new AdvanceEditLookVM();
@@ -1070,7 +1071,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new ChatVM();
 
           case 12: // com.example.plazapalm.views.confirmbookthankyou.ConfirmBookingVM 
-          return (T) new ConfirmBookingVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile());
+          return (T) new ConfirmBookingVM();
 
           case 13: // com.example.plazapalm.views.contactus.ContactUsVM 
           return (T) new ContactUsVM(viewModelCImpl.repository(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule), viewModelCImpl.preferenceFile());
@@ -1091,7 +1092,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new FavDetailsVM(singletonCImpl.dataStoreUtil(), viewModelCImpl.repository(), viewModelCImpl.preferenceFile());
 
           case 19: // com.example.plazapalm.views.favourites.FavouritesVM 
-          return (T) new FavouritesVM();
+          return (T) new FavouritesVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile(), singletonCImpl.dataStoreUtil());
 
           case 20: // com.example.plazapalm.views.filter.FilterFragmentVM 
           return (T) new FilterFragmentVM();
@@ -1139,7 +1140,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new ReportChooseVM();
 
           case 35: // com.example.plazapalm.views.report.ReportVM 
-          return (T) new ReportVM(singletonCImpl.dataStoreUtil(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule), viewModelCImpl.repository());
+          return (T) new ReportVM(singletonCImpl.dataStoreUtil(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule), viewModelCImpl.repository(), viewModelCImpl.preferenceFile());
 
           case 36: // com.example.plazapalm.views.selectcategory.SelectCategoryViewModel 
           return (T) new SelectCategoryViewModel(singletonCImpl.dataStoreUtil(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule), viewModelCImpl.preferenceFile(), viewModelCImpl.repository());

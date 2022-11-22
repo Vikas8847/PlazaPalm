@@ -7,7 +7,9 @@ public class BR {
 
   public static final int categoryName = 2;
 
-  public static final int model = 3;
+  public static final int isCheckedStatus = 3;
 
-  public static final int vm = 4;
+  public static final int model = 4;
+
+  public static final int vm = 5;
 }

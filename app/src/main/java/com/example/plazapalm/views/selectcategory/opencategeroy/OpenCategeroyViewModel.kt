@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -42,8 +41,8 @@ class OpenCategeroyViewModel @Inject constructor(
     var page = ObservableField(1)
     var searchText = ObservableField("")
     var isClicked: Boolean = false
-    var latitude = ObservableDouble()
-    var longitude = ObservableDouble()
+    var latitude = ObservableField("")
+    var longitude = ObservableField("")
     var address = ObservableField("")
     var selectCateAdapter: SelectCateAdapter? = null
 
@@ -80,7 +79,8 @@ class OpenCategeroyViewModel @Inject constructor(
         body.put("offset", page.get()!!)
         body.put("limit", 10)
         body.put("search=", searchText.get())
-       // Log.e("dsadas", latitude.get().toDouble() + "  DFDF  " + longitude.get())
+
+        Log.e("dsadas", latitude.get() + "  DFDF  " + longitude.get())
 
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
@@ -119,10 +119,10 @@ class OpenCategeroyViewModel @Inject constructor(
         requireActivity: FragmentActivity,
         clickItem: clickItem
     ) {
-        rvCategoryLocation.layoutManager = LinearLayoutManager(requireActivity)
+        rvCategoryLocation?.layoutManager = LinearLayoutManager(requireActivity)
         selectCateAdapter = SelectCateAdapter(requireActivity, data, clickItem, "OpenCategeroy")
-        rvCategoryLocation.adapter = selectCateAdapter
-        rvCategoryLocation.adapter?.notifyDataSetChanged()
+        rvCategoryLocation?.adapter = selectCateAdapter
+        rvCategoryLocation?.adapter?.notifyDataSetChanged()
 
     }
 

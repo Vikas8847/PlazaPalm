@@ -16,9 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SelectCategoryFragment : Fragment(R.layout.fragment_select_category),clickItem {
+
     private var binding: FragmentSelectCategoryBinding? = null
     private val viewmodel: SelectCategoryViewModel by viewModels()
     lateinit var selectCateAdapter : SelectCateAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,14 +40,14 @@ class SelectCategoryFragment : Fragment(R.layout.fragment_select_category),click
     }
 
     private fun getdata() {
-      //  viewmodel.getCategoriesApi(binding!!.rvCategoryLocation,requireActivity(),this)
+        viewmodel.getCategoriesApi(binding!!.rvCategoryLocation,requireActivity(),this)
     }
 
     override fun click(categoryName: String, position: Int, c_id: String?, s: String) {
 //        requireView().findNavController(R.id.action_bookingDetailsFragment_to_postProfileFragment)
         Log.e("ASaaa", categoryName+"DDDDDDDDDDDD" + position.toString())
-       // findNavController().previousBackStackEntry?.savedStateHandle?.set("key", categoryName +"/"+ c_id)
-        //findNavController().popBackStack()
+        findNavController().previousBackStackEntry?.savedStateHandle?.set("key", categoryName +"/"+ c_id)
+        findNavController().popBackStack()
 
     }
 

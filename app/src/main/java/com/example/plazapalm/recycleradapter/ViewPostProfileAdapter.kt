@@ -10,16 +10,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plazapalm.databinding.ViewProfileImagesListBinding
-import com.example.plazapalm.models.GetPostProfileResponse
+import com.example.plazapalm.models.AddImageDescriptionPOJO
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 
 
 class ViewPostProfileAdapter(
     var requireActivity: FragmentActivity,
-    var dataList: ArrayList<String>,
-    var dsc2: String,
-    var dsc3: String,
-    dsc1: String
+    var dataList: ArrayList<AddImageDescriptionPOJO>
 )
 
     : RecyclerView.Adapter<ViewPostProfileAdapter.ViewHolder>() {
@@ -37,39 +34,31 @@ class ViewPostProfileAdapter(
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.e("SDSDSDSDSd", dsc2 + "CC    " + dataList.toString())
+        Log.e("SDSDSDSDSd",    dataList.toString())
 
-        holder.setDAta(requireActivity, dataList, position, dsc2, dsc3)
+        holder.setDAta(requireActivity, dataList, position)
     }
 
     inner class ViewHolder(var bindining: ViewProfileImagesListBinding) :
         RecyclerView.ViewHolder(bindining.root) {
-        fun setDAta(context: Context, photos: ArrayList<String>, position: Int, dsc2: String, dsc3: String) {
-            if (photos.size <= 3) {
-                when (position) {
-                    1 -> {
-                        Glide.with(context)
-                            .load(IMAGE_LOAD_URL + photos[position])
-                            .into(bindining.ivFavOfDesc1Img)
-                        bindining.clVEditProDescription.visibility = View.VISIBLE
-                        bindining.etVEditProDescription.text = dsc2
-                    }
-                    2 -> bindining.clVEditProDescription.visibility = View.GONE
-                    3 -> bindining.clVEditProDescription.visibility = View.GONE
-                    4 -> {
-                        bindining.clVEditProDescription.visibility = View.VISIBLE
-                        bindining.etVEditProDescription.text = dsc3
-                    }
-                }
 
-            }else{
+        fun setDAta(
+            context: Context,
+            photos: ArrayList<AddImageDescriptionPOJO>,
+            position: Int,
+        ) {
+
+            if (!( photos[position].Desc.toString().trim().equals(""))) {
+                bindining.clVEditProDescription.visibility = View.VISIBLE
+            } else {
+                bindining.clVEditProDescription.visibility = View.GONE
             }
 
+            bindining.etVEditProDescription.text = photos[position].Desc.toString().trim()
+            Glide.with(context)
+                .load(IMAGE_LOAD_URL + photos.get(position).Image)
+                .into(bindining!!.ivFavOfDesc1Img)
         }
-        /*fun setVideo(context: Context,dataList: ArrayList<String> ,position: Int*//* = java.util.ArrayList<kotlin.String> *//*){
-
-            if (allDataList[position].data.pr)
-        }*/
     }
 }
 

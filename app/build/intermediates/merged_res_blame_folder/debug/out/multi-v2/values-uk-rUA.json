@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-uk-rUA\\values-uk-rUA.xml",
+            "outputFile": "D:\\plazapalam\\PlazaPalm@18Oct\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-uk-rUA\\values-uk-rUA.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Android\\.gradle\\caches\\transforms-3\\bbf2b22f8ce1f57f4f3bbbf5bde595bb\\transformed\\jetified-material-calendar-view-1.9.0-rc03\\res\\values-uk-rUA\\values-uk-rUA.xml",
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\bbf2b22f8ce1f57f4f3bbbf5bde595bb\\transformed\\jetified-material-calendar-view-1.9.0-rc03\\res\\values-uk-rUA\\values-uk-rUA.xml",
                     "from": {
                         "startLines": "2,11,25,26,27,28,29,30,31,32,33,34",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",

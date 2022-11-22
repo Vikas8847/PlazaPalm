@@ -21,7 +21,7 @@
             android:tag="binding_1"                       
             android:background="@drawable/selected_categories_bg_dashboard"
             android:orientation="vertical"
-                                                                          
+                                                                           
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

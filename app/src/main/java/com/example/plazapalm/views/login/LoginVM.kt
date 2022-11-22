@@ -28,12 +28,10 @@ class LoginVM @Inject constructor(
     private var repository: Repository,
     private var dataStore: DataStoreUtil,
     private var cacheUtil: CacheUtil,
-    private var preferences: PreferenceFile
-) : ViewModel() {
+    private var preferences: PreferenceFile) : ViewModel() {
     var email = ObservableField("")
     var password = ObservableField("")
     var sendTypeLogin = ObservableField("Login")
-
 
     fun clicks(view: View) {
         when (view.id) {
@@ -125,6 +123,7 @@ class LoginVM @Inject constructor(
             }
         )
     }
+
     /*Validations for login..*/
     private fun loginValidation(): Boolean {
         when {

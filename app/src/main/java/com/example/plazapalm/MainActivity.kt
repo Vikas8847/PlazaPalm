@@ -4,10 +4,15 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.Window
@@ -18,6 +23,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.plazapalm.databinding.ActivityMainBinding
+import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.onNavDestinationSelected
 import com.example.plazapalm.views.MainVM
@@ -27,6 +33,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.ref.WeakReference
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -34,13 +41,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     private var navController: NavController? = null
-
     companion object {
         // var navListener: NavigationListener? = null
         lateinit var context: WeakReference<Context>
         lateinit var activity: Activity
     }
-
     private var binding: ActivityMainBinding? = null
     override fun onStart() {
         super.onStart()
@@ -58,9 +63,17 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         context = WeakReference(this)
         setUpNav()
         //setTypeHeretoCategoryFragment()
+        val currentNightMode = Configuration.UI_MODE_NIGHT_MASK
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                // Night mode is not active, we're using the light theme
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                // Night mode is active, we're using dark theme
+            }
+        }
 
     }
-
     private fun setUpNav() {
         navController = findNavController(R.id.fragmentMain)
         binding?.bottNavMain?.setOnNavigationItemSelectedListener(this)
@@ -86,9 +99,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 R.id.categories -> {
                     hideKeyboard()
                     binding?.bottNavMain?.onNavDestinationSelected(item.itemId, navController!!)
-                    var bundle = Bundle()
-                    bundle.putString("comingFrom", "main")
-                    navController?.navigate(R.id.openCategeroyFragment, bundle)
+                    var bundle=Bundle()
+                    bundle.putString("comingFrom","main")
+                     navController?.navigate(R.id.openCategeroyFragment,bundle)
 //                    navController?.navigate(R.id.categoriesListFragment,bundle)
 
                 }
@@ -111,7 +124,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         return true
     }
-
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount == 1) {
             showExitDialog()

@@ -231,9 +231,12 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                 Currentlongi = originLatng?.longitude!!
                 Currentlati = originLatng?.latitude!!
                 currentaddress = addressLocation!!
+
+                pref.storeLocarion(currentaddress)
+                pref.storeLatlong("longi", originLatng?.longitude!!.toFloat())
+                pref.storeLatlong("lati", originLatng?.latitude!!.toFloat())
             }
 
-            pref.storeLocarion(currentaddress)
 
             if (arguments?.getString("PostProfile") != null) {
 
@@ -242,6 +245,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
 
                 Log.e("SDSDSD", "DONEE")
             } else {
+
 //                view?.navigateWithId(R.id.categoriesListFragment, bundle)
                 findNavController().previousBackStackEntry?.savedStateHandle?.set("bundle", Currentlongi.toString() + "/" + Currentlati.toString() + "/" + currentaddress)
                 findNavController().popBackStack()

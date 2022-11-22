@@ -33,13 +33,13 @@ class MyProfileVM @Inject constructor(
     private var cacheUtil: CacheUtil,
     private var pref: PreferenceFile
 
-    ) : ViewModel() {
+) : ViewModel() {
 
-    var premium : Int? = null
-    var loginData = ObservableField("")
+    var premium: Int? = null
+    var postStatus = ObservableField("")
     var firstName = ObservableField("first name")
     var storedImageUrl = ObservableField("")
-    val qrCodeScanner : QrCodeScannerFragment by lazy { qrCodeScanner }
+    val qrCodeScanner: QrCodeScannerFragment by lazy { qrCodeScanner }
     var token = ObservableField("")
     var status = ObservableField("Post a Profile ")
     var changestatus = ObservableBoolean(false)
@@ -47,17 +47,19 @@ class MyProfileVM @Inject constructor(
     init {
 
         token.set(pref.retrieveKey("token"))
-        if(pref.retrieveBoolKey(Constants.POSTSTATUS)!!.equals(true)){
-            status.set("View Profile ")
+
+        if (pref.retrieveBoolKey(Constants.POSTSTATUS)!!.equals(true)) {
             changestatus.set(true)
-        }else{
-            status.set("Post a Profile")
+        } else {
             changestatus.set(false)
         }
 
         //saveProfileImageUrl()
+
         getProfileImageUrl()
+
     }
+
 
     /**Click Implementing Here **/
     fun onClick(view: View) {
@@ -71,15 +73,23 @@ class MyProfileVM @Inject constructor(
             R.id.tvViewMyProfile -> {
                 val bundle = Bundle()
 
-                if (changestatus.get()){
-                    bundle.putString(Constants.FROM_MY_PROFILE,"ViewProfile")
-                    view.navigateWithId(R.id.action_myProfileFragment_to_favDetailsFragment,bundle)
+                if (changestatus.get()) {
 
-                }else{
-                    bundle.putString(Constants.FROM_MY_PROFILE,"PostProfile")
+                    bundle.putString("comingFrom", "isViewProfile")
+                    bundle.putString("P_ID", postStatus.get())
+
+                    status.set("View Profile ")
+                    view.navigateWithId(R.id.action_myProfileFragment_to_favDetailsFragment, bundle)
+
+                } else {
+
+                    status.set("Post a Profile ")
+                    bundle.putString(Constants.FROM_MY_PROFILE, "PostProfile")
                     view.navigateWithId(R.id.action_myProfileFragment_to_viewProfileFragment)
+
                 }
             }
+
             R.id.tvCalendar -> {
                 view.navigateWithId(R.id.action_myProfileFragment_to_calendarFragment)
             }
@@ -111,20 +121,37 @@ class MyProfileVM @Inject constructor(
         body.put("Authorization", token.get())
         repository.makeCall(
             apiKey = ApiEnums.GET_PROFILE,
-            loader = false,
+            loader = true,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetProfileResponseModel>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileResponseModel> {
                     return retrofitApi.getProfileApi(Authorization = token.get().toString())
                 }
+
                 override fun onResponse(res: Response<GetProfileResponseModel>) {
+
                     val responseData = res.body()
                     dataStoreUtil.saveObject(PROFILE_DATA, res.body())
-                    dataStoreUtil.saveData(PROFILE_IMAGE, res.body()?.data?.profile_picture.toString())
+                    dataStoreUtil.saveData(
+                        PROFILE_IMAGE,
+                        res.body()?.data?.profile_picture.toString()
+                    )
                     storedImageUrl.set(res.body()?.data?.profile_picture)
 
-                    Log.e("QWQWQWQW",responseData.toString())
+                    Log.e("QWQWQWQW", responseData.toString())
+
+                    if (res.body()?.data?.p_id.isNullOrEmpty()) {
+                        status.set("Post a Profile ")
+                        changestatus.set(false)
+                    } else {
+                        status.set("View Profile ")
+                        postStatus.set(res.body()?.data?.p_id)
+                        changestatus.set(true)
+
+                    }
+
+//                    setpostStatus()
                     // myProfileData()
 
                 }
@@ -148,7 +175,7 @@ class MyProfileVM @Inject constructor(
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
             firstName.set(it?.data?.first_name.toString() + " " + " " + it?.data?.last_name.toString())
 
-            // storedImageUrl.set(it?.data?.profile_picture)
+            storedImageUrl.set(it?.data?.profile_picture)
 
             /* if (it?.data?.profile_picture != null) {
                 storedImageUrl.set(it.data.profile_picture)

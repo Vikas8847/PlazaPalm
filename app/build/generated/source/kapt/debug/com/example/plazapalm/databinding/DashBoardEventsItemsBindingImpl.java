@@ -104,7 +104,8 @@ public class DashBoardEventsItemsBindingImpl extends DashBoardEventsItemsBinding
         }
         androidx.databinding.ObservableBoolean vmIsClicked = null;
         com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
-        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.CategoriesData> vmDashSelectedAdapter = null;
+        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.SelectedDataModel> vmDashSelectedAdapter = null;
+        boolean VmIsClicked1 = false;
         int vmIsClickedViewVISIBLEViewGONE = 0;
         boolean vmIsClickedGet = false;
 
@@ -123,8 +124,12 @@ public class DashBoardEventsItemsBindingImpl extends DashBoardEventsItemsBinding
                     // read vm.isClicked.get()
                     vmIsClickedGet = vmIsClicked.get();
                 }
+
+
+                // read !vm.isClicked.get()
+                VmIsClicked1 = !vmIsClickedGet;
             if((dirtyFlags & 0x7L) != 0) {
-                if(vmIsClickedGet) {
+                if(VmIsClicked1) {
                         dirtyFlags |= 0x10L;
                 }
                 else {
@@ -133,8 +138,8 @@ public class DashBoardEventsItemsBindingImpl extends DashBoardEventsItemsBinding
             }
 
 
-                // read vm.isClicked.get() ? View.VISIBLE : View.GONE
-                vmIsClickedViewVISIBLEViewGONE = ((vmIsClickedGet) ? (android.view.View.VISIBLE) : (android.view.View.GONE));
+                // read !vm.isClicked.get() ? View.VISIBLE : View.GONE
+                vmIsClickedViewVISIBLEViewGONE = ((VmIsClicked1) ? (android.view.View.VISIBLE) : (android.view.View.GONE));
             if ((dirtyFlags & 0x6L) != 0) {
 
                     if (vm != null) {
@@ -163,8 +168,8 @@ public class DashBoardEventsItemsBindingImpl extends DashBoardEventsItemsBinding
         flag 0 (0x1L): vm.isClicked
         flag 1 (0x2L): vm
         flag 2 (0x3L): null
-        flag 3 (0x4L): vm.isClicked.get() ? View.VISIBLE : View.GONE
-        flag 4 (0x5L): vm.isClicked.get() ? View.VISIBLE : View.GONE
+        flag 3 (0x4L): !vm.isClicked.get() ? View.VISIBLE : View.GONE
+        flag 4 (0x5L): !vm.isClicked.get() ? View.VISIBLE : View.GONE
     flag mapping end*/
     //end
 }

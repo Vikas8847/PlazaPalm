@@ -16,105 +16,20 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.rgFirst, 3);
         sViewsWithIds.put(R.id.viewFavourite, 4);
-        sViewsWithIds.put(R.id.viewFavouriteSecond, 5);
     }
     // views
-    @NonNull
-    private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
-    @NonNull
-    private final androidx.appcompat.widget.AppCompatCheckBox mboundView1;
-    @NonNull
-    private final androidx.appcompat.widget.AppCompatCheckBox mboundView2;
     // variables
     @Nullable
     private final android.view.View.OnClickListener mCallback12;
     // values
     // listeners
     // Inverse Binding Event Handlers
-    private androidx.databinding.InverseBindingListener mboundView1androidCheckedAttrChanged = new androidx.databinding.InverseBindingListener() {
-        @Override
-        public void onChange() {
-            // Inverse of model.checked
-            //         is model.setChecked((boolean) callbackArg_0)
-            boolean callbackArg_0 = mboundView1.isChecked();
-            // localize variables for thread safety
-            // model
-            com.example.plazapalm.models.ReportDataModal model = mModel;
-            // model != null
-            boolean modelJavaLangObjectNull = false;
-            // model.checked
-            boolean modelChecked = false;
-
-
-
-            modelJavaLangObjectNull = (model) != (null);
-            if (modelJavaLangObjectNull) {
-
-
-
-
-                model.setChecked(((boolean) (callbackArg_0)));
-            }
-        }
-    };
-    private androidx.databinding.InverseBindingListener mboundView1androidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
+    private androidx.databinding.InverseBindingListener checkBoxandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
             // Inverse of model.text
             //         is model.setText((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(mboundView1);
-            // localize variables for thread safety
-            // model
-            com.example.plazapalm.models.ReportDataModal model = mModel;
-            // model != null
-            boolean modelJavaLangObjectNull = false;
-            // model.text
-            java.lang.String modelText = null;
-
-
-
-            modelJavaLangObjectNull = (model) != (null);
-            if (modelJavaLangObjectNull) {
-
-
-
-
-                model.setText(((java.lang.String) (callbackArg_0)));
-            }
-        }
-    };
-    private androidx.databinding.InverseBindingListener mboundView2androidCheckedAttrChanged = new androidx.databinding.InverseBindingListener() {
-        @Override
-        public void onChange() {
-            // Inverse of model.checked
-            //         is model.setChecked((boolean) callbackArg_0)
-            boolean callbackArg_0 = mboundView2.isChecked();
-            // localize variables for thread safety
-            // model
-            com.example.plazapalm.models.ReportDataModal model = mModel;
-            // model != null
-            boolean modelJavaLangObjectNull = false;
-            // model.checked
-            boolean modelChecked = false;
-
-
-
-            modelJavaLangObjectNull = (model) != (null);
-            if (modelJavaLangObjectNull) {
-
-
-
-
-                model.setChecked(((boolean) (callbackArg_0)));
-            }
-        }
-    };
-    private androidx.databinding.InverseBindingListener mboundView2androidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
-        @Override
-        public void onChange() {
-            // Inverse of model.text
-            //         is model.setText((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(mboundView2);
+            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(checkBox);
             // localize variables for thread safety
             // model
             com.example.plazapalm.models.ReportDataModal model = mModel;
@@ -137,20 +52,19 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
     };
 
     public FragmentReportChooseOptionItemsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 5, sIncludes, sViewsWithIds));
     }
     private FragmentReportChooseOptionItemsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
+            , (androidx.appcompat.widget.AppCompatCheckBox) bindings[1]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[2]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[0]
             , (android.widget.RadioGroup) bindings[3]
             , (android.view.View) bindings[4]
-            , (android.view.View) bindings[5]
             );
-        this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
-        this.mboundView0.setTag(null);
-        this.mboundView1 = (androidx.appcompat.widget.AppCompatCheckBox) bindings[1];
-        this.mboundView1.setTag(null);
-        this.mboundView2 = (androidx.appcompat.widget.AppCompatCheckBox) bindings[2];
-        this.mboundView2.setTag(null);
+        this.checkBox.setTag(null);
+        this.constraintsClick.setTag(null);
+        this.layoutCons.setTag(null);
         setRootTag(root);
         // listeners
         mCallback12 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
@@ -160,7 +74,7 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x4L;
         }
         requestRebind();
     }
@@ -181,6 +95,9 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
         if (BR.model == variableId) {
             setModel((com.example.plazapalm.models.ReportDataModal) variable);
         }
+        else if (BR.isCheckedStatus == variableId) {
+            setIsCheckedStatus((com.example.plazapalm.views.reportselection.ReportChooseVM) variable);
+        }
         else {
             variableSet = false;
         }
@@ -194,6 +111,9 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
         }
         notifyPropertyChanged(BR.model);
         super.requestRebind();
+    }
+    public void setIsCheckedStatus(@Nullable com.example.plazapalm.views.reportselection.ReportChooseVM IsCheckedStatus) {
+        this.mIsCheckedStatus = IsCheckedStatus;
     }
 
     @Override
@@ -214,7 +134,7 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
         boolean modelChecked = false;
         java.lang.String modelText = null;
 
-        if ((dirtyFlags & 0x3L) != 0) {
+        if ((dirtyFlags & 0x5L) != 0) {
 
 
 
@@ -226,22 +146,17 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
                 }
         }
         // batch finished
-        if ((dirtyFlags & 0x2L) != 0) {
+        if ((dirtyFlags & 0x5L) != 0) {
             // api target 1
 
-            this.mboundView0.setOnClickListener(mCallback12);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView1, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView1androidTextAttrChanged);
-            androidx.databinding.adapters.CompoundButtonBindingAdapter.setListeners(this.mboundView1, (android.widget.CompoundButton.OnCheckedChangeListener)null, mboundView1androidCheckedAttrChanged);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView2, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView2androidTextAttrChanged);
-            androidx.databinding.adapters.CompoundButtonBindingAdapter.setListeners(this.mboundView2, (android.widget.CompoundButton.OnCheckedChangeListener)null, mboundView2androidCheckedAttrChanged);
+            androidx.databinding.adapters.CompoundButtonBindingAdapter.setChecked(this.checkBox, modelChecked);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.checkBox, modelText);
         }
-        if ((dirtyFlags & 0x3L) != 0) {
+        if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.CompoundButtonBindingAdapter.setChecked(this.mboundView1, modelChecked);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView1, modelText);
-            androidx.databinding.adapters.CompoundButtonBindingAdapter.setChecked(this.mboundView2, modelChecked);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView2, modelText);
+            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.checkBox, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, checkBoxandroidTextAttrChanged);
+            this.constraintsClick.setOnClickListener(mCallback12);
         }
     }
     // Listener Stub Implementations
@@ -285,7 +200,8 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
         flag 0 (0x1L): model
-        flag 1 (0x2L): null
+        flag 1 (0x2L): isCheckedStatus
+        flag 2 (0x3L): null
     flag mapping end*/
     //end
 }

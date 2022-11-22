@@ -14,35 +14,33 @@ public class EditProfileFragmentBindingImpl extends EditProfileFragmentBinding  
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.tvEditProfile, 8);
-        sViewsWithIds.put(R.id.ivSettingBtn, 9);
+        sViewsWithIds.put(R.id.tvEditProfile, 9);
         sViewsWithIds.put(R.id.gLineEditProfile, 10);
-        sViewsWithIds.put(R.id.profile_image, 11);
-        sViewsWithIds.put(R.id.ivEditProfileCamera, 12);
-        sViewsWithIds.put(R.id.gLineEditProfileJi, 13);
-        sViewsWithIds.put(R.id.tvEditFirstName, 14);
-        sViewsWithIds.put(R.id.clEditProfile, 15);
-        sViewsWithIds.put(R.id.tvEditLastName, 16);
-        sViewsWithIds.put(R.id.clEditLastName, 17);
+        sViewsWithIds.put(R.id.ivEditProfileCamera, 11);
+        sViewsWithIds.put(R.id.gLineEditProfileJi, 12);
+        sViewsWithIds.put(R.id.tvEditFirstName, 13);
+        sViewsWithIds.put(R.id.clEditProfile, 14);
+        sViewsWithIds.put(R.id.tvEditLastName, 15);
+        sViewsWithIds.put(R.id.clEditLastName, 16);
     }
     // views
     @NonNull
-    private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
-    @NonNull
-    private final androidx.appcompat.widget.AppCompatEditText mboundView5;
+    private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
     @NonNull
     private final androidx.appcompat.widget.AppCompatEditText mboundView6;
+    @NonNull
+    private final androidx.appcompat.widget.AppCompatEditText mboundView7;
     // variables
     // values
     // listeners
     private OnClickListenerImpl mVmOnClicksAndroidViewViewOnClickListener;
     // Inverse Binding Event Handlers
-    private androidx.databinding.InverseBindingListener mboundView5androidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
+    private androidx.databinding.InverseBindingListener mboundView6androidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
             // Inverse of vm.firstName.get()
             //         is vm.firstName.set((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(mboundView5);
+            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(mboundView6);
             // localize variables for thread safety
             // vm != null
             boolean vmJavaLangObjectNull = false;
@@ -74,12 +72,12 @@ public class EditProfileFragmentBindingImpl extends EditProfileFragmentBinding  
             }
         }
     };
-    private androidx.databinding.InverseBindingListener mboundView6androidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
+    private androidx.databinding.InverseBindingListener mboundView7androidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
             // Inverse of vm.lastName.get()
             //         is vm.lastName.set((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(mboundView6);
+            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(mboundView7);
             // localize variables for thread safety
             // vm != null
             boolean vmJavaLangObjectNull = false;
@@ -113,36 +111,36 @@ public class EditProfileFragmentBindingImpl extends EditProfileFragmentBinding  
     };
 
     public EditProfileFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 18, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 17, sIncludes, sViewsWithIds));
     }
     private EditProfileFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 3
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[17]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[15]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[16]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[14]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[3]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[2]
             , (androidx.constraintlayout.widget.Guideline) bindings[10]
-            , (androidx.constraintlayout.widget.Guideline) bindings[13]
-            , (de.hdodenhof.circleimageview.CircleImageView) bindings[4]
+            , (androidx.constraintlayout.widget.Guideline) bindings[12]
+            , (de.hdodenhof.circleimageview.CircleImageView) bindings[5]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
-            , (de.hdodenhof.circleimageview.CircleImageView) bindings[12]
-            , (androidx.appcompat.widget.AppCompatImageView) bindings[9]
-            , (de.hdodenhof.circleimageview.CircleImageView) bindings[11]
-            , (androidx.appcompat.widget.AppCompatButton) bindings[7]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[14]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[16]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[8]
+            , (androidx.appcompat.widget.AppCompatImageView) bindings[11]
+            , (androidx.appcompat.widget.AppCompatImageView) bindings[2]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[8]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[13]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[15]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[9]
             );
         this.clEditProfileCircular.setTag(null);
         this.clEditProfileMain.setTag(null);
         this.ivEditProfile.setTag(null);
         this.ivEditProfileBackBtn.setTag(null);
-        this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
+        this.ivEditSettingBtn.setTag(null);
+        this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.mboundView5 = (androidx.appcompat.widget.AppCompatEditText) bindings[5];
-        this.mboundView5.setTag(null);
         this.mboundView6 = (androidx.appcompat.widget.AppCompatEditText) bindings[6];
         this.mboundView6.setTag(null);
+        this.mboundView7 = (androidx.appcompat.widget.AppCompatEditText) bindings[7];
+        this.mboundView7.setTag(null);
         this.tvBtnUpdateProfile.setTag(null);
         setRootTag(root);
         // listeners
@@ -304,6 +302,7 @@ public class EditProfileFragmentBindingImpl extends EditProfileFragmentBinding  
             this.clEditProfileCircular.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.clEditProfileMain.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.ivEditProfileBackBtn.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
+            this.ivEditSettingBtn.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.tvBtnUpdateProfile.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
         }
         if ((dirtyFlags & 0x1aL) != 0) {
@@ -314,18 +313,18 @@ public class EditProfileFragmentBindingImpl extends EditProfileFragmentBinding  
         if ((dirtyFlags & 0x1cL) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView5, vmFirstNameGet);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView6, vmFirstNameGet);
         }
         if ((dirtyFlags & 0x10L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView5, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView5androidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView6, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView6androidTextAttrChanged);
+            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView7, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView7androidTextAttrChanged);
         }
         if ((dirtyFlags & 0x19L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView6, vmLastNameGet);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView7, vmLastNameGet);
         }
     }
     // Listener Stub Implementations

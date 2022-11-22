@@ -14,18 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.myprofile.calendar.CalendarFragment" android:tag="layout/calendar_fragment_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
-
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevation="0dp">
-
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/app_bar_light"
                 app:contentInsetStart="@dimen/_20sdp">
-
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivCalendarBackBtn"
                     android:layout_width="@dimen/_25sdp"
@@ -85,10 +82,10 @@
                 android:id="@+id/clCalendar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_265sdp"
-                android:layout_marginStart="-10dp"
-                android:paddingLeft="-10dp"
                 android:theme="@style/CalenderViewCustom."
                 app:layout_constraintEnd_toEndOf="parent"
+                android:paddingLeft="-10dp"
+                android:layout_marginStart="-10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCalendar"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -97,11 +94,11 @@
                 android:tag="binding_2"                   
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
                 android:padding="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clCalendar"

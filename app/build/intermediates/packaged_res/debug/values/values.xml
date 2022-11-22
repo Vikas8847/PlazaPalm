@@ -38,9 +38,10 @@
     <string name="app_name">PlazaPalm</string>
     <string name="are_you_sure_you_want_to_delete_n_the_profile">Are you sure you want to delete \n the profile?</string>
     <string name="choose_categeory">Choose categeory</string>
-    <string name="confirm_booking">Confirm Booking</string>
     <string name="delete">Delete</string>
+    <string name="description2">Description2</string>
     <string name="description_2">Description 2</string>
+    <string name="description_3">Description 3</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="edit_profile_last_name">Last Name</string>
     <string name="first_name">First Name</string>
@@ -49,16 +50,18 @@
     <string name="hair_style">Hair Style</string>
     <string name="haircut">Haircut</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="last_name">Lower Name</string>
+    <string name="last_name">Last Name</string>
     <string name="log_out">Log Out Successfully Done</string>
     <string name="photo_library">Photo library</string>
     <string name="post">Post</string>
     <string name="save">Save</string>
     <string name="search_for_location">Search for location</string>
     <string name="some_error_occured">Oops! Something went wrong</string>
+    <string name="submit">Submit</string>
     <string name="take_photo">Take photo</string>
     <string name="thank_you">Thank You</string>
     <string name="user_name">User Name</string>
+    <string name="you_selected">You Selected</string>
     <string name="your_device_offline">You are offline.</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -76,15 +79,6 @@
         <item name="colorControlActivated">@color/white</item>
         <item name="android:textColorPrimaryInverse">@color/red</item>
         // color of date selected.
-    </style>
-    <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/blue</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColorLink">@color/blue</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
     </style>
     <style name="DialogeTheme" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@android:color/black</item>
@@ -139,11 +133,6 @@
         <item name="thumbColor">@color/white</item>
         <item name="trackColorInactive">@color/gray</item>
     </style>
-    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/blue</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/inter_bold</item>
@@ -166,15 +155,6 @@
     <style name="popup_window_animation">
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
-    </style>
-    <style name="radionbutton" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:button">@drawable/radio_button_business</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:backgroundDimEnabled">true</item>
     </style>
     <style name="roundedImageView" parent="">
         <item name="cornerFamily">rounded</item>

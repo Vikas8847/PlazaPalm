@@ -6,7 +6,7 @@
 
                  
                         
-                                                                 
+                                                                    
            
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,10 +16,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDashBoardSelectedEvents"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
-            android:tag="binding_1"              
+            android:tag="binding_1"                 
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"

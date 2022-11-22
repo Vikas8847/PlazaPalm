@@ -33,7 +33,11 @@ const val GET_PROFILE_BY_CATEGORERY = "getProfileByCategory"
 const val SAVE_POST_PROFILE = "postProfileSave"
 const val POST_PRPFILE_UPDATE = "postProfileUpdate"
 const val ADD_TOFAV_POSTPROFILE = "addFavourites"
-const val REMOVE_FROM_CALENDAR = "removeFromCalender"
+const val GET_FAVOURITES  = "listFavourites"
+const val LIKES_DISLIKES  = "likesDislikes"
+const val REPORT  = "report"
+const val ADD_QUESTION  = "addQuestion"
+
 
 
 

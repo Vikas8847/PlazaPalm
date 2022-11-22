@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class GetPostProfileResponse(
-    val data: PostData,
+    val `data`: postData,
     val message: String,
     val status: Int
 )
-data class PostData(
+data class postData(
     val _id: String?,
     val address: String?,
     val booking_status: Boolean?,
@@ -118,12 +118,12 @@ data class PostData(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<PostData> {
-        override fun createFromParcel(parcel: Parcel): PostData {
-            return PostData(parcel)
+    companion object CREATOR : Parcelable.Creator<postData> {
+        override fun createFromParcel(parcel: Parcel): postData {
+            return postData(parcel)
         }
 
-        override fun newArray(size: Int): Array<PostData?> {
+        override fun newArray(size: Int): Array<postData?> {
             return arrayOfNulls(size)
         }
     }

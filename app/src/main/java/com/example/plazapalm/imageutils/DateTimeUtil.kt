@@ -3,8 +3,6 @@ package com.example.plazapalm.imageutils
 import android.app.DatePickerDialog
 import android.content.Context
 import android.text.format.DateUtils
-import com.example.plazapalm.R
-import com.example.plazapalm.utils.CommonMethods
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -76,13 +74,14 @@ object DateTimeUtil {
         } else Date()
     }
     /**datePickerDialog*/
-    fun datePickerDialog(
+    fun Context.datePickerDialog(
         isMaxCalendar: Boolean = false,
         isMinCalendar: Boolean = false,
         returnDate: (Calendar) -> Unit
     ) {
         val calender: Calendar = Calendar.getInstance()
-        val datePicker = DatePickerDialog(CommonMethods.context, R.style.DatePickerDialogTheme,
+        val datePicker = DatePickerDialog(
+            this,
             { _, year, month, dayOfMonth ->
                 calender.set(Calendar.YEAR, year)
                 calender.set(Calendar.MONTH, month)

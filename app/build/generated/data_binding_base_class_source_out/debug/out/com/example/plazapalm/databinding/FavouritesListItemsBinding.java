@@ -14,7 +14,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.example.plazapalm.R;
-import com.example.plazapalm.models.DashBoardModel;
+import com.example.plazapalm.models.FavData;
 import com.google.android.material.imageview.ShapeableImageView;
 import java.lang.Deprecated;
 import java.lang.Object;
@@ -48,7 +48,7 @@ public abstract class FavouritesListItemsBinding extends ViewDataBinding {
   public final AppCompatTextView tvFavItemName;
 
   @Bindable
-  protected DashBoardModel mModel;
+  protected FavData mModel;
 
   protected FavouritesListItemsBinding(Object _bindingComponent, View _root, int _localFieldCount,
       CardView clFavItemMain, ShapeableImageView ivFavItem, AppCompatImageView ivFavItemEmptyHeart,
@@ -67,10 +67,10 @@ public abstract class FavouritesListItemsBinding extends ViewDataBinding {
     this.tvFavItemName = tvFavItemName;
   }
 
-  public abstract void setModel(@Nullable DashBoardModel model);
+  public abstract void setModel(@Nullable FavData model);
 
   @Nullable
-  public DashBoardModel getModel() {
+  public FavData getModel() {
     return mModel;
   }
 

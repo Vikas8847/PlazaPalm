@@ -60,6 +60,7 @@
             android:id="@+id/clReportChoose"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:id="@+id/rvReportOptions"
@@ -69,8 +70,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/fragment_report_choose_option_items"
                 android:layout_height="0dp">
-
             </androidx.recyclerview.widget.RecyclerView>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReportChecked"
                 android:layout_width="match_parent"
@@ -83,7 +84,7 @@
                 android:gravity="center"
                 android:onClick="@{vm::onClicks}"
                 android:paddingBottom="@dimen/_1sdp"
-                android:text="Submit"
+                android:text="@string/submit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="15sp"

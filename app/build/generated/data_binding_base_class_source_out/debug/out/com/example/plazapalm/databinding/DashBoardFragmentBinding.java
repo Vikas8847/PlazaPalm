@@ -44,9 +44,6 @@ public abstract class DashBoardFragmentBinding extends ViewDataBinding {
   public final AppCompatTextView tvDashBoardTitle;
 
   @NonNull
-  public final AppCompatTextView tvNoDataDashboard;
-
-  @NonNull
   public final View vDashBoardHeader;
 
   @Bindable
@@ -56,8 +53,7 @@ public abstract class DashBoardFragmentBinding extends ViewDataBinding {
       ConstraintLayout clDashBoardListSearch, ConstraintLayout clEvents,
       ConstraintLayout clMainDashBoard, AppCompatImageView ivDashBoardFilter,
       AppCompatImageView ivDashBoardSelectedList, RecyclerView rvDashBoard,
-      AppCompatTextView searchBar, AppCompatTextView tvDashBoardTitle,
-      AppCompatTextView tvNoDataDashboard, View vDashBoardHeader) {
+      AppCompatTextView searchBar, AppCompatTextView tvDashBoardTitle, View vDashBoardHeader) {
     super(_bindingComponent, _root, _localFieldCount);
     this.clDashBoardListSearch = clDashBoardListSearch;
     this.clEvents = clEvents;
@@ -67,7 +63,6 @@ public abstract class DashBoardFragmentBinding extends ViewDataBinding {
     this.rvDashBoard = rvDashBoard;
     this.searchBar = searchBar;
     this.tvDashBoardTitle = tvDashBoardTitle;
-    this.tvNoDataDashboard = tvNoDataDashboard;
     this.vDashBoardHeader = vDashBoardHeader;
   }
 

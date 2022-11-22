@@ -53,7 +53,8 @@ class PostProfileVM @Inject constructor(
     var dataStoreUtil: DataStoreUtil,
     var pref: PreferenceFile
 
-) : ViewModel() {
+    ) : ViewModel() {
+
     var firstName = ObservableField("")
     var lastName = ObservableField("")
     var userName = ObservableField("")
@@ -72,28 +73,13 @@ class PostProfileVM @Inject constructor(
     var _id = ObservableField("")
     var postdata = ObservableField("Post")
     var datePicker: DatePickerHelper? = null
-    //var userdata = ObservableParcelable<PostData>()
+    var userdata = ObservableParcelable<postData>()
     var photoList: ArrayList<AddPhoto>? = null
 
-    //  var photoList: ArrayList<AddPhoto>? = null
     var imagesList = ArrayList<AddPhoto>()
     var location = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
 
-    init {
-
-//        firstName.set(userdata.get()!!.first_name.toString())
-//        lastName.set(userdata.get()!!.last_name.toString())
-//        userName.set(userdata.get()!!.user_name.toString())
-//        profileTitle.set(userdata.get()!!.profile_title.toString())
-//        address.set(userdata.get()!!.address.toString())
-//        description1.set(userdata.get()!!.description_1.toString())
-//        description2.set(userdata.get()!!.description_2.toString())
-//        description1.set(userdata.get()!!.description_3.toString())
-//        description1.set(userdata.get()!!.description_1.toString())
-//        firstName.set(userdata.get()!!.first_name.toString())
-
-    }
 
     init {
         token.set(pref.retrieveKey("token"))
@@ -210,7 +196,24 @@ class PostProfileVM @Inject constructor(
 
                 if (CommonMethods.context.isNetworkAvailable()) {
                     if (validation()) {
-                        UploadMedia(view)
+
+                        var newList=ArrayList<String>()
+                        newList.clear()
+                        if(photoList!!.size>0) {
+                            for(idx in 0 until photoList!!.size)
+                            {
+                                newList.add(photoList!![idx].Image.toString())
+                            }
+                        }
+                        Log.e("ASSSSSSSSSSSSSSSS" , newList.toString())
+
+                        if (postdata.get().toString().equals("Post")) {
+                            SavePostProfileAPI(view, newList)
+                        } else if (postdata.get().toString().equals("Update")) {
+                            editProfileAPI(view, newList)
+                        }
+
+//                        UploadMedia(view)
                     }
 
                 } else {
@@ -223,16 +226,10 @@ class PostProfileVM @Inject constructor(
 
 
             }
-
-
-            /*  R.id.btnViewEditProfile -> {
-                  view.findNavController().navigateUp()
-              }*/
         }
     }
 
     private fun editProfileAPI(view: View, data: ArrayList<String>) {
-        Log.e("ASSSSSSSSSSSSSSSS" , lat.get().toString())
         repository.makeCall(
             ApiEnums.UPDATE_POST_PROFILE,
             loader = true,
@@ -240,7 +237,7 @@ class PostProfileVM @Inject constructor(
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<UpdateProfileResponse>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<UpdateProfileResponse> {
-                    return retrofitApi.updatePostProfile(
+                    return retrofitApi.updatepostProfile(
                         pref.retrieveKey("token").toString(),
                         firstName.get(),
                         lastName.get(),
@@ -248,7 +245,7 @@ class PostProfileVM @Inject constructor(
                         expireDate.get(),
                         address.get(),
                         location.get(),
-                        data,
+                        data!!,
                         userName.get()!!,
                         "jkj",
                         description2.get(),
@@ -290,7 +287,7 @@ class PostProfileVM @Inject constructor(
         var surveyImagesParts: Array<MultipartBody.Part?>? = null
 
 
-        var tempList=photoList!!.filter { it.isValid==false } as ArrayList<AddPhoto>
+        var tempList = photoList!!.filter { it.isValid==false } as ArrayList<AddPhoto>
 
 
         if (tempList!!.size > 0) {
@@ -314,9 +311,6 @@ class PostProfileVM @Inject constructor(
             }
 
 
-
-
-
             repository.makeCall(
             apiKey = ApiEnums.UPLOAD_IMAGES,
             loader = true,
@@ -335,8 +329,7 @@ class PostProfileVM @Inject constructor(
                    var previousSelectedPhotos = photoList!!.filter { it.isValid==true } as ArrayList<AddPhoto>
                     var newList=ArrayList<String>()
                     newList.clear()
-                    if(previousSelectedPhotos.size>0)
-                    {
+                    if(previousSelectedPhotos.size>0) {
                         for(idx in 0 until previousSelectedPhotos.size)
                         {
                             newList.add(previousSelectedPhotos[idx].Image.toString())
@@ -394,6 +387,7 @@ class PostProfileVM @Inject constructor(
         body.put(Constants.PROFILE_TITLE, profileTitle.get())
         body.put(Constants.C_ID, c_id.get())
 
+        Log.e("WORKINNGG",data.toString())
         val logintoken = token.set(pref.retrieveKey("token"))
         var firatname: RequestBody? = null
         var lastname: RequestBody? = null
@@ -491,8 +485,10 @@ class PostProfileVM @Inject constructor(
                                     res.body()?.message.toString()
                                 )
                                 view.navigateBack()
+
                                 dataStoreUtil.saveObject(POST_PROFILE_DATA, res.body())
                                 pref.storeBoolKey(Constants.POSTSTATUS, true)
+                                pref.storeResponse(res.body()!!)
 
                             } else {
                                 Log.e("sdsdsd1", res.message())
@@ -502,6 +498,9 @@ class PostProfileVM @Inject constructor(
                                     res.body()?.message.toString()
                                 )
                             }
+
+                        }else {
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
                         }
 
                     } else {

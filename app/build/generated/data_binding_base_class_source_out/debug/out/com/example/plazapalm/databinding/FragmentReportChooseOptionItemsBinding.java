@@ -7,33 +7,48 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.example.plazapalm.R;
 import com.example.plazapalm.models.ReportDataModal;
+import com.example.plazapalm.views.reportselection.ReportChooseVM;
 import java.lang.Deprecated;
 import java.lang.Object;
 
 public abstract class FragmentReportChooseOptionItemsBinding extends ViewDataBinding {
+  @NonNull
+  public final AppCompatCheckBox checkBox;
+
+  @NonNull
+  public final ConstraintLayout constraintsClick;
+
+  @NonNull
+  public final ConstraintLayout layoutCons;
+
   @NonNull
   public final RadioGroup rgFirst;
 
   @NonNull
   public final View viewFavourite;
 
-  @NonNull
-  public final View viewFavouriteSecond;
-
   @Bindable
   protected ReportDataModal mModel;
 
+  @Bindable
+  protected ReportChooseVM mIsCheckedStatus;
+
   protected FragmentReportChooseOptionItemsBinding(Object _bindingComponent, View _root,
-      int _localFieldCount, RadioGroup rgFirst, View viewFavourite, View viewFavouriteSecond) {
+      int _localFieldCount, AppCompatCheckBox checkBox, ConstraintLayout constraintsClick,
+      ConstraintLayout layoutCons, RadioGroup rgFirst, View viewFavourite) {
     super(_bindingComponent, _root, _localFieldCount);
+    this.checkBox = checkBox;
+    this.constraintsClick = constraintsClick;
+    this.layoutCons = layoutCons;
     this.rgFirst = rgFirst;
     this.viewFavourite = viewFavourite;
-    this.viewFavouriteSecond = viewFavouriteSecond;
   }
 
   public abstract void setModel(@Nullable ReportDataModal model);
@@ -41,6 +56,13 @@ public abstract class FragmentReportChooseOptionItemsBinding extends ViewDataBin
   @Nullable
   public ReportDataModal getModel() {
     return mModel;
+  }
+
+  public abstract void setIsCheckedStatus(@Nullable ReportChooseVM isCheckedStatus);
+
+  @Nullable
+  public ReportChooseVM getIsCheckedStatus() {
+    return mIsCheckedStatus;
   }
 
   @NonNull

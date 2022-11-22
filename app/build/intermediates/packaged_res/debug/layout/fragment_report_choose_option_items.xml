@@ -4,17 +4,20 @@
                                                   
 
     
-
                  
                         
                                                                   
+
+                 
+                                  
+                                                                                
            
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_cons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_3sdp"
-        android:tag="layout/fragment_report_choose_option_items_0"                                                    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tool="http://schemas.android.com/tools">
+        android:layout_margin="@dimen/_3sdp" android:tag="layout/fragment_report_choose_option_items_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tool="http://schemas.android.com/tools">
 
         <RadioGroup
             android:id="@+id/rgFirst"
@@ -24,12 +27,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/check_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_drawable"
-                android:tag="binding_1"            
                 android:fontFamily="@font/inter_medium"
+                android:button="@drawable/checkbox_drawable"
                 android:layoutDirection="rtl"
+                android:tag="binding_1"           
+                android:enabled="false"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:paddingVertical="@dimen/_3sdp"
                                              
@@ -49,6 +54,16 @@
 
         </RadioGroup>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintsClick"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:tag="binding_2"                                                                                     
+            android:layout_height="0dp"/>
+<!--
         <RadioGroup
             android:layout_width="match_parent"
             android:visibility="gone"
@@ -60,16 +75,15 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5sdp"
                 android:button="@drawable/checkbox_drawable"
-                android:tag="binding_2"            
+                android:checked="@={model.checked}"
                 android:fontFamily="@font/inter_medium"
                 android:layoutDirection="rtl"
                 android:padding="@dimen/_2sdp"
                 android:paddingHorizontal="@dimen/_5sdp"
-                                             
+                android:text="@={model.text}"
                 android:textColor="@color/light_black"
                 android:textSize="16sp"
-                tool:text="False, misleading or harmful,
-Information" />
+                tool:text="False, misleading or harmful,Information" />
 
             <View
                 android:id="@+id/viewFavouriteSecond"
@@ -80,6 +94,7 @@ Information" />
                 app:layout_constraintTop_toBottomOf="@+id/tvFavourite" />
 
         </RadioGroup>
+-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

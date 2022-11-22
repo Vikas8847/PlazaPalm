@@ -15,7 +15,7 @@
     <string name="take_photo">Take photo</string>
     <string name="photo_library">Photo library</string>
     <string name="post">Post</string>
-    <string name="last_name">Lower Name</string>
+    <string name="last_name">Last Name</string>
     <string name="haircut">Haircut</string>
     <string name="hair_style">Hair Style</string>
     <string name="save">Save</string>
@@ -25,7 +25,10 @@
     <string name="delete">Delete</string>
     <string name="are_you_sure_you_want_to_delete_n_the_profile">Are you sure you want to delete \n the profile?</string>
     <string name="description_2">Description 2</string>
-    <string name="confirm_booking">Confirm Booking</string>
+    <string name="description_3">Description 3</string>
+    <string name="description2">Description2</string>
+    <string name="submit">Submit</string>
+    <string name="you_selected">You Selected</string>
 
 
 </resources>

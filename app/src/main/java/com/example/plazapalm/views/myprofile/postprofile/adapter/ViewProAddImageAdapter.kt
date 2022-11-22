@@ -15,8 +15,8 @@ import java.io.File
 class ViewProAddImageAdapter(
     var context: PostProfileFragment,
     var dataList: ArrayList<AddPhoto>,
-   var profileStatus: ObservableBoolean
-) : RecyclerView.Adapter<ViewProAddImageAdapter.AddImageViewHolder>() {
+    var profileStatus: ObservableBoolean
+    ) : RecyclerView.Adapter<ViewProAddImageAdapter.AddImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddImageViewHolder {
         val layInflater = LayoutInflater.from(parent.context)
@@ -28,7 +28,7 @@ class ViewProAddImageAdapter(
 
     override fun onBindViewHolder(holder: AddImageViewHolder, position: Int) {
         holder.setData(dataList[position])
-        Log.e("SSSSSBBb","Workinggggggg")
+        Log.e("SSSSSBBb", "Workinggggggg")
 
     }
 
@@ -37,29 +37,29 @@ class ViewProAddImageAdapter(
         return dataList.size
     }
 
-  inner class AddImageViewHolder(val binding: AddImagesViewProfileBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class AddImageViewHolder(val binding: AddImagesViewProfileBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-      fun setData( img : AddPhoto?) {
+        fun setData(img: AddPhoto?) {
 
-          if (img!!.isValid==true){
-              Log.e("SSSSSBBb","VVVVCCCCCXXXX")
+            if (img!!.isValid == true) {
+                Log.e("SSSSSBBb", "VVVVCCCCCXXXX")
 
-              Glide.with(context)
-                  .load(IMAGE_LOAD_URL+ img!!.Image )
-                  .into(binding.ivUsersImage)
+                Glide.with(context)
+                    .load(IMAGE_LOAD_URL + img!!.Image)
+                    .into(binding.ivUsersImage)
 
-              binding.executePendingBindings()
-          }else{
-              Log.e("SSSSSBBb","WWWSSSSSSS")
+                binding.executePendingBindings()
+            } else {
+                Log.e("SSSSSBBb", "WWWSSSSSSS")
 
-              Glide.with(context)
-                  .load(File(img.Image))
-                  .into(binding.ivUsersImage)
+                Glide.with(context)
+                    .load(File(img.Image))
+                    .into(binding.ivUsersImage)
 
-              binding.executePendingBindings()
-          }
+                binding.executePendingBindings()
+            }
 
-
-      }
+        }
     }
 }

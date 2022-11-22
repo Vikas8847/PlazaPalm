@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw600dp-land-v13\\values-sw600dp-land-v13.xml",
+            "outputFile": "D:\\plazapalam\\PlazaPalm@18Oct\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw600dp-land-v13\\values-sw600dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Android\\.gradle\\caches\\transforms-3\\2c973d66823e0bbf1116aa17bb62d112\\transformed\\jetified-SuperBottomSheet-1.2.0\\res\\values-sw600dp-land-v13\\values-sw600dp-land-v13.xml",
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\d19b06c2d70be50a5ef5507d1aad2bd1\\transformed\\jetified-SuperBottomSheet-1.2.0\\res\\values-sw600dp-land-v13\\values-sw600dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

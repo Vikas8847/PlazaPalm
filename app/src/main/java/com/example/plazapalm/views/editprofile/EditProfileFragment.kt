@@ -22,7 +22,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.EditProfileFragmentBinding
@@ -32,7 +31,6 @@ import com.example.plazapalm.imageutils.FilePathUtil
 import com.example.plazapalm.models.GetProfileResponseModel
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.example.plazapalm.utils.CommonMethods
-import com.example.plazapalm.utils.navigateWithId
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
@@ -48,35 +46,36 @@ class EditProfileFragment : Fragment(R.layout.edit_profile_fragment) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = EditProfileFragmentBinding.inflate(layoutInflater)
+//        binding = EditProfileFragmentBinding.inflate(inflater, container, false)
+        binding = EditProfileFragmentBinding.inflate(inflater)
          setProfileImage()
        // getMainActivityData()
         CommonMethods.statusBar(true)
-        onClicks()
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        onClicks()
         binding?.vm = viewModel
     }
 
+    override fun onResume() {
+        super.onResume()
+        checkCameraPermission()
+    }
 
     private fun onClicks() {
         binding?.ivEditProfileCamera?.setOnClickListener {
+            Log.e("SD","SDDSSD")
             showCameraGalleryEditProfile()
-        }
-        binding?.ivSettingBtn?.setOnClickListener {
-            findNavController().navigate(R.id.settingsFragment)
-            CommonMethods.showToast(requireContext(),"sjfdjjffjdjf")
-
-
         }
     }
     private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(CommonMethods.context, Manifest.permission.CAMERA,) != PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                CommonMethods.context,
+               requireActivity(),
                 arrayOf(
                     Manifest.permission.CAMERA,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -171,8 +170,5 @@ class EditProfileFragment : Fragment(R.layout.edit_profile_fragment) {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        checkCameraPermission()
-    }
+
 }

@@ -44,7 +44,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         super.onViewCreated(view, savedInstanceState)
         onClicks()
         viewModel.getProfile()
-        //  getDataFromLocal()
+//          getDataFromLocal()
         viewModel.myProfileData()
         getstatus()
         binding?.vm = viewModel
@@ -54,8 +54,11 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         if (pref.retrieveBoolKey(Constants.POSTSTATUS)!!.equals(true)){
             Log.e("SDSDSDSDSDS",pref.retrieveBoolKey(Constants.POSTSTATUS).toString())
             viewModel.status.set("View Profile")
+            viewModel.changestatus.set(true)
         }else{
             viewModel.status.set("Post a Profile")
+            viewModel.changestatus.set(false)
+
         }
     }
 

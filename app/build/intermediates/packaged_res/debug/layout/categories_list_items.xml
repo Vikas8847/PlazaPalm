@@ -14,7 +14,6 @@
                          
                                                                       
     
-
                  
                         
                                                                  
@@ -31,9 +30,10 @@
         android:layout_margin="@dimen/_2sdp"
         android:elevation="@dimen/_5sdp"
         android:tag="layout/categories_list_items_0"                                                      xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
         // LocationCategory
 
-     <!--   <ImageView
+        <ImageView
             android:id="@+id/ivSelectedCategory"
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -41,26 +41,31 @@
             android:background="@drawable/background_transparent"
             android:fontFamily="@font/inter_semibold"
             android:src="@drawable/tick"
-            android:visibility="@{model.isCheck()?View.VISIBLE:View.GONE}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tvSelectCategory"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvSelectCategory" />-->
-        <androidx.appcompat.widget.AppCompatTextView
+            app:layout_constraintTop_toTopOf="@id/tvSelectCategory" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/tvSelectCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_7sdp"
-            android:tag="binding_1"                                                                                                      
-            app:layout_constraintStart_toStartOf="parent"
+            android:button="@drawable/checkimage_selector"
+            android:tag="binding_1"                        
             android:fontFamily="@font/inter_semibold"
+            android:gravity="start"
+            android:layoutDirection="rtl"
+            android:clickable="true"
             android:padding="@dimen/_5sdp"
             android:shadowColor="@color/zxing_transparent"
             android:stateListAnimator="@null"
                                                                                           
             android:textColor="@color/white"
             android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Hair Style" />
 
@@ -76,9 +81,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tvSelectCategory"
             app:layout_constraintTop_toBottomOf="@id/tvSelectCategory" />
-<!--
 
-         <androidx.appcompat.widget.AppCompatTextView
+        <!-- <androidx.appcompat.widget.AppCompatTextView
              android:id="@+id/tvCategoriesLocationDes"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
@@ -96,7 +100,6 @@
              app:fontFamily="@font/inter_medium"
              app:layout_constraintStart_toStartOf="parent"
              app:layout_constraintTop_toTopOf="parent" />
-
          <View
              android:id="@+id/viewFavourite"
              android:layout_width="match_parent"
@@ -107,8 +110,8 @@
              app:layout_constraintBottom_toBottomOf="parent"
              app:layout_constraintEnd_toEndOf="parent"
              app:layout_constraintStart_toStartOf="@id/tvCategoriesLocationDes"
-             app:layout_constraintTop_toBottomOf="@id/tvCategoriesLocationDes" />
--->
+             app:layout_constraintTop_toBottomOf="@id/tvCategoriesLocationDes" />-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
          
 

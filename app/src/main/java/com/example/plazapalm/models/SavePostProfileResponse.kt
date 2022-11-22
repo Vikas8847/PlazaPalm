@@ -5,13 +5,13 @@ data class SavePostProfileResponse(
     val message: String,
     val status: Int
 )
-data class Data(
+ data class Data(
     val __v: Int?=0,
     val _id: String?="",
-    val address: String?="",
+    val address: String?,
     val c_id: String?="",
-    val created_at: String?,
-    val dark_theme: Boolean?,
+    val created_at: String?="",
+    val dark_theme: Boolean?=false,
     val description_1: String?="",
     val description_2: String?="",
     val description_3: String?="",
@@ -24,13 +24,13 @@ data class Data(
     val is_bottom_selected: Boolean?=false,
     val is_top_selected: Boolean?=false,
     val last_name: String?="",
-    val lat: Double?,
+    val lat: Double?=0.0,
     val location: Location?,
     val location_OnOff: Boolean?,
     val location_text: String?="",
-    val long: Double?,
+    val long: Double?=0.0,
     val postProfile_picture: List<String>?,
-    val profile_title: String?,
+    val profile_title: String?="",
     val status: Int?=0,
     val tags: String?="",
     val u_id: String?="",
@@ -39,6 +39,6 @@ data class Data(
 )
 
 data class Location(
-    val coordinates: List<Double>?,
-    val type: String?=""
+    val coordinates: List<Double>,
+    val type: String
 )
