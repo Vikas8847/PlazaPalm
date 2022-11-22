@@ -43,41 +43,107 @@ class FavDetailsVM @Inject constructor(
     private var pref: PreferenceFile,
 ) : ViewModel() {
 
-
-    //    val viewProfileAdapter by lazy { RecyclerAdapter<ImagesVideosModel>(R.layout.view_profile_images_list) }
+    var uploadImagesList = ArrayList<ImagesVideosModel>()
+    var uploadVideoList = ArrayList<ImagesVideosModel>()
+//  val viewProfileAdapter by lazy { RecyclerAdapter<ImagesVideosModel>(R.layout.view_profile_images_list) }
 
     val videosAdapter by lazy { RecyclerAdapter<ImagesVideosModel>(R.layout.view_profile_videos_list) }
     var isFavourites = ObservableBoolean(false)
     var isViewProfile = ObservableBoolean(false)
+    var CommingFrom = ObservableField("")
     var p_id = ObservableField("")
     var firstName = ObservableField("")
     var lastName = ObservableField("")
     var DisLikesCount = ObservableField("")
     var LikesCount = ObservableField("")
     var username = ObservableField("")
+    var fav_title = ObservableField("")
+    var etVEditProDescription = ObservableField("")
+    var tvFavDetailsAddress = ObservableField("")
+    var tvFavCityAddress = ObservableField("")
     var isFav = ObservableBoolean(false)
     var isLike = ObservableBoolean(false)
+    var isLikeDislike = ObservableBoolean(false)
     var isDisLike = ObservableBoolean(false)
+    var selectImage = ObservableBoolean(false)
+    var isAddedProfile = ObservableBoolean(false)
     var data_list: ArrayList<AddPhoto>? = null
+
     //      var userdata : postData? = null
-    var userdata = ObservableParcelable<PostData?>()
+    var userdata = ObservableParcelable<postData?>()
+
     var dialog: Dialog? = null
     var deldialog: Dialog? = null
 
+    init {
+
+    }
+
     fun onClicks(view: View) {
         when (view.id) {
+            R.id.ivFavDetailsDislike -> {
+                val imageLik = view as ImageView
+
+                /*  if (image.isClickable){
+                      selectImage.set(true)
+                  }else{
+                      selectImage.set(false)
+                  }*/
+
+                if (isLike.get().equals(false) || isDisLike.get().equals(false)) {
+                    isDisLike.set(true)
+                    isLike.set(false)
+                } else {
+
+                    isDisLike.set(isDisLike.get())
+                    isLike.set(isLike.get())
+
+                    Log.e("CHECHK",isDisLike.get().toString() + "VV----  " + isLike.get() )
+                }
+
+                likeApi(isLike.get(), isDisLike.get(), "disLike", imageLik)
+
+            }
+
+            R.id.ivFavDetailsLike -> {
+                val imageDis = view as ImageView
+
+                if (isLike.get().equals(false) || isDisLike.get().equals(false)) {
+                    isLike.set(true)
+                    isDisLike.set(false)
+
+                } else {
+
+                    isDisLike.set(isDisLike.get())
+                    isLike.set(isLike.get())
+
+                }
+
+                likeApi(isLike.get(), isLikeDislike.get(), "like", imageDis)
+            }
             R.id.ivFavDetailsBackBtn -> {
                 view.findNavController().navigateUp()
             }
             R.id.ivFavDetailsFilledHeart -> {
-                addToFavAPI(view)
+                AddtoFavAPI(view, isFav.get(), "addFav")
             }
             R.id.ivFavDetailsOptions -> {
 
-                if (isViewProfile.get()) {
+//                if (isViewProfile.get()) {
+//                    showViewProfileDialog(view)
+//                } else {
+//                    showFavDetailsDialog(view)
+//                }
+//
+                if (CommingFrom.get().equals("isFavorite")) {
+
+                    showFavDetailsDialog(view, false)
+                } else if (CommingFrom.get().equals("isDashBoard")) {
+                    showFavDetailsDialog(view, false)
+
+
+                } else if (CommingFrom.get().equals("isViewProfile")) {
                     showViewProfileDialog(view)
-                } else {
-                    showFavDetailsDialog(view)
                 }
 
                 /*  if (isPremium){
@@ -99,8 +165,85 @@ class FavDetailsVM @Inject constructor(
         }
     }
 
-    private fun addToFavAPI(view: View) {
-        val imageView = view as ImageView
+    private fun likeApi(isLiked: Boolean, isDislike: Boolean, from: String, image: ImageView) {
+
+        repository.makeCall(apiKey = ApiEnums.LIKES_DISLIKES,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<LikesResPonse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<LikesResPonse> {
+                    return retrofitApi.likesDislikes(
+                        pref.retrieveKey("token").toString(),
+                        p_id.get().toString(),
+                        isLiked,
+                        isDislike
+                    )
+                }
+
+                override fun onResponse(res: Response<LikesResPonse>) {
+                    if (res.isSuccessful || res != null) {
+                        if (res.body()!!.status == 200) {
+
+                            dialog?.dismiss()
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message.toString())
+                            Log.e("SSSSCXXXXX", res.body()!!.message.toString())
+
+                            if (from.equals("disLike")) {
+
+                                /// test
+//                                    isLike.set(true)
+//                                    isDisLike.set(false)
+
+/*
+                                if (res.body()!!.message.equals("Disliked")) {
+                                    Glide.with(CommonMethods.context)
+                                        .load(R.drawable.ic_like_icon)
+                                        .into(image)
+
+                                } else if (res.body()!!.message.equals("Un-Disliked")) {
+                                    Glide.with(CommonMethods.context)
+                                        .load(R.drawable.like_unfilled_image)
+                                        .into(image)
+
+                                }*/
+
+                            } else if (from.equals("like")) {
+                                /// test
+
+//                                isLike.set(false)
+//                                isDisLike.set(true)
+
+                               /* if (res.body()!!.message.equals("Liked")) {
+                                    Glide.with(CommonMethods.context)
+                                        .load(R.drawable.ic_like_icon)
+                                        .into(image)
+                                } else if (res.body()!!.message.equals("Unliked")) {
+                                    Glide.with(CommonMethods.context)
+                                        .load(R.drawable.like_unfilled_image)
+                                        .into(image)
+                                }*/
+
+                            }
+
+                        } else {
+
+                            CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
+                        }
+                    } else {
+
+                        CommonMethods.showToast(CommonMethods.context, res.message())
+                    }
+                }
+
+            })
+
+    }
+
+    private fun AddtoFavAPI(view: View, isfav: Boolean, from: String) {
+
+        var imageView = view as ImageView
+
         Log.e("SADF", "Working ")
         repository.makeCall(
             apiKey = ApiEnums.ADD_TO_FAV,
@@ -109,33 +252,48 @@ class FavDetailsVM @Inject constructor(
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<AddFavPostProfileResponse>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<AddFavPostProfileResponse> {
-                    return retrofitApi.addToFav(
+                    return retrofitApi.addtoFav(
                         pref.retrieveKey("token").toString(),
                         p_id.get().toString(),
-                        isFav.get()
+                        isfav
+//                        isFav.get()
                     )
                 }
+
                 override fun onResponse(res: Response<AddFavPostProfileResponse>) {
                     Log.e("QWQQWWSSS", res.body().toString())
-                    if (res.body()!!.status == 200) {
-                        if (isFav.get()) {
-                            Glide.with(CommonMethods.context)
-                                .load(R.drawable.ic_heart_filled_icon)
-                                .into(imageView)
-                              isFav.set(false)
-                              Log.e("TRUE", res.body().toString())
+
+                    if (res.isSuccessful || res != null) {
+                        if (res.body()!!.status == 200) {
+                            dialog?.dismiss()
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+
+                            if (from.equals("addFav")) {
+                                if (isFav.get()) {
+                                    Glide.with(CommonMethods.context)
+                                        .load(R.drawable.ic_heart_filled_icon)
+                                        .into(imageView)
+                                    isFav.set(false)
+                                    Log.e("TRUE", res.body().toString())
+
+                                } else {
+                                    Glide.with(CommonMethods.context)
+                                        .load(R.drawable.ic_heart_icon)
+                                        .into(imageView)
+                                    isFav.set(true)
+                                    Log.e("FALSE", res.body().toString())
+
+                                }
+                            } else {
+                                view.navigateBack()
+                            }
+
 
                         } else {
-                            Glide.with(CommonMethods.context)
-                                .load(R.drawable.ic_heart_icon)
-                                .into(imageView)
-                                isFav.set(true)
-                            Log.e("FALSE", res.body().toString())
-
+                            CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
                         }
-
                     } else {
-                        CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
+                        CommonMethods.showToast(CommonMethods.context, res.message())
                     }
 
                 }
@@ -145,7 +303,7 @@ class FavDetailsVM @Inject constructor(
     }
 
 
-    private fun showFavDetailsDialog(view: View) {
+    private fun showFavDetailsDialog(view: View, isfav: Boolean) {
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
         } else {
@@ -162,6 +320,7 @@ class FavDetailsVM @Inject constructor(
             /**Remove From Favourites Click (Button)**/
             dialog?.findViewById<AppCompatTextView>(R.id.tvChooseOptRemoveFavDetails)
                 ?.setOnClickListener {
+                    AddtoFavAPI(view, isfav, "removeFav")
                     dialog?.dismiss()
                 }
             /** Add to Calendar (Button) **/
@@ -177,7 +336,9 @@ class FavDetailsVM @Inject constructor(
             /**RePort Button Click**/
             dialog?.findViewById<AppCompatTextView>(R.id.tvChooseOptFavDetailsReport)
                 ?.setOnClickListener {
-                    view.navigateWithId(R.id.action_favDetailsFragment_to_reportChooseOptionFragment)
+                    val bundle = Bundle()
+                    bundle.putString("p_id",p_id.get())
+                    view.navigateWithId(R.id.action_favDetailsFragment_to_reportChooseOptionFragment , bundle)
                     dialog?.dismiss()
                 }
             /*** Cancel Button Clicks **/
@@ -203,6 +364,7 @@ class FavDetailsVM @Inject constructor(
 
             /** Share Click (Button) **/
             dialog?.findViewById<AppCompatTextView>(R.id.tv_editProfile)?.setOnClickListener {
+
                 val bundle = Bundle()
                 bundle.putString("comingFromView", "ViewPrfoile")
                 bundle.putParcelable("userDATA", userdata)
@@ -225,7 +387,6 @@ class FavDetailsVM @Inject constructor(
 
 //              var dataList : ArrayList<String> =  userdata.get()?.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
 
-                //   bundle.putStringArrayList("profile_Image",data_list)
                 bundle.putParcelableArrayList("profile_Image", data_list)
 
                 Log.e(
@@ -234,6 +395,7 @@ class FavDetailsVM @Inject constructor(
                         .toString() + "VVVCCC" + "vvv-----vvvv" + bundle.getDouble("lati")
                         .toString()
                 )
+
                 view.navigateWithId(R.id.action_favDetailsFragment_to_postProfileFragment, bundle)
                 dialog?.dismiss()
 
@@ -288,6 +450,7 @@ class FavDetailsVM @Inject constructor(
     }
 
     private fun deletePostAPi(view: View) {
+
         repository.makeCall(
             ApiEnums.DELETE_POST,
             loader = true,
@@ -300,6 +463,7 @@ class FavDetailsVM @Inject constructor(
                         p_id.get().toString()
                     )
                 }
+
                 override fun onResponse(res: Response<DeletePostProfileResponse>) {
                     if (res.isSuccessful) {
                         if (res.body() != null) {
@@ -350,61 +514,11 @@ class FavDetailsVM @Inject constructor(
         dialog?.show()
     }
 
-    fun getViewProfileData(rvImages: RecyclerView){
-        dataStoreUtil.readObject(POST_PROFILE_DATA, SavePostProfileResponse::class.java) {
-            val p_id = it!!.data._id
-            val lati = it.data.lat
-            val longi = it.data.long
-            if (lati != null) {
-                if (longi != null) {
-                    getPostprofile(p_id.toString(), lati, longi, rvImages)
-                }
-            }
 
-        }
-    }
 
-    private fun getPostprofile(p_id: String, lati: Double, longi: Double, rvImages: RecyclerView) {
-        repository.makeCall(
-            ApiEnums.GET_POST_PROFILE,
-            loader = true,
-            saveInCache = false,
-            getFromCache = false,
-            requestProcessor = object : ApiProcessor<Response<GetPostProfileResponse>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetPostProfileResponse> {
-                    return retrofitApi.getPostProfile(
-                        pref.retrieveKey("token").toString(),
-                        p_id,
-                        lati,
-                        longi
-                    )
-                }
-                override fun onResponse(res: Response<GetPostProfileResponse>) {
-                    if (res.isSuccessful) {
-                        if (res.body() != null) {
-                            if (res.code() == 200) {
-                                Log.e("QWQAAAZZZ", res.body().toString())
-                                setAdapter(rvImages)
-                               // pref.storePostProfileId(p_id)
-
-                            } else {
-                                CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
-                            }
-                        } else {
-                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
-                        }
-                    } else {
-                        CommonMethods.showToast(CommonMethods.context, res.message())
-
-                    }
-                }
-
-            }
-
-        )
-    }
 
     private fun setAdapter(rvImages: RecyclerView) {
         rvImages.adapter
+
     }
 }

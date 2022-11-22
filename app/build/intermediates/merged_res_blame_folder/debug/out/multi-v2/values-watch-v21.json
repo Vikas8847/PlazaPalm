@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v21\\values-watch-v21.xml",
+            "outputFile": "D:\\plazapalam\\PlazaPalm@18Oct\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v21\\values-watch-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Android\\.gradle\\caches\\transforms-3\\8456f4653a825e958b2af6ae3ce0226c\\transformed\\appcompat-1.5.1\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\8456f4653a825e958b2af6ae3ce0226c\\transformed\\appcompat-1.5.1\\res\\values-watch-v21\\values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

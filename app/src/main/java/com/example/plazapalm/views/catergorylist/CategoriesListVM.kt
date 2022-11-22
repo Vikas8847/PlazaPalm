@@ -1,11 +1,9 @@
 package com.example.plazapalm.views.catergorylist
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
-import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
@@ -27,7 +25,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
-import java.lang.Exception
 import javax.inject.Inject
 
 @SuppressLint("NotifyDataSetChanged")
@@ -39,7 +36,6 @@ class CategoriesListVM @Inject constructor(
     var repository: Repository,
 ) : ViewModel() {
     var categoriesDataList = ArrayList<CategoriesData>()
-    var checkBox:AppCompatCheckBox
     var isVisible = ObservableBoolean(false)
     var position: Int = -1
     var isChecked = ObservableBoolean(false)
@@ -50,27 +46,24 @@ class CategoriesListVM @Inject constructor(
     var latitude = ObservableDouble()
     var longitude = ObservableDouble()
     var address = ObservableField("")
-    var selectedCategory=""
-    var currentLatitude=ObservableDouble()
-    var currentLongitude=ObservableDouble()
     val adapterCategories by lazy { RecyclerAdapter<CategoriesData>(R.layout.categories_list_items) }
-
-
-
-
 
     init {
         /*get Token from Data store*/
+
         token.set(pref.retrieveKey("token"))
-        checkBox= AppCompatCheckBox(CommonMethods.context)
-        //adapterCategories.addItems(categoriesDataList)
+
+        adapterCategories.setOnItemClick { _, position, type ->
+            when (type) {
+                "PostProfile" -> {
 
 
+                    //navigate to view profile page...
+                    //  adapterCategories.getAllItems()
 
-/*
-        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-        }*/
-
+                }
+            }
+        }
     }
 
 
@@ -87,12 +80,9 @@ class CategoriesListVM @Inject constructor(
             R.id.ivCategory -> {
                 view.findNavController().navigateUp()
             }
-            R.id.tvSelectCategory -> {
-
+            R.id.tvCategoriesLocationDes -> {
+                isClicked = true
             }
-           /* R.id.ivSelectedCategory->{
-                isClicked=true
-            }*/
         }
     }
 
@@ -100,11 +90,14 @@ class CategoriesListVM @Inject constructor(
     fun getCategoriesApi() = viewModelScope.launch {
         val body = JSONObject()
         body.put(Constants.AUTHORIZATION, token.get())
+        // body.put("lat", "30.8987")
         body.put("lat", latitude.get())
         body.put("long", longitude.get())
+        // body.put("long", "76.7179")
         body.put("offset", page.get()!!)
         body.put("limit", 10)
         body.put("search=", searchText.get())
+
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
             loader = true,
@@ -121,22 +114,12 @@ class CategoriesListVM @Inject constructor(
                         Search = searchText.get().toString()
                     )
                 }
+
                 override fun onResponse(res: Response<CategoriesResponseModel>) {
                     adapterCategories.addItems(res.body()?.data!!)
 //                    dataStoreUtil.saveData(res.body()?.data!!)
-                    Log.e("SSSSS", res.body()?.data!![0]._id.toString())
+                    Log.e("SSSSS",res.body()?.data.toString())
 
-                    adapterCategories.setOnItemClick { view, position, type ->
-                        when (type) {
-                            "PostProfile" -> {
-                                categoriesDataList= adapterCategories.getAllItems() as ArrayList<CategoriesData>
-                                 categoriesDataList[position].isCheck = !categoriesDataList[position].isCheck!!
-                                 adapterCategories.notifyDataSetChanged()
-
-
-                            }
-                        }
-                    }
 
                 }
 

@@ -17,6 +17,8 @@ object Constants {
     const val Description1CantEmpty = "Description 1 can't be empty"
     const val Description2CantEmpty = "Description 2 can't be empty"
     const val Description3CantEmpty = "Description 3 can't be empty"
+    const val reportTextCantEmpty = "Report title can't be empty"
+    const val reportNoteCantEmpty = "Report note can't be empty"
     const val Description3minimum = "Minimum 20 characters are requird "
     const val CHECK_INTERNET = "Please Check Your Internet Connection First."
     const val VERIFY_EMAIL_OTP = "Please Verify Email Otp ."
@@ -76,6 +78,7 @@ object Constants {
     // pref keys\
 
     const val POSTSTATUS = "POSTSTATUS"
+    const val POSTRESPONSE = "POSTRESPONSE"
     const val FROM_MY_PROFILE = "FROM_MY_PROFILE"
 
 }

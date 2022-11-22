@@ -11,6 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WelcomeVM @Inject constructor():ViewModel() {
+
     var signupType=ObservableField("")
     fun onClicks(view: View){
         when(view.id){

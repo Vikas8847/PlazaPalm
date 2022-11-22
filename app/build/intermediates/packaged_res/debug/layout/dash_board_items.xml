@@ -7,15 +7,7 @@
 
                  
                         
-                                                                  
-
-                 
-                     
-                                                                       
-
-                      
-                         
-                                                                     
+                                                                 
            
 
     <androidx.cardview.widget.CardView
@@ -37,10 +29,11 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivDashBoardCat"
-                android:tag="binding_1"                   
+                android:tag="binding_1"     
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 android:scaleType="fitXY"
+                android:src="@drawable/dash_items_nurse_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +64,7 @@
                 android:layout_margin="@dimen/_3sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center_horizontal"
-                android:tag="binding_2"                                   
+                android:tag="binding_2"      
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +90,7 @@
                 android:gravity="center_horizontal"
                 android:maxLines="2"
                 android:singleLine="true"
-                android:tag="binding_3"              
+                android:tag="binding_3"             
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@id/tvDashBoardItemLocation"
@@ -130,7 +123,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:gravity="end"
                 android:singleLine="true"
-                android:tag="binding_5"          
+                android:tag="binding_5"                 
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/tvDashBoardItemLocation"

@@ -155,9 +155,6 @@ drawable pin
 drawable play
 drawable plaza
 drawable qrcode_image
-drawable radio_button_business
-drawable radio_checked
-drawable radio_unchecked
 drawable richard_img
 drawable robert_electrician_image
 drawable round_minus_bg
@@ -287,6 +284,7 @@ id changePasswordFragment
 id chatFragment
 id checkBottomTextFrontPage
 id checkEditFrontPageTopText
+id check_box
 id clAddPhoto
 id clAddQuestion
 id clBookingDetailsCircular
@@ -348,13 +346,12 @@ id clVerifyEmailEnterCode
 id clViewEditProfileAdd
 id clViewProfile
 id clsignupMain
-id confirmBookDatePicker
-id confirmBookTimePicker
 id confirmBookingFragment
 id constForgotPassword
 id constMain
 id constTermsUse
 id constUpdateMail
+id constraintsClick
 id contactUsFragment
 id cvFavDetails
 id cvQRCodeGenerate
@@ -456,6 +453,7 @@ id ivEditBookingDetailsProfile
 id ivEditProfile
 id ivEditProfileBackBtn
 id ivEditProfileCamera
+id ivEditSettingBtn
 id ivFavBackBtn
 id ivFavDetails
 id ivFavDetailsBackBtn
@@ -495,7 +493,6 @@ id ivReportBackButton
 id ivReportChooseBackBtn
 id ivSelectedCategory
 id ivSettingBackBtn
-id ivSettingBtn
 id ivTermsUseBackBtn
 id ivThankYouConfirmBook
 id ivThankYouConfirmBookNextBtn
@@ -515,6 +512,7 @@ id ivViewProfileTotalLikedCounts
 id ivWelcomeLayers
 id ivWelcomeNextBtn
 id ivWelcomePlaza
+id layout_cons
 id listview_background_shape
 id loginFragment
 id mapFragment1
@@ -534,12 +532,9 @@ id player_layout
 id plus_icon
 id postProfileFragment
 id privacyPolicyFragment
-id profile_image
 id progressbar
 id qrCodeScannerFragment
 id questionariesFragment
-id rb_female
-id rb_male
 id remove_image
 id reportChooseOptionFragment
 id reportFragment
@@ -728,7 +723,6 @@ id tvMapLocationOnOff
 id tvMessages
 id tvMyProfile
 id tvMyProfileName
-id tvNoDataDashboard
 id tvNotification
 id tvPicturesAdd
 id tvPicturesUploadCancel
@@ -759,7 +753,6 @@ id tvSettingsPrivacyPolicy
 id tvSettingsTermsUse
 id tvSettingsUpdateEmail
 id tvSignup
-id tvSignupBusiness
 id tvSignupConfirmPass
 id tvSignupEmail
 id tvSignupFirstName
@@ -873,7 +866,6 @@ id viewEditFontPage
 id viewEditLookBGColor
 id viewEditTopTextFrontPage
 id viewFavourite
-id viewFavouriteSecond
 id viewFilterCategory
 id viewFilterLocation
 id viewProfile
@@ -916,9 +908,7 @@ layout chat_receiver
 layout chat_sender
 layout choose_profile_options
 layout common_view
-layout confirm_booking_datepicker
 layout confirm_booking_fragment
-layout confirm_booking_timepicker
 layout contact_us_fragment
 layout dash_board_events_items
 layout dash_board_fragment
@@ -992,9 +982,10 @@ string add_photo_type
 string app_name
 string are_you_sure_you_want_to_delete_n_the_profile
 string choose_categeory
-string confirm_booking
 string delete
+string description2
 string description_2
+string description_3
 string edit_profile
 string edit_profile_last_name
 string first_name
@@ -1010,15 +1001,16 @@ string post
 string save
 string search_for_location
 string some_error_occured
+string submit
 string take_photo
 string thank_you
 string user_name
+string you_selected
 string your_device_offline
 style AppTheme
 style BottomNavigationView
 style BottomNavigationView.Active
 style CalenderViewCustom.
-style DatePickerDialogTheme
 style DialogeTheme
 style Divider
 style FullHeightDialog
@@ -1027,13 +1019,11 @@ style MyEditText
 style SpinnerDatePickerDialog
 style ThemeOverlay.Slider
 style Theme.PlazaPalm
-style TimePickerTheme
 style Toolbar.TitleText
 style UpgradeProView
 style ViewAdvanceSettings
 style corner10Percent
 style popup_window_animation
-style radionbutton
 style roundedImageView
 xml backup_rules
 xml data_extraction_rules

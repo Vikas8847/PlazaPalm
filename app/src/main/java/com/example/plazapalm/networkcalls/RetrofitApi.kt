@@ -2,6 +2,8 @@ package com.example.plazapalm.networkcalls
 
 import com.example.plazapalm.models.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -110,7 +112,6 @@ interface RetrofitApi {
     @GET(GET_PROFILE)
     suspend fun getProfileApi(
         @Header("Authorization") Authorization: String?
-
     ): Response<GetProfileResponseModel>
 
 
@@ -173,16 +174,15 @@ interface RetrofitApi {
 
     @FormUrlEncoded
     @POST(GET_PROFILE_BY_CATEGORERY)
-    suspend fun getProfileByCategory(
-        @Header("Authorization") Authorization: String,
-        @Field("c_id") c_id: ArrayList<String>,
-       // @Field("c_id") c_id: String,
-        @Field("offset") offset: Int,
-        @Field("limit") limit: Int,
-        @Field("lat") lat: Double,
-        @Field("long") long: Double,
-        @Field("search") search: String
-    ): Response<GetProfileCateResponse>
+    suspend fun  getProfileByCategory(
+        @Header("Authorization")  Authorization: String,
+        @Field("c_id") c_id:String,
+        @Field("offset") offset:Int,
+        @Field("limit") limit:Int,
+        @Field("lat")lat:Double,
+        @Field("long")long:Double,
+        @Field("search")search:String
+    ):Response<GetProfilebyCateResponse>
 
 
     @FormUrlEncoded
@@ -195,7 +195,7 @@ interface RetrofitApi {
         @Field("expiry_date") expiry_date: String?,
         @Field("address") address: String?,
         @Field("location_text") location_text: String?,
-        @Field("image_url") image_url: ArrayList<String>,
+        @Field ("image_url") image_url: ArrayList<String>,
 //        @Part("image_url") image_url : MultipartBody.Part,
         @Field("user_name") user_name: String,
         @Field("tags") tags: String?,
@@ -205,7 +205,7 @@ interface RetrofitApi {
         @Field("lat") lat: String?,
         @Field("profile_title") profile_title: String?,
         @Field("c_id") c_id: String?,
-    ): Response<SavePostProfileResponse>
+        ): Response<SavePostProfileResponse>
 
 
 /*
@@ -221,7 +221,7 @@ interface RetrofitApi {
         @Part("address") address: RequestBody?,
         @Part("location_text") location_text: RequestBody?,
         @Part image_url : Array<MultipartBody.Part?>,
-//        @Part("image_url") image_url : MultipartBody.Part,
+//      @Part("image_url") image_url : MultipartBody.Part,
         @Part("user_name") user_name: RequestBody?,
         @Part("tags") tags: RequestBody?,
         @Part("description_2") description_2: RequestBody?,
@@ -230,7 +230,6 @@ interface RetrofitApi {
         @Part("lat") lat: RequestBody?,
         @Part("profile_title") profile_title: RequestBody?,
         @Part("c_id") c_id: RequestBody?,
-
         ): Response<SavePostProfileResponse>
 */
 
@@ -245,15 +244,14 @@ interface RetrofitApi {
     suspend fun getPostProfile(
         @Header("Authorization") Authorization: String,
         @Query("p_id") p_id: String,
-        @Query("lat") Lat: Double,
-        @Query("long") Long: Double
+        @Query("lat") Lat: Float,
+        @Query("long") Long: Float
     ): Response<GetPostProfileResponse>
-
 
     @DELETE("postProfileDelete/{name}")
     suspend fun deleteProfilePost(
         @Header("Authorization") Authorization: String,
-        @Path("name") name: String
+        @Path("name") name:String
 
     ): Response<DeletePostProfileResponse>
     /*Upload media api..*/
@@ -265,10 +263,9 @@ interface RetrofitApi {
         @Part images: Array<MultipartBody.Part?>
     ): Response<UploadMediaResponse>
 
-
     @FormUrlEncoded
     @POST(POST_PRPFILE_UPDATE)
-    suspend fun updatePostProfile(
+    suspend fun updatepostProfile(
         @Header("Authorization") Authorization: String?,
         @Field("first_name") FirstName: String?,
         @Field("last_name") LastName: String?,
@@ -276,7 +273,7 @@ interface RetrofitApi {
         @Field("expiry_date") expiry_date: String?,
         @Field("address") address: String?,
         @Field("location_text") location_text: String?,
-        @Field("image_url") image_url: ArrayList<String>,
+        @Field ("image_url") image_url: ArrayList<String>,
 //      @Part("image_url") image_url : MultipartBody.Part,
         @Field("user_name") user_name: String,
         @Field("tags") tags: String?,
@@ -287,43 +284,46 @@ interface RetrofitApi {
         @Field("profile_title") profile_title: String?,
         @Field("c_id") c_id: String?,
         @Field("p_id") p_id: String?
-    ): Response<UpdateProfileResponse>
+        ) : Response<UpdateProfileResponse>
 
     @FormUrlEncoded
     @POST(ADD_TOFAV_POSTPROFILE)
-    suspend fun addToFav(
-        @Header("Authorization") Authorization: String?,
-        @Field("p_id") p_id: String?,
-        @Field("favType") favType: Boolean?
-    ): Response<AddFavPostProfileResponse>
+    suspend fun addtoFav(
+        @Header ("Authorization") Authorization  : String?,
+        @Field("p_id") p_id :String?,
+        @Field("favType") favType : Boolean?
+    ):Response<AddFavPostProfileResponse>
 
+    @GET(GET_FAVOURITES)
+    suspend fun getFavDetals(
+        @Header ("Authorization") Authorization: String?,
+        @Query("lat") lat :Double,
+        @Query("long") long :Double
+    ) :Response<GetFavResponse>
 
-    // add Calendar api ..
     @FormUrlEncoded
-    @POST(ADD_TO_CALENDAR)
-    suspend fun addToCalendarBooking(
-        @Header("Authorization") Authorization: String,
-        @Field("category_name") Category_Name: String,
-        @Field("choose_date") Choose_Date: String,
-        @Field("post_profile_id") Post_Profile_Id: String,
-        @Field("choose_time") Choose_Time: String,
-        @Field("description") Description: String,
-        @Field("question_answer") Question_Answer: ArrayList<String>
-    ): Response<AddToCalendarResponseModel>
+    @POST(LIKES_DISLIKES)
+   suspend fun likesDislikes(
+        @Header("Authorization") Authorization :String,
+        @Field("p_id") p_id :String,
+        @Field("likeStatus") likeStatus :Boolean,
+        @Field("dislikeStatus") dislikeStatus :Boolean
+    ):Response<LikesResPonse>
 
+   @FormUrlEncoded
+   @POST(REPORT)
+   suspend fun report(
+       @Header("Authorization") Authorization: String,
+       @Field("p_id") p_id: String,
+       @Field("reportText") reportText: String,
+       @Field("note") note: String,
+       ):Response<ReportResponse>
 
-    /*Delete Account api.. */
-    @DELETE(REMOVE_FROM_CALENDAR)
-    suspend fun deleteFromCalendar(
-        @Header("Authorization") Authorization: String,
-        @Field("booking_id") Booking_Id: String
-    ): Response<AddToCalendarResponseModel>
+   @FormUrlEncoded
+   @POST(ADD_QUESTION)
+   suspend fun addQuestion(@Header("Authorization") Authorization: String,
+   @Field("p_id") p_id :String ,
+   @Field("question_text") question_text :String
+   ):Response<QueData>
 
-    /*Get Post Profile */
-    @GET()
-    suspend fun getPostProfile(
-        @Header("Authorization") Authorization:String,
-    )
 }
-
-

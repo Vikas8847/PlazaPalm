@@ -11,7 +11,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.example.plazapalm.R;
-import com.example.plazapalm.models.CategoriesData;
+import com.example.plazapalm.models.SelectedDataModel;
 import java.lang.Deprecated;
 import java.lang.Object;
 
@@ -23,7 +23,7 @@ public abstract class DashSelectedEventsBinding extends ViewDataBinding {
   public final View vDashBoardHeader;
 
   @Bindable
-  protected CategoriesData mModel;
+  protected SelectedDataModel mModel;
 
   protected DashSelectedEventsBinding(Object _bindingComponent, View _root, int _localFieldCount,
       AppCompatTextView tvDashBoardSelectedEvents, View vDashBoardHeader) {
@@ -32,10 +32,10 @@ public abstract class DashSelectedEventsBinding extends ViewDataBinding {
     this.vDashBoardHeader = vDashBoardHeader;
   }
 
-  public abstract void setModel(@Nullable CategoriesData model);
+  public abstract void setModel(@Nullable SelectedDataModel model);
 
   @Nullable
-  public CategoriesData getModel() {
+  public SelectedDataModel getModel() {
     return mModel;
   }
 

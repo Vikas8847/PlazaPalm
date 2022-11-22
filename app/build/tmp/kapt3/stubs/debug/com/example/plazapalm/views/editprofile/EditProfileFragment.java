@@ -42,6 +42,10 @@ public final class EditProfileFragment extends androidx.fragment.app.Fragment {
     android.os.Bundle savedInstanceState) {
     }
     
+    @java.lang.Override()
+    public void onResume() {
+    }
+    
     private final void onClicks() {
     }
     
@@ -69,9 +73,5 @@ public final class EditProfileFragment extends androidx.fragment.app.Fragment {
     }
     
     private final void setProfileImage() {
-    }
-    
-    @java.lang.Override()
-    public void onResume() {
     }
 }

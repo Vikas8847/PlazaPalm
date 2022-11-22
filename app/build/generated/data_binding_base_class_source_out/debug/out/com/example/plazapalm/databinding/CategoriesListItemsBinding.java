@@ -4,9 +4,10 @@ package com.example.plazapalm.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
@@ -22,7 +23,10 @@ public abstract class CategoriesListItemsBinding extends ViewDataBinding {
   public final ConstraintLayout clCategoriesList;
 
   @NonNull
-  public final AppCompatTextView tvSelectCategory;
+  public final ImageView ivSelectedCategory;
+
+  @NonNull
+  public final AppCompatCheckBox tvSelectCategory;
 
   @NonNull
   public final View viewFavourite;
@@ -37,9 +41,11 @@ public abstract class CategoriesListItemsBinding extends ViewDataBinding {
   protected String mCategoryName;
 
   protected CategoriesListItemsBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ConstraintLayout clCategoriesList, AppCompatTextView tvSelectCategory, View viewFavourite) {
+      ConstraintLayout clCategoriesList, ImageView ivSelectedCategory,
+      AppCompatCheckBox tvSelectCategory, View viewFavourite) {
     super(_bindingComponent, _root, _localFieldCount);
     this.clCategoriesList = clCategoriesList;
+    this.ivSelectedCategory = ivSelectedCategory;
     this.tvSelectCategory = tvSelectCategory;
     this.viewFavourite = viewFavourite;
   }

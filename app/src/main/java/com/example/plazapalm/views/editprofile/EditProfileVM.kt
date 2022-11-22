@@ -3,7 +3,6 @@ package com.example.plazapalm.views.editprofile
 import android.content.pm.PackageManager
 import android.util.Log
 import android.view.View
-import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
@@ -57,6 +56,7 @@ class EditProfileVM @Inject constructor(
 
     init {
         token.set(pref.retrieveKey("token"))
+        var token = ObservableField("")
 
         getStoreImage()
         myProfileData()
@@ -72,19 +72,19 @@ class EditProfileVM @Inject constructor(
             R.id.clEditProfileMain -> {
                 context.hideKeyboard()
             }
-           /* R.id.ivSettingBtn ->
-            {
-                view.navigateWithId(R.id.settingsFragment)
-            }*/
+            R.id.ivEditSettingBtn -> {
+                view.navigateWithId(R.id.action_editProfileFragment_to_settingFragment)
+            }
             R.id.tvBtnUpdateProfile -> {
                 //call update profile...
                 context.hideKeyboard()
-                if (!context.isNetworkAvailable()) {
-                    CommonMethods.showToast(context, Constants.CHECK_INTERNET)
-                } else {
+                if (context.isNetworkAvailable()) {
                     if (validation()) {
                         updateProfile(view)
                     }
+
+                } else {
+                    CommonMethods.showToast(context, Constants.CHECK_INTERNET)
                 }
             }
         }
@@ -158,7 +158,10 @@ class EditProfileVM @Inject constructor(
                         //CommonMethods.showToast(context, res.body()?.message.toString())
                         CommonMethods.showToast(context, "Profile updated successfully")
                         dataStoreUtil.saveObject(PROFILE_DATA, res.body())
-                        dataStoreUtil.saveData(PROFILE_IMAGE, res.body()?.data?.profile_picture.toString())
+                        dataStoreUtil.saveData(
+                            PROFILE_IMAGE,
+                            res.body()?.data?.profile_picture.toString()
+                        )
                         profile_pic.set(res.body()?.data?.profile_picture)
                         context.hideKeyboard()
                         view.navigateBack()

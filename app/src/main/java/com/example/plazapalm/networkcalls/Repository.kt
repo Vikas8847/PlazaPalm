@@ -36,7 +36,7 @@ class Repository @Inject constructor(
     private val retrofitApi: RetrofitApi,
     private val cacheUtil: CacheUtil,
     private val dataStoreUtil: DataStoreUtil
-){
+) {
     var aD: AlertDialog.Builder? = null
     fun <T : Any> makeCall(
         apiKey: ApiEnums,
@@ -74,7 +74,8 @@ class Repository @Inject constructor(
                 hideProgress()
                 //activity.showNegativeAlerter(exception.message ?: "")
                 showErrorDialog()
-            }.collect { response ->
+            }.collect {
+                    response ->
                 Log.d("resCodeIs", "====${response?.code()}")
                 Timer().schedule(2000) {
                     hideProgress()
@@ -89,6 +90,7 @@ class Repository @Inject constructor(
                         CommonMethods.showToast(CommonMethods.context, "Oops! Something went wrong")
 
                         //    activity.showNegativeAlerter(activity.resources?.getString(R.string.some_error_occured) ?: "")
+
                     }
                     response?.isSuccessful == true -> {
                         /**Success*/
@@ -97,6 +99,7 @@ class Repository @Inject constructor(
                             cacheUtil.put(apiKey, response)
                         requestProcessor.onResponse(response as Response<T>)
                     }
+
                     response?.code() in 300..399 -> {
                         /**Redirection*/
                         requestProcessor.onError(

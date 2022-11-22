@@ -3302,9 +3302,6 @@ drawable quantum_ic_search_grey600_24
 drawable quickie_bg_torch
 drawable quickie_ic_qrcode
 drawable quickie_ic_torch
-drawable radio_button_business
-drawable radio_checked
-drawable radio_unchecked
 drawable red_circle
 drawable richard_img
 drawable ring
@@ -3565,6 +3562,7 @@ id changePasswordFragment
 id chatFragment
 id checkBottomTextFrontPage
 id checkEditFrontPageTopText
+id check_box
 id checkbox
 id checked
 id chip
@@ -3645,8 +3643,6 @@ id clsignupMain
 id coil_request_manager
 id collapseActionView
 id compatible
-id confirmBookDatePicker
-id confirmBookTimePicker
 id confirmBookingFragment
 id confirm_button
 id constForgotPassword
@@ -3654,6 +3650,7 @@ id constMain
 id constTermsUse
 id constUpdateMail
 id constraint
+id constraintsClick
 id contactUsFragment
 id container
 id content
@@ -3886,6 +3883,7 @@ id ivEditBookingDetailsProfile
 id ivEditProfile
 id ivEditProfileBackBtn
 id ivEditProfileCamera
+id ivEditSettingBtn
 id ivFavBackBtn
 id ivFavDetails
 id ivFavDetailsBackBtn
@@ -3925,7 +3923,6 @@ id ivReportBackButton
 id ivReportChooseBackBtn
 id ivSelectedCategory
 id ivSettingBackBtn
-id ivSettingBtn
 id ivTermsUseBackBtn
 id ivThankYouConfirmBook
 id ivThankYouConfirmBookNextBtn
@@ -3949,6 +3946,7 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id layout_cons
 id left
 id leftToRight
 id legacy
@@ -4112,7 +4110,6 @@ id previousButton
 id primary_click_background
 id primary_click_button
 id privacyPolicyFragment
-id profile_image
 id progress_circular
 id progress_horizontal
 id progress_view
@@ -4122,8 +4119,6 @@ id questionariesFragment
 id radio
 id range_picker
 id ratio
-id rb_female
-id rb_male
 id rectangles
 id recyclerView
 id remove_image
@@ -4461,7 +4456,6 @@ id tvMapLocationOnOff
 id tvMessages
 id tvMyProfile
 id tvMyProfileName
-id tvNoDataDashboard
 id tvNotification
 id tvPicturesAdd
 id tvPicturesUploadCancel
@@ -4492,7 +4486,6 @@ id tvSettingsPrivacyPolicy
 id tvSettingsTermsUse
 id tvSettingsUpdateEmail
 id tvSignup
-id tvSignupBusiness
 id tvSignupConfirmPass
 id tvSignupEmail
 id tvSignupFirstName
@@ -4616,7 +4609,6 @@ id viewEditFontPage
 id viewEditLookBGColor
 id viewEditTopTextFrontPage
 id viewFavourite
-id viewFavouriteSecond
 id viewFilterCategory
 id viewFilterLocation
 id viewFinder
@@ -4771,9 +4763,7 @@ layout chat_receiver
 layout chat_sender
 layout choose_profile_options
 layout common_view
-layout confirm_booking_datepicker
 layout confirm_booking_fragment
-layout confirm_booking_timepicker
 layout contact_us_fragment
 layout controls_layout
 layout custom_dialog
@@ -5015,11 +5005,12 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
-string confirm_booking
 string define_roundedimageview
 string define_zxingandroidembedded
 string delete
+string description2
 string description_2
+string description_3
 string edit_profile
 string edit_profile_last_name
 string error_icon_content_description
@@ -5156,9 +5147,11 @@ string search_for_location
 string search_menu_title
 string some_error_occured
 string status_bar_notification_info_overflow
+string submit
 string take_photo
 string thank_you
 string user_name
+string you_selected
 string your_device_offline
 string zxing_app_name
 string zxing_button_ok
@@ -5399,7 +5392,6 @@ style CalenderViewCustom_
 style CardView
 style CardView_Dark
 style CardView_Light
-style DatePickerDialogTheme
 style DialogeTheme
 style Divider
 style EmptyTheme
@@ -5698,7 +5690,6 @@ style ThemeOverlay_MaterialComponents_Toolbar_Primary
 style ThemeOverlay_MaterialComponents_Toolbar_Surface
 style ThemeOverlay_Slider
 style ThemeOverlayColorAccentRed
-style TimePickerTheme
 style Toolbar_TitleText
 style UpgradeProView
 style ViewAdvanceSettings
@@ -5913,7 +5904,6 @@ style amu_Bubble_TextAppearance_Light
 style amu_ClusterIcon_TextAppearance
 style corner10Percent
 style popup_window_animation
-style radionbutton
 style roundedImageView
 style superBottomSheetDialog
 style zxing_CaptureTheme

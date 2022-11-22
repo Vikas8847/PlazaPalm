@@ -46,13 +46,10 @@ public abstract class EditProfileFragmentBinding extends ViewDataBinding {
   public final AppCompatImageView ivEditProfileBackBtn;
 
   @NonNull
-  public final CircleImageView ivEditProfileCamera;
+  public final AppCompatImageView ivEditProfileCamera;
 
   @NonNull
-  public final AppCompatImageView ivSettingBtn;
-
-  @NonNull
-  public final CircleImageView profileImage;
+  public final AppCompatImageView ivEditSettingBtn;
 
   @NonNull
   public final AppCompatButton tvBtnUpdateProfile;
@@ -73,10 +70,10 @@ public abstract class EditProfileFragmentBinding extends ViewDataBinding {
       ConstraintLayout clEditLastName, ConstraintLayout clEditProfile,
       ConstraintLayout clEditProfileCircular, ConstraintLayout clEditProfileMain,
       Guideline gLineEditProfile, Guideline gLineEditProfileJi, CircleImageView ivEditProfile,
-      AppCompatImageView ivEditProfileBackBtn, CircleImageView ivEditProfileCamera,
-      AppCompatImageView ivSettingBtn, CircleImageView profileImage,
-      AppCompatButton tvBtnUpdateProfile, AppCompatTextView tvEditFirstName,
-      AppCompatTextView tvEditLastName, AppCompatTextView tvEditProfile) {
+      AppCompatImageView ivEditProfileBackBtn, AppCompatImageView ivEditProfileCamera,
+      AppCompatImageView ivEditSettingBtn, AppCompatButton tvBtnUpdateProfile,
+      AppCompatTextView tvEditFirstName, AppCompatTextView tvEditLastName,
+      AppCompatTextView tvEditProfile) {
     super(_bindingComponent, _root, _localFieldCount);
     this.clEditLastName = clEditLastName;
     this.clEditProfile = clEditProfile;
@@ -87,8 +84,7 @@ public abstract class EditProfileFragmentBinding extends ViewDataBinding {
     this.ivEditProfile = ivEditProfile;
     this.ivEditProfileBackBtn = ivEditProfileBackBtn;
     this.ivEditProfileCamera = ivEditProfileCamera;
-    this.ivSettingBtn = ivSettingBtn;
-    this.profileImage = profileImage;
+    this.ivEditSettingBtn = ivEditSettingBtn;
     this.tvBtnUpdateProfile = tvBtnUpdateProfile;
     this.tvEditFirstName = tvEditFirstName;
     this.tvEditLastName = tvEditLastName;

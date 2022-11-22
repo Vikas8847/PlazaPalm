@@ -4,17 +4,20 @@
     xmlns:tool="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="model"
             type="com.example.plazapalm.models.ReportDataModal" />
+
+        <variable
+            name="isCheckedStatus"
+            type="com.example.plazapalm.views.reportselection.ReportChooseVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_cons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_3sdp"
-        android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`onReportChooseItemClick`)}">
+        android:layout_margin="@dimen/_3sdp">
 
         <RadioGroup
             android:id="@+id/rgFirst"
@@ -24,12 +27,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/check_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_drawable"
-                android:checked="@={model.checked}"
                 android:fontFamily="@font/inter_medium"
+                android:button="@drawable/checkbox_drawable"
                 android:layoutDirection="rtl"
+                android:checked="@{model.checked}"
+                android:enabled="false"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:paddingVertical="@dimen/_3sdp"
                 android:text="@={model.text}"
@@ -49,6 +54,16 @@
 
         </RadioGroup>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintsClick"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`onReportChooseItemClick`)}"
+            android:layout_height="0dp"/>
+<!--
         <RadioGroup
             android:layout_width="match_parent"
             android:visibility="gone"
@@ -68,8 +83,7 @@
                 android:text="@={model.text}"
                 android:textColor="@color/light_black"
                 android:textSize="16sp"
-                tool:text="False, misleading or harmful,
-Information" />
+                tool:text="False, misleading or harmful,Information" />
 
             <View
                 android:id="@+id/viewFavouriteSecond"
@@ -80,6 +94,7 @@ Information" />
                 app:layout_constraintTop_toBottomOf="@+id/tvFavourite" />
 
         </RadioGroup>
+-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

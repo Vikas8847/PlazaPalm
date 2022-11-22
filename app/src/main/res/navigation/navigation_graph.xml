@@ -714,8 +714,7 @@
     <fragment
         android:id="@+id/openCategeroyFragment"
         android:name="com.example.plazapalm.views.selectcategory.opencategeroy.OpenCategeroyFragment"
-        android:label="OpenCategeroyFragment"
-        tools:layout="@layout/fragment_open_categeroy">
+        android:label="OpenCategeroyFragment" >
         <action
             android:id="@+id/action_openCategeroyFragment_to_addCitiesFragment"
             app:destination="@id/addCitiesFragment"

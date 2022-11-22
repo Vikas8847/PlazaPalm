@@ -42,6 +42,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
     private fun sliderCustomize() {
         binding.sliderFilter.addOnChangeListener { _, value, _ ->
+
             binding.tvFilterMilesValue.text = "${value.toInt()} Miles"
             // binding.tvFilterMilesValue.text = viewModel.miles.set(value.toInt().toString()).toString()
         }

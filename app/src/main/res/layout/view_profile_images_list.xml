@@ -13,6 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/_15sdp"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,8 +41,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <!--ImageView-->
         <androidx.cardview.widget.CardView
             android:id="@+id/ivFavOfDesc1"
             android:layout_width="match_parent"
@@ -62,8 +61,6 @@
 
         </androidx.cardview.widget.CardView>
 
-
-        <!--VideoView-->
         <androidx.cardview.widget.CardView
             android:id="@+id/vPlayer1"
             android:layout_width="match_parent"
@@ -84,3 +81,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
+

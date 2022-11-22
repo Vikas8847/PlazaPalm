@@ -169,17 +169,13 @@ object FilePathUtil {
     ): File? {
         val bytes = ByteArrayOutputStream()
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val wallpaperDirectory =
-            File(context.cacheDir.absolutePath + "/" + context.getString(R.string.app_name))
+        val wallpaperDirectory = File(context.cacheDir.absolutePath + "/" + context.getString(R.string.app_name))
         if (!wallpaperDirectory.exists()) {
             wallpaperDirectory.mkdirs()
         }
 
         try {
-            val f = File(
-                wallpaperDirectory,
-                ((Calendar.getInstance().timeInMillis).toString() + ".jpg")
-            )
+            val f = File(wallpaperDirectory, ((Calendar.getInstance().timeInMillis).toString() + ".jpg"))
             f.createNewFile()
             f.writeBytes(bytes.toByteArray())
             MediaScannerConnection.scanFile(context, arrayOf(f.path), arrayOf("image/jpeg"), null)

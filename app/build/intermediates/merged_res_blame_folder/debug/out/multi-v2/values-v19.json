@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\PlazzaVikasUpdated\\Code\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v19\\values-v19.xml",
+            "outputFile": "D:\\plazapalam\\PlazaPalm@18Oct\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v19\\values-v19.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Android\\.gradle\\caches\\transforms-3\\fa65ca43ca5e01c8473cd321b9e548d9\\transformed\\jetified-piximagepicker-1.6.2\\res\\values-v19\\values-v19.xml",
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\fa65ca43ca5e01c8473cd321b9e548d9\\transformed\\jetified-piximagepicker-1.6.2\\res\\values-v19\\values-v19.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

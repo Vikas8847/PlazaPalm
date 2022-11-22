@@ -98,7 +98,7 @@ public class FavouritesFragmentBindingImpl extends FavouritesFragmentBinding  {
         }
         com.example.plazapalm.views.favourites.FavouritesVM vm = mVm;
         android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
-        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.DashBoardModel> vmFavAdapter = null;
+        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.FavData> vmFavAdapter = null;
 
         if ((dirtyFlags & 0x3L) != 0) {
 

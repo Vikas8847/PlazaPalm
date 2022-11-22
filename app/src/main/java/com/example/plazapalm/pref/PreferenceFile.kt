@@ -2,6 +2,8 @@ package com.example.plazapalm.pref
 
 import android.content.SharedPreferences
 import com.example.plazapalm.models.AddPhoto
+import com.example.plazapalm.models.SavePostProfileResponse
+import com.example.plazapalm.utils.Constants
 import com.google.gson.Gson
 import javax.inject.Inject
 
@@ -14,7 +16,7 @@ class PreferenceFile @Inject constructor(
         editor.apply()
     }
 
-    fun storeBoolKey(key: String, value: Boolean) {
+    fun storeBoolKey(key : String, value : Boolean) {
         editor.putBoolean(key, value)
         editor.apply()
     }
@@ -23,34 +25,38 @@ class PreferenceFile @Inject constructor(
         return sharedPreferences.getBoolean(key, false)
     }
 
-    fun storeLatLng(key: String,value: Double){
-        editor.putString(key, "0.28")
+
+    fun storeResponse( body: SavePostProfileResponse) {
+        val gson = Gson()
+        val json: String = gson.toJson(body)
+        editor.putString(Constants.POSTRESPONSE, json)
         editor.apply()
     }
 
-    fun retrievLatLng(key: String,value: Double){
+    fun retrieveResponse(): SavePostProfileResponse? {
+        val json : String?  = sharedPreferences.getString(Constants.POSTRESPONSE, "{}" )
+//        val obj: SavePostProfileResponse = gson.fromJson(json, SavePostProfileResponse::class.java)
+        return Gson().fromJson(json, SavePostProfileResponse::class.java)
 
     }
-
     fun storeLocarion(value: String) {
         editor.putString("location", value)
         editor.apply()
     }
-    fun retrieveLocarion(): String? {
+    fun storeLatlong(key: String,value: Float){
+        editor.putFloat(key, value)
+        editor.apply()
+    }
+    fun retvieLatlong(key: String,): Float {
+        return sharedPreferences.getFloat(key, 0.0F)
+    }
+
+    fun retrieveLocarion() : String? {
         return sharedPreferences.getString("location", null)
     }
 
     fun retrieveKey(key: String): String? {
         return sharedPreferences.getString(key, null)
-    }
-
-    fun storePostProfileId(value: String){
-        editor.putString("post_profile_id", value)
-        editor.apply()
-    }
-
-    fun retrivePostProfileId(key: String):String?{
-        return sharedPreferences.getString("post_profile_id",null)
     }
 
     fun storeImage(key : String, value : ArrayList<AddPhoto>) {

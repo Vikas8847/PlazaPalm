@@ -36,8 +36,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
     lateinit var repository: Repository
     private var binding: PostProfileFragmentBinding? = null
     private val viewModel: PostProfileVM by viewModels()
-
-    //    lateinit var ImageList: ArrayList<AddPhoto>
     lateinit var ImageList: ArrayList<AddPhoto>
     lateinit var viewProAddImageAdapter: ViewProAddImageAdapter
     var token = ObservableField("")
@@ -47,7 +45,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
         super.onCreate(savedInstanceState)
         ImageList = ArrayList()
         getBundledata()
-        //  setAdapter()
         showRecyclerviewClick()
         token.set(pref.retrieveKey("token"))
 
@@ -56,8 +53,10 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
     private fun getBundledata() {
         if (arguments?.getString("comingFromView") != null) {
             Log.e("SSSSVVV",arguments?.get("userDATA").toString())
+
             if (arguments?.getString("comingFromView").equals("ViewPrfoile")) {
                 viewModel.postdata.set("Update")
+
 //                val userData:ObservableParcelable<postData?>  = arguments?.getParcelable<postData?>("userDATA") as ObservableParcelable<postData?>
 
                 viewModel.firstName.set(arguments?.getString("f_name").toString())
@@ -156,6 +155,8 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("photos")
             ?.observe(viewLifecycleOwner) { data ->
 
+                Log.e("WERWEFDSFD", data.toString())
+
                 val myType = object : TypeToken<ArrayList<AddPhoto>>() {}.type
                 val photoList = Gson().fromJson<ArrayList<AddPhoto>>(data, myType)
 
@@ -163,8 +164,8 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
                 viewModel.photoList = photoList
                 ImageList = photoList as ArrayList<AddPhoto>/* = java.util.ArrayList<kotlin.String> */
-                Log.e("WERWEFDSFD", data.toString())
                 Log.e("WERWEFDSFDczcxczxczxc", photoList.toString())
+
                 setAdapter()
             }
 

@@ -4,9 +4,6 @@
         <!--
                // <domain includeSubdomains="true">api.example.com(to be adjusted)</domain>
         -->
-<!--
-        <domain includeSubdomains="true">192.168.1.87</domain>
--->
         <domain includeSubdomains="true">192.168.1.87</domain>
     </domain-config>
 </network-security-config>

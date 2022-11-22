@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Edit Cover Page"
+                    android:text="Edit Front Page"
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"

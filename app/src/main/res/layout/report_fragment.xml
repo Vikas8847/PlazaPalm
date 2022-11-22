@@ -91,6 +91,7 @@
                             android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+//                             android:text="@={vm.setSelectedData}"
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/etReportSelected"
@@ -101,9 +102,9 @@
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:background="@drawable/forgot_email_bg"
                             android:fontFamily="@font/inter_medium"
-                            android:hint="You Selected"
+                            android:hint="@string/you_selected"
                             android:inputType="text"
-                            android:maxLength="30"
+                            android:text="@={vm.firstName}"
                             android:paddingVertical="@dimen/_8sdp"
                             android:textColor="@color/forgot_pass"
                             android:textColorHint="@color/gray"
@@ -138,6 +139,7 @@
                             android:gravity="top"
                             android:hint="Add Note"
                             android:inputType="text"
+                            android:text="@={vm.reportNote}"
                             android:maxLines="30"
                             android:textColor="@color/forgot_pass"
                             android:textColorHint="@color/gray"
@@ -160,7 +162,8 @@
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center"
                 android:paddingBottom="@dimen/_1sdp"
-                android:text="Submit"
+                android:text="@string/submit"
+                android:onClick="@{vm::clicks}"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="14sp"
