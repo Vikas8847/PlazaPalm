@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\plazapalam\\PlazaPalm@18Oct\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-mk\\values-mk.xml",
+            "outputFile": "D:\\plazapalam\\plazzapalmGit\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-mk\\values-mk.xml",
             "map": [
                 {
                     "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\abaa8dbe18d188d683c2c8eb702fc69d\\transformed\\jetified-play-services-basement-18.1.0\\res\\values-mk\\values.xml",

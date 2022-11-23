@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\plazapalam\\PlazaPalm@18Oct\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
+            "outputFile": "D:\\plazapalam\\plazzapalmGit\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
             "map": [
                 {
                     "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\8456f4653a825e958b2af6ae3ce0226c\\transformed\\appcompat-1.5.1\\res\\values-v23\\values-v23.xml",
@@ -31,6 +31,25 @@
                         "endLines": "58",
                         "endColumns": "10",
                         "endOffsets": "3692"
+                    }
+                },
+                {
+                    "source": "D:\\plazapalam\\plazzapalmGit\\PlazaPalm\\app\\src\\main\\res\\values-v23\\themes.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "59",
+                        "endLines": "17",
+                        "endColumns": "12",
+                        "endOffsets": "739"
+                    },
+                    "to": {
+                        "startLines": "59",
+                        "startColumns": "4",
+                        "startOffsets": "3697",
+                        "endLines": "73",
+                        "endColumns": "12",
+                        "endOffsets": "4363"
                     }
                 },
                 {
@@ -69,25 +88,6 @@
                         "endLines": "77,81",
                         "endColumns": "10,10",
                         "endOffsets": "4628,4901"
-                    }
-                },
-                {
-                    "source": "D:\\plazapalam\\PlazaPalm@18Oct\\PlazaPalm\\app\\src\\main\\res\\values-v23\\themes.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "59",
-                        "endLines": "17",
-                        "endColumns": "12",
-                        "endOffsets": "739"
-                    },
-                    "to": {
-                        "startLines": "59",
-                        "startColumns": "4",
-                        "startOffsets": "3697",
-                        "endLines": "73",
-                        "endColumns": "12",
-                        "endOffsets": "4363"
                     }
                 }
             ]

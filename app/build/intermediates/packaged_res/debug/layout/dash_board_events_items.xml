@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:tag="layout/dash_board_events_items_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDashBoardSelectedEvents"
             android:layout_width="@dimen/_150sdp"

@@ -22,81 +22,40 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     // values
     // listeners
     // Inverse Binding Event Handlers
-    private androidx.databinding.InverseBindingListener tvDashBoardItemDescriptionandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
+    private androidx.databinding.InverseBindingListener tvDashBoardItemDistanceandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
-            // Inverse of model.description
-            //         is model.setDescription((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvDashBoardItemDescription);
+            // Inverse of vm.distanceCal.get()
+            //         is vm.distanceCal.set((java.lang.String) callbackArg_0)
+            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvDashBoardItemDistance);
             // localize variables for thread safety
-            // model
-            com.example.plazapalm.models.DashBoardModel model = mModel;
-            // model != null
-            boolean modelJavaLangObjectNull = false;
-            // model.description
-            java.lang.String modelDescription = null;
+            // vm != null
+            boolean vmJavaLangObjectNull = false;
+            // vm
+            com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
+            // vm.distanceCal
+            androidx.databinding.ObservableField<java.lang.String> vmDistanceCal = null;
+            // vm.distanceCal.get()
+            java.lang.String vmDistanceCalGet = null;
+            // vm.distanceCal != null
+            boolean vmDistanceCalJavaLangObjectNull = false;
 
 
 
-            modelJavaLangObjectNull = (model) != (null);
-            if (modelJavaLangObjectNull) {
+            vmJavaLangObjectNull = (vm) != (null);
+            if (vmJavaLangObjectNull) {
 
 
+                vmDistanceCal = vm.getDistanceCal();
 
-
-                model.setDescription(((java.lang.String) (callbackArg_0)));
-            }
-        }
-    };
-    private androidx.databinding.InverseBindingListener tvDashBoardItemLocationandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
-        @Override
-        public void onChange() {
-            // Inverse of model.locationName
-            //         is model.setLocationName((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvDashBoardItemLocation);
-            // localize variables for thread safety
-            // model
-            com.example.plazapalm.models.DashBoardModel model = mModel;
-            // model != null
-            boolean modelJavaLangObjectNull = false;
-            // model.locationName
-            java.lang.String modelLocationName = null;
-
-
-
-            modelJavaLangObjectNull = (model) != (null);
-            if (modelJavaLangObjectNull) {
+                vmDistanceCalJavaLangObjectNull = (vmDistanceCal) != (null);
+                if (vmDistanceCalJavaLangObjectNull) {
 
 
 
 
-                model.setLocationName(((java.lang.String) (callbackArg_0)));
-            }
-        }
-    };
-    private androidx.databinding.InverseBindingListener tvDashBoardItemNameandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
-        @Override
-        public void onChange() {
-            // Inverse of model.name
-            //         is model.setName((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvDashBoardItemName);
-            // localize variables for thread safety
-            // model
-            com.example.plazapalm.models.DashBoardModel model = mModel;
-            // model.name
-            java.lang.String modelName = null;
-            // model != null
-            boolean modelJavaLangObjectNull = false;
-
-
-
-            modelJavaLangObjectNull = (model) != (null);
-            if (modelJavaLangObjectNull) {
-
-
-
-
-                model.setName(((java.lang.String) (callbackArg_0)));
+                    vmDistanceCal.set(((java.lang.String) (callbackArg_0)));
+                }
             }
         }
     };
@@ -105,7 +64,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         this(bindingComponent, root, mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds));
     }
     private DashBoardItemsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 0
+        super(bindingComponent, root, 1
             , (com.google.android.material.imageview.ShapeableImageView) bindings[1]
             , (androidx.cardview.widget.CardView) bindings[0]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
@@ -128,7 +87,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x8L;
         }
         requestRebind();
     }
@@ -147,7 +106,10 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
         if (BR.model == variableId) {
-            setModel((com.example.plazapalm.models.DashBoardModel) variable);
+            setModel((com.example.plazapalm.models.ProfileCateData) variable);
+        }
+        else if (BR.vm == variableId) {
+            setVm((com.example.plazapalm.views.dashboard.DashBoardVM) variable);
         }
         else {
             variableSet = false;
@@ -155,18 +117,37 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
             return variableSet;
     }
 
-    public void setModel(@Nullable com.example.plazapalm.models.DashBoardModel Model) {
+    public void setModel(@Nullable com.example.plazapalm.models.ProfileCateData Model) {
         this.mModel = Model;
         synchronized(this) {
-            mDirtyFlags |= 0x1L;
+            mDirtyFlags |= 0x2L;
         }
         notifyPropertyChanged(BR.model);
+        super.requestRebind();
+    }
+    public void setVm(@Nullable com.example.plazapalm.views.dashboard.DashBoardVM Vm) {
+        this.mVm = Vm;
+        synchronized(this) {
+            mDirtyFlags |= 0x4L;
+        }
+        notifyPropertyChanged(BR.vm);
         super.requestRebind();
     }
 
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
+            case 0 :
+                return onChangeVmDistanceCal((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+        }
+        return false;
+    }
+    private boolean onChangeVmDistanceCal(androidx.databinding.ObservableField<java.lang.String> VmDistanceCal, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x1L;
+            }
+            return true;
         }
         return false;
     }
@@ -178,57 +159,83 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        com.example.plazapalm.models.DashBoardModel model = mModel;
-        java.lang.String modelMilesJavaLangStringJavaLangStringMiles = null;
-        int modelMiles = 0;
-        int modelImage = 0;
-        java.lang.String modelDescription = null;
-        java.lang.String modelMilesJavaLangString = null;
-        java.lang.String modelName = null;
-        java.lang.String modelLocationName = null;
+        com.example.plazapalm.models.ProfileCateData model = mModel;
+        java.lang.String modelPostProfilePicture0 = null;
+        java.lang.String modelDescription1 = null;
+        java.lang.String modelLastName = null;
+        com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
+        androidx.databinding.ObservableField<java.lang.String> vmDistanceCal = null;
+        java.lang.String modelFirstNameJavaLangStringNModelLastName = null;
+        java.util.List<java.lang.String> modelPostProfilePicture = null;
+        java.lang.String modelFirstName = null;
+        java.lang.String vmDistanceCalGet = null;
+        java.lang.String modelLocationText = null;
+        java.lang.String modelFirstNameJavaLangStringN = null;
 
-        if ((dirtyFlags & 0x3L) != 0) {
+        if ((dirtyFlags & 0xaL) != 0) {
 
 
 
                 if (model != null) {
-                    // read model.miles
-                    modelMiles = model.getMiles();
-                    // read model.image
-                    modelImage = model.getImage();
-                    // read model.description
-                    modelDescription = model.getDescription();
-                    // read model.name
-                    modelName = model.getName();
-                    // read model.locationName
-                    modelLocationName = model.getLocationName();
+                    // read model.description_1
+                    modelDescription1 = model.getDescription_1();
+                    // read model.last_name
+                    modelLastName = model.getLast_name();
+                    // read model.postProfile_picture
+                    modelPostProfilePicture = model.getPostProfile_picture();
+                    // read model.first_name
+                    modelFirstName = model.getFirst_name();
+                    // read model.location_text
+                    modelLocationText = model.getLocation_text();
                 }
 
 
-                // read (model.miles) + ("")
-                modelMilesJavaLangString = (modelMiles) + ("");
+                if (modelPostProfilePicture != null) {
+                    // read model.postProfile_picture[0]
+                    modelPostProfilePicture0 = getFromList(modelPostProfilePicture, 0);
+                }
+                // read (model.first_name) + ("\n")
+                modelFirstNameJavaLangStringN = (modelFirstName) + ("\n");
 
 
-                // read ((model.miles) + ("")) + ("miles")
-                modelMilesJavaLangStringJavaLangStringMiles = (modelMilesJavaLangString) + ("miles");
+                // read ((model.first_name) + ("\n")) + (model.last_name)
+                modelFirstNameJavaLangStringNModelLastName = (modelFirstNameJavaLangStringN) + (modelLastName);
+        }
+        if ((dirtyFlags & 0xdL) != 0) {
+
+
+
+                if (vm != null) {
+                    // read vm.distanceCal
+                    vmDistanceCal = vm.getDistanceCal();
+                }
+                updateRegistration(0, vmDistanceCal);
+
+
+                if (vmDistanceCal != null) {
+                    // read vm.distanceCal.get()
+                    vmDistanceCalGet = vmDistanceCal.get();
+                }
         }
         // batch finished
-        if ((dirtyFlags & 0x3L) != 0) {
+        if ((dirtyFlags & 0xaL) != 0) {
             // api target 1
 
-            com.example.plazapalm.utils.BindingAdapters.setDrawable(this.ivDashBoardCat, modelImage);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDescription, modelDescription);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDistance, modelMilesJavaLangStringJavaLangStringMiles);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLocation, modelLocationName);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemName, modelName);
+            com.example.plazapalm.utils.BindingAdapters.setImage(this.ivDashBoardCat, modelPostProfilePicture0);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDescription, modelDescription1);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLocation, modelLocationText);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemName, modelFirstNameJavaLangStringNModelLastName);
         }
-        if ((dirtyFlags & 0x2L) != 0) {
+        if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
             this.playerLayout.setOnClickListener(mCallback6);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvDashBoardItemDescription, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvDashBoardItemDescriptionandroidTextAttrChanged);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvDashBoardItemLocation, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvDashBoardItemLocationandroidTextAttrChanged);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvDashBoardItemName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvDashBoardItemNameandroidTextAttrChanged);
+            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvDashBoardItemDistance, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvDashBoardItemDistanceandroidTextAttrChanged);
+        }
+        if ((dirtyFlags & 0xdL) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDistance, vmDistanceCalGet);
         }
     }
     // Listener Stub Implementations
@@ -236,7 +243,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         // localize variables for thread safety
         // model
-        com.example.plazapalm.models.DashBoardModel model = mModel;
+        com.example.plazapalm.models.ProfileCateData model = mModel;
         // model.adapterPosition
         int modelAdapterPosition = 0;
         // model.onItemClick
@@ -271,8 +278,10 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): model
-        flag 1 (0x2L): null
+        flag 0 (0x1L): vm.distanceCal
+        flag 1 (0x2L): model
+        flag 2 (0x3L): vm
+        flag 3 (0x4L): null
     flag mapping end*/
     //end
 }

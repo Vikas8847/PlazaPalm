@@ -37,16 +37,13 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
     lateinit var pref: PreferenceFile
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle? ): View? {
 
         binding = FragmentOpenCategeroyBinding.inflate(inflater, container, false)
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
 
         getLastLocation()
         return binding?.root
-
-
 
 
     }
@@ -66,10 +63,13 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
     }
 
     private fun getdata() {
+
         binding?.tvCategories?.visibility = View.VISIBLE
         viewmodel.isChecked.set(false)
         binding?.rvCategoryLocation?.isSelected = false
         viewmodel.getCategoriesApi(binding!!.rvCategoryLocation, requireActivity(), this)
+
+        /** Get Data from Add cities screen **/
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("bundle")
             ?.observe(viewLifecycleOwner) { data ->
@@ -83,8 +83,8 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                 val address = split[2] // Second element
 
                 viewmodel.address.set(address)
-                viewmodel.longitude.set(longi)
-                viewmodel.latitude.set(lati)
+                viewmodel.longitude.set(longi.toDouble())
+                viewmodel.latitude.set(lati.toDouble())
                 viewmodel.address.set(address)
 
                 Log.e("ADDKFJSDFJSDJF", data.toString() + "CIIDDDD" + address)
@@ -97,8 +97,8 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         bundle.putString("fromOpencate", "openCategeroy")
         bundle.putString("cateName", categoryName)
         bundle.putString("c_id", c_id)
-        bundle.putString("longitude", viewmodel.longitude.get())
-        bundle.putString("latitude", viewmodel.latitude.get())
+        bundle.getDouble("longitude", viewmodel.longitude.get()!!)
+        bundle.getDouble("latitude", viewmodel.latitude.get()!!)
         bundle.putString("status", "OPEN")
 
         view?.navigateWithId(R.id.action_openCategeroyFragment_to_dashBoardFragment, bundle)
@@ -118,11 +118,14 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
                         val list: List<Address> =
                             geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                        viewmodel.latitude.set(list[0].latitude.toString())
-                        viewmodel.longitude.set(list[0].longitude.toString())
-                        list[0].countryName
-//                        viewmodel.address.set(list[0].locality.toString())
-                        Log.e("countryName", "" + list[0].locality + "" + list[0].countryName)
+                        viewmodel.latitude.set(list[0].latitude!!)
+                        viewmodel.longitude.set(list[0].longitude!!)
+
+                        viewmodel.name.set(list[0].countryName)
+
+
+                        Log.e("countryName", "" + list[0].locality + "" + list[0].countryName + "XCXCX" +
+                                list[0].latitude + "LATTTTT " + list[0].longitude)
                     }
                 }
 

@@ -38,6 +38,7 @@
     <string name="app_name">PlazaPalm</string>
     <string name="are_you_sure_you_want_to_delete_n_the_profile">Are you sure you want to delete \n the profile?</string>
     <string name="choose_categeory">Choose categeory</string>
+    <string name="confirm_booking">Confirm Booking</string>
     <string name="delete">Delete</string>
     <string name="description2">Description2</string>
     <string name="description_2">Description 2</string>
@@ -79,6 +80,15 @@
         <item name="colorControlActivated">@color/white</item>
         <item name="android:textColorPrimaryInverse">@color/red</item>
         // color of date selected.
+    </style>
+    <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorLink">@color/blue</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
     <style name="DialogeTheme" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@android:color/black</item>
@@ -132,6 +142,11 @@
         <item name="trackColorActive">@color/sky_blue</item>
         <item name="thumbColor">@color/white</item>
         <item name="trackColorInactive">@color/gray</item>
+    </style>
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">16sp</item>

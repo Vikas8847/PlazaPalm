@@ -12,7 +12,8 @@ import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.example.plazapalm.R;
-import com.example.plazapalm.models.DashBoardModel;
+import com.example.plazapalm.models.ProfileCateData;
+import com.example.plazapalm.views.dashboard.DashBoardVM;
 import com.google.android.material.imageview.ShapeableImageView;
 import java.lang.Deprecated;
 import java.lang.Object;
@@ -37,7 +38,10 @@ public abstract class DashBoardItemsBinding extends ViewDataBinding {
   public final AppCompatTextView tvDashBoardItemName;
 
   @Bindable
-  protected DashBoardModel mModel;
+  protected ProfileCateData mModel;
+
+  @Bindable
+  protected DashBoardVM mVm;
 
   protected DashBoardItemsBinding(Object _bindingComponent, View _root, int _localFieldCount,
       ShapeableImageView ivDashBoardCat, CardView playerLayout,
@@ -52,11 +56,18 @@ public abstract class DashBoardItemsBinding extends ViewDataBinding {
     this.tvDashBoardItemName = tvDashBoardItemName;
   }
 
-  public abstract void setModel(@Nullable DashBoardModel model);
+  public abstract void setModel(@Nullable ProfileCateData model);
 
   @Nullable
-  public DashBoardModel getModel() {
+  public ProfileCateData getModel() {
     return mModel;
+  }
+
+  public abstract void setVm(@Nullable DashBoardVM vm);
+
+  @Nullable
+  public DashBoardVM getVm() {
+    return mVm;
   }
 
   @NonNull

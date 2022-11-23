@@ -95,6 +95,7 @@ import com.example.plazapalm.views.contactus.ContactUsFragment;
 import com.example.plazapalm.views.contactus.ContactUsVM;
 import com.example.plazapalm.views.contactus.ContactUsVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.dashboard.DashBoardFragment;
+import com.example.plazapalm.views.dashboard.DashBoardFragment_MembersInjector;
 import com.example.plazapalm.views.dashboard.DashBoardVM;
 import com.example.plazapalm.views.dashboard.DashBoardVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.editprofile.EditProfileFragment;
@@ -597,6 +598,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     @Override
     public void injectDashBoardFragment(DashBoardFragment arg0) {
+      injectDashBoardFragment2(arg0);
     }
 
     @Override
@@ -729,6 +731,11 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     private AddCitiesFragment injectAddCitiesFragment2(AddCitiesFragment instance) {
       AddCitiesFragment_MembersInjector.injectPref(instance, preferenceFile());
+      return instance;
+    }
+
+    private DashBoardFragment injectDashBoardFragment2(DashBoardFragment instance) {
+      DashBoardFragment_MembersInjector.injectDataStore(instance, singletonCImpl.dataStoreUtil());
       return instance;
     }
 
@@ -1071,7 +1078,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new ChatVM();
 
           case 12: // com.example.plazapalm.views.confirmbookthankyou.ConfirmBookingVM 
-          return (T) new ConfirmBookingVM();
+          return (T) new ConfirmBookingVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile());
 
           case 13: // com.example.plazapalm.views.contactus.ContactUsVM 
           return (T) new ContactUsVM(viewModelCImpl.repository(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule), viewModelCImpl.preferenceFile());

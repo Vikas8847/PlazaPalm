@@ -172,18 +172,30 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String
     ): Response<CategoriesResponseModel>
 
+//    @FormUrlEncoded
+//    @POST(GET_PROFILE_BY_CATEGORERY)
+//    suspend fun  getProfileByCategory(
+//        @Header("Authorization")  Authorization: String,
+//        @Field("c_id") c_id:String,
+//        @Field("offset") offset:Int,
+//        @Field("limit") limit:Int,
+//        @Field("lat")lat:Double,
+//        @Field("long")long:Double,
+//        @Field("search")search:String
+//    ):Response<GetProfilebyCateResponse>
+
     @FormUrlEncoded
     @POST(GET_PROFILE_BY_CATEGORERY)
-    suspend fun  getProfileByCategory(
-        @Header("Authorization")  Authorization: String,
-        @Field("c_id") c_id:String,
-        @Field("offset") offset:Int,
-        @Field("limit") limit:Int,
-        @Field("lat")lat:Double,
-        @Field("long")long:Double,
-        @Field("search")search:String
-    ):Response<GetProfilebyCateResponse>
-
+    suspend fun getProfileByCategory(
+        @Header("Authorization") Authorization: String,
+        @Field("c_id") c_id: ArrayList<String>,
+        // @Field("c_id") c_id: String,
+        @Field("offset") offset: Int,
+        @Field("limit") limit: Int,
+        @Field("lat") lat: Double,
+        @Field("long") long: Double,
+        @Field("search") search: String
+    ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded
     @POST(SAVE_POST_PROFILE)
@@ -325,5 +337,24 @@ interface RetrofitApi {
    @Field("p_id") p_id :String ,
    @Field("question_text") question_text :String
    ):Response<QueData>
+    // add Calendar api ..
+    @FormUrlEncoded
+    @POST(ADD_TO_CALENDAR)
+    suspend fun addToCalendarBooking(
+        @Header("Authorization") Authorization: String,
+        @Field("category_name") Category_Name: String,
+        @Field("choose_date") Choose_Date: String,
+        @Field("post_profile_id") Post_Profile_Id: String,
+        @Field("choose_time") Choose_Time: String,
+        @Field("description") Description: String,
+        @Field("question_answer") Question_Answer: ArrayList<String>
+    ): Response<AddToCalendarResponseModel>
 
+
+    /*Delete Account api.. */
+    @DELETE(REMOVE_FROM_CALENDAR)
+    suspend fun deleteFromCalendar(
+        @Header("Authorization") Authorization: String,
+        @Field("booking_id") Booking_Id: String
+    ): Response<AddToCalendarResponseModel>
 }

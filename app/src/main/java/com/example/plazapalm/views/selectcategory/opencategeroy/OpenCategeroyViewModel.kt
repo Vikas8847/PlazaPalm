@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ import com.example.plazapalm.models.CategoriesData
 import com.example.plazapalm.models.CategoriesResponseModel
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateWithId
 import com.example.plazapalm.views.selectcategory.adapters.SelectCateAdapter
@@ -34,15 +36,17 @@ class OpenCategeroyViewModel @Inject constructor(
     var cacheUtil: CacheUtil,
     var pref: PreferenceFile,
     var repository: Repository
-) : ViewModel() {
+    ) : ViewModel() {
+
     var position: Int = -1
     var isChecked = ObservableBoolean(false)
     var token = ObservableField("")
     var page = ObservableField(1)
     var searchText = ObservableField("")
     var isClicked: Boolean = false
-    var latitude = ObservableField("")
-    var longitude = ObservableField("")
+    var latitude = ObservableDouble()
+    var longitude = ObservableDouble()
+    var name = ObservableField("")
     var address = ObservableField("")
     var selectCateAdapter: SelectCateAdapter? = null
 
@@ -64,7 +68,6 @@ class OpenCategeroyViewModel @Inject constructor(
 
     }
 
-
     fun getCategoriesApi(
         rvCategoryLocation: RecyclerView,
         requireActivity: FragmentActivity,
@@ -80,7 +83,11 @@ class OpenCategeroyViewModel @Inject constructor(
         body.put("limit", 10)
         body.put("search=", searchText.get())
 
-        Log.e("dsadas", latitude.get() + "  DFDF  " + longitude.get())
+        Log.e(
+            "dsadas",
+            latitude.get().toString() + "  DFDF  " + longitude.get()
+                .toString() + name.get() + "XXXX"
+        )
 
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
@@ -100,13 +107,26 @@ class OpenCategeroyViewModel @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<CategoriesResponseModel>) {
+                    Log.e("SSSSS", res.body().toString())
 
-                    showCategories(
-                        res.body()?.data!!,
-                        rvCategoryLocation,
-                        requireActivity,
-                        clickItem
-                    )
+                    if (res.isSuccessful && res.body() != null) {
+                        if (res.body()!!.status == 200) {
+                            showCategories(
+                                res.body()?.data!!,
+                                rvCategoryLocation,
+                                requireActivity,
+                                clickItem
+                            )
+
+                        } else {
+                            CommonMethods.showToast(requireActivity, res.body()!!.message!!)
+
+                        }
+
+                    } else {
+                        CommonMethods.showToast(requireActivity, res.message())
+
+                    }
                 }
 
             })

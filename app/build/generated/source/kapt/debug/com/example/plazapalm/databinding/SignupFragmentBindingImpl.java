@@ -28,7 +28,10 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
         sViewsWithIds.put(R.id.tlSignupPass, 19);
         sViewsWithIds.put(R.id.tvSignupConfirmPass, 20);
         sViewsWithIds.put(R.id.tlSignupConfirmPass, 21);
-        sViewsWithIds.put(R.id.gLineSignUpWantLogin, 22);
+        sViewsWithIds.put(R.id.tvSignupBusiness, 22);
+        sViewsWithIds.put(R.id.rb_female, 23);
+        sViewsWithIds.put(R.id.rb_male, 24);
+        sViewsWithIds.put(R.id.gLineSignUpWantLogin, 25);
     }
     // views
     // variables
@@ -223,7 +226,7 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
     };
 
     public SignupFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 23, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 26, sIncludes, sViewsWithIds));
     }
     private SignupFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 5
@@ -238,12 +241,15 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
             , (androidx.appcompat.widget.AppCompatEditText) bindings[1]
             , (androidx.appcompat.widget.AppCompatEditText) bindings[2]
             , (com.google.android.material.textfield.TextInputEditText) bindings[4]
-            , (androidx.constraintlayout.widget.Guideline) bindings[22]
+            , (androidx.constraintlayout.widget.Guideline) bindings[25]
             , (androidx.constraintlayout.widget.Guideline) bindings[8]
             , (androidx.core.widget.NestedScrollView) bindings[10]
+            , (android.widget.RadioButton) bindings[23]
+            , (android.widget.RadioButton) bindings[24]
             , (com.google.android.material.textfield.TextInputLayout) bindings[21]
             , (com.google.android.material.textfield.TextInputLayout) bindings[19]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[9]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[22]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[20]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[16]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[12]
@@ -307,19 +313,19 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
             case 0 :
-                return onChangeVmConfirmPassword((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
-            case 1 :
-                return onChangeVmPassword((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
-            case 2 :
-                return onChangeVmLastName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
-            case 3 :
                 return onChangeVmFirstName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+            case 1 :
+                return onChangeVmConfirmPassword((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+            case 2 :
+                return onChangeVmPassword((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+            case 3 :
+                return onChangeVmLastName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 4 :
                 return onChangeVmEmail((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
         }
         return false;
     }
-    private boolean onChangeVmConfirmPassword(androidx.databinding.ObservableField<java.lang.String> VmConfirmPassword, int fieldId) {
+    private boolean onChangeVmFirstName(androidx.databinding.ObservableField<java.lang.String> VmFirstName, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x1L;
@@ -328,7 +334,7 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
         }
         return false;
     }
-    private boolean onChangeVmPassword(androidx.databinding.ObservableField<java.lang.String> VmPassword, int fieldId) {
+    private boolean onChangeVmConfirmPassword(androidx.databinding.ObservableField<java.lang.String> VmConfirmPassword, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x2L;
@@ -337,7 +343,7 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
         }
         return false;
     }
-    private boolean onChangeVmLastName(androidx.databinding.ObservableField<java.lang.String> VmLastName, int fieldId) {
+    private boolean onChangeVmPassword(androidx.databinding.ObservableField<java.lang.String> VmPassword, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x4L;
@@ -346,7 +352,7 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
         }
         return false;
     }
-    private boolean onChangeVmFirstName(androidx.databinding.ObservableField<java.lang.String> VmFirstName, int fieldId) {
+    private boolean onChangeVmLastName(androidx.databinding.ObservableField<java.lang.String> VmLastName, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x8L;
@@ -373,63 +379,21 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
             mDirtyFlags = 0;
         }
         java.lang.String vmPasswordGet = null;
-        java.lang.String vmFirstNameGet = null;
-        androidx.databinding.ObservableField<java.lang.String> vmConfirmPassword = null;
         com.example.plazapalm.views.signup.SignupVM vm = mVm;
         java.lang.String vmEmailGet = null;
+        android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
+        androidx.databinding.ObservableField<java.lang.String> vmFirstName = null;
+        java.lang.String vmFirstNameGet = null;
+        androidx.databinding.ObservableField<java.lang.String> vmConfirmPassword = null;
         java.lang.String vmConfirmPasswordGet = null;
         androidx.databinding.ObservableField<java.lang.String> vmPassword = null;
         androidx.databinding.ObservableField<java.lang.String> vmLastName = null;
-        android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
         java.lang.String vmLastNameGet = null;
-        androidx.databinding.ObservableField<java.lang.String> vmFirstName = null;
         androidx.databinding.ObservableField<java.lang.String> vmEmail = null;
 
         if ((dirtyFlags & 0x7fL) != 0) {
 
 
-            if ((dirtyFlags & 0x61L) != 0) {
-
-                    if (vm != null) {
-                        // read vm.confirmPassword
-                        vmConfirmPassword = vm.getConfirmPassword();
-                    }
-                    updateRegistration(0, vmConfirmPassword);
-
-
-                    if (vmConfirmPassword != null) {
-                        // read vm.confirmPassword.get()
-                        vmConfirmPasswordGet = vmConfirmPassword.get();
-                    }
-            }
-            if ((dirtyFlags & 0x62L) != 0) {
-
-                    if (vm != null) {
-                        // read vm.password
-                        vmPassword = vm.getPassword();
-                    }
-                    updateRegistration(1, vmPassword);
-
-
-                    if (vmPassword != null) {
-                        // read vm.password.get()
-                        vmPasswordGet = vmPassword.get();
-                    }
-            }
-            if ((dirtyFlags & 0x64L) != 0) {
-
-                    if (vm != null) {
-                        // read vm.lastName
-                        vmLastName = vm.getLastName();
-                    }
-                    updateRegistration(2, vmLastName);
-
-
-                    if (vmLastName != null) {
-                        // read vm.lastName.get()
-                        vmLastNameGet = vmLastName.get();
-                    }
-            }
             if ((dirtyFlags & 0x60L) != 0) {
 
                     if (vm != null) {
@@ -437,18 +401,60 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
                         vmOnClicksAndroidViewViewOnClickListener = (((mVmOnClicksAndroidViewViewOnClickListener == null) ? (mVmOnClicksAndroidViewViewOnClickListener = new OnClickListenerImpl()) : mVmOnClicksAndroidViewViewOnClickListener).setValue(vm));
                     }
             }
-            if ((dirtyFlags & 0x68L) != 0) {
+            if ((dirtyFlags & 0x61L) != 0) {
 
                     if (vm != null) {
                         // read vm.firstName
                         vmFirstName = vm.getFirstName();
                     }
-                    updateRegistration(3, vmFirstName);
+                    updateRegistration(0, vmFirstName);
 
 
                     if (vmFirstName != null) {
                         // read vm.firstName.get()
                         vmFirstNameGet = vmFirstName.get();
+                    }
+            }
+            if ((dirtyFlags & 0x62L) != 0) {
+
+                    if (vm != null) {
+                        // read vm.confirmPassword
+                        vmConfirmPassword = vm.getConfirmPassword();
+                    }
+                    updateRegistration(1, vmConfirmPassword);
+
+
+                    if (vmConfirmPassword != null) {
+                        // read vm.confirmPassword.get()
+                        vmConfirmPasswordGet = vmConfirmPassword.get();
+                    }
+            }
+            if ((dirtyFlags & 0x64L) != 0) {
+
+                    if (vm != null) {
+                        // read vm.password
+                        vmPassword = vm.getPassword();
+                    }
+                    updateRegistration(2, vmPassword);
+
+
+                    if (vmPassword != null) {
+                        // read vm.password.get()
+                        vmPasswordGet = vmPassword.get();
+                    }
+            }
+            if ((dirtyFlags & 0x68L) != 0) {
+
+                    if (vm != null) {
+                        // read vm.lastName
+                        vmLastName = vm.getLastName();
+                    }
+                    updateRegistration(3, vmLastName);
+
+
+                    if (vmLastName != null) {
+                        // read vm.lastName.get()
+                        vmLastNameGet = vmLastName.get();
                     }
             }
             if ((dirtyFlags & 0x70L) != 0) {
@@ -474,7 +480,7 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
             this.clsignupMain.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.tvSignupWantLogin.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
         }
-        if ((dirtyFlags & 0x61L) != 0) {
+        if ((dirtyFlags & 0x62L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etSignupConfirmPassword, vmConfirmPasswordGet);
@@ -493,17 +499,17 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etSignupEmail, vmEmailGet);
         }
-        if ((dirtyFlags & 0x68L) != 0) {
+        if ((dirtyFlags & 0x61L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etSignupFirstName, vmFirstNameGet);
         }
-        if ((dirtyFlags & 0x64L) != 0) {
+        if ((dirtyFlags & 0x68L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etSignupLastName, vmLastNameGet);
         }
-        if ((dirtyFlags & 0x62L) != 0) {
+        if ((dirtyFlags & 0x64L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etSignupPassword, vmPasswordGet);
@@ -525,10 +531,10 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding  {
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): vm.confirmPassword
-        flag 1 (0x2L): vm.password
-        flag 2 (0x3L): vm.lastName
-        flag 3 (0x4L): vm.firstName
+        flag 0 (0x1L): vm.firstName
+        flag 1 (0x2L): vm.confirmPassword
+        flag 2 (0x3L): vm.password
+        flag 3 (0x4L): vm.lastName
         flag 4 (0x5L): vm.email
         flag 5 (0x6L): vm
         flag 6 (0x7L): null

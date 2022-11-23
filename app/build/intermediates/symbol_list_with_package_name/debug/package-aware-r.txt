@@ -3159,6 +3159,9 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable dislike
+drawable dislike_icon
+drawable disliketrue
 drawable electrician_image
 drawable filter_icon
 drawable flores_image
@@ -3250,7 +3253,9 @@ drawable ic_volume_display_icon
 drawable ic_welcome_lines
 drawable ic_welcome_next_button
 drawable justin_carpainter_image
+drawable like_true
 drawable like_unfilled_image
+drawable likes_true
 drawable map_search_white_bg
 drawable material_cursor_drawable
 drawable material_ic_calendar_black_24dp
@@ -3302,6 +3307,9 @@ drawable quantum_ic_search_grey600_24
 drawable quickie_bg_torch
 drawable quickie_ic_qrcode
 drawable quickie_ic_torch
+drawable radio_button_business
+drawable radio_checked
+drawable radio_unchecked
 drawable red_circle
 drawable richard_img
 drawable ring
@@ -3643,6 +3651,8 @@ id clsignupMain
 id coil_request_manager
 id collapseActionView
 id compatible
+id confirmBookDatePicker
+id confirmBookTimePicker
 id confirmBookingFragment
 id confirm_button
 id constForgotPassword
@@ -4119,6 +4129,8 @@ id questionariesFragment
 id radio
 id range_picker
 id ratio
+id rb_female
+id rb_male
 id rectangles
 id recyclerView
 id remove_image
@@ -4456,6 +4468,7 @@ id tvMapLocationOnOff
 id tvMessages
 id tvMyProfile
 id tvMyProfileName
+id tvNoDataDashboard
 id tvNotification
 id tvPicturesAdd
 id tvPicturesUploadCancel
@@ -4486,6 +4499,7 @@ id tvSettingsPrivacyPolicy
 id tvSettingsTermsUse
 id tvSettingsUpdateEmail
 id tvSignup
+id tvSignupBusiness
 id tvSignupConfirmPass
 id tvSignupEmail
 id tvSignupFirstName
@@ -4763,7 +4777,9 @@ layout chat_receiver
 layout chat_sender
 layout choose_profile_options
 layout common_view
+layout confirm_booking_datepicker
 layout confirm_booking_fragment
+layout confirm_booking_timepicker
 layout contact_us_fragment
 layout controls_layout
 layout custom_dialog
@@ -5005,6 +5021,7 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
+string confirm_booking
 string define_roundedimageview
 string define_zxingandroidembedded
 string delete
@@ -5392,6 +5409,7 @@ style CalenderViewCustom_
 style CardView
 style CardView_Dark
 style CardView_Light
+style DatePickerDialogTheme
 style DialogeTheme
 style Divider
 style EmptyTheme
@@ -5690,6 +5708,7 @@ style ThemeOverlay_MaterialComponents_Toolbar_Primary
 style ThemeOverlay_MaterialComponents_Toolbar_Surface
 style ThemeOverlay_Slider
 style ThemeOverlayColorAccentRed
+style TimePickerTheme
 style Toolbar_TitleText
 style UpgradeProView
 style ViewAdvanceSettings

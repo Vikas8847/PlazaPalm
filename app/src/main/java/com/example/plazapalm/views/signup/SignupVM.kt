@@ -69,6 +69,7 @@ class SignupVM @Inject constructor(
                     CommonMethods.showToast(CommonMethods.context, CHECK_INTERNET)
                 }
             }
+
         }
     }
 
@@ -145,7 +146,6 @@ class SignupVM @Inject constructor(
                                 bundle.putString("email", email.get())
                                 CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
                                 view.navigateWithId(R.id.action_signUpFragment_to_verifyEmailFragment, bundle)
-
                                 Log.e("RESSPONSEE" ,res.body().toString())
 
                             }

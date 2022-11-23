@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\plazapalam\\PlazaPalm@18Oct\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw690dp-v13\\values-sw690dp-v13.xml",
+            "outputFile": "D:\\plazapalam\\plazzapalmGit\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw690dp-v13\\values-sw690dp-v13.xml",
             "map": [
                 {
                     "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\16c2632947ede6f6066aa10844f98d5a\\transformed\\jetified-sdp-android-1.0.6\\res\\values-sw690dp-v13\\values-sw690dp-v13.xml",

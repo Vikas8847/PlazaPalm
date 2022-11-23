@@ -17,7 +17,7 @@ import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 class ViewPostProfileAdapter(
     var requireActivity: FragmentActivity,
     var dataList: ArrayList<AddImageDescriptionPOJO>
-)
+    )
 
     : RecyclerView.Adapter<ViewPostProfileAdapter.ViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")

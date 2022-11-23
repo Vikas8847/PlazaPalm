@@ -6,41 +6,41 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
-8-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml
+8-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="32" />
-9-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml
+9-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-11-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:5:5-79
-11-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:5:22-76
+11-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:5:5-79
+11-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:5:22-76
 12    <uses-permission android:name="android.permission.INTERNET" />
-12-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:6:5-67
-12-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:6:22-64
+12-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:6:5-67
+12-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:6:22-64
 13    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-13-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:7:5-81
-13-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:7:22-78
+13-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:7:5-81
+13-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:7:22-78
 14    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-14-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:8:5-79
-14-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:8:22-76
+14-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:8:5-79
+14-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:8:22-76
 15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-15-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:9:5-80
-15-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:9:22-77
+15-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:9:5-80
+15-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:9:22-77
 16    <uses-permission
-16-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:10:5-81
+16-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:10:5-81
 17        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-17-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:10:22-78
+17-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:10:22-78
 18        android:maxSdkVersion="28" />
 18-->[io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:16:9-35
 19    <uses-permission android:name="android.permission.FLASHLIGHT" />
-19-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:11:5-69
-19-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:11:22-66
+19-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:11:5-69
+19-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:11:22-66
 20
 21    <uses-feature
-21-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:13:5-15:35
+21-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:13:5-15:35
 22        android:name="android.hardware.camera"
-22-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:14:9-47
+22-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:14:9-47
 23        android:required="true" />
-23-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:15:9-32
+23-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:15:9-32
 24    <uses-feature android:name="android.hardware.camera.any" />
 24-->[io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:9:5-64
 24-->[io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:9:19-61
@@ -112,88 +112,88 @@
 60    <!-- android:required="true" -->
 61    <!-- android:requiredFeature="true"/> -->
 62    <application
-62-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:22:5-70:19
+62-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:22:5-70:19
 63        android:name="com.example.plazapalm.utils.AppController"
-63-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:23:9-44
+63-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:23:9-44
 64        android:allowBackup="false"
-64-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:24:9-36
+64-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:24:9-36
 65        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 65-->[androidx.core:core:1.8.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b21f7281357ff2b74dcdcfb5270be497\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
 66        android:dataExtractionRules="@xml/data_extraction_rules"
-66-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:25:9-65
+66-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:25:9-65
 67        android:debuggable="true"
 68        android:fullBackupContent="@xml/backup_rules"
-68-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:26:9-54
+68-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:26:9-54
 69        android:icon="@mipmap/ic_launcher"
-69-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:27:9-43
+69-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:27:9-43
 70        android:label="@string/app_name"
-70-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:28:9-41
+70-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:28:9-41
 71        android:largeHeap="true"
-71-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:29:9-33
+71-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:29:9-33
 72        android:networkSecurityConfig="@xml/network_security_config"
-72-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:31:9-69
+72-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:31:9-69
 73        android:requestLegacyExternalStorage="true"
-73-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:30:9-52
+73-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:30:9-52
 74        android:roundIcon="@mipmap/ic_launcher_round"
-74-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:32:9-54
+74-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:32:9-54
 75        android:supportsRtl="true"
-75-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:33:9-35
+75-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:33:9-35
 76        android:testOnly="true"
 77        android:theme="@style/Theme.PlazaPalm"
-77-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:34:9-47
+77-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:34:9-47
 78        android:usesCleartextTraffic="true" >
-78-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:35:9-44
+78-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:35:9-44
 79        <provider
 80            android:name="androidx.core.content.FileProvider"
-80-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:39:13-62
+80-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:39:13-62
 81            android:authorities="com.example.plazapalm.fileprovider"
-81-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:40:13-64
+81-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:40:13-64
 82            android:exported="false"
-82-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:41:13-37
+82-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:41:13-37
 83            android:grantUriPermissions="true" >
-83-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:42:13-47
+83-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:42:13-47
 84            <meta-data
-84-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:45:13-48:25
+84-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:45:13-48:25
 85                android:name="android.support.FILE_PROVIDER_PATHS"
-85-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:46:17-67
+85-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:46:17-67
 86                android:resource="@xml/file_paths" >
-86-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:47:17-51
+86-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:47:17-51
 87            </meta-data>
 88        </provider>
 89
 90        <meta-data
-90-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:51:9-53:57
+90-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:51:9-53:57
 91            android:name="com.google.android.geo.API_KEY"
-91-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:52:13-58
+91-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:52:13-58
 92            android:value="@string/google_places_api" />
-92-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:53:13-54
+92-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:53:13-54
 93        <meta-data
-93-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:54:9-58:21
+93-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:54:9-58:21
 94            android:name="com.google.mlkit.vision.DEPENDENCIES"
-94-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:55:13-64
+94-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:55:13-64
 95            android:value="barcode" >
-95-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:56:13-36
+95-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:56:13-36
 96
 97            <!-- To use multiple models: android:value="barcode,model2,model3" -->
 98        </meta-data>
 99
 100        <activity
-100-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:60:9-69:20
+100-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:60:9-69:20
 101            android:name="com.example.plazapalm.MainActivity"
-101-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:61:13-41
+101-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:61:13-41
 102            android:configChanges="uiMode"
-102-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:62:13-43
+102-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:62:13-43
 103            android:exported="true" >
-103-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:63:13-36
+103-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:63:13-36
 104            <intent-filter>
-104-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:64:13-67:29
+104-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:64:13-67:29
 105                <action android:name="android.intent.action.MAIN" />
-105-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:65:17-69
-105-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:65:25-66
+105-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:65:17-69
+105-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:65:25-66
 106
 107                <category android:name="android.intent.category.LAUNCHER" />
-107-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:66:17-77
-107-->D:\plazapalam\PlazaPalm@18Oct\PlazaPalm\app\src\main\AndroidManifest.xml:66:27-74
+107-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:66:17-77
+107-->D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:66:27-74
 108            </intent-filter>
 109        </activity>
 110        <activity

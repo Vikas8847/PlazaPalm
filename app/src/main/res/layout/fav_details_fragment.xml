@@ -182,7 +182,7 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:layout_constraintTop_toBottomOf="@+id/clFavDetails">
 
-///                         android:src="@{vm.selectImage ? @drawable/ic_like_icon : @drawable/like_unfilled_image}"
+//                         android:src="@{vm.selectImage ? @drawable/ic_like_icon : @drawable/like_unfilled_image}"
 //                        android:src="@drawable/like_unfilled_image"
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -190,7 +190,7 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="@dimen/_5sdp"
-                        android:src="@{vm.isLike ? @drawable/ic_like_icon : @drawable/like_unfilled_image}"
+                        android:src="@{vm.isLike ? @drawable/like_true : @drawable/like_unfilled_image}"
                         android:onClick="@{vm.onClicks}"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toStartOf="@+id/tvFavDetailsLikeCounts"
@@ -222,7 +222,7 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:onClick="@{vm.onClicks}"
-                        android:src="@{vm.isDisLike ? @drawable/ic_like_icon : @drawable/ic_thumbs_down}"
+                        android:src="@{vm.isDisLike ? @drawable/disliketrue : @drawable/ic_thumbs_down}"
                         app:layout_constraintBottom_toBottomOf="@id/ivFavDetailsLike"
                         app:layout_constraintStart_toEndOf="@id/tvFavDetailsLikeCounts"
                         app:layout_constraintTop_toTopOf="@id/ivFavDetailsLike" />

@@ -37,6 +37,7 @@ const val GET_FAVOURITES  = "listFavourites"
 const val LIKES_DISLIKES  = "likesDislikes"
 const val REPORT  = "report"
 const val ADD_QUESTION  = "addQuestion"
+const val REMOVE_FROM_CALENDAR  = "removeFromCalender"
 
 
 

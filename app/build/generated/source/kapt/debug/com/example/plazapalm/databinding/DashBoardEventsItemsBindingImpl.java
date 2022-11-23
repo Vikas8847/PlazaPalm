@@ -104,7 +104,7 @@ public class DashBoardEventsItemsBindingImpl extends DashBoardEventsItemsBinding
         }
         androidx.databinding.ObservableBoolean vmIsClicked = null;
         com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
-        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.SelectedDataModel> vmDashSelectedAdapter = null;
+        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.CategoriesData> vmDashSelectedAdapter = null;
         boolean VmIsClicked1 = false;
         int vmIsClickedViewVISIBLEViewGONE = 0;
         boolean vmIsClickedGet = false;

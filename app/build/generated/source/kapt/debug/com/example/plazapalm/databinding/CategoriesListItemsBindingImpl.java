@@ -14,8 +14,7 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.ivSelectedCategory, 2);
-        sViewsWithIds.put(R.id.viewFavourite, 3);
+        sViewsWithIds.put(R.id.viewFavourite, 2);
     }
     // views
     // variables
@@ -26,14 +25,13 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
     // Inverse Binding Event Handlers
 
     public CategoriesListItemsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 3, sIncludes, sViewsWithIds));
     }
     private CategoriesListItemsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[0]
-            , (android.widget.ImageView) bindings[2]
-            , (androidx.appcompat.widget.AppCompatCheckBox) bindings[1]
-            , (android.view.View) bindings[3]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[1]
+            , (android.view.View) bindings[2]
             );
         this.clCategoriesList.setTag(null);
         this.tvSelectCategory.setTag(null);
@@ -109,9 +107,10 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
             mDirtyFlags = 0;
         }
         com.example.plazapalm.models.CategoriesData model = mModel;
+        boolean modelIsCheckBooleanTrue = false;
         java.lang.String modelCount = null;
+        android.graphics.drawable.Drawable modelIsCheckBooleanTrueTvSelectCategoryAndroidDrawableIcCheckboxTickIconTvSelectCategoryAndroidDrawableIcCheckboxUnselectTickIcon = null;
         boolean modelCategoryNameJavaLangObjectNull = false;
-        boolean modelIsCheckBooleanTrueBooleanFalse = false;
         java.lang.String modelCategoryNameJavaLangObjectNullJavaLangStringModelCategoryNameJavaLangString = null;
         boolean androidxDatabindingViewDataBindingSafeUnboxModelIsCheck = false;
         boolean modelCountJavaLangObjectNull = false;
@@ -151,14 +150,6 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
                 }
             }
             if((dirtyFlags & 0x9L) != 0) {
-                if(androidxDatabindingViewDataBindingSafeUnboxModelIsCheck) {
-                        dirtyFlags |= 0x20L;
-                }
-                else {
-                        dirtyFlags |= 0x10L;
-                }
-            }
-            if((dirtyFlags & 0x9L) != 0) {
                 if(modelCategoryNameJavaLangObjectNull) {
                         dirtyFlags |= 0x200L;
                 }
@@ -168,8 +159,20 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
             }
 
 
-                // read androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) ? true : false
-                modelIsCheckBooleanTrueBooleanFalse = ((androidxDatabindingViewDataBindingSafeUnboxModelIsCheck) ? (true) : (false));
+                // read androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) == true
+                modelIsCheckBooleanTrue = (androidxDatabindingViewDataBindingSafeUnboxModelIsCheck) == (true);
+            if((dirtyFlags & 0x9L) != 0) {
+                if(modelIsCheckBooleanTrue) {
+                        dirtyFlags |= 0x20L;
+                }
+                else {
+                        dirtyFlags |= 0x10L;
+                }
+            }
+
+
+                // read androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) == true ? @android:drawable/ic_checkbox_tick_icon : @android:drawable/ic_checkbox_unselect_tick_icon
+                modelIsCheckBooleanTrueTvSelectCategoryAndroidDrawableIcCheckboxTickIconTvSelectCategoryAndroidDrawableIcCheckboxUnselectTickIcon = ((modelIsCheckBooleanTrue) ? (androidx.appcompat.content.res.AppCompatResources.getDrawable(tvSelectCategory.getContext(), R.drawable.ic_checkbox_tick_icon)) : (androidx.appcompat.content.res.AppCompatResources.getDrawable(tvSelectCategory.getContext(), R.drawable.ic_checkbox_unselect_tick_icon)));
         }
         // batch finished
 
@@ -201,7 +204,7 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
         if ((dirtyFlags & 0x9L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.CompoundButtonBindingAdapter.setChecked(this.tvSelectCategory, modelIsCheckBooleanTrueBooleanFalse);
+            androidx.databinding.adapters.TextViewBindingAdapter.setDrawableEnd(this.tvSelectCategory, modelIsCheckBooleanTrueTvSelectCategoryAndroidDrawableIcCheckboxTickIconTvSelectCategoryAndroidDrawableIcCheckboxUnselectTickIcon);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvSelectCategory, modelCategoryNameJavaLangObjectNullJavaLangStringModelCategoryNameJavaLangStringModelCountJavaLangObjectNullJavaLangStringModelCountJavaLangString);
         }
     }
@@ -249,8 +252,8 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
         flag 1 (0x2L): vm
         flag 2 (0x3L): categoryName
         flag 3 (0x4L): null
-        flag 4 (0x5L): androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) ? true : false
-        flag 5 (0x6L): androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) ? true : false
+        flag 4 (0x5L): androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) == true ? @android:drawable/ic_checkbox_tick_icon : @android:drawable/ic_checkbox_unselect_tick_icon
+        flag 5 (0x6L): androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) == true ? @android:drawable/ic_checkbox_tick_icon : @android:drawable/ic_checkbox_unselect_tick_icon
         flag 6 (0x7L): model.count == null ? "" : model.count
         flag 7 (0x8L): model.count == null ? "" : model.count
         flag 8 (0x9L): model.category_name == null ? "" : model.category_name

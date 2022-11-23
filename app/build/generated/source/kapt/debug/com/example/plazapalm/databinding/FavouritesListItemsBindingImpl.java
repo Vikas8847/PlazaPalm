@@ -14,8 +14,7 @@ public class FavouritesListItemsBindingImpl extends FavouritesListItemsBinding i
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.player_layout, 4);
-        sViewsWithIds.put(R.id.ivFavItem, 5);
+        sViewsWithIds.put(R.id.player_layout, 5);
         sViewsWithIds.put(R.id.ivFavItemHeart, 6);
         sViewsWithIds.put(R.id.ivFavItemEmptyHeart, 7);
         sViewsWithIds.put(R.id.tvFavItemDistance, 8);
@@ -34,16 +33,17 @@ public class FavouritesListItemsBindingImpl extends FavouritesListItemsBinding i
     private FavouritesListItemsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
             , (androidx.cardview.widget.CardView) bindings[0]
-            , (com.google.android.material.imageview.ShapeableImageView) bindings[5]
+            , (com.google.android.material.imageview.ShapeableImageView) bindings[1]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[7]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[6]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[8]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[5]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[1]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[8]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
             );
         this.clFavItemMain.setTag(null);
+        this.ivFavItem.setTag(null);
         this.tvFavItemDescription.setTag(null);
         this.tvFavItemLocation.setTag(null);
         this.tvFavItemName.setTag(null);
@@ -107,8 +107,10 @@ public class FavouritesListItemsBindingImpl extends FavouritesListItemsBinding i
             mDirtyFlags = 0;
         }
         com.example.plazapalm.models.FavData model = mModel;
+        java.lang.Object modelPostProfilePicture0 = null;
         java.lang.String modelDescription1 = null;
         java.lang.String modelUserName = null;
+        java.util.List<java.lang.Object> modelPostProfilePicture = null;
         java.lang.String modelLocationText = null;
 
         if ((dirtyFlags & 0x3L) != 0) {
@@ -120,8 +122,16 @@ public class FavouritesListItemsBindingImpl extends FavouritesListItemsBinding i
                     modelDescription1 = model.getDescription_1();
                     // read model.user_name
                     modelUserName = model.getUser_name();
+                    // read model.postProfile_picture
+                    modelPostProfilePicture = model.getPostProfile_picture();
                     // read model.location_text
                     modelLocationText = model.getLocation_text();
+                }
+
+
+                if (modelPostProfilePicture != null) {
+                    // read model.postProfile_picture[0]
+                    modelPostProfilePicture0 = getFromList(modelPostProfilePicture, 0);
                 }
         }
         // batch finished
@@ -133,6 +143,7 @@ public class FavouritesListItemsBindingImpl extends FavouritesListItemsBinding i
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
 
+            com.example.plazapalm.utils.BindingAdapters.setImage(this.ivFavItem, (java.lang.String) modelPostProfilePicture0);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavItemDescription, modelDescription1);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavItemLocation, modelLocationText);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavItemName, modelUserName);

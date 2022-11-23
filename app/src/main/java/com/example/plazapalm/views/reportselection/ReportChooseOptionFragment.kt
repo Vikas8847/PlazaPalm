@@ -42,6 +42,9 @@ class ReportChooseOptionFragment : Fragment(R.layout.fragment_report_choose_opti
         if (arguments?.getString("p_id")!=null){
            viewModel.P_ID.set(arguments?.getString("p_id"))
         }
+        else if(arguments?.getString("p_id")!=null) {
+
+        }
     }
 
     private fun setAdapter() {

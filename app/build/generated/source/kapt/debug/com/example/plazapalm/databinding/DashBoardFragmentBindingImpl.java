@@ -18,6 +18,7 @@ public class DashBoardFragmentBindingImpl extends DashBoardFragmentBinding  {
         sViewsWithIds.put(R.id.tvDashBoardTitle, 6);
         sViewsWithIds.put(R.id.vDashBoardHeader, 7);
         sViewsWithIds.put(R.id.search_bar, 8);
+        sViewsWithIds.put(R.id.tvNoDataDashboard, 9);
     }
     // views
     // variables
@@ -27,7 +28,7 @@ public class DashBoardFragmentBindingImpl extends DashBoardFragmentBinding  {
     // Inverse Binding Event Handlers
 
     public DashBoardFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 10, sIncludes, sViewsWithIds));
     }
     private DashBoardFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
@@ -39,6 +40,7 @@ public class DashBoardFragmentBindingImpl extends DashBoardFragmentBinding  {
             , (androidx.recyclerview.widget.RecyclerView) bindings[4]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[8]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[9]
             , (android.view.View) bindings[7]
             );
         this.clDashBoardListSearch.setTag(null);
@@ -106,7 +108,7 @@ public class DashBoardFragmentBindingImpl extends DashBoardFragmentBinding  {
         }
         android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
         com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
-        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.DashBoardModel> vmAdapter = null;
+        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.ProfileCateData> vmAdapter = null;
 
         if ((dirtyFlags & 0x3L) != 0) {
 

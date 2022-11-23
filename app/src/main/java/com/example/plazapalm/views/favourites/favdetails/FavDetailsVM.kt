@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.favourites.favdetails
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableParcelable
@@ -19,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
-import com.example.plazapalm.datastore.POST_PROFILE_DATA
 import com.example.plazapalm.models.*
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
@@ -84,28 +85,25 @@ class FavDetailsVM @Inject constructor(
             R.id.ivFavDetailsDislike -> {
                 val imageLik = view as ImageView
 
-                /*  if (image.isClickable){
-                      selectImage.set(true)
-                  }else{
-                      selectImage.set(false)
-                  }*/
-
                 if (isLike.get().equals(false) || isDisLike.get().equals(false)) {
                     isDisLike.set(true)
                     isLike.set(false)
                 } else {
 
-                    isDisLike.set(isDisLike.get())
-                    isLike.set(isLike.get())
+                   var dislikeValue= isDisLike.get()
+                   var likeValue= isLike.get()
+                    isDisLike.set(likeValue)
+                    isLike.set(dislikeValue)
 
-                    Log.e("CHECHK",isDisLike.get().toString() + "VV----  " + isLike.get() )
                 }
+                Log.e("CHECHK", isDisLike.get().toString() + "VV----  " + isLike.get())
 
                 likeApi(isLike.get(), isDisLike.get(), "disLike", imageLik)
 
             }
 
             R.id.ivFavDetailsLike -> {
+
                 val imageDis = view as ImageView
 
                 if (isLike.get().equals(false) || isDisLike.get().equals(false)) {
@@ -113,9 +111,10 @@ class FavDetailsVM @Inject constructor(
                     isDisLike.set(false)
 
                 } else {
-
-                    isDisLike.set(isDisLike.get())
-                    isLike.set(isLike.get())
+                    var dislikeValue= isDisLike.get()
+                    var likeValue= isLike.get()
+                    isDisLike.set(likeValue)
+                    isLike.set(dislikeValue)
 
                 }
 
@@ -125,7 +124,20 @@ class FavDetailsVM @Inject constructor(
                 view.findNavController().navigateUp()
             }
             R.id.ivFavDetailsFilledHeart -> {
-                AddtoFavAPI(view, isFav.get(), "addFav")
+
+                if (CommingFrom.get().equals("isFavorite")) {
+                    AddtoFavAPI(view, isFav.get(), "isFavorite")
+
+                } else if (CommingFrom.get().equals("isDashBoard")) {
+
+                    AddtoFavAPI(view, isFav.get(), "isDashBoard")
+
+                } else if (CommingFrom.get().equals("isViewProfile")) {
+
+                    AddtoFavAPI(view, isFav.get(), "addFav")
+                }
+
+
             }
             R.id.ivFavDetailsOptions -> {
 
@@ -136,11 +148,9 @@ class FavDetailsVM @Inject constructor(
 //                }
 //
                 if (CommingFrom.get().equals("isFavorite")) {
-
                     showFavDetailsDialog(view, false)
                 } else if (CommingFrom.get().equals("isDashBoard")) {
                     showFavDetailsDialog(view, false)
-
 
                 } else if (CommingFrom.get().equals("isViewProfile")) {
                     showViewProfileDialog(view)
@@ -186,7 +196,10 @@ class FavDetailsVM @Inject constructor(
                         if (res.body()!!.status == 200) {
 
                             dialog?.dismiss()
-                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message.toString())
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                res.body()!!.message.toString()
+                            )
                             Log.e("SSSSCXXXXX", res.body()!!.message.toString())
 
                             if (from.equals("disLike")) {
@@ -214,21 +227,24 @@ class FavDetailsVM @Inject constructor(
 //                                isLike.set(false)
 //                                isDisLike.set(true)
 
-                               /* if (res.body()!!.message.equals("Liked")) {
-                                    Glide.with(CommonMethods.context)
-                                        .load(R.drawable.ic_like_icon)
-                                        .into(image)
-                                } else if (res.body()!!.message.equals("Unliked")) {
-                                    Glide.with(CommonMethods.context)
-                                        .load(R.drawable.like_unfilled_image)
-                                        .into(image)
-                                }*/
+                                /* if (res.body()!!.message.equals("Liked")) {
+                                     Glide.with(CommonMethods.context)
+                                         .load(R.drawable.ic_like_icon)
+                                         .into(image)
+                                 } else if (res.body()!!.message.equals("Unliked")) {
+                                     Glide.with(CommonMethods.context)
+                                         .load(R.drawable.like_unfilled_image)
+                                         .into(image)
+                                 }*/
 
                             }
 
                         } else {
 
-                            CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                res.body()?.message.toString()
+                            )
                         }
                     } else {
 
@@ -268,29 +284,29 @@ class FavDetailsVM @Inject constructor(
                             dialog?.dismiss()
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
 
-                            if (from.equals("addFav")) {
-                                if (isFav.get()) {
-                                    Glide.with(CommonMethods.context)
-                                        .load(R.drawable.ic_heart_filled_icon)
-                                        .into(imageView)
-                                    isFav.set(false)
-                                    Log.e("TRUE", res.body().toString())
+                            if (isFav.get()) {
+                                Glide.with(CommonMethods.context)
+                                    .load(R.drawable.ic_heart_filled_icon)
+                                    .into(imageView)
+                                isFav.set(false)
 
-                                } else {
-                                    Glide.with(CommonMethods.context)
-                                        .load(R.drawable.ic_heart_icon)
-                                        .into(imageView)
-                                    isFav.set(true)
-                                    Log.e("FALSE", res.body().toString())
+                                Log.e("TRUE", res.body().toString())
 
-                                }
+
                             } else {
-                                view.navigateBack()
+                                Glide.with(CommonMethods.context)
+                                    .load(R.drawable.ic_heart_icon)
+                                    .into(imageView)
+                                isFav.set(true)
+                                Log.e("FALSE", res.body().toString())
                             }
 
 
                         } else {
-                            CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                res.body()?.message.toString()
+                            )
                         }
                     } else {
                         CommonMethods.showToast(CommonMethods.context, res.message())
@@ -326,19 +342,40 @@ class FavDetailsVM @Inject constructor(
             /** Add to Calendar (Button) **/
             dialog?.findViewById<AppCompatTextView>(R.id.tvChooseOptAddToCalFavDetails)
                 ?.setOnClickListener {
+                    val ispopUpAddCal = Bundle()
+                    ispopUpAddCal.putString("ispopUpAddCal", "addToCalander")
+                    ispopUpAddCal.putString("user_name", username.get())
+                    ispopUpAddCal.putString("user_location",userdata.get()!!.location_text)
+                    ispopUpAddCal.putString("pro_imageg",data_list!!.get(0).Image)
+                    ispopUpAddCal.putFloat("miles",0.0f)
+
+                    Log.e("SSSSSSs",userdata.get()!!.location_text.toString())
+                    view.navigateWithId(R.id.confirmBookingFragment , ispopUpAddCal)
                     dialog?.dismiss()
                 }
             /** Share Click (Button) **/
             dialog?.findViewById<AppCompatTextView>(R.id.tvFavChooseShare)?.setOnClickListener {
+
+                val shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "text/plain"
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Insert Subject here")
+                val app_url = " https://play.google.com/store/apps/details?id=my.example.javatpoint"
+                shareIntent.putExtra(Intent.EXTRA_TEXT, app_url)
+                CommonMethods.context.startActivity(Intent.createChooser(shareIntent, "Share via"))
+
                 dialog?.dismiss()
+
             }
 
             /**RePort Button Click**/
             dialog?.findViewById<AppCompatTextView>(R.id.tvChooseOptFavDetailsReport)
                 ?.setOnClickListener {
                     val bundle = Bundle()
-                    bundle.putString("p_id",p_id.get())
-                    view.navigateWithId(R.id.action_favDetailsFragment_to_reportChooseOptionFragment , bundle)
+                    bundle.putString("p_id", p_id.get())
+                    view.navigateWithId(
+                        R.id.action_favDetailsFragment_to_reportChooseOptionFragment,
+                        bundle
+                    )
                     dialog?.dismiss()
                 }
             /*** Cancel Button Clicks **/
@@ -513,8 +550,6 @@ class FavDetailsVM @Inject constructor(
 
         dialog?.show()
     }
-
-
 
 
     private fun setAdapter(rvImages: RecyclerView) {

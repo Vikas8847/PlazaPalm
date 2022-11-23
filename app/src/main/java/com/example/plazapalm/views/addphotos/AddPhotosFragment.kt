@@ -363,49 +363,58 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
                     override fun onResponse(res: Response<UploadMediaResponse>) {
                         Log.e("HEADERR", res.body().toString())
 
-                        var previousSelectedPhotos = photoList!!.filter { it.isValid == true } as ArrayList<AddPhoto>
-                        var newList = ArrayList<String>()
-                        newList.clear()
-                        if (previousSelectedPhotos.size > 0) {
-                            for (idx in 0 until previousSelectedPhotos.size) {
-                                newList.add(previousSelectedPhotos[idx].Image.toString())
-                            }
-                        }
+                        if ( res.isSuccessful && res.body()!=null ){
+                            if (res.body()!!.status==200){
 
-                        if (res.body()!!.data.size > 0) {
-                            for (idx in 0 until res.body()!!.data.size) {
-                                newList.add(res.body()!!.data[idx].toString())
-                            }
-                        }
+                                var previousSelectedPhotos = photoList!!.filter { it.isValid == true } as ArrayList<AddPhoto>
+                                var newList = ArrayList<String>()
+                                newList.clear()
+                                if (previousSelectedPhotos.size > 0) {
+                                    for (idx in 0 until previousSelectedPhotos.size) {
+                                        newList.add(previousSelectedPhotos[idx].Image.toString())
+                                    }
+                                }
 
-                        var arraylist = ArrayList<AddPhoto>()
+                                if (res.body()!!.data.size > 0) {
+                                    for (idx in 0 until res.body()!!.data.size) {
+                                        newList.add(res.body()!!.data[idx].toString())
+                                    }
+                                }
 
-                        for (idx in 0 until newList.size) {
-                            if (newList[idx].toString() != "") {
-                                arraylist.add(AddPhoto(newList[idx],true))
-                            }
-                        }
+                                var arraylist = ArrayList<AddPhoto>()
 
-                        Log.e("ASA", arraylist.toString() + "VVVV")
+                                for (idx in 0 until newList.size) {
+                                    if (newList[idx].toString() != "") {
+                                        arraylist.add(AddPhoto(newList[idx],true))
+                                    }
+                                }
 
-                        CommonMethods.showToast(requireActivity(), "images uploaded")
-                        var gsonValue = Gson().toJson(arraylist)
+                                Log.e("ASA", arraylist.toString() + "VVVV")
+                                CommonMethods.showToast(requireActivity(), "images uploaded")
+                                var gsonValue = Gson().toJson(arraylist)
 
-                        findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                            "photos",
-                            gsonValue
-                        )
+                                findNavController().previousBackStackEntry?.savedStateHandle?.set("photos", gsonValue)
+                                findNavController().popBackStack()
 
-                        findNavController().popBackStack()
-
-                        //  bundle.putParcelableArrayList("photoList",dataList)
-                        //  requireActivity().supportFragmentManager.popBackStack()
+                                //  bundle.putParcelableArrayList("photoList",dataList)
+                                //  requireActivity().supportFragmentManager.popBackStack()
 //            view!!.findNavController().navigate(R.id.action_addPhotosFragment_to_postProfileFragment,bundle)
+
+                            }else{
+                                CommonMethods.showToast(requireActivity(), res!!.body()!!.message)
+
+                            }
+
+                        }else{
+                            CommonMethods.showToast(requireActivity(), res.message())
+
+                        }
 
                     }
 
                     override fun onError(message: String) {
                         super.onError(message)
+                        Log.e("ERROR" , message)
                         CommonMethods.showToast(requireActivity(), message)
 
                     }

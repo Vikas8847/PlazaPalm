@@ -10,10 +10,7 @@ import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.ReportResponse
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
-import com.example.plazapalm.utils.CommonMethods
-import com.example.plazapalm.utils.Constants
-import com.example.plazapalm.utils.hideKeyboard
-import com.example.plazapalm.utils.navigateBack
+import com.example.plazapalm.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Response
 import javax.inject.Inject
@@ -70,9 +67,14 @@ class ReportVM @Inject constructor(
 
                         if (res.code() == 200) {
                             Log.e("QWQAAAZZZ", res.body().toString())
-                            res.body()!!.message?.let { CommonMethods.showToast(CommonMethods.context, it)
-                            }
-                            view.navigateBack()
+                            res.body()!!.message?.let { CommonMethods.showToast(CommonMethods.context, it) }
+
+                        /** back to dashboard screen */
+
+                            view.navigateWithId(R.id.dashBoardFragment)
+
+//                            view.navigateBack()
+
                         } else {
                             res.body()!!.message?.let { CommonMethods.showToast(CommonMethods.context, it) }
                         }

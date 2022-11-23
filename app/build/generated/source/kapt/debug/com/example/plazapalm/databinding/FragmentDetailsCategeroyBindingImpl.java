@@ -97,7 +97,7 @@ public class FragmentDetailsCategeroyBindingImpl extends FragmentDetailsCategero
             mDirtyFlags = 0;
         }
         com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
-        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.DashBoardModel> vmAdapter = null;
+        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.ProfileCateData> vmAdapter = null;
         android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
 
         if ((dirtyFlags & 0x3L) != 0) {

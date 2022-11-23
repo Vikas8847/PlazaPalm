@@ -17,6 +17,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import me.relex.circleindicator.CircleIndicator
@@ -153,6 +154,23 @@ object BindingAdapters {
         view.addTextChangedListener(listener)
     }
 
+    @BindingAdapter(value = ["setImage"], requireAll = false)
+    @JvmStatic
+    fun setImage(
+        shapeableImageView: ShapeableImageView,
+        imageUrl: String?
+    ) {
+        if (imageUrl!=null){
+            Glide.with(CommonMethods.context)
+                .load(IMAGE_LOAD_URL + imageUrl)
+                .override(100,100)
+                .into(shapeableImageView)
+        }
+        else
+        {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
+    }
 
     @BindingAdapter(value = ["setViewPager", "addTabLayout", "setIndicator"], requireAll = false)
     @JvmStatic

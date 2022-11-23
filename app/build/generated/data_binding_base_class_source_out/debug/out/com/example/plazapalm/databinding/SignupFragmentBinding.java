@@ -4,6 +4,7 @@ package com.example.plazapalm.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -66,6 +67,12 @@ public abstract class SignupFragmentBinding extends ViewDataBinding {
   public final NestedScrollView nScrollSigUp;
 
   @NonNull
+  public final RadioButton rbFemale;
+
+  @NonNull
+  public final RadioButton rbMale;
+
+  @NonNull
   public final TextInputLayout tlSignupConfirmPass;
 
   @NonNull
@@ -73,6 +80,9 @@ public abstract class SignupFragmentBinding extends ViewDataBinding {
 
   @NonNull
   public final AppCompatTextView tvSignup;
+
+  @NonNull
+  public final AppCompatTextView tvSignupBusiness;
 
   @NonNull
   public final AppCompatTextView tvSignupConfirmPass;
@@ -102,7 +112,8 @@ public abstract class SignupFragmentBinding extends ViewDataBinding {
       AppCompatEditText etSignupEmail, AppCompatEditText etSignupFirstName,
       AppCompatEditText etSignupLastName, TextInputEditText etSignupPassword,
       Guideline gLineSignUpWantLogin, Guideline gLineSignup, NestedScrollView nScrollSigUp,
-      TextInputLayout tlSignupConfirmPass, TextInputLayout tlSignupPass, AppCompatTextView tvSignup,
+      RadioButton rbFemale, RadioButton rbMale, TextInputLayout tlSignupConfirmPass,
+      TextInputLayout tlSignupPass, AppCompatTextView tvSignup, AppCompatTextView tvSignupBusiness,
       AppCompatTextView tvSignupConfirmPass, AppCompatTextView tvSignupEmail,
       AppCompatTextView tvSignupFirstName, AppCompatTextView tvSignupLastName,
       AppCompatTextView tvSignupPassword, AppCompatTextView tvSignupWantLogin) {
@@ -121,9 +132,12 @@ public abstract class SignupFragmentBinding extends ViewDataBinding {
     this.gLineSignUpWantLogin = gLineSignUpWantLogin;
     this.gLineSignup = gLineSignup;
     this.nScrollSigUp = nScrollSigUp;
+    this.rbFemale = rbFemale;
+    this.rbMale = rbMale;
     this.tlSignupConfirmPass = tlSignupConfirmPass;
     this.tlSignupPass = tlSignupPass;
     this.tvSignup = tvSignup;
+    this.tvSignupBusiness = tvSignupBusiness;
     this.tvSignupConfirmPass = tvSignupConfirmPass;
     this.tvSignupEmail = tvSignupEmail;
     this.tvSignupFirstName = tvSignupFirstName;

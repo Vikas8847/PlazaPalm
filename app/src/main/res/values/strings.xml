@@ -29,6 +29,7 @@
     <string name="description2">Description2</string>
     <string name="submit">Submit</string>
     <string name="you_selected">You Selected</string>
+    <string name="confirm_booking">Confirm Booking</string>
 
 
 </resources>

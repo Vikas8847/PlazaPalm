@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-
         <variable
             name="vm"
             type="com.example.plazapalm.views.confirmbookthankyou.ConfirmBookingVM" />
@@ -42,8 +40,8 @@
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:text="Confirm Booking"
                     android:textColor="@color/white"
+                    android:text="@={vm.title}"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Vikas Panchal"
+                    android:text="@={vm.user_Name}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Panipat HR"
+                    android:text="@={vm.user_location}"
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="25 Miles"
+                    android:text="@={vm.user_miles}"
                     android:textColor="@color/light_white_opacity"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.29" />
+                    app:layout_constraintGuide_begin="196dp" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -148,7 +146,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/gLineConfirmBook" />
 
-
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etConfirmBookDate"
                     android:layout_width="match_parent"
@@ -158,17 +155,19 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/categories_search_bar_bg"
                     android:drawableEnd="@drawable/ic_calendar_icon"
-                    android:hint="dd/mm/yyyy"
-                    android:inputType="text"
+                    android:editable="false"
+                    android:gravity="start"
                     android:maxLines="1"
+                    android:onClick="@{vm::onClicks}"
+                    android:padding="@dimen/_8sdp"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:singleLine="true"
+                    android:text="@={vm.chooseDate}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintTop_toBottomOf="@id/tvConfirmBookChooseDate" />
-
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvConfirmBookChooseTime"
@@ -192,16 +191,21 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/categories_search_bar_bg"
                     android:drawableEnd="@drawable/time_circle"
+                    android:editable="false"
+                    android:gravity="start"
                     android:hint="hh:mm"
-                    android:inputType="text"
                     android:maxLines="1"
+                    android:onClick="@{vm::onClicks}"
+                    android:padding="@dimen/_8sdp"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:singleLine="true"
+                    android:text="@={vm.chooseTime}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="14sp"
-                    app:layout_constraintTop_toBottomOf="@id/tvConfirmBookChooseTime" />
+                    app:layout_constraintTop_toBottomOf="@id/tvConfirmBookChooseTime"
+                    tools:text="hh:mm" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -229,11 +233,12 @@
                     android:fontFamily="@font/inter_medium"
                     android:gravity="top"
                     android:hint="Description"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
                     android:padding="@dimen/_10sdp"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
-                    android:singleLine="false"
+                    android:text="@={vm.description}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textCursorDrawable="@drawable/color_cursor"
@@ -250,9 +255,9 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:text="Question 1"
-                    android:visibility="gone"
                     android:textColor="@color/white"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/etConfirmBookDescription" />
 
@@ -263,10 +268,10 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/inter_medium"
-                    android:visibility="gone"
                     android:text="How can i straight my hairs?"
                     android:textColor="@color/light_white_opacity"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvConfirmBookQuestionOne" />
 
@@ -277,7 +282,6 @@
                     android:layout_height="@dimen/_60sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:visibility="gone"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/confirm_book_description_bg"
                     android:fontFamily="@font/inter_medium"
@@ -292,6 +296,7 @@
                     android:textColorHint="@color/white"
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvConfirmBookQuestionHair" />
 

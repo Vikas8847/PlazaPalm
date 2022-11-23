@@ -41,6 +41,10 @@ import javax.inject.Inject
 class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback,
     LocationSource.OnLocationChangedListener {
 
+    private var longi: Double? = null
+    private var lati: Double? = null
+    private var p_id: String? = null
+
     private lateinit var marker: MarkerOptions
     lateinit var mMap: GoogleMap
     lateinit var mapFragment: SupportMapFragment
@@ -122,16 +126,14 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             when (arguments?.get("comingFrom")) {
                 "isFavorite" -> {
                     viewModel.CommingFrom.set("isFavorite")
-
                     binding?.ivFavDetailsFilledHeart?.visibility = View.VISIBLE
-                    binding?.ivFavDetailsEmptyHeart?.setImageResource(R.drawable.ic_heart_filled_icon)
-                    binding?.ivFavDetailsEmptyHeart?.visibility = View.GONE
+//                    binding?.ivFavDetailsEmptyHeart?.setImageResource(R.drawable.ic_heart_filled_icon)
 
                     /** GET DATA FROM FAVOURITES // BY SERIALIZABLE */
+
                     val data = requireArguments().getSerializable("ResBody") as ArrayList<FavData>
                     val pos = requireArguments().getInt("pos")
-                    val image: ArrayList<String> =
-                        data.get(pos).postProfile_picture as ArrayList<String>
+                    val image: ArrayList<String> = data.get(pos).postProfile_picture as ArrayList<String>
                     setFavdata(pos, data, image)
 
                     Log.e(
@@ -142,18 +144,22 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 }
 
                 "isDashBoard" -> {
+
                     viewModel.CommingFrom.set("isDashBoard")
-                    binding?.ivFavDetailsFilledHeart?.visibility = View.GONE
-                    binding?.ivFavDetailsEmptyHeart?.visibility = View.VISIBLE
+
+                    p_id = arguments?.getString("DashBoardPostId").toString()
+                    lati = arguments?.getDouble("DashBoardPostLatitude")
+                    longi = arguments?.getDouble("DashBoardPostLongitude")
+                    viewModel.p_id.set(p_id)
+
+                    getPostprofile(p_id!!, lati!!, longi!!)
 
                 }
 
                 "isViewProfile" -> {
-//                    viewModel.isViewProfile.set(true)
                     val _p_id = arguments?.getString("P_ID")
                     viewModel.CommingFrom.set("isViewProfile")
                     binding!!.btnBookingProfile.visibility = View.GONE
-
                     getPostprofile(_p_id!!, pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
                     viewModel.p_id.set(_p_id)
 //                    getViewProfileData()
@@ -164,15 +170,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         }
     }
 
+    /** only call when coming from Favouirte screen **/
     private fun setFavdata(pos: Int, data: ArrayList<FavData>, image: ArrayList<String>) {
 
-//        viewModel.isFav.set(data.get(pos).isfa)
-//        viewModel.isLike.set(data.get(pos).isLiked!!)
-//        viewModel.isDisLike.set(data.get(pos).isDisliked!!)
-//        viewModel.LikesCount.set(data.get(pos).likeCount.toString())
-//        viewModel.DisLikesCount.set(data.get(pos).dislikeCount.toString())
-
-        if (viewModel.isFav.get()) {
+/*        if (viewModel.isFav.get()) {
             Glide.with(CommonMethods.context)
                 .load(R.drawable.ic_heart_filled_icon)
                 .into(binding!!.ivFavDetailsFilledHeart)
@@ -181,8 +182,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             Glide.with(CommonMethods.context)
                 .load(R.drawable.ic_heart_icon)
                 .into(binding!!.ivFavDetailsFilledHeart)
-            viewModel.isFav.set(true)
-        }
+            viewModel.isFav.set(true)*/
+//        }
 
         dataList = image
 
@@ -191,22 +192,13 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         dscList.add(data.get(pos).description_2.toString())
         dscList.add(data.get(pos).description_3.toString())
 
-        /// set data
-
-//        viewModel.etVEditProDescription.set(data.get(pos).description_1.toString())
         viewModel.tvFavDetailsAddress.set(data.get(pos).address)
         viewModel.tvFavCityAddress.set(data.get(pos).location_text)
         viewModel.fav_title.set(data.get(pos).user_name)
         viewModel.username.set(data.get(pos).user_name)
         viewModel.p_id.set(data.get(pos).p_id)
 
-        Glide.with(requireActivity())
-            .load(
-                IMAGE_LOAD_URL + image.get(
-                    0
-                )
-            )
-            .into(binding!!.ivFavDetails)
+        Glide.with(requireActivity()).load(IMAGE_LOAD_URL + image.get(0)).into(binding!!.ivFavDetails)
 
         Log.e("ASDASDASdasd", dataList.size.toString())
 
@@ -354,70 +346,176 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     if (res.isSuccessful) {
                         if (res.body() != null) {
                             if (res.code() == 200) {
-                                Log.e("QWQAAAZZZ", res.body().toString())
+                                /**Here Set According to Types Using Arguments Data (Containing Types) **/
 
-                                viewModel.userdata.set(res.body()!!.data)
-                                viewModel.isFav.set(res.body()!!.data.isFavourite!!)
-                                viewModel.isLike.set(res.body()!!.data.isLiked!!)
-                                viewModel.isDisLike.set(res.body()!!.data.isDisliked!!)
-                                viewModel.LikesCount.set(res.body()!!.data.likeCount.toString())
-                                viewModel.DisLikesCount.set(res.body()!!.data.dislikeCount.toString())
+//                                if (arguments != null) {
+//                                    when {
+//
+//                                        arguments?.getString("comingFrom")?.contains("isDashBoard") != null -> {
+//                                            val dashBoardData = res.body()!!.data
+//                                            binding?.tvFavDetails?.text = dashBoardData.first_name +" "+ dashBoardData.last_name
+//                                            binding?.tvFavCityAddress?.text = dashBoardData.description_1.toString()
+//                                            binding?.tvFavDetailsAddress?.text = dashBoardData.location_text.toString()
+//                                            binding?.tvFavDetailsDistance?.text = dashBoardData.distance.toString().split(".")[0] + " " + "Miles"
+//
+//                                            if (dashBoardData.isLiked == true) {
+//                                                Glide.with(CommonMethods.context)
+//                                                    .load(R.drawable.ic_heart_filled_icon)
+//                                                    .into(binding?.ivFavDetailsFilledHeart!!)
+//                                            } else {
+//                                                binding?.ivFavDetailsFilledHeart?.setBackgroundResource(R.drawable.ic_heart_icon)
+//                                            }
+//
+//                                            /**Apply try catch for check any exception is come while loading the image **/
+//
+//                                            try {
+//                                                val imageUrl = dashBoardData.postProfile_picture?.get(0)?.toString()
+//                                                if (imageUrl != null && imageUrl != "") {
+//                                                    Glide.with(CommonMethods.context)
+//                                                        .load(IMAGE_LOAD_URL + imageUrl)
+//                                                        .dontAnimate()
+//                                                        .into(binding?.ivFavDetails!!)
+//                                                }
+//                                                else
+//                                                {
+//                                                    binding?.ivFavDetails?.setBackgroundResource(R.drawable.dash_items_nurse_image)
+//                                                }
+//
+//
+//                                                dataList = res.body()!!.data.postProfile_picture as ArrayList<String> //* = java.util.ArrayList<kotlin.String> *//*
+////                                             bundle.putStringArrayList("profile_Image",dataList)
+//                                                val newDataList = ArrayList<AddPhoto>()
+//                                                newDataList.clear()
+//                                                for (idx in 0 until dataList.size) {
+//                                                    newDataList.add(AddPhoto(dataList[idx], true))
+//                                                }
+//
+//                                                viewModel.data_list = newDataList
+//                                                Log.e("QWQAAAZZZ", res.body().toString())
+//                                                val dsc1 = res.body()!!.data.description_1
+//                                                val dsc2 = res.body()!!.data.description_2
+//                                                val dsc3 = res.body()!!.data.description_3
+//
+//                                                val dscList = ArrayList<String>()
+//                                                dscList.add(dsc1.toString())
+//                                                dscList.add(dsc2.toString())
+//                                                dscList.add(dsc2.toString())
+//
+//                                                Glide.with(requireActivity())
+//                                                    .load(IMAGE_LOAD_URL + res.body()!!.data.postProfile_picture?.get(0))
+//                                                    .into(binding!!.ivFavDetails)
+//                                                Log.e("ASDASDASdasd", dataList.size.toString())
+//                                                setAdapter(dataList, dscList)
+////                                                setAdapter(dataList, dsc1!!, dsc2!!, dsc3!!)
+//                                                binding!!.ivFavDetails
+//
+//                                            } catch (e: Exception) {
+//                                                Log.d("errorInLoading", "" + e.message.toString())
+//                                            }
+//
+//                                            //old code..
+//                                            /*   if (viewModel.isFav.get()) {
+//                                                   Glide.with(CommonMethods.context)
+//                                                       .load(R.drawable.ic_heart_filled_icon)
+//                                                       .into(binding!!.ivFavDetailsFilledHeart)
+//                                               }
+//                                               else
+//                                               {
+//                                                   Glide.with(CommonMethods.context)
+//                                                       .load(R.drawable.ic_heart_icon)
+//                                                       .into(binding!!.ivFavDetailsFilledHeart)
+//                                               }
+//                                               dataList = res.body()!!.data.postProfile_picture as ArrayList<String> *//* = java.util.ArrayList<kotlin.String> *//*
+////                                          bundle.putStringArrayList("profile_Image",dataList)
+//                                            val newDataList = ArrayList<AddPhoto>()
+//                                            newDataList.clear()
+//                                            for (idx in 0 until dataList.size) {
+//                                                newDataList.add(AddPhoto(dataList[idx].toString(), true))
+//                                            }
+//                                            viewModel.data_list = newDataList
+//                                            Log.e("QWQAAAZZZ", res.body().toString())
+//                                            val dsc1 = res.body()!!.data.description_1
+//                                            val dsc2 = res.body()!!.data.description_2
+//                                            val dsc3 = res.body()!!.data.description_3
+//
+//                                            Glide.with(requireActivity())
+//                                                .load(IMAGE_LOAD_URL + res.body()!!.data.postProfile_picture?.get(0))
+//                                                .into(binding!!.ivFavDetails)
+//                                            Log.e("ASDASDASdasd", dataList.size.toString())
+//                                            setAdapter(dataList, dsc1!!, dsc2!!, dsc3!!)
+//                                            binding!!.ivFavDetails*/
+//
+//                                        }
+//                                    }
+//
+//                                }
+//                                else
+//                                {
 
 
-                                if (viewModel.isFav.get()) {
-                                    Glide.with(CommonMethods.context)
-                                        .load(R.drawable.ic_heart_filled_icon)
-                                        .into(binding!!.ivFavDetailsFilledHeart)
-                                    viewModel.isFav.set(false)
-                                } else {
-                                    Glide.with(CommonMethods.context)
-                                        .load(R.drawable.ic_heart_icon)
-                                        .into(binding!!.ivFavDetailsFilledHeart)
-                                    viewModel.isFav.set(true)
-                                }
+                                    Log.e("QWQAAAZZZ", res.body().toString())
 
-                                dataList =
-                                    res.body()!!.data.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
+                                    viewModel.userdata.set(res.body()!!.data)
+                                    viewModel.isFav.set(res.body()!!.data.isFavourite!!)
+                                    viewModel.isLike.set(res.body()!!.data.isLiked!!)
+                                    viewModel.isDisLike.set(res.body()!!.data.isDisliked!!)
+                                    viewModel.LikesCount.set(res.body()!!.data.likeCount.toString())
+                                    viewModel.DisLikesCount.set(res.body()!!.data.dislikeCount.toString())
 
-                                var newDataList = ArrayList<AddPhoto>()
-                                newDataList.clear()
 
-                                for (idx in 0 until dataList.size) {
-                                    newDataList.add(AddPhoto(dataList[idx].toString(), true))
-                                }
+                                    if (viewModel.isFav.get()) {
+                                        Glide.with(CommonMethods.context)
+                                            .load(R.drawable.ic_heart_filled_icon)
+                                            .into(binding!!.ivFavDetailsFilledHeart)
+                                        viewModel.isFav.set(false)
+                                    } else {
+                                        Glide.with(CommonMethods.context)
+                                            .load(R.drawable.ic_heart_icon)
+                                            .into(binding!!.ivFavDetailsFilledHeart)
+                                        viewModel.isFav.set(true)
+                                    }
 
-                                viewModel.data_list = newDataList
+                                    dataList = res.body()!!.data.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
 
-                                val dsc1 = res.body()!!.data.description_1
-                                val dsc2 = res.body()!!.data.description_2
-                                val dsc3 = res.body()!!.data.description_3
+                                    var newDataList = ArrayList<AddPhoto>()
+                                    newDataList.clear()
 
-                                val dscList = ArrayList<String>()
-                                dscList.add(dsc1.toString())
-                                dscList.add(dsc2.toString())
-                                dscList.add(dsc3.toString())
+                                    for (idx in 0 until dataList.size) {
+                                        newDataList.add(AddPhoto(dataList[idx].toString(), true))
+                                    }
 
-                                /// set data
+                                    viewModel.data_list = newDataList
 
-                                binding!!.etVEditProDescription.text = dsc1
-                                binding!!.tvFavDetailsAddress.text = res.body()!!.data.address
-                                binding!!.tvFavCityAddress.text = res.body()!!.data.location_text
-                                binding!!.tvFavDetails.text = res.body()!!.data.user_name
-                                viewModel.username.set(res.body()!!.data.user_name)
+                                    val dsc1 = res.body()!!.data.description_1
+                                    val dsc2 = res.body()!!.data.description_2
+                                    val dsc3 = res.body()!!.data.description_3
 
-                                Glide.with(requireActivity())
-                                    .load(
-                                        IMAGE_LOAD_URL + res.body()!!.data.postProfile_picture?.get(
-                                            0
-                                        )
-                                    )
-                                    .into(binding!!.ivFavDetails)
+                                    val dscList = ArrayList<String>()
+                                    dscList.add(dsc1.toString())
+                                    dscList.add(dsc2.toString())
+                                    dscList.add(dsc3.toString())
 
-                                Log.e("ASDASDASdasd", dataList.size.toString())
+                                    /// set data
 
-                                setAdapter(dataList, dscList)
+                                    binding!!.etVEditProDescription.text = dsc1
+                                    binding!!.tvFavDetailsAddress.text = res.body()!!.data.address
+                                    binding!!.tvFavCityAddress.text = res.body()!!.data.location_text
+                                    binding!!.tvFavDetails.text = res.body()!!.data.user_name
+                                    viewModel.username.set(res.body()!!.data.user_name)
 
-                                binding!!.ivFavDetails
+                                    Glide.with(requireActivity())
+                                        .load(IMAGE_LOAD_URL + res.body()!!.data.postProfile_picture!![0])
+                                        .into(binding!!.ivFavDetails)
+
+                                    Log.e("ASDASDASdasd", res.body()!!.data.postProfile_picture.toString())
+
+                                    setAdapter(dataList, dscList)
+
+                                    binding!!.ivFavDetails
+//                                }
+
+
+
 
                             } else {
                                 CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
@@ -441,6 +539,14 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         )
     }
 
+//    @SuppressLint("NotifyDataSetChanged")
+//    private fun setDashAdapter(data: ArrayList<String>, dsc1: String, dsc2: String, dsc3: String) {
+//        binding?.rvImages?.layoutManager = LinearLayoutManager(requireContext())
+//        val addapter = ViewPostProfileAdapter(requireActivity(), data, dsc2, dsc3, dsc1,)
+//        binding?.rvImages?.adapter = addapter
+//        binding?.rvImages?.adapter?.notifyDataSetChanged()
+//    }
+
     private fun setAdapter(data: ArrayList<String>, dscList: ArrayList<String>) {
 
         var dataList = ArrayList<AddImageDescriptionPOJO>()
@@ -458,6 +564,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     } else {
                         nameDes = ""
                     }
+
             dataList.add(AddImageDescriptionPOJO(data[item].toString(), nameDes, ""))
         }
 

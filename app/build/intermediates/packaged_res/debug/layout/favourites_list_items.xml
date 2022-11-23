@@ -32,16 +32,28 @@
 
             //                 setFavImage="@{model.postProfile_picture[0]}"
 
+<!--            <com.google.android.material.imageview.ShapeableImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_200sdp"-->
+<!--                android:scaleType="fitXY"-->
+<!--                setImage="@{model.postProfile_picture[0]}"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:shapeAppearanceOverlay="@style/roundedImageView" />-->
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivFavItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
+                android:tag="binding_1"                   
+                android:layout_width="@dimen/_310sdp"
+                android:layout_height="@dimen/_220sdp"
                 android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/roundedImageView" />
+
 
             <View
                 android:layout_width="match_parent"
@@ -68,7 +80,7 @@
                 android:layout_margin="@dimen/_3sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center_horizontal"
-                android:tag="binding_1"          
+                android:tag="binding_2"          
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +115,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:singleLine="true"
-                android:tag="binding_2"              
+                android:tag="binding_3"              
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@id/tvFavItemLocation"
@@ -118,7 +130,7 @@
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="start"
-                android:tag="binding_3"              
+                android:tag="binding_4"              
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

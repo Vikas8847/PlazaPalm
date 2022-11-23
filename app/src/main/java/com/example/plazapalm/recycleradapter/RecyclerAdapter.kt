@@ -1,6 +1,7 @@
 package com.example.plazapalm.recycleradapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class RecyclerAdapter<T : AbstractModel>(@LayoutRes val layoutId: Int) :
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
+        Log.e("dataList" ,items.toString() )
     }
 
     fun setOnItemClick(onItemClick: OnItemClick?) {

@@ -80,6 +80,9 @@ drawable dash_board_items_gradient_top
 drawable dash_board_top_items_gradient
 drawable dash_items_nurse_image
 drawable dashboard_bg
+drawable dislike
+drawable dislike_icon
+drawable disliketrue
 drawable electrician_image
 drawable filter_icon
 drawable flores_image
@@ -146,7 +149,9 @@ drawable ic_volume_display_icon
 drawable ic_welcome_lines
 drawable ic_welcome_next_button
 drawable justin_carpainter_image
+drawable like_true
 drawable like_unfilled_image
+drawable likes_true
 drawable map_search_white_bg
 drawable minus_button
 drawable naguyen_girl
@@ -155,6 +160,9 @@ drawable pin
 drawable play
 drawable plaza
 drawable qrcode_image
+drawable radio_button_business
+drawable radio_checked
+drawable radio_unchecked
 drawable richard_img
 drawable robert_electrician_image
 drawable round_minus_bg
@@ -346,6 +354,8 @@ id clVerifyEmailEnterCode
 id clViewEditProfileAdd
 id clViewProfile
 id clsignupMain
+id confirmBookDatePicker
+id confirmBookTimePicker
 id confirmBookingFragment
 id constForgotPassword
 id constMain
@@ -535,6 +545,8 @@ id privacyPolicyFragment
 id progressbar
 id qrCodeScannerFragment
 id questionariesFragment
+id rb_female
+id rb_male
 id remove_image
 id reportChooseOptionFragment
 id reportFragment
@@ -723,6 +735,7 @@ id tvMapLocationOnOff
 id tvMessages
 id tvMyProfile
 id tvMyProfileName
+id tvNoDataDashboard
 id tvNotification
 id tvPicturesAdd
 id tvPicturesUploadCancel
@@ -753,6 +766,7 @@ id tvSettingsPrivacyPolicy
 id tvSettingsTermsUse
 id tvSettingsUpdateEmail
 id tvSignup
+id tvSignupBusiness
 id tvSignupConfirmPass
 id tvSignupEmail
 id tvSignupFirstName
@@ -908,7 +922,9 @@ layout chat_receiver
 layout chat_sender
 layout choose_profile_options
 layout common_view
+layout confirm_booking_datepicker
 layout confirm_booking_fragment
+layout confirm_booking_timepicker
 layout contact_us_fragment
 layout dash_board_events_items
 layout dash_board_fragment
@@ -982,6 +998,7 @@ string add_photo_type
 string app_name
 string are_you_sure_you_want_to_delete_n_the_profile
 string choose_categeory
+string confirm_booking
 string delete
 string description2
 string description_2
@@ -1011,6 +1028,7 @@ style AppTheme
 style BottomNavigationView
 style BottomNavigationView.Active
 style CalenderViewCustom.
+style DatePickerDialogTheme
 style DialogeTheme
 style Divider
 style FullHeightDialog
@@ -1019,6 +1037,7 @@ style MyEditText
 style SpinnerDatePickerDialog
 style ThemeOverlay.Slider
 style Theme.PlazaPalm
+style TimePickerTheme
 style Toolbar.TitleText
 style UpgradeProView
 style ViewAdvanceSettings
