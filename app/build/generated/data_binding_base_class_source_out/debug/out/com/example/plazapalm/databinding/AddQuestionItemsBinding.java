@@ -13,7 +13,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.apachat.swipereveallayout.core.SwipeLayout;
 import com.example.plazapalm.R;
-import com.example.plazapalm.models.QuestionsModel;
+import com.example.plazapalm.models.GetQueData;
+import com.example.plazapalm.models.QueData;
 import com.example.plazapalm.views.advancesettings.questionaries.QuestionariesVM;
 import java.lang.Deprecated;
 import java.lang.Object;
@@ -35,10 +36,13 @@ public abstract class AddQuestionItemsBinding extends ViewDataBinding {
   public final View vAddQuestion;
 
   @Bindable
-  protected QuestionariesVM mVm;
+  protected QueData mModel;
 
   @Bindable
-  protected QuestionsModel mModel;
+  protected GetQueData mGetmodel;
+
+  @Bindable
+  protected QuestionariesVM mVmi;
 
   protected AddQuestionItemsBinding(Object _bindingComponent, View _root, int _localFieldCount,
       LinearLayout deletereturn, SwipeLayout slDeleteQuestions, AppCompatTextView tvQuestionCounts,
@@ -51,18 +55,25 @@ public abstract class AddQuestionItemsBinding extends ViewDataBinding {
     this.vAddQuestion = vAddQuestion;
   }
 
-  public abstract void setVm(@Nullable QuestionariesVM vm);
+  public abstract void setModel(@Nullable QueData model);
 
   @Nullable
-  public QuestionariesVM getVm() {
-    return mVm;
+  public QueData getModel() {
+    return mModel;
   }
 
-  public abstract void setModel(@Nullable QuestionsModel model);
+  public abstract void setGetmodel(@Nullable GetQueData getmodel);
 
   @Nullable
-  public QuestionsModel getModel() {
-    return mModel;
+  public GetQueData getGetmodel() {
+    return mGetmodel;
+  }
+
+  public abstract void setVmi(@Nullable QuestionariesVM vmi);
+
+  @Nullable
+  public QuestionariesVM getVmi() {
+    return mVmi;
   }
 
   @NonNull

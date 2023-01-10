@@ -43,7 +43,7 @@ class SelectCategoryFragment : Fragment(R.layout.fragment_select_category),click
         viewmodel.getCategoriesApi(binding!!.rvCategoryLocation,requireActivity(),this)
     }
 
-    override fun click(categoryName: String, position: Int, c_id: String?, s: String) {
+    override fun click(categoryName: String, position: Int, c_id: String?, s: String, color: Int?) {
 //        requireView().findNavController(R.id.action_bookingDetailsFragment_to_postProfileFragment)
         Log.e("ASaaa", categoryName+"DDDDDDDDDDDD" + position.toString())
         findNavController().previousBackStackEntry?.savedStateHandle?.set("key", categoryName +"/"+ c_id)

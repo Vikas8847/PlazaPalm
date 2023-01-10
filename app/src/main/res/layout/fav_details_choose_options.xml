@@ -49,6 +49,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvChooseOptFavDetails" />
 
+<!--                android:text="@{vm.isFav ? @string/addtofav : @string/removefromFav}"  -->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvChooseOptRemoveFavDetails"
@@ -59,7 +60,6 @@
                 android:onClick="@{vm::onClicks}"
                 android:paddingHorizontal="@dimen/_15sdp"
                 android:paddingVertical="@dimen/_3sdp"
-                android:text="Remove From Favourites"
                 android:textColor="@color/blue"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"

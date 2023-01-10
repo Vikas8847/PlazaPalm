@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.RadioGroup
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -51,8 +53,27 @@ class SignupVM @Inject constructor(
     var lastName = ObservableField("")
     var email = ObservableField("")
     var password = ObservableField("")
+    var ischecked = ObservableField("")
     var confirmPassword = ObservableField("")
+    var businessStatus = ObservableBoolean(false)
+
+    fun selectOption(radioGroup: RadioGroup, radioButton: View) {
+        radioGroup.check(radioButton.id)
+
+        if (radioButton.id.equals(R.id.rb_yes)) {
+            businessStatus.set(true)
+            ischecked.set("YES")
+            Log.e("DSDSQQEE", "TRUEE")
+        } else {
+            businessStatus.set(false)
+            ischecked.set("NO")
+            Log.e("DSDSQQEE", "FALSE")
+        }
+
+    }
+
     fun onClicks(view: View) {
+
         when (view.id) {
             R.id.clsignupMain -> {
                 (MainActivity.context.get() as Activity).hideKeyboard()
@@ -103,6 +124,10 @@ class SignupVM @Inject constructor(
                 CommonMethods.showToast(CommonMethods.context, "Password does not match")
                 return false
             }
+            ischecked.get().toString().isEmpty() ->{
+                CommonMethods.showToast(CommonMethods.context, "Please slecet account type ")
+                return false
+            }
             else -> {
                 return true
             }
@@ -119,6 +144,8 @@ class SignupVM @Inject constructor(
         body.put(DEVICE_TOKEN, DeviceToken)
         body.put(DEVICE_TYPE, DeviceType)
 
+        Log.e("ASASZZZ",businessStatus.get().toString())
+
         repository.makeCall(
             ApiEnums.SIGNUP,
             loader = true,
@@ -132,9 +159,11 @@ class SignupVM @Inject constructor(
                         Email = email.get()?.trim().toString(),
                         Password = password.get()?.trim().toString(),
                         DeviceToken,
-                        DeviceType
+                        DeviceType,
+                        businessStatus.get()
                     )
                 }
+
                 override fun onResponse(res: Response<SignupResponseModel>) {
                     /**Save Register Data...**/
                     if (res.isSuccessful) {
@@ -144,17 +173,20 @@ class SignupVM @Inject constructor(
                                 val bundle = Bundle()
                                 bundle.putString("comingFrom", "signup")
                                 bundle.putString("email", email.get())
-                                CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
-                                view.navigateWithId(R.id.action_signUpFragment_to_verifyEmailFragment, bundle)
-                                Log.e("RESSPONSEE" ,res.body().toString())
-
-                            }
-                            else
-                            {
                                 CommonMethods.showToast(
                                     CommonMethods.context,
                                     res.body()?.message.toString()
                                 )
+                                view.navigateWithId(
+                                    R.id.action_signUpFragment_to_verifyEmailFragment,
+                                    bundle
+                                )
+                                Log.e("RESSPONSEE", res.body().toString())
+
+                            } else {
+                                CommonMethods.showToast(
+                                    CommonMethods.context,
+                                    res.body()?.message.toString() )
                                 view.navigateWithId(R.id.action_signUpFragment_to_loginFragment)
 
                             }
@@ -171,4 +203,5 @@ class SignupVM @Inject constructor(
                 }
             })
     }
+
 }

@@ -59,7 +59,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         binding?.model = mainVM
         activity = MainActivity()
+
         mainVM?.navController = findNavController(R.id.fragmentMain)
+
         context = WeakReference(this)
         setUpNav()
         //setTypeHeretoCategoryFragment()
@@ -74,13 +76,16 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
 
     }
+
     private fun setUpNav() {
         navController = findNavController(R.id.fragmentMain)
         binding?.bottNavMain?.setOnNavigationItemSelectedListener(this)
-        navController?.addOnDestinationChangedListener { _, destination, _ ->
+        navController?.addOnDestinationChangedListener {
+                _, destination, _ ->
             if (destination.id == R.id.dashBoardFragment || destination.id == R.id.myProfileFragment || destination.id == R.id.messagesFragment || destination.id == R.id.openCategeroyFragment || destination.id == R.id.advanceMapFragment || destination.id == R.id.picturesFragment) {
                 binding?.bottNavMain?.selectedItemId = destination.id
                 binding?.bottNavMain?.isVisible = true
+
             } else {
                 binding?.bottNavMain?.isVisible = false
             }
@@ -95,6 +100,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     hideKeyboard()
                     binding?.bottNavMain?.onNavDestinationSelected(item.itemId, navController!!)
                     navController?.navigate(R.id.dashBoardFragment)
+
                 }
                 R.id.categories -> {
                     hideKeyboard()
@@ -103,8 +109,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     bundle.putString("comingFrom","main")
                      navController?.navigate(R.id.openCategeroyFragment,bundle)
 //                    navController?.navigate(R.id.categoriesListFragment,bundle)
-
                 }
+
                 R.id.messages -> {
                     hideKeyboard()
                     binding?.bottNavMain?.onNavDestinationSelected(item.itemId, navController!!)
@@ -124,6 +130,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         return true
     }
+
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount == 1) {
             showExitDialog()
@@ -147,10 +154,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             dialog?.findViewById<TextView>(R.id.tvCancel)?.setOnClickListener {
                 dialog?.dismiss()
             }
+
             dialog?.findViewById<TextView>(R.id.tvYes)?.setOnClickListener {
                 finishAffinity()
                 dialog?.dismiss()
             }
+
         }
         dialog?.show()
     }

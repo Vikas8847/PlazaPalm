@@ -4,22 +4,25 @@
 
     <data>
 
-        <variable
-            name="model"
-            type="com.example.plazapalm.models.SelectedDataModel" />
+<!--        <variable-->
+<!--            name="model"-->
+<!--            type="com.example.plazapalm.models.SelectedDataModel" />-->
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp">
 
+<!--        android:text="@={model.selectedCatName}"-->
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDashBoardSelectedEvents"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
-            android:text="@={model.selectedCatName}"
+            android:padding="@dimen/_3sdp"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,10 +30,11 @@
 
         <View
             android:id="@+id/vDashBoardHeader"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:background="@color/white"
+            android:background="@color/light_gray"
             app:layout_constraintTop_toBottomOf="@+id/tvDashBoardSelectedEvents" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

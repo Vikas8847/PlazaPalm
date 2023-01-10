@@ -3,12 +3,13 @@ package com.example.plazapalm.views.advancesettings.itemtouchhelper
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.R
 import com.example.plazapalm.utils.CommonMethods.context
 
-abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+abstract class SwipeToDeleteCallback(requireActivity: FragmentActivity) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
     private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_delete_icon)
     private val intrinsicWidth = deleteIcon?.intrinsicWidth
     private val intrinsicHeight = deleteIcon?.intrinsicHeight

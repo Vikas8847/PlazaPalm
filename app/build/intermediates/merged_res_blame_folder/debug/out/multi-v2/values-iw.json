@@ -4,23 +4,6 @@
             "outputFile": "D:\\plazapalam\\plazzapalmGit\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-iw\\values-iw.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\91462bdd3983165d73ea259c5b77f9b8\\transformed\\navigation-ui-2.5.1\\res\\values-iw\\values-iw.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,161",
-                        "endColumns": "105,119",
-                        "endOffsets": "156,276"
-                    },
-                    "to": {
-                        "startLines": "106,107",
-                        "startColumns": "4,4",
-                        "startOffsets": "9175,9281",
-                        "endColumns": "105,119",
-                        "endOffsets": "9276,9396"
-                    }
-                },
-                {
                     "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\bffc1dfc389021b0b609053b8d4bacd5\\transformed\\jetified-places-2.6.0\\res\\values-iw\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
@@ -139,6 +122,23 @@
                         "startOffsets": "10034,10094",
                         "endColumns": "59,64",
                         "endOffsets": "10089,10154"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\2d36cca02247669cefd3c78ea9bbca9c\\transformed\\navigation-ui-2.5.3\\res\\values-iw\\values-iw.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,161",
+                        "endColumns": "105,119",
+                        "endOffsets": "156,276"
+                    },
+                    "to": {
+                        "startLines": "106,107",
+                        "startColumns": "4,4",
+                        "startOffsets": "9175,9281",
+                        "endColumns": "105,119",
+                        "endOffsets": "9276,9396"
                     }
                 },
                 {

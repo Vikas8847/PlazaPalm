@@ -273,7 +273,7 @@
                     android:fontFamily="@font/inter_medium"
                     android:tag="binding_8"          
                     android:paddingHorizontal="@dimen/_5sdp"
-                    android:text="Logout"
+                    android:text="@string/logout"
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.example.plazapalm.models.FilterDataModel" />
+            type="com.example.plazapalm.models.SelectedDataModelList" />
 
     </data>
 
@@ -73,7 +73,7 @@
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:paddingStart="12dp"
-                android:text="@={model.categoryName}"
+                android:text="@{model.cateName}"
                 android:textColor="@color/light_black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"

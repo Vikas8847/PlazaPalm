@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.selectcategory
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableDouble
@@ -65,8 +66,10 @@ class SelectCategoryViewModel  @Inject constructor(
         body.put("long", longitude.get())
         // body.put("long", "76.7179")
         body.put("offset", page.get()!!)
-        body.put("limit", 10)
+        body.put("limit", 100)
         body.put("search=", searchText.get())
+
+        Log.e("LOGRESPONSE" , pref.retvieLatlong("lati").toDouble().toString() + " <<<<<----->>>>"+pref.retvieLatlong("longi").toDouble())
 
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
@@ -77,8 +80,8 @@ class SelectCategoryViewModel  @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<CategoriesResponseModel> {
                     return retrofitApi.getCategories(
                         Authorization = token.get().toString(),
-                        Lat = latitude.get(),
-                        Long = longitude.get(),
+                        Lat = pref.retvieLatlong("lati").toDouble(),
+                        Long =  pref.retvieLatlong("longi").toDouble(),
                         OffSet = page.get()!!,
                         Limit = 100,
                         Search = searchText.get().toString()
@@ -92,6 +95,7 @@ class SelectCategoryViewModel  @Inject constructor(
 
             })
     }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun showCategories(
         data: List<CategoriesData>,

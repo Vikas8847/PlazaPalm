@@ -14,7 +14,6 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.ivConfirmBook, 12);
         sViewsWithIds.put(R.id.gLineConfirmBook, 13);
         sViewsWithIds.put(R.id.tvConfirmBookChooseDate, 14);
         sViewsWithIds.put(R.id.tvConfirmBookChooseTime, 15);
@@ -295,23 +294,23 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         this(bindingComponent, root, mapBindings(bindingComponent, root, 20, sIncludes, sViewsWithIds));
     }
     private ConfirmBookingFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 7
-            , (androidx.appcompat.widget.AppCompatButton) bindings[11]
+        super(bindingComponent, root, 9
+            , (androidx.appcompat.widget.AppCompatButton) bindings[12]
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
-            , (androidx.appcompat.widget.AppCompatEditText) bindings[8]
-            , (androidx.appcompat.widget.AppCompatEditText) bindings[10]
-            , (androidx.appcompat.widget.AppCompatEditText) bindings[19]
             , (androidx.appcompat.widget.AppCompatEditText) bindings[9]
+            , (androidx.appcompat.widget.AppCompatEditText) bindings[11]
+            , (androidx.appcompat.widget.AppCompatEditText) bindings[19]
+            , (androidx.appcompat.widget.AppCompatEditText) bindings[10]
             , (androidx.constraintlayout.widget.Guideline) bindings[13]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[3]
-            , (de.hdodenhof.circleimageview.CircleImageView) bindings[12]
+            , (de.hdodenhof.circleimageview.CircleImageView) bindings[5]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[14]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[15]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[16]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[7]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[8]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[18]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[17]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
@@ -322,6 +321,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         this.etConfirmBookDescription.setTag(null);
         this.etConfirmBookTime.setTag(null);
         this.ivBookingDetailsChat.setTag(null);
+        this.ivConfirmBook.setTag(null);
         this.ivConfirmDetailsBackBtn.setTag(null);
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
@@ -337,7 +337,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x100L;
+                mDirtyFlags = 0x400L;
         }
         requestRebind();
     }
@@ -367,7 +367,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
     public void setVm(@Nullable com.example.plazapalm.views.confirmbookthankyou.ConfirmBookingVM Vm) {
         this.mVm = Vm;
         synchronized(this) {
-            mDirtyFlags |= 0x80L;
+            mDirtyFlags |= 0x200L;
         }
         notifyPropertyChanged(BR.vm);
         super.requestRebind();
@@ -379,16 +379,20 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
             case 0 :
                 return onChangeVmUserMiles((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 1 :
-                return onChangeVmTitle((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmUserImage((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 2 :
-                return onChangeVmUserLocation((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmAddtoCalendar((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 3 :
-                return onChangeVmDescription((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmTitle((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 4 :
-                return onChangeVmChooseTime((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmUserLocation((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 5 :
-                return onChangeVmUserName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmDescription((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 6 :
+                return onChangeVmChooseTime((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+            case 7 :
+                return onChangeVmUserName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+            case 8 :
                 return onChangeVmChooseDate((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
         }
         return false;
@@ -402,7 +406,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         }
         return false;
     }
-    private boolean onChangeVmTitle(androidx.databinding.ObservableField<java.lang.String> VmTitle, int fieldId) {
+    private boolean onChangeVmUserImage(androidx.databinding.ObservableField<java.lang.String> VmUserImage, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x2L;
@@ -411,7 +415,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         }
         return false;
     }
-    private boolean onChangeVmUserLocation(androidx.databinding.ObservableField<java.lang.String> VmUserLocation, int fieldId) {
+    private boolean onChangeVmAddtoCalendar(androidx.databinding.ObservableField<java.lang.String> VmAddtoCalendar, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x4L;
@@ -420,7 +424,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         }
         return false;
     }
-    private boolean onChangeVmDescription(androidx.databinding.ObservableField<java.lang.String> VmDescription, int fieldId) {
+    private boolean onChangeVmTitle(androidx.databinding.ObservableField<java.lang.String> VmTitle, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x8L;
@@ -429,7 +433,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         }
         return false;
     }
-    private boolean onChangeVmChooseTime(androidx.databinding.ObservableField<java.lang.String> VmChooseTime, int fieldId) {
+    private boolean onChangeVmUserLocation(androidx.databinding.ObservableField<java.lang.String> VmUserLocation, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x10L;
@@ -438,7 +442,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         }
         return false;
     }
-    private boolean onChangeVmUserName(androidx.databinding.ObservableField<java.lang.String> VmUserName, int fieldId) {
+    private boolean onChangeVmDescription(androidx.databinding.ObservableField<java.lang.String> VmDescription, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x20L;
@@ -447,10 +451,28 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         }
         return false;
     }
-    private boolean onChangeVmChooseDate(androidx.databinding.ObservableField<java.lang.String> VmChooseDate, int fieldId) {
+    private boolean onChangeVmChooseTime(androidx.databinding.ObservableField<java.lang.String> VmChooseTime, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x40L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeVmUserName(androidx.databinding.ObservableField<java.lang.String> VmUserName, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x80L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeVmChooseDate(androidx.databinding.ObservableField<java.lang.String> VmChooseDate, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x100L;
             }
             return true;
         }
@@ -465,11 +487,15 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
             mDirtyFlags = 0;
         }
         androidx.databinding.ObservableField<java.lang.String> vmUserMiles = null;
+        androidx.databinding.ObservableField<java.lang.String> vmUserImage = null;
+        java.lang.String vmUserImageGet = null;
         java.lang.String vmDescriptionGet = null;
         com.example.plazapalm.views.confirmbookthankyou.ConfirmBookingVM vm = mVm;
         java.lang.String vmChooseDateGet = null;
+        androidx.databinding.ObservableField<java.lang.String> vmAddtoCalendar = null;
         android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
         java.lang.String vmTitleGet = null;
+        java.lang.String vmAddtoCalendarGet = null;
         androidx.databinding.ObservableField<java.lang.String> vmTitle = null;
         androidx.databinding.ObservableField<java.lang.String> vmUserLocation = null;
         androidx.databinding.ObservableField<java.lang.String> vmDescription = null;
@@ -481,10 +507,10 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
         java.lang.String vmUserMilesGet = null;
         java.lang.String vmChooseTimeGet = null;
 
-        if ((dirtyFlags & 0x1ffL) != 0) {
+        if ((dirtyFlags & 0x7ffL) != 0) {
 
 
-            if ((dirtyFlags & 0x181L) != 0) {
+            if ((dirtyFlags & 0x601L) != 0) {
 
                     if (vm != null) {
                         // read vm.user_miles
@@ -498,20 +524,48 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
                         vmUserMilesGet = vmUserMiles.get();
                     }
             }
-            if ((dirtyFlags & 0x180L) != 0) {
+            if ((dirtyFlags & 0x602L) != 0) {
+
+                    if (vm != null) {
+                        // read vm.user_image
+                        vmUserImage = vm.getUser_image();
+                    }
+                    updateRegistration(1, vmUserImage);
+
+
+                    if (vmUserImage != null) {
+                        // read vm.user_image.get()
+                        vmUserImageGet = vmUserImage.get();
+                    }
+            }
+            if ((dirtyFlags & 0x604L) != 0) {
+
+                    if (vm != null) {
+                        // read vm.addtoCalendar
+                        vmAddtoCalendar = vm.getAddtoCalendar();
+                    }
+                    updateRegistration(2, vmAddtoCalendar);
+
+
+                    if (vmAddtoCalendar != null) {
+                        // read vm.addtoCalendar.get()
+                        vmAddtoCalendarGet = vmAddtoCalendar.get();
+                    }
+            }
+            if ((dirtyFlags & 0x600L) != 0) {
 
                     if (vm != null) {
                         // read vm::onClicks
                         vmOnClicksAndroidViewViewOnClickListener = (((mVmOnClicksAndroidViewViewOnClickListener == null) ? (mVmOnClicksAndroidViewViewOnClickListener = new OnClickListenerImpl()) : mVmOnClicksAndroidViewViewOnClickListener).setValue(vm));
                     }
             }
-            if ((dirtyFlags & 0x182L) != 0) {
+            if ((dirtyFlags & 0x608L) != 0) {
 
                     if (vm != null) {
                         // read vm.title
                         vmTitle = vm.getTitle();
                     }
-                    updateRegistration(1, vmTitle);
+                    updateRegistration(3, vmTitle);
 
 
                     if (vmTitle != null) {
@@ -519,13 +573,13 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
                         vmTitleGet = vmTitle.get();
                     }
             }
-            if ((dirtyFlags & 0x184L) != 0) {
+            if ((dirtyFlags & 0x610L) != 0) {
 
                     if (vm != null) {
                         // read vm.user_location
                         vmUserLocation = vm.getUser_location();
                     }
-                    updateRegistration(2, vmUserLocation);
+                    updateRegistration(4, vmUserLocation);
 
 
                     if (vmUserLocation != null) {
@@ -533,13 +587,13 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
                         vmUserLocationGet = vmUserLocation.get();
                     }
             }
-            if ((dirtyFlags & 0x188L) != 0) {
+            if ((dirtyFlags & 0x620L) != 0) {
 
                     if (vm != null) {
                         // read vm.description
                         vmDescription = vm.getDescription();
                     }
-                    updateRegistration(3, vmDescription);
+                    updateRegistration(5, vmDescription);
 
 
                     if (vmDescription != null) {
@@ -547,13 +601,13 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
                         vmDescriptionGet = vmDescription.get();
                     }
             }
-            if ((dirtyFlags & 0x190L) != 0) {
+            if ((dirtyFlags & 0x640L) != 0) {
 
                     if (vm != null) {
                         // read vm.chooseTime
                         vmChooseTime = vm.getChooseTime();
                     }
-                    updateRegistration(4, vmChooseTime);
+                    updateRegistration(6, vmChooseTime);
 
 
                     if (vmChooseTime != null) {
@@ -561,13 +615,13 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
                         vmChooseTimeGet = vmChooseTime.get();
                     }
             }
-            if ((dirtyFlags & 0x1a0L) != 0) {
+            if ((dirtyFlags & 0x680L) != 0) {
 
                     if (vm != null) {
                         // read vm.user_Name
                         vmUserName = vm.getUser_Name();
                     }
-                    updateRegistration(5, vmUserName);
+                    updateRegistration(7, vmUserName);
 
 
                     if (vmUserName != null) {
@@ -575,13 +629,13 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
                         vmUserNameGet = vmUserName.get();
                     }
             }
-            if ((dirtyFlags & 0x1c0L) != 0) {
+            if ((dirtyFlags & 0x700L) != 0) {
 
                     if (vm != null) {
                         // read vm.chooseDate
                         vmChooseDate = vm.getChooseDate();
                     }
-                    updateRegistration(6, vmChooseDate);
+                    updateRegistration(8, vmChooseDate);
 
 
                     if (vmChooseDate != null) {
@@ -591,7 +645,7 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
             }
         }
         // batch finished
-        if ((dirtyFlags & 0x180L) != 0) {
+        if ((dirtyFlags & 0x600L) != 0) {
             // api target 1
 
             this.btnConfirmBook.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
@@ -601,12 +655,17 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
             this.ivBookingDetailsChat.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.ivConfirmDetailsBackBtn.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
         }
-        if ((dirtyFlags & 0x1c0L) != 0) {
+        if ((dirtyFlags & 0x604L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.btnConfirmBook, vmAddtoCalendarGet);
+        }
+        if ((dirtyFlags & 0x700L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etConfirmBookDate, vmChooseDateGet);
         }
-        if ((dirtyFlags & 0x100L) != 0) {
+        if ((dirtyFlags & 0x400L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etConfirmBookDate, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etConfirmBookDateandroidTextAttrChanged);
@@ -617,32 +676,37 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvConfirmBookName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvConfirmBookNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvFavDetails, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvFavDetailsandroidTextAttrChanged);
         }
-        if ((dirtyFlags & 0x188L) != 0) {
+        if ((dirtyFlags & 0x620L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etConfirmBookDescription, vmDescriptionGet);
         }
-        if ((dirtyFlags & 0x190L) != 0) {
+        if ((dirtyFlags & 0x640L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etConfirmBookTime, vmChooseTimeGet);
         }
-        if ((dirtyFlags & 0x184L) != 0) {
+        if ((dirtyFlags & 0x602L) != 0) {
+            // api target 1
+
+            com.example.plazapalm.utils.BindingAdapters.setCircleImage(this.ivConfirmBook, vmUserImageGet);
+        }
+        if ((dirtyFlags & 0x610L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvConfirmBookLocation, vmUserLocationGet);
         }
-        if ((dirtyFlags & 0x181L) != 0) {
+        if ((dirtyFlags & 0x601L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvConfirmBookMiles, vmUserMilesGet);
         }
-        if ((dirtyFlags & 0x1a0L) != 0) {
+        if ((dirtyFlags & 0x680L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvConfirmBookName, vmUserNameGet);
         }
-        if ((dirtyFlags & 0x182L) != 0) {
+        if ((dirtyFlags & 0x608L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavDetails, vmTitleGet);
@@ -665,14 +729,16 @@ public class ConfirmBookingFragmentBindingImpl extends ConfirmBookingFragmentBin
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
         flag 0 (0x1L): vm.user_miles
-        flag 1 (0x2L): vm.title
-        flag 2 (0x3L): vm.user_location
-        flag 3 (0x4L): vm.description
-        flag 4 (0x5L): vm.chooseTime
-        flag 5 (0x6L): vm.user_Name
-        flag 6 (0x7L): vm.chooseDate
-        flag 7 (0x8L): vm
-        flag 8 (0x9L): null
+        flag 1 (0x2L): vm.user_image
+        flag 2 (0x3L): vm.addtoCalendar
+        flag 3 (0x4L): vm.title
+        flag 4 (0x5L): vm.user_location
+        flag 5 (0x6L): vm.description
+        flag 6 (0x7L): vm.chooseTime
+        flag 7 (0x8L): vm.user_Name
+        flag 8 (0x9L): vm.chooseDate
+        flag 9 (0xaL): vm
+        flag 10 (0xbL): null
     flag mapping end*/
     //end
 }

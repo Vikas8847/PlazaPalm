@@ -22,6 +22,7 @@ data class LoginData(
     @SerializedName("user_id") val user_id: String? = "",
     @SerializedName("user_name") val user_name: String? = "",
     @SerializedName("profileTitle") val profileTitle: String? = "",
-    @SerializedName("address") val address: String? = ""
+    @SerializedName("address") val address: String? = "",
+    @SerializedName("business_profile_status") val business_profile_status: String? = ""
 
 ) : Serializable

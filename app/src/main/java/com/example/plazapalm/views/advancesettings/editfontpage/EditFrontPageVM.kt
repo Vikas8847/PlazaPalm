@@ -19,6 +19,7 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
     fun onClicks(view: View) {
         when (view.id) {
             R.id.ivAdvanceEditFrontPage -> {
+
                 view.findNavController().navigateUp()
             }
             R.id.btnEditFrontPageView -> {

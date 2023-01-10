@@ -35,8 +35,8 @@ import kotlin.concurrent.schedule
 class Repository @Inject constructor(
     private val retrofitApi: RetrofitApi,
     private val cacheUtil: CacheUtil,
-    private val dataStoreUtil: DataStoreUtil
-) {
+    private val dataStoreUtil: DataStoreUtil ) {
+
     var aD: AlertDialog.Builder? = null
     fun <T : Any> makeCall(
         apiKey: ApiEnums,
@@ -55,6 +55,7 @@ class Repository @Inject constructor(
             CommonMethods.showToast(CommonMethods.context, "You are offline.")
 
             // activity.showNegativeAlerter(activity.getString(R.string.your_device_offline))
+
             return
         }
         if (loader) {
@@ -92,6 +93,7 @@ class Repository @Inject constructor(
                         //    activity.showNegativeAlerter(activity.resources?.getString(R.string.some_error_occured) ?: "")
 
                     }
+
                     response?.isSuccessful == true -> {
                         /**Success*/
                         Log.d("successBody", "====${response.body()}")
@@ -102,16 +104,15 @@ class Repository @Inject constructor(
 
                     response?.code() in 300..399 -> {
                         /**Redirection*/
-                        requestProcessor.onError(
-                            activity.resources?.getString(R.string.some_error_occured) ?: ""
-                        )
+                        requestProcessor.onError(activity.resources?.getString(R.string.some_error_occured) ?: "")
 
                         // activity.showNegativeAlerter(activity.resources?.getString(R.string.some_error_occured) ?: "")
+
                     }
                     response?.code() == 401 -> {
                         /**UnAuthorized*/
                         Log.d("errorBody", "====${response.errorBody()?.string()}")
-                        CommonMethods.showToast(CommonMethods.context, "Oops! Something went wrong")
+                       CommonMethods.showToast(CommonMethods.context, "Oops! Something went wrong")
                         requestProcessor.onError(activity.resources?.getString(R.string.some_error_occured) ?: "")
                         getRefreshToken()
                         dataStoreUtil.clearDataStore {
@@ -134,7 +135,7 @@ class Repository @Inject constructor(
                         requestProcessor.onError(
                             activity.resources?.getString(R.string.some_error_occured) ?: ""
                         )
-                        CommonMethods.showToast(CommonMethods.context, "Oops! Something went wrong")
+//                        CommonMethods.showToast(CommonMethods.context, "Oops! Something went wrong")
 
                         // activity.showNegativeAlerter(activity.resources?.getString(R.string.some_error_occured) ?: "")
                     }
@@ -191,6 +192,7 @@ class Repository @Inject constructor(
     }
 
     private fun getRefreshToken() {
+
     }
 
     private fun showErrorDialog() {

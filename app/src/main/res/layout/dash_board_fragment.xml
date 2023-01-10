@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center"
-                android:text="Deserts and Drinks"
+                android:text="@string/deserts_and_drinks"
                 android:textColor="@color/tool_bar_black_color"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,10 +81,12 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:onClick="@{vm::onClicks}"
+
             app:layout_constraintTop_toBottomOf="@id/clEvents">
 
-            <androidx.appcompat.widget.AppCompatTextView
+<!--            android:onClick="@{vm::onClicks}"-->
+
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
@@ -92,19 +94,23 @@
                 android:drawableStart="@drawable/ic_search_icon_dashboard"
                 android:drawablePadding="@dimen/_8sdp"
                 android:gravity="center_vertical"
+                android:theme="@style/WallSearchView"
                 android:hint="Search"
+                android:text="@={vm.searchItems}"
+                android:afterTextChanged="@{(text) -> vm.onTextChange(text)}"
                 android:paddingStart="@dimen/_10sdp"
                 android:singleLine="true"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="@color/gray"
+
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/clDashBoardListSearch">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -121,14 +127,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_height="wrap_content"/>
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDashBoard"
                 setRecyclerAdapter="@{vm.adapter}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginHorizontal="@dimen/_5sdp"
                 android:orientation="vertical"
+                android:layout_margin="@dimen/_5sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -136,7 +141,9 @@
                 app:spanCount="2"
                 tools:itemCount="12"
                 tools:layout_editor_absoluteX="-4dp"
-                tools:listitem="@layout/dash_board_items" />
+                tools:listitem="@layout/dash_board_items"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

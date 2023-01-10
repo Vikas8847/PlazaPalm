@@ -4,6 +4,7 @@ package com.example.plazapalm.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -11,17 +12,22 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.plazapalm.R;
 import com.example.plazapalm.views.favourites.favdetails.FavDetailsVM;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.imageview.ShapeableImageView;
 import java.lang.Deprecated;
 import java.lang.Object;
 
 public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
+  @NonNull
+  public final View bottomView;
+
   @NonNull
   public final AppCompatButton btnBookingProfile;
 
@@ -44,13 +50,16 @@ public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
   public final CardView cvFavDetails;
 
   @NonNull
+  public final ConstraintLayout displayBack;
+
+  @NonNull
   public final AppCompatTextView etVEditProDescription;
 
   @NonNull
   public final ShapeableImageView ivFavDetails;
 
   @NonNull
-  public final AppCompatImageView ivFavDetailsBackBtn;
+  public final ImageView ivFavDetailsBackBtn;
 
   @NonNull
   public final AppCompatImageView ivFavDetailsChats;
@@ -77,10 +86,19 @@ public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
   public final AppCompatImageView ivFavTotalLikedCounts;
 
   @NonNull
+  public final CoordinatorLayout mainConslayout;
+
+  @NonNull
+  public final AppBarLayout mainToolBar;
+
+  @NonNull
   public final RecyclerView rvImages;
 
   @NonNull
   public final RecyclerView rvVideos;
+
+  @NonNull
+  public final View topView;
 
   @NonNull
   public final AppCompatTextView tvFavCityAddress;
@@ -116,21 +134,24 @@ public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
   protected FavDetailsVM mVm;
 
   protected FavDetailsFragmentBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      AppCompatButton btnBookingProfile, ConstraintLayout clFavDetails,
+      View bottomView, AppCompatButton btnBookingProfile, ConstraintLayout clFavDetails,
       ConstraintLayout clFavDetailsLikeDislike, ConstraintLayout clFavOfDesc2,
       ConstraintLayout clFavOfDesc3, ConstraintLayout clVEditProDescription, CardView cvFavDetails,
-      AppCompatTextView etVEditProDescription, ShapeableImageView ivFavDetails,
-      AppCompatImageView ivFavDetailsBackBtn, AppCompatImageView ivFavDetailsChats,
-      AppCompatImageView ivFavDetailsDislike, AppCompatImageView ivFavDetailsEmptyHeart,
-      AppCompatImageView ivFavDetailsFilledHeart, AppCompatImageView ivFavDetailsLike,
-      AppCompatImageView ivFavDetailsOptions, CardView ivFavOfDesc1,
-      AppCompatImageView ivFavTotalLikedCounts, RecyclerView rvImages, RecyclerView rvVideos,
-      AppCompatTextView tvFavCityAddress, AppCompatTextView tvFavDetails,
-      AppCompatTextView tvFavDetailsAddress, AppCompatTextView tvFavDetailsDisLikeCount,
-      AppCompatTextView tvFavDetailsDistance, AppCompatTextView tvFavDetailsLikeCounts,
-      AppCompatTextView tvFavDetailsName, AppCompatTextView tvFavHeartFilledCounts,
-      AppCompatTextView tvFavOfDesc2, AppCompatTextView tvFavOfDesc3) {
+      ConstraintLayout displayBack, AppCompatTextView etVEditProDescription,
+      ShapeableImageView ivFavDetails, ImageView ivFavDetailsBackBtn,
+      AppCompatImageView ivFavDetailsChats, AppCompatImageView ivFavDetailsDislike,
+      AppCompatImageView ivFavDetailsEmptyHeart, AppCompatImageView ivFavDetailsFilledHeart,
+      AppCompatImageView ivFavDetailsLike, AppCompatImageView ivFavDetailsOptions,
+      CardView ivFavOfDesc1, AppCompatImageView ivFavTotalLikedCounts,
+      CoordinatorLayout mainConslayout, AppBarLayout mainToolBar, RecyclerView rvImages,
+      RecyclerView rvVideos, View topView, AppCompatTextView tvFavCityAddress,
+      AppCompatTextView tvFavDetails, AppCompatTextView tvFavDetailsAddress,
+      AppCompatTextView tvFavDetailsDisLikeCount, AppCompatTextView tvFavDetailsDistance,
+      AppCompatTextView tvFavDetailsLikeCounts, AppCompatTextView tvFavDetailsName,
+      AppCompatTextView tvFavHeartFilledCounts, AppCompatTextView tvFavOfDesc2,
+      AppCompatTextView tvFavOfDesc3) {
     super(_bindingComponent, _root, _localFieldCount);
+    this.bottomView = bottomView;
     this.btnBookingProfile = btnBookingProfile;
     this.clFavDetails = clFavDetails;
     this.clFavDetailsLikeDislike = clFavDetailsLikeDislike;
@@ -138,6 +159,7 @@ public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
     this.clFavOfDesc3 = clFavOfDesc3;
     this.clVEditProDescription = clVEditProDescription;
     this.cvFavDetails = cvFavDetails;
+    this.displayBack = displayBack;
     this.etVEditProDescription = etVEditProDescription;
     this.ivFavDetails = ivFavDetails;
     this.ivFavDetailsBackBtn = ivFavDetailsBackBtn;
@@ -149,8 +171,11 @@ public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
     this.ivFavDetailsOptions = ivFavDetailsOptions;
     this.ivFavOfDesc1 = ivFavOfDesc1;
     this.ivFavTotalLikedCounts = ivFavTotalLikedCounts;
+    this.mainConslayout = mainConslayout;
+    this.mainToolBar = mainToolBar;
     this.rvImages = rvImages;
     this.rvVideos = rvVideos;
+    this.topView = topView;
     this.tvFavCityAddress = tvFavCityAddress;
     this.tvFavDetails = tvFavDetails;
     this.tvFavDetailsAddress = tvFavDetailsAddress;

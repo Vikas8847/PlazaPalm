@@ -29,13 +29,25 @@ class DetailsCategeroyAdapter(
             holder.binding.tvSelectCategory.text = photos[position].category_name + " (" + photos[position].count+")"
 
             holder.binding.tvSelectCategory.setOnClickListener {
-                clickItem.click(photos[position].category_name,position,photos[position]._id,"postprofile")
+                clickItem.click(
+                    photos[position].category_name,
+                    position,
+                    photos[position]._id,
+                    "postprofile",
+                    0
+                )
             }
 
         }else if (status.equals("OpenCategeroy")){
             holder.binding.tvSelectCategory.text = photos[position].category_name + " (" + photos[position].count+")"
             holder.binding.tvSelectCategory.setOnClickListener {
-                clickItem.click(photos[position].category_name,position,photos[position]._id,"OpenCategeroy")
+                clickItem.click(
+                    photos[position].category_name,
+                    position,
+                    photos[position]._id,
+                    "OpenCategeroy",
+                    0
+                )
             }
 
         }

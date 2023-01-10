@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.example.plazapalm.R;
-import com.example.plazapalm.models.SelectedDataModel;
 import java.lang.Deprecated;
 import java.lang.Object;
 
@@ -22,21 +20,11 @@ public abstract class DashSelectedEventsBinding extends ViewDataBinding {
   @NonNull
   public final View vDashBoardHeader;
 
-  @Bindable
-  protected SelectedDataModel mModel;
-
   protected DashSelectedEventsBinding(Object _bindingComponent, View _root, int _localFieldCount,
       AppCompatTextView tvDashBoardSelectedEvents, View vDashBoardHeader) {
     super(_bindingComponent, _root, _localFieldCount);
     this.tvDashBoardSelectedEvents = tvDashBoardSelectedEvents;
     this.vDashBoardHeader = vDashBoardHeader;
-  }
-
-  public abstract void setModel(@Nullable SelectedDataModel model);
-
-  @Nullable
-  public SelectedDataModel getModel() {
-    return mModel;
   }
 
   @NonNull

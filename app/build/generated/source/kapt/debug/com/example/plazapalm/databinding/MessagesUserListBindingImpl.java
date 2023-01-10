@@ -23,7 +23,7 @@ public class MessagesUserListBindingImpl extends MessagesUserListBinding impleme
     private final androidx.appcompat.widget.AppCompatTextView mboundView3;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback2;
+    private final android.view.View.OnClickListener mCallback1;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -125,7 +125,7 @@ public class MessagesUserListBindingImpl extends MessagesUserListBinding impleme
         this.tvChatUserTime.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback2 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback1 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -221,7 +221,7 @@ public class MessagesUserListBindingImpl extends MessagesUserListBinding impleme
         if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            this.mboundView0.setOnClickListener(mCallback2);
+            this.mboundView0.setOnClickListener(mCallback1);
             this.mboundView3.setTextColor(getColorFromResource(mboundView3, R.color.white_gray));
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView3, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView3androidTextAttrChanged);
             this.tvChatUserName.setTextColor(getColorFromResource(tvChatUserName, R.color.light_black));

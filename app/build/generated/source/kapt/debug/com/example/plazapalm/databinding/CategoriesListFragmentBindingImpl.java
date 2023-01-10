@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.View;
 @SuppressWarnings("unchecked")
-public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBinding  {
+public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBinding implements com.example.plazapalm.generated.callback.AfterTextChanged.Listener {
 
     @Nullable
     private static final androidx.databinding.ViewDataBinding.IncludedLayouts sIncludes;
@@ -23,6 +23,8 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
     @NonNull
     private final androidx.appcompat.widget.AppCompatEditText mboundView2;
     // variables
+    @Nullable
+    private final androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged mCallback9;
     // values
     // listeners
     private OnClickListenerImpl mVmOnClicksAndroidViewViewOnClickListener;
@@ -30,20 +32,20 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
     private androidx.databinding.InverseBindingListener mboundView2androidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
-            // Inverse of vm.searchText.get()
-            //         is vm.searchText.set((java.lang.String) callbackArg_0)
+            // Inverse of vm.searchItems.get()
+            //         is vm.searchItems.set((java.lang.String) callbackArg_0)
             java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(mboundView2);
             // localize variables for thread safety
             // vm != null
             boolean vmJavaLangObjectNull = false;
-            // vm.searchText
-            androidx.databinding.ObservableField<java.lang.String> vmSearchText = null;
             // vm
             com.example.plazapalm.views.catergorylist.CategoriesListVM vm = mVm;
-            // vm.searchText != null
-            boolean vmSearchTextJavaLangObjectNull = false;
-            // vm.searchText.get()
-            java.lang.String vmSearchTextGet = null;
+            // vm.searchItems != null
+            boolean vmSearchItemsJavaLangObjectNull = false;
+            // vm.searchItems.get()
+            java.lang.String vmSearchItemsGet = null;
+            // vm.searchItems
+            androidx.databinding.ObservableField<java.lang.String> vmSearchItems = null;
 
 
 
@@ -51,15 +53,15 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
             if (vmJavaLangObjectNull) {
 
 
-                vmSearchText = vm.getSearchText();
+                vmSearchItems = vm.getSearchItems();
 
-                vmSearchTextJavaLangObjectNull = (vmSearchText) != (null);
-                if (vmSearchTextJavaLangObjectNull) {
-
-
+                vmSearchItemsJavaLangObjectNull = (vmSearchItems) != (null);
+                if (vmSearchItemsJavaLangObjectNull) {
 
 
-                    vmSearchText.set(((java.lang.String) (callbackArg_0)));
+
+
+                    vmSearchItems.set(((java.lang.String) (callbackArg_0)));
                 }
             }
         }
@@ -126,6 +128,7 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
         this.tvCategoriesLocationCities.setTag(null);
         setRootTag(root);
         // listeners
+        mCallback9 = new com.example.plazapalm.generated.callback.AfterTextChanged(this, 1);
         invalidateAll();
     }
 
@@ -172,13 +175,13 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
             case 0 :
-                return onChangeVmSearchText((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
-            case 1 :
                 return onChangeVmAddress((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+            case 1 :
+                return onChangeVmSearchItems((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
         }
         return false;
     }
-    private boolean onChangeVmSearchText(androidx.databinding.ObservableField<java.lang.String> VmSearchText, int fieldId) {
+    private boolean onChangeVmAddress(androidx.databinding.ObservableField<java.lang.String> VmAddress, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x1L;
@@ -187,7 +190,7 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
         }
         return false;
     }
-    private boolean onChangeVmAddress(androidx.databinding.ObservableField<java.lang.String> VmAddress, int fieldId) {
+    private boolean onChangeVmSearchItems(androidx.databinding.ObservableField<java.lang.String> VmSearchItems, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x2L;
@@ -204,31 +207,17 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        androidx.databinding.ObservableField<java.lang.String> vmSearchText = null;
+        java.lang.String vmSearchItemsGet = null;
         android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
         com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.CategoriesData> vmAdapterCategories = null;
         androidx.databinding.ObservableField<java.lang.String> vmAddress = null;
         com.example.plazapalm.views.catergorylist.CategoriesListVM vm = mVm;
-        java.lang.String vmSearchTextGet = null;
+        androidx.databinding.ObservableField<java.lang.String> vmSearchItems = null;
         java.lang.String vmAddressGet = null;
 
         if ((dirtyFlags & 0xfL) != 0) {
 
 
-            if ((dirtyFlags & 0xdL) != 0) {
-
-                    if (vm != null) {
-                        // read vm.searchText
-                        vmSearchText = vm.getSearchText();
-                    }
-                    updateRegistration(0, vmSearchText);
-
-
-                    if (vmSearchText != null) {
-                        // read vm.searchText.get()
-                        vmSearchTextGet = vmSearchText.get();
-                    }
-            }
             if ((dirtyFlags & 0xcL) != 0) {
 
                     if (vm != null) {
@@ -238,18 +227,32 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
                         vmAdapterCategories = vm.getAdapterCategories();
                     }
             }
-            if ((dirtyFlags & 0xeL) != 0) {
+            if ((dirtyFlags & 0xdL) != 0) {
 
                     if (vm != null) {
                         // read vm.address
                         vmAddress = vm.getAddress();
                     }
-                    updateRegistration(1, vmAddress);
+                    updateRegistration(0, vmAddress);
 
 
                     if (vmAddress != null) {
                         // read vm.address.get()
                         vmAddressGet = vmAddress.get();
+                    }
+            }
+            if ((dirtyFlags & 0xeL) != 0) {
+
+                    if (vm != null) {
+                        // read vm.searchItems
+                        vmSearchItems = vm.getSearchItems();
+                    }
+                    updateRegistration(1, vmSearchItems);
+
+
+                    if (vmSearchItems != null) {
+                        // read vm.searchItems.get()
+                        vmSearchItemsGet = vmSearchItems.get();
                     }
             }
         }
@@ -262,18 +265,18 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
             this.ivCategory.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             com.example.plazapalm.utils.BindingAdapters.setRecyclerAdapter(this.rvCategoryLocation, vmAdapterCategories);
         }
-        if ((dirtyFlags & 0xdL) != 0) {
+        if ((dirtyFlags & 0xeL) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView2, vmSearchTextGet);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView2, vmSearchItemsGet);
         }
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView2, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView2androidTextAttrChanged);
+            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView2, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, mCallback9, mboundView2androidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvCategoriesLocationCities, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvCategoriesLocationCitiesandroidTextAttrChanged);
         }
-        if ((dirtyFlags & 0xeL) != 0) {
+        if ((dirtyFlags & 0xdL) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvCategoriesLocationCities, vmAddressGet);
@@ -292,11 +295,28 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
         }
     }
     // callback impls
+    public final void _internalCallbackAfterTextChanged(int sourceId , android.text.Editable callbackArg_0) {
+        // localize variables for thread safety
+        // vm != null
+        boolean vmJavaLangObjectNull = false;
+        // vm
+        com.example.plazapalm.views.catergorylist.CategoriesListVM vm = mVm;
+
+
+
+        vmJavaLangObjectNull = (vm) != (null);
+        if (vmJavaLangObjectNull) {
+
+
+
+            vm.onTextChange(callbackArg_0);
+        }
+    }
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): vm.searchText
-        flag 1 (0x2L): vm.address
+        flag 0 (0x1L): vm.address
+        flag 1 (0x2L): vm.searchItems
         flag 2 (0x3L): vm
         flag 3 (0x4L): null
     flag mapping end*/

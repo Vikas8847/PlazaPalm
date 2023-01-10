@@ -14,6 +14,7 @@ public class DashSelectedEventsBindingImpl extends DashSelectedEventsBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
+        sViewsWithIds.put(R.id.tvDashBoardSelectedEvents, 1);
         sViewsWithIds.put(R.id.vDashBoardHeader, 2);
     }
     // views
@@ -23,32 +24,6 @@ public class DashSelectedEventsBindingImpl extends DashSelectedEventsBinding  {
     // values
     // listeners
     // Inverse Binding Event Handlers
-    private androidx.databinding.InverseBindingListener tvDashBoardSelectedEventsandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
-        @Override
-        public void onChange() {
-            // Inverse of model.selectedCatName
-            //         is model.setSelectedCatName((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvDashBoardSelectedEvents);
-            // localize variables for thread safety
-            // model
-            com.example.plazapalm.models.SelectedDataModel model = mModel;
-            // model.selectedCatName
-            java.lang.String modelSelectedCatName = null;
-            // model != null
-            boolean modelJavaLangObjectNull = false;
-
-
-
-            modelJavaLangObjectNull = (model) != (null);
-            if (modelJavaLangObjectNull) {
-
-
-
-
-                model.setSelectedCatName(((java.lang.String) (callbackArg_0)));
-            }
-        }
-    };
 
     public DashSelectedEventsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
         this(bindingComponent, root, mapBindings(bindingComponent, root, 3, sIncludes, sViewsWithIds));
@@ -60,7 +35,6 @@ public class DashSelectedEventsBindingImpl extends DashSelectedEventsBinding  {
             );
         this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.tvDashBoardSelectedEvents.setTag(null);
         setRootTag(root);
         // listeners
         invalidateAll();
@@ -69,7 +43,7 @@ public class DashSelectedEventsBindingImpl extends DashSelectedEventsBinding  {
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x1L;
         }
         requestRebind();
     }
@@ -87,22 +61,7 @@ public class DashSelectedEventsBindingImpl extends DashSelectedEventsBinding  {
     @Override
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
-        if (BR.model == variableId) {
-            setModel((com.example.plazapalm.models.SelectedDataModel) variable);
-        }
-        else {
-            variableSet = false;
-        }
             return variableSet;
-    }
-
-    public void setModel(@Nullable com.example.plazapalm.models.SelectedDataModel Model) {
-        this.mModel = Model;
-        synchronized(this) {
-            mDirtyFlags |= 0x1L;
-        }
-        notifyPropertyChanged(BR.model);
-        super.requestRebind();
     }
 
     @Override
@@ -119,37 +78,14 @@ public class DashSelectedEventsBindingImpl extends DashSelectedEventsBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        com.example.plazapalm.models.SelectedDataModel model = mModel;
-        java.lang.String modelSelectedCatName = null;
-
-        if ((dirtyFlags & 0x3L) != 0) {
-
-
-
-                if (model != null) {
-                    // read model.selectedCatName
-                    modelSelectedCatName = model.getSelectedCatName();
-                }
-        }
         // batch finished
-        if ((dirtyFlags & 0x3L) != 0) {
-            // api target 1
-
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardSelectedEvents, modelSelectedCatName);
-        }
-        if ((dirtyFlags & 0x2L) != 0) {
-            // api target 1
-
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvDashBoardSelectedEvents, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvDashBoardSelectedEventsandroidTextAttrChanged);
-        }
     }
     // Listener Stub Implementations
     // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): model
-        flag 1 (0x2L): null
+        flag 0 (0x1L): null
     flag mapping end*/
     //end
 }

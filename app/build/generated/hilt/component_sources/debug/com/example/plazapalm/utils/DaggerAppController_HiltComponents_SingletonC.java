@@ -49,6 +49,7 @@ import com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM;
 import com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.advancesettings.editfontpage.FontsListFragment;
 import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookFragment;
+import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookFragment_MembersInjector;
 import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookVM;
 import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.advancesettings.editmap.AdvanceSettingMapFragment;
@@ -67,12 +68,14 @@ import com.example.plazapalm.views.advancesettings.pictures.ShowPictureVideoFrag
 import com.example.plazapalm.views.advancesettings.pictures.ShowPictureVideoVM;
 import com.example.plazapalm.views.advancesettings.pictures.ShowPictureVideoVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.advancesettings.questionaries.QuestionariesFragment;
+import com.example.plazapalm.views.advancesettings.questionaries.QuestionariesFragment_MembersInjector;
 import com.example.plazapalm.views.advancesettings.questionaries.QuestionariesVM;
 import com.example.plazapalm.views.advancesettings.questionaries.QuestionariesVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.bookingdetails.BookingDetailsFragment;
 import com.example.plazapalm.views.bookingdetails.BookingDetailsVM;
 import com.example.plazapalm.views.bookingdetails.BookingDetailsVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.catergorylist.CategoriesListFragment;
+import com.example.plazapalm.views.catergorylist.CategoriesListFragment_MembersInjector;
 import com.example.plazapalm.views.catergorylist.CategoriesListVM;
 import com.example.plazapalm.views.catergorylist.CategoriesListVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.catergorylist.addcities.AddCitiesFragment;
@@ -112,6 +115,7 @@ import com.example.plazapalm.views.favourites.favdetails.FavDetailsVM_HiltModule
 import com.example.plazapalm.views.filter.FilterFragment;
 import com.example.plazapalm.views.filter.FilterFragmentVM;
 import com.example.plazapalm.views.filter.FilterFragmentVM_HiltModules_KeyModule_ProvideFactory;
+import com.example.plazapalm.views.filter.FilterFragment_MembersInjector;
 import com.example.plazapalm.views.forgotpassword.ForgotPassVM;
 import com.example.plazapalm.views.forgotpassword.ForgotPassVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.forgotpassword.ForgotPasswordFragment;
@@ -503,7 +507,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
     }
 
     private PreferenceFile preferenceFile() {
-      return new PreferenceFile(singletonCImpl.getEditorProvider.get(), singletonCImpl.getPrefProvider.get());
+      return new PreferenceFile(singletonCImpl.getEditorProvider.get(), singletonCImpl.getPrefProvider.get(), singletonCImpl.getEditorProvider.get(), singletonCImpl.getPrefProvider.get());
     }
 
     private Repository repository() {
@@ -537,6 +541,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     @Override
     public void injectAdvanceEditLookFragment(AdvanceEditLookFragment arg0) {
+      injectAdvanceEditLookFragment2(arg0);
     }
 
     @Override
@@ -561,6 +566,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     @Override
     public void injectQuestionariesFragment(QuestionariesFragment arg0) {
+      injectQuestionariesFragment2(arg0);
     }
 
     @Override
@@ -569,6 +575,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     @Override
     public void injectCategoriesListFragment(CategoriesListFragment arg0) {
+      injectCategoriesListFragment2(arg0);
     }
 
     @Override
@@ -617,6 +624,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     @Override
     public void injectFilterFragment(FilterFragment arg0) {
+      injectFilterFragment2(arg0);
     }
 
     @Override
@@ -729,6 +737,25 @@ public final class DaggerAppController_HiltComponents_SingletonC {
       return instance;
     }
 
+    private AdvanceEditLookFragment injectAdvanceEditLookFragment2(
+        AdvanceEditLookFragment instance) {
+      AdvanceEditLookFragment_MembersInjector.injectDataStoreUtil(instance, singletonCImpl.dataStoreUtil());
+      AdvanceEditLookFragment_MembersInjector.injectPreferenceFile(instance, preferenceFile());
+      return instance;
+    }
+
+    private QuestionariesFragment injectQuestionariesFragment2(QuestionariesFragment instance) {
+      QuestionariesFragment_MembersInjector.injectDataStoreUtil(instance, singletonCImpl.dataStoreUtil());
+      QuestionariesFragment_MembersInjector.injectPref(instance, preferenceFile());
+      return instance;
+    }
+
+    private CategoriesListFragment injectCategoriesListFragment2(CategoriesListFragment instance) {
+      CategoriesListFragment_MembersInjector.injectDataStoreUtil(instance, singletonCImpl.dataStoreUtil());
+      CategoriesListFragment_MembersInjector.injectPref(instance, preferenceFile());
+      return instance;
+    }
+
     private AddCitiesFragment injectAddCitiesFragment2(AddCitiesFragment instance) {
       AddCitiesFragment_MembersInjector.injectPref(instance, preferenceFile());
       return instance;
@@ -736,6 +763,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     private DashBoardFragment injectDashBoardFragment2(DashBoardFragment instance) {
       DashBoardFragment_MembersInjector.injectDataStore(instance, singletonCImpl.dataStoreUtil());
+      DashBoardFragment_MembersInjector.injectPref(instance, preferenceFile());
       return instance;
     }
 
@@ -748,6 +776,12 @@ public final class DaggerAppController_HiltComponents_SingletonC {
       FavDetailsFragment_MembersInjector.injectDataStoreUtil(instance, singletonCImpl.dataStoreUtil());
       FavDetailsFragment_MembersInjector.injectRepository(instance, repository());
       FavDetailsFragment_MembersInjector.injectPref(instance, preferenceFile());
+      return instance;
+    }
+
+    private FilterFragment injectFilterFragment2(FilterFragment instance) {
+      FilterFragment_MembersInjector.injectDataStoreUtil(instance, singletonCImpl.dataStoreUtil());
+      FilterFragment_MembersInjector.injectPref(instance, preferenceFile());
       return instance;
     }
 
@@ -956,7 +990,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
     }
 
     private PreferenceFile preferenceFile() {
-      return new PreferenceFile(singletonCImpl.getEditorProvider.get(), singletonCImpl.getPrefProvider.get());
+      return new PreferenceFile(singletonCImpl.getEditorProvider.get(), singletonCImpl.getPrefProvider.get(), singletonCImpl.getEditorProvider.get(), singletonCImpl.getPrefProvider.get());
     }
 
     private Repository repository() {
@@ -1048,10 +1082,10 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new AddPhotosVM(singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile(), viewModelCImpl.repository());
 
           case 2: // com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookVM 
-          return (T) new AdvanceEditLookVM();
+          return (T) new AdvanceEditLookVM(singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile(), viewModelCImpl.repository());
 
           case 3: // com.example.plazapalm.views.advancesettings.map.AdvanceMapVM 
-          return (T) new AdvanceMapVM();
+          return (T) new AdvanceMapVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile());
 
           case 4: // com.example.plazapalm.views.advancesettings.gallery.AdvanceSettingGalleryVM 
           return (T) new AdvanceSettingGalleryVM();
@@ -1063,10 +1097,10 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new AdvanceSettingVM();
 
           case 7: // com.example.plazapalm.views.bookingdetails.BookingDetailsVM 
-          return (T) new BookingDetailsVM();
+          return (T) new BookingDetailsVM(viewModelCImpl.repository(), singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile());
 
           case 8: // com.example.plazapalm.views.myprofile.calendar.CalendarVM 
-          return (T) new CalendarVM();
+          return (T) new CalendarVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile(), singletonCImpl.dataStoreUtil());
 
           case 9: // com.example.plazapalm.views.catergorylist.CategoriesListVM 
           return (T) new CategoriesListVM(singletonCImpl.dataStoreUtil(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule), viewModelCImpl.preferenceFile(), viewModelCImpl.repository());
@@ -1075,10 +1109,10 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new ChangePassVM(viewModelCImpl.repository(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule), viewModelCImpl.preferenceFile(), singletonCImpl.dataStoreUtil());
 
           case 11: // com.example.plazapalm.views.chat.ChatVM 
-          return (T) new ChatVM();
+          return (T) new ChatVM(viewModelCImpl.repository(), singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile());
 
           case 12: // com.example.plazapalm.views.confirmbookthankyou.ConfirmBookingVM 
-          return (T) new ConfirmBookingVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile());
+          return (T) new ConfirmBookingVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile(), singletonCImpl.dataStoreUtil());
 
           case 13: // com.example.plazapalm.views.contactus.ContactUsVM 
           return (T) new ContactUsVM(viewModelCImpl.repository(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule), viewModelCImpl.preferenceFile());
@@ -1102,7 +1136,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new FavouritesVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile(), singletonCImpl.dataStoreUtil());
 
           case 20: // com.example.plazapalm.views.filter.FilterFragmentVM 
-          return (T) new FilterFragmentVM();
+          return (T) new FilterFragmentVM(singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile());
 
           case 21: // com.example.plazapalm.views.forgotpassword.ForgotPassVM 
           return (T) new ForgotPassVM(viewModelCImpl.repository(), NetworkModule_CacheUtilFactory.cacheUtil(singletonCImpl.networkModule));
@@ -1141,7 +1175,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new QrCodeScannerVM();
 
           case 33: // com.example.plazapalm.views.advancesettings.questionaries.QuestionariesVM 
-          return (T) new QuestionariesVM();
+          return (T) new QuestionariesVM(singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile(), viewModelCImpl.repository());
 
           case 34: // com.example.plazapalm.views.reportselection.ReportChooseVM 
           return (T) new ReportChooseVM();

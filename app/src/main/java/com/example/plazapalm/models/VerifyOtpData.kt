@@ -14,5 +14,6 @@ data class VerifyData(
     val last_name: String?="",
     val notification: Boolean?=false,
     val token: String?="",
-    val user_id: String?=""
+    val user_id: String?="",
+    val business_profile_status: Boolean?=false
 ):Serializable

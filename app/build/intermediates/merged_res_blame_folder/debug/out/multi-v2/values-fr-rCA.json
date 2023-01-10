@@ -23,23 +23,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\91462bdd3983165d73ea259c5b77f9b8\\transformed\\navigation-ui-2.5.1\\res\\values-fr-rCA\\values-fr-rCA.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,168",
-                        "endColumns": "112,125",
-                        "endOffsets": "163,289"
-                    },
-                    "to": {
-                        "startLines": "104,105",
-                        "startColumns": "4,4",
-                        "startOffsets": "9820,9933",
-                        "endColumns": "112,125",
-                        "endOffsets": "9928,10054"
-                    }
-                },
-                {
                     "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\bffc1dfc389021b0b609053b8d4bacd5\\transformed\\jetified-places-2.6.0\\res\\values-fr-rCA\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
@@ -105,6 +88,23 @@
                         "startOffsets": "10739,10809",
                         "endColumns": "69,71",
                         "endOffsets": "10804,10876"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\2d36cca02247669cefd3c78ea9bbca9c\\transformed\\navigation-ui-2.5.3\\res\\values-fr-rCA\\values-fr-rCA.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,168",
+                        "endColumns": "112,125",
+                        "endOffsets": "163,289"
+                    },
+                    "to": {
+                        "startLines": "104,105",
+                        "startColumns": "4,4",
+                        "startOffsets": "9820,9933",
+                        "endColumns": "112,125",
+                        "endOffsets": "9928,10054"
                     }
                 },
                 {

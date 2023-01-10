@@ -38,8 +38,8 @@ class NetworkModule {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             OkHttpClient.Builder()
-                .readTimeout(1, TimeUnit.MINUTES)
-                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(2, TimeUnit.MINUTES)
+                .connectTimeout(2, TimeUnit.MINUTES)
 
                 /*  .addInterceptor { chain ->
                       val original = chain.request()

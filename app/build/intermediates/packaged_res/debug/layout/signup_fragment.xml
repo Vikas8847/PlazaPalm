@@ -309,9 +309,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_12sdp"
+                    android:gravity="center_horizontal"
                     android:fontFamily="@font/hello_valentina"
-                    android:text="Signing up as a business"
+                    android:text="@string/signing_up_as_a_business"
                     android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:textSize="25sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tlSignupConfirmPass" />
@@ -320,32 +322,35 @@
                 <!--Adding radio button yes or no-->
 
                 <RadioGroup
+                    android:id="@+id/radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvSignupBusiness"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/rb_female"
+                        android:id="@+id/rb_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:textColor="@color/light_white_opacity"
                         android:buttonTint="@color/light_white_opacity"
-                        android:text="Yes" />
+                        android:tag="binding_6"                                  
+                    android:text="@string/yes" />
 
                     <RadioButton
-                        android:id="@+id/rb_male"
+                        android:id="@+id/rb_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layoutDirection="ltr"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:tag="binding_7"                                  
                         android:textColor="@color/light_white_opacity"
                         android:buttonTint="@color/light_white_opacity"
-                        android:text="No" />
+                        android:text="@string/no" />
                 </RadioGroup>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -361,7 +366,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/capsule_login_button"
             android:fontFamily="@font/inter_bold"
-            android:tag="binding_6"          
+            android:tag="binding_8"          
             android:text="Signup"
             android:textAllCaps="false"
             android:textColor="@color/light_black"
@@ -383,7 +388,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:fontFamily="@font/inter_semibold"
             android:gravity="center_horizontal"
-            android:tag="binding_7"          
+            android:tag="binding_9"          
             android:text="Already have an account? Login"
             android:textColor="@color/white"
             android:textSize="14sp"

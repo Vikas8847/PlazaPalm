@@ -36,26 +36,20 @@ class MyProfileVM @Inject constructor(
 ) : ViewModel() {
 
     var premium: Int? = null
+    var user_id = ObservableField("")
     var postStatus = ObservableField("")
     var firstName = ObservableField("first name")
     var storedImageUrl = ObservableField("")
     val qrCodeScanner: QrCodeScannerFragment by lazy { qrCodeScanner }
     var token = ObservableField("")
-    var status = ObservableField("Post a Profile ")
+    var p_id = ObservableField("")
+    var status = ObservableField("")
     var changestatus = ObservableBoolean(false)
+    var istrue = ObservableBoolean(false)
 
     init {
 
         token.set(pref.retrieveKey("token"))
-
-        if (pref.retrieveBoolKey(Constants.POSTSTATUS)!!.equals(true)) {
-            changestatus.set(true)
-        } else {
-            changestatus.set(false)
-        }
-
-        //saveProfileImageUrl()
-
         getProfileImageUrl()
 
     }
@@ -91,7 +85,10 @@ class MyProfileVM @Inject constructor(
             }
 
             R.id.tvCalendar -> {
-                view.navigateWithId(R.id.action_myProfileFragment_to_calendarFragment)
+                val bundle = Bundle()
+                bundle.putString("comingFromm", "Calendar")
+                bundle.putString("p_id", p_id.get())
+                view.navigateWithId(R.id.action_myProfileFragment_to_calendarFragment, bundle)
             }
             R.id.tvFavourite -> {
                 view.navigateWithId(R.id.action_myProfileFragment_to_favouritesFragment)
@@ -106,6 +103,7 @@ class MyProfileVM @Inject constructor(
 
             R.id.tvQRCode -> {
                 view.navigateWithId(R.id.action_myProfileFragment_to_QRCodeGenerateFragment)
+                istrue.set(true)
             }
 
             //for scanner
@@ -115,13 +113,14 @@ class MyProfileVM @Inject constructor(
         }
     }
 
+
     /**call Get Profile Api..**/
     fun getProfile() = viewModelScope.launch {
         val body = JSONObject()
         body.put("Authorization", token.get())
         repository.makeCall(
             apiKey = ApiEnums.GET_PROFILE,
-            loader = true,
+            loader = false,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetProfileResponseModel>> {
@@ -132,12 +131,17 @@ class MyProfileVM @Inject constructor(
                 override fun onResponse(res: Response<GetProfileResponseModel>) {
 
                     val responseData = res.body()
+
+                    user_id.set(res.body()!!.data.user_id)
+
+                    Log.e("sadddddw", user_id.get().toString())
+//                    firstName.set(res.body()!!.data.first_name.toString() + " " + " " + res.body()!!.data.last_name.toString())
+
                     dataStoreUtil.saveObject(PROFILE_DATA, res.body())
-                    dataStoreUtil.saveData(
-                        PROFILE_IMAGE,
-                        res.body()?.data?.profile_picture.toString()
-                    )
+                    dataStoreUtil.saveData(PROFILE_IMAGE, res.body()?.data?.profile_picture.toString())
                     storedImageUrl.set(res.body()?.data?.profile_picture)
+
+                    p_id.set(res.body()?.data?.p_id)
 
                     Log.e("QWQWQWQW", responseData.toString())
 
@@ -152,7 +156,7 @@ class MyProfileVM @Inject constructor(
                     }
 
 //                    setpostStatus()
-                    // myProfileData()
+                     myProfileData()
 
                 }
 
@@ -175,11 +179,36 @@ class MyProfileVM @Inject constructor(
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
             firstName.set(it?.data?.first_name.toString() + " " + " " + it?.data?.last_name.toString())
 
+            val p_Id = it?.data?.p_id
+            p_id.set(p_Id)
+            Log.e("SssQAWS--", p_Id.toString())
             storedImageUrl.set(it?.data?.profile_picture)
+
+            if (p_Id.isNullOrEmpty()) {
+                changestatus.set(false)
+                status.set("Post a Profile ")
+
+            } else {
+                postStatus.set(p_Id)
+                changestatus.set(true)
+                status.set("View Profile ")
+            }
+
+
+/** 04-01-23
+ *  Change status for change profile
+ * */
+            /*   if (pref.retrieveBoolKey(Constants.POSTSTATUS)!!.equals(true)) {
+                   changestatus.set(true)
+               } else {
+                   changestatus.set(false)
+               }
+   */
 
             /* if (it?.data?.profile_picture != null) {
                 storedImageUrl.set(it.data.profile_picture)
              }*/
+
         }
     }
 }

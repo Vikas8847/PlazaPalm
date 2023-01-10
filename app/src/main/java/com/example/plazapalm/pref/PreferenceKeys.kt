@@ -19,6 +19,8 @@ const val languageKey = "languageKey"
 
 const val token="token"
 
+const val business_profile_status="business_profile_status"
+
 const val refreshToken="refreshToken"
 
 const val tokenType="tokenType"

@@ -13,18 +13,19 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
         sIncludes = null;
-        sViewsWithIds = null;
+        sViewsWithIds = new android.util.SparseIntArray();
+        sViewsWithIds.put(R.id.tvClBookLocationName, 6);
     }
     // views
     @NonNull
     private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback10;
+    private final android.view.View.OnClickListener mCallback16;
     @Nullable
-    private final android.view.View.OnClickListener mCallback11;
+    private final android.view.View.OnClickListener mCallback14;
     @Nullable
-    private final android.view.View.OnClickListener mCallback9;
+    private final android.view.View.OnClickListener mCallback15;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -45,15 +46,14 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
         this.ivCalenderChat.setTag(null);
         this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.tvClBookLocationName.setTag(null);
         this.tvClBookingUserDate.setTag(null);
         this.tvClBookingUserName.setTag(null);
         this.tvClBookingUserTime.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback10 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
-        mCallback11 = new com.example.plazapalm.generated.callback.OnClickListener(this, 3);
-        mCallback9 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback16 = new com.example.plazapalm.generated.callback.OnClickListener(this, 3);
+        mCallback14 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback15 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
         invalidateAll();
     }
 
@@ -79,7 +79,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
         if (BR.model == variableId) {
-            setModel((com.example.plazapalm.models.CalendarModel) variable);
+            setModel((com.example.plazapalm.models.CalenderData) variable);
         }
         else {
             variableSet = false;
@@ -87,7 +87,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
             return variableSet;
     }
 
-    public void setModel(@Nullable com.example.plazapalm.models.CalendarModel Model) {
+    public void setModel(@Nullable com.example.plazapalm.models.CalenderData Model) {
         this.mModel = Model;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
@@ -110,88 +110,61 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        com.example.plazapalm.models.CalendarModel model = mModel;
-        java.lang.String modelBookingDate = null;
-        java.lang.String modelBookingUserName = null;
-        java.lang.String modelBookingTime = null;
-        java.lang.String modelBookingUserLocation = null;
+        com.example.plazapalm.models.CalenderData model = mModel;
+        java.lang.String modelChooseTime = null;
+        java.lang.String modelCustomerFirstNameChar = null;
+        java.lang.String modelChooseDate = null;
+        java.lang.String modelCustomerLastName = null;
+        java.lang.String modelCustomerFirstName = null;
+        java.lang.String modelCustomerFirstNameCharModelCustomerLastName = null;
 
         if ((dirtyFlags & 0x3L) != 0) {
 
 
 
                 if (model != null) {
-                    // read model.bookingDate
-                    modelBookingDate = model.getBookingDate();
-                    // read model.bookingUserName
-                    modelBookingUserName = model.getBookingUserName();
-                    // read model.bookingTime
-                    modelBookingTime = model.getBookingTime();
-                    // read model.bookingUserLocation
-                    modelBookingUserLocation = model.getBookingUserLocation();
+                    // read model.choose_time
+                    modelChooseTime = model.getChoose_time();
+                    // read model.choose_date
+                    modelChooseDate = model.getChoose_date();
+                    // read model.customer_last_name
+                    modelCustomerLastName = model.getCustomer_last_name();
+                    // read model.customer_first_name
+                    modelCustomerFirstName = model.getCustomer_first_name();
                 }
+
+
+                // read (model.customer_first_name) + (' ')
+                modelCustomerFirstNameChar = (modelCustomerFirstName) + (' ');
+
+
+                // read ((model.customer_first_name) + (' ')) + (model.customer_last_name)
+                modelCustomerFirstNameCharModelCustomerLastName = (modelCustomerFirstNameChar) + (modelCustomerLastName);
         }
         // batch finished
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.ivCalendarDelete.setOnClickListener(mCallback10);
-            this.ivCalenderChat.setOnClickListener(mCallback11);
-            this.mboundView0.setOnClickListener(mCallback9);
+            this.ivCalendarDelete.setOnClickListener(mCallback15);
+            this.ivCalenderChat.setOnClickListener(mCallback16);
+            this.mboundView0.setOnClickListener(mCallback14);
         }
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookLocationName, modelBookingUserLocation);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookingUserDate, modelBookingDate);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookingUserName, modelBookingUserName);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookingUserTime, modelBookingTime);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookingUserDate, modelChooseDate);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookingUserName, modelCustomerFirstNameCharModelCustomerLastName);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookingUserTime, modelChooseTime);
         }
     }
     // Listener Stub Implementations
     // callback impls
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         switch(sourceId) {
-            case 2: {
-                // localize variables for thread safety
-                // model
-                com.example.plazapalm.models.CalendarModel model = mModel;
-                // model.adapterPosition
-                int modelAdapterPosition = 0;
-                // model.onItemClick
-                com.example.plazapalm.recycleradapter.RecyclerAdapter.OnItemClick modelOnItemClick = null;
-                // model != null
-                boolean modelJavaLangObjectNull = false;
-                // model.onItemClick != null
-                boolean modelOnItemClickJavaLangObjectNull = false;
-
-
-
-                modelJavaLangObjectNull = (model) != (null);
-                if (modelJavaLangObjectNull) {
-
-
-                    modelOnItemClick = model.getOnItemClick();
-
-                    modelOnItemClickJavaLangObjectNull = (modelOnItemClick) != (null);
-                    if (modelOnItemClickJavaLangObjectNull) {
-
-
-
-
-
-                        modelAdapterPosition = model.getAdapterPosition();
-
-
-                        modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "deleteConfirmBooking");
-                    }
-                }
-                break;
-            }
             case 3: {
                 // localize variables for thread safety
                 // model
-                com.example.plazapalm.models.CalendarModel model = mModel;
+                com.example.plazapalm.models.CalenderData model = mModel;
                 // model.adapterPosition
                 int modelAdapterPosition = 0;
                 // model.onItemClick
@@ -227,7 +200,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
             case 1: {
                 // localize variables for thread safety
                 // model
-                com.example.plazapalm.models.CalendarModel model = mModel;
+                com.example.plazapalm.models.CalenderData model = mModel;
                 // model.adapterPosition
                 int modelAdapterPosition = 0;
                 // model.onItemClick
@@ -256,6 +229,42 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
 
 
                         modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "calendarBookingDetails");
+                    }
+                }
+                break;
+            }
+            case 2: {
+                // localize variables for thread safety
+                // model
+                com.example.plazapalm.models.CalenderData model = mModel;
+                // model.adapterPosition
+                int modelAdapterPosition = 0;
+                // model.onItemClick
+                com.example.plazapalm.recycleradapter.RecyclerAdapter.OnItemClick modelOnItemClick = null;
+                // model != null
+                boolean modelJavaLangObjectNull = false;
+                // model.onItemClick != null
+                boolean modelOnItemClickJavaLangObjectNull = false;
+
+
+
+                modelJavaLangObjectNull = (model) != (null);
+                if (modelJavaLangObjectNull) {
+
+
+                    modelOnItemClick = model.getOnItemClick();
+
+                    modelOnItemClickJavaLangObjectNull = (modelOnItemClick) != (null);
+                    if (modelOnItemClickJavaLangObjectNull) {
+
+
+
+
+
+                        modelAdapterPosition = model.getAdapterPosition();
+
+
+                        modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "deleteConfirmBooking");
                     }
                 }
                 break;

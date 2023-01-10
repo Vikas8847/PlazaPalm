@@ -7,12 +7,14 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
@@ -157,14 +159,32 @@ object BindingAdapters {
     @BindingAdapter(value = ["setImage"], requireAll = false)
     @JvmStatic
     fun setImage(
-        shapeableImageView: ShapeableImageView,
+        shapeableImageView: ImageView,
         imageUrl: String?
     ) {
         if (imageUrl!=null){
             Glide.with(CommonMethods.context)
                 .load(IMAGE_LOAD_URL + imageUrl)
-                .override(100,100)
+//                .apply( RequestOptions().override(700, 400))
                 .into(shapeableImageView)
+
+        }
+        else
+        {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
+    }
+    @BindingAdapter(value = ["setHeartImage"], requireAll = false)
+    @JvmStatic
+    fun setHeartImage(
+        heartImage : AppCompatImageView, imageUrl: String? ) {
+
+        if (imageUrl!=null){
+            Glide.with(CommonMethods.context)
+                .load(IMAGE_LOAD_URL + imageUrl)
+                .override(100,100)
+                .into(heartImage)
+
         }
         else
         {

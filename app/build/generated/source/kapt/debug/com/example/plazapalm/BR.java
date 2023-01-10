@@ -7,9 +7,13 @@ public class BR {
 
   public static final int categoryName = 2;
 
-  public static final int isCheckedStatus = 3;
+  public static final int getmodel = 3;
 
-  public static final int model = 4;
+  public static final int isCheckedStatus = 4;
 
-  public static final int vm = 5;
+  public static final int model = 5;
+
+  public static final int vm = 6;
+
+  public static final int vmi = 7;
 }

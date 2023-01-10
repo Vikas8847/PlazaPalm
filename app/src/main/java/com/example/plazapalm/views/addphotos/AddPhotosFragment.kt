@@ -347,7 +347,6 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
 
             }
 
-
             repository.makeCall(
                 apiKey = ApiEnums.UPLOAD_IMAGES,
                 loader = true,

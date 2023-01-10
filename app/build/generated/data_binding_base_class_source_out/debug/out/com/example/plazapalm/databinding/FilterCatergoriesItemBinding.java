@@ -12,7 +12,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.example.plazapalm.R;
-import com.example.plazapalm.models.FilterDataModel;
+import com.example.plazapalm.models.SelectedDataModelList;
 import java.lang.Deprecated;
 import java.lang.Object;
 
@@ -30,7 +30,7 @@ public abstract class FilterCatergoriesItemBinding extends ViewDataBinding {
   public final View viewSettingPushNotification;
 
   @Bindable
-  protected FilterDataModel mModel;
+  protected SelectedDataModelList mModel;
 
   protected FilterCatergoriesItemBinding(Object _bindingComponent, View _root, int _localFieldCount,
       AppCompatImageView ivFilterMinus, AppCompatImageView ivNotificationItemsDelete,
@@ -42,10 +42,10 @@ public abstract class FilterCatergoriesItemBinding extends ViewDataBinding {
     this.viewSettingPushNotification = viewSettingPushNotification;
   }
 
-  public abstract void setModel(@Nullable FilterDataModel model);
+  public abstract void setModel(@Nullable SelectedDataModelList model);
 
   @Nullable
-  public FilterDataModel getModel() {
+  public SelectedDataModelList getModel() {
     return mModel;
   }
 

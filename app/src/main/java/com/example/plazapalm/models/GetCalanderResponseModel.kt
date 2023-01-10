@@ -1,10 +1,12 @@
 package com.example.plazapalm.models
 
-    data class GetCalanderResponseModel(
+import com.example.plazapalm.recycleradapter.AbstractModel
+
+data class GetCalanderResponseModel(
     val data: List<CalenderData?>,
     val message: String? = "",
     val status: Int? = 0
-     )
+     ) :AbstractModel()
 
     data class CalenderData(
     val _id: String? = "",
@@ -17,6 +19,7 @@ package com.example.plazapalm.models
     val customer_last_name: String? = "",
     val description: String? = "",
     val location_text: String? = "",
+    val location_dumm: String? = "Mohali PB ",
     val month: Int? = 0,
     val postProfile_first_name: String? = "",
     val postProfile_last_name: String? = "",
@@ -25,4 +28,4 @@ package com.example.plazapalm.models
     val post_profile_user_id: String? = "",
     val userType: String? = "",
     val year: Int? = 0
-     )
+     ):AbstractModel()

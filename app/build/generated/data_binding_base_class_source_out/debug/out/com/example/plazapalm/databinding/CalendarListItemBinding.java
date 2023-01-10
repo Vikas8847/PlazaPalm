@@ -12,7 +12,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.example.plazapalm.R;
-import com.example.plazapalm.models.CalendarModel;
+import com.example.plazapalm.models.CalenderData;
 import java.lang.Deprecated;
 import java.lang.Object;
 
@@ -36,7 +36,7 @@ public abstract class CalendarListItemBinding extends ViewDataBinding {
   public final AppCompatTextView tvClBookingUserTime;
 
   @Bindable
-  protected CalendarModel mModel;
+  protected CalenderData mModel;
 
   protected CalendarListItemBinding(Object _bindingComponent, View _root, int _localFieldCount,
       AppCompatImageView ivCalendarDelete, AppCompatImageView ivCalenderChat,
@@ -51,10 +51,10 @@ public abstract class CalendarListItemBinding extends ViewDataBinding {
     this.tvClBookingUserTime = tvClBookingUserTime;
   }
 
-  public abstract void setModel(@Nullable CalendarModel model);
+  public abstract void setModel(@Nullable CalenderData model);
 
   @Nullable
-  public CalendarModel getModel() {
+  public CalenderData getModel() {
     return mModel;
   }
 

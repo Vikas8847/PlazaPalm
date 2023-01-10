@@ -4,12 +4,14 @@ package com.example.plazapalm.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -30,6 +32,12 @@ public abstract class QuestionariesFragmentBinding extends ViewDataBinding {
   public final AppCompatImageView ivQuestionaryBack;
 
   @NonNull
+  public final TextView listemptyId;
+
+  @NonNull
+  public final NestedScrollView newQuestion;
+
+  @NonNull
   public final RecyclerView rvQuestionary;
 
   @NonNull
@@ -40,12 +48,14 @@ public abstract class QuestionariesFragmentBinding extends ViewDataBinding {
 
   protected QuestionariesFragmentBinding(Object _bindingComponent, View _root, int _localFieldCount,
       AppCompatButton btnAddNewQuestions, ConstraintLayout clQuestionaryMain,
-      AppCompatImageView ivQuestionaryBack, RecyclerView rvQuestionary,
-      AppCompatTextView tvQuestionary) {
+      AppCompatImageView ivQuestionaryBack, TextView listemptyId, NestedScrollView newQuestion,
+      RecyclerView rvQuestionary, AppCompatTextView tvQuestionary) {
     super(_bindingComponent, _root, _localFieldCount);
     this.btnAddNewQuestions = btnAddNewQuestions;
     this.clQuestionaryMain = clQuestionaryMain;
     this.ivQuestionaryBack = ivQuestionaryBack;
+    this.listemptyId = listemptyId;
+    this.newQuestion = newQuestion;
     this.rvQuestionary = rvQuestionary;
     this.tvQuestionary = tvQuestionary;
   }

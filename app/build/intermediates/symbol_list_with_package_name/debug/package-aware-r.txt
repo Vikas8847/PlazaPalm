@@ -29,6 +29,8 @@ anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
 anim exit
+anim fade_in_colorpickerview_skydoves
+anim fade_out_colorpickerview_skydoves
 anim fragment_fast_out_extra_slow_in
 anim mtrl_bottom_sheet_slide_in
 anim mtrl_bottom_sheet_slide_out
@@ -98,6 +100,7 @@ attr actionDropDownStyle
 attr actionLayout
 attr actionMenuTextAppearance
 attr actionMenuTextColor
+attr actionMode
 attr actionModeBackground
 attr actionModeCloseButtonStyle
 attr actionModeCloseContentDescription
@@ -186,9 +189,21 @@ attr behavior_overlapTop
 attr behavior_peekHeight
 attr behavior_saveFlags
 attr behavior_skipCollapsed
+attr behind_swiped_item_bg_color
+attr behind_swiped_item_bg_color_secondary
+attr behind_swiped_item_custom_layout
+attr behind_swiped_item_custom_layout_secondary
+attr behind_swiped_item_icon
+attr behind_swiped_item_icon_centered
+attr behind_swiped_item_icon_margin
+attr behind_swiped_item_icon_secondary
 attr blendSrc
+attr borderColor_AlphaSlideBar
+attr borderColor_BrightnessSlider
 attr borderRound
 attr borderRoundPercent
+attr borderSize_AlphaSlideBar
+attr borderSize_BrightnessSlider
 attr borderWidth
 attr borderlessButtonStyle
 attr bottomAppBarStyle
@@ -409,6 +424,7 @@ attr daySelectedStyle
 attr dayStyle
 attr dayTodayStyle
 attr daysLabelsColor
+attr debounceDuration
 attr defaultDuration
 attr defaultNavHost
 attr defaultQueryHint
@@ -501,6 +517,8 @@ attr finishPrimaryWithSecondary
 attr finishSecondaryWithPrimary
 attr firstBaselineToTopHeight
 attr firstDayOfWeek
+attr flag_alpha
+attr flag_isFlipAble
 attr flashButtonColor
 attr flashButtonOffIcon
 attr flashButtonOnIcon
@@ -610,6 +628,7 @@ attr indicatorDirectionLinear
 attr indicatorInset
 attr indicatorSize
 attr initialActivityCount
+attr initialColor
 attr insetForeground
 attr isLightTheme
 attr isMaterialTheme
@@ -637,6 +656,7 @@ attr itemTextAppearance
 attr itemTextAppearanceActive
 attr itemTextAppearanceInactive
 attr itemTextColor
+attr item_layout
 attr keyPositionType
 attr keyboardIcon
 attr keylines
@@ -746,6 +766,7 @@ attr listPreferredItemPaddingStart
 attr liteMode
 attr logo
 attr logoDescription
+attr long_press_to_start_dragging
 attr mapId
 attr mapType
 attr maskColor
@@ -867,6 +888,7 @@ attr paddingStart
 attr paddingTopNoTitle
 attr paddingTopSystemWindowInsets
 attr pagesColor
+attr palette
 attr panelBackground
 attr panelMenuListTheme
 attr panelMenuListWidth
@@ -898,6 +920,7 @@ attr popupMenuBackground
 attr popupMenuStyle
 attr popupTheme
 attr popupWindowStyle
+attr preferenceName
 attr prefixText
 attr prefixTextAppearance
 attr prefixTextColor
@@ -966,7 +989,12 @@ attr selectionColor
 attr selectionDisabled
 attr selectionLabelColor
 attr selectionRequired
+attr selector
 attr selectorSize
+attr selector_AlphaSlideBar
+attr selector_BrightnessSlider
+attr selector_alpha
+attr selector_size
 attr setsTag
 attr shapeAppearance
 attr shapeAppearanceLargeComponent
@@ -1046,6 +1074,7 @@ attr superBottomSheet_dim
 attr superBottomSheet_peekHeight
 attr superBottomSheet_statusBarColor
 attr swipeEnabled
+attr swiped_item_opacity_fades_on_swiping
 attr switchMinWidth
 attr switchPadding
 attr switchStyle
@@ -1144,6 +1173,9 @@ attr tickMark
 attr tickMarkTint
 attr tickMarkTintMode
 attr tickVisible
+attr tileEvenColor
+attr tileOddColor
+attr tileSize
 attr tint
 attr tintMode
 attr title
@@ -1291,7 +1323,10 @@ color background_material_light
 color black
 color black_light
 color blue
+color blueGray
 color bottom_nav_selecter
+color brickRed
+color brightOrange
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
 color bright_foreground_inverse_material_dark
@@ -1319,6 +1354,7 @@ color common_google_signin_btn_text_light_disabled
 color common_google_signin_btn_text_light_focused
 color common_google_signin_btn_text_light_pressed
 color common_google_signin_btn_tint
+color coolBlue
 color currentMonthDayColor
 color dark_gray
 color day_item_background_state_color
@@ -1373,11 +1409,15 @@ color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
 color forgot_pass
+color gold
+color goldYellow
 color gray
+color green
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color itemFocusedColor
 color itemHighlightColor
+color l_gray
 color light_EditText_Hint_Color
 color light_black
 color light_blue
@@ -1475,6 +1515,8 @@ color mtrl_textinput_hovered_box_stroke_color
 color nextMonthDayColor
 color notification_action_color_filter
 color notification_icon_bg_color
+color orange
+color paleRed
 color parrort_color
 color places_autocomplete_error_button
 color places_autocomplete_error_message
@@ -1493,6 +1535,7 @@ color places_text_white_alpha_26
 color places_text_white_alpha_87
 color places_ui_default_primary
 color places_ui_default_primary_dark
+color plumLight
 color primary_color_pix
 color primary_dark_material_dark
 color primary_dark_material_light
@@ -1503,6 +1546,7 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
+color purple
 color quantum_amber100
 color quantum_amber200
 color quantum_amber300
@@ -1859,6 +1903,7 @@ color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
 color setting_line_views_color
+color sky
 color sky_blue
 color surface_color_pix
 color switch_thumb_disabled_material_dark
@@ -1873,6 +1918,7 @@ color text_color_pix
 color tool_bar_black_color
 color tooltip_background_dark
 color tooltip_background_light
+color turfGreen
 color video_counter_color_pix
 color white
 color white_gray
@@ -3089,6 +3135,7 @@ drawable android
 drawable app_icons
 drawable avd_hide_password
 drawable avd_show_password
+drawable back_color_choose
 drawable background_color_circle_selector
 drawable background_transparent
 drawable bg_dark
@@ -3122,6 +3169,7 @@ drawable circle_proifle_image
 drawable circular_button
 drawable color_cursor
 drawable color_cursor_black
+drawable color_set_back
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -3178,6 +3226,8 @@ drawable ic_back_arrow_white
 drawable ic_back_icon_black
 drawable ic_bg_adnvance_setting
 drawable ic_bluemix_button_bg
+drawable ic_bubble_big_colorpickerview_skydoves
+drawable ic_bubble_small_colorpickerview_skydoves
 drawable ic_calendar_icon
 drawable ic_camera_icon_bg
 drawable ic_capsule_edit_view_button
@@ -3253,6 +3303,7 @@ drawable ic_volume_display_icon
 drawable ic_welcome_lines
 drawable ic_welcome_next_button
 drawable justin_carpainter_image
+drawable like_icon
 drawable like_true
 drawable like_unfilled_image
 drawable likes_true
@@ -3294,6 +3345,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable pin
+drawable placeholder
 drawable places_autocomplete_toolbar_shadow
 drawable places_powered_by_google_dark
 drawable places_powered_by_google_light
@@ -3314,8 +3366,10 @@ drawable red_circle
 drawable richard_img
 drawable ring
 drawable robert_electrician_image
+drawable round_cornerback
 drawable round_minus_bg
 drawable roundimage
+drawable save_btn_back
 drawable search_location_gray_icon
 drawable searched_cities_bg
 drawable selected_categories_bg_dashboard
@@ -3335,6 +3389,7 @@ drawable tooltip_frame_light
 drawable trigger
 drawable welcome_layer
 drawable welcome_plazza_icon
+drawable wheel
 drawable white_radius
 drawable williamson_dog
 font hello_valentina
@@ -3359,6 +3414,7 @@ id SHOW_ALL
 id SHOW_PATH
 id SHOW_PROGRESS
 id SYM
+id Show_back
 id TOP_END
 id TOP_START
 id abbreviationsBar
@@ -3489,6 +3545,8 @@ id alertTitle
 id aligned
 id all
 id allStates
+id alphaSlideBar
+id alphaSlideBarFrame
 id always
 id amu_text
 id androidx_window_activity_scope
@@ -3517,10 +3575,13 @@ id bottom
 id bottomEnd
 id bottomStart
 id bottom_sheet
+id bottom_view
 id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id brightnessSlideBar
+id brightnessSlideBarFrame
 id btAdd
 id btCurrentLocation
 id btnAddNewQuestions
@@ -3546,6 +3607,7 @@ id btnSignup
 id btnUpdateEmail
 id btnUpgradeNow
 id btnVerifyEmail
+id bubble
 id buttonPanel
 id cLChatMain
 id cache_measures
@@ -3556,6 +3618,7 @@ id calendarHeader
 id calendarViewPager
 id callMeasure
 id cancel_button
+id cancel_iv
 id carryVelocity
 id categories
 id categoriesListFragment
@@ -3567,6 +3630,9 @@ id chain
 id chain2
 id chains
 id changePasswordFragment
+id change_Click
+id change_back_id
+id change_colors
 id chatFragment
 id checkBottomTextFrontPage
 id checkEditFrontPageTopText
@@ -3650,6 +3716,11 @@ id closest
 id clsignupMain
 id coil_request_manager
 id collapseActionView
+id colorPickerView
+id colorPickerViewFrame
+id color_id
+id color_recyclerView
+id colors
 id compatible
 id confirmBookDatePicker
 id confirmBookTimePicker
@@ -3660,7 +3731,9 @@ id constMain
 id constTermsUse
 id constUpdateMail
 id constraint
+id constraintLayout
 id constraintsClick
+id constrant_layput_id
 id contactUsFragment
 id container
 id content
@@ -3706,6 +3779,7 @@ id disableIntraAutoTransition
 id disablePostScroll
 id disableScroll
 id disjoint
+id display_back
 id divider
 id dragAnticlockwise
 id dragClockwise
@@ -3854,6 +3928,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id imageview
 id img_count
 id immediateStop
 id included
@@ -3955,6 +4030,7 @@ id ivWelcomePlaza
 id jumpToEnd
 id jumpToStart
 id labeled
+id last
 id layout
 id layout_cons
 id left
@@ -3967,11 +4043,14 @@ id line3
 id linear
 id listMode
 id list_item
+id listempty_id
 id listview_background_shape
 id locale
 id loginFragment
 id ltr
+id main_Conslayout
 id main_content
+id main_toolBar
 id many_days_picker
 id mapFragment1
 id mapFragmentViewProfile
@@ -4012,6 +4091,7 @@ id month_navigation_fragment_toggle
 id month_navigation_next
 id month_navigation_previous
 id month_title
+id more_colors
 id motion_base
 id mtrl_anchor_parent
 id mtrl_calendar_day_selector_frame
@@ -4054,6 +4134,7 @@ id negativeButton
 id never
 id neverCompleteToEnd
 id neverCompleteToStart
+id new_question
 id noScroll
 id noState
 id none
@@ -4069,6 +4150,7 @@ id onAttachStateChangeListener
 id onDateChanged
 id onInterceptTouchReturnSwipe
 id one_day_picker
+id opacity_tv
 id openCategeroyFragment
 id outline
 id outward
@@ -4127,16 +4209,18 @@ id progressbar
 id qrCodeScannerFragment
 id questionariesFragment
 id radio
+id radioGroup
 id range_picker
 id ratio
-id rb_female
-id rb_male
+id rb_no
+id rb_yes
 id rectangles
 id recyclerView
 id remove_image
 id repeat
 id reportChooseOptionFragment
 id reportFragment
+id reset_all
 id reverseSawtooth
 id rgFirst
 id right
@@ -4190,6 +4274,7 @@ id search_src_text
 id search_voice_btn
 id selectCategoryFragment
 id select_dialog_listview
+id selectcancel_iv
 id selected
 id selection
 id selection_back
@@ -4207,13 +4292,19 @@ id showCustom
 id showHome
 id showPictureVideoFragment
 id showTitle
+id show_color_id
+id show_colors
+id show_colors_layout
 id signUpFragment
 id sin
+id size_tv
 id skipCollapsed
 id skipped
 id slDeleteQuestions
 id slide
 id sliderFilter
+id sliderOpacitty
+id slider_size
 id sliding_pane_detail_container
 id sliding_pane_layout
 id snackbar_action
@@ -4221,6 +4312,7 @@ id snackbar_text
 id snap
 id snapMargins
 id south
+id space_bottom
 id spacer
 id special_effects_controller_view_tag
 id splashFragment
@@ -4311,6 +4403,7 @@ id top
 id topEnd
 id topPanel
 id topStart
+id top_view
 id topbar
 id torch_image_view
 id touch_outside
@@ -4405,6 +4498,7 @@ id tvContactusSubject
 id tvCurrentEmail
 id tvDashBoardItemDescription
 id tvDashBoardItemDistance
+id tvDashBoardItemLastName
 id tvDashBoardItemLocation
 id tvDashBoardItemName
 id tvDashBoardSelectedEvents
@@ -4486,6 +4580,7 @@ id tvReceiverDay
 id tvReport
 id tvReportAddNote
 id tvReportSelected
+id tvSaveSwipeBtn
 id tvSelectCategory
 id tvSender
 id tvSenderDay
@@ -4575,6 +4670,7 @@ id vChooseOptEditProfile
 id vChooseOption
 id vChoosePhoto
 id vDashBoardHeader
+id vDecsc
 id vDesc
 id vEditProPremiumOpt
 id vEditProPremiumOptDelete
@@ -4636,6 +4732,7 @@ id viewSettingsTermsUse
 id viewSomethingWrong
 id viewUpdateEmail
 id viewUpgrade
+id view_id
 id view_offset_helper
 id view_transition
 id view_tree_lifecycle_owner
@@ -4768,6 +4865,7 @@ layout calendar_view_day
 layout calendar_view_grid
 layout calendar_view_picker_day
 layout camera_and_gallery_edit_profile
+layout cardview_layout
 layout categories_list_fragment
 layout categories_list_items
 layout categories_temp
@@ -4775,7 +4873,10 @@ layout change_password_fragment
 layout chat_fragment
 layout chat_receiver
 layout chat_sender
+layout choose_color_items
+layout choose_colors
 layout choose_profile_options
+layout color_picker_layout
 layout common_view
 layout confirm_booking_datepicker
 layout confirm_booking_fragment
@@ -4807,6 +4908,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_colorpicker_colorpickerview_skydoves
 layout dp_example
 layout edit_front_page_fragment
 layout edit_or_delete_profile
@@ -4819,6 +4921,7 @@ layout favourites_fragment
 layout favourites_list_items
 layout filter_catergories_item
 layout filter_fragment
+layout flag_bubble_colorpickerview_skydoves
 layout fonts_list_fragment
 layout forgot_password_fragment
 layout fragment_details_categeroy
@@ -4914,6 +5017,7 @@ layout sdp_example
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
+layout selected_cateories_items
 layout settings_fragment
 layout show_picture_video_fragment
 layout signup_fragment
@@ -4987,22 +5091,30 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string add_new_question
 string add_photo_type
+string addtofav
 string androidx_startup
 string app_name
 string app_version
 string appbar_scrolling_view_behavior
 string are_you_sure_you_want_to_delete_n_the_profile
+string background_color
 string bottom_sheet_behavior
 string bottomsheet_action_expand_halfway
 string camera_flash_button
+string canecl
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
 string chip_text
+string choose
 string choose_categeory
 string clear_text_end_icon_content_description
 string click_button
+string color
+string colors
+string colorss
 string common_google_play_services_enable_button
 string common_google_play_services_enable_text
 string common_google_play_services_enable_title
@@ -5022,19 +5134,23 @@ string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
 string confirm_booking
+string dd_mm_yy
 string define_roundedimageview
 string define_zxingandroidembedded
 string delete
 string description2
 string description_2
 string description_3
+string deserts_and_drinks
 string edit_profile
 string edit_profile_last_name
+string enter_code
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string first_name
+string font_sample
 string google_map_api_key
 string google_places_api
 string hair_style
@@ -5042,9 +5158,11 @@ string haircut
 string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
+string inter_regular
 string item_view_role_description
 string last_name
 string lens_facing_button
+string library_name
 string library_roundedimageview_author
 string library_roundedimageview_authorWebsite
 string library_roundedimageview_isOpenSource
@@ -5064,6 +5182,7 @@ string library_zxingandroidembedded_libraryWebsite
 string library_zxingandroidembedded_licenseId
 string library_zxingandroidembedded_repositoryLink
 string log_out
+string logout
 string material_calendar_friday
 string material_calendar_monday
 string material_calendar_negative_button
@@ -5094,6 +5213,7 @@ string material_timepicker_minute
 string material_timepicker_pm
 string material_timepicker_select_time
 string material_timepicker_text_input_mode_description
+string more_colors
 string mtrl_badge_numberless_content_description
 string mtrl_chip_close_icon_content_description
 string mtrl_exceed_max_badge_number_content_description
@@ -5131,6 +5251,10 @@ string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
 string nav_app_bar_navigate_up_description
 string nav_app_bar_open_drawer_description
+string no
+string no_favorites_yet
+string no_questions_added_yet
+string opacity
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
@@ -5159,15 +5283,20 @@ string places_try_again
 string post
 string quickie_please_wait
 string quickie_scan_qr_code
+string removefromFav
+string reset_all
 string save
 string search_for_location
 string search_menu_title
+string signing_up_as_a_business
 string some_error_occured
+string space
 string status_bar_notification_info_overflow
 string submit
 string take_photo
 string thank_you
 string user_name
+string yes
 string you_selected
 string your_device_offline
 string zxing_app_name
@@ -5608,6 +5737,7 @@ style Theme_Design_Light
 style Theme_Design_Light_BottomSheetDialog
 style Theme_Design_Light_NoActionBar
 style Theme_Design_NoActionBar
+style Theme_DoNotDim
 style Theme_MaterialComponents
 style Theme_MaterialComponents_BottomSheetDialog
 style Theme_MaterialComponents_Bridge
@@ -5712,6 +5842,7 @@ style TimePickerTheme
 style Toolbar_TitleText
 style UpgradeProView
 style ViewAdvanceSettings
+style WallSearchView
 style Widget_AppCompat_ActionBar
 style Widget_AppCompat_ActionBar_Solid
 style Widget_AppCompat_ActionBar_TabBar
@@ -5936,6 +6067,8 @@ styleable ActivityFilter activityAction activityName
 styleable ActivityNavigator android_name action data dataPattern targetPackage
 styleable ActivityRule alwaysExpand
 styleable AlertDialog android_layout buttonIconDimen buttonPanelSideLayout listItemLayout listLayout multiChoiceItemLayout showTitle singleChoiceItemLayout
+styleable AlphaSlideBar borderColor_AlphaSlideBar borderSize_AlphaSlideBar selector_AlphaSlideBar
+styleable AlphaTileView tileEvenColor tileOddColor tileSize
 styleable AnimatedStateListDrawableCompat android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
 styleable AnimatedStateListDrawableItem android_id android_drawable
 styleable AnimatedStateListDrawableTransition android_drawable android_toId android_fromId android_reversible
@@ -5954,6 +6087,7 @@ styleable BaseProgressIndicator android_indeterminate hideAnimationBehavior indi
 styleable BottomAppBar backgroundTint elevation fabAlignmentMode fabAnimationMode fabCradleMargin fabCradleRoundedCornerRadius fabCradleVerticalOffset hideOnScroll paddingBottomSystemWindowInsets paddingLeftSystemWindowInsets paddingRightSystemWindowInsets
 styleable BottomNavigationView itemHorizontalTranslationEnabled
 styleable BottomSheetBehavior_Layout android_maxWidth android_elevation backgroundTint behavior_draggable behavior_expandedOffset behavior_fitToContents behavior_halfExpandedRatio behavior_hideable behavior_peekHeight behavior_saveFlags behavior_skipCollapsed gestureInsetBottomIgnored paddingBottomSystemWindowInsets paddingLeftSystemWindowInsets paddingRightSystemWindowInsets paddingTopSystemWindowInsets shapeAppearance shapeAppearanceOverlay
+styleable BrightnessSlideBar borderColor_BrightnessSlider borderSize_BrightnessSlider selector_BrightnessSlider
 styleable ButtonBarLayout allowStacking
 styleable CalendarView abbreviationsBarColor abbreviationsLabelsColor anotherMonthsDaysLabelsColor daysLabelsColor disabledDaysLabelsColor eventsEnabled firstDayOfWeek forwardButtonSrc headerColor headerLabelColor highlightedDaysLabelsColor maximumDaysRange pagesColor previousButtonSrc selectionBetweenMonthsEnabled selectionColor selectionDisabled selectionLabelColor swipeEnabled todayLabelColor todayTypeface type typeface
 styleable Capability queryPatterns shortcutMatchRequired
@@ -5969,6 +6103,7 @@ styleable ClockHandView clockHandColor materialCircleRadius selectorSize
 styleable CodeScannerView autoFocusButtonColor autoFocusButtonOffIcon autoFocusButtonOnIcon autoFocusButtonPaddingHorizontal autoFocusButtonPaddingVertical autoFocusButtonPosition autoFocusButtonVisible flashButtonColor flashButtonOffIcon flashButtonOnIcon flashButtonPaddingHorizontal flashButtonPaddingVertical flashButtonPosition flashButtonVisible frameAspectRatioHeight frameAspectRatioWidth frameColor frameCornersCapRounded frameCornersRadius frameCornersSize frameSize frameThickness frameVerticalBias frameVisible maskColor maskVisible
 styleable CollapsingToolbarLayout collapsedTitleGravity collapsedTitleTextAppearance contentScrim expandedTitleGravity expandedTitleMargin expandedTitleMarginBottom expandedTitleMarginEnd expandedTitleMarginStart expandedTitleMarginTop expandedTitleTextAppearance extraMultilineHeightEnabled forceApplySystemWindowInsetTop maxLines scrimAnimationDuration scrimVisibleHeightTrigger statusBarScrim title titleCollapseMode titleEnabled toolbarId
 styleable CollapsingToolbarLayout_Layout layout_collapseMode layout_collapseParallaxMultiplier
+styleable ColorPickerView actionMode debounceDuration flag_alpha flag_isFlipAble initialColor palette preferenceName selector selector_alpha selector_size
 styleable ColorStateListItem android_color android_alpha android_lStar alpha lStar
 styleable CompoundButton android_button buttonCompat buttonTint buttonTintMode
 styleable Constraint android_orientation android_id android_visibility android_layout_width android_layout_height android_layout_marginLeft android_layout_marginTop android_layout_marginRight android_layout_marginBottom android_maxWidth android_maxHeight android_minWidth android_minHeight android_alpha android_transformPivotX android_transformPivotY android_translationX android_translationY android_scaleX android_scaleY android_rotation android_rotationX android_rotationY android_layout_marginStart android_layout_marginEnd android_translationZ android_elevation animateCircleAngleTo animateRelativeTo barrierAllowsGoneWidgets barrierDirection barrierMargin chainUseRtl constraint_referenced_ids constraint_referenced_tags drawPath flow_firstHorizontalBias flow_firstHorizontalStyle flow_firstVerticalBias flow_firstVerticalStyle flow_horizontalAlign flow_horizontalBias flow_horizontalGap flow_horizontalStyle flow_lastHorizontalBias flow_lastHorizontalStyle flow_lastVerticalBias flow_lastVerticalStyle flow_maxElementsWrap flow_verticalAlign flow_verticalBias flow_verticalGap flow_verticalStyle flow_wrapMode guidelineUseRtl layout_constrainedHeight layout_constrainedWidth layout_constraintBaseline_creator layout_constraintBaseline_toBaselineOf layout_constraintBaseline_toBottomOf layout_constraintBaseline_toTopOf layout_constraintBottom_creator layout_constraintBottom_toBottomOf layout_constraintBottom_toTopOf layout_constraintCircle layout_constraintCircleAngle layout_constraintCircleRadius layout_constraintDimensionRatio layout_constraintEnd_toEndOf layout_constraintEnd_toStartOf layout_constraintGuide_begin layout_constraintGuide_end layout_constraintGuide_percent layout_constraintHeight layout_constraintHeight_default layout_constraintHeight_max layout_constraintHeight_min layout_constraintHeight_percent layout_constraintHorizontal_bias layout_constraintHorizontal_chainStyle layout_constraintHorizontal_weight layout_constraintLeft_creator layout_constraintLeft_toLeftOf layout_constraintLeft_toRightOf layout_constraintRight_creator layout_constraintRight_toLeftOf layout_constraintRight_toRightOf layout_constraintStart_toEndOf layout_constraintStart_toStartOf layout_constraintTag layout_constraintTop_creator layout_constraintTop_toBottomOf layout_constraintTop_toTopOf layout_constraintVertical_bias layout_constraintVertical_chainStyle layout_constraintVertical_weight layout_constraintWidth layout_constraintWidth_default layout_constraintWidth_max layout_constraintWidth_min layout_constraintWidth_percent layout_editor_absoluteX layout_editor_absoluteY layout_goneMarginBaseline layout_goneMarginBottom layout_goneMarginEnd layout_goneMarginLeft layout_goneMarginRight layout_goneMarginStart layout_goneMarginTop layout_marginBaseline layout_wrapBehaviorInParent motionProgress motionStagger pathMotionArc pivotAnchor polarRelativeTo quantizeMotionInterpolator quantizeMotionPhase quantizeMotionSteps transformPivotTarget transitionEasing transitionPathRotate visibilityMode
@@ -5981,6 +6116,7 @@ styleable CoordinatorLayout keylines statusBarBackground
 styleable CoordinatorLayout_Layout android_layout_gravity layout_anchor layout_anchorGravity layout_behavior layout_dodgeInsetEdges layout_insetEdge layout_keyline
 styleable CustomAttribute attributeName customBoolean customColorDrawableValue customColorValue customDimension customFloatValue customIntegerValue customPixelDimension customReference customStringValue methodName
 styleable DialogFragmentNavigator android_name
+styleable DragDropSwipeRecyclerView behind_swiped_item_bg_color behind_swiped_item_bg_color_secondary behind_swiped_item_custom_layout behind_swiped_item_custom_layout_secondary behind_swiped_item_icon behind_swiped_item_icon_centered behind_swiped_item_icon_margin behind_swiped_item_icon_secondary divider item_layout long_press_to_start_dragging swiped_item_opacity_fades_on_swiping
 styleable DrawerArrowToggle arrowHeadLength arrowShaftLength barLength color drawableSize gapBetweenBars spinBars thickness
 styleable DrawerLayout elevation
 styleable ExtendedFloatingActionButton collapsedSize elevation extendMotionSpec hideMotionSpec showMotionSpec shrinkMotionSpec

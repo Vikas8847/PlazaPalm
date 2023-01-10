@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
@@ -29,10 +30,12 @@ class FavouritesVM @Inject constructor(
     var preferenceFile: PreferenceFile,
     var storeUtil: DataStoreUtil,
 
-    ) : ViewModel() {
+    )  : ViewModel() {
     var favouritesList = ArrayList<FavData>()
     val favAdapter by lazy { RecyclerAdapter<FavData>(R.layout.favourites_list_items) }
     var isFavorite = Bundle()
+    var noData = ObservableBoolean(false)
+
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -63,14 +66,16 @@ class FavouritesVM @Inject constructor(
 
     }
 
-    private fun getFavdata() {
+     fun getFavdata() {
         repository.makeCall(ApiEnums.GET_FAVDETAILS,
             loader = true, saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetFavResponse>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetFavResponse> {
                     return retrofitApi.getFavDetals(
-                        preferenceFile.retrieveKey("token"), 30.7046, 76.7179
+                        preferenceFile.retrieveKey("token"),
+                        preferenceFile.retvieLatlong("lati").toDouble(),
+                        preferenceFile.retvieLatlong("longi").toDouble()
                     )
                 }
 
@@ -86,16 +91,29 @@ class FavouritesVM @Inject constructor(
                             isFavorite.putSerializable("ResBody", res.body()!!.data!!)
 
                             Log.e("REESSFAVVV", res.body().toString())
+
                             data(res.body()!!.data)
                             var newList = res.body()!!.data as ArrayList<FavData>
+
                             favAdapter.addItems(newList)
                             favAdapter.notifyDataSetChanged()
 
+                            if (favAdapter.getAllItems()!=null){
+                            if (favAdapter.getAllItems().size==0){
+                                noData.set(true)
+                            }
+                            }
+
+
+
                         } else {
+
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+
                         }
 
                     } else {
+
                         CommonMethods.showToast(CommonMethods.context, res.message())
                     }
                 }

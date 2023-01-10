@@ -1,6 +1,6 @@
 package com.example.plazapalm.interfaces
 
 interface clickItem {
-    fun click(categoryName: String, position: Int, _id: String?, s: String)
+    fun click(categoryName: String, position: Int, _id: String?, s: String, color: Int?)
 
 }

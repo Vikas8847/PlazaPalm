@@ -2,10 +2,11 @@ package com.example.plazapalm.networkcalls
 
 import com.example.plazapalm.models.*
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 interface RetrofitApi {
     /*SignUp api..*/
@@ -18,6 +19,7 @@ interface RetrofitApi {
         @Field("password") Password: String?,
         @Field("device_token") DeviceToken: String?,
         @Field("device_type") DeviceType: String?,
+        @Field("business_profile_status") business_profile_status: Boolean?,
     ): Response<SignupResponseModel>
 
     /*Verify Otp api..*/
@@ -194,7 +196,9 @@ interface RetrofitApi {
         @Field("limit") limit: Int,
         @Field("lat") lat: Double,
         @Field("long") long: Double,
-        @Field("search") search: String
+        @Field("search") search: String,
+        @Field("miles") miles: String
+
     ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded
@@ -207,7 +211,7 @@ interface RetrofitApi {
         @Field("expiry_date") expiry_date: String?,
         @Field("address") address: String?,
         @Field("location_text") location_text: String?,
-        @Field ("image_url") image_url: ArrayList<String>,
+        @Field("image_url") image_url: ArrayList<String>,
 //        @Part("image_url") image_url : MultipartBody.Part,
         @Field("user_name") user_name: String,
         @Field("tags") tags: String?,
@@ -217,7 +221,7 @@ interface RetrofitApi {
         @Field("lat") lat: String?,
         @Field("profile_title") profile_title: String?,
         @Field("c_id") c_id: String?,
-        ): Response<SavePostProfileResponse>
+    ): Response<SavePostProfileResponse>
 
 
 /*
@@ -263,11 +267,10 @@ interface RetrofitApi {
     @DELETE("postProfileDelete/{name}")
     suspend fun deleteProfilePost(
         @Header("Authorization") Authorization: String,
-        @Path("name") name:String
-
+        @Path("name") name: String
     ): Response<DeletePostProfileResponse>
-    /*Upload media api..*/
 
+    /*Upload media api..*/
     @Multipart
     @POST(UPLOAD_MEDIA)
     suspend fun uploadMediaPostProfile(
@@ -285,7 +288,7 @@ interface RetrofitApi {
         @Field("expiry_date") expiry_date: String?,
         @Field("address") address: String?,
         @Field("location_text") location_text: String?,
-        @Field ("image_url") image_url: ArrayList<String>,
+        @Field("image_url") image_url: ArrayList<String>,
 //      @Part("image_url") image_url : MultipartBody.Part,
         @Field("user_name") user_name: String,
         @Field("tags") tags: String?,
@@ -296,48 +299,51 @@ interface RetrofitApi {
         @Field("profile_title") profile_title: String?,
         @Field("c_id") c_id: String?,
         @Field("p_id") p_id: String?
-        ) : Response<UpdateProfileResponse>
+    ): Response<UpdateProfileResponse>
 
     @FormUrlEncoded
     @POST(ADD_TOFAV_POSTPROFILE)
     suspend fun addtoFav(
-        @Header ("Authorization") Authorization  : String?,
-        @Field("p_id") p_id :String?,
-        @Field("favType") favType : Boolean?
-    ):Response<AddFavPostProfileResponse>
+        @Header("Authorization") Authorization: String?,
+        @Field("p_id") p_id: String?,
+        @Field("favType") favType: Boolean?
+    ): Response<AddFavPostProfileResponse>
 
     @GET(GET_FAVOURITES)
     suspend fun getFavDetals(
-        @Header ("Authorization") Authorization: String?,
-        @Query("lat") lat :Double,
-        @Query("long") long :Double
-    ) :Response<GetFavResponse>
+        @Header("Authorization") Authorization: String?,
+        @Query("lat") lat: Double,
+        @Query("long") long: Double
+    ): Response<GetFavResponse>
 
     @FormUrlEncoded
     @POST(LIKES_DISLIKES)
-   suspend fun likesDislikes(
-        @Header("Authorization") Authorization :String,
-        @Field("p_id") p_id :String,
-        @Field("likeStatus") likeStatus :Boolean,
-        @Field("dislikeStatus") dislikeStatus :Boolean
-    ):Response<LikesResPonse>
+    suspend fun likesDislikes(
+        @Header("Authorization") Authorization: String,
+        @Field("p_id") p_id: String,
+        @Field("likeStatus") likeStatus: Boolean,
+        @Field("dislikeStatus") dislikeStatus: Boolean
+    ): Response<LikesResPonse>
 
-   @FormUrlEncoded
-   @POST(REPORT)
-   suspend fun report(
-       @Header("Authorization") Authorization: String,
-       @Field("p_id") p_id: String,
-       @Field("reportText") reportText: String,
-       @Field("note") note: String,
-       ):Response<ReportResponse>
+    @FormUrlEncoded
+    @POST(REPORT)
+    suspend fun report(
+        @Header("Authorization") Authorization: String,
+        @Field("p_id") p_id: String,
+        @Field("reportText") reportText: String,
+        @Field("note") note: String,
+    ): Response<ReportResponse>
 
-   @FormUrlEncoded
-   @POST(ADD_QUESTION)
-   suspend fun addQuestion(@Header("Authorization") Authorization: String,
-   @Field("p_id") p_id :String ,
-   @Field("question_text") question_text :String
-   ):Response<QueData>
+    @FormUrlEncoded
+    @POST(ADD_QUESTION)
+    suspend fun addQuestion(
+        @Header("Authorization") Authorization: String,
+        @Field("p_id") p_id: String,
+        @Field("question_text") question_text: String
+    ): Response<AddQuestionResponseModel>
     // add Calendar api ..
+
+
     @FormUrlEncoded
     @POST(ADD_TO_CALENDAR)
     suspend fun addToCalendarBooking(
@@ -347,14 +353,120 @@ interface RetrofitApi {
         @Field("post_profile_id") Post_Profile_Id: String,
         @Field("choose_time") Choose_Time: String,
         @Field("description") Description: String,
-        @Field("question_answer") Question_Answer: ArrayList<String>
+        @Field("question_answer") Question_Answer: ArrayList<QuestionAnswer>
     ): Response<AddToCalendarResponseModel>
 
-
-    /*Delete Account api.. */
+    /**Delete Account api.. */
     @DELETE(REMOVE_FROM_CALENDAR)
     suspend fun deleteFromCalendar(
         @Header("Authorization") Authorization: String,
         @Field("booking_id") Booking_Id: String
     ): Response<AddToCalendarResponseModel>
+
+    /** Confirm Booking Api**/
+    @FormUrlEncoded
+    @POST(CONFIRM_BOOKING)
+    suspend fun conBookProfileSave(
+        @Header("Authorization") Authorization: String,
+        @Field("post_profile_id") post_profile_id: String,
+        @Field("choose_date") choose_date: String,
+        @Field("choose_time") choose_time: String,
+        @Field("description") description: String,
+        @Field("category_name") category_name: String,
+        @Field("question_answer") question_answer: ArrayList<QuestionAnswer>
+
+    ): Response<ConfirmBookingProfileResponse>
+
+    /** GetCalendarBookingDateMonthWiseForBoth Api */
+    @GET(GET_CALENDAR_RESPONSE)
+    suspend fun getCalendarBookingDateMonthWiseForBoth(
+        @Header("Authorization") Authorization: String,
+        @Query("month") month: Int,
+        @Query("year") year: Int,
+        @Query("post_profile_id ") post_profile_id: String
+
+    ): Response<GetCalanderResponseModel>
+
+
+    /** AddToBlocklist Api */
+    @FormUrlEncoded
+    @POST(ADDTO_BLOCKLIST)
+    suspend fun addToBlocklist(
+        @Header("Authorization") Authorization: String,
+        @Field("u_id") u_id: String,
+        @Field("isBlocked") isBlocked: Boolean
+    ): Response<BlockUserResponse>
+
+    /** GetBookingDetailsForCustomer Api */
+    @GET(GET_BOOKING_DETAILSFOR_CUSTOMER)
+    suspend fun getBookingDetailsForCustomer(
+        @Header("Authorization") Authorization: String,
+        @Query("booking_id") booking_id: String
+    ): Response<BookingDetailsResponse>
+
+    /** Booking StatusInput Api */
+    @FormUrlEncoded
+    @POST(BOOKINGSTATUS_INPUT)
+    suspend fun bookingStatusInput(
+        @Header("Authorization") Authorization: String,
+        @Query("booking_id") booking_id: String,
+        @Query("booking_status") booking_status: String
+    ): Response<BookingStatusInputResponse>
+
+    /** Delete Booking Api */
+    @FormUrlEncoded
+    @DELETE(DELETE_BOOKING)
+    suspend fun deleteBooking(
+        @Header("Authorization") Authorization: String,
+        @Field("booking_id") booking_id: String
+    ): Response<DeleteBookingResponse>
+
+    @GET("listQuestion/{p_id}")
+    suspend fun listQuestion(
+        @Header("Authorization") Authorization: String,
+        @Path("p_id") p_id: String
+    ): Response<GetQuestionsListResponse>
+
+    @DELETE(DELETE_QUESTION)
+    suspend fun deleteQuestion(
+        @Header("Authorization") Authorization: String,
+        @Query("question_id") question_id: String
+    ): Response<DeleteQuestionsResponse>
+
+    @POST(UPDATE_QUESTION)
+    suspend fun updateQuestion(
+        @Header("Authorization") Authorization: String,
+        @Field("question_id") question_id: String,
+        @Field("question_text") question_text: String
+    ): Response<DeleteQuestionsResponse>
+
+    @FormUrlEncoded
+    @POST(POST_COLORS_EDIT)
+    suspend fun postEditLookColors(
+        @Header("Authorization") Authorization: String,
+        @Field("backgroundColor") backgroundColor: String,
+        @Field("backgroundType") backgroundType: String,
+        @Field("columnColor") columnColor: String,
+        @Field("columnOpacity") columnOpacity: Double,
+        @Field("borderOpacity") borderOpacity: Double,
+        @Field("borderWidth") borderWidth: Float,
+        @Field("borderColor") borderColor: String,
+        @Field("fontName") fontName: String,
+        @Field("fontColor") fontColor: String,
+        @Field("fontSize") fontSize: Int,
+        @Field("fontOpacity") fontOpacity: Double
+
+    ): Response<EditLookColorsResponse>
+
+    @GET(GET_COLORS)
+    suspend fun colorLookGet(
+        @Header("Authorization") Authorization: String
+    ): Response<GetColorsResponse>
+
+
+    @POST(MAP_FEATURES)
+    suspend fun mapFeatreData(
+      @Body jsonObject: JSONObject
+    ): Response<MapFeaturedDataRes>
+
 }

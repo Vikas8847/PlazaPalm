@@ -148,8 +148,12 @@ class SettingsVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<VerifyOtpData>) {
-                    // CommonMethods.showToast(context, USER_ACCOUNT_DELETED)
-                    pref.clearPreference()
+                    // CommonMethods.showToast
+
+//                    pref.storeKey("token",res.body()?.data?.token.toString())
+
+                    pref.cleardata("token")
+//                    pref.clearPreference()
                     dataStoreUtil.clearDataStore {
                         it
                     }
@@ -181,8 +185,11 @@ class SettingsVM @Inject constructor(
                     )
                 }
                 override fun onResponse(res: Response<UserLogoutModel>) {
+
                     dataStoreUtil.clearDataStore { clear -> }
-                    pref.clearPreference()
+//                    pref.clearPreference()
+                    pref.cleardata("token")
+
                     view.findNavController().navigate(R.id.action_setting_to_loginFragment)
                     with(CommonMethods) {
                         showToast(context, res.body()?.message.toString())

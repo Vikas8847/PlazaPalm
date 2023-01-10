@@ -25,7 +25,7 @@ data class SavePostProfileResponse(
     val is_top_selected: Boolean?=false,
     val last_name: String?="",
     val lat: Double?=0.0,
-    val location: Location?,
+    val location: ColorsLocation?,
     val location_OnOff: Boolean?,
     val location_text: String?="",
     val long: Double?=0.0,
@@ -38,7 +38,7 @@ data class SavePostProfileResponse(
     val user_name: String?=""
 )
 
-data class Location(
+data class ColorsLocation(
     val coordinates: List<Double>,
     val type: String
 )

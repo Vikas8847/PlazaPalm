@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -38,7 +39,7 @@ public abstract class DashBoardFragmentBinding extends ViewDataBinding {
   public final RecyclerView rvDashBoard;
 
   @NonNull
-  public final AppCompatTextView searchBar;
+  public final AppCompatEditText searchBar;
 
   @NonNull
   public final AppCompatTextView tvDashBoardTitle;
@@ -56,7 +57,7 @@ public abstract class DashBoardFragmentBinding extends ViewDataBinding {
       ConstraintLayout clDashBoardListSearch, ConstraintLayout clEvents,
       ConstraintLayout clMainDashBoard, AppCompatImageView ivDashBoardFilter,
       AppCompatImageView ivDashBoardSelectedList, RecyclerView rvDashBoard,
-      AppCompatTextView searchBar, AppCompatTextView tvDashBoardTitle,
+      AppCompatEditText searchBar, AppCompatTextView tvDashBoardTitle,
       AppCompatTextView tvNoDataDashboard, View vDashBoardHeader) {
     super(_bindingComponent, _root, _localFieldCount);
     this.clDashBoardListSearch = clDashBoardListSearch;

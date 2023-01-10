@@ -15,11 +15,13 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -28,9 +30,15 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableField
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
+import com.example.plazapalm.models.AddQuestionResponseModel
 import com.example.plazapalm.models.VerifyData
+import com.example.plazapalm.networkcalls.ApiEnums
+import com.example.plazapalm.networkcalls.ApiProcessor
+import com.example.plazapalm.networkcalls.Repository
+import com.example.plazapalm.networkcalls.RetrofitApi
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
+import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -60,6 +68,10 @@ object CommonMethods {
     /** Common Toast Bar You can use every where in the application using context **/
     fun showToast(context: Context, text: String) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+
+//        val toast = Toast.makeText(context, text, Toast.LENGTH_SHORT)
+//        toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0)
+//        toast.show()
     }
 
 
@@ -88,6 +100,7 @@ object CommonMethods {
             }
             dialog?.findViewById<AppCompatTextView>(R.id.tvDeleteSwipeCancelBtn)
                 ?.setOnClickListener {
+
                     dialog?.dismiss()
                 }
         }
@@ -98,8 +111,11 @@ object CommonMethods {
         // dialog?.show()
     }
 
-    /**Open Add question Alert ...***/
-    fun openAddQuestionDialog() {
+/*
+    */
+/**Open Add question Alert ...***//*
+
+    fun openAddQuestionDialog(p_id: String, repository: Repository, token: String) {
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
             dialog = null
@@ -111,15 +127,33 @@ object CommonMethods {
             dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
             dialog?.setCancelable(false)
 
+            var addques = dialog?.findViewById<AppCompatEditText>(R.id.etAddQuestions)
+            var btnSave = dialog?.findViewById<AppCompatButton>(R.id.btnAddedQuesSave)
 
-            /**choose options click(Button) **/
-            dialog?.findViewById<AppCompatButton>(R.id.btnAddedQuesSave)?.setOnClickListener {
-                dialog?.dismiss()
+            */
+/**choose options click(Button) **//*
+
+            btnSave?.setOnClickListener {
+                if (addques?.text.isNullOrEmpty()) {
+
+                    val toast =
+                        Toast.makeText(context, "Please enter question.", Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0)
+                    toast.show()
+
+                } else {
+                    addQuesApi(p_id, addques?.text.toString(), repository, token)
+                    dialog?.dismiss()
+
+                }
             }
             dialog?.findViewById<AppCompatImageView>(R.id.ivAddQuestionCross)?.setOnClickListener {
+
                 dialog?.dismiss()
             }
+
             dialog?.findViewById<ConstraintLayout>(R.id.clAddQuestion)?.setOnClickListener {
+
                 context.hideKeyboard()
             }
         }
@@ -129,6 +163,51 @@ object CommonMethods {
 
         // dialog?.show()
     }
+
+    private fun addQuesApi(p_id: String, addQues: String, repository: Repository, token: String) {
+
+        Log.e("PIDDD", p_id + "XCC  -- " + addQues)
+
+        repository.makeCall(
+            apiKey = ApiEnums.ADD_QUESTIONS,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<AddQuestionResponseModel>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<AddQuestionResponseModel> {
+                    return retrofitApi.addQuestion(
+                        token,
+                        p_id,
+                        addQues
+                    )
+                }
+
+                override fun onResponse(res: Response<AddQuestionResponseModel>) {
+                    if (res.isSuccessful || res.body() != null) {
+                        Log.e("QUESTIONS____RESPONSEE", res.body().toString())
+
+                        if (res.code() == 200) {
+
+                            CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)
+
+
+                        } else {
+
+                            CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)
+
+                        }
+
+                    } else {
+                        CommonMethods.showToast(CommonMethods.context, res.message())
+                    }
+                }
+
+            }
+        )
+
+
+    }
+*/
 
 
     fun checkPermissions(activity: Activity, permission: Array<String>): Int {
@@ -270,7 +349,7 @@ object CommonMethods {
     }
 
 
-     fun persistImage(bitmap: Bitmap, name: String) {
+    fun persistImage(bitmap: Bitmap, name: String) {
         val filesDir: File = context.filesDir
         val imageFile = File(filesDir, "$name.jpg")
         val os: OutputStream
@@ -283,6 +362,7 @@ object CommonMethods {
             Log.e(javaClass.simpleName, "Error writing bitmap", e)
         }
     }
+
     var deviceToken = ObservableField("test55")
     var email = VerifyData().email.toString()
 }

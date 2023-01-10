@@ -1,10 +1,10 @@
 package com.example.plazapalm.views.catergorylist
 
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.os.Handler
+import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.widget.CheckBox
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableDouble
@@ -16,6 +16,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.CategoriesData
 import com.example.plazapalm.models.CategoriesResponseModel
+import com.example.plazapalm.models.SelectedDataModelList
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.recycleradapter.RecyclerAdapter
@@ -27,7 +28,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
-import java.lang.Exception
 import javax.inject.Inject
 
 @SuppressLint("NotifyDataSetChanged")
@@ -39,33 +39,31 @@ class CategoriesListVM @Inject constructor(
     var repository: Repository,
 ) : ViewModel() {
     var categoriesDataList = ArrayList<CategoriesData>()
-    var checkBox:AppCompatCheckBox
-    var isVisible = ObservableBoolean(false)
+    var selectedList = ArrayList<String>()
+    var checkBox: AppCompatCheckBox
+    var searchItems = ObservableField("")
     var position: Int = -1
     var isChecked = ObservableBoolean(false)
     var token = ObservableField("")
     var page = ObservableField(1)
-    var searchText = ObservableField("")
     var isClicked: Boolean = false
     var latitude = ObservableDouble()
     var longitude = ObservableDouble()
     var address = ObservableField("")
-    var selectedCategory=""
-    var currentLatitude=ObservableDouble()
-    var currentLongitude=ObservableDouble()
+    var selectedCategory = ""
+    var currentLatitude = ObservableDouble()
+    var currentLongitude = ObservableDouble()
     val adapterCategories by lazy { RecyclerAdapter<CategoriesData>(R.layout.categories_list_items) }
-
-
-
 
 
     init {
         /*get Token from Data store*/
         token.set(pref.retrieveKey("token"))
-        checkBox= AppCompatCheckBox(CommonMethods.context)
-        //adapterCategories.addItems(categoriesDataList)
+        checkBox = AppCompatCheckBox(CommonMethods.context)
 
-
+        if (pref.retrieveLocation() != null) {
+            address.set(pref.retrieveLocation())
+        }
 
 /*
         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -73,6 +71,20 @@ class CategoriesListVM @Inject constructor(
 
     }
 
+    /** Search items */
+    fun onTextChange(editable: Editable) {
+        if (editable.toString().length > 0) {
+            Handler().postDelayed({
+                getCategoriesApi(editable.toString(), false)
+            }, 1000)
+        } else {
+            Handler().postDelayed({
+                getCategoriesApi("a", false)
+            }, 1000)
+        }
+
+        Log.e("QQWQWQw", editable.toString())
+    }
 
     /**Clicks Implemented Here**/
     fun onClicks(view: View) {
@@ -90,24 +102,28 @@ class CategoriesListVM @Inject constructor(
             R.id.tvSelectCategory -> {
 
             }
-           /* R.id.ivSelectedCategory->{
-                isClicked=true
-            }*/
+            /* R.id.ivSelectedCategory->{
+                 isClicked=true
+             }*/
         }
     }
 
     /*call get Categories Api..*/
-    fun getCategoriesApi() = viewModelScope.launch {
+    fun getCategoriesApi(search: String, showLoader: Boolean) = viewModelScope.launch {
+
+
+        Log.e("ASDASAAA", selectedList.toString())
+
         val body = JSONObject()
         body.put(Constants.AUTHORIZATION, token.get())
         body.put("lat", latitude.get())
         body.put("long", longitude.get())
         body.put("offset", page.get()!!)
         body.put("limit", 10)
-        body.put("search=", searchText.get())
+        body.put("search=", search)
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
-            loader = true,
+            loader = showLoader,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<CategoriesResponseModel>> {
@@ -117,23 +133,38 @@ class CategoriesListVM @Inject constructor(
                         Lat = latitude.get(),
                         Long = longitude.get(),
                         OffSet = page.get()!!,
-                        Limit = 100,
-                        Search = searchText.get().toString()
+                        Limit = 500,
+                        Search = search
                     )
                 }
+
                 override fun onResponse(res: Response<CategoriesResponseModel>) {
+
                     adapterCategories.addItems(res.body()?.data!!)
+
+                    for (idx in 0 until adapterCategories.getAllItems().size) {
+                        if (selectedList.contains(adapterCategories.getAllItems()[idx].category_name)) {
+
+                            adapterCategories.getAllItems()[idx].isCheck=true
+                        }
+                    }
+                    adapterCategories.notifyDataSetChanged()
 //                    dataStoreUtil.saveData(res.body()?.data!!)
-                    Log.e("SSSSS", res.body()?.data!![0]._id.toString())
+//                    Log.e("SSSSS", res.body()?.data!![0]._id.toString())
 
                     adapterCategories.setOnItemClick { view, position, type ->
                         when (type) {
                             "PostProfile" -> {
-                                 categoriesDataList = adapterCategories.getAllItems() as ArrayList<CategoriesData>
-                                 categoriesDataList[position].isCheck = !categoriesDataList[position].isCheck!!
-                                 adapterCategories .notifyDataSetChanged()
+                                categoriesDataList =
+                                    adapterCategories.getAllItems() as ArrayList<CategoriesData>
+                                categoriesDataList[position].isCheck =
+                                    !categoriesDataList[position].isCheck!!
+                                adapterCategories.notifyDataSetChanged()
 
-                                Log.e("DAATA" , categoriesDataList.toString() + "  ----- " + categoriesDataList[position].isCheck)
+                                Log.e(
+                                    "DAATA",
+                                    "category=====" + categoriesDataList[position].category_name + "MLLLZZAZA====" + categoriesDataList[position].category_name + categoriesDataList.toString()
+                                )
 
                             }
                         }

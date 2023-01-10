@@ -156,6 +156,7 @@ class EditProfileVM @Inject constructor(
                 override fun onResponse(res: Response<GetProfileResponseModel>) {
                     if (res.isSuccessful && res.code() == 200) {
                         //CommonMethods.showToast(context, res.body()?.message.toString())
+                        Log.e("SSSS!QWQWQ" , res.body().toString())
                         CommonMethods.showToast(context, "Profile updated successfully")
                         dataStoreUtil.saveObject(PROFILE_DATA, res.body())
                         dataStoreUtil.saveData(

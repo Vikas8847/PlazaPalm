@@ -6,12 +6,16 @@ import android.app.TimePickerDialog
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableFloat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
+import com.example.plazapalm.datastore.CONFIRM_BOOKING_PROFILE
+import com.example.plazapalm.datastore.DataStoreUtil
+import com.example.plazapalm.datastore.LOGIN_DATA
 import com.example.plazapalm.models.AddToCalendarResponseModel
+import com.example.plazapalm.models.ConfirmBookingProfileResponse
+import com.example.plazapalm.models.QuestionAnswer
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
 import com.example.plazapalm.networkcalls.Repository
@@ -28,30 +32,29 @@ import javax.inject.Inject
 @HiltViewModel
 class ConfirmBookingVM @Inject constructor(
     var repository: Repository,
-    var preferenceFile: PreferenceFile
+    var preferenceFile: PreferenceFile ,
+    var dataStoreUtil: DataStoreUtil
 ) : ViewModel() {
 
 
     @SuppressLint("StaticFieldLeak")
     private var timePicker: TimePickerDialog? = null
 
+    var p_id = ObservableField("")
     var user_Name = ObservableField("")
+    var commingFrom = ObservableField("")
     var user_location = ObservableField("")
-    var user_miles = ObservableField("5.0 Miles")
+    var user_miles = ObservableField("25 Miles")
     var user_image = ObservableField("")
     var bookingId = ObservableField("")
-    var customerId = ObservableField("")
     var postProfileId = ObservableField("6226fde44442aea32a70d4d8")
-    var chooseDate = ObservableField("dd\\mm\\yy")
+    var chooseDate = ObservableField("")
     var chooseTime = ObservableField("")
     var description = ObservableField("")
-    var bookingStatus = ObservableField("")
     var categoryName = ObservableField("")
-    var timePickerTime = ObservableField("")
-    var datePickerDate = ObservableField("")
     var title = ObservableField("Confirm Booking")
-    var amPM = ObservableField("")
-    var questionAnswer = ArrayList<String>()
+    var addtoCalendar = ObservableField("Book")
+    var questionAnswer = ArrayList<QuestionAnswer>()
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -68,19 +71,72 @@ class ConfirmBookingVM @Inject constructor(
                 //open calendar picker alert..
                 selectDate(chooseDate)
             }
+
             R.id.etConfirmBookTime -> {
                 openTimePicker()
             }
+
             R.id.btnConfirmBook -> {
                 if (!CommonMethods.context.isNetworkAvailable()) {
                     CommonMethods.showToast(CommonMethods.context, Constants.CHECK_INTERNET)
                 } else {
                     if (validateFields()) {
-                        addToCalendar(view)
+                        if (commingFrom.get().equals("confirmBook")) {
+                            confirmBooking(view)
+                        } else if (commingFrom.get().equals("addToCalander")) {
+                            addToCalendar(view)
+
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun confirmBooking(view: View) = viewModelScope.launch {
+
+        repository.makeCall(ApiEnums.CONFIRM_BOOKING,
+            loader = true, saveInCache = false, getFromCache = false,
+            object : ApiProcessor<Response<ConfirmBookingProfileResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<ConfirmBookingProfileResponse> {
+                    return retrofitApi.conBookProfileSave(
+                        preferenceFile.retrieveKey("token").toString(),
+                        post_profile_id = p_id.get().toString(),
+                        chooseDate.get().toString(),
+                        chooseTime.get().toString(),
+                        description.get().toString(),
+                        categoryName.get().toString(),
+                        questionAnswer
+                    )
+                }
+
+                override fun onResponse(res: Response<ConfirmBookingProfileResponse>) {
+                    Log.e("CONFIRMBOOKING", res.body().toString() + "RESS")
+
+                    if (res.isSuccessful && res.code() == 200) {
+                        if (res.body() != null) {
+
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                            dataStoreUtil.saveObject(CONFIRM_BOOKING_PROFILE, res.body())
+
+                            view.navigateWithId(R.id.thankYouFragment)
+
+                        } else {
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                        }
+                    } else {
+                        CommonMethods.showToast(CommonMethods.context, res.message())
+                    }
+                }
+
+                override fun onError(message: String) {
+                    super.onError(message)
+                    CommonMethods.showToast(CommonMethods.context, message)
+
+                }
+
+            })
+
     }
 
     private fun openTimePicker() {
@@ -129,6 +185,7 @@ class ConfirmBookingVM @Inject constructor(
     }
 
     private fun validateFields(): Boolean {
+
         when {
             chooseDate.get()?.trim().isNullOrEmpty() -> {
                 CommonMethods.showToast(CommonMethods.context, "Please select date")
@@ -179,28 +236,27 @@ class ConfirmBookingVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<AddToCalendarResponseModel>) {
-                    Log.e("BOOKING----RESSS" ,res.body().toString() )
+                    Log.e("BOOKING----RESSS", res.body().toString())
 
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body()?.status == 200) {
-                            CommonMethods.showToast(CommonMethods.context,res.body()!!.message!!)
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
 
                             view.navigateBack()
 
 //                            view.navigateWithId(R.id.bookingDetailsFragment)
 
-                        }else{
-                            CommonMethods.showToast(CommonMethods.context,res.body()!!.message!!)
+                        } else {
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                         }
 
-                    }else{
+                    } else {
 
-                        CommonMethods.showToast(CommonMethods.context,res.message())
+                        CommonMethods.showToast(CommonMethods.context, res.message())
                     }
                 }
             })
     }
-
 
     private fun removeFromCalendar(view: View) = viewModelScope.launch {
         val body = JSONObject()

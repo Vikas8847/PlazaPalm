@@ -14,24 +14,18 @@ public class AdvanceEditLookFragmentBindingImpl extends AdvanceEditLookFragmentB
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.tvAdvanceEditLook, 3);
-        sViewsWithIds.put(R.id.scrollAdvanceEditLook, 4);
-        sViewsWithIds.put(R.id.tvAdvanceEditLookBGColor, 5);
-        sViewsWithIds.put(R.id.viewEditLookBGColor, 6);
-        sViewsWithIds.put(R.id.viewBoxLookingBGColor, 7);
-        sViewsWithIds.put(R.id.tvAdvanceEditLookColumnColor, 8);
-        sViewsWithIds.put(R.id.viewBoxColumnBGColor, 9);
-        sViewsWithIds.put(R.id.viewEditColumnBGColor, 10);
-        sViewsWithIds.put(R.id.tvAdvanceEditLookBorderColor, 11);
-        sViewsWithIds.put(R.id.viewBoxBorderColor, 12);
-        sViewsWithIds.put(R.id.viewEditBorderColor, 13);
-        sViewsWithIds.put(R.id.tvAdvanceEditLookFont, 14);
-        sViewsWithIds.put(R.id.tvAdvanceEditLookFontValues, 15);
-        sViewsWithIds.put(R.id.viewEditFont, 16);
-        sViewsWithIds.put(R.id.tvAdvanceEditLookFontColor, 17);
-        sViewsWithIds.put(R.id.viewBoxEditFonts, 18);
-        sViewsWithIds.put(R.id.viewEditFontColor, 19);
-        sViewsWithIds.put(R.id.btnAdvanceEditLookAttach, 20);
+        sViewsWithIds.put(R.id.tvAdvanceEditLook, 9);
+        sViewsWithIds.put(R.id.scrollAdvanceEditLook, 10);
+        sViewsWithIds.put(R.id.tvAdvanceEditLookBGColor, 11);
+        sViewsWithIds.put(R.id.viewEditLookBGColor, 12);
+        sViewsWithIds.put(R.id.tvAdvanceEditLookColumnColor, 13);
+        sViewsWithIds.put(R.id.viewEditColumnBGColor, 14);
+        sViewsWithIds.put(R.id.tvAdvanceEditLookBorderColor, 15);
+        sViewsWithIds.put(R.id.viewEditBorderColor, 16);
+        sViewsWithIds.put(R.id.tvAdvanceEditLookFont, 17);
+        sViewsWithIds.put(R.id.viewEditFont, 18);
+        sViewsWithIds.put(R.id.tvAdvanceEditLookFontColor, 19);
+        sViewsWithIds.put(R.id.viewEditFontColor, 20);
     }
     // views
     @NonNull
@@ -47,31 +41,37 @@ public class AdvanceEditLookFragmentBindingImpl extends AdvanceEditLookFragmentB
     }
     private AdvanceEditLookFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (androidx.appcompat.widget.AppCompatButton) bindings[20]
-            , (androidx.appcompat.widget.AppCompatButton) bindings[2]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[7]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[8]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[10]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[9]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[11]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[8]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[14]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[17]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[15]
-            , (android.view.View) bindings[12]
-            , (android.view.View) bindings[9]
-            , (android.view.View) bindings[18]
-            , (android.view.View) bindings[7]
-            , (android.view.View) bindings[13]
-            , (android.view.View) bindings[10]
-            , (android.view.View) bindings[16]
-            , (android.view.View) bindings[19]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[13]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[17]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[19]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
+            , (android.view.View) bindings[4]
+            , (android.view.View) bindings[3]
             , (android.view.View) bindings[6]
+            , (android.view.View) bindings[2]
+            , (android.view.View) bindings[16]
+            , (android.view.View) bindings[14]
+            , (android.view.View) bindings[18]
+            , (android.view.View) bindings[20]
+            , (android.view.View) bindings[12]
             );
+        this.btnAdvanceEditLookAttach.setTag(null);
         this.btnAdvanceEditLookView.setTag(null);
         this.ivAdvanceEditLookBack.setTag(null);
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
+        this.tvAdvanceEditLookFontValues.setTag(null);
+        this.viewBoxBorderColor.setTag(null);
+        this.viewBoxColumnBGColor.setTag(null);
+        this.viewBoxEditFonts.setTag(null);
+        this.viewBoxLookingBGColor.setTag(null);
         setRootTag(root);
         // listeners
         invalidateAll();
@@ -130,8 +130,8 @@ public class AdvanceEditLookFragmentBindingImpl extends AdvanceEditLookFragmentB
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
         com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookVM vm = mVm;
+        android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
 
         if ((dirtyFlags & 0x3L) != 0) {
 
@@ -146,8 +146,14 @@ public class AdvanceEditLookFragmentBindingImpl extends AdvanceEditLookFragmentB
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
 
+            this.btnAdvanceEditLookAttach.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.btnAdvanceEditLookView.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.ivAdvanceEditLookBack.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
+            this.tvAdvanceEditLookFontValues.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
+            this.viewBoxBorderColor.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
+            this.viewBoxColumnBGColor.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
+            this.viewBoxEditFonts.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
+            this.viewBoxLookingBGColor.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
         }
     }
     // Listener Stub Implementations

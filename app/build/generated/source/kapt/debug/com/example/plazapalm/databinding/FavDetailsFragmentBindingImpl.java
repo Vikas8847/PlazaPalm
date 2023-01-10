@@ -14,25 +14,27 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.clFavDetails, 16);
-        sViewsWithIds.put(R.id.ivFavDetails, 17);
-        sViewsWithIds.put(R.id.tvFavDetailsDistance, 18);
-        sViewsWithIds.put(R.id.clFavDetailsLikeDislike, 19);
-        sViewsWithIds.put(R.id.ivFavTotalLikedCounts, 20);
-        sViewsWithIds.put(R.id.tvFavHeartFilledCounts, 21);
-        sViewsWithIds.put(R.id.clVEditProDescription, 22);
-        sViewsWithIds.put(R.id.etVEditProDescription, 23);
-        sViewsWithIds.put(R.id.ivFavOfDesc1, 24);
-        sViewsWithIds.put(R.id.clFavOfDesc2, 25);
-        sViewsWithIds.put(R.id.tvFavOfDesc2, 26);
-        sViewsWithIds.put(R.id.rvImages, 27);
-        sViewsWithIds.put(R.id.clFavOfDesc3, 28);
-        sViewsWithIds.put(R.id.tvFavOfDesc3, 29);
-        sViewsWithIds.put(R.id.cvFavDetails, 30);
+        sViewsWithIds.put(R.id.main_toolBar, 16);
+        sViewsWithIds.put(R.id.display_back, 17);
+        sViewsWithIds.put(R.id.clFavDetails, 18);
+        sViewsWithIds.put(R.id.ivFavDetails, 19);
+        sViewsWithIds.put(R.id.tvFavDetailsDistance, 20);
+        sViewsWithIds.put(R.id.top_view, 21);
+        sViewsWithIds.put(R.id.bottom_view, 22);
+        sViewsWithIds.put(R.id.clFavDetailsLikeDislike, 23);
+        sViewsWithIds.put(R.id.ivFavTotalLikedCounts, 24);
+        sViewsWithIds.put(R.id.tvFavHeartFilledCounts, 25);
+        sViewsWithIds.put(R.id.clVEditProDescription, 26);
+        sViewsWithIds.put(R.id.etVEditProDescription, 27);
+        sViewsWithIds.put(R.id.ivFavOfDesc1, 28);
+        sViewsWithIds.put(R.id.clFavOfDesc2, 29);
+        sViewsWithIds.put(R.id.tvFavOfDesc2, 30);
+        sViewsWithIds.put(R.id.rvImages, 31);
+        sViewsWithIds.put(R.id.clFavOfDesc3, 32);
+        sViewsWithIds.put(R.id.tvFavOfDesc3, 33);
+        sViewsWithIds.put(R.id.cvFavDetails, 34);
     }
     // views
-    @NonNull
-    private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
     // variables
     // values
     // listeners
@@ -41,20 +43,20 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
     private androidx.databinding.InverseBindingListener tvFavDetailsandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
         @Override
         public void onChange() {
-            // Inverse of vm.fav_title.get()
-            //         is vm.fav_title.set((java.lang.String) callbackArg_0)
+            // Inverse of vm.username.get()
+            //         is vm.username.set((java.lang.String) callbackArg_0)
             java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvFavDetails);
             // localize variables for thread safety
+            // vm.username.get()
+            java.lang.String vmUsernameGet = null;
             // vm != null
             boolean vmJavaLangObjectNull = false;
-            // vm.fav_title != null
-            boolean vmFavTitleJavaLangObjectNull = false;
             // vm
             com.example.plazapalm.views.favourites.favdetails.FavDetailsVM vm = mVm;
-            // vm.fav_title.get()
-            java.lang.String vmFavTitleGet = null;
-            // vm.fav_title
-            androidx.databinding.ObservableField<java.lang.String> vmFavTitle = null;
+            // vm.username
+            androidx.databinding.ObservableField<java.lang.String> vmUsername = null;
+            // vm.username != null
+            boolean vmUsernameJavaLangObjectNull = false;
 
 
 
@@ -62,15 +64,15 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
             if (vmJavaLangObjectNull) {
 
 
-                vmFavTitle = vm.getFav_title();
+                vmUsername = vm.getUsername();
 
-                vmFavTitleJavaLangObjectNull = (vmFavTitle) != (null);
-                if (vmFavTitleJavaLangObjectNull) {
-
-
+                vmUsernameJavaLangObjectNull = (vmUsername) != (null);
+                if (vmUsernameJavaLangObjectNull) {
 
 
-                    vmFavTitle.set(((java.lang.String) (callbackArg_0)));
+
+
+                    vmUsername.set(((java.lang.String) (callbackArg_0)));
                 }
             }
         }
@@ -225,40 +227,45 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
     };
 
     public FavDetailsFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 31, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 35, sIncludes, sViewsWithIds));
     }
     private FavDetailsFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 8
+            , (android.view.View) bindings[22]
             , (androidx.appcompat.widget.AppCompatButton) bindings[15]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[16]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[19]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[25]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[28]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[22]
-            , (androidx.cardview.widget.CardView) bindings[30]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[23]
-            , (com.google.android.material.imageview.ShapeableImageView) bindings[17]
-            , (androidx.appcompat.widget.AppCompatImageView) bindings[2]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[18]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[23]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[29]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[32]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[26]
+            , (androidx.cardview.widget.CardView) bindings[34]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[17]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[27]
+            , (com.google.android.material.imageview.ShapeableImageView) bindings[19]
+            , (android.widget.ImageView) bindings[1]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[12]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[10]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[4]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[5]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[8]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[3]
-            , (androidx.cardview.widget.CardView) bindings[24]
-            , (androidx.appcompat.widget.AppCompatImageView) bindings[20]
-            , (androidx.recyclerview.widget.RecyclerView) bindings[27]
+            , (androidx.cardview.widget.CardView) bindings[28]
+            , (androidx.appcompat.widget.AppCompatImageView) bindings[24]
+            , (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0]
+            , (com.google.android.material.appbar.AppBarLayout) bindings[16]
+            , (androidx.recyclerview.widget.RecyclerView) bindings[31]
             , (androidx.recyclerview.widget.RecyclerView) bindings[14]
+            , (android.view.View) bindings[21]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[7]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[1]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[11]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[18]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[20]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[9]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[13]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[21]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[26]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[29]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[25]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[30]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[33]
             );
         this.btnBookingProfile.setTag(null);
         this.ivFavDetailsBackBtn.setTag(null);
@@ -268,8 +275,7 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
         this.ivFavDetailsFilledHeart.setTag(null);
         this.ivFavDetailsLike.setTag(null);
         this.ivFavDetailsOptions.setTag(null);
-        this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
-        this.mboundView0.setTag(null);
+        this.mainConslayout.setTag(null);
         this.rvVideos.setTag(null);
         this.tvFavCityAddress.setTag(null);
         this.tvFavDetails.setTag(null);
@@ -335,7 +341,7 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
             case 4 :
                 return onChangeVmTvFavDetailsAddress((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 5 :
-                return onChangeVmFavTitle((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmIsFav((androidx.databinding.ObservableBoolean) object, fieldId);
             case 6 :
                 return onChangeVmLikesCount((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 7 :
@@ -388,7 +394,7 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
         }
         return false;
     }
-    private boolean onChangeVmFavTitle(androidx.databinding.ObservableField<java.lang.String> VmFavTitle, int fieldId) {
+    private boolean onChangeVmIsFav(androidx.databinding.ObservableBoolean VmIsFav, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x20L;
@@ -423,8 +429,7 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        android.graphics.drawable.Drawable vmIsLikeIvFavDetailsLikeAndroidDrawableLikeTrueIvFavDetailsLikeAndroidDrawableLikeUnfilledImage = null;
-        java.lang.String vmFavTitleGet = null;
+        boolean vmIsFavGet = false;
         boolean vmIsLikeGet = false;
         java.lang.String vmDisLikesCountGet = null;
         com.example.plazapalm.views.favourites.favdetails.FavDetailsVM vm = mVm;
@@ -438,9 +443,11 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
         androidx.databinding.ObservableField<java.lang.String> vmTvFavDetailsAddress = null;
         android.graphics.drawable.Drawable vmIsDisLikeIvFavDetailsDislikeAndroidDrawableDisliketrueIvFavDetailsDislikeAndroidDrawableIcThumbsDown = null;
         java.lang.String vmLikesCountGet = null;
-        androidx.databinding.ObservableField<java.lang.String> vmFavTitle = null;
+        android.graphics.drawable.Drawable vmIsLikeIvFavDetailsLikeAndroidDrawableLikeIconIvFavDetailsLikeAndroidDrawableLikeUnfilledImage = null;
         java.lang.String vmUsernameGet = null;
+        androidx.databinding.ObservableBoolean vmIsFav = null;
         androidx.databinding.ObservableField<java.lang.String> vmLikesCount = null;
+        android.graphics.drawable.Drawable vmIsFavIvFavDetailsFilledHeartAndroidDrawableIcHeartIconIvFavDetailsFilledHeartAndroidDrawableIcHeartFilledIcon = null;
         boolean vmIsDisLikeGet = false;
         androidx.databinding.ObservableField<java.lang.String> vmDisLikesCount = null;
         com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.ImagesVideosModel> vmVideosAdapter = null;
@@ -477,16 +484,16 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
                     }
                 if((dirtyFlags & 0x302L) != 0) {
                     if(vmIsLikeGet) {
-                            dirtyFlags |= 0x800L;
+                            dirtyFlags |= 0x2000L;
                     }
                     else {
-                            dirtyFlags |= 0x400L;
+                            dirtyFlags |= 0x1000L;
                     }
                 }
 
 
-                    // read vm.isLike.get() ? @android:drawable/like_true : @android:drawable/like_unfilled_image
-                    vmIsLikeIvFavDetailsLikeAndroidDrawableLikeTrueIvFavDetailsLikeAndroidDrawableLikeUnfilledImage = ((vmIsLikeGet) ? (androidx.appcompat.content.res.AppCompatResources.getDrawable(ivFavDetailsLike.getContext(), R.drawable.like_true)) : (androidx.appcompat.content.res.AppCompatResources.getDrawable(ivFavDetailsLike.getContext(), R.drawable.like_unfilled_image)));
+                    // read vm.isLike.get() ? @android:drawable/like_icon : @android:drawable/like_unfilled_image
+                    vmIsLikeIvFavDetailsLikeAndroidDrawableLikeIconIvFavDetailsLikeAndroidDrawableLikeUnfilledImage = ((vmIsLikeGet) ? (androidx.appcompat.content.res.AppCompatResources.getDrawable(ivFavDetailsLike.getContext(), R.drawable.like_icon)) : (androidx.appcompat.content.res.AppCompatResources.getDrawable(ivFavDetailsLike.getContext(), R.drawable.like_unfilled_image)));
             }
             if ((dirtyFlags & 0x300L) != 0) {
 
@@ -526,10 +533,10 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
                     }
                 if((dirtyFlags & 0x308L) != 0) {
                     if(vmIsDisLikeGet) {
-                            dirtyFlags |= 0x2000L;
+                            dirtyFlags |= 0x800L;
                     }
                     else {
-                            dirtyFlags |= 0x1000L;
+                            dirtyFlags |= 0x400L;
                     }
                 }
 
@@ -554,16 +561,28 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
             if ((dirtyFlags & 0x320L) != 0) {
 
                     if (vm != null) {
-                        // read vm.fav_title
-                        vmFavTitle = vm.getFav_title();
+                        // read vm.isFav
+                        vmIsFav = vm.isFav();
                     }
-                    updateRegistration(5, vmFavTitle);
+                    updateRegistration(5, vmIsFav);
 
 
-                    if (vmFavTitle != null) {
-                        // read vm.fav_title.get()
-                        vmFavTitleGet = vmFavTitle.get();
+                    if (vmIsFav != null) {
+                        // read vm.isFav.get()
+                        vmIsFavGet = vmIsFav.get();
                     }
+                if((dirtyFlags & 0x320L) != 0) {
+                    if(vmIsFavGet) {
+                            dirtyFlags |= 0x8000L;
+                    }
+                    else {
+                            dirtyFlags |= 0x4000L;
+                    }
+                }
+
+
+                    // read vm.isFav.get() ? @android:drawable/ic_heart_icon : @android:drawable/ic_heart_filled_icon
+                    vmIsFavIvFavDetailsFilledHeartAndroidDrawableIcHeartIconIvFavDetailsFilledHeartAndroidDrawableIcHeartFilledIcon = ((vmIsFavGet) ? (androidx.appcompat.content.res.AppCompatResources.getDrawable(ivFavDetailsFilledHeart.getContext(), R.drawable.ic_heart_icon)) : (androidx.appcompat.content.res.AppCompatResources.getDrawable(ivFavDetailsFilledHeart.getContext(), R.drawable.ic_heart_filled_icon)));
             }
             if ((dirtyFlags & 0x340L) != 0) {
 
@@ -613,20 +632,26 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
 
             androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable(this.ivFavDetailsDislike, vmIsDisLikeIvFavDetailsDislikeAndroidDrawableDisliketrueIvFavDetailsDislikeAndroidDrawableIcThumbsDown);
         }
+        if ((dirtyFlags & 0x320L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable(this.ivFavDetailsFilledHeart, vmIsFavIvFavDetailsFilledHeartAndroidDrawableIcHeartIconIvFavDetailsFilledHeartAndroidDrawableIcHeartFilledIcon);
+        }
         if ((dirtyFlags & 0x302L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable(this.ivFavDetailsLike, vmIsLikeIvFavDetailsLikeAndroidDrawableLikeTrueIvFavDetailsLikeAndroidDrawableLikeUnfilledImage);
+            androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable(this.ivFavDetailsLike, vmIsLikeIvFavDetailsLikeAndroidDrawableLikeIconIvFavDetailsLikeAndroidDrawableLikeUnfilledImage);
         }
         if ((dirtyFlags & 0x301L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavCityAddress, vmTvFavCityAddressGet);
         }
-        if ((dirtyFlags & 0x320L) != 0) {
+        if ((dirtyFlags & 0x304L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavDetails, vmFavTitleGet);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavDetails, vmUsernameGet);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavDetailsName, vmUsernameGet);
         }
         if ((dirtyFlags & 0x200L) != 0) {
             // api target 1
@@ -652,11 +677,6 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavDetailsLikeCounts, vmLikesCountGet);
         }
-        if ((dirtyFlags & 0x304L) != 0) {
-            // api target 1
-
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavDetailsName, vmUsernameGet);
-        }
     }
     // Listener Stub Implementations
     public static class OnClickListenerImpl implements android.view.View.OnClickListener{
@@ -679,15 +699,17 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
         flag 2 (0x3L): vm.username
         flag 3 (0x4L): vm.isDisLike
         flag 4 (0x5L): vm.tvFavDetailsAddress
-        flag 5 (0x6L): vm.fav_title
+        flag 5 (0x6L): vm.isFav
         flag 6 (0x7L): vm.LikesCount
         flag 7 (0x8L): vm.DisLikesCount
         flag 8 (0x9L): vm
         flag 9 (0xaL): null
-        flag 10 (0xbL): vm.isLike.get() ? @android:drawable/like_true : @android:drawable/like_unfilled_image
-        flag 11 (0xcL): vm.isLike.get() ? @android:drawable/like_true : @android:drawable/like_unfilled_image
-        flag 12 (0xdL): vm.isDisLike.get() ? @android:drawable/disliketrue : @android:drawable/ic_thumbs_down
-        flag 13 (0xeL): vm.isDisLike.get() ? @android:drawable/disliketrue : @android:drawable/ic_thumbs_down
+        flag 10 (0xbL): vm.isDisLike.get() ? @android:drawable/disliketrue : @android:drawable/ic_thumbs_down
+        flag 11 (0xcL): vm.isDisLike.get() ? @android:drawable/disliketrue : @android:drawable/ic_thumbs_down
+        flag 12 (0xdL): vm.isLike.get() ? @android:drawable/like_icon : @android:drawable/like_unfilled_image
+        flag 13 (0xeL): vm.isLike.get() ? @android:drawable/like_icon : @android:drawable/like_unfilled_image
+        flag 14 (0xfL): vm.isFav.get() ? @android:drawable/ic_heart_icon : @android:drawable/ic_heart_filled_icon
+        flag 15 (0x10L): vm.isFav.get() ? @android:drawable/ic_heart_icon : @android:drawable/ic_heart_filled_icon
     flag mapping end*/
     //end
 }

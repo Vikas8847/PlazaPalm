@@ -104,7 +104,7 @@ public class CalendarFragmentBindingImpl extends CalendarFragmentBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.CalendarModel> vmAdapterCalendar = null;
+        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.CalenderData> vmAdapterCalendar = null;
         com.example.plazapalm.views.myprofile.calendar.CalendarVM vm = mVm;
         android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
 

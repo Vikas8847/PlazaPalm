@@ -85,7 +85,7 @@ class OpenCategeroyViewModel @Inject constructor(
 
         Log.e(
             "dsadas",
-            latitude.get().toString() + "  DFDF  " + longitude.get()
+            pref.retvieLatlong("lati").toDouble().toString() + "  <<--DFDF-->>  " + pref.retvieLatlong("longi").toDouble().toString()
                 .toString() + name.get() + "XXXX"
         )
 

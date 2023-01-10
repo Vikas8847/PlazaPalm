@@ -108,7 +108,6 @@ public class FavouritesListItemsBindingImpl extends FavouritesListItemsBinding i
         }
         com.example.plazapalm.models.FavData model = mModel;
         java.lang.Object modelPostProfilePicture0 = null;
-        java.lang.String modelDescription1 = null;
         java.lang.String modelUserName = null;
         java.util.List<java.lang.Object> modelPostProfilePicture = null;
         java.lang.String modelLocationText = null;
@@ -118,8 +117,6 @@ public class FavouritesListItemsBindingImpl extends FavouritesListItemsBinding i
 
 
                 if (model != null) {
-                    // read model.description_1
-                    modelDescription1 = model.getDescription_1();
                     // read model.user_name
                     modelUserName = model.getUser_name();
                     // read model.postProfile_picture
@@ -144,7 +141,7 @@ public class FavouritesListItemsBindingImpl extends FavouritesListItemsBinding i
             // api target 1
 
             com.example.plazapalm.utils.BindingAdapters.setImage(this.ivFavItem, (java.lang.String) modelPostProfilePicture0);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavItemDescription, modelDescription1);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavItemDescription, modelUserName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavItemLocation, modelLocationText);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvFavItemName, modelUserName);
         }

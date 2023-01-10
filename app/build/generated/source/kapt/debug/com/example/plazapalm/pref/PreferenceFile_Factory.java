@@ -20,24 +20,35 @@ public final class PreferenceFile_Factory implements Factory<PreferenceFile> {
 
   private final Provider<SharedPreferences> sharedPreferencesProvider;
 
+  private final Provider<SharedPreferences.Editor> editorForeverProvider;
+
+  private final Provider<SharedPreferences> sharedPreferencesForeverProvider;
+
   public PreferenceFile_Factory(Provider<SharedPreferences.Editor> editorProvider,
-      Provider<SharedPreferences> sharedPreferencesProvider) {
+      Provider<SharedPreferences> sharedPreferencesProvider,
+      Provider<SharedPreferences.Editor> editorForeverProvider,
+      Provider<SharedPreferences> sharedPreferencesForeverProvider) {
     this.editorProvider = editorProvider;
     this.sharedPreferencesProvider = sharedPreferencesProvider;
+    this.editorForeverProvider = editorForeverProvider;
+    this.sharedPreferencesForeverProvider = sharedPreferencesForeverProvider;
   }
 
   @Override
   public PreferenceFile get() {
-    return newInstance(editorProvider.get(), sharedPreferencesProvider.get());
+    return newInstance(editorProvider.get(), sharedPreferencesProvider.get(), editorForeverProvider.get(), sharedPreferencesForeverProvider.get());
   }
 
   public static PreferenceFile_Factory create(Provider<SharedPreferences.Editor> editorProvider,
-      Provider<SharedPreferences> sharedPreferencesProvider) {
-    return new PreferenceFile_Factory(editorProvider, sharedPreferencesProvider);
+      Provider<SharedPreferences> sharedPreferencesProvider,
+      Provider<SharedPreferences.Editor> editorForeverProvider,
+      Provider<SharedPreferences> sharedPreferencesForeverProvider) {
+    return new PreferenceFile_Factory(editorProvider, sharedPreferencesProvider, editorForeverProvider, sharedPreferencesForeverProvider);
   }
 
   public static PreferenceFile newInstance(SharedPreferences.Editor editor,
-      SharedPreferences sharedPreferences) {
-    return new PreferenceFile(editor, sharedPreferences);
+      SharedPreferences sharedPreferences, SharedPreferences.Editor editorForever,
+      SharedPreferences sharedPreferencesForever) {
+    return new PreferenceFile(editor, sharedPreferences, editorForever, sharedPreferencesForever);
   }
 }

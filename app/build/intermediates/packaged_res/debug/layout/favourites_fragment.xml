@@ -49,10 +49,13 @@
                     app:layout_constraintStart_toStartOf="parent" />
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFavourites"
                 android:tag="binding_2"              
@@ -65,7 +68,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:spanCount="2"
                 tools:listitem="@layout/favourites_list_items" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/listempty_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:tag="binding_3"                                               
+            android:textSize="@dimen/_12sdp"
+            app:layout_anchor="@+id/constraintLayout"
+            app:layout_anchorGravity="center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
          

@@ -7,7 +7,7 @@
 
                  
                         
-                                                                  
+                                                                        
 
            
 
@@ -73,7 +73,7 @@
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:paddingStart="12dp"
-                android:tag="binding_2"              
+                android:tag="binding_2"         
                 android:textColor="@color/light_black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"

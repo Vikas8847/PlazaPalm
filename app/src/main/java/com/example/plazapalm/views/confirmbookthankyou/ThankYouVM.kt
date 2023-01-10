@@ -11,6 +11,7 @@ import javax.inject.Inject
 class ThankYouVM @Inject constructor():ViewModel() {
     fun onClicks(view: View){
         when(view.id){
+
             R.id.ivThankYouConfirmBookNextBtn->{
                 view.navigateWithId(R.id.dashBoardFragment)
             }

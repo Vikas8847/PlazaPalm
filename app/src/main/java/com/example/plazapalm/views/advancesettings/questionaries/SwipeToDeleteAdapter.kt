@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.databinding.AddQuestionItemsBinding
+import com.example.plazapalm.models.QueData
 import com.example.plazapalm.models.QuestionsModel
 
-class SwipeToDeleteAdapter(var questionDataList: ArrayList<QuestionsModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+ class SwipeToDeleteAdapter(var questionDataList: ArrayList<QueData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layInflater = LayoutInflater.from(parent.context)
         val viewHolder: RecyclerView.ViewHolder?
@@ -19,6 +20,7 @@ class SwipeToDeleteAdapter(var questionDataList: ArrayList<QuestionsModel>) : Re
         RecyclerView.ViewHolder(binding.root) {
         fun setData(position:Int) {
             binding.executePendingBindings()
+            /// new khem
             binding.model = questionDataList[position]
         }
     }

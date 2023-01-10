@@ -6,6 +6,7 @@ const val BASE_URL = "http://192.168.1.87:3000/auth/"
 const val IMAGE_LOAD_URL = "https://d17am3tdlggecz.cloudfront.net/"
 
 /***************************************************************/
+
 const val SIGN_UP = "sign-up"
 const val VERIFY_OTP = "verifyOtp"
 const val RESEND_OTP = "resendOtp"
@@ -38,6 +39,17 @@ const val LIKES_DISLIKES  = "likesDislikes"
 const val REPORT  = "report"
 const val ADD_QUESTION  = "addQuestion"
 const val REMOVE_FROM_CALENDAR  = "removeFromCalender"
+const val CONFIRM_BOOKING  = "bookProfileSave"
+const val GET_CALENDAR_RESPONSE  = "getBookingDateMonthWiseForBoth"
+const val ADDTO_BLOCKLIST  = "addToBlocklist"
+const val GET_BOOKING_DETAILSFOR_CUSTOMER  = "getBookingDetailsForCustomer"
+const val BOOKINGSTATUS_INPUT  = "bookingStatusInput"
+const val DELETE_BOOKING  = "deleteBooking"
+const val DELETE_QUESTION  = "deleteQuestion"
+const val UPDATE_QUESTION  = "updateQuestion"
+const val POST_COLORS_EDIT  = "colorLook"
+const val GET_COLORS  = "colorLookGet"
+const val MAP_FEATURES  = "mapFeature"
 
 
 

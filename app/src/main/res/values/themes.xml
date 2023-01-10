@@ -162,4 +162,13 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+        <style name="Theme.DoNotDim" parent="android:Theme">
+            <item name="android:backgroundDimEnabled">false</item>
+        </style>
+
+    <style name="WallSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="iconifiedByDefault">false</item>
+        <item name="colorControlActivated">#1E2A78</item>
+    </style>
 </resources>

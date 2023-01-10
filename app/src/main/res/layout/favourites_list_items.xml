@@ -9,6 +9,7 @@
             name="model"
             type="com.example.plazapalm.models.FavData" />
 
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -89,8 +90,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivFavItemHeart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:src="@drawable/ic_heart_filled_icon"
@@ -115,7 +116,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:singleLine="true"
-                android:text="@{model.description_1}"
+                android:text="@{model.user_name}"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@id/tvFavItemLocation"
@@ -145,7 +146,7 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center_horizontal"
-                android:text="5 Miles"
+                android:text="25 Miles"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/tvFavItemLocation"

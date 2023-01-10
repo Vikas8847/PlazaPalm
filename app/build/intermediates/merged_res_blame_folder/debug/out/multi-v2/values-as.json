@@ -55,6 +55,23 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\2d36cca02247669cefd3c78ea9bbca9c\\transformed\\navigation-ui-2.5.3\\res\\values-as\\values-as.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,160",
+                        "endColumns": "104,116",
+                        "endOffsets": "155,272"
+                    },
+                    "to": {
+                        "startLines": "104,105",
+                        "startColumns": "4,4",
+                        "startOffsets": "9282,9387",
+                        "endColumns": "104,116",
+                        "endOffsets": "9382,9499"
+                    }
+                },
+                {
                     "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\b21f7281357ff2b74dcdcfb5270be497\\transformed\\core-1.8.0\\res\\values-as\\values-as.xml",
                     "from": {
                         "startLines": "2",
@@ -88,23 +105,6 @@
                         "endLines": "5,33,34,35,36,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,106",
                         "endColumns": "12,76,101,122,78,64,88,64,58,85,63,62,69,63,53,104,57,61,53,71,116,86,82,109,76,80,90,66,65,69,76,86,70,76,68,68,90,71,88,88,73,71,85,49,65,79,83,61,63,62,99,96,91,98,80",
                         "endOffsets": "272,3092,3194,3317,3396,5583,5672,5737,5796,5882,5946,6009,6079,6143,6197,6302,6360,6422,6476,6548,6665,6752,6835,6945,7022,7103,7194,7261,7327,7397,7474,7561,7632,7709,7778,7847,7938,8010,8099,8188,8262,8334,8420,8470,8536,8616,8700,8762,8826,8889,8989,9086,9178,9277,9580"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\91462bdd3983165d73ea259c5b77f9b8\\transformed\\navigation-ui-2.5.1\\res\\values-as\\values-as.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,160",
-                        "endColumns": "104,116",
-                        "endOffsets": "155,272"
-                    },
-                    "to": {
-                        "startLines": "104,105",
-                        "startColumns": "4,4",
-                        "startOffsets": "9282,9387",
-                        "endColumns": "104,116",
-                        "endOffsets": "9382,9499"
                     }
                 },
                 {

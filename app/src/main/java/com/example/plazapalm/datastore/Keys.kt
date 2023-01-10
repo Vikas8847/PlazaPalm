@@ -14,4 +14,7 @@ val UPDATE_USER_POST_PROFILE by lazy { stringPreferencesKey("POST_PROFILE_DATA")
 val PROFILE_DATA by lazy { stringPreferencesKey("PROFILE_DATA") }
 val PROFILE_IMAGE by lazy { stringPreferencesKey("PROFILE_IMAGE") }
 val ADD_PHOTO_URI by lazy { stringPreferencesKey("ADD_PHOTO_URI") }
+val CONFIRM_BOOKING_PROFILE by lazy { stringPreferencesKey("CONFIRM_BOOKING_PROFILE") }
+val EDIT_COLORS_LOOK by lazy { stringPreferencesKey("EDIT_COLORS_LOOK") }
+val GET_COLORS_EDIT_LOOK by lazy { stringPreferencesKey("GET_COLORS_EDIT_LOOK") }
 

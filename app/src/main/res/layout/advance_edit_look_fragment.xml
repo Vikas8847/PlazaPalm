@@ -77,7 +77,7 @@
                         android:fontFamily="@font/inter_medium"
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:paddingVertical="@dimen/_1sdp"
-                        android:text="Background Color"
+                        android:text="@string/background_color"
                         android:textColor="@color/tool_bar_black_color"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@id/viewBoxLookingBGColor"
@@ -92,17 +92,24 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvAdvanceEditLookBGColor" />
-                    <!--color fill box (bg )-->
+                    <!--color fill box (bg )
+
+                                            android:background="@{vm.backgroundColorLiveData}"
+-->
+
+
                     <View
                         android:id="@+id/viewBoxLookingBGColor"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:background="@drawable/forgot_email_bg"
+                        android:background="@drawable/color_set_back"
+                        android:onClick="@{vm.onClicks}"
                         app:layout_constraintBottom_toTopOf="@+id/viewEditLookBGColor"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvAdvanceEditLookColumnColor"
@@ -125,8 +132,9 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@drawable/color_set_back"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:background="@drawable/forgot_email_bg"
+                        android:onClick="@{vm.onClicks}"
                         app:layout_constraintBottom_toTopOf="@id/viewBoxColumnBGColor"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditLookBGColor" />
@@ -164,7 +172,8 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:background="@drawable/forgot_email_bg"
+                        android:onClick="@{vm.onClicks}"
+                        android:background="@drawable/color_set_back"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditColumnBGColor" />
 
@@ -204,7 +213,8 @@
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:fontFamily="@font/inter_medium"
                         android:paddingVertical="@dimen/_1sdp"
-                        android:text="Inter Regular "
+                        android:text="@string/inter_regular"
+                        android:onClick="@{vm.onClicks}"
                         android:textColor="@color/sky_blue"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -243,7 +253,9 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:background="@drawable/forgot_email_bg"
+                        android:visibility="visible"
+                        android:onClick="@{vm.onClicks}"
+                        android:background="@drawable/color_set_back"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditFont" />
 
@@ -272,6 +284,7 @@
                 android:background="@drawable/ic_upgrade_btn_bg"
                 android:gravity="center"
                 android:paddingBottom="@dimen/_5sdp"
+                android:onClick="@{vm.onClicks}"
                 android:text="Attach"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

@@ -56,7 +56,7 @@
             android:layout_height="80dp"
             android:layout_marginTop="@dimen/_20sdp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_place_holder"
+            android:src="@drawable/placeholder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMyProfile" />
@@ -181,6 +181,7 @@
                     android:drawableStart="@drawable/ic_profile_icon"
                     android:drawableEnd="@drawable/ic_forward_white_icon"
                     android:drawablePadding="@dimen/_10sdp"
+                    android:visibility="gone"
                     android:fontFamily="@font/inter_medium"
                     android:onClick="@{vm::onClick}"
                     android:paddingVertical="@dimen/_5sdp"
@@ -196,6 +197,7 @@
                     android:id="@+id/viewProfile"
                     style="@style/Divider"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintTop_toBottomOf="@+id/tvViewMyProfile" />
 
@@ -273,7 +275,7 @@
                     android:onClick="@{vm::onClick}"
                     android:paddingVertical="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="Upgrade"
+                    android:text="Upgrade your plan"
                     android:textColor="@color/white"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -287,6 +289,8 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/tvUpgrade" />
+
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

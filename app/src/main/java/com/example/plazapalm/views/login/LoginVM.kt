@@ -14,6 +14,7 @@ import com.example.plazapalm.datastore.LOGIN_DATA
 import com.example.plazapalm.models.LoginDataModel
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.pref.business_profile_status
 import com.example.plazapalm.pref.token
 import com.example.plazapalm.utils.*
 import com.example.plazapalm.validation.ValidatorUtils
@@ -94,7 +95,10 @@ class LoginVM @Inject constructor(
                             // dataStore.saveObject(PROFILE_DATA, GetProfileData::class.java)
                             dataStore.saveObject(LOGIN_DATA, res.body())
                             preferences.storeKey(token, res.body()?.data?.token ?: "")
-                            Log.e("SDSDSDSDSDSDSDSDs",res.body()?.data?.token.toString())
+                            preferences.storeBoolKey(business_profile_status, res.body()?.data?.business_profile_status.toBoolean())
+
+                            Log.e("===LOGINDATA===", res.body()?.data.toString() +"===TOKKENN===" + res.body()?.data?.token.toString())
+
                             view.navigateWithId(R.id.action_loginFragment_to_dashBoardFragment)
                             CommonMethods.context.hideKeyboard()
                             CommonMethods.showToast(
@@ -110,7 +114,6 @@ class LoginVM @Inject constructor(
                             view.navigateWithId(R.id.verifyEmailFragment, bundle)
                             CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
                             CommonMethods.context.hideKeyboard()
-
                         }
                     } else {
                         CommonMethods.showToast(

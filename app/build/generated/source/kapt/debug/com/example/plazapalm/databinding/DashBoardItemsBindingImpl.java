@@ -13,81 +13,46 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
         sIncludes = null;
-        sViewsWithIds = null;
+        sViewsWithIds = new android.util.SparseIntArray();
+        sViewsWithIds.put(R.id.tvDashBoardItemDistance, 6);
     }
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback6;
+    private final android.view.View.OnClickListener mCallback8;
     // values
     // listeners
     // Inverse Binding Event Handlers
-    private androidx.databinding.InverseBindingListener tvDashBoardItemDistanceandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
-        @Override
-        public void onChange() {
-            // Inverse of vm.distanceCal.get()
-            //         is vm.distanceCal.set((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvDashBoardItemDistance);
-            // localize variables for thread safety
-            // vm != null
-            boolean vmJavaLangObjectNull = false;
-            // vm
-            com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
-            // vm.distanceCal
-            androidx.databinding.ObservableField<java.lang.String> vmDistanceCal = null;
-            // vm.distanceCal.get()
-            java.lang.String vmDistanceCalGet = null;
-            // vm.distanceCal != null
-            boolean vmDistanceCalJavaLangObjectNull = false;
-
-
-
-            vmJavaLangObjectNull = (vm) != (null);
-            if (vmJavaLangObjectNull) {
-
-
-                vmDistanceCal = vm.getDistanceCal();
-
-                vmDistanceCalJavaLangObjectNull = (vmDistanceCal) != (null);
-                if (vmDistanceCalJavaLangObjectNull) {
-
-
-
-
-                    vmDistanceCal.set(((java.lang.String) (callbackArg_0)));
-                }
-            }
-        }
-    };
 
     public DashBoardItemsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds));
     }
     private DashBoardItemsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 1
-            , (com.google.android.material.imageview.ShapeableImageView) bindings[1]
+        super(bindingComponent, root, 0
+            , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
             , (androidx.cardview.widget.CardView) bindings[0]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
             );
         this.ivDashBoardCat.setTag(null);
         this.playerLayout.setTag(null);
         this.tvDashBoardItemDescription.setTag(null);
-        this.tvDashBoardItemDistance.setTag(null);
+        this.tvDashBoardItemLastName.setTag(null);
         this.tvDashBoardItemLocation.setTag(null);
         this.tvDashBoardItemName.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback6 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback8 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x8L;
+                mDirtyFlags = 0x4L;
         }
         requestRebind();
     }
@@ -120,34 +85,18 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     public void setModel(@Nullable com.example.plazapalm.models.ProfileCateData Model) {
         this.mModel = Model;
         synchronized(this) {
-            mDirtyFlags |= 0x2L;
+            mDirtyFlags |= 0x1L;
         }
         notifyPropertyChanged(BR.model);
         super.requestRebind();
     }
     public void setVm(@Nullable com.example.plazapalm.views.dashboard.DashBoardVM Vm) {
         this.mVm = Vm;
-        synchronized(this) {
-            mDirtyFlags |= 0x4L;
-        }
-        notifyPropertyChanged(BR.vm);
-        super.requestRebind();
     }
 
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
-            case 0 :
-                return onChangeVmDistanceCal((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
-        }
-        return false;
-    }
-    private boolean onChangeVmDistanceCal(androidx.databinding.ObservableField<java.lang.String> VmDistanceCal, int fieldId) {
-        if (fieldId == BR._all) {
-            synchronized(this) {
-                    mDirtyFlags |= 0x1L;
-            }
-            return true;
         }
         return false;
     }
@@ -160,25 +109,21 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
             mDirtyFlags = 0;
         }
         com.example.plazapalm.models.ProfileCateData model = mModel;
+        java.lang.String modelUserNameTrim = null;
         java.lang.String modelPostProfilePicture0 = null;
-        java.lang.String modelDescription1 = null;
+        java.lang.String modelUserName = null;
         java.lang.String modelLastName = null;
-        com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
-        androidx.databinding.ObservableField<java.lang.String> vmDistanceCal = null;
-        java.lang.String modelFirstNameJavaLangStringNModelLastName = null;
         java.util.List<java.lang.String> modelPostProfilePicture = null;
         java.lang.String modelFirstName = null;
-        java.lang.String vmDistanceCalGet = null;
         java.lang.String modelLocationText = null;
-        java.lang.String modelFirstNameJavaLangStringN = null;
 
-        if ((dirtyFlags & 0xaL) != 0) {
+        if ((dirtyFlags & 0x5L) != 0) {
 
 
 
                 if (model != null) {
-                    // read model.description_1
-                    modelDescription1 = model.getDescription_1();
+                    // read model.user_name
+                    modelUserName = model.getUser_name();
                     // read model.last_name
                     modelLastName = model.getLast_name();
                     // read model.postProfile_picture
@@ -190,52 +135,29 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
                 }
 
 
+                if (modelUserName != null) {
+                    // read model.user_name.trim()
+                    modelUserNameTrim = modelUserName.trim();
+                }
                 if (modelPostProfilePicture != null) {
                     // read model.postProfile_picture[0]
                     modelPostProfilePicture0 = getFromList(modelPostProfilePicture, 0);
                 }
-                // read (model.first_name) + ("\n")
-                modelFirstNameJavaLangStringN = (modelFirstName) + ("\n");
-
-
-                // read ((model.first_name) + ("\n")) + (model.last_name)
-                modelFirstNameJavaLangStringNModelLastName = (modelFirstNameJavaLangStringN) + (modelLastName);
-        }
-        if ((dirtyFlags & 0xdL) != 0) {
-
-
-
-                if (vm != null) {
-                    // read vm.distanceCal
-                    vmDistanceCal = vm.getDistanceCal();
-                }
-                updateRegistration(0, vmDistanceCal);
-
-
-                if (vmDistanceCal != null) {
-                    // read vm.distanceCal.get()
-                    vmDistanceCalGet = vmDistanceCal.get();
-                }
         }
         // batch finished
-        if ((dirtyFlags & 0xaL) != 0) {
+        if ((dirtyFlags & 0x5L) != 0) {
             // api target 1
 
             com.example.plazapalm.utils.BindingAdapters.setImage(this.ivDashBoardCat, modelPostProfilePicture0);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDescription, modelDescription1);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDescription, modelUserNameTrim);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLastName, modelLastName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLocation, modelLocationText);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemName, modelFirstNameJavaLangStringNModelLastName);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemName, modelFirstName);
         }
-        if ((dirtyFlags & 0x8L) != 0) {
+        if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            this.playerLayout.setOnClickListener(mCallback6);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvDashBoardItemDistance, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvDashBoardItemDistanceandroidTextAttrChanged);
-        }
-        if ((dirtyFlags & 0xdL) != 0) {
-            // api target 1
-
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDistance, vmDistanceCalGet);
+            this.playerLayout.setOnClickListener(mCallback8);
         }
     }
     // Listener Stub Implementations
@@ -278,10 +200,9 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): vm.distanceCal
-        flag 1 (0x2L): model
-        flag 2 (0x3L): vm
-        flag 3 (0x4L): null
+        flag 0 (0x1L): model
+        flag 1 (0x2L): vm
+        flag 2 (0x3L): null
     flag mapping end*/
     //end
 }

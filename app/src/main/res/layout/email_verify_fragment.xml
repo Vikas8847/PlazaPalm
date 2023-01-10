@@ -93,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/forgot_email_bg"
                         android:fontFamily="@font/inter_medium"
-                        android:hint="Email"
+                        android:hint="@string/enter_code"
                         android:inputType="textEmailAddress"
                         android:maxLength="30"
                         android:maxLines="1"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -67,10 +68,13 @@ public abstract class SignupFragmentBinding extends ViewDataBinding {
   public final NestedScrollView nScrollSigUp;
 
   @NonNull
-  public final RadioButton rbFemale;
+  public final RadioGroup radioGroup;
 
   @NonNull
-  public final RadioButton rbMale;
+  public final RadioButton rbNo;
+
+  @NonNull
+  public final RadioButton rbYes;
 
   @NonNull
   public final TextInputLayout tlSignupConfirmPass;
@@ -112,11 +116,12 @@ public abstract class SignupFragmentBinding extends ViewDataBinding {
       AppCompatEditText etSignupEmail, AppCompatEditText etSignupFirstName,
       AppCompatEditText etSignupLastName, TextInputEditText etSignupPassword,
       Guideline gLineSignUpWantLogin, Guideline gLineSignup, NestedScrollView nScrollSigUp,
-      RadioButton rbFemale, RadioButton rbMale, TextInputLayout tlSignupConfirmPass,
-      TextInputLayout tlSignupPass, AppCompatTextView tvSignup, AppCompatTextView tvSignupBusiness,
-      AppCompatTextView tvSignupConfirmPass, AppCompatTextView tvSignupEmail,
-      AppCompatTextView tvSignupFirstName, AppCompatTextView tvSignupLastName,
-      AppCompatTextView tvSignupPassword, AppCompatTextView tvSignupWantLogin) {
+      RadioGroup radioGroup, RadioButton rbNo, RadioButton rbYes,
+      TextInputLayout tlSignupConfirmPass, TextInputLayout tlSignupPass, AppCompatTextView tvSignup,
+      AppCompatTextView tvSignupBusiness, AppCompatTextView tvSignupConfirmPass,
+      AppCompatTextView tvSignupEmail, AppCompatTextView tvSignupFirstName,
+      AppCompatTextView tvSignupLastName, AppCompatTextView tvSignupPassword,
+      AppCompatTextView tvSignupWantLogin) {
     super(_bindingComponent, _root, _localFieldCount);
     this.btnSignup = btnSignup;
     this.clSignup = clSignup;
@@ -132,8 +137,9 @@ public abstract class SignupFragmentBinding extends ViewDataBinding {
     this.gLineSignUpWantLogin = gLineSignUpWantLogin;
     this.gLineSignup = gLineSignup;
     this.nScrollSigUp = nScrollSigUp;
-    this.rbFemale = rbFemale;
-    this.rbMale = rbMale;
+    this.radioGroup = radioGroup;
+    this.rbNo = rbNo;
+    this.rbYes = rbYes;
     this.tlSignupConfirmPass = tlSignupConfirmPass;
     this.tlSignupPass = tlSignupPass;
     this.tvSignup = tvSignup;

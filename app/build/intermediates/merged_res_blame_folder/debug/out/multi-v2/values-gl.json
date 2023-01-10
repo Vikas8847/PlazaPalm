@@ -4,23 +4,6 @@
             "outputFile": "D:\\plazapalam\\plazzapalmGit\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-gl\\values-gl.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\91462bdd3983165d73ea259c5b77f9b8\\transformed\\navigation-ui-2.5.1\\res\\values-gl\\values-gl.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,173",
-                        "endColumns": "117,121",
-                        "endOffsets": "168,290"
-                    },
-                    "to": {
-                        "startLines": "104,105",
-                        "startColumns": "4,4",
-                        "startOffsets": "9747,9865",
-                        "endColumns": "117,121",
-                        "endOffsets": "9860,9982"
-                    }
-                },
-                {
                     "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\1fad74d1d141508558fe59985247a104\\transformed\\jetified-play-services-base-18.1.0\\res\\values-gl\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
@@ -35,6 +18,23 @@
                         "startOffsets": "3433,3539,3702,3831,3939,4098,4230,4349,4592,4763,4872,5041,5176,5341,5493,5560,5629",
                         "endColumns": "105,162,128,107,158,131,118,108,170,108,168,134,164,151,66,68,84",
                         "endOffsets": "3534,3697,3826,3934,4093,4225,4344,4453,4758,4867,5036,5171,5336,5488,5555,5624,5709"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\2d36cca02247669cefd3c78ea9bbca9c\\transformed\\navigation-ui-2.5.3\\res\\values-gl\\values-gl.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,173",
+                        "endColumns": "117,121",
+                        "endOffsets": "168,290"
+                    },
+                    "to": {
+                        "startLines": "104,105",
+                        "startColumns": "4,4",
+                        "startOffsets": "9747,9865",
+                        "endColumns": "117,121",
+                        "endOffsets": "9860,9982"
                     }
                 },
                 {

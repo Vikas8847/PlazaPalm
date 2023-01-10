@@ -19,7 +19,7 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback8;
+    private final android.view.View.OnClickListener mCallback13;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -41,14 +41,14 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
         this.tvQuestionValue.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback8 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback13 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x4L;
+                mDirtyFlags = 0x8L;
         }
         requestRebind();
     }
@@ -67,10 +67,13 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
         if (BR.model == variableId) {
-            setModel((com.example.plazapalm.models.QuestionsModel) variable);
+            setModel((com.example.plazapalm.models.QueData) variable);
         }
-        else if (BR.vm == variableId) {
-            setVm((com.example.plazapalm.views.advancesettings.questionaries.QuestionariesVM) variable);
+        else if (BR.getmodel == variableId) {
+            setGetmodel((com.example.plazapalm.models.GetQueData) variable);
+        }
+        else if (BR.vmi == variableId) {
+            setVmi((com.example.plazapalm.views.advancesettings.questionaries.QuestionariesVM) variable);
         }
         else {
             variableSet = false;
@@ -78,7 +81,7 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
             return variableSet;
     }
 
-    public void setModel(@Nullable com.example.plazapalm.models.QuestionsModel Model) {
+    public void setModel(@Nullable com.example.plazapalm.models.QueData Model) {
         this.mModel = Model;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
@@ -86,8 +89,11 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
         notifyPropertyChanged(BR.model);
         super.requestRebind();
     }
-    public void setVm(@Nullable com.example.plazapalm.views.advancesettings.questionaries.QuestionariesVM Vm) {
-        this.mVm = Vm;
+    public void setGetmodel(@Nullable com.example.plazapalm.models.GetQueData Getmodel) {
+        this.mGetmodel = Getmodel;
+    }
+    public void setVmi(@Nullable com.example.plazapalm.views.advancesettings.questionaries.QuestionariesVM Vmi) {
+        this.mVmi = Vmi;
     }
 
     @Override
@@ -104,32 +110,32 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        com.example.plazapalm.models.QuestionsModel model = mModel;
-        java.lang.String modelQuestionNumber = null;
-        java.lang.String modelQuestionValue = null;
+        com.example.plazapalm.models.QueData model = mModel;
+        java.lang.String modelQuestionText = null;
+        java.lang.String modelQuestionNo = null;
 
-        if ((dirtyFlags & 0x5L) != 0) {
+        if ((dirtyFlags & 0x9L) != 0) {
 
 
 
                 if (model != null) {
-                    // read model.questionNumber
-                    modelQuestionNumber = model.getQuestionNumber();
-                    // read model.questionValue
-                    modelQuestionValue = model.getQuestionValue();
+                    // read model.question_text
+                    modelQuestionText = model.getQuestion_text();
+                    // read model.question_no
+                    modelQuestionNo = model.getQuestion_no();
                 }
         }
         // batch finished
-        if ((dirtyFlags & 0x4L) != 0) {
+        if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.deletereturn.setOnClickListener(mCallback8);
+            this.deletereturn.setOnClickListener(mCallback13);
         }
-        if ((dirtyFlags & 0x5L) != 0) {
+        if ((dirtyFlags & 0x9L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvQuestionCounts, modelQuestionNumber);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvQuestionValue, modelQuestionValue);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvQuestionCounts, modelQuestionNo);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvQuestionValue, modelQuestionText);
         }
     }
     // Listener Stub Implementations
@@ -137,7 +143,7 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         // localize variables for thread safety
         // model
-        com.example.plazapalm.models.QuestionsModel model = mModel;
+        com.example.plazapalm.models.QueData model = mModel;
         // model.adapterPosition
         int modelAdapterPosition = 0;
         // model.onItemClick
@@ -173,8 +179,9 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
         flag 0 (0x1L): model
-        flag 1 (0x2L): vm
-        flag 2 (0x3L): null
+        flag 1 (0x2L): getmodel
+        flag 2 (0x3L): vmi
+        flag 3 (0x4L): null
     flag mapping end*/
     //end
 }

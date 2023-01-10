@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -160,24 +161,39 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
             /****Here get Last location latlng */
             getLastLocation()
         }
+
         /**Here on Switch button click dark mode and light mode handled (Dark Mode enabled-disabled)**/
         binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnCheckedChangeListener { compoundButton, b ->
             if (compoundButton.isChecked === true) {
-                CommonMethods.showToast(requireContext(), "Map data feature data saved")
+                Log.e("SDFSDF","WDONEE")
+//                CommonMethods.showToast(requireContext(), "Map data feature data saved")
                 /**Customise the styling of the base map using a JSON object defined in a raw resource file.**/
-                mMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                        requireContext(),
-                        R.raw.map_json_dark_mode
-                    )
-                )
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_json_dark_mode))
+                viewModel.setMapThemeAPI(true)
             } else
             {
-                mMap.setMapStyle(null)
-                CommonMethods.showToast(requireContext(), "Map data feature data saved")
+                Log.e("SDFSDF","WORKGG")
+                viewModel.setMapThemeAPI(false)
+//                CommonMethods.showToast(requireContext(), "Map data feature data saved")
             }
         }
+
+        /**Here on Switch button click enabled-disabled the GPS Location and hit MAp Featured API... ) **/
+
+        binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnCheckedChangeListener { compoundButton, b ->
+            if (compoundButton.isChecked === true) {
+                viewModel.setMapThemeAPI(true)
+            } else
+            {
+                viewModel.setMapThemeAPI(false)
+//                mMap.setMapStyle(null)
+//                CommonMethods.showToast(requireContext(), "Map data feature data saved")
+            }
+        }
+
     }
+
+
 
     override fun onPolylineClick(polyline: Polyline) {
         /**Flip Polyline solid to dotted..**/

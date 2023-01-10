@@ -1,5 +1,6 @@
 package com.example.plazapalm.views.selectcategory.opencategeroy
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
@@ -11,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -56,9 +58,9 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
 
         getdata()
 
-        if (pref.retrieveLocarion() != null) {
-            viewmodel.address.set(pref.retrieveLocarion())
-            Log.e("QQQQQQ",pref.retrieveLocarion().toString())
+        if (pref.retrieveLocation() != null) {
+            viewmodel.address.set(pref.retrieveLocation())
+            Log.e("QQQQQQ",pref.retrieveLocation().toString())
         }
     }
 
@@ -82,6 +84,8 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                 val lati = split[1] // Second element
                 val address = split[2] // Second element
 
+                /***
+                 * */
                 viewmodel.address.set(address)
                 viewmodel.longitude.set(longi.toDouble())
                 viewmodel.latitude.set(lati.toDouble())
@@ -90,9 +94,11 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                 Log.e("ADDKFJSDFJSDJF", data.toString() + "CIIDDDD" + address)
 
             }
+
     }
 
-    override fun click(categoryName: String, position: Int, c_id: String?, s: String) {
+    override fun click(categoryName: String, position: Int, c_id: String?, s: String, color: Int?) {
+
         val bundle = Bundle()
         bundle.putString("fromOpencate", "openCategeroy")
         bundle.putString("cateName", categoryName)
@@ -101,15 +107,33 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         bundle.getDouble("latitude", viewmodel.latitude.get()!!)
         bundle.putString("status", "OPEN")
 
-        view?.navigateWithId(R.id.action_openCategeroyFragment_to_dashBoardFragment, bundle)
+        view?.navigateWithId(R.id.dashBoardFragment, bundle)
 
         Log.e("SFSDs", categoryName.toString())
+
     }
 
     // Get current location
     private fun getLastLocation() {
         if (CommonMethods.checkPermissions()) {
             if (CommonMethods.isLocationEnabled()) {
+                if (ActivityCompat.checkSelfPermission(
+                        requireActivity(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        requireActivity(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return
+                }
                 mFusedLocation.lastLocation.addOnCompleteListener { task ->
                     val location: Location? = task.result
                     if (location == null) {
@@ -117,7 +141,7 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                     } else {
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
                         val list: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
                         viewmodel.latitude.set(list[0].latitude!!)
                         viewmodel.longitude.set(list[0].longitude!!)
 

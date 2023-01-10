@@ -34,6 +34,7 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
     @Inject
     lateinit var repository: Repository
+
     private var binding: PostProfileFragmentBinding? = null
     private val viewModel: PostProfileVM by viewModels()
     lateinit var ImageList: ArrayList<AddPhoto>
@@ -52,48 +53,38 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
     private fun getBundledata() {
         if (arguments?.getString("comingFromView") != null) {
-            Log.e("SSSSVVV",arguments?.get("userDATA").toString())
+            Log.e("SSSSVVV", arguments?.get("userDATA").toString())
 
             if (arguments?.getString("comingFromView").equals("ViewPrfoile")) {
                 viewModel.postdata.set("Update")
-
 //                val userData:ObservableParcelable<postData?>  = arguments?.getParcelable<postData?>("userDATA") as ObservableParcelable<postData?>
-
                 viewModel.firstName.set(arguments?.getString("f_name").toString())
-                 viewModel.lastName.set(arguments?.getString("l_name").toString())
-                 viewModel.userName.set(arguments?.getString("user_name").toString())
-                 viewModel.profileTitle.set(arguments?.getString("pro_title").toString())
-                 viewModel.p_id.set(arguments?.getString("p_id").toString())
-                 viewModel.c_id.set(arguments?.getString("c_id").toString())
-                 viewModel._id.set(arguments?.getString("_id").toString())
-
+                viewModel.lastName.set(arguments?.getString("l_name").toString())
+                viewModel.userName.set(arguments?.getString("user_name").toString())
+                viewModel.profileTitle.set(arguments?.getString("pro_title").toString())
+                viewModel.p_id.set(arguments?.getString("p_id").toString())
+                viewModel.c_id.set(arguments?.getString("c_id").toString())
+                viewModel._id.set(arguments?.getString("_id").toString())
                 val input = arguments?.getString("ex_date").toString()
-
                 val split = input.split("T")
-
                 val ex_date = split[0] //
-
-                 viewModel.expireDate.set(ex_date.toString())
-                 viewModel.address.set(arguments?.getString("addresss").toString())
-                 viewModel.location.set(arguments?.getString("location_text").toString())
-                 viewModel.long.set(arguments?.getString("longi").toString())
-                 viewModel.lat.set(arguments?.getString("lati").toString())
-                 viewModel.description1.set(arguments?.getString("des_1").toString())
-                 viewModel.description2.set(arguments?.getString("des_2").toString())
-                 viewModel.description3.set(arguments?.getString("des_3").toString())
-                 viewModel.categeory.set(arguments?.getString("cate").toString())
+                viewModel.expireDate.set(ex_date.toString())
+                viewModel.address.set(arguments?.getString("addresss").toString())
+                viewModel.location.set(arguments?.getString("location_text").toString())
+                viewModel.long.set(arguments?.getString("longi").toString())
+                viewModel.lat.set(arguments?.getString("lati").toString())
+                viewModel.description1.set(arguments?.getString("des_1").toString())
+                viewModel.description2.set(arguments?.getString("des_2").toString())
+                viewModel.description3.set(arguments?.getString("des_3").toString())
+                viewModel.categeory.set(arguments?.getString("cate").toString())
 
                 //IMGAE LIST
-                 viewModel.photoList = arguments?.getParcelableArrayList<AddPhoto>("profile_Image") as ArrayList<AddPhoto>
+                viewModel.photoList = arguments?.getParcelableArrayList<AddPhoto>("profile_Image") as ArrayList<AddPhoto>
 
                 ImageList = arguments?.getParcelableArrayList<AddPhoto>("profile_Image") as ArrayList<AddPhoto>
-              //  profileStatus.set(true)
-                Log.e("SSSSVVV",arguments?.getString("des_3").toString() +"DFFDFDFD     " +
-                        " "+ arguments?.getString("pro_title").toString() + "ccczxzxzxzx"
-                        + arguments?.getStringArrayList("profile_Image"))
-
-                Log.e("OSSKKKKSS",arguments?.getString("longi").toString() + "VVVCCC" + "vvv-----vvvv" +arguments?.getString("lati").toString())
-
+                //  profileStatus.set(true)
+                Log.e("SSSSVVV", arguments?.getString("des_3").toString() + "DFFDFDFD     " + " " + arguments?.getString("pro_title").toString() + "ccczxzxzxzx" + arguments?.getStringArrayList("profile_Image"))
+                Log.e("OSSKKKKSS", arguments?.getString("longi").toString() + "VVVCCC" + "vvv-----vvvv" + arguments?.getString("lati").toString())
 
             } else if (arguments?.getString(Constants.FROM_MY_PROFILE).equals("PostProfile")) {
                 viewModel.postdata.set("Post")
@@ -163,7 +154,8 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
                 profileStatus.set(false)
 
                 viewModel.photoList = photoList
-                ImageList = photoList as ArrayList<AddPhoto>/* = java.util.ArrayList<kotlin.String> */
+                ImageList =
+                    photoList as ArrayList<AddPhoto>/* = java.util.ArrayList<kotlin.String> */
                 Log.e("WERWEFDSFDczcxczxczxc", photoList.toString())
 
                 setAdapter()
@@ -175,8 +167,9 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
     private fun setAdapter() {
 
         binding?.rvViewEditAddImages?.layoutManager =
-        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        viewProAddImageAdapter = ViewProAddImageAdapter(this@PostProfileFragment, ImageList,profileStatus)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        viewProAddImageAdapter =
+            ViewProAddImageAdapter(this@PostProfileFragment, ImageList, profileStatus)
         binding?.rvViewEditAddImages?.adapter = viewProAddImageAdapter
 
     }

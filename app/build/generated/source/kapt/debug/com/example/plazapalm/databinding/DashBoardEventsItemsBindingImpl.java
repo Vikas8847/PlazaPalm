@@ -104,7 +104,6 @@ public class DashBoardEventsItemsBindingImpl extends DashBoardEventsItemsBinding
         }
         androidx.databinding.ObservableBoolean vmIsClicked = null;
         com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
-        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.CategoriesData> vmDashSelectedAdapter = null;
         boolean VmIsClicked1 = false;
         int vmIsClickedViewVISIBLEViewGONE = 0;
         boolean vmIsClickedGet = false;
@@ -140,20 +139,8 @@ public class DashBoardEventsItemsBindingImpl extends DashBoardEventsItemsBinding
 
                 // read !vm.isClicked.get() ? View.VISIBLE : View.GONE
                 vmIsClickedViewVISIBLEViewGONE = ((VmIsClicked1) ? (android.view.View.VISIBLE) : (android.view.View.GONE));
-            if ((dirtyFlags & 0x6L) != 0) {
-
-                    if (vm != null) {
-                        // read vm.dashSelectedAdapter
-                        vmDashSelectedAdapter = vm.getDashSelectedAdapter();
-                    }
-            }
         }
         // batch finished
-        if ((dirtyFlags & 0x6L) != 0) {
-            // api target 1
-
-            com.example.plazapalm.utils.BindingAdapters.setRecyclerAdapter(this.rvDashBoardSelectedEvents, vmDashSelectedAdapter);
-        }
         if ((dirtyFlags & 0x7L) != 0) {
             // api target 1
 

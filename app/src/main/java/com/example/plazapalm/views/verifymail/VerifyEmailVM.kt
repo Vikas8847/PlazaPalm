@@ -10,6 +10,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.models.VerifyOtpData
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.pref.business_profile_status
 import com.example.plazapalm.utils.*
 import com.example.plazapalm.utils.Constants.CHECK_INTERNET
 import com.example.plazapalm.utils.Constants.ENTER_OTP
@@ -78,6 +79,7 @@ class VerifyEmailVM @Inject constructor(
                         otp.get()?.trim()
                     )
                 }
+
                 override fun onResponse(res: Response<VerifyOtpData>) {
                     CommonMethods.context.hideKeyboard()
                     val bundle=Bundle()
@@ -85,8 +87,9 @@ class VerifyEmailVM @Inject constructor(
                     bundle.putString("comingFrom",signUpType.get())
                     pref.storeKey("token",res.body()?.data?.token.toString())
                     view.navigateWithId(R.id.action_verifyEmailFragment_to_welcomeFragment,bundle)
+                    pref.storeBoolKey(business_profile_status, res.body()?.data?.business_profile_status!!)
                     CommonMethods.showToast(CommonMethods.context,res.body()?.message.toString())
-                    Log.e("sdsdsds",res.body()?.message.toString())
+                    Log.e("ASAABBB",res.body()?.data.toString())
 
                 }
 

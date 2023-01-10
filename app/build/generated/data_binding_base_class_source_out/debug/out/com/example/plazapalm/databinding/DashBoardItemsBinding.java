@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.databinding.Bindable;
@@ -14,13 +15,12 @@ import androidx.databinding.ViewDataBinding;
 import com.example.plazapalm.R;
 import com.example.plazapalm.models.ProfileCateData;
 import com.example.plazapalm.views.dashboard.DashBoardVM;
-import com.google.android.material.imageview.ShapeableImageView;
 import java.lang.Deprecated;
 import java.lang.Object;
 
 public abstract class DashBoardItemsBinding extends ViewDataBinding {
   @NonNull
-  public final ShapeableImageView ivDashBoardCat;
+  public final AppCompatImageView ivDashBoardCat;
 
   @NonNull
   public final CardView playerLayout;
@@ -30,6 +30,9 @@ public abstract class DashBoardItemsBinding extends ViewDataBinding {
 
   @NonNull
   public final AppCompatTextView tvDashBoardItemDistance;
+
+  @NonNull
+  public final AppCompatTextView tvDashBoardItemLastName;
 
   @NonNull
   public final AppCompatTextView tvDashBoardItemLocation;
@@ -44,14 +47,16 @@ public abstract class DashBoardItemsBinding extends ViewDataBinding {
   protected DashBoardVM mVm;
 
   protected DashBoardItemsBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ShapeableImageView ivDashBoardCat, CardView playerLayout,
+      AppCompatImageView ivDashBoardCat, CardView playerLayout,
       AppCompatTextView tvDashBoardItemDescription, AppCompatTextView tvDashBoardItemDistance,
-      AppCompatTextView tvDashBoardItemLocation, AppCompatTextView tvDashBoardItemName) {
+      AppCompatTextView tvDashBoardItemLastName, AppCompatTextView tvDashBoardItemLocation,
+      AppCompatTextView tvDashBoardItemName) {
     super(_bindingComponent, _root, _localFieldCount);
     this.ivDashBoardCat = ivDashBoardCat;
     this.playerLayout = playerLayout;
     this.tvDashBoardItemDescription = tvDashBoardItemDescription;
     this.tvDashBoardItemDistance = tvDashBoardItemDistance;
+    this.tvDashBoardItemLastName = tvDashBoardItemLastName;
     this.tvDashBoardItemLocation = tvDashBoardItemLocation;
     this.tvDashBoardItemName = tvDashBoardItemName;
   }

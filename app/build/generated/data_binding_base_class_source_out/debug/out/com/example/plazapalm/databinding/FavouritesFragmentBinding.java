@@ -4,10 +4,12 @@ package com.example.plazapalm.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -19,7 +21,13 @@ import java.lang.Object;
 
 public abstract class FavouritesFragmentBinding extends ViewDataBinding {
   @NonNull
+  public final ConstraintLayout constraintLayout;
+
+  @NonNull
   public final AppCompatImageView ivFavBackBtn;
+
+  @NonNull
+  public final TextView listemptyId;
 
   @NonNull
   public final RecyclerView rvFavourites;
@@ -31,10 +39,12 @@ public abstract class FavouritesFragmentBinding extends ViewDataBinding {
   protected FavouritesVM mVm;
 
   protected FavouritesFragmentBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      AppCompatImageView ivFavBackBtn, RecyclerView rvFavourites,
-      AppCompatTextView tvFavouritesToolBar) {
+      ConstraintLayout constraintLayout, AppCompatImageView ivFavBackBtn, TextView listemptyId,
+      RecyclerView rvFavourites, AppCompatTextView tvFavouritesToolBar) {
     super(_bindingComponent, _root, _localFieldCount);
+    this.constraintLayout = constraintLayout;
     this.ivFavBackBtn = ivFavBackBtn;
+    this.listemptyId = listemptyId;
     this.rvFavourites = rvFavourites;
     this.tvFavouritesToolBar = tvFavouritesToolBar;
   }

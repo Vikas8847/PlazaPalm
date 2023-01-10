@@ -25,36 +25,10 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
     private final androidx.appcompat.widget.LinearLayoutCompat mboundView1;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback13;
+    private final android.view.View.OnClickListener mCallback10;
     // values
     // listeners
     // Inverse Binding Event Handlers
-    private androidx.databinding.InverseBindingListener tvNotificationandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
-        @Override
-        public void onChange() {
-            // Inverse of model.categoryName
-            //         is model.setCategoryName((java.lang.String) callbackArg_0)
-            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvNotification);
-            // localize variables for thread safety
-            // model
-            com.example.plazapalm.models.FilterDataModel model = mModel;
-            // model != null
-            boolean modelJavaLangObjectNull = false;
-            // model.categoryName
-            java.lang.String modelCategoryName = null;
-
-
-
-            modelJavaLangObjectNull = (model) != (null);
-            if (modelJavaLangObjectNull) {
-
-
-
-
-                model.setCategoryName(((java.lang.String) (callbackArg_0)));
-            }
-        }
-    };
 
     public FilterCatergoriesItemBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
         this(bindingComponent, root, mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds));
@@ -73,7 +47,7 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
         this.tvNotification.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback13 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback10 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -99,7 +73,7 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
         if (BR.model == variableId) {
-            setModel((com.example.plazapalm.models.FilterDataModel) variable);
+            setModel((com.example.plazapalm.models.SelectedDataModelList) variable);
         }
         else {
             variableSet = false;
@@ -107,7 +81,7 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
             return variableSet;
     }
 
-    public void setModel(@Nullable com.example.plazapalm.models.FilterDataModel Model) {
+    public void setModel(@Nullable com.example.plazapalm.models.SelectedDataModelList Model) {
         this.mModel = Model;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
@@ -130,29 +104,28 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        com.example.plazapalm.models.FilterDataModel model = mModel;
-        java.lang.String modelCategoryName = null;
+        com.example.plazapalm.models.SelectedDataModelList model = mModel;
+        java.lang.String modelCateName = null;
 
         if ((dirtyFlags & 0x3L) != 0) {
 
 
 
                 if (model != null) {
-                    // read model.categoryName
-                    modelCategoryName = model.getCategoryName();
+                    // read model.cateName
+                    modelCateName = model.getCateName();
                 }
         }
         // batch finished
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.mboundView1.setOnClickListener(mCallback13);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvNotification, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvNotificationandroidTextAttrChanged);
+            this.mboundView1.setOnClickListener(mCallback10);
         }
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvNotification, modelCategoryName);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvNotification, modelCateName);
         }
     }
     // Listener Stub Implementations
@@ -160,7 +133,7 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         // localize variables for thread safety
         // model
-        com.example.plazapalm.models.FilterDataModel model = mModel;
+        com.example.plazapalm.models.SelectedDataModelList model = mModel;
         // model.adapterPosition
         int modelAdapterPosition = 0;
         // model.onItemClick

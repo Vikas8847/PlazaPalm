@@ -1,5 +1,8 @@
 package com.example.plazapalm.utils
 
+import androidx.datastore.preferences.core.stringPreferencesKey
+import com.example.plazapalm.models.CategoriesData
+
 object Constants {
     /** Validation Strings for Signup Page **/
     const val FirstNameCantEmpty = "First Name can't be empty"
@@ -80,5 +83,29 @@ object Constants {
     const val POSTSTATUS = "POSTSTATUS"
     const val POSTRESPONSE = "POSTRESPONSE"
     const val FROM_MY_PROFILE = "FROM_MY_PROFILE"
+    // OPACITY
+    const val COLUMN_OPACITY = "COLUMN_OPACITY"
+    const val BORDER_OPACITY = "BORDER_OPACITY"
+    const val FONT_OPACITY = "BORDER_OPACITY"
+    // COLORS
+    const val BACKGROUND_COLOR = "BACKGROUND_COLOR"
+    const val BORDER_COLOR = "BORDER_COLOR"
+    const val FONT_COLOR = "FONT_COLOR"
+    const val COLUMN_COLOR = "COLUMN_COLOR"
+// SIZE
+   const val BORDER_WIDTH = "BORDER_WIDTH"
+   const val FONT_SIZE = "FONT_SIZE"
 
+    // Pref keys
+    const val SELECTED_CATEGORY_NAME = "SELECTED_CATEGORY_NAME"
+    const val SELECTED_CATEGORY_ID = "SELECTED_CATEGORY_ID"
+
+
+    /** dataStore key */
+     val  CategoryList by lazy { stringPreferencesKey("CategoryList") }
+     val FilterList by lazy { stringPreferencesKey("FilterList") }
+     val SELECTED_SLIDER by lazy { stringPreferencesKey("SELECTED_SLIDER") }
+     val SLECTED_CATE_SIGNUP by lazy { stringPreferencesKey("FilterList") }
+     val list_Name by lazy { stringPreferencesKey("idsList") }
+     val list_CateName by lazy { stringPreferencesKey("idsList") }
 }

@@ -9,8 +9,23 @@ import javax.inject.Inject
 
 class PreferenceFile @Inject constructor(
     private val editor: SharedPreferences.Editor,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+
+    /** For permanent use */
+    private val editorForever: SharedPreferences.Editor,
+    private val sharedPreferencesForever: SharedPreferences
  ) {
+
+    fun saveCategeory(key: String, value: String) {
+        editorForever.putString(key, value)
+        editorForever.apply()
+    }
+
+    fun retrieveCategeory(key: String): String? {
+        return sharedPreferencesForever.getString("key", "{}")
+    }
+
+
     fun storeKey(key: String, value: String) {
         editor.putString(key, value)
         editor.apply()
@@ -26,32 +41,39 @@ class PreferenceFile @Inject constructor(
     }
 
 
-    fun storeResponse( body: SavePostProfileResponse) {
-        val gson = Gson()
-        val json: String = gson.toJson(body)
-        editor.putString(Constants.POSTRESPONSE, json)
+    fun storeFilterResponse( body: String) {
+        editor.putString("FilterList",body)
         editor.apply()
     }
 
-    fun retrieveResponse(): SavePostProfileResponse? {
-        val json : String?  = sharedPreferences.getString(Constants.POSTRESPONSE, "{}" )
-//        val obj: SavePostProfileResponse = gson.fromJson(json, SavePostProfileResponse::class.java)
-        return Gson().fromJson(json, SavePostProfileResponse::class.java)
-
+    fun retrieveFilterResponse(): String? {
+        return sharedPreferences.getString("FilterList","")
     }
-    fun storeLocarion(value: String) {
+
+    fun storeLocation(value: String) {
         editor.putString("location", value)
         editor.apply()
     }
+
     fun storeLatlong(key: String,value: Float){
         editor.putFloat(key, value)
         editor.apply()
     }
+
     fun retvieLatlong(key: String,): Float {
         return sharedPreferences.getFloat(key, 0.0F)
     }
 
-    fun retrieveLocarion() : String? {
+    fun storeMiles(value: Int){
+        editor.putInt("Milesss", value)
+        editor.apply()
+    }
+
+    fun retvieMiles(): Int {
+        return sharedPreferences.getInt("Milesss",0)
+    }
+
+    fun retrieveLocation() : String? {
         return sharedPreferences.getString("location", null)
     }
 
@@ -75,10 +97,53 @@ class PreferenceFile @Inject constructor(
         editor.apply()
     }
 
+    fun storecolor(key: String,value: Int){
+        editor.putInt(key, value)
+        editor.apply()
+    }
+    fun retviecolor(key: String): Int? {
+        return sharedPreferences.getInt(key, 0)
+    }
+    fun storecolorString(key: String,value: String){
+        editor.putString(key, value)
+        editor.apply()
+    }
+
+    fun retviecolorString(key: String): String? {
+        return sharedPreferences.getString(key, "")
+    }
+
+
+    fun storeopacity(key: String,value: Float){
+        editor.putFloat(key, value)
+        editor.apply()
+    }
+
+    fun retvieopacity(key: String): Float? {
+        return sharedPreferences.getFloat(key, 0f)
+    }
+
+    fun storeosize(key: String,value: Float){
+        editor.putFloat(key, value)
+        editor.apply()
+    }
+
+    fun retviesize(key: String): Float? {
+        return sharedPreferences.getFloat(key, 0f)
+    }
+
+    fun cleardata(key :String) {
+
+        editor.remove(key)
+        editor.apply()
+
+//    openActivity(Intent(this, Login::class.java), true)
+    }
 
     fun clearPreference() {
         editor.clear()
         editor.apply()
+
 //    openActivity(Intent(this, Login::class.java), true)
     }
 

@@ -105,7 +105,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
         mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment1) as SupportMapFragment
         mapFragment.getMapAsync(this)
         /** Initializing fused location client **/
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         /**Adding Functionality on Map -location button **/
         binding?.btCurrentLocation?.setOnClickListener {
             getLastLocation()
@@ -155,11 +155,13 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                             val addresses: List<Address>
                             geocoder = Geocoder(requireActivity(), Locale.getDefault())
 
-                            addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                            addresses =
+                                geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address> // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 //                            val address = addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                             val city = addresses[0].locality
                             val state = addresses[0].adminArea
                             val address = city + " " + state
+
                             currentaddress = address
                             Currentlati = location.latitude
                             Currentlongi = location.longitude
@@ -193,11 +195,11 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+        grantResults: IntArray )  {
         if (requestCode == CommonMethods.pERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 getLastLocation()
+                Log.e("SFSDSds","WPROFFsdf")
             }
         }
     }
@@ -221,22 +223,17 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
 
         binding?.btAdd?.setOnClickListener {
 
-           /* val bundle = Bundle()
-            bundle.putString("comingFrom", "addCities")
-            bundle.putDouble("longitude", originLatng?.longitude!!)
-            bundle.putDouble("latitude", originLatng?.latitude!!)
-            bundle.putString("addressFromCities", addressLocation)*/
-
             if (originLatng!=null){
                 Currentlongi = originLatng?.longitude!!
                 Currentlati = originLatng?.latitude!!
                 currentaddress = addressLocation!!
 
-                pref.storeLocarion(currentaddress)
+                pref.storeLocation(currentaddress)
                 pref.storeLatlong("longi", originLatng?.longitude!!.toFloat())
                 pref.storeLatlong("lati", originLatng?.latitude!!.toFloat())
             }
 
+            pref.storeLocation(currentaddress)
 
             if (arguments?.getString("PostProfile") != null) {
 
@@ -246,7 +243,6 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                 Log.e("SDSDSD", "DONEE")
             } else {
 
-//                view?.navigateWithId(R.id.categoriesListFragment, bundle)
                 findNavController().previousBackStackEntry?.savedStateHandle?.set("bundle", Currentlongi.toString() + "/" + Currentlati.toString() + "/" + currentaddress)
                 findNavController().popBackStack()
             }
@@ -259,9 +255,15 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
             if (resultCode == FragmentActivity.RESULT_OK) {
                 //When success initialize place
                 val place = Autocomplete.getPlaceFromIntent(data!!)
+
+                val split = place.address?.split(",")
+                val adresss = split?.get(0) // First element
+                Log.e("SSSAAAA", place.address.toString())
+
                 addressLocation = place.address
                 //set address on edittext
-                viewModel.address.set(place.address)
+                viewModel.address.set(adresss)
+
                 if (place.latLng != null) {
                     originLatng = place.latLng
 
@@ -269,7 +271,6 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                         mMap.clear()
                         mMap.addMarker(MarkerOptions().position(originLatng!!))
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLatng!!, 18F))
-                        Log.e("SSSAAAA", "WORKINGGG")
                     }
 
                     Log.e("TAGMMMMMMMMMV", place.latLng.toString())

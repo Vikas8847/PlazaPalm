@@ -8,7 +8,6 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,19 +16,24 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.CategoriesListFragmentBinding
+import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.CategoriesData
-import com.example.plazapalm.models.CategoriesResponseModel
+import com.example.plazapalm.models.SelectedDataModelList
+import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
-import com.example.plazapalm.utils.navigateBack
+import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -39,6 +43,11 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
     private var binding: CategoriesListFragmentBinding? = null
     private val viewmodel: CategoriesListVM by viewModels()
 
+    @Inject
+    lateinit var dataStoreUtil: DataStoreUtil
+
+    @Inject
+    lateinit var pref: PreferenceFile
     private var loading = true
     var pastVisiblesItems = 0
     var visibleItemCount: Int = 0
@@ -50,7 +59,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
     ): View? {
         binding = CategoriesListFragmentBinding.inflate(inflater, container, false)
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
-      //  getCurrentCoOrdinates()
+        //  getCurrentCoOrdinates()
         getLastLocation()
         return binding?.root
     }
@@ -70,82 +79,99 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
           }*/
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     private fun showCategories() {
         binding?.rvCategoryLocation?.layoutManager = LinearLayoutManager(requireContext())
         binding?.rvCategoryLocation?.adapter = viewmodel.adapterCategories
         binding?.rvCategoryLocation?.adapter?.notifyDataSetChanged()
 
-/*
-        binding?.rvCategoryLocation?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                // Check for scrol dowen
-                Log.v("VVVCCC", "Last Item Wow !" )
-
-                if (dy > 0) {
-                    visibleItemCount = binding?.rvCategoryLocation!!.layoutManager!!.getChildCount()
-                    totalItemCount = LinearLayoutManager(requireContext()).getItemCount()
-                    pastVisiblesItems = LinearLayoutManager(requireContext()).findFirstVisibleItemPosition()
-
-                    val lastitem = visibleItemCount + pastVisiblesItems
-
-
-                    if (loading) {
-                        var page = 1
-                        if (lastitem==totalItemCount) {
-                            loading = false
-                            page++
-                            Log.v("VVVCCC", "Last Item Wow !" + page)
-                            // Do pagination.. i.e. fetch new data
-                            viewmodel.page.set(page)
-                            binding?.rvCategoryLocation?.adapter?.notifyDataSetChanged()
-                            loading = true
-                        }
-                    }
-
-                }
-            }
-        })
-*/
-
     }
 
     /**Get Type from previous screen using bundle **/
     private fun getData() {
         if (arguments != null) {
+
             when (arguments?.getString("comingFrom")) {
                 "isFilter" -> {
-                    viewmodel.getCategoriesApi()
+
+                    val data: ArrayList<String> = arguments?.getSerializable("SelecatedCategory") as ArrayList<String>
+
+                    viewmodel.selectedList.addAll(data)
+
+
+                    viewmodel.getCategoriesApi("a", true)
                     binding?.tvCategories?.text = "Choose Category"
                     binding?.tvCategories?.visibility = View.VISIBLE
-                    binding?.tvCategories?.visibility = View.VISIBLE
-                    binding?.ivCategory?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.setOnClickListener {
-                        //from here we have to send categories id's and send in dashboard getProfile by id api..
-                        val dataList=viewmodel.categoriesDataList.filter { it.isCheck==true }
-                        if (dataList.isNotEmpty()){
-                            val bundle=Bundle()
-                            bundle.putParcelableArrayList("filterCategoriesIds",dataList as ArrayList<CategoriesData>)
-                            bundle.putDouble("Filterlongitude",viewmodel.longitude.get())
-                            bundle.putDouble("Filterlatitude",viewmodel.latitude.get())
-                            bundle.putDouble("currentLatitude",viewmodel.currentLatitude.get())
-                            bundle.putDouble("currentLongitude",viewmodel.currentLongitude.get())
-                            view?.navigateWithId(R.id.dashBoardFragment,bundle)
+                        // from here we have to send categories id's and send in dashboard getProfile by id api...
+                        val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
+
+
+
+                        /** Its not essential to select category here */
+//                        if (dataList.isNotEmpty()){
+
+                        var SelectedList = ArrayList<SelectedDataModelList>()
+                        var adapterPos = 0
+                        var cat_Id = ""
+
+                        for (idx in 0 until dataList.size) {
+
+                            SelectedList.add(
+                                SelectedDataModelList(
+                                    dataList[idx].category_name,
+                                    dataList[idx]._id,
+                                    dataList[idx].adapterPosition,
+                                    dataList[idx].isCheck,
+                                    dataList[idx].count
+                                )
+                            )
                         }
-                        else
-                        {
-                            CommonMethods.showToast(CommonMethods.context, "Please select categories first")
+
+                        Log.e("SADASA", dataList.toString())
+                        Log.e(
+                            "SADASA",
+                            "CATENAMEEEE+++++ " + SelectedList + "adpterPso ===" + adapterPos.toString() + "cat_Id==== " + cat_Id
+                        )
+
+                        val bundle = Bundle()
+                        /*bundle.putParcelableArrayList(
+                            "filterCategoriesIds",
+                            dataList as ArrayList<CategoriesData>
+                        )*/
+                        bundle.putSerializable("SelectedList", SelectedList)
+                        bundle.putDouble("Filterlongitude", viewmodel.longitude.get())
+                        bundle.putDouble("Filterlatitude", viewmodel.latitude.get())
+                        bundle.putDouble("currentLatitude", viewmodel.currentLatitude.get())
+                        bundle.putDouble("currentLongitude", viewmodel.currentLongitude.get())
+
+                        var gsonValue = Gson().toJson(bundle)
+
+                        val newList = ArrayList<String>()
+                        for (idx in 0 until dataList.size) {
+                            newList.add(dataList[idx].category_name)
                         }
+
+                        findNavController()?.previousBackStackEntry?.savedStateHandle?.set("selectedCategories", gsonValue)
+                        findNavController()?.popBackStack()
+
+//                        view?.navigateBack()
+//                        }
+//                        else
+//                        {
+//                            CommonMethods.showToast(CommonMethods.context, "Please select categories first")
+//                        }
+
                     }
+
                     if (viewmodel.isChecked.get()) {
                         viewmodel.isChecked.set(false)
                     } else {
                         viewmodel.isChecked.set(true)
                     }
                     bottomNavigationView?.visibility = View.GONE
-
 
                 }
                 "main" -> {
@@ -155,57 +181,84 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     binding?.ivCategoriesForward?.visibility = View.GONE
                     viewmodel.isChecked.set(false)
                     binding?.rvCategoryLocation?.isSelected = false
-                    viewmodel.getCategoriesApi()
+                    viewmodel.getCategoriesApi("a", true)
 
                 }
                 "login" -> {
-                    viewmodel.getCategoriesApi()
+                    viewmodel.getCategoriesApi("a", true)
                     binding?.tvCategories?.text = "Choose Category"
                     binding?.tvCategories?.visibility = View.VISIBLE
                     binding?.ivCategory?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.setOnClickListener {
-                        val dataList=viewmodel.categoriesDataList.filter { it.isCheck==true }
-                        if (dataList.isNotEmpty()){
-                            val bundle=Bundle()
-                            bundle.putParcelableArrayList("FromLoginScreenCategoriesIds",dataList as ArrayList<CategoriesData>)
-                            bundle.putDouble("Loginlongitude",viewmodel.longitude.get())
-                            bundle.putDouble("Loginlatitude",viewmodel.latitude.get())
-                            bundle.putDouble("currentLatitude",viewmodel.currentLatitude.get())
-                            bundle.putDouble("currentLongitude",viewmodel.currentLongitude.get())
-                            view?.navigateWithId(R.id.dashBoardFragment,bundle)
-                        }
-                        else
-                        {
-                            CommonMethods.showToast(CommonMethods.context, "Please select categories first")
+                        val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
+                        if (dataList.isNotEmpty()) {
+                            val bundle = Bundle()
+                            bundle.putParcelableArrayList(
+                                "FromLoginScreenCategoriesIds",
+                                dataList as ArrayList<CategoriesData>
+                            )
+                            bundle.putDouble("Loginlongitude", viewmodel.longitude.get())
+                            bundle.putDouble("Loginlatitude", viewmodel.latitude.get())
+                            bundle.putDouble("currentLatitude", viewmodel.currentLatitude.get())
+                            bundle.putDouble("currentLongitude", viewmodel.currentLongitude.get())
+                            view?.navigateWithId(R.id.dashBoardFragment, bundle)
+                        } else {
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                "Please select categories first"
+                            )
                         }
                     }
                     bottomNavigationView?.visibility = View.GONE
                 }
                 "signup" -> {
-                    viewmodel.getCategoriesApi()
+
+                    viewmodel.getCategoriesApi("a", true)
                     binding?.tvCategories?.text = "Choose Category"
                     binding?.ivCategory?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
 
                     binding?.ivCategoriesForward?.setOnClickListener {
                         //from here we have to send categories id's and send in dashboard getProfile by id api..
-                     val dataList=viewmodel.categoriesDataList.filter { it.isCheck==true }
+                        val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
 
-                        Log.e("BANDRA" , dataList.toString())
+                        Log.e("BANDRA", dataList.toString())
 
-                        if (dataList.isNotEmpty()){
-                            val bundle=Bundle()
-                            /// now
-                            bundle.putString("fromCategories" , "fromCategoriesFragList")
-                            bundle.putParcelableArrayList("fromCategoriesList",dataList as ArrayList<CategoriesData>)
-                            bundle.putDouble("longitude",viewmodel.longitude.get())
-                            bundle.putDouble("latitude",viewmodel.latitude.get())
-                            bundle.putDouble("currentLatitude",viewmodel.currentLatitude.get())
-                            bundle.putDouble("currentLongitude",viewmodel.currentLongitude.get())
-                            view?.navigateWithId(R.id.dashBoardFragment,bundle)
+                        if (dataList.isNotEmpty()) {
+                            val bundle = Bundle()
+                            bundle.putString("fromCategories", "fromCategoriesFragList")
+                            bundle.putParcelableArrayList(
+                                "fromCategoriesList",
+                                dataList as ArrayList<CategoriesData>
+                            )
+
+                            bundle.putDouble("longitude", viewmodel.longitude.get())
+                            bundle.putDouble("latitude", viewmodel.latitude.get())
+                            bundle.putDouble("currentLatitude", viewmodel.currentLatitude.get())
+                            bundle.putDouble("currentLongitude", viewmodel.currentLongitude.get())
+
+                            Log.e("BANDRA", dataList.toString())
+
+
+//                            /** for categeory Name */
+//                            var gsonValueCAte_Name = Gson().toJson(selectedCategoriesList)
+//                            pref.saveCategeory(Constants.SELECTED_CATEGORY,gsonValueCAte_Name)
+//
+//                            /** for categeory Id */
+//                            var gsonValueCate_ID = Gson().toJson(idList)
+//                            pref.saveCategeory(Constants.SELECTED_CATEGORY,gsonValueCate_ID)
+
+
+
+                            view?.navigateWithId(R.id.dashBoardFragment, bundle)
+
+
                         } else {
-                            CommonMethods.showToast(CommonMethods.context, "Please select categories first")
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                "Please select categories first"
+                            )
                         }
                     }
 
@@ -213,13 +266,13 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                 }
 
                 "addCities" -> {
-                    viewmodel.getCategoriesApi()
+                    viewmodel.getCategoriesApi("a", true)
                     var longitude = arguments?.containsKey("longitude")
                     var latitude = arguments?.containsKey("latitude")
                     viewmodel.address.set(arguments?.getString("addressFromCities"))
                 }
                 "postProfile" -> {
-                    viewmodel.getCategoriesApi()
+                    viewmodel.getCategoriesApi("a", true)
                     binding?.tvCategories?.text = "Choose Category"
                     binding?.tvCategories?.visibility = View.VISIBLE
                     binding?.tvCategories?.visibility = View.VISIBLE
@@ -236,11 +289,18 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
             }
         }
     }
+
     // Get current location
     private fun getLastLocation() {
         if (CommonMethods.checkPermissions()) {
             if (CommonMethods.isLocationEnabled()) {
-                if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
                 ) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
@@ -255,20 +315,20 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     val location: Location? = task.result
                     if (location == null) {
                         CommonMethods.requestNewLocationData()
-                    }
-                    else
-                    {
+                    } else {
                         viewmodel.currentLatitude.set(location.latitude)
                         viewmodel.currentLongitude.set(location.longitude)
 
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                        val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        val list: List<Address> =
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
                         viewmodel.latitude.set(list[0].latitude)
                         viewmodel.longitude.set(list[0].longitude)
                         list[0].countryName
                         Log.e("countryName", "" + list[0].locality + "" + list[0].countryName)
                     }
                 }
+
             } else {
                 CommonMethods.showToast(requireContext(), "Turn on Location")
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)

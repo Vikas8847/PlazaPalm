@@ -35,5 +35,7 @@ data class ProfileCateData(
     val profile_title: String?="",
     val tags: String?="",
     val u_id: String?="",
-    val user_name: String?=""
+    val user_name: String?="",
+    val miles: String?=""
+
 )  : AbstractModel()

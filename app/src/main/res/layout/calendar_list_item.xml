@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.example.plazapalm.models.CalendarModel" />
+            type="com.example.plazapalm.models.CalenderData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/inter_medium"
-            android:text="@{model.bookingUserName}"
+            android:text="@{model.customer_first_name + ' ' + model.customer_last_name}"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/inter_medium"
-            android:text="@{model.bookingDate}"
+            android:text="@{model.choose_date}"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_15sdp"
             android:fontFamily="@font/inter_medium"
-            android:text="@{model.bookingTime}"
+            android:text="@{model.choose_time}"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/tvClBookingUserDate"
@@ -87,6 +87,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivCalendarDelete" />
 
+        //            android:text="@{model.location_text}"
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvClBookLocationName"
             android:layout_width="wrap_content"
@@ -96,13 +98,11 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/inter_medium"
             android:paddingBottom="@dimen/_5sdp"
-            android:text="@{model.bookingUserLocation}"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvClBookingUserDate"
-            tools:text="Dart Language" />
-
+            tools:text="Mohali PB" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

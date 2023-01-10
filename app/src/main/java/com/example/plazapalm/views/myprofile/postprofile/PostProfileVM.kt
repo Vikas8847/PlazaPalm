@@ -43,7 +43,6 @@ import retrofit2.Response
 import java.io.File
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 @SuppressLint("NotifyDataSetChanged")
@@ -51,9 +50,7 @@ import kotlin.collections.ArrayList
 class PostProfileVM @Inject constructor(
     private var repository: Repository,
     var dataStoreUtil: DataStoreUtil,
-    var pref: PreferenceFile
-
-    ) : ViewModel() {
+    var pref: PreferenceFile) : ViewModel() {
 
     var firstName = ObservableField("")
     var lastName = ObservableField("")
@@ -475,7 +472,7 @@ class PostProfileVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<SavePostProfileResponse>) {
-                    Log.e("sdsdsd0", res.message())
+                    Log.e("sdsdsd0", res.body().toString())
 
                     if (res.isSuccessful) {
                         if (res.code() == 200) {
@@ -484,11 +481,13 @@ class PostProfileVM @Inject constructor(
                                     CommonMethods.context,
                                     res.body()?.message.toString()
                                 )
+                                pref.storeBoolKey(Constants.POSTSTATUS, true)
+                                dataStoreUtil.saveObject(POST_PROFILE_DATA, res.body())
                                 view.navigateBack()
 
-                                dataStoreUtil.saveObject(POST_PROFILE_DATA, res.body())
-                                pref.storeBoolKey(Constants.POSTSTATUS, true)
-                                pref.storeResponse(res.body()!!)
+
+
+
 
                             } else {
                                 Log.e("sdsdsd1", res.message())
@@ -583,6 +582,7 @@ class PostProfileVM @Inject constructor(
                  CommonMethods.showToast(CommonMethods.context, "Please Enter Valid Email ")
                  return false
              }*/
+
             profileTitle.get()?.trim().toString().isEmpty() -> {
                 CommonMethods.showToast(CommonMethods.context, Constants.ProfileCantEmpty)
                 return false
@@ -596,7 +596,10 @@ class PostProfileVM @Inject constructor(
                 return false
             }
 
-            description1.get()?.trim().toString().isEmpty() -> {
+            /** 03-01-23
+             * Comment Description Validation */
+
+           /* description1.get()?.trim().toString().isEmpty() -> {
                 CommonMethods.showToast(CommonMethods.context, Constants.Description1CantEmpty)
                 return false
             }
@@ -620,7 +623,7 @@ class PostProfileVM @Inject constructor(
             description3.get()!!.length < 20 -> {
                 CommonMethods.showToast(CommonMethods.context, Constants.Description3minimum)
                 return false
-            }
+            }*/
             expireDate.get()?.trim().toString().isEmpty() -> {
                 CommonMethods.showToast(CommonMethods.context, Constants.ExpireDateCantEmpty)
                 return false
