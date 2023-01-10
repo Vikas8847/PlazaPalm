@@ -82,7 +82,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e1bddb692bb2fff3b315ba6bf8c4fe2b/transformed/jetified-drag-drop-swipe-recyclerview-1.1.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/78ced435ff3ea9d3f74d30a4747235a4/transformed/jetified-kotlin-stdlib-jdk8-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/92515b0f4e38b6aa6e5feafc1fca9f06/transformed/jetified-camera-core-1.1.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/7fb511c586d18485b1be7d7f91049c73/transformed/jetified-picasso-2.71828-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/f38cdc32109d2dc396e4a6804fde7b41/transformed/jetified-picasso-2.71828-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/2d8d089b1d1924d0cab2d555269ff792/transformed/jetified-code-scanner-2.3.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/cc5991193a0a4cab32a4ab26e70e54e7/transformed/monitor-1.1.0-alpha3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3deafc32653546908252b8c6832f2125/transformed/jetified-appcompat-resources-1.5.1-api.jar</arg>
@@ -156,8 +156,8 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/4297fe691b15a81129d0e18ba0ecd1bb/transformed/jetified-circleimageview-3.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5d1f327c8099219aa5d267afb4f3ffae/transformed/jetified-circleindicator-2.1.6-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/29489eefb0ade5f7bc037b994fa6c9c7/transformed/jetified-swipereveallayout-android-1.1.2-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/1fb1cf4ad4e093d1d4d25fada64f1313/transformed/jetified-roundedimageview-2.3.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/6d7b36064cc7dbed6a0edc3bf70f34df/transformed/jetified-SuperBottomSheet-1.2.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/47100efc2cb92d93f58da09d979f61cb/transformed/jetified-roundedimageview-2.3.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/02b26c88beebe84b15e506f30000b20d/transformed/jetified-SuperBottomSheet-1.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/ff6b7f6a141ad56da54f7fea468ae83b/transformed/jetified-zxing-android-embedded-4.3.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e323d57657d125af6a5522fde9936ef4/transformed/jetified-core-3.4.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/fdcb7caf94e06ae42d9243fce7cb8960/transformed/jetified-kotlin-stdlib-jdk7-1.7.10.jar</arg>

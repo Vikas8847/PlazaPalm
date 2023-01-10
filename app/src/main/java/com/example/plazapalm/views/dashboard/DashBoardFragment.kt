@@ -37,8 +37,9 @@ import javax.inject.Inject
 class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     @Inject
     lateinit var dataStore: DataStoreUtil
+
     @Inject
-    lateinit var pref : PreferenceFile
+    lateinit var pref: PreferenceFile
 
     private var binding: DashBoardFragmentBinding? = null
 
@@ -47,25 +48,24 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) : View? {
+    ): View? {
         binding = DashBoardFragmentBinding.inflate(layoutInflater)
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         getLastLocation()
         getCategoriesListAndID()
         getlocalData()
         viewModel.getProfile()
-        viewModel.getProfileByCategory("a" , true)
-
+        viewModel.getProfileByCategory("a", true)
         return binding?.root
 
     }
 
     private fun getlocalData() {
-        Log.e("asdsdasdasdasd",pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
+        Log.e("asdsdasdasdasd", pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
 
-        if (pref.retrieveCategeory(SELECTED_CATEGORY_ID)!=null ){
+        if (pref.retrieveCategeory(SELECTED_CATEGORY_ID) != null) {
 
-            Log.e("jkljlss",pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
+            Log.e("jkljlss", pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
 
 //            val myType = object : TypeToken<ArrayList<SelCategory>>() {}.type
 //            val newList1: ArrayList<SelCategory> = Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME), myType)
@@ -83,21 +83,34 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 //            }
 
         }
-
-
-        if (pref.retrieveFilterResponse()!=null && !(pref.retrieveFilterResponse().equals(""))){
-            Log.e("AAAZZZZ",pref.retrieveFilterResponse().toString())
-
+        if (pref.retrieveFilterResponse() != null && !(pref.retrieveFilterResponse().equals(""))) {
+            Log.e("AAAZZZZ", pref.retrieveFilterResponse().toString())
             val myType = object : TypeToken<ArrayList<SelCategory>>() {}.type
-            val newList: ArrayList<SelCategory> = Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveFilterResponse(), myType)
-            val categoryList=ArrayList<SelectedDataModelList>()
+            val newList: ArrayList<SelCategory> =
+                Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveFilterResponse(), myType)
+            val categoryList = ArrayList<SelectedDataModelList>()
 
             viewModel.selectedCategoriesList.clear()
 
             for (idx in 0 until newList.size) {
-
-                categoryList.add(SelectedDataModelList(newList[idx].cateName,newList[idx].cate_ID, newList[idx].adapterPos,newList[idx].istrue,newList[idx].count))
-                viewModel.selectedCategoriesList.add(SelectedDataModelList(newList[idx].cateName,newList[idx].cate_ID, newList[idx].adapterPos,newList[idx].istrue,newList[idx].count))
+                categoryList.add(
+                    SelectedDataModelList(
+                        newList[idx].cateName,
+                        newList[idx].cate_ID,
+                        newList[idx].adapterPos,
+                        newList[idx].istrue,
+                        newList[idx].count
+                    )
+                )
+                viewModel.selectedCategoriesList.add(
+                    SelectedDataModelList(
+                        newList[idx].cateName,
+                        newList[idx].cate_ID,
+                        newList[idx].adapterPos,
+                        newList[idx].istrue,
+                        newList[idx].count
+                    )
+                )
 
             }
 
@@ -156,6 +169,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
         }
 */
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -176,7 +190,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                 arguments?.getString("fromCategories") != null && arguments?.containsKey("fromCategories")!! -> {
 
-                    val idData: ArrayList<CategoriesData> = arguments?.getParcelableArrayList("fromCategoriesList")!!
+                    val idData: ArrayList<CategoriesData> =
+                        arguments?.getParcelableArrayList("fromCategoriesList")!!
 
                     Log.e("QQAAWW", idData.toString())
 
@@ -184,22 +199,35 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                         viewModel.idList.addAll(listOf(idData[idx]._id!!))
 
-                        viewModel.selectedCategoriesList.add(SelectedDataModelList(idData[idx].category_name!!,
-                            idData[idx]._id!!,idData[idx].adapterPosition!!,idData[idx].isCheck!!,idData[idx].count!!))
+                        viewModel.selectedCategoriesList.add(
+                            SelectedDataModelList(
+                                idData[idx].category_name,
+                                idData[idx]._id!!,
+                                idData[idx].adapterPosition,
+                                idData[idx].isCheck!!,
+                                idData[idx].count
+                            )
+                        )
 
 
                         /** save data locally */
                         dataStore.saveData(viewModel.list_Name, Gson().toJson(viewModel.idList))
-                        dataStore.saveData(viewModel.list_CateName, Gson().toJson(viewModel.selectedCategoriesList))
+                        dataStore.saveData(
+                            viewModel.list_CateName,
+                            Gson().toJson(viewModel.selectedCategoriesList)
+                        )
 
                         /** save Categeory Id and Name locally for permanent  */
                         var gsonValueCateId = Gson().toJson(viewModel.idList)
-                        pref.saveCategeory(Constants.SELECTED_CATEGORY_ID,gsonValueCateId)
+                        pref.saveCategeory(Constants.SELECTED_CATEGORY_ID, gsonValueCateId)
 
                         var gsonValueCateName = Gson().toJson(viewModel.selectedCategoriesList)
-                        pref.saveCategeory(Constants.SELECTED_CATEGORY_ID,gsonValueCateName)
+                        pref.saveCategeory(Constants.SELECTED_CATEGORY_ID, gsonValueCateName)
 
-                        Log.e("ISCATE--ID -- >>", viewModel.idList.toString() + "ISCATE--NAME -->> " + viewModel.selectedCategoriesList.toString())
+                        Log.e(
+                            "ISCATE--ID -- >>",
+                            viewModel.idList.toString() + "ISCATE--NAME -->> " + viewModel.selectedCategoriesList.toString()
+                        )
 
                         //////////
                         var gsonValue = Gson().toJson(viewModel.selectedCategoriesList)
@@ -222,13 +250,24 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                     for (idx in 0 until idData.size) {
                         viewModel.idList.addAll(listOf(idData[idx]._id!!))
-                        viewModel.selectedCategoriesList.add(SelectedDataModelList(idData[idx].category_name!!, idData[idx]._id!!,idData[idx].adapterPosition!!,idData[idx].isCheck!!,idData[idx].count!!))
+                        viewModel.selectedCategoriesList.add(
+                            SelectedDataModelList(
+                                idData[idx].category_name,
+                                idData[idx]._id!!,
+                                idData[idx].adapterPosition,
+                                idData[idx].isCheck!!,
+                                idData[idx].count
+                            )
+                        )
 
 //                        viewModel.selectedCategoriesList.addAll(listOf(idData[idx].category_name!!))
 
                         /** save data locally */
                         dataStore.saveData(viewModel.list_Name, Gson().toJson(viewModel.idList))
-                        dataStore.saveData(viewModel.list_CateName, Gson().toJson(viewModel.selectedCategoriesList))
+                        dataStore.saveData(
+                            viewModel.list_CateName,
+                            Gson().toJson(viewModel.selectedCategoriesList)
+                        )
 
                     }
                     viewModel.lati.set(arguments?.getDouble("Filterlongitude")!!)
@@ -240,12 +279,23 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         arguments?.getParcelableArrayList("FromLoginScreenCategoriesIds")!!
                     for (idx in 0 until idData.size) {
                         viewModel.idList.addAll(listOf(idData[idx]._id!!))
-                        viewModel.selectedCategoriesList.add(SelectedDataModelList(idData[idx].category_name!!, idData[idx]._id!!,idData[idx].adapterPosition!!,idData[idx].isCheck!!,idData[idx].count!!))
+                        viewModel.selectedCategoriesList.add(
+                            SelectedDataModelList(
+                                idData[idx].category_name,
+                                idData[idx]._id!!,
+                                idData[idx].adapterPosition,
+                                idData[idx].isCheck!!,
+                                idData[idx].count
+                            )
+                        )
 
 //                        viewModel.selectedCategoriesList.addAll(listOf(idData[idx].category_name!!))
                         /** save data locally */
                         dataStore.saveData(viewModel.list_Name, Gson().toJson(viewModel.idList))
-                        dataStore.saveData(viewModel.list_CateName, Gson().toJson(viewModel.selectedCategoriesList))
+                        dataStore.saveData(
+                            viewModel.list_CateName,
+                            Gson().toJson(viewModel.selectedCategoriesList)
+                        )
 
                     }
 
@@ -267,12 +317,23 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     val c_id = arguments?.getString("c_id")
 
                     viewModel.idList.add(c_id!!)
-                    viewModel.selectedCategoriesList.add(SelectedDataModelList(cateName!!,"",0,false,""))
-                   // viewModel.selectedCategoriesList.add(SelectedDataModelList(idData[idx].category_name!!, idData[idx]._id!!,idData[idx].adapterPosition!!,idData[idx].isCheck!!,idData[idx].count!!))
+                    viewModel.selectedCategoriesList.add(
+                        SelectedDataModelList(
+                            cateName!!,
+                            "",
+                            0,
+                            false,
+                            ""
+                        )
+                    )
+                    // viewModel.selectedCategoriesList.add(SelectedDataModelList(idData[idx].category_name!!, idData[idx]._id!!,idData[idx].adapterPosition!!,idData[idx].isCheck!!,idData[idx].count!!))
 
                     /** save data locally */
                     dataStore.saveData(viewModel.list_Name, Gson().toJson(viewModel.idList))
-                    dataStore.saveData(viewModel.list_CateName, Gson().toJson(viewModel.selectedCategoriesList))
+                    dataStore.saveData(
+                        viewModel.list_CateName,
+                        Gson().toJson(viewModel.selectedCategoriesList)
+                    )
 
 //                    viewModel.lati.set(arguments?.getDouble("latitude")!!)
 //                    viewModel.longi.set(arguments?.getDouble("longitude")!!)
@@ -280,13 +341,17 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     viewModel.lati.set(pref.retvieLatlong("lati").toDouble())
                     viewModel.longi.set(pref.retvieLatlong("longi").toDouble())
 
-                    Log.e("LATLANGG",  pref.retvieLatlong("lati").toDouble().toString() + "  <<<--- Longiii ---->>>  "+
-                            pref.retvieLatlong("longi").toDouble()+ " CIdd--- " + c_id)
+                    Log.e(
+                        "LATLANGG",
+                        pref.retvieLatlong("lati").toDouble()
+                            .toString() + "  <<<--- Longiii ---->>>  " +
+                                pref.retvieLatlong("longi").toDouble() + " CIdd--- " + c_id
+                    )
 
                 }
 
-                arguments?.getString("comingFromIsfilter") != null ->{
-                    Log.e("SDSDSd","DASWORKINGG_+++_+++")
+                arguments?.getString("comingFromIsfilter") != null -> {
+                    Log.e("SDSDSd", "DASWORKINGG_+++_+++")
                 }
 
                 else -> {
@@ -327,9 +392,12 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         viewModel.longi.set(location.longitude)
 
                         pref.storeLatlong("longi", location.latitude.toFloat())
-                        pref.storeLatlong("lati",location.longitude.toFloat())
+                        pref.storeLatlong("lati", location.longitude.toFloat())
 
-                        Log.e("SDSAAAAAQA",location.latitude.toString() +" "+ location.longitude.toString())
+                        Log.e(
+                            "SDSAAAAAQA",
+                            location.latitude.toString() + " " + location.longitude.toString()
+                        )
 
                         /*   val geocoder = Geocoder(requireContext(), Locale.getDefault())
                            val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
@@ -337,6 +405,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                            viewmodel.longitude.set(list[0].longitude)
                            list[0].countryName
                            Log.e("countryName", "" + list[0].locality + "" + list[0].countryName)*/
+
                     }
                 }
 

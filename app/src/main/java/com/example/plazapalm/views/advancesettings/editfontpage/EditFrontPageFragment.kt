@@ -24,6 +24,7 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         savedInstanceState: Bundle?
     ): View? {
         binding = EditFrontPageFragmentBinding.inflate(layoutInflater)
+
         //val bottomSheetBehavior = BottomSheetBehavior.from(foo)
 
 

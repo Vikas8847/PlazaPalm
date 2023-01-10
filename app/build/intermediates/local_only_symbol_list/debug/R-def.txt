@@ -62,11 +62,13 @@ drawable add_photo_bg
 drawable add_photos_bg
 drawable advance_map
 drawable advance_map_bg
+drawable advance_setting_colors_bg
 drawable android
 drawable app_icons
 drawable back_color_choose
 drawable bottom_home_icon
 drawable bottom_nav_bg
+drawable bottom_sheet_bg
 drawable calendar_item_list_bg
 drawable capsule_login_bg
 drawable capsule_login_button
@@ -365,6 +367,7 @@ id clReceiver
 id clReportChoose
 id clReportMain
 id clReportSecond
+id clRvFontLists
 id clSearchLocation
 id clSecond
 id clSettingsNotification
@@ -568,6 +571,7 @@ id messagesFragment
 id more_colors
 id myProfile
 id myProfileFragment
+id myview
 id nScrollLogin
 id nScrollSigUp
 id nScrollVerifyEmail
@@ -595,6 +599,8 @@ id rgFirst
 id rvAddPhotos
 id rvCategoryLocation
 id rvChats
+id rvChooseFontRecent
+id rvChooseFonts
 id rvDashBoard
 id rvDashBoardSelectedEvents
 id rvFavourites
@@ -693,6 +699,7 @@ id tvChatUserName
 id tvChatUserTime
 id tvChooseFont
 id tvChooseFontCancel
+id tvChooseFontsRecent
 id tvChooseOptAddToCalFavDetails
 id tvChooseOptCancel
 id tvChooseOptDeleteProfile
@@ -772,6 +779,7 @@ id tvFilterLocation
 id tvFilterLocationDescription
 id tvFilterMiles
 id tvFilterMilesValue
+id tvFontsName
 id tvForgotPass
 id tvForgotPasswordHeader
 id tvLogOutBtn
@@ -1004,6 +1012,7 @@ layout favourites_list_items
 layout filter_catergories_item
 layout filter_fragment
 layout fonts_list_fragment
+layout fonts_list_item
 layout forgot_password_fragment
 layout fragment_details_categeroy
 layout fragment_open_categeroy
@@ -1111,6 +1120,8 @@ style AppTheme
 style BottomNavigationView
 style BottomNavigationView.Active
 style CalenderViewCustom.
+style CustomBottomSheetDialogTheme
+style CustomBottomSheetStyle
 style DatePickerDialogTheme
 style DialogeTheme
 style Divider

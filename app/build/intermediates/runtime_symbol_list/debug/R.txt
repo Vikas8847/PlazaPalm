@@ -3128,6 +3128,7 @@ int drawable add_photo_bg 0x7f08005f
 int drawable add_photos_bg 0x7f080060
 int drawable advance_map 0x7f080061
 int drawable advance_map_bg 0x7f080062
+int drawable advance_setting_colors_bg 0x7f08016b
 int drawable amu_bubble_mask 0x7f080063
 int drawable amu_bubble_shadow 0x7f080064
 int drawable android 0x7f080065
@@ -3140,6 +3141,7 @@ int drawable background_transparent 0x7f08006b
 int drawable bg_dark 0x7f08006c
 int drawable bottom_home_icon 0x7f08006d
 int drawable bottom_nav_bg 0x7f08006e
+int drawable bottom_sheet_bg 0x7f08016a
 int drawable btn_checkbox_checked_mtrl 0x7f08006f
 int drawable btn_checkbox_checked_to_unchecked_mtrl_animation 0x7f080070
 int drawable btn_checkbox_unchecked_mtrl 0x7f080071
@@ -3692,6 +3694,7 @@ int id clReceiver 0x7f0a0121
 int id clReportChoose 0x7f0a0122
 int id clReportMain 0x7f0a0123
 int id clReportSecond 0x7f0a0124
+int id clRvFontLists 0x7f0a055e
 int id clSearchLocation 0x7f0a0125
 int id clSecond 0x7f0a0126
 int id clSettingsNotification 0x7f0a0127
@@ -4118,6 +4121,7 @@ int id mtrl_view_tag_bottom_padding 0x7f0a02cb
 int id multiply 0x7f0a02cc
 int id myProfile 0x7f0a02cd
 int id myProfileFragment 0x7f0a02ce
+int id myview 0x7f0a0559
 int id nScrollLogin 0x7f0a02cf
 int id nScrollSigUp 0x7f0a02d0
 int id nScrollVerifyEmail 0x7f0a02d1
@@ -4232,6 +4236,8 @@ int id rtl 0x7f0a033d
 int id rvAddPhotos 0x7f0a033e
 int id rvCategoryLocation 0x7f0a033f
 int id rvChats 0x7f0a0340
+int id rvChooseFontRecent 0x7f0a055a
+int id rvChooseFonts 0x7f0a055b
 int id rvDashBoard 0x7f0a0341
 int id rvDashBoardSelectedEvents 0x7f0a0342
 int id rvFavourites 0x7f0a0343
@@ -4468,6 +4474,7 @@ int id tvChatUserName 0x7f0a0429
 int id tvChatUserTime 0x7f0a042a
 int id tvChooseFont 0x7f0a042b
 int id tvChooseFontCancel 0x7f0a042c
+int id tvChooseFontsRecent 0x7f0a055c
 int id tvChooseOptAddToCalFavDetails 0x7f0a042d
 int id tvChooseOptCancel 0x7f0a042e
 int id tvChooseOptDeleteProfile 0x7f0a042f
@@ -4547,6 +4554,7 @@ int id tvFilterLocation 0x7f0a0478
 int id tvFilterLocationDescription 0x7f0a0479
 int id tvFilterMiles 0x7f0a047a
 int id tvFilterMilesValue 0x7f0a047b
+int id tvFontsName 0x7f0a055d
 int id tvForgotPass 0x7f0a047c
 int id tvForgotPasswordHeader 0x7f0a047d
 int id tvLogOutBtn 0x7f0a047e
@@ -4922,6 +4930,7 @@ int layout filter_catergories_item 0x7f0d006c
 int layout filter_fragment 0x7f0d006d
 int layout flag_bubble_colorpickerview_skydoves 0x7f0d006e
 int layout fonts_list_fragment 0x7f0d006f
+int layout fonts_list_item 0x7f0d00f3
 int layout forgot_password_fragment 0x7f0d0070
 int layout fragment_details_categeroy 0x7f0d0071
 int layout fragment_open_categeroy 0x7f0d0072
@@ -5537,6 +5546,8 @@ int style CalenderViewCustom_ 0x7f1400e7
 int style CardView 0x7f1400e8
 int style CardView_Dark 0x7f1400e9
 int style CardView_Light 0x7f1400ea
+int style CustomBottomSheetDialogTheme 0x7f1402f2
+int style CustomBottomSheetStyle 0x7f1402f3
 int style DatePickerDialogTheme 0x7f1400eb
 int style DialogeTheme 0x7f1400ec
 int style Divider 0x7f1400ed

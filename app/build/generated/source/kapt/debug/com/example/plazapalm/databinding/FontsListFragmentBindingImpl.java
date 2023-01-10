@@ -14,10 +14,14 @@ public class FontsListFragmentBindingImpl extends FontsListFragmentBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.tvChooseFont, 1);
-        sViewsWithIds.put(R.id.tvChooseFontCancel, 2);
-        sViewsWithIds.put(R.id.clChooseFont, 3);
-        sViewsWithIds.put(R.id.etChooseFont, 4);
+        sViewsWithIds.put(R.id.tvChooseFont, 2);
+        sViewsWithIds.put(R.id.tvChooseFontCancel, 3);
+        sViewsWithIds.put(R.id.clChooseFont, 4);
+        sViewsWithIds.put(R.id.etChooseFont, 5);
+        sViewsWithIds.put(R.id.myview, 6);
+        sViewsWithIds.put(R.id.tvChooseFontsRecent, 7);
+        sViewsWithIds.put(R.id.clRvFontLists, 8);
+        sViewsWithIds.put(R.id.rvChooseFontRecent, 9);
     }
     // views
     @NonNull
@@ -28,17 +32,23 @@ public class FontsListFragmentBindingImpl extends FontsListFragmentBinding  {
     // Inverse Binding Event Handlers
 
     public FontsListFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 5, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 10, sIncludes, sViewsWithIds));
     }
     private FontsListFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[3]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[1]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[8]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
+            , (android.view.View) bindings[6]
+            , (androidx.recyclerview.widget.RecyclerView) bindings[9]
+            , (androidx.recyclerview.widget.RecyclerView) bindings[1]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[7]
             );
         this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
         this.mboundView0.setTag(null);
+        this.rvChooseFonts.setTag(null);
         setRootTag(root);
         // listeners
         invalidateAll();
@@ -47,7 +57,7 @@ public class FontsListFragmentBindingImpl extends FontsListFragmentBinding  {
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x1L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
@@ -65,7 +75,22 @@ public class FontsListFragmentBindingImpl extends FontsListFragmentBinding  {
     @Override
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
+        if (BR.model == variableId) {
+            setModel((com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM) variable);
+        }
+        else {
+            variableSet = false;
+        }
             return variableSet;
+    }
+
+    public void setModel(@Nullable com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM Model) {
+        this.mModel = Model;
+        synchronized(this) {
+            mDirtyFlags |= 0x1L;
+        }
+        notifyPropertyChanged(BR.model);
+        super.requestRebind();
     }
 
     @Override
@@ -82,14 +107,32 @@ public class FontsListFragmentBindingImpl extends FontsListFragmentBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
+        com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM model = mModel;
+        com.example.plazapalm.recycleradapter.RecyclerAdapter<com.example.plazapalm.models.FontsListModelResponse> modelFontListAdapter = null;
+
+        if ((dirtyFlags & 0x3L) != 0) {
+
+
+
+                if (model != null) {
+                    // read model.fontListAdapter
+                    modelFontListAdapter = model.getFontListAdapter();
+                }
+        }
         // batch finished
+        if ((dirtyFlags & 0x3L) != 0) {
+            // api target 1
+
+            com.example.plazapalm.utils.BindingAdapters.setRecyclerAdapter(this.rvChooseFonts, modelFontListAdapter);
+        }
     }
     // Listener Stub Implementations
     // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): null
+        flag 0 (0x1L): model
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
 }

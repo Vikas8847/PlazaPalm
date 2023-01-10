@@ -144,6 +144,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditBottomTextFrontPage" />
 
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvAdvanceEditFrontPageFontValue"
                         android:layout_width="wrap_content"
@@ -151,8 +152,8 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:onClick="@{vm::onClicks}"
                         android:fontFamily="@font/inter_medium"
+                        android:onClick="@{vm::onClicks}"
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:text="Optima-Regular"
                         android:textColor="@color/sky_blue"
@@ -233,11 +234,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginStart="@dimen/_17sdp"
-                android:onClick="@{vm::onClicks}"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/ic_upgrade_btn_bg"
                 android:gravity="center"
+                android:onClick="@{vm::onClicks}"
                 android:paddingHorizontal="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:text="View"

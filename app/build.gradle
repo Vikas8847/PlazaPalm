@@ -4,9 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
-
     //  id 'com.google.gms.google-services'
-
 }
 
 android {
@@ -157,9 +155,7 @@ dependencies {
 
     //mlkit scanners
     implementation 'com.google.mlkit:text-recognition:16.0.0-beta6'
-
     implementation 'io.github.g00fy2.quickie:quickie-bundled:1.5.1'
-
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
@@ -169,14 +165,13 @@ dependencies {
 
     // pagination
     implementation "android.arch.paging:runtime:$paging_version"
-
     //gson
     implementation 'com.google.code.gson:gson:2.8.8'
-
     // multiswipe recyclerview
     implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.1.1'
 
     /** ColorPicker **/
     implementation "com.github.skydoves:colorpickerview:2.2.4"
+
 
 }

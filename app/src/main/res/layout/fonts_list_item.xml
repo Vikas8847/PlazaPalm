@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="model"
+            type="com.example.plazapalm.models.FontsListModelResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_1sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFontsName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:fontFamily="@font/inter_regular"
+            android:text="@={model.fontName}"
+            android:textColor="@color/tool_bar_black_color"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/myview"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/gray"
+            app:layout_constraintTop_toBottomOf="@+id/tvFontsName" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -76,14 +76,12 @@ class DashBoardVM @Inject constructor(
     val distance = ObservableField("")
     var idCategoriesData = ObservableArrayList<CategoriesData>()
     val adapter by lazy { RecyclerAdapter<ProfileCateData>(R.layout.dash_board_items) }
-
     var selectedCategoriesList = ArrayList<SelectedDataModelList>()
     var selectedCategoriesLists = ArrayList<SelectedDataModelList>()
     val dashSelectedAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.dash_board_events_items) }
     val list_Name by lazy { stringPreferencesKey("idsList") }
     val list_CateName by lazy { stringPreferencesKey("idsList") }
     var dialog: Dialog? = null
-
     init {
 
         /*** 03-01-23
@@ -139,7 +137,6 @@ class DashBoardVM @Inject constructor(
 
 
     }
-
     fun onTextChange(editable: Editable) {
         if (editable.toString().length > 0) {
             Handler().postDelayed({
@@ -153,19 +150,14 @@ class DashBoardVM @Inject constructor(
 
         Log.e("QQWQWQw", editable.toString())
     }
-
     fun onClicks(view: View) {
         when (view.id) {
-
             R.id.clMainDashBoard -> {
                 context.hideKeyboard()
             }
-
             R.id.ivDashBoardSelectedList -> {
-
                 isClicked.set(true)
                 if (isClicked.get()) {
-
                     showSelectedCatAlert()
                     isClicked.set(false)
                 } else {
@@ -182,19 +174,14 @@ class DashBoardVM @Inject constructor(
 
     init {
         Log.e("ASDFASDFSFSDf", status.get().toString())
-        // getProfileByCategory()
         token.set(pref.retrieveKey("token"))
-        //Get data from shared preference..
 
         adapter.setOnItemClick { view, _, type ->
             when (type) {
                 "dashItemClick" -> {
                     val isDashBoard = Bundle()
                     isDashBoard.putString("comingFrom", "isDashBoard")
-                    view.navigateWithId(
-                        R.id.action_dashBoardFragment_to_favDetailsFragment,
-                        isDashBoard
-                    )
+                    view.navigateWithId(R.id.action_dashBoardFragment_to_favDetailsFragment, isDashBoard)
                 }
             }
         }
@@ -202,7 +189,6 @@ class DashBoardVM @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showSelectedCatAlert() {
-
         dialog = Dialog(context)
         val window = dialog!!.getWindow()
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -215,16 +201,12 @@ class DashBoardVM @Inject constructor(
         dialog!!.setContentView(R.layout.dash_board_events_items)
 
         Log.e("SADAA",selectedCategoriesList.toString())
-
         recyclerSelectedEvents = dialog!!.findViewById(R.id.rvDashBoardSelectedEvents)
         recyclerSelectedEvents?.layoutManager = LinearLayoutManager(context)
-        recyclerSelectedEvents?.adapter = DashboardItemsAdapter(CommonMethods.context, selectedCategoriesList, this)
-
-
+        recyclerSelectedEvents?.adapter = DashboardItemsAdapter(context, selectedCategoriesList, this)
 //        dashSelectedAdapter.addItems(selectedCategoriesList as ArrayList<SelectedDataModel>)
         recyclerSelectedEvents?.adapter?.notifyDataSetChanged()
         dialog?.setCancelable(true)
-
         if (!context.isFinishing) {
             dialog?.show()
         }
@@ -300,7 +282,6 @@ class DashBoardVM @Inject constructor(
 
                                 Log.d("viaksdistance",distance.get().toString().split(".")[0])
                                 adapter.setOnItemClick { view, position, type ->
-
                                     when (type) {
                                         "dashItemClick" -> {
 
@@ -385,7 +366,7 @@ class DashBoardVM @Inject constructor(
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
         } else {
-            dialog = Dialog(CommonMethods.context, android.R.style.Theme_Dialog)
+            dialog = Dialog(context, android.R.style.Theme_Dialog)
             dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog?.setContentView(R.layout.fav_details_choose_options)
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -447,15 +428,13 @@ class DashBoardVM @Inject constructor(
 //                        changestatus.set(true)
 
                     }
-
 //                    setpostStatus()
                     // myProfileData()
 
                 }
-
                 override fun onError(message: String) {
                     super.onError(message)
-                    CommonMethods.showToast(CommonMethods.context, Constants.SOMETHING_WRONG)
+                    CommonMethods.showToast(context, Constants.SOMETHING_WRONG)
                 }
             }
         )

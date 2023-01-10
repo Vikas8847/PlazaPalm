@@ -47,7 +47,6 @@ import com.example.plazapalm.views.advancesettings.AdvanceSettingVM_HiltModules_
 import com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageFragment;
 import com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM;
 import com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM_HiltModules_KeyModule_ProvideFactory;
-import com.example.plazapalm.views.advancesettings.editfontpage.FontsListFragment;
 import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookFragment;
 import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookFragment_MembersInjector;
 import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookVM;
@@ -533,10 +532,6 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     @Override
     public void injectEditFrontPageFragment(EditFrontPageFragment arg0) {
-    }
-
-    @Override
-    public void injectFontsListFragment(FontsListFragment arg0) {
     }
 
     @Override

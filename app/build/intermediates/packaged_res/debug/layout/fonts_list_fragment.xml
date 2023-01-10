@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-                                                        
+                                                       
+                                                   
 
     
 
+                 
+                        
+                                                                                              
 
            
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/_5sdp"
-        android:background="@drawable/choose_font_bg"
+        android:background="@drawable/bottom_sheet_bg"
         android:elevation="@dimen/_5sdp"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="170dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" android:tag="layout/fonts_list_fragment_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" android:tag="layout/fonts_list_fragment_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvChooseFont"
             android:layout_width="wrap_content"
@@ -64,13 +68,64 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/gray"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+
+        <View
+            android:id="@+id/myview"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/gray"
+            app:layout_constraintTop_toBottomOf="@+id/clChooseFont" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvChooseFontsRecent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/_10sdp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Recents"
+            android:textColor="@color/light_gray"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myview" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRvFontLists"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clChooseFont" />
+            app:layout_constraintTop_toBottomOf="@id/tvChooseFontsRecent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChooseFontRecent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChooseFonts"
+                android:tag="binding_1"                      
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_5sdp"
+                android:nestedScrollingEnabled="true"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/rvChooseFontRecent"
+                tools:listitem="@layout/fonts_list_item" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
          

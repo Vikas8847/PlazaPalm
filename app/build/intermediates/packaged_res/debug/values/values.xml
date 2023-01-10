@@ -53,7 +53,7 @@
     <string name="app_name">PlazaPalm</string>
     <string name="are_you_sure_you_want_to_delete_n_the_profile">Are you sure you want to delete \n the profile?</string>
     <string name="background_color">Background Color</string>
-    <string name="canecl">Canecl</string>
+    <string name="canecl">Cancel</string>
     <string name="choose">Choose Color</string>
     <string name="choose_categeory">Choose categeory</string>
     <string name="color">Color</string>
@@ -102,7 +102,7 @@
     <string name="you_selected">You Selected</string>
     <string name="your_device_offline">You are offline.</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryDark">@color/light_blue</item>
         <item name="colorAccent">@color/white</item>
@@ -117,6 +117,14 @@
         <item name="colorControlActivated">@color/white</item>
         <item name="android:textColorPrimaryInverse">@color/red</item>
         // color of date selected.
+    </style>
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
     <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/blue</item>
@@ -164,11 +172,11 @@
             <item name="android:backgroundDimEnabled">false</item>
         </style>
     <style name="Theme.PlazaPalm" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+        
         <item name="colorPrimary">@color/app_color</item>
         <item name="colorPrimaryDark">@color/app_color</item>
         <item name="colorAccent">@color/white</item>
-        <!-- Customize your theme here. -->
+        
         <item name="colorSecondary">@color/app_color</item>
         <item name="colorSecondaryVariant">@color/app_color</item>
         <item name="colorOnSecondary">@color/white</item>

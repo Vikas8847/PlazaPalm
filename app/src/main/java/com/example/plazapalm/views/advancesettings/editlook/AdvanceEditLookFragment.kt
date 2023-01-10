@@ -54,14 +54,12 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         preferenceFile.cleardata(Constants.BORDER_COLOR)
         preferenceFile.cleardata(Constants.COLUMN_COLOR)
         preferenceFile.cleardata(Constants.BACKGROUND_COLOR)
         preferenceFile.cleardata(Constants.FONT_COLOR)
         checkApi.set(true)
         viewModel.getEditLookColor()
-
         Log.e("QWCGGH222", "Working---22")
     }
 
@@ -71,7 +69,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
         Log.e("QWCGGH111", "Working---")
 
-        if (checkApi.get().equals(false)) {
+        if (!checkApi.get()) {
             getLocalData()
             Log.e("QWCGGH333", "Working---")
 
@@ -81,9 +79,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getLocalData() {
-
         if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR).equals(""))) {
-            var backgroundColor = preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR)
+            val backgroundColor = preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR)
 //            setBorderBackground(binding?.viewBoxLookingBGColor!! , backgroundColor!!)
 
 //                var data = backgroundColor as String

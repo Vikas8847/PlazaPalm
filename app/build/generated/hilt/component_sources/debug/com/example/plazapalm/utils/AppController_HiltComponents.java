@@ -15,7 +15,6 @@ import com.example.plazapalm.views.advancesettings.AdvanceSettingFragment_Genera
 import com.example.plazapalm.views.advancesettings.AdvanceSettingVM_HiltModules;
 import com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageFragment_GeneratedInjector;
 import com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM_HiltModules;
-import com.example.plazapalm.views.advancesettings.editfontpage.FontsListFragment_GeneratedInjector;
 import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookFragment_GeneratedInjector;
 import com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookVM_HiltModules;
 import com.example.plazapalm.views.advancesettings.editmap.AdvanceSettingMapFragment_GeneratedInjector;
@@ -407,7 +406,6 @@ public final class AppController_HiltComponents {
       AddPhotosFragment_GeneratedInjector,
       AdvanceSettingFragment_GeneratedInjector,
       EditFrontPageFragment_GeneratedInjector,
-      FontsListFragment_GeneratedInjector,
       AdvanceEditLookFragment_GeneratedInjector,
       AdvanceSettingMapFragment_GeneratedInjector,
       AdvanceSettGalleryFragment_GeneratedInjector,
