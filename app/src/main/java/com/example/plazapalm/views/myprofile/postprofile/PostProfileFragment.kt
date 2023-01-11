@@ -37,7 +37,7 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
     private var binding: PostProfileFragmentBinding? = null
     private val viewModel: PostProfileVM by viewModels()
-    lateinit var ImageList: ArrayList<AddPhoto>
+   private lateinit var ImageList: ArrayList<AddPhoto>
     lateinit var viewProAddImageAdapter: ViewProAddImageAdapter
     var token = ObservableField("")
     var profileStatus = ObservableBoolean(false)
@@ -165,6 +165,13 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setAdapter() {
+
+        Log.e("rmglsmgsgsgsg===",ImageList.size.toString())
+
+        for(idx in 0 until ImageList.size)
+        {
+            Log.e("dddsdsdsdsds===",ImageList[idx].Image.toString())
+        }
 
         binding?.rvViewEditAddImages?.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

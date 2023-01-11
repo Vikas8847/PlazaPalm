@@ -16,6 +16,7 @@
         android:id="@+id/main_Conslayout"
         android:layout_width="match_parent"
         android:visibility="visible"
+
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -76,9 +77,11 @@
 
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/favNestedScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="false"
+
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -86,6 +89,7 @@
                 android:id="@+id/display_back"
                 android:layout_width="match_parent"
                 android:visibility="visible"
+                android:descendantFocusability="blocksDescendants"
                 android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

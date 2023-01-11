@@ -34,6 +34,7 @@ class AddPhotosAdapter(
         return viewHolder
 
     }
+
 //    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 //       val adapterPhotos=holder.itemView.findViewById<ConstraintLayout>(R.id.clAddPhoto)
 //        adapterPhotos.setOnClickListener {
@@ -46,19 +47,27 @@ class AddPhotosAdapter(
 //                    .load(photos[position].Image)
 //                    .into(dataBinding.setimageView)
 //            }
+
 //
 //        }
 //    }
 
-    override fun getItemCount(): Int = photos.size
+    override fun getItemCount(): Int {
+        return if(photos.size<6) {
+            photos.size
+        }else {
+            6
+        }
+    }
+
     inner class ViewHolder(var bindining: AddPhotosItemListBinding) :
         RecyclerView.ViewHolder(bindining.root) {
 
         fun setImage(context: Context, photos:ArrayList<AddPhoto>,position:Int
         ) {
-
             if(photos[position].isValid==true)
             {
+                Log.e("Value_IS_Adapter===","True")
                 Glide
                     .with(context)
                     .load(IMAGE_LOAD_URL+photos[position].Image)
@@ -66,6 +75,7 @@ class AddPhotosAdapter(
                     .into(bindining.setimageView)
             }else
             {
+                Log.e("Value_IS_Adapter===","False")
                 Glide
                     .with(context)
                     .load(File(photos[position].Image))
@@ -73,14 +83,18 @@ class AddPhotosAdapter(
                     .into(bindining.setimageView)
             }
 
+            bindining.videoIcon.visibility = View.GONE
 
              if (photos[position].Image==""){
                  bindining.plusIcon.visibility = View.VISIBLE
              }else
              {
+                 if(photos[position].mediaType==2)
+                 {
+                     bindining.videoIcon.visibility = View.VISIBLE
+                 }
                  bindining.plusIcon.visibility = View.GONE
              }
-
         }
     }
 
