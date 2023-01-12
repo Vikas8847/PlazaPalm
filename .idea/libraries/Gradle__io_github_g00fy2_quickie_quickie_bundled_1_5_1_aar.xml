@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: io.github.g00fy2.quickie:quickie-bundled:1.5.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f57b7968f2c661b2a988cc95a7d77bd2/transformed/jetified-quickie-bundled-1.5.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f57b7968f2c661b2a988cc95a7d77bd2/transformed/jetified-quickie-bundled-1.5.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f57b7968f2c661b2a988cc95a7d77bd2/transformed/jetified-quickie-bundled-1.5.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.g00fy2.quickie/quickie-bundled/1.5.1/9973c69b19cb4a550bf8c14409165441b4e229fc/quickie-bundled-1.5.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.g00fy2.quickie/quickie-bundled/1.5.1/4349df0b7febc157b75017fa0a2523878bdd6ef8/quickie-bundled-1.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
