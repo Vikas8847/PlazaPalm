@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+<!--
+        <variable
+            name="model"
+            type="com.example.plazapalm.models.ImagesVideosModel" />
+-->
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clVEditProDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/ivFavOfDesc1"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/round_cornerback"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/etVEditProDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text=" Lorem ipsum dolor sit amet,consectetur adipiscing elit. Quis in dolor euismod suscipit nibh facilisi.Tincidunt tristique tortor sit arcu sed ac malesuada."
+                android:textColorHint="@color/light_black"
+                android:textSize="16sp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"  />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ivFavOfDesc1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_210sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/clVEditProDescription"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:scaleType="fitCenter"
+            app:cardElevation="@dimen/_2sdp" >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivFavOfDesc1Img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="@color/black"
+                android:visibility="visible"
+                android:src="@drawable/electrician_image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/vPlayer1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:visibility="gone"
+            android:layout_margin="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/clVEditProDescription"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp">
+
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
