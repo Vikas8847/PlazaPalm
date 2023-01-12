@@ -56,6 +56,8 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
             Log.e("SSSSVVV", arguments?.get("userDATA").toString())
 
             if (arguments?.getString("comingFromView").equals("ViewPrfoile")) {
+                viewModel.titleScreenProfile.set("Profile")
+
                 viewModel.postdata.set("Update")
 //                val userData:ObservableParcelable<postData?>  = arguments?.getParcelable<postData?>("userDATA") as ObservableParcelable<postData?>
                 viewModel.firstName.set(arguments?.getString("f_name").toString())
@@ -88,9 +90,10 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
             } else if (arguments?.getString(Constants.FROM_MY_PROFILE).equals("PostProfile")) {
                 viewModel.postdata.set("Post")
+                viewModel.titleScreenProfile.set("Profile Post")
+
             }
         }
-
     }
 
 
