@@ -77,7 +77,7 @@ class PostProfileVM @Inject constructor(
     var location = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
 
-
+    var titleScreenProfile = ObservableField("")
     init {
         token.set(pref.retrieveKey("token"))
     }
