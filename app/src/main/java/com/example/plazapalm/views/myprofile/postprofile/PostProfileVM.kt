@@ -165,7 +165,7 @@ class PostProfileVM @Inject constructor(
                 if (photoList == null) {
                     photoList = ArrayList<AddPhoto>()
                 }
-
+                Log.e("Photo_Data_Method===",photoList.toString())
                 var bundle = Bundle()
                 bundle.putParcelableArrayList("imageList", photoList)
                 view.navigateWithId(R.id.action_viewProfileFragment_to_addPhotosFragment, bundle)
@@ -199,8 +199,9 @@ class PostProfileVM @Inject constructor(
                         if(photoList!!.size>0) {
                             for(idx in 0 until photoList!!.size)
                             {
+                                if(photoList!![idx].Image!=""){
                                 newList.add(photoList!![idx].Image.toString())
-                            }
+                            }}
                         }
                         Log.e("ASSSSSSSSSSSSSSSS" , newList.toString())
 
@@ -516,9 +517,7 @@ class PostProfileVM @Inject constructor(
                 }
 
             }
-
         )
-
     }
 
     /**Choose Options Dialog (Edit profile, Delete,cancel) **/

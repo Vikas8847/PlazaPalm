@@ -1,6 +1,9 @@
 package com.example.plazapalm.views.addphotos
 
+import android.Manifest
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -26,6 +29,11 @@ import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.views.addphotos.adapter.AddPhotosAdapter
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import java.io.IOException
@@ -95,8 +103,7 @@ class AddPhotosVM @Inject constructor(
     }
 
 
-    private fun openGallery() {
 
-    }
+
 
 }

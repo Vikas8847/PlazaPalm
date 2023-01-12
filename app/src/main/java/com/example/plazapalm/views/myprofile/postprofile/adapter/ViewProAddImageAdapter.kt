@@ -1,6 +1,8 @@
 package com.example.plazapalm.views.myprofile.postprofile.adapter
+
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ObservableBoolean
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +17,8 @@ import java.io.File
 class ViewProAddImageAdapter(
     var context: PostProfileFragment,
     var dataList: ArrayList<AddPhoto>,
-    var profileStatus: ObservableBoolean
-    ) : RecyclerView.Adapter<ViewProAddImageAdapter.AddImageViewHolder>() {
+    var profileStatus: ObservableBoolean,
+) : RecyclerView.Adapter<ViewProAddImageAdapter.AddImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddImageViewHolder {
         val layInflater = LayoutInflater.from(parent.context)
@@ -29,11 +31,13 @@ class ViewProAddImageAdapter(
     override fun onBindViewHolder(holder: AddImageViewHolder, position: Int) {
         holder.setData(dataList[position])
         Log.e("SSSSSBBb", "Workinggggggg")
-
+        holder.binding.removeImage.setOnClickListener {
+            dataList.removeAt(position)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int {
-
         return dataList.size
     }
 
@@ -46,7 +50,7 @@ class ViewProAddImageAdapter(
                 Log.e("SSSSSBBb", "VVVVCCCCCXXXX")
 
                 Glide.with(context)
-                    .load(IMAGE_LOAD_URL + img!!.Image)
+                    .load(IMAGE_LOAD_URL + img.Image)
                     .into(binding.ivUsersImage)
 
                 binding.executePendingBindings()
@@ -59,6 +63,15 @@ class ViewProAddImageAdapter(
 
                 binding.executePendingBindings()
             }
+
+
+            if (img!!.Image != "") {
+                binding.removeImage.visibility= View.VISIBLE
+            }else
+            {
+                binding.removeImage.visibility= View.GONE
+            }
+
 
         }
     }

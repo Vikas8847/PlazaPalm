@@ -17,11 +17,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.FavDetailsFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
-import com.example.plazapalm.datastore.LOGIN_DATA
 import com.example.plazapalm.datastore.PROFILE_DATA
 import com.example.plazapalm.models.*
 import com.example.plazapalm.networkcalls.*
@@ -68,7 +66,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = FavDetailsFragmentBinding.inflate(layoutInflater)
         viewModel.isFavourites.set(true)
@@ -368,7 +366,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         if (requestCode == CommonMethods.advanceMap_Permission_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
