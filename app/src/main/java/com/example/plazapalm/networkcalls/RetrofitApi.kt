@@ -469,4 +469,17 @@ interface RetrofitApi {
       @Body jsonObject: JSONObject
     ): Response<MapFeaturedDataRes>
 
+    @FormUrlEncoded
+    @POST(MAP_FEATURES)
+    suspend fun mapFeatreData(
+        @Header("Authorization") Authorization: String,
+        @Field("darkTheme") darkTheme: Boolean,
+        @Field("locationOnOff") locationOnOff: Boolean,
+        @Field("follow") follow: Boolean
+    ): Response<MapFeaturedDataRes>
+
+    @GET(GET_MAP_FEATURES)
+    suspend fun getMapFeatured(
+        @Header("Authorization") Authorization: String
+    ): Response<GetMapFeature>
 }
