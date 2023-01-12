@@ -12,10 +12,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Transformations.map
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceMapFragmentBinding
+import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.CommonMethods.advanceMap_Permission_ID
 import com.example.plazapalm.utils.CommonMethods.checkPermissions
@@ -25,9 +28,11 @@ import com.example.plazapalm.utils.CommonMethods.mFusedLocationClient
 import com.example.plazapalm.utils.CommonMethods.requestNewLocationData
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -46,23 +51,81 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
     lateinit var mMap: GoogleMap
     //  var latLng = LatLng(30.741482, 76.768066)
 
+    @Inject
+    lateinit var pref : PreferenceFile
+
+//    var isDrag =ObservableBoolean(false)
+
     lateinit var mapFragment: SupportMapFragment
     private var binding: AdvanceMapFragmentBinding? = null
     private val viewModel: AdvanceMapVM by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+         ): View? {
         binding = AdvanceMapFragmentBinding.inflate(layoutInflater)
         mapFragment = SupportMapFragment()
         CommonMethods.statusBar(true)
+        setApiData()
+
         onClicks()
         return binding?.root
+
+    }
+
+
+    private fun setApiData() {
+        viewModel.darkThemeLive.observe(viewLifecycleOwner){
+            if (it!=null){
+                if (it.equals(true)){
+                    binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnCheckedChangeListener (null)
+                    binding?.bSheetAdvanceMap?.switchAdvanceMap?.setChecked(true)
+                    mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_json_dark_mode))
+
+                }else{
+                    binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnCheckedChangeListener (null)
+                    binding?.bSheetAdvanceMap?.switchAdvanceMap?.setChecked(false)
+                    Log.e("ASDQWQQqq","SADASD")
+                }
+            }
+        }
+
+        viewModel.locationOnOFLive.observe(viewLifecycleOwner){
+            if (it!=null){
+                if (it.equals(true)){
+                    binding?.bSheetAdvanceMap?.switchMapLocationOnOff?.setOnCheckedChangeListener (null)
+                    binding?.bSheetAdvanceMap?.switchMapLocationOnOff?.setChecked(true)
+
+                }else{
+                    binding?.bSheetAdvanceMap?.switchMapLocationOnOff?.setOnCheckedChangeListener (null)
+                    binding?.bSheetAdvanceMap?.switchMapLocationOnOff?.setChecked(false)
+                    Log.e("ASDQWQQqq","SADASD")
+                }
+            }
+        }
+
+        viewModel.followLive.observe(viewLifecycleOwner){
+            if (it!=null){
+                if (it.equals(true)){
+                    binding?.bSheetAdvanceMap?.switchMapFollow?.setOnCheckedChangeListener (null)
+                    binding?.bSheetAdvanceMap?.switchMapFollow?.setChecked(true)
+
+                }else{
+                    binding?.bSheetAdvanceMap?.switchMapFollow?.setOnCheckedChangeListener (null)
+                    binding?.bSheetAdvanceMap?.switchMapFollow?.setChecked(false)
+                    Log.e("ASDQWQQqq","SADASD")
+                }
+            }
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchApiKey()
+        viewModel.mapFeatureGet()
+
         binding?.vm = viewModel
     }
 
@@ -92,6 +155,34 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
         mMap = googleMap
         this.mMap.setOnMapClickListener(this)
         getLastLocation()
+
+//        var lat =  pref.retvieLatlong("lati").toDouble()
+//        val long =  pref.retvieLatlong("longi").toDouble()
+//        val currentLoc  = LatLng(lat,long)
+//
+//
+//        googleMap.addMarker(
+//            MarkerOptions()
+//                .position(currentLoc).draggable(true)
+//        )
+
+        this.mMap.setOnMarkerDragListener(@SuppressLint("PotentialBehaviorOverride")
+        object : OnMarkerDragListener {
+            override fun onMarkerDragStart(marker: Marker) {
+                // TODO Auto-generated method stub
+            }
+
+            override fun onMarkerDragEnd(marker: Marker) {
+                // TODO Auto-generated method stub
+//                lat = marker.position.latitude
+//                lng = marker.position.longitude
+            }
+
+            override fun onMarkerDrag(marker: Marker) {
+                // TODO Auto-generated method stub
+            }
+        })
+
     }
 
 
@@ -105,24 +196,76 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                     if (location == null) {
                         requestNewLocationData()
                     } else {
+
+
                         currentLocation = LatLng(location.latitude, location.longitude)
                         mMap.clear()
-                        val markerOptions = MarkerOptions().position(currentLocation)
-                            .title("I am here! On Your Current Location")
-                        mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation))
+                        val  markerOptions = MarkerOptions().position(currentLocation)
+                            .title("I am here! On Your Current Location").draggable(true)
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation,))
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15F))
+                        mMap.isMyLocationEnabled = true
+                        mMap.addMarker(markerOptions)
+
+
+                        Log.e("ASDQWXCSD" , currentLocation.toString() + "  -- DDDDDD0" )
+
+                      /*  if (isDrag.get() ==true){
+                            currentLocation = LatLng(location.latitude, location.longitude)
+                            mMap.clear()
+                           val  markerOptions = MarkerOptions().position(currentLocation)
+                                .title("I am here! On Your Current Location").draggable(true)
+                            mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation,))
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15F))
+                            mMap.isMyLocationEnabled = true
+                            mMap.addMarker(markerOptions)
+
+                            isDrag.set(false)
+                            Log.e("isDrag","Working1")
+                        }else{
+                           val currentLocation = LatLng(location.latitude, location.longitude)
+                            mMap.clear()
+                            val markerOptions = MarkerOptions().position(currentLocation)
+                                .title("I am here! On Your Current Location").draggable(false)
+                            mMap.animateCamera(CameraUpdateFactory.newLatLng(CommonMethods.currentLocation,))
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(CommonMethods.currentLocation, 15F))
+                            mMap.isMyLocationEnabled = true
+                            mMap.addMarker(markerOptions)
+
+                            isDrag.set(true)
+                            Log.e("isDrag","Working2")
+
+                        }
+*/
                         /* mMap.addMarker(MarkerOptions().position(latLng)
                                  .title("Your Destination is Here ")
                                  .snippet("Destination Description")
                          )*/
                         // addPolyGon()
-                        mMap.isMyLocationEnabled = true
-                        mMap.addMarker(markerOptions)
+
                         /**Poly lines clicks ***/
                         mMap.setOnPolylineClickListener(this@AdvanceMapFragment)
                         mMap.setOnPolylineClickListener(this@AdvanceMapFragment)
 
+                        mMap.setOnMarkerDragListener(object : OnMarkerDragListener {
+                            override fun onMarkerDragStart(marker: Marker) {
+                                // TODO Auto-generated method stub
+                            }
 
+                            override fun onMarkerDragEnd(marker: Marker) {
+                                // TODO Auto-generated method stub
+                                var lat = LatLng(marker.position.latitude,marker.position.longitude)
+                               currentLocation =  lat
+
+//                                isDrag.set(true)
+
+                                Log.e("DFFoppop",lat.toString() )
+                            }
+
+                            override fun onMarkerDrag(marker: Marker) {
+                                // TODO Auto-generated method stub
+                            }
+                        })
                     }
                 }
             } else {
@@ -162,35 +305,68 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
             getLastLocation()
         }
 
+
         /**Here on Switch button click dark mode and light mode handled (Dark Mode enabled-disabled)**/
-        binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnCheckedChangeListener { compoundButton, b ->
-            if (compoundButton.isChecked === true) {
-                Log.e("SDFSDF","WDONEE")
-//                CommonMethods.showToast(requireContext(), "Map data feature data saved")
-                /**Customise the styling of the base map using a JSON object defined in a raw resource file.**/
+        binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnClickListener {
+
+            if (viewModel.darkTheme.get()==true) {
+                viewModel.setMapThemeAPI(false, viewModel.locationOnOF.get(), viewModel.follow.get())
+                Log.e("SDFSDF2",viewModel.darkTheme.get().toString())
+                mMap.setMapStyle(null)
+                viewModel.darkTheme.set(false)
+            } else {
+                viewModel.setMapThemeAPI(true,viewModel.locationOnOF.get(), viewModel.follow.get())
+                viewModel.darkTheme.set(true)
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_json_dark_mode))
-                viewModel.setMapThemeAPI(true)
-            } else
-            {
-                Log.e("SDFSDF","WORKGG")
-                viewModel.setMapThemeAPI(false)
+
+                Log.e("SDFSDF1",viewModel.darkTheme.get().toString())
+
+//                mMap.setMapStyle(null)
 //                CommonMethods.showToast(requireContext(), "Map data feature data saved")
+
             }
+
         }
 
         /**Here on Switch button click enabled-disabled the GPS Location and hit MAp Featured API... ) **/
+        binding?.bSheetAdvanceMap?.switchMapLocationOnOff?.setOnClickListener {
+            if (viewModel.locationOnOF.get() == true) {
+                viewModel.setMapThemeAPI(viewModel.darkTheme.get(), false, viewModel.follow.get())
+                viewModel.locationOnOF.set(false)
+                Log.e("SDFSDF",viewModel.locationOnOF.get().toString())
 
-        binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnCheckedChangeListener { compoundButton, b ->
-            if (compoundButton.isChecked === true) {
-                viewModel.setMapThemeAPI(true)
-            } else
-            {
-                viewModel.setMapThemeAPI(false)
+            } else {
+                viewModel.setMapThemeAPI(viewModel.darkTheme.get(), true, viewModel.follow.get())
+                viewModel.locationOnOF.set(true)
+                Log.e("SDFSDF",viewModel.locationOnOF.get().toString())
+
 //                mMap.setMapStyle(null)
 //                CommonMethods.showToast(requireContext(), "Map data feature data saved")
             }
         }
 
+        /**Here on Switch button click enabled-disabled the follow hit MAp Featured API... ) **/
+        binding?.bSheetAdvanceMap?.switchMapFollow?.setOnClickListener {
+            if (viewModel.follow.get() == true) {
+
+                viewModel.setMapThemeAPI(viewModel.darkTheme.get(),  viewModel.locationOnOF.get(), false)
+                viewModel.follow.set(false)
+                getLastLocation()
+//                isDrag.set(false)
+                Log.e("SDFSDF",viewModel.follow.get().toString())
+            } else {
+
+                viewModel.setMapThemeAPI(viewModel.darkTheme.get(), viewModel.locationOnOF.get(), true)
+                viewModel.follow.set(true)
+//                isDrag.set(true)
+
+                Log.e("SDFSDF",viewModel.follow.get().toString())
+
+
+//                mMap.setMapStyle(null)
+//                CommonMethods.showToast(requireContext(), "Map data feature data saved")
+            }
+        }
     }
 
 
@@ -219,18 +395,19 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
     }
 
     override fun onMapClick(latLng: LatLng) {
-        marker = MarkerOptions().position(latLng).title("Hey There ?")
-        if (markerList.size > 0) {
-            val markerToRemove = markerList[0]
-            markerList.remove(markerToRemove)
-            //remove marker from position (current) selected
-            markerToRemove.remove()
-        }
-        var currentMarker = mMap.addMarker(marker)
-        markerList.add(currentMarker!!)
+//        marker = MarkerOptions().position(latLng).title("Hey There ?")
+//        if (markerList.size > 0) {
+//            val markerToRemove = markerList[0]
+//            markerList.remove(markerToRemove)
+//            //remove marker from position (current) selected
+//            markerToRemove.remove()
+//        }
+//        var currentMarker = mMap.addMarker(marker)
+//        markerList.add(currentMarker!!)
     }
 
     override fun onLocationChanged(location: Location) {
         mMap.clear()
     }
+
 }

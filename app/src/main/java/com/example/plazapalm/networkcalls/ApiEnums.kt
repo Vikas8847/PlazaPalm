@@ -34,5 +34,6 @@ enum class ApiEnums {
     REMOVE_FROM_CALENDAR,
     BLOCK_USER,
     COLOR_LOOK,
-    MAP_FEATURED
+    MAP_FEATURED,
+    GET_MAP_FEATURED
 }
