@@ -1,22 +1,22 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:40:9-51:20
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:40:9-51:20
 	android:grantUriPermissions
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:44:13-47
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:44:13-47
 	android:authorities
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:42:13-64
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:42:13-64
 	android:exported
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:43:13-37
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:43:13-37
 	tools:ignore
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:45:13-47
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:45:13-47
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:41:13-62
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:41:13-62
 manifest
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
 MERGED from [androidx.databinding:databinding-adapters:7.0.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\75cf614a808c2923935146dde09b9cc9\transformed\databinding-adapters-7.0.4\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.databinding:databinding-ktx:7.0.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b77a43a81373bdd516e092b06cdca74b\transformed\jetified-databinding-ktx-7.0.4\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.databinding:databinding-runtime:7.0.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\15ee894fe1d21747b32ecab2fe3b9a68\transformed\databinding-runtime-7.0.4\AndroidManifest.xml:17:1-22:12
@@ -43,6 +43,7 @@ MERGED from [com.google.dagger:hilt-android:2.42] C:\Users\QA-1(Android)\.gradle
 MERGED from [com.applandeo:material-calendar-view:1.9.0-rc03] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\bbf2b22f8ce1f57f4f3bbbf5bde595bb\transformed\jetified-material-calendar-view-1.9.0-rc03\AndroidManifest.xml:2:1-11:12
 MERGED from [com.apachat:swipereveallayout-android:1.1.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\22a712b8d93aa061a974227ece22f742\transformed\jetified-swipereveallayout-android-1.1.2\AndroidManifest.xml:2:1-9:12
 MERGED from [com.github.andrefrsousa:SuperBottomSheet:1.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\d19b06c2d70be50a5ef5507d1aad2bd1\transformed\jetified-SuperBottomSheet-1.2.0\AndroidManifest.xml:2:1-11:12
+MERGED from [com.karumi:dexter:4.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b9ff67932345172802461373d1cef391\transformed\jetified-dexter-4.2.0\AndroidManifest.xml:17:1-32:12
 MERGED from [com.google.android.material:material:1.4.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\964aadcb931ce7e8b32a833eeb14bdaa\transformed\material-1.4.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\ec4e922dd419d177594b0873ebd9d4f0\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.libraries.places:places:2.6.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\bffc1dfc389021b0b609053b8d4bacd5\transformed\jetified-places-2.6.0\AndroidManifest.xml:2:1-23:12
@@ -142,27 +143,27 @@ MERGED from [com.github.bumptech.glide:recyclerview-integration:4.12.0] C:\Users
 MERGED from [com.google.maps.android:android-maps-utils:2.2.3] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\5f9de233eef55d19e328d19aa8f90486\transformed\jetified-android-maps-utils-2.2.3\AndroidManifest.xml:2:1-17:12
 MERGED from [com.android.volley:volley:1.2.1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\a86c224fbbd3a4e58a70d4a5ea01b300\transformed\jetified-volley-1.2.1\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\c685cdefa55150727870013ea71fa91d\transformed\jetified-image-1.0.0-beta1\AndroidManifest.xml:2:1-9:12
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
 	package
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:4:5-36
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:4:5-36
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
 	xmlns:tools
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:3:5-51
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:1-74:12
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:2:11-69
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:5:5-79
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:5:5-79
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\8be6ff6bf3c88e0738593c28194fc72c\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:23:5-79
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\8be6ff6bf3c88e0738593c28194fc72c\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:23:5-79
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\da0ecc88643a940809b02ba67055d3cd\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:25:5-79
@@ -170,9 +171,9 @@ MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Us
 MERGED from [com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\dc6d7d4ad692a38020344a87bbff7d8e\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:22:5-79
 MERGED from [com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\dc6d7d4ad692a38020344a87bbff7d8e\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:22:5-79
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:5:22-76
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:5:22-76
 uses-permission#android.permission.INTERNET
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:6:5-67
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:6:5-67
 MERGED from [com.google.android.libraries.places:places:2.6.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\bffc1dfc389021b0b609053b8d4bacd5\transformed\jetified-places-2.6.0\AndroidManifest.xml:11:5-67
 MERGED from [com.google.android.libraries.places:places:2.6.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\bffc1dfc389021b0b609053b8d4bacd5\transformed\jetified-places-2.6.0\AndroidManifest.xml:11:5-67
 MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\8be6ff6bf3c88e0738593c28194fc72c\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:24:5-67
@@ -180,37 +181,37 @@ MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\QA-1(And
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\da0ecc88643a940809b02ba67055d3cd\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\da0ecc88643a940809b02ba67055d3cd\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:6:22-64
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:6:22-64
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:7:5-81
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:7:5-81
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:7:22-78
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:7:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:8:5-79
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:8:5-79
 MERGED from [com.google.android.libraries.places:places:2.6.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\bffc1dfc389021b0b609053b8d4bacd5\transformed\jetified-places-2.6.0\AndroidManifest.xml:9:5-79
 MERGED from [com.google.android.libraries.places:places:2.6.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\bffc1dfc389021b0b609053b8d4bacd5\transformed\jetified-places-2.6.0\AndroidManifest.xml:9:5-79
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:8:22-76
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:8:22-76
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:9:5-80
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:9:5-80
 MERGED from [io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:13:5-80
 MERGED from [io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:13:5-80
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:9:22-77
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:9:22-77
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:10:5-81
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:10:5-81
 MERGED from [io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:14:5-16:38
 MERGED from [io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:14:5-16:38
 	android:maxSdkVersion
 		ADDED from [io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:16:9-35
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:10:22-78
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:10:22-78
 uses-permission#android.permission.FLASHLIGHT
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:11:5-69
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:11:5-69
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:11:22-66
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:11:22-66
 uses-permission#android.permission.CAMERA
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:12:5-65
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:12:5-65
 MERGED from [io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:11:5-65
 MERGED from [io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:11:5-65
 MERGED from [io.github.g00fy2.quickie:quickie-bundled:1.5.1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\f57b7968f2c661b2a988cc95a7d77bd2\transformed\jetified-quickie-bundled-1.5.1\AndroidManifest.xml:13:5-65
@@ -218,11 +219,13 @@ MERGED from [io.github.g00fy2.quickie:quickie-bundled:1.5.1] C:\Users\QA-1(Andro
 MERGED from [com.journeyapps:zxing-android-embedded:4.3.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\ea35bc558e41e7df8ff758dc777170f8\transformed\jetified-zxing-android-embedded-4.3.0\AndroidManifest.xml:22:5-65
 MERGED from [com.journeyapps:zxing-android-embedded:4.3.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\ea35bc558e41e7df8ff758dc777170f8\transformed\jetified-zxing-android-embedded-4.3.0\AndroidManifest.xml:22:5-65
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:12:22-62
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:12:22-62
 application
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:24:5-72:19
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:24:5-72:19
 MERGED from [io.github.g00fy2.quickie:quickie-bundled:1.5.1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\f57b7968f2c661b2a988cc95a7d77bd2\transformed\jetified-quickie-bundled-1.5.1\AndroidManifest.xml:15:5-20:19
 MERGED from [io.github.g00fy2.quickie:quickie-bundled:1.5.1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\f57b7968f2c661b2a988cc95a7d77bd2\transformed\jetified-quickie-bundled-1.5.1\AndroidManifest.xml:15:5-20:19
+MERGED from [com.karumi:dexter:4.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b9ff67932345172802461373d1cef391\transformed\jetified-dexter-4.2.0\AndroidManifest.xml:26:5-30:19
+MERGED from [com.karumi:dexter:4.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b9ff67932345172802461373d1cef391\transformed\jetified-dexter-4.2.0\AndroidManifest.xml:26:5-30:19
 MERGED from [com.google.android.material:material:1.4.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\964aadcb931ce7e8b32a833eeb14bdaa\transformed\material-1.4.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.4.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\964aadcb931ce7e8b32a833eeb14bdaa\transformed\material-1.4.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\ec4e922dd419d177594b0873ebd9d4f0\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -294,67 +297,65 @@ MERGED from [com.google.maps.android:android-maps-utils:2.2.3] C:\Users\QA-1(And
 MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\c685cdefa55150727870013ea71fa91d\transformed\jetified-image-1.0.0-beta1\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\c685cdefa55150727870013ea71fa91d\transformed\jetified-image-1.0.0-beta1\AndroidManifest.xml:7:5-20
 	android:requestLegacyExternalStorage
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:32:9-52
-	android:roundIcon
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:34:9-54
-	android:largeHeap
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:31:9-33
-	android:icon
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:29:9-43
-	android:networkSecurityConfig
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:33:9-69
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:30:9-52
+	android:preserveLegacyExternalStorage
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:31:9-53
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.8.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b21f7281357ff2b74dcdcfb5270be497\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:35:9-35
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:34:9-35
 	android:label
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:30:9-41
-	android:fullBackupContent
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:28:9-54
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:28:9-41
+	android:roundIcon
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:33:9-54
+	android:largeHeap
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:29:9-33
+	android:icon
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:27:9-43
 	android:allowBackup
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:26:9-36
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:26:9-36
 	android:theme
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:36:9-47
-	android:dataExtractionRules
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:27:9-65
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:36:9-47
+	android:networkSecurityConfig
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:32:9-69
 	android:usesCleartextTraffic
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:37:9-44
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:37:9-44
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:25:9-44
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:25:9-44
 meta-data#com.google.android.geo.API_KEY
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:53:9-55:57
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:53:9-55:57
 	android:value
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:55:13-54
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:55:13-54
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:54:13-58
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:54:13-58
 meta-data#com.google.mlkit.vision.DEPENDENCIES
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:56:9-60:21
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:56:9-60:21
 	android:value
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:58:13-36
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:58:13-36
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:57:13-64
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:57:13-64
 activity#com.example.plazapalm.MainActivity
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:62:9-71:20
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:62:9-71:20
 	android:exported
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:65:13-36
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:65:13-36
 	android:configChanges
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:64:13-43
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:64:13-43
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:63:13-41
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:63:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:66:13-69:29
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:66:13-69:29
 action#android.intent.action.MAIN
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:67:17-69
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:67:17-69
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:67:25-66
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:67:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:68:17-77
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:68:17-77
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:68:27-74
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:68:27-74
 uses-sdk
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
 MERGED from [androidx.databinding:databinding-adapters:7.0.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\75cf614a808c2923935146dde09b9cc9\transformed\databinding-adapters-7.0.4\AndroidManifest.xml:20:5-44
 MERGED from [androidx.databinding:databinding-adapters:7.0.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\75cf614a808c2923935146dde09b9cc9\transformed\databinding-adapters-7.0.4\AndroidManifest.xml:20:5-44
 MERGED from [androidx.databinding:databinding-ktx:7.0.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b77a43a81373bdd516e092b06cdca74b\transformed\jetified-databinding-ktx-7.0.4\AndroidManifest.xml:20:5-44
@@ -407,6 +408,8 @@ MERGED from [com.apachat:swipereveallayout-android:1.1.2] C:\Users\QA-1(Android)
 MERGED from [com.apachat:swipereveallayout-android:1.1.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\22a712b8d93aa061a974227ece22f742\transformed\jetified-swipereveallayout-android-1.1.2\AndroidManifest.xml:5:5-7:41
 MERGED from [com.github.andrefrsousa:SuperBottomSheet:1.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\d19b06c2d70be50a5ef5507d1aad2bd1\transformed\jetified-SuperBottomSheet-1.2.0\AndroidManifest.xml:7:5-9:41
 MERGED from [com.github.andrefrsousa:SuperBottomSheet:1.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\d19b06c2d70be50a5ef5507d1aad2bd1\transformed\jetified-SuperBottomSheet-1.2.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.karumi:dexter:4.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b9ff67932345172802461373d1cef391\transformed\jetified-dexter-4.2.0\AndroidManifest.xml:22:5-24:41
+MERGED from [com.karumi:dexter:4.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b9ff67932345172802461373d1cef391\transformed\jetified-dexter-4.2.0\AndroidManifest.xml:22:5-24:41
 MERGED from [com.google.android.material:material:1.4.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\964aadcb931ce7e8b32a833eeb14bdaa\transformed\material-1.4.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.4.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\964aadcb931ce7e8b32a833eeb14bdaa\transformed\material-1.4.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\ec4e922dd419d177594b0873ebd9d4f0\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
@@ -605,22 +608,22 @@ MERGED from [com.android.volley:volley:1.2.1] C:\Users\QA-1(Android)\.gradle\cac
 MERGED from [com.android.volley:volley:1.2.1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\a86c224fbbd3a4e58a70d4a5ea01b300\transformed\jetified-volley-1.2.1\AndroidManifest.xml:5:5-43
 MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\c685cdefa55150727870013ea71fa91d\transformed\jetified-image-1.0.0-beta1\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\c685cdefa55150727870013ea71fa91d\transformed\jetified-image-1.0.0-beta1\AndroidManifest.xml:5:5-44
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
-		INJECTED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
+		INJECTED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:47:13-50:25
+ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:47:13-50:25
 	android:resource
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:49:17-51
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:49:17-51
 	android:name
-		ADDED from D:\plazapalam\plazzapalmGit\PlazaPalm\app\src\main\AndroidManifest.xml:48:17-67
+		ADDED from D:\plazapalam\plazzapalmGit\newPlazaPalm\PlazaPalm\app\src\main\AndroidManifest.xml:48:17-67
 uses-feature#android.hardware.camera.any
 ADDED from [io.ak1.pix:piximagepicker:1.6.2] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\fa65ca43ca5e01c8473cd321b9e548d9\transformed\jetified-piximagepicker-1.6.2\AndroidManifest.xml:9:5-64
 	android:name
@@ -645,6 +648,12 @@ ADDED from [io.github.g00fy2.quickie:quickie-bundled:1.5.1] C:\Users\QA-1(Androi
 		ADDED from [io.github.g00fy2.quickie:quickie-bundled:1.5.1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\f57b7968f2c661b2a988cc95a7d77bd2\transformed\jetified-quickie-bundled-1.5.1\AndroidManifest.xml:19:13-58
 	android:name
 		ADDED from [io.github.g00fy2.quickie:quickie-bundled:1.5.1] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\f57b7968f2c661b2a988cc95a7d77bd2\transformed\jetified-quickie-bundled-1.5.1\AndroidManifest.xml:17:13-70
+activity#com.karumi.dexter.DexterActivity
+ADDED from [com.karumi:dexter:4.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b9ff67932345172802461373d1cef391\transformed\jetified-dexter-4.2.0\AndroidManifest.xml:27:9-29:72
+	android:theme
+		ADDED from [com.karumi:dexter:4.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b9ff67932345172802461373d1cef391\transformed\jetified-dexter-4.2.0\AndroidManifest.xml:29:13-69
+	android:name
+		ADDED from [com.karumi:dexter:4.2.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\b9ff67932345172802461373d1cef391\transformed\jetified-dexter-4.2.0\AndroidManifest.xml:28:13-60
 uses-permission#android.permission.ACCESS_WIFI_STATE
 ADDED from [com.google.android.libraries.places:places:2.6.0] C:\Users\QA-1(Android)\.gradle\caches\transforms-3\bffc1dfc389021b0b609053b8d4bacd5\transformed\jetified-places-2.6.0\AndroidManifest.xml:10:5-76
 	android:name

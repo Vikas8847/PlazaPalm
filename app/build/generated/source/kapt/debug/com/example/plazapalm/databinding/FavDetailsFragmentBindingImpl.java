@@ -33,6 +33,7 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
         sViewsWithIds.put(R.id.clFavOfDesc3, 32);
         sViewsWithIds.put(R.id.tvFavOfDesc3, 33);
         sViewsWithIds.put(R.id.cvFavDetails, 34);
+        sViewsWithIds.put(R.id.view_, 35);
     }
     // views
     // variables
@@ -227,7 +228,7 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
     };
 
     public FavDetailsFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 35, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 36, sIncludes, sViewsWithIds));
     }
     private FavDetailsFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 8
@@ -266,6 +267,7 @@ public class FavDetailsFragmentBindingImpl extends FavDetailsFragmentBinding  {
             , (androidx.appcompat.widget.AppCompatTextView) bindings[25]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[30]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[33]
+            , (android.view.View) bindings[35]
             );
         this.btnBookingProfile.setTag(null);
         this.ivFavDetailsBackBtn.setTag(null);

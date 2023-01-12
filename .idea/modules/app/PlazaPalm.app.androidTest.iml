@@ -46,6 +46,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/904d27fe668ff1bc1852dced37cac8d2/transformed/jetified-coil-base-1.3.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f5ce8652adf0bb383e3e8d5bc72eb7bd/transformed/jetified-hilt-android-2.42-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b297f1587a31c6d53427ce180d5ed055/transformed/jetified-material-calendar-view-1.9.0-rc03-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/dc66c219a6ac3c5ff5a55f7277f2bf77/transformed/jetified-dexter-4.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/4f38b6612466a0d4f211a8af78db17b0/transformed/material-1.4.0-beta01-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/8ae95a3bfcd89caad420e94d89f8a699/transformed/appcompat-1.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c0225b3b66c673df18dc2b060178bd55/transformed/jetified-play-services-auth-20.4.0-api.jar</arg>
@@ -321,6 +322,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: io.coil-kt:coil-base:1.3.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:hilt-android:2.42@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.applandeo:material-calendar-view:1.9.0-rc03@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.karumi:dexter:4.2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.android.material:material:1.4.0-beta01@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.appcompat:appcompat:1.5.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.android.gms:play-services-auth:20.4.0@aar" level="project" />
