@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -197,7 +199,6 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                         requestNewLocationData()
                     } else {
 
-
                         currentLocation = LatLng(location.latitude, location.longitude)
                         mMap.clear()
                         val  markerOptions = MarkerOptions().position(currentLocation)
@@ -352,6 +353,13 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                 viewModel.setMapThemeAPI(viewModel.darkTheme.get(),  viewModel.locationOnOF.get(), false)
                 viewModel.follow.set(false)
                 getLastLocation()
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    CommonMethods.showToast(CommonMethods.context,"WORKING---- ")
+                    Log.e("SDFSDF","WORKINGGG----- ")
+
+                }, 100)
+
 //                isDrag.set(false)
                 Log.e("SDFSDF",viewModel.follow.get().toString())
             } else {

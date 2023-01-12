@@ -117,21 +117,8 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
            //63bd052fc4f44108db54e5eb
 
-            if (user_id.equals("63b69f871545b79696c25166")) {
-
-                binding?.tvAdvanceSetting?.visibility = View.VISIBLE
-                binding?.viewAdvanceSettings?.visibility = View.VISIBLE
-
-                binding?.tvQRCode?.visibility = View.VISIBLE
-                binding?.viewQRCode?.visibility = View.VISIBLE
-
-                binding?.tvViewMyProfile?.visibility = View.VISIBLE
-                binding?.viewProfile?.visibility = View.VISIBLE
-
-                binding?.tvUpgrade?.visibility = View.GONE
-                binding?.viewUpgrade?.visibility = View.GONE
-
-            } else {
+            if (user_id.equals("63bd052fc4f44108db54e5eb"))
+                else {
 
                 /* binding?.tvAdvanceSetting?.visibility = View.GONE
                  binding?.viewAdvanceSettings?.visibility = View.GONE
