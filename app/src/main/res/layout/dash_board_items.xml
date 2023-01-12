@@ -131,9 +131,9 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tool:text="Los Angeles, CA" />
+                 />
 
-            //                 android:text="@={vm.distanceCal}"
+            <!--  android:text="@={vm.distanceCal}"-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDashBoardItemDistance"
