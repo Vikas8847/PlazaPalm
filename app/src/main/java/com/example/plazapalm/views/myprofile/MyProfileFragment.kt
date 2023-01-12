@@ -115,7 +115,9 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
             /*** Get  premium */
             //        if (viewModel.premium == 1) {
 
-            if (user_id.equals("63bd1520c4f44108db54e86d")) {
+           //63bd052fc4f44108db54e5eb
+
+            if (user_id.equals("63b69f871545b79696c25166")) {
 
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE

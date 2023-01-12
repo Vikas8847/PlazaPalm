@@ -179,4 +179,7 @@ dependencies {
     /** ColorPicker **/
     implementation "com.github.skydoves:colorpickerview:2.2.4"
 
+    implementation 'com.karumi:dexter:4.2.0'
+
+
 }

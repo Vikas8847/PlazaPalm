@@ -463,7 +463,6 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String
     ): Response<GetColorsResponse>
 
-
     @POST(MAP_FEATURES)
     suspend fun mapFeatreData(
       @Body jsonObject: JSONObject
@@ -482,4 +481,13 @@ interface RetrofitApi {
     suspend fun getMapFeatured(
         @Header("Authorization") Authorization: String
     ): Response<GetMapFeature>
+
+    @FormUrlEncoded
+    @POST(UPDATE_LATLONG)
+    suspend fun updateLatlng(
+        @Header("Authorization") Authorization: String,
+        @Field("user_lat") user_lat: Double,
+        @Field("user_long") user_long: Double
+    ):Response<UpdateLatlngResponse>
+
 }

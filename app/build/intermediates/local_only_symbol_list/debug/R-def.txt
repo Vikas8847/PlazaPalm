@@ -169,6 +169,7 @@ drawable like_true
 drawable like_unfilled_image
 drawable likes_true
 drawable map_search_white_bg
+drawable media_remove_icon
 drawable minus_button
 drawable naguyen_girl
 drawable navigation
@@ -521,6 +522,7 @@ id ivForgotPassword
 id ivMyProfile
 id ivMyProfileScanner
 id ivNotificationItemsDelete
+id ivPhoto
 id ivPictureAddBackBtn
 id ivPictures
 id ivPicturesAdd
@@ -911,6 +913,7 @@ id vPlayer5
 id vPlayer6
 id vProfileLikeDisComment
 id verifyEmailFragment
+id video_icon
 id viewAccount
 id viewAdvanceSettingEditFontPage
 id viewAdvanceSettingEditLook
@@ -945,6 +948,7 @@ id viewSettingsTermsUse
 id viewSomethingWrong
 id viewUpdateEmail
 id viewUpgrade
+id view_
 id view_id
 id welcomeFragment
 integer dialogplus_animation_default_duration
@@ -992,6 +996,7 @@ layout dash_selected_events
 layout delete_account_alert
 layout delete_postprofile
 layout delete_swipe_alert
+layout demo_dialog
 layout edit_front_page_fragment
 layout edit_or_delete_profile
 layout edit_profile_fragment
@@ -1053,6 +1058,7 @@ mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 navigation navigation_graph
 raw map_json_dark_mode
+string _25_miles
 string add_new_question
 string add_photo_type
 string addtofav
@@ -1068,6 +1074,7 @@ string colorss
 string confirm_booking
 string dd_mm_yy
 string delete
+string delete_profile
 string description2
 string description_2
 string description_3
@@ -1086,6 +1093,7 @@ string inter_regular
 string last_name
 string log_out
 string logout
+string lower_name
 string more_colors
 string no
 string no_favorites_yet
@@ -1103,6 +1111,9 @@ string space
 string submit
 string take_photo
 string thank_you
+string top_name
+string upload_image
+string upload_video
 string user_name
 string yes
 string you_selected

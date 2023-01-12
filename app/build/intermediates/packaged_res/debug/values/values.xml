@@ -47,6 +47,7 @@
     <color name="zxing_transparent">#00000000</color>
     <color name="zxing_viewfinder_laser">#17B61D</color>
     <integer name="dialogplus_animation_default_duration">300</integer>
+    <string name="_25_miles">25 Miles</string>
     <string name="add_new_question">Add New Question</string>
     <string name="add_photo_type">addPhotos</string>
     <string name="addtofav">Add to Favorites</string>
@@ -62,6 +63,7 @@
     <string name="confirm_booking">Confirm Booking</string>
     <string name="dd_mm_yy">dd/mm/yy</string>
     <string name="delete">Delete</string>
+    <string name="delete_profile">Delete Profile</string>
     <string name="description2">Description2</string>
     <string name="description_2">Description 2</string>
     <string name="description_3">Description 3</string>
@@ -80,6 +82,7 @@
     <string name="last_name">Last Name</string>
     <string name="log_out">Log Out Successfully Done</string>
     <string name="logout">Logout</string>
+    <string name="lower_name">Lower Name</string>
     <string name="more_colors">More Colors</string>
     <string name="no">No</string>
     <string name="no_favorites_yet">There are no favorites yet!!</string>
@@ -97,6 +100,9 @@
     <string name="submit">Submit</string>
     <string name="take_photo">Take photo</string>
     <string name="thank_you">Thank You</string>
+    <string name="top_name">Top Name</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="upload_video">Upload Video</string>
     <string name="user_name">User Name</string>
     <string name="yes">Yes</string>
     <string name="you_selected">You Selected</string>

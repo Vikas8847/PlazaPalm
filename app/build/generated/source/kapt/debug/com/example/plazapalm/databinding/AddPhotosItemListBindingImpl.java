@@ -17,6 +17,7 @@ public class AddPhotosItemListBindingImpl extends AddPhotosItemListBinding  {
         sViewsWithIds.put(R.id.clAddPhoto, 1);
         sViewsWithIds.put(R.id.setimageView, 2);
         sViewsWithIds.put(R.id.plus_icon, 3);
+        sViewsWithIds.put(R.id.video_icon, 4);
     }
     // views
     @NonNull
@@ -27,13 +28,14 @@ public class AddPhotosItemListBindingImpl extends AddPhotosItemListBinding  {
     // Inverse Binding Event Handlers
 
     public AddPhotosItemListBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 5, sIncludes, sViewsWithIds));
     }
     private AddPhotosItemListBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[1]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[3]
             , (com.google.android.material.imageview.ShapeableImageView) bindings[2]
+            , (androidx.appcompat.widget.AppCompatImageView) bindings[4]
             );
         this.mboundView0 = (androidx.cardview.widget.CardView) bindings[0];
         this.mboundView0.setTag(null);

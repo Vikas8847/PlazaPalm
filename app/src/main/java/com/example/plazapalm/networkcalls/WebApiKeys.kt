@@ -51,6 +51,7 @@ const val POST_COLORS_EDIT  = "colorLook"
 const val GET_COLORS  = "colorLookGet"
 const val MAP_FEATURES  = "mapFeature"
 const val GET_MAP_FEATURES  = "mapFeatureGet"
+const val UPDATE_LATLONG  = "updateLatLong"
 
 
 

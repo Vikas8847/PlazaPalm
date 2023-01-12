@@ -59,6 +59,7 @@ import com.example.plazapalm.views.advancesettings.gallery.AdvanceSettGalleryFra
 import com.example.plazapalm.views.advancesettings.gallery.AdvanceSettingGalleryVM;
 import com.example.plazapalm.views.advancesettings.gallery.AdvanceSettingGalleryVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.advancesettings.map.AdvanceMapFragment;
+import com.example.plazapalm.views.advancesettings.map.AdvanceMapFragment_MembersInjector;
 import com.example.plazapalm.views.advancesettings.map.AdvanceMapVM;
 import com.example.plazapalm.views.advancesettings.map.AdvanceMapVM_HiltModules_KeyModule_ProvideFactory;
 import com.example.plazapalm.views.advancesettings.pictures.PicturesFragment;
@@ -554,6 +555,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
 
     @Override
     public void injectAdvanceMapFragment(AdvanceMapFragment arg0) {
+      injectAdvanceMapFragment2(arg0);
     }
 
     @Override
@@ -741,6 +743,11 @@ public final class DaggerAppController_HiltComponents_SingletonC {
         AdvanceEditLookFragment instance) {
       AdvanceEditLookFragment_MembersInjector.injectDataStoreUtil(instance, singletonCImpl.dataStoreUtil());
       AdvanceEditLookFragment_MembersInjector.injectPreferenceFile(instance, preferenceFile());
+      return instance;
+    }
+
+    private AdvanceMapFragment injectAdvanceMapFragment2(AdvanceMapFragment instance) {
+      AdvanceMapFragment_MembersInjector.injectPref(instance, preferenceFile());
       return instance;
     }
 
@@ -1085,7 +1092,7 @@ public final class DaggerAppController_HiltComponents_SingletonC {
           return (T) new AdvanceEditLookVM(singletonCImpl.dataStoreUtil(), viewModelCImpl.preferenceFile(), viewModelCImpl.repository());
 
           case 3: // com.example.plazapalm.views.advancesettings.map.AdvanceMapVM 
-          return (T) new AdvanceMapVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile());
+          return (T) new AdvanceMapVM(viewModelCImpl.repository(), viewModelCImpl.preferenceFile(), singletonCImpl.dataStoreUtil());
 
           case 4: // com.example.plazapalm.views.advancesettings.gallery.AdvanceSettingGalleryVM 
           return (T) new AdvanceSettingGalleryVM();

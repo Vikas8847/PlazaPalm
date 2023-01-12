@@ -3318,6 +3318,7 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable media_remove_icon
 drawable minus_button
 drawable mtrl_dialog_background
 drawable mtrl_dropdown_arrow
@@ -3993,6 +3994,7 @@ id ivForgotPassword
 id ivMyProfile
 id ivMyProfileScanner
 id ivNotificationItemsDelete
+id ivPhoto
 id ivPictureAddBackBtn
 id ivPictures
 id ivPicturesAdd
@@ -4696,6 +4698,7 @@ id vertical
 id vertical_only
 id video_counter
 id video_counter_layout
+id video_icon
 id video_pbr
 id viewAccount
 id viewAdvanceSettingEditFontPage
@@ -4732,6 +4735,7 @@ id viewSettingsTermsUse
 id viewSomethingWrong
 id viewUpdateEmail
 id viewUpgrade
+id view_
 id view_id
 id view_offset_helper
 id view_transition
@@ -4893,6 +4897,7 @@ layout date_picker_dialog
 layout delete_account_alert
 layout delete_postprofile
 layout delete_swipe_alert
+layout demo_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
 layout design_layout_snackbar
@@ -5064,6 +5069,7 @@ plurals mtrl_badge_content_description
 raw map_json_dark_mode
 raw places_keep
 raw zxing_beep
+string _25_miles
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -5138,6 +5144,7 @@ string dd_mm_yy
 string define_roundedimageview
 string define_zxingandroidembedded
 string delete
+string delete_profile
 string description2
 string description_2
 string description_3
@@ -5183,6 +5190,7 @@ string library_zxingandroidembedded_licenseId
 string library_zxingandroidembedded_repositoryLink
 string log_out
 string logout
+string lower_name
 string material_calendar_friday
 string material_calendar_monday
 string material_calendar_negative_button
@@ -5295,6 +5303,9 @@ string status_bar_notification_info_overflow
 string submit
 string take_photo
 string thank_you
+string top_name
+string upload_image
+string upload_video
 string user_name
 string yes
 string you_selected
@@ -5539,6 +5550,7 @@ style CardView
 style CardView_Dark
 style CardView_Light
 style DatePickerDialogTheme
+style Dexter_Internal_Theme_Transparent
 style DialogeTheme
 style Divider
 style EmptyTheme
