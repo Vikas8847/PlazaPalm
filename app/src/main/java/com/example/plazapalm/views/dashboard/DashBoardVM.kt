@@ -37,6 +37,7 @@ import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.navigateWithId
+import com.example.plazapalm.views.dashboard.DashboardItemsAdapter
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -69,7 +70,7 @@ class DashBoardVM @Inject constructor(
     var searchItems = ObservableField("")
     var lati = ObservableDouble()
     var longi = ObservableDouble()
-    var userMiles = ObservableField("25 miles")
+    var userMiles = ObservableField("")
     var isDataVisible = ObservableBoolean(false)
     var distanceCal = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
@@ -218,7 +219,7 @@ class DashBoardVM @Inject constructor(
 
         recyclerSelectedEvents = dialog!!.findViewById(R.id.rvDashBoardSelectedEvents)
         recyclerSelectedEvents?.layoutManager = LinearLayoutManager(context)
-        recyclerSelectedEvents?.adapter = DashboardItemsAdapter(CommonMethods.context, selectedCategoriesList, this)
+        recyclerSelectedEvents?.adapter = DashboardItemsAdapter(context, selectedCategoriesList, this)
 
 
 //        dashSelectedAdapter.addItems(selectedCategoriesList as ArrayList<SelectedDataModel>)
