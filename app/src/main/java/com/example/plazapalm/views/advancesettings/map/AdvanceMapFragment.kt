@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.work.PeriodicWorkRequestBuilder
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceMapFragmentBinding
 import com.example.plazapalm.pref.PreferenceFile
@@ -26,6 +27,7 @@ import com.example.plazapalm.utils.CommonMethods.currentLocation
 import com.example.plazapalm.utils.CommonMethods.isLocationEnabled
 import com.example.plazapalm.utils.CommonMethods.mFusedLocationClient
 import com.example.plazapalm.utils.CommonMethods.requestNewLocationData
+import com.example.plazapalm.workmanager.WorkManager
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -352,6 +355,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                 viewModel.setMapThemeAPI(viewModel.darkTheme.get(),  viewModel.locationOnOF.get(), false)
                 viewModel.follow.set(false)
                 getLastLocation()
+                val periodicWorkRequest = PeriodicWorkRequestBuilder<WorkManager>(24, TimeUnit.HOURS).build()
 
 
 //                isDrag.set(false)
