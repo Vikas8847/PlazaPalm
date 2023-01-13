@@ -14,10 +14,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Transformations.map
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceMapFragmentBinding
 import com.example.plazapalm.pref.PreferenceFile
@@ -34,6 +32,7 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 
@@ -203,7 +202,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                         mMap.clear()
                         val  markerOptions = MarkerOptions().position(currentLocation)
                             .title("I am here! On Your Current Location").draggable(true)
-                        mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation,))
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation))
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15F))
                         mMap.isMyLocationEnabled = true
                         mMap.addMarker(markerOptions)
@@ -354,11 +353,6 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                 viewModel.follow.set(false)
                 getLastLocation()
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    CommonMethods.showToast(CommonMethods.context,"WORKING---- ")
-                    Log.e("SDFSDF","WORKINGGG----- ")
-
-                }, 100)
 
 //                isDrag.set(false)
                 Log.e("SDFSDF",viewModel.follow.get().toString())

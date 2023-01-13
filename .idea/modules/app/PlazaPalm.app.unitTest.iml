@@ -14,7 +14,6 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
-                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/25143dfa10da50af80eade7fee83ad40/transformed/databinding-runtime-7.0.4-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e9dd66dd231b3578ff5dbe5d4220ecdb/transformed/jetified-piximagepicker-1.6.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/daceb2698d505a8959d83aad2f18df23/transformed/jetified-quickie-bundled-1.5.1-api.jar</arg>
