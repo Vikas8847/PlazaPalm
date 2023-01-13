@@ -69,7 +69,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         binding = FavDetailsFragmentBinding.inflate(layoutInflater)
@@ -90,12 +90,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchApiKey()
-        getSharedata()
         binding?.vm = viewModel
-        getFavoriteData()
-        viewModel.getEditLookColor()
-        setbackground()
         getlocalData()
         Log.e("TOKKEN", pref.retrieveKey("token").toString())
 
@@ -160,6 +155,18 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
 
             Log.e("SDASDASDASDASdas", it.toString())
+
+            /*  if(viewModel.u_ID.get().toString().equals())
+              {
+
+              }*/
+
+            fetchApiKey()
+            getSharedata()
+
+            getFavoriteData()
+            viewModel.getEditLookColor()
+            setbackground()
         }
     }
 
@@ -298,6 +305,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         viewModel.userId.set(data.get(pos)._id)
 
+
+        checkForMiles(data.get(pos)._id.toString())
         val imageList = ArrayList<AddPhoto>()
 
         for (idx in 0 until image.size) {
@@ -311,6 +320,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         setAdapter(image, dscList)
 
+        Log.e("fkqwfrkwqkfqwff===", data.get(pos)._id.toString())
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -380,7 +390,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         if (requestCode == CommonMethods.advanceMap_Permission_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
@@ -502,6 +512,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 }
 
 
+
+                                checkForMiles(res.body()!!.data.user_id!!)
+
+
+
                                 Log.e(
                                     "ASDASDASdasd",
                                     res.body()!!.data.postProfile_picture.toString()
@@ -539,6 +554,13 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         )
     }
 
+    fun checkForMiles(otherUserId: String) {
+        if (otherUserId.equals(viewModel.u_ID.get().toString())) {
+            binding!!.tvFavDetailsDistance.visibility = View.GONE
+        } else {
+            binding!!.tvFavDetailsDistance.visibility = View.VISIBLE
+        }
+    }
 /*
     @SuppressLint("NotifyDataSetChanged")
     private fun setDashAdapter(data: ArrayList<String>, dsc1: String, dsc2: String, dsc3: String) {
