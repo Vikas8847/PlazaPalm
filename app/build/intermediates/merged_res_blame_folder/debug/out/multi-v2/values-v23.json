@@ -12,6 +12,14 @@
                         "endLines": "2,3,4,5,19,33,34,35,38,42,43,44,45,49",
                         "endColumns": "134,134,74,86,12,12,118,126,12,12,114,106,112,12",
                         "endOffsets": "185,320,395,482,1220,1970,2089,2216,2438,2662,2777,2884,2997,3227"
+                    },
+                    "to": {
+                        "startLines": "4,5,6,7,8,22,36,37,38,41,45,46,47,48",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "184,319,454,529,616,1354,2104,2223,2350,2572,2796,2911,3018,3131",
+                        "endLines": "4,5,6,7,21,35,36,37,40,44,45,46,47,51",
+                        "endColumns": "134,134,74,86,12,12,118,126,12,12,114,106,112,12",
+                        "endOffsets": "314,449,524,611,1349,2099,2218,2345,2567,2791,2906,3013,3126,3356"
                     }
                 },
                 {
@@ -25,12 +33,22 @@
                         "endOffsets": "365"
                     },
                     "to": {
-                        "startLines": "53",
+                        "startLines": "55",
                         "startColumns": "4",
-                        "startOffsets": "3382",
-                        "endLines": "58",
+                        "startOffsets": "3511",
+                        "endLines": "60",
                         "endColumns": "10",
-                        "endOffsets": "3692"
+                        "endOffsets": "3821"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\QA-1(Android)\\.gradle\\caches\\transforms-3\\928a77c080523025dc7135dea59cbf3f\\transformed\\work-runtime-2.7.1\\res\\values-v23\\values-v23.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,121",
+                        "endColumns": "65,62",
+                        "endOffsets": "116,179"
                     }
                 },
                 {
@@ -44,12 +62,12 @@
                         "endOffsets": "739"
                     },
                     "to": {
-                        "startLines": "59",
+                        "startLines": "61",
                         "startColumns": "4",
-                        "startOffsets": "3697",
-                        "endLines": "73",
+                        "startOffsets": "3826",
+                        "endLines": "75",
                         "endColumns": "12",
-                        "endOffsets": "4363"
+                        "endOffsets": "4492"
                     }
                 },
                 {
@@ -63,12 +81,12 @@
                         "endOffsets": "200"
                     },
                     "to": {
-                        "startLines": "50",
+                        "startLines": "52",
                         "startColumns": "4",
-                        "startOffsets": "3232",
-                        "endLines": "52",
+                        "startOffsets": "3361",
+                        "endLines": "54",
                         "endColumns": "12",
-                        "endOffsets": "3377"
+                        "endOffsets": "3506"
                     }
                 },
                 {
@@ -82,12 +100,12 @@
                         "endOffsets": "315,588"
                     },
                     "to": {
-                        "startLines": "74,78",
+                        "startLines": "76,80",
                         "startColumns": "4,4",
-                        "startOffsets": "4368,4633",
-                        "endLines": "77,81",
+                        "startOffsets": "4497,4762",
+                        "endLines": "79,83",
                         "endColumns": "10,10",
-                        "endOffsets": "4628,4901"
+                        "endOffsets": "4757,5030"
                     }
                 }
             ]

@@ -16,9 +16,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.*
+import androidx.work.WorkManager.getInstance
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceMapFragmentBinding
+import com.example.plazapalm.datastore.LOGIN_DATA
+import com.example.plazapalm.models.LoginData
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.CommonMethods.advanceMap_Permission_ID
@@ -27,13 +30,17 @@ import com.example.plazapalm.utils.CommonMethods.currentLocation
 import com.example.plazapalm.utils.CommonMethods.isLocationEnabled
 import com.example.plazapalm.utils.CommonMethods.mFusedLocationClient
 import com.example.plazapalm.utils.CommonMethods.requestNewLocationData
-import com.example.plazapalm.workmanager.WorkManager
+import com.example.plazapalm.utils.navigateWithId
+import com.example.plazapalm.workmanager.WorkManagerForLocation
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -50,6 +57,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
 
     // Create a stroke pattern of a gap followed by a dot.
     private val PATTERN_POLYLINE_DOTTED = listOf(GAP, DOT)
+    private var imadiateType = 0
 
     private lateinit var marker: MarkerOptions
     lateinit var mMap: GoogleMap
@@ -74,6 +82,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
         setApiData()
 
         onClicks()
+        workmanager()
         return binding?.root
 
     }
@@ -204,7 +213,8 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                         currentLocation = LatLng(location.latitude, location.longitude)
                         mMap.clear()
                         val  markerOptions = MarkerOptions().position(currentLocation)
-                            .title("I am here! On Your Current Location").draggable(true)
+                            .title("I am here! On Your Current Location")
+                            .draggable(true)
                         mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation))
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15F))
                         mMap.isMyLocationEnabled = true
@@ -213,38 +223,6 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
 
                         Log.e("ASDQWXCSD" , currentLocation.toString() + "  -- DDDDDD0" )
 
-                      /*  if (isDrag.get() ==true){
-                            currentLocation = LatLng(location.latitude, location.longitude)
-                            mMap.clear()
-                           val  markerOptions = MarkerOptions().position(currentLocation)
-                                .title("I am here! On Your Current Location").draggable(true)
-                            mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation,))
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15F))
-                            mMap.isMyLocationEnabled = true
-                            mMap.addMarker(markerOptions)
-
-                            isDrag.set(false)
-                            Log.e("isDrag","Working1")
-                        }else{
-                           val currentLocation = LatLng(location.latitude, location.longitude)
-                            mMap.clear()
-                            val markerOptions = MarkerOptions().position(currentLocation)
-                                .title("I am here! On Your Current Location").draggable(false)
-                            mMap.animateCamera(CameraUpdateFactory.newLatLng(CommonMethods.currentLocation,))
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(CommonMethods.currentLocation, 15F))
-                            mMap.isMyLocationEnabled = true
-                            mMap.addMarker(markerOptions)
-
-                            isDrag.set(true)
-                            Log.e("isDrag","Working2")
-
-                        }
-*/
-                        /* mMap.addMarker(MarkerOptions().position(latLng)
-                                 .title("Your Destination is Here ")
-                                 .snippet("Destination Description")
-                         )*/
-                        // addPolyGon()
 
                         /**Poly lines clicks ***/
                         mMap.setOnPolylineClickListener(this@AdvanceMapFragment)
@@ -302,12 +280,12 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
         }
     }
 
+    @SuppressLint("InvalidPeriodicWorkRequestInterval")
     private fun onClicks() {
         binding?.btCurrentLocation?.setOnClickListener {
             /****Here get Last location latlng */
             getLastLocation()
         }
-
 
         /**Here on Switch button click dark mode and light mode handled (Dark Mode enabled-disabled)**/
         binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnClickListener {
@@ -355,9 +333,8 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                 viewModel.setMapThemeAPI(viewModel.darkTheme.get(),  viewModel.locationOnOF.get(), false)
                 viewModel.follow.set(false)
                 getLastLocation()
-                val periodicWorkRequest = PeriodicWorkRequestBuilder<WorkManager>(24, TimeUnit.HOURS).build()
 
-
+                workmanager()
 //                isDrag.set(false)
                 Log.e("SDFSDF",viewModel.follow.get().toString())
             } else {
@@ -375,6 +352,30 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
         }
     }
 
+    fun updateTime(){
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+                CoroutineScope(Dispatchers.Main).launch {
+                    imadiateType++
+                }
+            }, 2000
+        )
+    }
+
+    @SuppressLint("InvalidPeriodicWorkRequestInterval")
+    private fun workmanager() {
+        if (imadiateType>=0){
+
+            val constraints: Constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+            val periodicWorkRequest = OneTimeWorkRequest.Builder(WorkManagerForLocation::class.java)
+                .setInitialDelay(3,TimeUnit.SECONDS)
+                .setConstraints(constraints).build()
+            getInstance(requireContext()).enqueue(periodicWorkRequest)
+
+         Log.e("ASDDASWW" , "DONEE --- ")
+        }
+
+    }
 
 
     override fun onPolylineClick(polyline: Polyline) {

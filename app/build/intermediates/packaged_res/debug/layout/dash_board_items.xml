@@ -133,7 +133,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tool:text="Los Angeles, CA" />
 
-            //                 android:text="@={vm.distanceCal}"
+       <!--     //                 android:text="@={vm.distanceCal}"-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDashBoardItemDistance"
@@ -142,7 +142,7 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="end"
-                android:text="25 mi"
+android:tag="binding_6"       
                 android:singleLine="true"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/white"
