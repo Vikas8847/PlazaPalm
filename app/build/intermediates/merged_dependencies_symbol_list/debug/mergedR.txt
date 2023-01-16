@@ -6151,6 +6151,8 @@ styleable ViewStubCompat android_id android_inflatedId android_layout
 
 androidx.viewbinding
 
+androidx.work.ktx
+
 androidx.navigation.fragment.ktx
 
 androidx.navigation.fragment
@@ -30098,6 +30100,12 @@ styleable GradientColor android_centerColor android_centerX android_centerY andr
 styleable GradientColorItem android_color android_offset
 styleable RecyclerView android_descendantFocusability android_orientation fastScrollEnabled fastScrollHorizontalThumbDrawable fastScrollHorizontalTrackDrawable fastScrollVerticalThumbDrawable fastScrollVerticalTrackDrawable layoutManager reverseLayout spanCount stackFromEnd
 
+androidx.work
+bool enable_system_alarm_service_default
+bool enable_system_foreground_service_default
+bool enable_system_job_service_default
+bool workmanager_test_configuration
+
 androidx.core.ktx
 
 androidx.emoji2.viewsintegration
@@ -32524,11 +32532,17 @@ com.google.firebase.encoders.json
 
 androidx.lifecycle.livedata
 
+androidx.room
+
 androidx.lifecycle.livedata.core.ktx
 
 androidx.lifecycle.livedata.core
 
 androidx.arch.core
+
+androidx.sqlite.db.framework
+
+androidx.sqlite.db
 
 androidx.versionedparcelable
 
