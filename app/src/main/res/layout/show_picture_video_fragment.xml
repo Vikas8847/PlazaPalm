@@ -11,6 +11,9 @@
             name="vm"
             type="com.example.plazapalm.views.advancesettings.pictures.ShowPictureVideoVM" />
 
+        <variable
+            name="view"
+            type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,26 +48,32 @@
                 android:id="@+id/vPlayer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 />
+                android:visibility="@{vm.mediaType==2 ?view.VISIBLE:view.GONE}" />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivPlayBtn"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_80sdp"
                 android:layout_gravity="center"
-                android:visibility="gone"
                 android:onClick="@{vm::onClicks}"
                 android:src="@drawable/ic_play_icon"
+                android:visibility="@{vm.mediaType==2 ?view.GONE:view.GONE}"
                 app:layout_constraintBottom_toBottomOf="@id/vPlayer"
                 app:layout_constraintEnd_toEndOf="@id/vPlayer"
                 app:layout_constraintStart_toStartOf="@id/vPlayer"
                 app:layout_constraintTop_toTopOf="@id/vPlayer" />
 
-
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                setImage="@{vm.mediaValue}"
+                android:visibility="@{vm.mediaType==1 ?view.VISIBLE:view.GONE}" />
         </FrameLayout>
 
-<!--
-        android:visibility="@{!vm.isPlayClicked ? View.VISIBLE : View.GONE}"
--->
+        <!--
+                android:visibility="@{!vm.isPlayClicked ? View.VISIBLE : View.GONE}"
+        -->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
