@@ -149,21 +149,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             viewModel.u_ID.set(it?.data?.user_id)
 
             val p_id = it?.data?.p_id
-//            if (arguments?.get("comingFrom")!=null && arguments?.get("comingFrom").toString().equals("isEditLook")){
-//                getPostprofile(p_id!!,   pref.retvieLatlong("lati").toDouble(),  pref.retvieLatlong("longi").toDouble())
-//            }
-
 
             Log.e("SDASDASDASDASdas", it.toString())
 
-            /*  if(viewModel.u_ID.get().toString().equals())
-              {
-
-              }*/
 
             fetchApiKey()
             getSharedata()
-
             getFavoriteData()
             viewModel.getEditLookColor()
             setbackground()
@@ -244,15 +235,15 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                 "isViewProfile" -> {
 
-                    val _p_id = arguments?.getString("P_ID")
+//                    val _p_id = arguments?.getString("P_ID")
+                    viewModel.p_id.set(arguments?.getString("P_ID"))
                     viewModel.CommingFrom.set("isViewProfile")
                     binding!!.btnBookingProfile.visibility = View.GONE
                     getPostprofile(
-                        _p_id!!,
+                        viewModel.p_id.get().toString()!!,
                         pref.retvieLatlong("lati").toDouble(),
                         pref.retvieLatlong("longi").toDouble()
                     )
-                    viewModel.p_id.set(_p_id)
 
 //                    getViewProfileData()
 
@@ -278,6 +269,23 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                           }
                       }*/
 
+                }"isBookingDetailsFragment" -> {
+                    /** isBookingDetailsFragment and isViewProfile is same no difference... */
+Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
+                    viewModel.CommingFrom.set("isViewProfile")
+                    binding!!.btnBookingProfile.visibility = View.VISIBLE
+//                    val userPostProfileId = requireArguments().get("userPostProfileId").toString()
+                    viewModel.p_id.set(requireArguments().get("userPostProfileId").toString())
+
+                    Log.e("ASDASQWEQWe",viewModel.p_id.get().toString() + "xdfdf   " +
+                            pref.retvieLatlong("lati").toDouble()+ " sdfsdf  " +
+                        pref.retvieLatlong("longi").toDouble().toString().toString() )
+
+                      getPostprofile(viewModel.p_id.get().toString(),
+                        pref.retvieLatlong("lati").toDouble(),
+                        pref.retvieLatlong("longi").toDouble(),
+                    )
+
                 }
 
             }
@@ -291,6 +299,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     private fun setFavdata(pos: Int, data: ArrayList<FavData>, image: ArrayList<String>) {
 
         binding?.displayBack?.visibility = View.VISIBLE
+        binding?.mainConslayout?.visibility = View.VISIBLE
 
         val dscList = ArrayList<String>()
         dscList.add(data.get(pos).description_1.toString())

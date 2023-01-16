@@ -1,5 +1,6 @@
 package com.example.plazapalm.views.bookingdetails
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
@@ -29,6 +30,11 @@ class BookingDetailsVM @Inject constructor(
     private var preferenceFile: PreferenceFile,
 
     ) : ViewModel() {
+    var userFName = ObservableField("")
+    var userFLName = ObservableField("")
+    var usercustomerId = ObservableField("")
+    var userLName = ObservableField("")
+    var userPostProfileId = ObservableField("")
     var userType = ObservableField("")
     var categaryName = ObservableField("")
     var description = ObservableField("")
@@ -102,7 +108,13 @@ class BookingDetailsVM @Inject constructor(
 
             R.id.tvBookingDetailViewProfile -> {
                 //Here Navigate View profile Screen....
-                view.navigateWithId(R.id.action_bookingDetailsFragment_to_favDetailsFragment)
+                val bundle = Bundle()
+                bundle.putString("comingFrom","isBookingDetailsFragment")
+                bundle.putString("userPostProfileId",userPostProfileId.get())
+
+
+                Log.e("SAASAqqwqwq",userPostProfileId.get().toString())
+                view.navigateWithId(R.id.action_bookingDetailsFragment_to_favDetailsFragment,bundle)
             }
 
         }

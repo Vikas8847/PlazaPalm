@@ -149,15 +149,15 @@ init {
 
             }
             R.id.ivFavDetailsBackBtn -> {
-//                view.navigateBack()
+                view.navigateBack()
 
+//              val bundle ="checkApi"
 
-              val bundle ="checkApi"
-
-                 view.findNavController().previousBackStackEntry?.savedStateHandle?.set("changeStatus", bundle)
-                 view.findNavController().popBackStack()
+//                 view.findNavController().previousBackStackEntry?.savedStateHandle?.set("changeStatus", bundle)
+//                 view.findNavController().popBackStack()
 
 //                view.findNavController().navigateUp()
+
             }
             R.id.ivFavDetailsFilledHeart -> {
 

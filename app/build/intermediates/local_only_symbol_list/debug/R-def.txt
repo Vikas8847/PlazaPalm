@@ -1115,6 +1115,7 @@ string top_name
 string upload_image
 string upload_video
 string user_name
+string view_profile
 string yes
 string you_selected
 string your_device_offline
