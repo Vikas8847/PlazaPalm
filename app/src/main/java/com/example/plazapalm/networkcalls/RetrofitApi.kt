@@ -1,6 +1,7 @@
 package com.example.plazapalm.networkcalls
 
 import com.example.plazapalm.models.*
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Response
@@ -490,4 +491,27 @@ interface RetrofitApi {
         @Field("user_long") user_long: Double
     ):Response<UpdateLatlngResponse>
 
+
+
+  //  @POST(GALLERYPOST)
+    @HTTP(method = "POST", path = GALLERYPOST, hasBody = true)
+    suspend fun uploadSinglePhotoUrl(
+        @Header("Authorization") Authorization: String,
+        @Header("Content-Type") contentType: String,
+        @Body mediaData: UploadedMedia
+    ): Response<UploadMediaResponse>
+
+
+    @GET(GALLERYGET)
+    suspend fun getGalleryList(
+        @Header("Authorization") Authorization: String
+    ): Response<UploadMediaResponse>
+
+   // @DELETE(DELETE_MEDIA)
+    @HTTP(method = "DELETE", path = DELETE_MEDIA, hasBody = true)
+    suspend fun deleteGalleryPhotoAPI(
+        @Header("Authorization") Authorization: String,
+        @Header("Content-Type") contentType: String,
+        @Body jsonObject:DeleteMediaData
+    ): Response<DeleteMediaResponse>
 }

@@ -45,6 +45,8 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         getBusinessStatus()
         premiumAccount()
         CommonMethods.statusBar(false)
+
+        Log.e("ekmfkemfefefefefe=e==",pref.retrieveKey("token").toString())
         return binding?.root
 
     }
@@ -91,7 +93,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         } else {
             viewModel.status.set("Post a Profile")
             viewModel.changestatus.set(false)
-            Log.e("FALSE", pref.retrieveBoolKey(Constants.POSTSTATUS).toString())
+            Log.e("FALSE" ,pref.retrieveBoolKey(Constants.POSTSTATUS).toString() )
 
         }
     }
@@ -109,16 +111,18 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
 //            binding?.tvMyProfileName?.text = it?.data?.first_name + " " + it?.data?.last_name
 //            username.set(it?.data?.user_name)
-            var user_id = it?.data?.user_id.toString()
+           var  user_id = it?.data?.user_id.toString()
 
-            Log.e("SDSFSDf", it?.data?.user_name + "DFDFDDg   " + user_id.toString())
+            Log.e("SDSFSDf",it?.data?.user_name + "DFDFDDg   " + user_id.toString())
 
             /*** Get  premium */
             //        if (viewModel.premium == 1) {
 
-            //63bd052fc4f44108db54e5eb
+           //63bd052fc4f44108db54e5eb
 
-            if (user_id.equals("63b69f871545b79696c25166")) {
+            //if (user_id.equals("63b69bc11545b79696c25120")) {
+            if (user_id.equals("63bd1520c4f44108db54e86d")) {
+
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE
 
@@ -130,6 +134,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
                 binding?.tvUpgrade?.visibility = View.GONE
                 binding?.viewUpgrade?.visibility = View.GONE
+
             } else {
 
                 /* binding?.tvAdvanceSetting?.visibility = View.GONE
@@ -138,7 +143,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
                  binding?.tvUpgrade?.visibility = View.VISIBLE
                  binding?.viewUpgrade?.visibility = View.VISIBLE*/
 
-                Log.e("SAAHAEED", "WORKINGGGGGG")
+                Log.e("SAAHAEED","WORKINGGGGGG")
 
             }
 

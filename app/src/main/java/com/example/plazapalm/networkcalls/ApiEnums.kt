@@ -35,5 +35,6 @@ enum class ApiEnums {
     BLOCK_USER,
     COLOR_LOOK,
     MAP_FEATURED,
-    GET_MAP_FEATURED
+    GET_MAP_FEATURED,
+    FETCH_GALLERY_PHOTO
 }
