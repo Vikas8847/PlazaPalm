@@ -20,8 +20,7 @@ public class FontsListFragmentBindingImpl extends FontsListFragmentBinding  {
         sViewsWithIds.put(R.id.etChooseFont, 5);
         sViewsWithIds.put(R.id.myview, 6);
         sViewsWithIds.put(R.id.tvChooseFontsRecent, 7);
-        sViewsWithIds.put(R.id.clRvFontLists, 8);
-        sViewsWithIds.put(R.id.rvChooseFontRecent, 9);
+        sViewsWithIds.put(R.id.rvChooseFontRecent, 8);
     }
     // views
     @NonNull
@@ -32,15 +31,14 @@ public class FontsListFragmentBindingImpl extends FontsListFragmentBinding  {
     // Inverse Binding Event Handlers
 
     public FontsListFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 10, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
     }
     private FontsListFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[8]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
             , (android.view.View) bindings[6]
-            , (androidx.recyclerview.widget.RecyclerView) bindings[9]
+            , (androidx.recyclerview.widget.RecyclerView) bindings[8]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[3]

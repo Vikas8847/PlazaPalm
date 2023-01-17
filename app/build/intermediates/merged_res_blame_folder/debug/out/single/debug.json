@@ -1144,12 +1144,12 @@
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\chat_sender.xml"
     },
     {
-        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\drawable-xxhdpi_ic_bluemix_button_bg.png.flat",
-        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_bluemix_button_bg.png"
-    },
-    {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\drawable_advance_setting_colors_bg.xml.flat",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\drawable\\advance_setting_colors_bg.xml"
+    },
+    {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\drawable-xxhdpi_ic_bluemix_button_bg.png.flat",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_bluemix_button_bg.png"
     },
     {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\drawable-hdpi_ic_add_image.png.flat",
@@ -1210,6 +1210,10 @@
     {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\layout_fav_temp.xml.flat",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\fav_temp.xml"
+    },
+    {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\font_academy_engraved_letplain.ttf.flat",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\font\\academy_engraved_letplain.ttf"
     },
     {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\mipmap-mdpi_ic_launcher.png.flat",

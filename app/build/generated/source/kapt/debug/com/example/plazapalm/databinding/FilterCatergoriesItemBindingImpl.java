@@ -25,7 +25,7 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
     private final androidx.appcompat.widget.LinearLayoutCompat mboundView1;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback10;
+    private final android.view.View.OnClickListener mCallback11;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -47,7 +47,7 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
         this.tvNotification.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback10 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback11 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -120,7 +120,7 @@ public class FilterCatergoriesItemBindingImpl extends FilterCatergoriesItemBindi
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.mboundView1.setOnClickListener(mCallback10);
+            this.mboundView1.setOnClickListener(mCallback11);
         }
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1

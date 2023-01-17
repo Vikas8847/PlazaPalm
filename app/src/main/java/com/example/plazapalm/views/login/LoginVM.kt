@@ -39,6 +39,7 @@ class LoginVM @Inject constructor(
             R.id.clMainLogin -> {
                 (MainActivity.context.get() as Activity).hideKeyboard()
             }
+
             R.id.btnLogin -> {
                 if (CommonMethods.context.isNetworkAvailable()) {
                     if (loginValidation()) {
@@ -50,7 +51,6 @@ class LoginVM @Inject constructor(
                     CommonMethods.showToast(CommonMethods.context, Constants.CHECK_INTERNET)
                 }
             }
-
             R.id.btnLoginCategories -> {
                 view.navigateWithId(R.id.categoriesListFragment)
             }

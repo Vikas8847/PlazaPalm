@@ -143,8 +143,6 @@
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditBottomTextFrontPage" />
-
-
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvAdvanceEditFrontPageFontValue"
                         android:layout_width="wrap_content"

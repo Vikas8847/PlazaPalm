@@ -102,7 +102,7 @@
     <string name="you_selected">You Selected</string>
     <string name="your_device_offline">You are offline.</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryDark">@color/light_blue</item>
         <item name="colorAccent">@color/white</item>
@@ -172,11 +172,11 @@
             <item name="android:backgroundDimEnabled">false</item>
         </style>
     <style name="Theme.PlazaPalm" parent="Theme.AppCompat.DayNight.NoActionBar">
-        
+        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/app_color</item>
         <item name="colorPrimaryDark">@color/app_color</item>
         <item name="colorAccent">@color/white</item>
-        
+        <!-- Customize your theme here. -->
         <item name="colorSecondary">@color/app_color</item>
         <item name="colorSecondaryVariant">@color/app_color</item>
         <item name="colorOnSecondary">@color/white</item>

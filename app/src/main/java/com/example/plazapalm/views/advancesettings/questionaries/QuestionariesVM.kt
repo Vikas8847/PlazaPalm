@@ -109,18 +109,15 @@ class QuestionariesVM @Inject constructor(
 
                 override fun onResponse(res: Response<GetQuestionsListResponse>) {
                     Log.e("SDFSQQAAA", res.body().toString())
-
                     istrue.set(true)
                     if (res.isSuccessful && res.body() != null) {
-
                         if (res.body()!!.status == 200) {
                             Log.e("SDFSQQAAA=-0=-=", res.body().toString())
                             val data = res.body()!!.data
 
-                            for (idx in 0 until data.size) {
-                                questions.set("Question " + idx.toString())
+                            for (idx in data.indices) {
+                                questions.set("Question $idx")
                                 Log.e("xxxxxxx", questions.get().toString())
-
                                 num++
                                 q_no.set(num)
 
@@ -130,13 +127,7 @@ class QuestionariesVM @Inject constructor(
 
 
                                 questionDataList.add(
-                                    QueData(
-                                        data[idx]?.__v,
-                                        data[idx]?._id,
-                                        data[idx]?.p_id,
-                                        data[idx]?.question_text,
-                                        questions.get(),
-                                    )
+                                    QueData(data[idx]?.__v, data[idx]?._id, data[idx]?.p_id, data[idx]?.question_text, questions.get(),)
                                 )
                             }
                             Log.e("SDfsdf", questionDataList.size.toString())
@@ -306,19 +297,11 @@ class QuestionariesVM @Inject constructor(
                     @SuppressLint("NotifyDataSetChanged")
                     override fun onResponse(res: Response<AddQuestionResponseModel>) {
                         if (res.isSuccessful || res.body() != null) {
-
-                            Log.e(
-                                "QUESTIONS____RESPONSEE",
-                                res.body()?.data?.question_text.toString()
-                            )
-
+                            Log.e("QUESTIONS____RESPONSEE", res.body()?.data?.question_text.toString())
                             if (res.code() == 200) {
                                 noData.set(false)
-
                                 val data = res.body()!!.data
-
                                 Log.e("xxxxxxx", questions.get().toString())
-
                                 num++
                                 q_no.set(num)
 
@@ -378,7 +361,7 @@ class QuestionariesVM @Inject constructor(
 
         }
 
-    fun showSwipeDeleteAccountDialog(q_id: String, pos: Int) {
+    private fun showSwipeDeleteAccountDialog(q_id: String, pos: Int) {
 
         if (CommonMethods.dialog != null && CommonMethods.dialog?.isShowing!!) {
             CommonMethods.dialog?.dismiss()

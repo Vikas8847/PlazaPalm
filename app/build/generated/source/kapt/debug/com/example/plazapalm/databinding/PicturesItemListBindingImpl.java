@@ -23,7 +23,7 @@ public class PicturesItemListBindingImpl extends PicturesItemListBinding impleme
     @Nullable
     private final android.view.View.OnClickListener mCallback5;
     @Nullable
-    private final android.view.View.OnClickListener mCallback4;
+    private final android.view.View.OnClickListener mCallback6;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -43,8 +43,8 @@ public class PicturesItemListBindingImpl extends PicturesItemListBinding impleme
         this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback5 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
-        mCallback4 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback5 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback6 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
         invalidateAll();
     }
 
@@ -122,50 +122,14 @@ public class PicturesItemListBindingImpl extends PicturesItemListBinding impleme
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.ivPictures.setOnClickListener(mCallback4);
-            this.ivPicturesDeleteImgVideo.setOnClickListener(mCallback5);
+            this.ivPictures.setOnClickListener(mCallback5);
+            this.ivPicturesDeleteImgVideo.setOnClickListener(mCallback6);
         }
     }
     // Listener Stub Implementations
     // callback impls
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         switch(sourceId) {
-            case 2: {
-                // localize variables for thread safety
-                // model
-                com.example.plazapalm.models.PicturesModel model = mModel;
-                // model.adapterPosition
-                int modelAdapterPosition = 0;
-                // model.onItemClick
-                com.example.plazapalm.recycleradapter.RecyclerAdapter.OnItemClick modelOnItemClick = null;
-                // model != null
-                boolean modelJavaLangObjectNull = false;
-                // model.onItemClick != null
-                boolean modelOnItemClickJavaLangObjectNull = false;
-
-
-
-                modelJavaLangObjectNull = (model) != (null);
-                if (modelJavaLangObjectNull) {
-
-
-                    modelOnItemClick = model.getOnItemClick();
-
-                    modelOnItemClickJavaLangObjectNull = (modelOnItemClick) != (null);
-                    if (modelOnItemClickJavaLangObjectNull) {
-
-
-
-
-
-                        modelAdapterPosition = model.getAdapterPosition();
-
-
-                        modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "deleteImageVideo");
-                    }
-                }
-                break;
-            }
             case 1: {
                 // localize variables for thread safety
                 // model
@@ -198,6 +162,42 @@ public class PicturesItemListBindingImpl extends PicturesItemListBinding impleme
 
 
                         modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "picturesItemClick");
+                    }
+                }
+                break;
+            }
+            case 2: {
+                // localize variables for thread safety
+                // model
+                com.example.plazapalm.models.PicturesModel model = mModel;
+                // model.adapterPosition
+                int modelAdapterPosition = 0;
+                // model.onItemClick
+                com.example.plazapalm.recycleradapter.RecyclerAdapter.OnItemClick modelOnItemClick = null;
+                // model != null
+                boolean modelJavaLangObjectNull = false;
+                // model.onItemClick != null
+                boolean modelOnItemClickJavaLangObjectNull = false;
+
+
+
+                modelJavaLangObjectNull = (model) != (null);
+                if (modelJavaLangObjectNull) {
+
+
+                    modelOnItemClick = model.getOnItemClick();
+
+                    modelOnItemClickJavaLangObjectNull = (modelOnItemClick) != (null);
+                    if (modelOnItemClickJavaLangObjectNull) {
+
+
+
+
+
+                        modelAdapterPosition = model.getAdapterPosition();
+
+
+                        modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "deleteImageVideo");
                     }
                 }
                 break;

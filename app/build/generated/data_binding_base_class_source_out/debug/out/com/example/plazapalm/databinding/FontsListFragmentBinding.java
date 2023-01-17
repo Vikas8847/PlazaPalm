@@ -22,9 +22,6 @@ public abstract class FontsListFragmentBinding extends ViewDataBinding {
   public final ConstraintLayout clChooseFont;
 
   @NonNull
-  public final ConstraintLayout clRvFontLists;
-
-  @NonNull
   public final AppCompatTextView etChooseFont;
 
   @NonNull
@@ -49,13 +46,11 @@ public abstract class FontsListFragmentBinding extends ViewDataBinding {
   protected EditFrontPageVM mModel;
 
   protected FontsListFragmentBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ConstraintLayout clChooseFont, ConstraintLayout clRvFontLists, AppCompatTextView etChooseFont,
-      View myview, RecyclerView rvChooseFontRecent, RecyclerView rvChooseFonts,
-      AppCompatTextView tvChooseFont, AppCompatTextView tvChooseFontCancel,
-      AppCompatTextView tvChooseFontsRecent) {
+      ConstraintLayout clChooseFont, AppCompatTextView etChooseFont, View myview,
+      RecyclerView rvChooseFontRecent, RecyclerView rvChooseFonts, AppCompatTextView tvChooseFont,
+      AppCompatTextView tvChooseFontCancel, AppCompatTextView tvChooseFontsRecent) {
     super(_bindingComponent, _root, _localFieldCount);
     this.clChooseFont = clChooseFont;
-    this.clRvFontLists = clRvFontLists;
     this.etChooseFont = etChooseFont;
     this.myview = myview;
     this.rvChooseFontRecent = rvChooseFontRecent;

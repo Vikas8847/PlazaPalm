@@ -35,7 +35,7 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding implements 
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback6;
+    private final android.view.View.OnClickListener mCallback8;
     @Nullable
     private final android.view.View.OnClickListener mCallback7;
     // values
@@ -273,8 +273,8 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding implements 
         this.tvSignupWantLogin.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback6 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
-        mCallback7 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
+        mCallback8 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
+        mCallback7 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -501,8 +501,8 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding implements 
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etSignupFirstName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etSignupFirstNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etSignupLastName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etSignupLastNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etSignupPassword, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etSignupPasswordandroidTextAttrChanged);
-            this.rbNo.setOnClickListener(mCallback7);
-            this.rbYes.setOnClickListener(mCallback6);
+            this.rbNo.setOnClickListener(mCallback8);
+            this.rbYes.setOnClickListener(mCallback7);
         }
         if ((dirtyFlags & 0x70L) != 0) {
             // api target 1
@@ -540,7 +540,7 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding implements 
     // callback impls
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         switch(sourceId) {
-            case 1: {
+            case 2: {
                 // localize variables for thread safety
                 // vm != null
                 boolean vmJavaLangObjectNull = false;
@@ -559,7 +559,7 @@ public class SignupFragmentBindingImpl extends SignupFragmentBinding implements 
                 }
                 break;
             }
-            case 2: {
+            case 1: {
                 // localize variables for thread safety
                 // vm != null
                 boolean vmJavaLangObjectNull = false;

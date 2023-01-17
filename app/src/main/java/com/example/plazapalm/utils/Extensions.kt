@@ -3,11 +3,13 @@ package com.example.plazapalm.utils
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -97,7 +99,6 @@ fun BottomNavigationView.onNavDestinationSelected(
     } catch (e: IllegalArgumentException) {
         false
     }
-
 
 
 

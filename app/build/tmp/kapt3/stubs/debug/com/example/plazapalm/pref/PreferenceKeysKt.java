@@ -7,7 +7,7 @@ public final class PreferenceKeysKt {
     @org.jetbrains.annotations.NotNull()
     public static final java.lang.String preferenceName = "Plazza";
     @org.jetbrains.annotations.NotNull()
-    public static final java.lang.String foreverPreferenceName = "BaronForever";
+    public static final java.lang.String foreverPreferenceName = "";
     @org.jetbrains.annotations.NotNull()
     public static final java.lang.String loginDataKey = "loginData";
     @org.jetbrains.annotations.NotNull()

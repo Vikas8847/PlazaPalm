@@ -1,6 +1,7 @@
 package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.os.Build
 import android.text.TextWatcher
 import android.util.Log
@@ -8,18 +9,17 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import me.relex.circleindicator.CircleIndicator
@@ -34,6 +34,25 @@ object BindingAdapters {
         adapter: RecyclerView.Adapter<*>
     ) {
         recyclerView.adapter = adapter
+    }
+
+
+    @BindingAdapter(value = ["setBold"])
+    fun setBold(view: AppCompatTextView, isPosition: Int) {
+        when (isPosition) {
+            0 -> {
+                view.setTypeface(null, Typeface.BOLD)
+            }
+            1->{
+                view.setTypeface(null, Typeface.NORMAL)
+            }
+            2->{
+                view.setTypeface(null,Typeface.ITALIC)
+            }
+            else -> {
+                view.setTypeface(null, Typeface.NORMAL)
+            }
+        }
     }
 
 

@@ -24,7 +24,7 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
     private final androidx.appcompat.widget.AppCompatEditText mboundView2;
     // variables
     @Nullable
-    private final androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged mCallback9;
+    private final androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged mCallback10;
     // values
     // listeners
     private OnClickListenerImpl mVmOnClicksAndroidViewViewOnClickListener;
@@ -128,7 +128,7 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
         this.tvCategoriesLocationCities.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback9 = new com.example.plazapalm.generated.callback.AfterTextChanged(this, 1);
+        mCallback10 = new com.example.plazapalm.generated.callback.AfterTextChanged(this, 1);
         invalidateAll();
     }
 
@@ -273,7 +273,7 @@ public class CategoriesListFragmentBindingImpl extends CategoriesListFragmentBin
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView2, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, mCallback9, mboundView2androidTextAttrChanged);
+            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView2, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, mCallback10, mboundView2androidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvCategoriesLocationCities, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvCategoriesLocationCitiesandroidTextAttrChanged);
         }
         if ((dirtyFlags & 0xdL) != 0) {

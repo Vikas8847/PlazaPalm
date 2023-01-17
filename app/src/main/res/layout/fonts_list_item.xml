@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="model"
             type="com.example.plazapalm.models.FontsListModelResponse" />
@@ -11,17 +12,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/_1sdp">
+        android:elevation="@dimen/_1sdp"
+        android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`fontsClick`)}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvFontsName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
-            android:fontFamily="@font/inter_regular"
-            android:text="@={model.fontName}"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@{model.name}"
             android:textColor="@color/tool_bar_black_color"
             android:textSize="15sp"
+            android:typeface="@{model.fontTypeface}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:background="@color/gray"
+            android:background="@color/light_white_opacity"
             app:layout_constraintTop_toBottomOf="@+id/tvFontsName" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

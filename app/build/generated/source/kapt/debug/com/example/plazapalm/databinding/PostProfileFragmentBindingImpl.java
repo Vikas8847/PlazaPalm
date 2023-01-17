@@ -38,7 +38,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
     private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
     // variables
     @Nullable
-    private final androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged mCallback12;
+    private final androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged mCallback13;
     // values
     // listeners
     private OnClickListenerImpl mVmOnClicksAndroidViewViewOnClickListener;
@@ -548,7 +548,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback12 = new com.example.plazapalm.generated.callback.AfterTextChanged(this, 1);
+        mCallback13 = new com.example.plazapalm.generated.callback.AfterTextChanged(this, 1);
         invalidateAll();
     }
 
@@ -974,7 +974,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProFirstName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etVEditProFirstNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProLastName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etVEditProLastNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProTags, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etVEditProTagsandroidTextAttrChanged);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProUserName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, mCallback12, etVEditProUserNameandroidTextAttrChanged);
+            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProUserName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, mCallback13, etVEditProUserNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProfileTitle, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etVEditProfileTitleandroidTextAttrChanged);
         }
         if ((dirtyFlags & 0x3400L) != 0) {

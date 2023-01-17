@@ -19,7 +19,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback8;
+    private final android.view.View.OnClickListener mCallback9;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -45,7 +45,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         this.tvDashBoardItemName.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback8 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback9 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -157,7 +157,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            this.playerLayout.setOnClickListener(mCallback8);
+            this.playerLayout.setOnClickListener(mCallback9);
         }
     }
     // Listener Stub Implementations

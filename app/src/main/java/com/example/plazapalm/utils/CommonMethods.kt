@@ -15,30 +15,19 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Looper
 import android.util.Log
-import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableField
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
-import com.example.plazapalm.models.AddQuestionResponseModel
 import com.example.plazapalm.models.VerifyData
-import com.example.plazapalm.networkcalls.ApiEnums
-import com.example.plazapalm.networkcalls.ApiProcessor
-import com.example.plazapalm.networkcalls.Repository
-import com.example.plazapalm.networkcalls.RetrofitApi
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
-import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -59,7 +48,6 @@ object CommonMethods {
             (MainActivity.context.get() as Activity).setStatusBarColor(R.color.white)
         } else {
             (MainActivity.context.get() as Activity).setStatusBarColor(R.color.app_bar_light)
-
         }
     }
 
@@ -68,22 +56,18 @@ object CommonMethods {
     /** Common Toast Bar You can use every where in the application using context **/
     fun showToast(context: Context, text: String) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-
 //        val toast = Toast.makeText(context, text, Toast.LENGTH_SHORT)
 //        toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0)
 //        toast.show()
     }
 
-
     var context = (MainActivity.context.get() as Activity)
-
     private fun getColoredSpanned(text: String, color: String): String? {
         return "<font color=$color>$text</font>"
     }
 
     /***Delete Alert For Swipe to Delete class ...***/
     var dialog: Dialog? = null
-
     fun showSwipeDeleteAccountDialog() {
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
@@ -110,11 +94,10 @@ object CommonMethods {
         }
         // dialog?.show()
     }
-
 /*
     */
-/**Open Add question Alert ...***//*
-
+    /**Open Add question Alert ...***/
+/*
     fun openAddQuestionDialog(p_id: String, repository: Repository, token: String) {
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
@@ -131,11 +114,10 @@ object CommonMethods {
             var btnSave = dialog?.findViewById<AppCompatButton>(R.id.btnAddedQuesSave)
 
             */
-/**choose options click(Button) **//*
-
+    /**choose options click(Button) **/
+/*
             btnSave?.setOnClickListener {
                 if (addques?.text.isNullOrEmpty()) {
-
                     val toast =
                         Toast.makeText(context, "Please enter question.", Toast.LENGTH_SHORT)
                     toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0)
@@ -209,7 +191,6 @@ object CommonMethods {
     }
 */
 
-
     fun checkPermissions(activity: Activity, permission: Array<String>): Int {
         var permissionNeeded = 0
         if (Build.VERSION.SDK_INT >= 25) {
@@ -230,7 +211,6 @@ object CommonMethods {
             LocationManager.NETWORK_PROVIDER
         )
     }
-
 
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
@@ -278,7 +258,6 @@ object CommonMethods {
         return false
     }
 
-
     // Request permissions if not granted before
     fun requestPermissions() {
         ActivityCompat.requestPermissions(
@@ -291,9 +270,7 @@ object CommonMethods {
         )
     }
 
-/*Check camera permission */
-
-
+    /*Check camera permission */
     /*   private fun openCamera() {
            val permission = arrayOf(
                android.Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -305,11 +282,7 @@ object CommonMethods {
                imageOnClicks.value = true
            }
        }*/
-
-
     //  var deviceToken="test55"
-
-
     fun saveBitmapToFile(file: File): File? {
         return try {
             // BitmapFactory options to downsize the image
@@ -365,4 +338,34 @@ object CommonMethods {
 
     var deviceToken = ObservableField("test55")
     var email = VerifyData().email.toString()
+
+
+    /***Fonts A to z**/
+
+
+    var abrilFatFaceRegular = "fonts/abril_fatface_regular.otf"
+    var academyEngravedLetPlain = "fonts/academy_engraved_letplain.ttf"
+    var alexBrushRegular = "fonts/alex_brush_regular.ttf"
+    var allerBD = "fonts/aller_bd.ttf"
+    var allerBDLT = "fonts/aller_bdIt.ttf"
+    var allerDisplay = "fonts/aller_display.ttf"
+    var allerIt = "fonts/aller_It.ttf"
+    var allerItIt = "fonts/aller_ItIt.ttf"
+    var allerRG = "fonts/aller_rg.ttf"
+    var amaticBold = "fonts/amatic_bold.ttf"
+    var amaticSCRegular = "fonts/amatic_sc_regular.ttf"
+    var antonioBold = "fonts/antonio_bold.ttf"
+    var antonioLight="fonts/antonio_light.ttf"
+    var antonioRegular="fonts/antonio_regular.ttf"
+
+    /*B Type fonts*/
+
+    var BebasRegular="fonts/bebas_regular.ttf"
+    var blackJack="fonts/blackjack.oft"
+    var caviarDreams="fonts/caviar_dreams.ttf"
+    var caviarDreamsItalic="fonts/caviar_dreams_italic.ttf"
+    var chunkFivePrint="fonts/chunk_five_print.otf"
+    var chunkFiveRegular="fonts/chunk_five_regular.otf"
+    var cooperHewittBold="fonts/cooper_hewitt_bold.otf"
+
 }

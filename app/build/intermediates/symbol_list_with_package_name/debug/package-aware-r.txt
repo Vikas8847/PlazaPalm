@@ -3394,6 +3394,7 @@ drawable welcome_plazza_icon
 drawable wheel
 drawable white_radius
 drawable williamson_dog
+font academy_engraved_letplain
 font hello_valentina
 font inter_black
 font inter_bold
@@ -3695,7 +3696,6 @@ id clReceiver
 id clReportChoose
 id clReportMain
 id clReportSecond
-id clRvFontLists
 id clSearchLocation
 id clSecond
 id clSettingsNotification

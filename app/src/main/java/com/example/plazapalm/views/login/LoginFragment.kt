@@ -23,12 +23,10 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         binding = LoginFragmentBinding.inflate(layoutInflater)
         return binding?.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
     }
-
     override fun onResume() {
         super.onResume()
         CommonMethods.statusBar(false)

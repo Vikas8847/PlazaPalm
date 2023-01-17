@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.advancesettings.editlook
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -47,6 +49,13 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         binding = AdvanceEditLookFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
         binding?.vm = viewModel
+
+
+
+
+
+
+
         setbackground()
 
         return binding?.root
