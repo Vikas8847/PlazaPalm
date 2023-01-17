@@ -73,6 +73,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 //            binding.sliderFilter.value = miles.toFloat()
           //  binding.sliderFilter.value = 1.0f
 
+
             viewModel.miles.set(miles.toString())
 
         }else{
