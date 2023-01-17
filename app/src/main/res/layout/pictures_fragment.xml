@@ -26,8 +26,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp"
                 android:elevation="0dp">
-
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivPictureAddBackBtn"
@@ -53,18 +60,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivPicturesAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:onClick="@{vm::onClicks}"
                     android:padding="@dimen/_5sdp"
-                    android:src="@drawable/ic_add_image"
-                   />
-
+                    android:src="@drawable/ic_add_image"/>
 
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -85,7 +88,6 @@
                 tools:listitem="@layout/pictures_item_list">
 
             </androidx.recyclerview.widget.RecyclerView>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

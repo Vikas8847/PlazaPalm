@@ -52,6 +52,9 @@ const val GET_COLORS  = "colorLookGet"
 const val MAP_FEATURES  = "mapFeature"
 const val GET_MAP_FEATURES  = "mapFeatureGet"
 const val UPDATE_LATLONG  = "updateLatLong"
+const val GALLERYPOST  = "galleryPost"
+const val GALLERYGET  = "galleryGet"
+const val DELETE_MEDIA  = "deleteMedia"
 
 
 

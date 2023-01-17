@@ -1,6 +1,7 @@
 package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
+import android.media.MediaPlayer
 import android.os.Build
 import android.text.TextWatcher
 import android.util.Log
@@ -218,4 +219,58 @@ object BindingAdapters {
         //swipeRefreshLayout.isRefreshing = false
     }*/
 
+
+
+    @BindingAdapter(value = ["setVideoImage"], requireAll = false)
+    @JvmStatic
+    fun setVideoImage(
+        videoView : VideoView, imageUrl: String? ) {
+        var position=0
+        if (imageUrl!=null){
+         /*   Glide.with(CommonMethods.context)
+                .load(IMAGE_LOAD_URL + imageUrl)
+                .override(100,100)
+                .into(videoView)*/
+            videoView.setVideoPath(IMAGE_LOAD_URL+imageUrl)
+          //  mediaController.setAnchorView(videoView)
+         //   mediaController.setMediaPlayer(videoView)
+           // videoView.setMediaController(mediaController)
+
+            videoView.setOnPreparedListener { mp ->
+                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+                mp.setVolume(0f,0f)
+                videoView.seekTo(position!!)
+
+                if (position==0){
+                    videoView.start()
+                }
+                else{
+                    videoView.pause()
+                }
+
+                mp.isLooping = true
+                // CommonMethods.showToast(requireContext(), "Video is Preparing")
+                Log.d("VideoPreparing", "video is preparing " + videoView.duration)
+            }
+            videoView.setOnErrorListener { mediaPlayer, _, _ ->
+
+                Log.d("VideoError", "$mediaPlayer")
+                CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
+                false
+            }
+
+            videoView.setOnCompletionListener { mp ->
+                // videoView.start()
+                if (mp.duration==videoView.duration){
+                    CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
+                }
+            }
+            videoView.requestFocus()
+            videoView.start()
+        }
+        else
+        {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
+    }
 }
