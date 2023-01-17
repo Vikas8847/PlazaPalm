@@ -67,12 +67,14 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         CommonMethods.statusBar(true)
         return binding?.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
         setPicturesAdapter()
         initUI()
         viewModel.fetchAllGalleryPhotoMethod()
+        Log.e("OnCreate_Gallery===","onViewCreated")
     }
 
     private fun initUI() {
@@ -361,7 +363,6 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
             /**For Video Button **/
             VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoGalleryBtn)
                 ?.setOnClickListener {
-
                     checkForCamera="3"
                     permissionMethod(requireActivity())
                     VideoPhotodialog?.dismiss()

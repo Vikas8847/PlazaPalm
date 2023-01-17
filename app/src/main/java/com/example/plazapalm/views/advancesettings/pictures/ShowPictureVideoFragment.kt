@@ -72,10 +72,11 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         mediaController.setAnchorView(videoView)
         mediaController.setMediaPlayer(videoView)
         videoView.setMediaController(mediaController)
+
         videoView.setOnPreparedListener { mp ->
 
             videoView.seekTo(position!!)
-
+            mp.setVolume(0f,0f)
             if (position==0){
                 videoView.start()
             }

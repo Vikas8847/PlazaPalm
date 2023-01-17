@@ -314,7 +314,6 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
 
         viewModel.userId.set(data.get(pos)._id)
 
-
         checkForMiles(data.get(pos)._id.toString())
         val imageList = ArrayList<AddPhoto>()
 

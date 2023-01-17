@@ -60,7 +60,7 @@ class ViewPostProfileAdapter(
                 bindining.clVEditProDescription.visibility = View.GONE
             }
 
-            var fontColor = "#FFFFFFFF"
+            var fontColor = "#000000"
             var borderColor = "#FFFFFFFF"
             var columnColor = "#FFFFFFFF"
             var borSiz = 8

@@ -26,7 +26,7 @@
                 android:id="@+id/tvChooseOptionTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/inter_medium"
                 android:paddingHorizontal="@dimen/_15sdp"
                 android:paddingVertical="@dimen/_2sdp"
@@ -38,12 +38,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
-
             <View
                 android:id="@+id/vChooseOption"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 android:background="@color/setting_line_views_color"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +58,7 @@
                 android:paddingHorizontal="@dimen/_15sdp"
                 android:paddingVertical="@dimen/_3sdp"
                 android:text="@string/take_photo"
-                android:textColor="@color/app_bar_light"
+                android:textColor="@color/dark_bluee"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toTopOf="@+id/vChoosePhoto"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +85,7 @@
                 android:paddingHorizontal="@dimen/_15sdp"
                 android:paddingVertical="@dimen/_3sdp"
                 android:text="@string/photo_library"
-                android:textColor="@color/app_bar_light"
+                android:textColor="@color/dark_bluee"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toTopOf="@+id/vCancel"
                 app:layout_constraintEnd_toEndOf="parent"

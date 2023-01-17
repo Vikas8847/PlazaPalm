@@ -245,7 +245,7 @@ class PicturesVM @Inject constructor() : ViewModel() {
     fun fetchAllGalleryPhotoMethod()
     {
         repository.makeCall(
-            apiKey = ApiEnums.UPLOAD_IMAGES,
+            apiKey = ApiEnums.FETCH_GALLERY_PHOTO,
             loader = true,
             saveInCache = false,
             getFromCache = false,
