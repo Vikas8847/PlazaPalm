@@ -192,19 +192,20 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         dataStore.saveData(viewModel.list_Name, Gson().toJson(viewModel.idList))
                         dataStore.saveData(viewModel.list_CateName, Gson().toJson(viewModel.selectedCategoriesList))
 
+
                         /** save Categeory Id and Name locally for permanent  */
-                        var gsonValueCateId = Gson().toJson(viewModel.idList)
+                        val gsonValueCateId = Gson().toJson(viewModel.idList)
                         pref.saveCategeory(Constants.SELECTED_CATEGORY_ID,gsonValueCateId)
 
-                        var gsonValueCateName = Gson().toJson(viewModel.selectedCategoriesList)
+                        val gsonValueCateName = Gson().toJson(viewModel.selectedCategoriesList)
                         pref.saveCategeory(Constants.SELECTED_CATEGORY_ID,gsonValueCateName)
 
                         Log.e("ISCATE--ID -- >>", viewModel.idList.toString() + "ISCATE--NAME -->> " + viewModel.selectedCategoriesList.toString())
 
                         //////////
-                        var gsonValue = Gson().toJson(viewModel.selectedCategoriesList)
-                        pref.storeFilterResponse(gsonValue)
 
+                        val gsonValue = Gson().toJson(viewModel.selectedCategoriesList)
+                        pref.storeFilterResponse(gsonValue)
 
                         Log.e("QQAAWW2222", pref.retrieveFilterResponse().toString())
 
@@ -236,21 +237,37 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                 }
 
                 arguments?.getStringArrayList("FromLoginScreenCategoriesIds") != null -> {
-                    val idData: ArrayList<CategoriesData> =
-                        arguments?.getParcelableArrayList("FromLoginScreenCategoriesIds")!!
+                    val idData: ArrayList<CategoriesData> =  arguments?.getParcelableArrayList("FromLoginScreenCategoriesIds")!!
+
+                    Log.e("SADASD-0-ASD",idData.toString())
+
+                    viewModel.selectedCategoriesList.clear()
                     for (idx in 0 until idData.size) {
                         viewModel.idList.addAll(listOf(idData[idx]._id!!))
                         viewModel.selectedCategoriesList.add(SelectedDataModelList(idData[idx].category_name!!, idData[idx]._id!!,idData[idx].adapterPosition!!,idData[idx].isCheck!!,idData[idx].count!!))
 
-//                        viewModel.selectedCategoriesList.addAll(listOf(idData[idx].category_name!!))
-                        /** save data locally */
-                        dataStore.saveData(viewModel.list_Name, Gson().toJson(viewModel.idList))
-                        dataStore.saveData(viewModel.list_CateName, Gson().toJson(viewModel.selectedCategoriesList))
-
                     }
+
+                    Log.e("SADASD-0-ASD",idData.toString())
+
+//                        viewModel.selectedCategoriesList.addAll(listOf(idData[idx].category_name!!))
+                    /** save data locally */
+                    dataStore.saveData(viewModel.list_Name, Gson().toJson(viewModel.idList))
+                    dataStore.saveData(viewModel.list_CateName, Gson().toJson(viewModel.selectedCategoriesList))
 
                     viewModel.lati.set(arguments?.getDouble("Loginlongitude")!!)
                     viewModel.longi.set(arguments?.getDouble("Loginlatitude")!!)
+
+                    val gsonValue = Gson().toJson(viewModel.selectedCategoriesList)
+                    pref.storeFilterResponse(gsonValue)
+
+
+                    val gsonValueCateIdList = Gson().toJson(viewModel.idList)
+                    pref.saveCateIdList(gsonValueCateIdList)
+
+
+                    Log.e("DDDDWoij",viewModel.idList.toString())
+
                 }
 
                 arguments?.getString("fromOpencate") != null -> {

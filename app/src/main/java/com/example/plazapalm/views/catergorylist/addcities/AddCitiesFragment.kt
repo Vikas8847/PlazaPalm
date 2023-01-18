@@ -54,6 +54,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
     lateinit var mMap: GoogleMap
 
     /**Current location is set to India, this will be of no use**/
+
     lateinit var currentLocation: LatLng
     lateinit var mapFragment: SupportMapFragment
     private var originLatng: LatLng? = null
@@ -160,13 +161,15 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
 //                            val address = addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                             val city = addresses[0].locality
                             val state = addresses[0].adminArea
-                            val address = city + " " + state
+//                            val address = city + " " + state
+                            val address = city
 
                             currentaddress = address
                             Currentlati = location.latitude
                             Currentlongi = location.longitude
 
                             Log.e("ADASDASWQEWQE",address.toString() + "assad" + Currentlati + "XCXC"+ Currentlongi)
+
                             mMap.clear()
                             val markerOptions =
                                 MarkerOptions().position(currentLocation).title(address.toString())
@@ -257,11 +260,13 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                 val place = Autocomplete.getPlaceFromIntent(data!!)
 
                 val split = place.address?.split(",")
+
                 val adresss = split?.get(0) // First element
                 Log.e("SSSAAAA", place.address.toString())
 
                 addressLocation = place.address
                 //set address on edittext
+
                 viewModel.address.set(adresss)
 
                 if (place.latLng != null) {

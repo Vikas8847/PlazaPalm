@@ -1,14 +1,17 @@
 package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
+import android.location.Location
 import android.media.MediaPlayer
 import android.os.Build
+import android.os.Handler
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,15 +22,21 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
+import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.views.dashboard.DashBoardVM
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import me.relex.circleindicator.CircleIndicator
+import javax.inject.Inject
 
 
 /** Binding Adapters */
 object BindingAdapters {
+//    @Inject
+//    lateinit var pref : PreferenceFile
     @BindingAdapter(value = ["setRecyclerAdapter"], requireAll = false)
     @JvmStatic
     fun setRecyclerAdapter(
@@ -92,7 +101,15 @@ object BindingAdapters {
     ) {
         textView.setTextColor(textView.context.getColor(color))
     }
-
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter(value = ["setText"], requireAll = false)
+    @JvmStatic
+    fun setText(
+        textView: TextView,
+        value : String
+    ) {
+        textView.text =value
+    }
     @BindingAdapter(value = ["onCheckChange"], requireAll = false)
     @JvmStatic
     fun onCheckChange(
@@ -272,5 +289,35 @@ object BindingAdapters {
         {
             //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
         }
+    }
+
+    @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
+    @JvmStatic
+    fun calculateLatLngToMiles(destinationTV : TextView, viewModel: DashBoardVM?) {
+        val latLngA = LatLng(30.7046, 76.7179)
+        val latLngB = LatLng(viewModel!!.destinationLat.get(), viewModel!!.destinationLong.get())
+        val locationA = Location("Point A")
+        locationA.latitude = latLngA.latitude
+        locationA.longitude = latLngA.longitude
+
+        val locationB = Location("Point B")
+        locationB.latitude = latLngB.latitude
+        locationB.longitude = latLngB.longitude
+        var distance= locationA.distanceTo(locationB).toDouble().toString()
+        Handler().postDelayed(object : Runnable {
+            override fun run() {
+                destinationTV.text = distance.split(".")[0].toString()
+                destinationTV.requestFocus()
+            }
+        },1000)
+
+    //    distance.set(locationA.distanceTo(locationB).toDouble().toString())
+     //   Log.d("distanceCal", distance.toString().split(".")[0])
+        Log.d("distanceCalqwer", destinationTV.text.toString())
+//        distanceCal.set(distance.get().toString())
+
+      //  userMiles.set( distance.get().toString().split(".")[0])
+
+
     }
 }

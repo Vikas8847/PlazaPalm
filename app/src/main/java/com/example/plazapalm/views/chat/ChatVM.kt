@@ -20,6 +20,7 @@ import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.views.chat.adapter.ChatAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -38,7 +39,8 @@ class ChatVM @Inject constructor(
     fun onClicks(view: View) {
         when (view.id) {
             R.id.ivChat -> {
-                view.findNavController().navigateUp()
+//                view.findNavController().navigateUp()
+                view.navigateBack()
             }
             R.id.ivChatOpenBlock -> {
                 if (isClicked.get()) {

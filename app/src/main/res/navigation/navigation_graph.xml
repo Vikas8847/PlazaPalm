@@ -56,6 +56,16 @@
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_categoriesListFragment"
+            app:destination="@id/categoriesListFragment"
+            app:enterAnim="@anim/pop_enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+
     </fragment>
     <fragment
         android:id="@+id/dashBoardFragment"
