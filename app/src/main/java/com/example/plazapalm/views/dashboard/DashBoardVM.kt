@@ -10,6 +10,7 @@ import android.os.Handler
 import android.text.Editable
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
@@ -37,7 +38,6 @@ import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.navigateWithId
-import com.example.plazapalm.views.dashboard.DashboardItemsAdapter
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -62,6 +62,7 @@ class DashBoardVM @Inject constructor(
     var destinationLong =ObservableDouble()
 
     @SuppressLint("StaticFieldLeak")
+
     var recyclerSelectedEvents: RecyclerView? = null
     var idList = ArrayList<String>()
     var nameList = ArrayList<String>()
@@ -71,18 +72,23 @@ class DashBoardVM @Inject constructor(
     var lati = ObservableDouble()
     var longi = ObservableDouble()
     var userMiles = ObservableField("")
+    var title = ObservableField(" Deserts and Drinks ")
     var isDataVisible = ObservableBoolean(false)
+    var isFav = ObservableBoolean(false)
+    var isNodatafound = ObservableBoolean(false)
     var distanceCal = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
     val distance = ObservableField("")
     var idCategoriesData = ObservableArrayList<CategoriesData>()
     val adapter by lazy { RecyclerAdapter<ProfileCateData>(R.layout.dash_board_items) }
 
+
+
     var selectedCategoriesList = ArrayList<SelectedDataModelList>()
     var selectedCategoriesLists = ArrayList<SelectedDataModelList>()
     val dashSelectedAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.dash_board_events_items) }
     val list_Name by lazy { stringPreferencesKey("idsList") }
-    val list_CateName by lazy { stringPreferencesKey("idsList") }
+    val list_CateName by lazy { stringPreferencesKey("CateNameList") }
     var dialog: Dialog? = null
 
     init {
@@ -93,9 +99,28 @@ class DashBoardVM @Inject constructor(
         dataStoreUtil.readData(list_Name) {
             if (it != null) {
                 idList.addAll(arrayListOf(it))
+                Log.e("KADJASDASDKL", idList.toString())
+
             }
-            Log.e("dads", idList.toString())
-            Log.e("asdas", it.toString())
+
+        }
+        if (pref.retrvieCateIdList()!=null && !(pref.retrvieCateIdList().equals(""))){
+
+            Log.e("AAAZZZZ",pref.retrvieCateIdList().toString())
+
+            val myType = object : TypeToken<ArrayList<String>>() {}.type
+            val newList: ArrayList<String> = Gson().fromJson<ArrayList<String>>(pref.retrvieCateIdList(), myType)
+
+            idList.clear()
+
+            for (idx in 0 until newList.size) {
+
+                idList.addAll(listOf(newList[idx].toString()))
+
+            }
+
+            Log.e("asxsxsxsxsxa", newList.toString())
+            Log.e("OASDASDWw-- ", idList.toString())
 
         }
 
@@ -109,6 +134,26 @@ class DashBoardVM @Inject constructor(
 
         }else{
             userMiles.set("25")
+        }
+
+
+        adapter.setOnItemClick { view, _, type ->
+            when (type) {
+                "dashItemClick" -> {
+                    val isDashBoard = Bundle()
+                    isDashBoard.putString("comingFrom", "isDashBoard")
+                    view.navigateWithId(
+                        R.id.action_dashBoardFragment_to_favDetailsFragment,
+                        isDashBoard
+                    )
+                }
+
+                "dashItemClick_fav"->{
+                    //For Favourite click
+                    Log.e("DFSDFA","WORKING GOOD")
+                    Toast.makeText(CommonMethods.context,"WORKING GOOD",Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         /*** 03-01-23
@@ -181,25 +226,6 @@ class DashBoardVM @Inject constructor(
         }
     }
 
-    init {
-        Log.e("ASDFASDFSFSDf", status.get().toString())
-        // getProfileByCategory()
-        token.set(pref.retrieveKey("token"))
-        //Get data from shared preference..
-
-        adapter.setOnItemClick { view, _, type ->
-            when (type) {
-                "dashItemClick" -> {
-                    val isDashBoard = Bundle()
-                    isDashBoard.putString("comingFrom", "isDashBoard")
-                    view.navigateWithId(
-                        R.id.action_dashBoardFragment_to_favDetailsFragment,
-                        isDashBoard
-                    )
-                }
-            }
-        }
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showSelectedCatAlert() {
@@ -249,11 +275,11 @@ class DashBoardVM @Inject constructor(
 //                idList.add("61dfff4a5fc0f8aff4cf2a78")
 //                idList.add("61d3f87d6441e05580a191d5")
 
+        Log.e("KADJrtgdfASDASDKL", idList.toString())
 
 
         Log.e("SDAMILES" , userMiles.get().toString() +" LATI "+ pref.retvieLatlong("lati").toDouble()
-                +" LONG "+ pref.retvieLatlong("longi").toDouble() + "" +idList.toString()
-        )
+                +" LONG "+ pref.retvieLatlong("longi").toDouble() + " CATEIDDD - " +idList.toString() + "search --- " +search )
 
         repository.makeCall(
             ApiEnums.GETPROFILE_BYCATE,
@@ -263,7 +289,7 @@ class DashBoardVM @Inject constructor(
             requestProcessor = object : ApiProcessor<Response<GetProfileCateResponse>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileCateResponse> {
                     return retrofitApi.getProfileByCategory(
-                        token.get().toString(),
+                        pref.retrieveKey("token").toString(),
                         idList,
                         1,
                         500,
@@ -283,52 +309,64 @@ class DashBoardVM @Inject constructor(
                         if (res.body() != null) {
                             if (res.body()!!.status == 200) {
 
-                                adapter.addItems(res.body()?.data!!)
-                                adapter.notifyDataSetChanged()
-                                Log.d("DashBoardResponse->", res.body()!!.data.toString())
+                                if (res.body()!!.data.size>0){
 
-                                for(i in 0 until res.body()!!.data.size){
-                                    destinationLat.set(adapter.getAllItems()[i].lat!!)
-                                    destinationLong.set(adapter.getAllItems()[i].long!!)
-                                }
+                                    isNodatafound.set(true)
 
-                                Log.e("SDSDS",destinationLat.get().toString() + "kjljlj;"+ destinationLong.get().toString())
-                                Log.d("adasWS", pref.retvieLatlong("lati").toDouble().toString()+"sdfdf"+ pref.retvieLatlong("longi").toDouble().toString() )
+                                    adapter.addItems(res.body()?.data!!)
+                                    adapter.notifyDataSetChanged()
 
-                                calculateLatLngToMiles()
-                               // distanceCal.set(distance.get().toString().split(".")[0])
+                                    Log.d("DashBoardResponse->", res.body()!!.data.toString())
+
+                                    for(i in 0 until res.body()!!.data.size){
+                                        destinationLat.set(adapter.getAllItems()[i].lat!!)
+                                        destinationLong.set(adapter.getAllItems()[i].long!!)
+                                    }
+                                    Log.e("SDSDS",destinationLat.get().toString() + "kjljlj;"+ destinationLong.get().toString())
+                                    Log.d("adasWS", pref.retvieLatlong("lati").toDouble().toString()+"sdfdf"+ pref.retvieLatlong("longi").toDouble().toString() )
+
+                                    calculateLatLngToMiles()
+                                    // distanceCal.set(distance.get().toString().split(".")[0])
 
 
-                                Log.d("viaksdistance",distance.get().toString().split(".")[0])
-                                adapter.setOnItemClick { view, position, type ->
+                                    Log.d("viaksdistance",distance.get().toString().split(".")[0])
+                                    adapter.setOnItemClick { view, position, type ->
 
-                                    when (type) {
-                                        "dashItemClick" -> {
+                                        when (type) {
+                                            "dashItemClick" -> {
 
-                                            val isDashBoard = Bundle()
-                                            isDashBoard.putString("comingFrom", "isDashBoard")
+                                                val isDashBoard = Bundle()
+                                                isDashBoard.putString("comingFrom", "isDashBoard")
 
-                                            isDashBoard.putString(
-                                                "DashBoardPostId",
-                                                res.body()!!.data[position]._id
-                                            )
-                                            isDashBoard.putDouble(
-                                                "DashBoardPostLatitude",
-                                                lati.get()
-                                            )
-                                            isDashBoard.putDouble(
-                                                "DashBoardPostLongitude",
-                                                longi.get()
-                                            )
-                                            view.navigateWithId(
-                                                R.id.action_dashBoardFragment_to_favDetailsFragment, isDashBoard )
+                                                isDashBoard.putString(
+                                                    "DashBoardPostId",
+                                                    res.body()!!.data[position]._id
+                                                )
+                                                isDashBoard.putDouble(
+                                                    "DashBoardPostLatitude",
+                                                    lati.get()
+                                                )
+                                                isDashBoard.putDouble(
+                                                    "DashBoardPostLongitude",
+                                                    longi.get()
+                                                )
+                                                view.navigateWithId(
+                                                    R.id.action_dashBoardFragment_to_favDetailsFragment, isDashBoard )
 
-                                            Log.d("DashBoardResponse->", "Workingggg-----fine--")
+                                                Log.d("DashBoardResponse->", "Workingggg-----fine--")
+
+                                            }
 
                                         }
-
                                     }
+
+                                }else{
+                                    isNodatafound.set(false)
+                                    Log.e("ASDASQKHE","NO Data Found ")
+
                                 }
+
+
 
                             } else {
                                 Log.d("DashBoardResponse->", res.body()?.message.toString())
@@ -406,12 +444,17 @@ class DashBoardVM @Inject constructor(
         dialog?.show()
     }
     override fun click(categoryName: String, position: Int, _id: String?, s: String, color: Int?) {
+
+        title.set(categoryName)
+        Log.e("SDFSDFSdf",categoryName)
         dialog!!.dismiss()
+
     }
+
     /**call Get Profile Api..**/
     fun getProfile() = viewModelScope.launch {
         val body = JSONObject()
-        body.put("Authorization", token.get())
+        body.put("Authorization", pref.retrieveKey("token"))
         repository.makeCall(
             apiKey = ApiEnums.GET_PROFILE,
             loader = true,
@@ -419,7 +462,7 @@ class DashBoardVM @Inject constructor(
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetProfileResponseModel>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileResponseModel> {
-                    return retrofitApi.getProfileApi(Authorization = token.get().toString())
+                    return retrofitApi.getProfileApi(Authorization = pref.retrieveKey("token").toString())
                 }
 
                 override fun onResponse(res: Response<GetProfileResponseModel>) {

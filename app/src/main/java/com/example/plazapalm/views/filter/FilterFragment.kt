@@ -69,15 +69,20 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
         if (pref.retvieMiles()!=null && !(pref.retvieMiles().equals(""))){
 
             var miles = pref.retvieMiles()
-            binding.tvFilterMilesValue.text=miles.toString()
-//            binding.sliderFilter.value = miles.toFloat()
+            binding.tvFilterMilesValue.text=miles.toString() + " Miles"
+            binding.sliderFilter.value =42F
           //  binding.sliderFilter.value = 1.0f
 
+
             viewModel.miles.set(miles.toString())
+
+            Log.e("AAAZZZZasQQA",miles.toString())
+
 
         }else{
             binding.sliderFilter.value =1.0f
         }
+        viewModel.filterDataList.clear()
 
         if (pref.retrieveFilterResponse()!=null && !(pref.retrieveFilterResponse().equals(""))){
             Log.e("AAAZZZZ",pref.retrieveFilterResponse().toString())
