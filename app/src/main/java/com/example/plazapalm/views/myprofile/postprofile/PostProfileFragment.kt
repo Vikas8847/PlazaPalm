@@ -80,6 +80,8 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
                 viewModel.description3.set(arguments?.getString("des_3").toString())
                 viewModel.categeory.set(arguments?.getString("cate").toString())
 
+                viewModel.allowBooking.set(arguments?.getBoolean("booking_status")!!)
+
                 //IMGAE LIST
                 viewModel.photoList = arguments?.getParcelableArrayList<AddPhoto>("profile_Image") as ArrayList<AddPhoto>
 
@@ -142,8 +144,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
                 viewModel.lat.set(lati)
 
                 Log.e("WWWWWWWW", data.toString())
-
-
             }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("photos")
@@ -163,7 +163,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
                 setAdapter()
             }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -196,7 +195,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
     }
 
     private fun showRecyclerviewClick() {
-
         if (viewModel.isClicked.get()) {
             viewModel.isClicked.set(true)
         } else {
@@ -205,9 +203,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
     }
 
     override fun onClick(view: View, type: String, position: Int) {
-
         Log.e("SSSS", "WWW")
-
     }
-
 }

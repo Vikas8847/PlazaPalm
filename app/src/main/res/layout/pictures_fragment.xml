@@ -84,6 +84,7 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/_1sdp"
                 tools:itemCount="8"
                 tools:listitem="@layout/pictures_item_list">
 

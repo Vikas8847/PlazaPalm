@@ -616,6 +616,36 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvVEditProExpiryDate" />
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvAllowBooking"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/inter_medium"
+                            android:paddingHorizontal="@dimen/_5sdp"
+                            android:text="Allow Booking ?"
+                            android:textColor="@color/forgot_pass"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@id/switchAllowBooking"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/etVEditProExpiryDate" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchAllowBooking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:fontFamily="@font/inter_medium"
+                            android:textSize="14sp"
+                            android:onClick="@{vm::onClicks}"
+                            android:checked="@{vm.allowBooking?true:false}"
+                            android:thumb="@drawable/custom_thumb"
+                            app:layout_constraintBottom_toBottomOf="@id/tvAllowBooking"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvAllowBooking"
+                            app:track="@drawable/custom_track" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.core.widget.NestedScrollView>

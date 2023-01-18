@@ -21,6 +21,8 @@
         android:background="@drawable/add_photos_bg"
         android:elevation="@dimen/_3sdp">
 
+
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/setimageView"
             android:layout_width="match_parent"
@@ -31,6 +33,27 @@
             app:layout_constraintCircleRadius="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`picturesItemClick`)}"
+            android:layout_height="match_parent"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/setVideoImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shadowColor="@color/gray"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintCircleRadius="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/plus_icon"

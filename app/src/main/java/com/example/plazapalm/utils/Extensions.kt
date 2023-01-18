@@ -3,11 +3,14 @@ package com.example.plazapalm.utils
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
+import android.widget.VideoView
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -98,7 +101,49 @@ fun BottomNavigationView.onNavDestinationSelected(
         false
     }
 
-
-
-
 }
+
+    fun Activity.setVideoPlayMethod(
+        videoView : VideoView, imageUrl: String?, ivVideoIcon: ImageView
+    ) {
+        var position=0
+        if (imageUrl!=null){
+            videoView.setVideoPath(imageUrl)
+            videoView.setOnPreparedListener { mp ->
+                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+                mp.setVolume(0f,0f)
+                videoView.seekTo(position!!)
+                ivVideoIcon.visibility=View.GONE
+                if (position==0){
+                    videoView.start()
+                }
+                else{
+                    videoView.pause()
+                }
+
+                mp.isLooping = true
+                // CommonMethods.showToast(requireContext(), "Video is Preparing")
+                Log.d("VideoPreparing", "video is preparing " + videoView.duration)
+            }
+            videoView.setOnErrorListener { mediaPlayer, _, _ ->
+
+                Log.d("VideoError", "$mediaPlayer")
+                CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
+                false
+            }
+
+            videoView.setOnCompletionListener { mp ->
+                // videoView.start()
+                if (mp.duration==videoView.duration){
+                    CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
+                }
+            }
+            videoView.requestFocus()
+            videoView.start()
+        }
+        else
+        {
+        }
+    }
+
+

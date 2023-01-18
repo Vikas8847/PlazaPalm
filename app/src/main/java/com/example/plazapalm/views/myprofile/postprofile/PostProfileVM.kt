@@ -77,6 +77,7 @@ class PostProfileVM @Inject constructor(
     var location = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
 
+    var allowBooking=ObservableBoolean(false)
     var titleScreenProfile = ObservableField("")
     init {
         token.set(pref.retrieveKey("token"))
@@ -219,15 +220,23 @@ class PostProfileVM @Inject constructor(
                 }
             }
             R.id.etVEditProExpiryDate -> {
-
                 showDatePickerDialog()
-
-
+            }
+            R.id.switchAllowBooking->{
+                //For Allow Booking
+             if(allowBooking.get())
+             {
+                 allowBooking.set(false)
+             }else
+             {
+                 allowBooking.set(true)
+             }
             }
         }
     }
 
     private fun editProfileAPI(view: View, data: ArrayList<String>) {
+        Log.e("gkeggewswgw===",allowBooking.get().toString())
         repository.makeCall(
             ApiEnums.UPDATE_POST_PROFILE,
             loader = true,
@@ -252,7 +261,8 @@ class PostProfileVM @Inject constructor(
                         lat.get(),
                         profileTitle.get(),
                         c_id.get().toString(),
-                        p_id.get()
+                        p_id.get(),
+                        allowBooking.get()
                     )
                 }
 
@@ -467,7 +477,8 @@ class PostProfileVM @Inject constructor(
                         description3.get().toString(),
                         lat.get()!!.toString(),
                         profileTitle.get().toString(),
-                        c_id.get().toString()
+                        c_id.get().toString(),
+                        allowBooking.get()
                     )
 
                 }

@@ -222,6 +222,7 @@ interface RetrofitApi {
         @Field("lat") lat: String?,
         @Field("profile_title") profile_title: String?,
         @Field("c_id") c_id: String?,
+        @Field("booking_status") booking_status: Boolean?
     ): Response<SavePostProfileResponse>
 
 
@@ -299,7 +300,9 @@ interface RetrofitApi {
         @Field("lat") lat: String?,
         @Field("profile_title") profile_title: String?,
         @Field("c_id") c_id: String?,
-        @Field("p_id") p_id: String?
+        @Field("p_id") p_id: String?,
+        @Field("booking_status") booking_status: Boolean?
+
     ): Response<UpdateProfileResponse>
 
     @FormUrlEncoded

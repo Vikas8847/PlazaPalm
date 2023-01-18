@@ -3,6 +3,7 @@ package com.example.plazapalm.views.advancesettings.questionaries
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.apachat.swipereveallayout.core.SwipeLayout.DRAG_EDGE_RIGHT
 import com.example.plazapalm.databinding.AddQuestionItemsBinding
 import com.example.plazapalm.models.QueData
 import com.example.plazapalm.models.QuestionsModel
@@ -22,6 +23,7 @@ import com.example.plazapalm.models.QuestionsModel
             binding.executePendingBindings()
             /// new khem
             binding.model = questionDataList[position]
+            binding.slDeleteQuestions.dragEdge=DRAG_EDGE_RIGHT
         }
     }
 

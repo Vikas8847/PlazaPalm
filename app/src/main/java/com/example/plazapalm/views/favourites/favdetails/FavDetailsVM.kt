@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.databinding.ObservableParcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -85,13 +86,14 @@ class FavDetailsVM @Inject constructor(
     var dialog: Dialog? = null
     var deldialog: Dialog? = null
     var reportText: TextView? = null
-
+    var tvFavouriteCountValue = ObservableField("0")
+    var tvAllowBooking = ObservableBoolean(false)
+    var checkFavouriteShow = ObservableInt()
     /** Advance setting */
     val backgroundColor = MutableLiveData<Any>()
     val textColor = MutableLiveData<Any>()
 
 init {
-
 }
 
     fun onClicks(view: View) {
@@ -362,10 +364,17 @@ init {
                                 isFav.set(false)
                                 Log.e("TRUE", res.body().toString())
 
+                               var newFavoriteCount=tvFavouriteCountValue.get()!!.toInt()+1
+
+                                tvFavouriteCountValue.set(newFavoriteCount.toString())
+
                             } else {
                                 isFav.set(true)
 //                                    tvRemoveFav?.text="Add from Favourites"
                                 Log.e("FALSE", res.body().toString())
+                                var newFavoriteCount=tvFavouriteCountValue.get()!!.toInt()-1
+
+                                tvFavouriteCountValue.set(newFavoriteCount.toString())
                             }
 
                         } else {
@@ -538,6 +547,7 @@ init {
                 bundle.putString("longi", userdata.get()?.long!!.toString())
                 bundle.putString("lati", userdata.get()?.lat!!.toString())
                 bundle.putString("location_text", userdata.get()?.location_text)
+                bundle.putBoolean("booking_status", tvAllowBooking.get()!!)
 
 //              var dataList : ArrayList<String> =  userdata.get()?.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
 
