@@ -152,7 +152,6 @@
                 android:text="@{vm.isNodatafound ? @string/space  : @string/nodata_found}"
                 android:textSize="@dimen/_16sdp"
                 android:gravity="center"
-
                 android:layout_height="match_parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
