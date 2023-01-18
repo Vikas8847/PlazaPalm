@@ -58,11 +58,13 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                     viewModel.location.set(userdata.get(postion as Int).location_text)
                     viewModel.categaryName.set(userdata.get(postion as Int).category_name)
 
-                    if (userdata.get(postion as Int ).booking_status.toString().equals("")){
+                    if (!(userdata.get(postion as Int ).booking_status.toString().isNullOrEmpty()) ||
+                        userdata.get(postion as Int ).booking_status.toString().equals("pending")){
+                        viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
 
+                    }else{
+                        viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
                     }
-
-                    viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
 
                     viewModel.time.set(userdata.get(postion as Int).choose_time)
                     viewModel.booking_id.set(userdata.get(postion as Int)._id)
@@ -72,7 +74,8 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
 
                     if (viewModel.userType.get().equals("customer")) {
                         viewModel.getCustomerDetails()
-                    } else {
+                    } else if(viewModel.userType.get().equals("Provider")) {
+
                         Log.e("WWWSSSS", "WPRKINGG++++FINEE")
                     }
                 }

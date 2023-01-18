@@ -2,8 +2,6 @@ package com.example.plazapalm.pref
 
 import android.content.SharedPreferences
 import com.example.plazapalm.models.AddPhoto
-import com.example.plazapalm.models.SavePostProfileResponse
-import com.example.plazapalm.utils.Constants
 import com.google.gson.Gson
 import javax.inject.Inject
 
@@ -14,7 +12,7 @@ class PreferenceFile @Inject constructor(
     /** For permanent use */
     private val editorForever: SharedPreferences.Editor,
     private val sharedPreferencesForever: SharedPreferences
- ) {
+) {
 
     fun saveCategeory(key: String, value: String) {
         editorForever.putString(key, value)
@@ -31,7 +29,7 @@ class PreferenceFile @Inject constructor(
         editor.apply()
     }
 
-    fun storeBoolKey(key : String, value : Boolean) {
+    fun storeBoolKey(key: String, value: Boolean) {
         editor.putBoolean(key, value)
         editor.apply()
     }
@@ -41,13 +39,22 @@ class PreferenceFile @Inject constructor(
     }
 
 
-    fun storeFilterResponse( body: String) {
-        editor.putString("FilterList",body)
+    fun storeFilterResponse(body: String) {
+        editor.putString("FilterList", body)
         editor.apply()
     }
 
     fun retrieveFilterResponse(): String? {
-        return sharedPreferences.getString("FilterList","")
+        return sharedPreferences.getString("FilterList", "")
+    }
+
+    fun saveCateIdList(body: String) {
+        editor.putString("catelistId", body)
+        editor.apply()
+    }
+
+    fun retrvieCateIdList(): String? {
+        return sharedPreferences.getString("catelistId", "")
     }
 
     fun storeLocation(value: String) {
@@ -55,25 +62,25 @@ class PreferenceFile @Inject constructor(
         editor.apply()
     }
 
-    fun storeLatlong(key: String,value: Float){
+    fun storeLatlong(key: String, value: Float) {
         editor.putFloat(key, value)
         editor.apply()
     }
 
-    fun retvieLatlong(key: String,): Float {
+    fun retvieLatlong(key: String): Float {
         return sharedPreferences.getFloat(key, 0.0F)
     }
 
-    fun storeMiles(value: Int){
+    fun storeMiles(value: Int) {
         editor.putInt("Milesss", value)
         editor.apply()
     }
 
     fun retvieMiles(): Int {
-        return sharedPreferences.getInt("Milesss",0)
+        return sharedPreferences.getInt("Milesss", 0)
     }
 
-    fun retrieveLocation() : String? {
+    fun retrieveLocation(): String? {
         return sharedPreferences.getString("location", null)
     }
 
@@ -81,7 +88,7 @@ class PreferenceFile @Inject constructor(
         return sharedPreferences.getString(key, null)
     }
 
-    fun storeImage(key : String, value : ArrayList<AddPhoto>) {
+    fun storeImage(key: String, value: ArrayList<AddPhoto>) {
         val gson = Gson()
         val listValue = gson.toJson(value)
         editor.putString(key, listValue)
@@ -97,14 +104,16 @@ class PreferenceFile @Inject constructor(
         editor.apply()
     }
 
-    fun storecolor(key: String,value: Int){
+    fun storecolor(key: String, value: Int) {
         editor.putInt(key, value)
         editor.apply()
     }
+
     fun retviecolor(key: String): Int? {
         return sharedPreferences.getInt(key, 0)
     }
-    fun storecolorString(key: String,value: String){
+
+    fun storecolorString(key: String, value: String) {
         editor.putString(key, value)
         editor.apply()
     }
@@ -114,7 +123,7 @@ class PreferenceFile @Inject constructor(
     }
 
 
-    fun storeopacity(key: String,value: Float){
+    fun storeopacity(key: String, value: Float) {
         editor.putFloat(key, value)
         editor.apply()
     }
@@ -123,7 +132,7 @@ class PreferenceFile @Inject constructor(
         return sharedPreferences.getFloat(key, 0f)
     }
 
-    fun storeosize(key: String,value: Float){
+    fun storeosize(key: String, value: Float) {
         editor.putFloat(key, value)
         editor.apply()
     }
@@ -132,7 +141,7 @@ class PreferenceFile @Inject constructor(
         return sharedPreferences.getFloat(key, 0f)
     }
 
-    fun cleardata(key :String) {
+    fun cleardata(key: String) {
 
         editor.remove(key)
         editor.apply()

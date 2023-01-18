@@ -38,7 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/inter_medium"
-            android:text="@{model.choose_date}"
+            setText="@{model.choose_date}"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"

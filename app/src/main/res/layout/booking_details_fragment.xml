@@ -191,6 +191,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/vBookingDetails" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCateName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:paddingVertical="@dimen/_1sdp"
+                    android:text="@{vm.categaryName}"
+                    android:textColor="@color/tool_bar_black_color"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvBookingStatus" />
+
+
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivFavDetailsOptions"
@@ -218,7 +235,7 @@
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvBookingStatus" />
+                    app:layout_constraintTop_toBottomOf="@id/tvCateName" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView

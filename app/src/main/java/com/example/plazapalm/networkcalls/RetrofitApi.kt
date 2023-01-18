@@ -199,7 +199,6 @@ interface RetrofitApi {
         @Field("long") long: Double,
         @Field("search") search: String,
         @Field("miles") miles: String
-
     ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded

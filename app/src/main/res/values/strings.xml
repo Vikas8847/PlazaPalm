@@ -64,4 +64,5 @@
     <string name="delete_profile">Delete Profile</string>
     <string name="_25_miles">25 Miles</string>
     <string name="view_profile">View Profile</string>
+    <string name="nodata_found">No Data Found</string>
 </resources>

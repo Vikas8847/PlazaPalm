@@ -97,23 +97,23 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
 
                     val data: ArrayList<String> = arguments?.getSerializable("SelecatedCategory") as ArrayList<String>
 
-                    viewmodel.selectedList.addAll(data)
 
+                    viewmodel.selectedList.addAll(data)
 
                     viewmodel.getCategoriesApi("a", true)
                     binding?.tvCategories?.text = "Choose Category"
+
                     binding?.tvCategories?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.setOnClickListener {
                         // from here we have to send categories id's and send in dashboard getProfile by id api...
                         val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
 
-
-
                         /** Its not essential to select category here */
 //                        if (dataList.isNotEmpty()){
 
                         var SelectedList = ArrayList<SelectedDataModelList>()
+                        var SelectedIdList = ArrayList<String>()
                         var adapterPos = 0
                         var cat_Id = ""
 
@@ -125,22 +125,25 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                                     dataList[idx]._id,
                                     dataList[idx].adapterPosition,
                                     dataList[idx].isCheck,
-                                    dataList[idx].count
-                                )
-                            )
+                                    dataList[idx].count ))
+
+                            SelectedIdList.addAll(listOf(dataList[idx]._id.toString()))
+
                         }
 
-                        Log.e("SADASA", dataList.toString())
-                        Log.e(
-                            "SADASA",
-                            "CATENAMEEEE+++++ " + SelectedList + "adpterPso ===" + adapterPos.toString() + "cat_Id==== " + cat_Id
-                        )
+                        Log.e("OPWKDSDSK",SelectedIdList.toString())
+
+                        val SelectedidList = Gson().toJson(SelectedIdList)
+                        pref.saveCateIdList(SelectedidList)
+
+                        Log.e("SADASA", "CATENAMEEEE+++++ " + SelectedList + "adpterPso ===" + adapterPos.toString() + "cat_Id==== " + cat_Id )
 
                         val bundle = Bundle()
                         /*bundle.putParcelableArrayList(
                             "filterCategoriesIds",
                             dataList as ArrayList<CategoriesData>
                         )*/
+
                         bundle.putSerializable("SelectedList", SelectedList)
                         bundle.putDouble("Filterlongitude", viewmodel.longitude.get())
                         bundle.putDouble("Filterlatitude", viewmodel.latitude.get())
@@ -186,18 +189,24 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                 }
                 "login" -> {
                     viewmodel.getCategoriesApi("a", true)
+
+                    Log.e("ADSDasd","DFASASD")
                     binding?.tvCategories?.text = "Choose Category"
                     binding?.tvCategories?.visibility = View.VISIBLE
                     binding?.ivCategory?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.setOnClickListener {
                         val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
+
                         if (dataList.isNotEmpty()) {
+
+                            Log.e("BANDRA3232", dataList.toString())
+
                             val bundle = Bundle()
                             bundle.putParcelableArrayList(
                                 "FromLoginScreenCategoriesIds",
-                                dataList as ArrayList<CategoriesData>
-                            )
+                                dataList as ArrayList<CategoriesData>)
+
                             bundle.putDouble("Loginlongitude", viewmodel.longitude.get())
                             bundle.putDouble("Loginlatitude", viewmodel.latitude.get())
                             bundle.putDouble("currentLatitude", viewmodel.currentLatitude.get())
@@ -250,9 +259,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
 //                            pref.saveCategeory(Constants.SELECTED_CATEGORY,gsonValueCate_ID)
 
 
-
                             view?.navigateWithId(R.id.dashBoardFragment, bundle)
-
 
                         } else {
                             CommonMethods.showToast(
