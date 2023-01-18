@@ -236,8 +236,8 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
         when (type) {
             CommonMethods.context.getString(R.string.add_photo_type) -> {
               //  showChooseOptionAccountDialog()
-             //   showVideoPhotoDialog()
-                showChooseOptionAccountDialog()
+                showVideoPhotoDialog()
+               // showChooseOptionAccountDialog()
             }
         }
     }
@@ -333,7 +333,7 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
             val selectedImageUri: Uri? = data!!.getData()
            var filemanagerstring = selectedImageUri!!.path
            var selectedImagePath = getVideoPathFromGallery(selectedImageUri)
-
+            Log.e("fnknfsnefksef11111===",File(selectedImagePath)!!.absolutePath.toString())
             newPhotoList.add(pos!!, AddPhoto(File(selectedImagePath)!!.absolutePath, false,2))
             addPhotosAdapter.updateList(newPhotoList, pos!!)
           //  getVideoPathFromGallery(selectedImagePath)
@@ -547,9 +547,12 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
                   //  if(multiplePermissionsReport.deniedPermissionResponses.size==0) {
                         if (checkForCamera == "1") {
                             openCameraIntent()
-                        } else {
+                        } else    if (checkForCamera == "2") {
                             openGalleryMethod()
-                        }
+                        }else
+                    {
+                        selectVideoMethod()
+                    }
                     //}
                 }
 
@@ -590,7 +593,9 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
             /**For Video Button **/
             VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoGalleryBtn)
                 ?.setOnClickListener {
-                    selectVideoMethod()
+
+                    checkForCamera="3"
+                    permissionMethod(requireActivity())
                     VideoPhotodialog?.dismiss()
                 }
 

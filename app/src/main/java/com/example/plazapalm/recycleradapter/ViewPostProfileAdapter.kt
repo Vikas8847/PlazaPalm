@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.media.MediaPlayer
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.VideoView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.example.plazapalm.databinding.ViewProfileImagesListBinding
 import com.example.plazapalm.models.AddImageDescriptionPOJO
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
+import com.example.plazapalm.utils.CommonMethods
 
 
 class ViewPostProfileAdapter(
@@ -61,9 +65,9 @@ class ViewPostProfileAdapter(
             }
 
             var fontColor = "#000000"
-            var borderColor = "#FFFFFFFF"
+            var borderColor = "#C3C3C3"
             var columnColor = "#FFFFFFFF"
-            var borSiz = 8
+            var borSiz = 2
 
             bindining.etVEditProDescription.text = photos[position].Desc.toString().trim()
 
@@ -103,10 +107,31 @@ class ViewPostProfileAdapter(
 
 //            bindining.etVEditProDescription.setTextSize(photos[position].fontSize)
 
-            Glide.with(context)
-                .load(IMAGE_LOAD_URL + photos.get(position).Image)
-                .into(bindining!!.ivFavOfDesc1Img)
+            if(photos.get(position).Image!!.contains(".png")
+                || photos.get(position).Image!!.contains(".jpg")
+                || photos.get(position).Image!!.contains(".jpeg")
+                    ) {
+                Log.e("Media_Valueeeeee===",photos.get(position).Image!!)
+                Glide.with(context)
+                    .load(IMAGE_LOAD_URL + photos.get(position).Image)
+                    .into(bindining!!.ivFavOfDesc1Img)
+                bindining.videoViewDetail.visibility=View.GONE
+                bindining.ivVideoIcon.visibility=View.GONE
+                bindining.vPlayer1.visibility=View.GONE
 
+                bindining.ivFavOfDesc1Img.visibility=View.VISIBLE
+                bindining.ivFavOfDesc1.visibility=View.VISIBLE
+            }else
+            {
+                bindining.videoViewDetail.visibility=View.VISIBLE
+                bindining.ivVideoIcon.visibility=View.VISIBLE
+                bindining.vPlayer1.visibility=View.VISIBLE
+
+                bindining.ivFavOfDesc1Img.visibility=View.GONE
+                bindining.ivFavOfDesc1.visibility=View.GONE
+
+                setVideoImage(bindining.videoViewDetail,IMAGE_LOAD_URL + photos.get(position).Image,bindining.ivVideoIcon)
+            }
         }
     }
 
@@ -119,6 +144,48 @@ class ViewPostProfileAdapter(
         shape.setColor(Color.parseColor(color))
         shape.setStroke(borSiz, Color.parseColor(borColor))
         layout?.setBackground(shape)
+    }
+
+    fun setVideoImage(
+        videoView : VideoView, imageUrl: String? ,ivVideoIcon:ImageView) {
+        var position=0
+        if (imageUrl!=null){
+            videoView.setVideoPath(imageUrl)
+            videoView.setOnPreparedListener { mp ->
+                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+                mp.setVolume(0f,0f)
+                videoView.seekTo(position!!)
+                ivVideoIcon.visibility=View.GONE
+                if (position==0){
+                    videoView.start()
+                }
+                else{
+                    videoView.pause()
+                }
+
+                mp.isLooping = true
+                // CommonMethods.showToast(requireContext(), "Video is Preparing")
+                Log.d("VideoPreparing", "video is preparing " + videoView.duration)
+            }
+            videoView.setOnErrorListener { mediaPlayer, _, _ ->
+
+                Log.d("VideoError", "$mediaPlayer")
+                CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
+                false
+            }
+
+            videoView.setOnCompletionListener { mp ->
+                // videoView.start()
+                if (mp.duration==videoView.duration){
+                    CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
+                }
+            }
+            videoView.requestFocus()
+            videoView.start()
+        }
+        else
+        {
+        }
     }
 
 }

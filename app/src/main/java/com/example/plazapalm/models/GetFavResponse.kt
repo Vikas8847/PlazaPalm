@@ -34,7 +34,8 @@ data class GetFavResponse(
     val postProfile_picture: List<Any>?,
     val profile_title: String?="",
     val tags: String?="",
-    val user_name: String?=""
+    val user_name: String?="",
+    val favouriteCount: Int?=0,
     ) :AbstractModel()
 
     data class FavLocation(

@@ -46,6 +46,17 @@ class ViewProAddImageAdapter(
 
         fun setData(img: AddPhoto?) {
 
+            binding.ivVideoIcon.visibility = View.GONE
+            if (img!!.Image != "") {
+                binding.removeImage.visibility = View.VISIBLE
+                if (img.mediaType == 2) {
+                    binding.ivVideoIcon.visibility = View.VISIBLE
+                }
+            } else {
+                binding.removeImage.visibility = View.GONE
+            }
+
+
             if (img!!.isValid == true) {
                 Log.e("SSSSSBBb", "VVVVCCCCCXXXX")
 
@@ -62,14 +73,6 @@ class ViewProAddImageAdapter(
                     .into(binding.ivUsersImage)
 
                 binding.executePendingBindings()
-            }
-
-
-            if (img!!.Image != "") {
-                binding.removeImage.visibility= View.VISIBLE
-            }else
-            {
-                binding.removeImage.visibility= View.GONE
             }
 
 

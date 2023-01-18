@@ -56,6 +56,7 @@
             app:layout_constraintTop_toBottomOf="@+id/clVEditProDescription"
             app:cardCornerRadius="@dimen/_10sdp"
             android:scaleType="fitCenter"
+
             app:cardElevation="@dimen/_2sdp" >
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -72,15 +73,29 @@
             android:id="@+id/vPlayer1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_200sdp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_margin="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/clVEditProDescription"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_5sdp">
 
             <VideoView
+                android:id="@+id/videoViewDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivVideoIcon"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:src="@drawable/ic_play_icon"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.cardview.widget.CardView>
 
