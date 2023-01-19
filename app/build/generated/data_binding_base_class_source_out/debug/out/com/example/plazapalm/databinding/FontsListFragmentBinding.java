@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
@@ -19,10 +20,10 @@ import java.lang.Object;
 
 public abstract class FontsListFragmentBinding extends ViewDataBinding {
   @NonNull
-  public final ConstraintLayout clChooseFont;
+  public final ConstraintLayout clFontListMain;
 
   @NonNull
-  public final AppCompatTextView etChooseFont;
+  public final SearchView etChooseFont;
 
   @NonNull
   public final View myview;
@@ -46,11 +47,11 @@ public abstract class FontsListFragmentBinding extends ViewDataBinding {
   protected EditFrontPageVM mModel;
 
   protected FontsListFragmentBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ConstraintLayout clChooseFont, AppCompatTextView etChooseFont, View myview,
+      ConstraintLayout clFontListMain, SearchView etChooseFont, View myview,
       RecyclerView rvChooseFontRecent, RecyclerView rvChooseFonts, AppCompatTextView tvChooseFont,
       AppCompatTextView tvChooseFontCancel, AppCompatTextView tvChooseFontsRecent) {
     super(_bindingComponent, _root, _localFieldCount);
-    this.clChooseFont = clChooseFont;
+    this.clFontListMain = clFontListMain;
     this.etChooseFont = etChooseFont;
     this.myview = myview;
     this.rvChooseFontRecent = rvChooseFontRecent;

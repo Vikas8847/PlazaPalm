@@ -339,10 +339,7 @@ object CommonMethods {
     var deviceToken = ObservableField("test55")
     var email = VerifyData().email.toString()
 
-
     /***Fonts A to z**/
-
-
     var abrilFatFaceRegular = "fonts/abril_fatface_regular.otf"
     var academyEngravedLetPlain = "fonts/academy_engraved_letplain.ttf"
     var alexBrushRegular = "fonts/alex_brush_regular.ttf"
@@ -355,17 +352,132 @@ object CommonMethods {
     var amaticBold = "fonts/amatic_bold.ttf"
     var amaticSCRegular = "fonts/amatic_sc_regular.ttf"
     var antonioBold = "fonts/antonio_bold.ttf"
-    var antonioLight="fonts/antonio_light.ttf"
-    var antonioRegular="fonts/antonio_regular.ttf"
+    var antonioLight = "fonts/antonio_light.ttf"
+    var antonioRegular = "fonts/antonio_regular.ttf"
 
     /*B Type fonts*/
+    var BebasRegular = "fonts/bebas_regular.ttf"
+    var blackJack = "fonts/blackjack.ttf"
 
-    var BebasRegular="fonts/bebas_regular.ttf"
-    var blackJack="fonts/blackjack.oft"
-    var caviarDreams="fonts/caviar_dreams.ttf"
-    var caviarDreamsItalic="fonts/caviar_dreams_italic.ttf"
-    var chunkFivePrint="fonts/chunk_five_print.otf"
-    var chunkFiveRegular="fonts/chunk_five_regular.otf"
-    var cooperHewittBold="fonts/cooper_hewitt_bold.otf"
+    //C
+    var caviarDreams = "fonts/caviar_dreams.ttf"
+    var caviarDreamsItalic = "fonts/caviar_dreams_italic.ttf"
+    var chunkFivePrint = "fonts/chunk_five_print.otf"
+    var chunkFiveRegular = "fonts/chunk_five_regular.otf"
+    var cooperHewittBold = "fonts/cooper_hewitt_bold.otf"
+    var cooperHewittBoldItalic = "fonts/cooper_hewitt_bolditalic.otf"
+    var cooperHewittBook = "fonts/cooper_hewitt_book.otf"
+    var cooperHewittHeavy = "fonts/cooper_hewitt_Heavy.otf"
+    var dancingScriptRegular = "fonts/dancing_script_regular.otf"
+
+    //F
+    var fTusj = "fonts/fff_tusj.ttf"
+    var firaSansBold = "fonts/fira_sans_bold.otf"
+    var firaSansBoldItalic = "fonts/fira_sans_bold_italic.otf"
+    var firaSansBook = "fonts/fira_sans_book.otf"
+    var firaSansEight = "fonts/fira_sans_eight.otf"
+
+    //G
+    var greatVibesRegular = "fonts/great_vibes_regular.otf"
+
+    //H
+    var helloValentina = "fonts/hello_valentina.ttf"
+
+    //I
+    var interBlack = "fonts/inter_black.ttf"
+    var interBold = "fonts/inter_bold.ttf"
+    var interBoldItalic = "fonts/inter_bolditalic.ttf"
+    var interExtraBold = "fonts/inter_extrabold.ttf"
+
+    //J
+    var josefinBold = "fonts/josefin_sans_bold.ttf"
+    var josefinBoldItalic = "fonts/josefin_sans_bold_iItalic.ttf"
+    var josefinLight = "fonts/josefin_sans_light.ttf"
+    var josefinRegular = "fonts/josefin_sans_regular.ttf"
+    var josefiThin = "fonts/josefin_sans_thin.ttf"
+
+    //L
+    var latoBlack = "fonts/lato_black.ttf"
+    var latoBlackItalic = "fonts/lato_black_italic.ttf"
+    var latoBold = "fonts/lato_bold.ttf"
+    var latoBoldItalic = "fonts/lato_bold_Italic.ttf"
+    var latoHairLIneItalic = "fonts/lato_hair_line_Italic.ttf"
+
+    //m
+    var montSerratAlternatesBlack = "fonts/montserrat_alternates_black.otf"
+    var montSerratAlternatesBlackItalic = "fonts/montserrat_alternates_blackItalic.otf"
+    var montSerratAlternatesBold = "fonts/montserrat_alternates_bold.otf"
+
+    //N
+    var openSansBold = "fonts/opensans_bold.ttf"
+    var openSansBoldItalic = "fonts/opensans_bold_italic.ttf"
+    var openSansExtraBoldItalic = "fonts/opensans_extra_bold_italic.ttf"
+    var openSansItalic = "fonts/opensans_italic.ttf"
+    var openSansLight = "fonts/opensans_light.ttf"
+    var openSansRegular = "fonts/opensans_regular.ttf"
+    var openSansSemiBold = "fonts/opensans_semi_bold.ttf"
+    var openSansSemiBoldItalic = "fonts/opensans_semi_bold_italic.ttf"
+    var ostrichRegular = "fonts/ostrich_regular.ttf"
+    var ostrichSansBlack = "fonts/ostrichsans_black.otf"
+    var ostrichSansBold = "fonts/ostrichsans_bold.otf"
+    var ostrichSansHeavy = "fonts/ostrichsans_heavy.otf"
+    var ostrichSansLight = "fonts/ostrichsans_light.otf"
+    var ostrichSansMedium = "fonts/ostrichsans_medium.otf"
+    var ostrichSansRoundedMedium = "fonts/ostrichsansrounded_medium.otf"
+    var osWaldBold = "fonts/oswald_bold.ttf"
+    var osWaldBoldItalic = "fonts/oswald_bold_italic.ttf"
+    var osWaldSemiBoldItalic = "fonts/oswald_demi_bold_italic.ttf"
+
+    var playfairDisplayBlack = "fonts/playfair_display_black.otf"
+    var playfairDisplayBlackItalic = "fonts/playfair_display_black_italic.otf"
+    var playfairDisplayBold = "fonts/Playfair_display_bold.otf"
+
+    var poppinBlackItalic = "fonts/poppin_-black_italic.otf"
+    var poppinBlack = "fonts/poppins_black.otf"
+    var poppinBold = "fonts/poppins_bold.otf"
+    var poppinBoldItalic = "fonts/poppins_bold_italic.otf"
+    var poppinExtraBold = "fonts/poppins_extra_bold.otf"
+    var ptc55 = "fonts/ptc_55.ttf"
+    var ptc75F = "fonts/ptc_75f.ttf"
+
+    // Q
+    var quicksAndBold = "fonts/quicksand_bold.otf"
+    var quicksAndBoldItalic = "fonts/quicksand_bold_italic.otf"
+    var quicksDash = "fonts/quicksand_dash.otf"
+    var quicksAndItalic = "fonts/quicksand_italic.otf"
+    var quicksAndLight = "fonts/quicksand_light.otf"
+
+    //R
+    var raleWayBlack = "fonts/raleway_black.ttf"
+    var raleWayBlackItalic = "fonts/raleway_black_italic.ttf"
+    var raleWayBold = "fonts/raleway_bold.ttf"
+    var raleWayBoldItalic = "fonts/raleway_bold_italic.ttf"
+    var raleWayItalic = "fonts/raleway_italic.ttf"
+    var raleWayMedium = "fonts/raleway_medium.ttf"
+
+    //S
+    var seasRn = "fonts/seasrn.ttf"
+    var sofiaRegular = "fonts/sofia_regular.otf"
+    var sourceSansProBlackIt = "fonts/source_sans_pro_blackit.otf"
+    var sourceSansProBold = "fonts/source_sans_pro_bold.otf"
+    var sourceSansProExtraLight = "fonts/source_sans_pro_extra_light.otf"
+    var sourceSansProBlack = "fonts/source_sans_pro_extra_light_it.otf"
+
+    //T
+    var titiliumBold = "fonts/titillium_bold.otf"
+    var titiliumLight = "fonts/titillium_light.otf"
+    var titiliumRegular = "fonts/titillium_regular.otf"
+    var titiliumRegularItalic = "fonts/titillium_regular_italic.otf"
+    var titiliumSemiBold = "fonts/titillium_semi_bold.otf"
+
+    //W
+    const val walkwayBlack = "fonts/walkway_black.ttf"
+    const val walkwayBold = "fonts/walkway_bold.ttf"
+    const val walkwayOblique = "fonts/walkway_oblique.ttf"
+    const val walkwayObliqueBlack = "fonts/walkway_oblique_black.ttf"
+    const val walkwayObliqueBold = "fonts/walkway_oblique_bold.ttf"
+    const val walkwayObliqueSemiBold = "fonts/walkway_oblique_semi_bold.ttf"
+    const val windSong="fonts/windsong.ttf"
+
 
 }

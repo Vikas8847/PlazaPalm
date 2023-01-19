@@ -1880,6 +1880,10 @@
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_camera_icon_bg.png"
     },
     {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\layout_fragment_search_demo.xml.flat",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\fragment_search_demo.xml"
+    },
+    {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\merged_res\\debug\\drawable_roundimage.xml.flat",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\drawable\\roundimage.xml"
     },

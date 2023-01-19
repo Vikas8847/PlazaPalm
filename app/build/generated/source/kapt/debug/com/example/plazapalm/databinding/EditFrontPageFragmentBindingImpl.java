@@ -28,8 +28,6 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
         sViewsWithIds.put(R.id.btnEditFrontLookAttach, 15);
     }
     // views
-    @NonNull
-    private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
     // variables
     // values
     // listeners
@@ -45,6 +43,7 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
             , (androidx.appcompat.widget.AppCompatButton) bindings[3]
             , (androidx.appcompat.widget.AppCompatCheckBox) bindings[8]
             , (androidx.appcompat.widget.AppCompatCheckBox) bindings[6]
+            , (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[5]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
@@ -58,9 +57,8 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
             , (android.view.View) bindings[7]
             );
         this.btnEditFrontPageView.setTag(null);
+        this.clCoordinateEditCoverPage.setTag(null);
         this.ivAdvanceEditFrontPage.setTag(null);
-        this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
-        this.mboundView0.setTag(null);
         this.tvAdvanceEditFrontPageFontValue.setTag(null);
         setRootTag(root);
         // listeners

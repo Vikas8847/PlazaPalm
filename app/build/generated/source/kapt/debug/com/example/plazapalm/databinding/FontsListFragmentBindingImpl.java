@@ -16,36 +16,32 @@ public class FontsListFragmentBindingImpl extends FontsListFragmentBinding  {
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.tvChooseFont, 2);
         sViewsWithIds.put(R.id.tvChooseFontCancel, 3);
-        sViewsWithIds.put(R.id.clChooseFont, 4);
-        sViewsWithIds.put(R.id.etChooseFont, 5);
-        sViewsWithIds.put(R.id.myview, 6);
-        sViewsWithIds.put(R.id.tvChooseFontsRecent, 7);
-        sViewsWithIds.put(R.id.rvChooseFontRecent, 8);
+        sViewsWithIds.put(R.id.etChooseFont, 4);
+        sViewsWithIds.put(R.id.myview, 5);
+        sViewsWithIds.put(R.id.tvChooseFontsRecent, 6);
+        sViewsWithIds.put(R.id.rvChooseFontRecent, 7);
     }
     // views
-    @NonNull
-    private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
     // variables
     // values
     // listeners
     // Inverse Binding Event Handlers
 
     public FontsListFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
     }
     private FontsListFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
-            , (android.view.View) bindings[6]
-            , (androidx.recyclerview.widget.RecyclerView) bindings[8]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[0]
+            , (androidx.appcompat.widget.SearchView) bindings[4]
+            , (android.view.View) bindings[5]
+            , (androidx.recyclerview.widget.RecyclerView) bindings[7]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[7]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
             );
-        this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
-        this.mboundView0.setTag(null);
+        this.clFontListMain.setTag(null);
         this.rvChooseFonts.setTag(null);
         setRootTag(root);
         // listeners

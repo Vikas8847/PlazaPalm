@@ -228,7 +228,6 @@ class DashBoardVM @Inject constructor(
         body.put("lng", longi.get())
         body.put("search", search)
 
-
 //                idList.add("61d3f7356441e05580a169a7")
 //                idList.add("61d3f7e26441e05580a17e98")
 //                idList.add("61dfff4a5fc0f8aff4cf2a78")
@@ -266,16 +265,13 @@ class DashBoardVM @Inject constructor(
                     if (res.isSuccessful) {
                         if (res.body() != null) {
                             if (res.body()!!.status == 200) {
-
                                 adapter.addItems(res.body()?.data!!)
                                 adapter.notifyDataSetChanged()
                                 Log.d("DashBoardResponse->", res.body()!!.data.toString())
-
                                 for (i in 0 until res.body()!!.data.size) {
                                     destinationLat.set(adapter.getAllItems()[i].lat!!)
                                     destinationLong.set(adapter.getAllItems()[i].long!!)
                                 }
-
                                 Log.e(
                                     "SDSDS",
                                     destinationLat.get()
@@ -353,15 +349,13 @@ class DashBoardVM @Inject constructor(
                 override fun onError(message: String) {
                     super.onError(message)
                     Log.e("sdsdsd3", message)
-//                    CommonMethods.showToast(context, message)
                 }
             }
         )
     }
 
     fun calculateLatLngToMiles() {
-        val latLngA =
-            LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
+        val latLngA = LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
         val latLngB = LatLng(destinationLat.get(), destinationLong.get())
         val locationA = Location("Point A")
         locationA.latitude = latLngA.latitude
@@ -376,6 +370,7 @@ class DashBoardVM @Inject constructor(
 //        distanceCal.set(distance.get().toString())
         userMiles.set(distance.get().toString().split(".")[0])
     }
+
     private fun showFavDetailsDialog(view: View, isfav: Boolean) {
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()

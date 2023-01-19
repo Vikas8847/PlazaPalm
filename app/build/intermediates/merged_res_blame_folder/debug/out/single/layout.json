@@ -140,6 +140,10 @@
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\booking_details_fragment.xml"
     },
     {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_search_demo.xml",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\fragment_search_demo.xml"
+    },
+    {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\terms_use_fragment.xml",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\terms_use_fragment.xml"
     },

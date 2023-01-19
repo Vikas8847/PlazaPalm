@@ -9,26 +9,24 @@ import androidx.fragment.app.viewModels
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.EditFrontPageFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
-
     private var binding: EditFrontPageFragmentBinding? = null
     private val viewModel: EditFrontPageVM by viewModels()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = EditFrontPageFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
         return binding?.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
+
+        binding!!.clCoordinateEditCoverPage.setOnClickListener {
+            CommonMethods.context.hideKeyboard()
+        }
     }
-
-
 }

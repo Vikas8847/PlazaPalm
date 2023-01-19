@@ -330,9 +330,9 @@ id clCategoriesList
 id clCategoriesListSearch
 id clChangePassMain
 id clChatSendMessage
-id clChooseFont
 id clConfirmPass
 id clContactUs
+id clCoordinateEditCoverPage
 id clCurrentMail
 id clCurrentPass
 id clDashBoardListSearch
@@ -350,6 +350,7 @@ id clFavItemMain
 id clFavOfDesc2
 id clFavOfDesc3
 id clFilterSecond
+id clFontListMain
 id clForgotMain
 id clForgotPassEmail
 id clHeaderLocation
@@ -1018,6 +1019,7 @@ layout fragment_details_categeroy
 layout fragment_open_categeroy
 layout fragment_report_choose_option
 layout fragment_report_choose_option_items
+layout fragment_search_demo
 layout fragment_select_category
 layout login_fragment
 layout logout_alert
