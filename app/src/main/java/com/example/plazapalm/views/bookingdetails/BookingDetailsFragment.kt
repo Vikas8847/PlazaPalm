@@ -63,6 +63,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
 
                     }else{
+
                         viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
                     }
 

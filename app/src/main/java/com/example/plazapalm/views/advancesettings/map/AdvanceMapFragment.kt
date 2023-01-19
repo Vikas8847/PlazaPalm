@@ -80,7 +80,6 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
         mapFragment = SupportMapFragment()
         CommonMethods.statusBar(true)
         setApiData()
-
         onClicks()
         workmanager()
         return binding?.root

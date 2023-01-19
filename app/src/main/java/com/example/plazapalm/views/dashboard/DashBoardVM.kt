@@ -76,6 +76,7 @@ class DashBoardVM @Inject constructor(
     var isDataVisible = ObservableBoolean(false)
     var isFav = ObservableBoolean(false)
     var isNodatafound = ObservableBoolean(false)
+    var isNodatafoundqw = ObservableField("Khem")
     var distanceCal = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
     val distance = ObservableField("")
@@ -293,6 +294,7 @@ class DashBoardVM @Inject constructor(
                         idList,
                         1,
                         500,
+
                         pref.retvieLatlong("lati").toDouble(),
                         pref.retvieLatlong("longi").toDouble(),
                         search,

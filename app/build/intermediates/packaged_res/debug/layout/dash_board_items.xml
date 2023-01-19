@@ -96,10 +96,11 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/ic_heart_icon"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:tag="binding_4"                                                                        
+                                                                                                                      
                 app:layout_constraintTop_toTopOf="@id/tvDashBoardItemName" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -110,7 +111,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:maxLines="2"
                 android:singleLine="true"
-                android:tag="binding_4"                 
+                android:tag="binding_5"                 
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@id/tvDashBoardItemLocation"
@@ -126,23 +127,25 @@
                 android:fontFamily="@font/inter_medium"
                 android:gravity="start"
                 android:singleLine="true"
-                android:tag="binding_5"              
+                android:tag="binding_6"        
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tool:text="Los Angeles, CA" />
 
-       <!--     //                 android:text="@={vm.distanceCal}"-->
+            <!--     //
+                  android:text="@{vm.distance}"
+        -->
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tvDashBoardItemDistance"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="end"
-android:tag="binding_6"       
+                android:tag="binding_7"       
                 android:singleLine="true"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/white"
@@ -150,7 +153,7 @@ android:tag="binding_6"
                 android:layout_marginBottom="@dimen/_5sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tool:text="25 mi" />
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

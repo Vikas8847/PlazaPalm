@@ -191,6 +191,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/vBookingDetails" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCateName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:paddingVertical="@dimen/_1sdp"
+                    android:tag="binding_8"          
+                    android:textColor="@color/tool_bar_black_color"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvBookingStatus" />
+
+
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivFavDetailsOptions"
@@ -198,7 +215,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:tag="binding_8"          
+                    android:tag="binding_9"          
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_chat_icon_gay"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -218,7 +235,7 @@
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvBookingStatus" />
+                    app:layout_constraintTop_toBottomOf="@id/tvCateName" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -228,7 +245,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
-                    android:tag="binding_9"      
+                    android:tag="binding_10"     
                     tools:text="Chandigarh CH"
                     android:textColor="@color/light_gray"
                     android:textSize="14sp"
@@ -259,7 +276,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     tools:text="Hhh"
-                    android:tag="binding_10"        
+                    android:tag="binding_11"        
                     android:textColor="@color/light_gray"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -275,7 +292,7 @@
                     android:layout_marginEnd="@dimen/_12sdp"
                     android:background="@drawable/ic_red_button_bg"
                     android:gravity="center_horizontal"
-                    android:tag="binding_11"         
+                    android:tag="binding_12"         
                     android:paddingHorizontal="@dimen/_5sdp"
                     android:paddingVertical="@dimen/_9sdp"
                     android:paddingBottom="@dimen/_1sdp"

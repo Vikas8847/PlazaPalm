@@ -25,21 +25,36 @@
             android:layout_marginBottom="@dimen/_4sdp"
             android:elevation="@dimen/_4sdp"
             android:scaleType="centerCrop"
+            android:visibility="visible"
             android:src="@drawable/chat_user_girl"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivVideoIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_play_icon"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/remove_image"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
             android:elevation="@dimen/_4sdp"
             android:visibility="visible"
             android:scaleType="centerCrop"
             android:src="@drawable/media_remove_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
          
