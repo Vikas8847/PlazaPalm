@@ -22,7 +22,7 @@ data class ProfileCateData(
     val frontpage_bottom_text: String?="",
     val frontpage_top_text: String?="",
     val isAddedToCalender: Boolean?=false,
-    val isFavourite: Boolean?=false,
+    var isFavourite: Boolean?=false,
     val isPremium: Int?=0,
     val is_bottom_selected: Boolean?=false,
     val is_top_selected: Boolean?=false,

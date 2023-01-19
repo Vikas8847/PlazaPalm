@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
+import com.example.plazapalm.models.AddFavPostProfileResponse
 import com.example.plazapalm.models.FavData
 import com.example.plazapalm.models.GetFavResponse
+import com.example.plazapalm.models.ProfileCateData
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
 import com.example.plazapalm.networkcalls.Repository
@@ -36,7 +38,6 @@ class FavouritesVM @Inject constructor(
     var isFavorite = Bundle()
     var noData = ObservableBoolean(false)
 
-
     fun onClicks(view: View) {
         when (view.id) {
             R.id.ivFavBackBtn -> {
@@ -54,12 +55,20 @@ class FavouritesVM @Inject constructor(
             when (type) {
                 "favDetailsItem" -> {
 
+                   /* isFavorite.putBoolean("booking_status",
+                        favAdapter.getAllItems()[position].booking_status!!)*/
+
                     isFavorite.putString("comingFrom", "isFavorite")
                     isFavorite.putInt("pos", position)
                     view.navigateWithId(
                         R.id.action_favouritesFragment_to_favDetailsFragment,
                         isFavorite
                     )
+                }
+                "favDetailsItem_heart"->{
+                    //For click on heart icon
+                    AddtoFavAPI(favAdapter.getAllItems()[position].p_id.toString(),
+                        position)
                 }
             }
         }
@@ -123,6 +132,57 @@ class FavouritesVM @Inject constructor(
 
     private fun data(body: ArrayList<FavData>?) {
 
+    }
+
+
+    private fun AddtoFavAPI(pIdValue: String, position: Int, ) {
+
+        Log.e("SADFddddddddddddd==", pIdValue)
+
+        repository.makeCall(
+            apiKey = ApiEnums.REMOVE_FAV,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<AddFavPostProfileResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<AddFavPostProfileResponse> {
+                    return retrofitApi.addtoFav(
+                        preferenceFile.retrieveKey("token").toString(),
+                        pIdValue,
+                        false
+                    )
+                }
+
+                override fun onResponse(res: Response<AddFavPostProfileResponse>) {
+                    Log.e("QWQQWWSSS", res.body().toString())
+
+                    if (res.isSuccessful || res != null) {
+                        if (res.body()!!.status == 200) {
+                           // dialog?.dismiss()
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                            CommonMethods.context.runOnUiThread {
+                                favAdapter.getAllItems().removeAt(position)
+                                favAdapter.notifyDataSetChanged()
+
+                                if(favAdapter.getAllItems().size==0)
+                                {
+                                    noData.set(true)
+                                }
+                            }
+                        } else {
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                res.body()?.message.toString()
+                            )
+                        }
+                    } else {
+                        CommonMethods.showToast(CommonMethods.context, res.message())
+                    }
+
+                }
+
+            }
+        )
     }
 
 }

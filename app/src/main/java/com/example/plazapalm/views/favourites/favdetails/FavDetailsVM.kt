@@ -350,7 +350,6 @@ init {
 //                        isFav.get()
                     )
                 }
-
                 override fun onResponse(res: Response<AddFavPostProfileResponse>) {
                     Log.e("QWQQWWSSS", res.body().toString())
 
@@ -568,6 +567,7 @@ init {
             /**RePort Button Click**/
             dialog?.findViewById<AppCompatTextView>(R.id.tv_delete_profile)
                 ?.setOnClickListener {
+                    dialog?.dismiss()
                     deletePostProfileDialog(view)
                 }
             /*** Cancel Button Clicks **/
@@ -604,7 +604,7 @@ init {
         /*** Cancel Button Clicks **/
         deldialog?.findViewById<AppCompatTextView>(R.id.tvFavDetailsCancel)
             ?.setOnClickListener {
-                dialog?.dismiss()
+            //    dialog?.dismiss()
                 deldialog?.dismiss()
             }
 //            }
@@ -637,7 +637,7 @@ init {
                                 Log.e("QWQAAAZZZ", res.body().toString())
                                 CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
                                 view.navigateBack()
-                                dialog?.dismiss()
+                              //  dialog?.dismiss()
                                 deldialog?.dismiss()
 
 //                                view.findNavController().previousBackStackEntry?.savedStateHandle?.set("changeStatus", false)

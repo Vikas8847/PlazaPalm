@@ -9,6 +9,7 @@ import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -24,13 +25,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.plazapalm.BuildConfig
+import com.example.plazapalm.MainActivity.Companion.activity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.PicturesFragmentBinding
-import com.example.plazapalm.datastore.ADD_PHOTO_URI
-import com.example.plazapalm.models.AddPhoto
 import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.hideProgress
+import com.example.plazapalm.utils.showProgress
 import com.google.zxing.integration.android.IntentIntegrator
+import com.iceteck.silicompressorr.SiliCompressor
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -39,9 +42,11 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
+import java.net.URISyntaxException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListener {
@@ -61,7 +66,7 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
     lateinit var repository: Repository
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = PicturesFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
@@ -191,10 +196,16 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
                 var filemanagerstring = selectedImageUri!!.path
                 var selectedImagePath = getVideoPathFromGallery(selectedImageUri)
 
-                viewModel.UploadMediaMethod(File(selectedImagePath).absolutePath,2)
-              /*  newPhotoList.add(pos!!, AddPhoto(File(selectedImagePath)!!.absolutePath, false,2))
-                addPhotosAdapter.updateList(newPhotoList, pos!!)*/
-                //  getVideoPathFromGallery(selectedImagePath)
+
+                val file = File(
+                    Environment.getExternalStorageDirectory()
+                        .absolutePath)
+
+                CompressVideo(viewModel,requireActivity()).execute(
+                    "false", selectedImageUri.toString(), file.absolutePath)
+
+              //  viewModel.UploadMediaMethod(File(selectedImagePath).absolutePath,2)
+
             }
     }
 
@@ -377,4 +388,40 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
 
     }
 
+
+    private class CompressVideo(var viewModel: PicturesVM,var context: Activity) :
+        AsyncTask<String?, String?, String?>() {
+        // Initialize dialog
+        var dialog: Dialog? = null
+        override fun onPreExecute() {
+            super.onPreExecute()
+            // Display dialog
+            context.showProgress()
+        }
+
+        protected override fun doInBackground(vararg params: String?): String? {
+            // Initialize video path
+            var videoPath: String? = null
+            try {
+                // Initialize uri
+                val uri = Uri.parse(params[1])
+                // Compress video
+                videoPath = SiliCompressor.with(context)
+                    .compressVideo(uri, params[2])
+            } catch (e: URISyntaxException) {
+                e.printStackTrace()
+            }
+            // Return Video path
+            return videoPath
+        }
+
+        override fun onPostExecute(s: String?) {
+            super.onPostExecute(s)
+            // Dismiss dialog
+            //dialog!!.dismiss()
+            Log.e("sfms,fnmqefqfwfwfwf===",s.toString())
+            hideProgress()
+            viewModel.UploadMediaMethod(File(s).absolutePath,2)
+        }
+    }
 }
