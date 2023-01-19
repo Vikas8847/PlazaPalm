@@ -101,6 +101,7 @@ object BindingAdapters {
     ) {
         textView.setTextColor(textView.context.getColor(color))
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     @BindingAdapter(value = ["setText"], requireAll = false)
     @JvmStatic
@@ -108,8 +109,30 @@ object BindingAdapters {
         textView: TextView,
         value : String
     ) {
-        textView.text =value
+        val split = value?.split("T")
+        val date  = split?.get(0)
+        textView.text = date
+        Log.e("QOWIEWww",date.toString())
     }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter(value = ["setTextVisibilty"], requireAll = false)
+    @JvmStatic
+    fun setTextVisibilty(
+        textView: TextView,
+        value : String
+    ) {
+
+       if(value.equals(true)){
+           textView.text = " "
+           textView.visibility = View.VISIBLE
+       }else{
+           textView.text = "No Data Found"
+           textView.visibility = View.VISIBLE
+       }
+
+    }
+
     @BindingAdapter(value = ["onCheckChange"], requireAll = false)
     @JvmStatic
     fun onCheckChange(
@@ -120,7 +143,7 @@ object BindingAdapters {
     }
 
     @SuppressLint("CheckResult")
-    @BindingAdapter(value = ["setCircleImage"], requireAll = false)
+    @BindingAdapter(value = ["setCircleImage"] , requireAll = false)
     @JvmStatic
     fun setCircleImage(
         circleImage: CircleImageView,

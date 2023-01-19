@@ -26,7 +26,7 @@ class FilterFragmentVM @Inject constructor(
     private var pref: PreferenceFile
 ) : ViewModel() {
     var miles = ObservableField("")
-    var location = ObservableField("Mohali PB")
+    var location = ObservableField("")
     var long = ObservableField("")
     var lat = ObservableField("")
 
@@ -38,7 +38,7 @@ class FilterFragmentVM @Inject constructor(
 
         if (pref.retrieveLocation()!=null){
             location.set(pref.retrieveLocation())
-            Log.e("SSSSSWWWQQQ0", pref.retrieveLocation().toString())
+            Log.e("SSSSSWWWQQQ0", location.get().toString())
         }
 
 //        filterAdapter.addItems(filterDataList)

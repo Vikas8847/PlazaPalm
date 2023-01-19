@@ -25,9 +25,11 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = CalendarFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(false)
         return binding?.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

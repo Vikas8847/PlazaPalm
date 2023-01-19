@@ -80,7 +80,7 @@ class OpenCategeroyViewModel @Inject constructor(
         body.put("long", longitude.get())
         // body.put("long", "76.7179")
         body.put("offset", page.get()!!)
-        body.put("limit", 10)
+        body.put("limit", 100)
         body.put("search=", searchText.get())
 
         Log.e(

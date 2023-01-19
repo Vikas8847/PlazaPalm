@@ -25,6 +25,14 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp"
                 android:background="@color/white">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -33,10 +41,10 @@
                     android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="start"
                     android:tag="binding_1"          
-                    android:paddingStart="@dimen/_3sdp"
+                    android:paddingStart="@dimen/_5sdp"
                     android:paddingTop="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_5sdp"
-                    android:paddingBottom="@dimen/_3sdp"
+                    android:paddingBottom="@dimen/_5sdp"
                     android:src="@drawable/ic_back_arrow_button"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -112,7 +120,7 @@
                             android:elevation="@dimen/_5sdp"
                             android:tag="binding_3"          
                             android:paddingHorizontal="@dimen/_15sdp"
-                            android:paddingVertical="@dimen/_8sdp"
+                            android:paddingVertical="@dimen/_10sdp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/gLineAddImages">
 
@@ -608,6 +616,36 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvVEditProExpiryDate" />
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvAllowBooking"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/inter_medium"
+                            android:paddingHorizontal="@dimen/_5sdp"
+                            android:text="Allow Booking ?"
+                            android:textColor="@color/forgot_pass"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@id/switchAllowBooking"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/etVEditProExpiryDate" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchAllowBooking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:fontFamily="@font/inter_medium"
+                            android:textSize="14sp"
+                            android:tag="binding_16"         
+                                                                           
+                            android:thumb="@drawable/custom_thumb"
+                            app:layout_constraintBottom_toBottomOf="@id/tvAllowBooking"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvAllowBooking"
+                            app:track="@drawable/custom_track" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.core.widget.NestedScrollView>
@@ -623,7 +661,7 @@
                 android:background="@drawable/ic_bluemix_button_bg"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center"
-                android:tag="binding_16"         
+                android:tag="binding_17"         
                 android:paddingBottom="@dimen/_1sdp"
                                               
                 android:textAllCaps="false"

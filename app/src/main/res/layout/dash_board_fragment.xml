@@ -146,9 +146,17 @@
                 tools:layout_editor_absoluteX="-4dp"
                 tools:listitem="@layout/dash_board_items" />
 
+            <!-- android:visibility="@{vm.isNodatafound ? View.GONE   : View.VISIBLE}"
+                android:text="@{vm.isNodatafound ? @string/space  : @string/nodata_found}"\
+
+                                setTextVisibilty="@{vm.isNodatafoundqw}"
+
+                -->
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/nodata_found"
                 android:layout_width="match_parent"
+                android:visibility="@{vm.isNodatafound ? View.GONE   : View.VISIBLE}"
                 android:text="@{vm.isNodatafound ? @string/space  : @string/nodata_found}"
                 android:textSize="@dimen/_16sdp"
                 android:gravity="center"

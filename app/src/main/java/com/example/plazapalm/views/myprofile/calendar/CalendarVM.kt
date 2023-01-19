@@ -165,8 +165,10 @@ class CalendarVM @Inject constructor(
                                         )
 
                                     }
+
                                     "deleteConfirmBooking" -> {
                                         /** Delete Booking */
+
                                         deleteBooking()
                                     }
                                 }

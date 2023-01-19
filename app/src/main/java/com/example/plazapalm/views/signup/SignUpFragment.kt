@@ -22,15 +22,19 @@ class SignUpFragment : Fragment(R.layout.signup_fragment) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
+
         binding = SignupFragmentBinding.inflate(layoutInflater)
         return binding?.root
+
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
-
     }
+
     override fun onResume() {
         super.onResume()
         CommonMethods.statusBar(false)

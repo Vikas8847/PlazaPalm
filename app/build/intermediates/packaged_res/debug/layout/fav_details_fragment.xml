@@ -10,7 +10,9 @@
                  
                      
                                                                                     
-
+                 
+                       
+                                       
            
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -97,14 +99,37 @@
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/ivFavDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:background="@color/black"
-                        android:scaleType="matrix"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         android:src="@drawable/electrician_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="MissingConstraints" />
+
+                    <VideoView
+                        android:id="@+id/videoViewDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivVideoIconDetails"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:src="@drawable/ic_play_icon"
+                        android:visibility="visible"
+                        android:layout_gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivFavDetailsEmptyHeart"
@@ -118,7 +143,6 @@
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <View
                         android:id="@+id/top_view"
                         android:layout_width="match_parent"
@@ -210,9 +234,6 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:layout_constraintTop_toBottomOf="@+id/clFavDetails">
 
-                    // android:src="@{vm.selectImage ? @drawable/ic_like_icon :
-                    @drawable/like_unfilled_image}"
-                    // android:src="@drawable/like_unfilled_image"
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivFavDetailsLike"
@@ -241,9 +262,7 @@
                         app:layout_constraintStart_toEndOf="@id/ivFavDetailsLike"
                         app:layout_constraintTop_toTopOf="@id/ivFavDetailsLike" />
 
-                    // android:src="@{vm.selectImage ? @drawable/ic_thumbs_down :
-                    @drawable/ic_thumbs_down}"
-                    // android:src="@drawable/ic_thumbs_down"
+
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivFavDetailsDislike"
@@ -279,7 +298,7 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:padding="@dimen/_5sdp"
                         android:src="@drawable/ic_heart_icon"
-                        android:visibility="gone"
+                        android:tag="binding_12"                                                   
                         app:layout_constraintStart_toEndOf="@id/tvFavDetailsDisLikeCount"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -291,10 +310,11 @@
                         android:layout_marginStart="@dimen/_5sdp"
                         android:fontFamily="@font/inter_medium"
                         android:paddingVertical="@dimen/_1sdp"
-                        android:text="0"
-                        android:textColor="@color/tool_bar_black_color"
+                        android:tag="binding_13"                  
+
                         android:textSize="13sp"
-                        android:visibility="gone"
+                                                                                                   
+
                         app:layout_constraintBottom_toBottomOf="@id/ivFavDetailsDislike"
                         app:layout_constraintStart_toEndOf="@id/ivFavTotalLikedCounts"
                         app:layout_constraintTop_toTopOf="@id/ivFavDetailsDislike" />
@@ -306,7 +326,7 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:tag="binding_12"         
+                        android:tag="binding_14"         
                         android:src="@drawable/ic_dark_blue_chat_icon"
                         app:layout_constraintBottom_toBottomOf="@id/ivFavDetailsLike"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -322,7 +342,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:tag="binding_13"      
+                    android:tag="binding_15"      
                     android:textColor="@color/light_black"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -338,7 +358,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvFavDetailsName">
                     <!--layout Description 1-->
 
-                    // description 1
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clVEditProDescription"
@@ -385,9 +404,6 @@
                     </androidx.cardview.widget.CardView>
 
 
-                    <!--layout Description 2-->
-
-                    //// visibility = gone
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clFavOfDesc2"
@@ -414,7 +430,7 @@
                     <!--Recycler View (Videos ) -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvVideos"
-                        android:tag="binding_14"                
+                        android:tag="binding_16"                
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -440,7 +456,7 @@
                         tools:layout_editor_absoluteX="13dp"
                         tools:listitem="@layout/view_profile_images_list" />
 
-                    /// 3 des...
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clFavOfDesc3"
@@ -502,7 +518,7 @@
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:background="@drawable/ic_bluemix_button_bg"
                         android:gravity="center"
-                        android:tag="binding_15"         
+                        android:tag="binding_17"         
                         android:paddingBottom="@dimen/_1sdp"
                         android:text="Book"
                         android:textAllCaps="false"

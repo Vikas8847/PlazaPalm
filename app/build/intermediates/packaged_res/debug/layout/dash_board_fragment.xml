@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center"
-                android:text="@string/deserts_and_drinks"
+                android:tag="binding_2"   
                 android:textColor="@color/tool_bar_black_color"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
                 android:id="@+id/ivDashBoardFilter"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:tag="binding_2"          
+                android:tag="binding_3"          
                 android:src="@drawable/filter_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
                 android:gravity="center_vertical"
                 android:theme="@style/WallSearchView"
                 android:hint="Search"
-                android:tag="binding_3"          
+                android:tag="binding_4"          
                                                                              
                 android:paddingStart="@dimen/_10sdp"
                 android:singleLine="true"
@@ -127,9 +127,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_height="wrap_content"/>
 
+            <!--                android:visibility="@{vm.isNodatafound ? View.GONE : View.VISIBLE}"
+-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDashBoard"
-                android:tag="binding_4"           
+                android:tag="binding_5"           
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
@@ -138,13 +140,29 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
+                                                                                    
                 app:spanCount="2"
                 tools:itemCount="12"
                 tools:layout_editor_absoluteX="-4dp"
-                tools:listitem="@layout/dash_board_items"
-                />
+                tools:listitem="@layout/dash_board_items" />
 
+            <!-- android:visibility="@{vm.isNodatafound ? View.GONE   : View.VISIBLE}"
+                android:text="@{vm.isNodatafound ? @string/space  : @string/nodata_found}"\
+
+                                setTextVisibilty="@{vm.isNodatafoundqw}"
+
+                -->
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nodata_found"
+                android:layout_width="match_parent"
+                android:tag="binding_6"                                              
+                                                                                          
+                android:textSize="@dimen/_16sdp"
+                android:gravity="center"
+                android:layout_height="match_parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
          
