@@ -47,6 +47,7 @@ import javax.inject.Inject
 class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback,
     LocationSource.OnLocationChangedListener {
 
+    private var loginUserPId: String?=""
     private var loginUserId: String?=""
     private var longi: Double? = null
     private var lati: Double? = null
@@ -152,7 +153,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
             viewModel.u_ID.set(it?.data?.user_id)
 
-            val p_id = it?.data?.p_id
+            loginUserPId = it?.data?.p_id
 
             Log.e("SDASDASDASDASdas", it.toString())
 
@@ -217,6 +218,26 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         data.get(pos).postProfile_picture as ArrayList<String>
                     setFavdata(pos, data, image)
 
+                    Log.e("kgvnsngsgggg===",loginUserPId.toString())
+                    Log.e("kgvnsngsgggg11===",data[pos].p_id.toString())
+                    if(!(loginUserPId.toString().equals(data[pos].p_id))){
+                        if(data[pos].booking_status!!)
+                        {
+                            binding!!.btnBookingProfile.visibility = View.VISIBLE
+                            Log.e("kgvnsngsgggg22===",viewModel.u_ID.get().toString())
+                        }else
+                        {
+                            Log.e("kgvnsngsgggg33===",viewModel.u_ID.get().toString())
+                            binding!!.btnBookingProfile.visibility = View.GONE
+                        }
+                    }else
+                    {
+                        Log.e("kgvnsngsgggg44===",viewModel.u_ID.get().toString())
+                        binding!!.btnBookingProfile.visibility = View.GONE
+                    }
+
+
+
                     Log.e(
                         "VVBBBB",
                         image.toString() + "  ---pos---  " + pos.toString() + data.toString() + "  ---pos---  "
@@ -242,7 +263,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 //                    val _p_id = arguments?.getString("P_ID")
                     viewModel.p_id.set(arguments?.getString("P_ID"))
                     viewModel.CommingFrom.set("isViewProfile")
-                    binding!!.btnBookingProfile.visibility = View.GONE
+                   binding!!.btnBookingProfile.visibility = View.GONE
+                  //  viewModel.tvAllowBooking.set(false)
                     getPostprofile(
                         viewModel.p_id.get().toString()!!,
                         pref.retvieLatlong("lati").toDouble(),
@@ -256,7 +278,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     /** isEditLook and isViewProfile is same no difference... */
 
                     viewModel.CommingFrom.set("isViewProfile")
-                    binding!!.btnBookingProfile.visibility = View.GONE
+                   binding!!.btnBookingProfile.visibility = View.GONE
+                  //  viewModel.tvAllowBooking.set(false)
                     premiumAccount()
                     viewEditLook()
 
@@ -277,7 +300,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     /** isBookingDetailsFragment and isViewProfile is same no difference... */
 Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
                     viewModel.CommingFrom.set("isViewProfile")
-                    binding!!.btnBookingProfile.visibility = View.VISIBLE
+
+
 //                    val userPostProfileId = requireArguments().get("userPostProfileId").toString()
                     viewModel.p_id.set(requireArguments().get("userPostProfileId").toString())
 
@@ -357,8 +381,6 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
     }
 
 
-
-
     fun setFirstMediaMethod(imageValue: String)
     {
         if(imageValue.contains(".png")
@@ -374,14 +396,12 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
             binding!!.ivVideoIconDetails.visibility=View.GONE
         }else{
             binding!!.ivFavDetails.visibility=View.GONE
-
             binding!!.videoViewDetail.visibility=View.VISIBLE
             binding!!.ivVideoIconDetails.visibility=View.VISIBLE
                     var activity=requireActivity() as Activity
             activity.setVideoPlayMethod(binding!!.videoViewDetail,IMAGE_LOAD_URL + imageValue,binding!!.ivVideoIconDetails)
         }
     }
-
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -515,14 +535,21 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
                                 viewModel.tvFavouriteCountValue.set(res.body()!!.data.favouriteCount.toString())
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
 
-                                Log.e("userIddddd====",viewModel.u_ID.get().toString().toString())
-                                Log.e("userIddddd111====",res.body()!!.data.user_id.toString())
+                                Log.e("userIddddd====",loginUserPId.toString())
+                                Log.e("userIddddd111====",res.body()!!.data._id.toString())
 
-                                if(!(viewModel.u_ID.get().toString().equals(res.body()!!.data.user_id))){
+                                if(!(loginUserPId.toString().equals(res.body()!!.data._id))){
                                     viewModel.checkFavouriteShow.set(0)
+
+                                    if(res.body()!!.data.booking_status!!){
+                                        binding!!.btnBookingProfile.visibility = View.VISIBLE
+                                    }else
+                                    {    binding!!.btnBookingProfile.visibility = View.GONE
+                                    }
                                 }else
                                 {
                                     viewModel.checkFavouriteShow.set(1)
+                                    binding!!.btnBookingProfile.visibility = View.GONE
                                 }
 
                                 if (viewModel.isFav.get()) {

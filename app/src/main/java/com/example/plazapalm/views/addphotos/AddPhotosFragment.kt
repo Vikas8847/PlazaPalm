@@ -1,7 +1,6 @@
 package com.example.plazapalm.views.addphotos
 
 import android.Manifest
-import android.R.attr
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
@@ -11,6 +10,7 @@ import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -43,9 +43,12 @@ import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.hideProgress
+import com.example.plazapalm.utils.showProgress
 import com.example.plazapalm.views.addphotos.adapter.AddPhotosAdapter
 import com.google.gson.Gson
 import com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE
+import com.iceteck.silicompressorr.SiliCompressor
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -59,6 +62,7 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import java.io.File
 import java.io.IOException
+import java.net.URISyntaxException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -235,9 +239,8 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
         pos = position
         when (type) {
             CommonMethods.context.getString(R.string.add_photo_type) -> {
-              //  showChooseOptionAccountDialog()
-                showVideoPhotoDialog()
-               // showChooseOptionAccountDialog()
+             // showVideoPhotoDialog()
+               showChooseOptionAccountDialog()
             }
         }
     }
@@ -334,12 +337,64 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
            var filemanagerstring = selectedImageUri!!.path
            var selectedImagePath = getVideoPathFromGallery(selectedImageUri)
             Log.e("fnknfsnefksef11111===",File(selectedImagePath)!!.absolutePath.toString())
-            newPhotoList.add(pos!!, AddPhoto(File(selectedImagePath)!!.absolutePath, false,2))
-            addPhotosAdapter.updateList(newPhotoList, pos!!)
+         /*   newPhotoList.add(pos!!, AddPhoto(File(selectedImagePath)!!.absolutePath, false,2))
+            addPhotosAdapter.updateList(newPhotoList, pos!!)*/
+
+
+            val file = File(
+                Environment.getExternalStorageDirectory()
+                    .absolutePath)
+
+            CompressVideo(requireActivity(),newPhotoList,pos!!,addPhotosAdapter).execute(
+                "false", selectedImageUri.toString(), file.absolutePath)
+
           //  getVideoPathFromGallery(selectedImagePath)
         }
     }
 
+
+    private class CompressVideo(
+        var context: Activity, var newPhotoList: ArrayList<AddPhoto>,
+        var pos: Int,
+        var addPhotosAdapter: AddPhotosAdapter
+    ) :
+        AsyncTask<String?, String?, String?>() {
+        // Initialize dialog
+        var dialog: Dialog? = null
+        override fun onPreExecute() {
+            super.onPreExecute()
+            // Display dialog
+            context.showProgress()
+        }
+
+        protected override fun doInBackground(vararg params: String?): String? {
+            // Initialize video path
+            var videoPath: String? = null
+            try {
+                // Initialize uri
+                val uri = Uri.parse(params[1])
+                // Compress video
+                videoPath = SiliCompressor.with(context)
+                    .compressVideo(uri, params[2])
+            } catch (e: URISyntaxException) {
+                e.printStackTrace()
+            }
+            // Return Video path
+            return videoPath
+        }
+
+        override fun onPostExecute(path: String?) {
+            super.onPostExecute(path)
+            // Dismiss dialog
+            //dialog!!.dismiss()
+            Log.e("sfms,fnmqefqfwfwfwf===",path.toString())
+            hideProgress()
+
+            newPhotoList.add(pos!!, AddPhoto(File(path)!!.absolutePath, false,2))
+            addPhotosAdapter.updateList(newPhotoList, pos!!)
+
+        }
+    }
 
 
     /**

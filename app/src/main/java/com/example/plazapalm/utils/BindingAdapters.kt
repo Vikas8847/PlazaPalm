@@ -317,7 +317,10 @@ object BindingAdapters {
     @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
     @JvmStatic
     fun calculateLatLngToMiles(destinationTV : TextView, viewModel: DashBoardVM?) {
-        val latLngA = LatLng(30.7046, 76.7179)
+       // destinationTV.text = "ddsssss"
+        var latValue1="30.7046"
+        var lngValue1="76.7179"
+        val latLngA = LatLng(latValue1.toDouble(), lngValue1.toDouble())
         val latLngB = LatLng(viewModel!!.destinationLat.get(), viewModel!!.destinationLong.get())
         val locationA = Location("Point A")
         locationA.latitude = latLngA.latitude
@@ -329,8 +332,9 @@ object BindingAdapters {
         var distance= locationA.distanceTo(locationB).toDouble().toString()
         Handler().postDelayed(object : Runnable {
             override fun run() {
-                destinationTV.text = distance.split(".")[0].toString()
-                destinationTV.requestFocus()
+                destinationTV.text = distance+" Miles"
+             //   destinationTV.text = "dddd"
+                destinationTV.requestLayout()
             }
         },1000)
 
@@ -342,5 +346,15 @@ object BindingAdapters {
       //  userMiles.set( distance.get().toString().split(".")[0])
 
 
+    }
+
+
+    @BindingAdapter(value = ["setMiles"], requireAll = false)
+    @JvmStatic
+    fun setMiles(
+        textView: AppCompatTextView,
+        value : String
+    ) {
+        textView.text =value.split(".")[0]+" Miles"
     }
 }

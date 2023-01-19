@@ -52,14 +52,15 @@ import javax.inject.Inject
 class DashBoardVM @Inject constructor(
     private var repository: Repository,
     var dataStoreUtil: DataStoreUtil,
-    var pref: PreferenceFile
+    var pref: PreferenceFile,
 ) : ViewModel(), clickItem {
     private var _id: String? = null
     var calulatedDistance = ObservableField("")
-//    var destinationLong: Double? = null
+
+    //    var destinationLong: Double? = null
 //    var destinationLat: Double? = null
-    var destinationLat =ObservableDouble()
-    var destinationLong =ObservableDouble()
+    var destinationLat = ObservableDouble()
+    var destinationLong = ObservableDouble()
 
     @SuppressLint("StaticFieldLeak")
 
@@ -84,7 +85,6 @@ class DashBoardVM @Inject constructor(
     val adapter by lazy { RecyclerAdapter<ProfileCateData>(R.layout.dash_board_items) }
 
 
-
     var selectedCategoriesList = ArrayList<SelectedDataModelList>()
     var selectedCategoriesLists = ArrayList<SelectedDataModelList>()
     val dashSelectedAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.dash_board_events_items) }
@@ -105,12 +105,13 @@ class DashBoardVM @Inject constructor(
             }
 
         }
-        if (pref.retrvieCateIdList()!=null && !(pref.retrvieCateIdList().equals(""))){
+        if (pref.retrvieCateIdList() != null && !(pref.retrvieCateIdList().equals(""))) {
 
-            Log.e("AAAZZZZ",pref.retrvieCateIdList().toString())
+            Log.e("AAAZZZZ", pref.retrvieCateIdList().toString())
 
             val myType = object : TypeToken<ArrayList<String>>() {}.type
-            val newList: ArrayList<String> = Gson().fromJson<ArrayList<String>>(pref.retrvieCateIdList(), myType)
+            val newList: ArrayList<String> =
+                Gson().fromJson<ArrayList<String>>(pref.retrvieCateIdList(), myType)
 
             idList.clear()
 
@@ -128,61 +129,61 @@ class DashBoardVM @Inject constructor(
         /*** 03-01-23
          *  Set Miles and send API.. */
 
-        if (pref.retvieMiles()!=null && !(pref.retvieMiles().equals(""))){
+        if (pref.retvieMiles() != null && !(pref.retvieMiles().equals(""))) {
 
             var miles = pref.retvieMiles()
             userMiles.set(miles.toString())
 
-        }else{
+        } else {
             userMiles.set("25")
         }
 
 
-        adapter.setOnItemClick { view, _, type ->
-            when (type) {
-                "dashItemClick" -> {
-                    val isDashBoard = Bundle()
-                    isDashBoard.putString("comingFrom", "isDashBoard")
-                    view.navigateWithId(
-                        R.id.action_dashBoardFragment_to_favDetailsFragment,
-                        isDashBoard
-                    )
-                }
+        /*    adapter.setOnItemClick { view, _, type ->
+                when (type) {
+                    "dashItemClick" -> {
+                        val isDashBoard = Bundle()
+                        isDashBoard.putString("comingFrom", "isDashBoard")
+                        view.navigateWithId(
+                            R.id.action_dashBoardFragment_to_favDetailsFragment,
+                            isDashBoard
+                        )
+                    }
 
-                "dashItemClick_fav"->{
-                    //For Favourite click
-                    Log.e("DFSDFA","WORKING GOOD")
-                    Toast.makeText(CommonMethods.context,"WORKING GOOD",Toast.LENGTH_SHORT).show()
+                    "dashItemClick_fav"->{
+                        //For Favourite click
+                        Log.e("DFSDFA","WORKING GOOD")
+                        Toast.makeText(CommonMethods.context,"WORKING GOOD",Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-        }
+            }*/
 
         /*** 03-01-23
          *  it can create prob.. */
 
-   /*     dataStoreUtil.readData(list_CateName) {
-            if (it != null) {
-                selectedCategoriesList.clear()
-                val myType = object : TypeToken<ArrayList<SelectedDataModelList>>() {}.type
-                val newList: ArrayList<SelectedDataModelList> =
-                    Gson().fromJson<ArrayList<SelectedDataModelList>>(it, myType)
+        /*     dataStoreUtil.readData(list_CateName) {
+                 if (it != null) {
+                     selectedCategoriesList.clear()
+                     val myType = object : TypeToken<ArrayList<SelectedDataModelList>>() {}.type
+                     val newList: ArrayList<SelectedDataModelList> =
+                         Gson().fromJson<ArrayList<SelectedDataModelList>>(it, myType)
 
-                for (idx in 0 until newList.size) {
+                     for (idx in 0 until newList.size) {
 
-                    selectedCategoriesList.add(
-                        SelectedDataModelList(
-                            newList[idx].cateName, newList[idx].cate_ID,
-                            newList[idx].adapterPosition, newList[idx].istrue, newList[idx].count
-                        )
-                    )
+                         selectedCategoriesList.add(
+                             SelectedDataModelList(
+                                 newList[idx].cateName, newList[idx].cate_ID,
+                                 newList[idx].adapterPosition, newList[idx].istrue, newList[idx].count
+                             )
+                         )
 
-                }
+                     }
 
-                Log.e("sad", it.toString())
-                Log.e("zxccx", selectedCategoriesList.toString())
+                     Log.e("sad", it.toString())
+                     Log.e("zxccx", selectedCategoriesList.toString())
 
-            }
-        }*/
+                 }
+             }*/
 
 
     }
@@ -232,9 +233,9 @@ class DashBoardVM @Inject constructor(
     private fun showSelectedCatAlert() {
 
         dialog = Dialog(context)
-        val window = dialog!!.getWindow()
+        val window = dialog!!.window
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog!!.getWindow()!!.getAttributes().gravity = Gravity.LEFT or Gravity.TOP
+        dialog!!.window!!.attributes.gravity = Gravity.LEFT or Gravity.TOP
         window!!.setLayout(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT
@@ -242,11 +243,12 @@ class DashBoardVM @Inject constructor(
 
         dialog!!.setContentView(R.layout.dash_board_events_items)
 
-        Log.e("SADAA",selectedCategoriesList.toString())
+        Log.e("SADAA", selectedCategoriesList.toString())
 
         recyclerSelectedEvents = dialog!!.findViewById(R.id.rvDashBoardSelectedEvents)
         recyclerSelectedEvents?.layoutManager = LinearLayoutManager(context)
-        recyclerSelectedEvents?.adapter = DashboardItemsAdapter(context, selectedCategoriesList, this)
+        recyclerSelectedEvents?.adapter =
+            DashboardItemsAdapter(context, selectedCategoriesList, this)
 
 
 //        dashSelectedAdapter.addItems(selectedCategoriesList as ArrayList<SelectedDataModel>)
@@ -279,8 +281,10 @@ class DashBoardVM @Inject constructor(
         Log.e("KADJrtgdfASDASDKL", idList.toString())
 
 
-        Log.e("SDAMILES" , userMiles.get().toString() +" LATI "+ pref.retvieLatlong("lati").toDouble()
-                +" LONG "+ pref.retvieLatlong("longi").toDouble() + " CATEIDDD - " +idList.toString() + "search --- " +search )
+        Log.e("SDAMILES",
+            userMiles.get().toString() + " LATI " + pref.retvieLatlong("lati").toDouble()
+                    + " LONG " + pref.retvieLatlong("longi")
+                .toDouble() + " CATEIDDD - " + idList.toString() + "search --- " + search)
 
         repository.makeCall(
             ApiEnums.GETPROFILE_BYCATE,
@@ -311,7 +315,7 @@ class DashBoardVM @Inject constructor(
                         if (res.body() != null) {
                             if (res.body()!!.status == 200) {
 
-                                if (res.body()!!.data.size>0){
+                                if (res.body()!!.data.size > 0) {
 
                                     isNodatafound.set(true)
 
@@ -320,18 +324,24 @@ class DashBoardVM @Inject constructor(
 
                                     Log.d("DashBoardResponse->", res.body()!!.data.toString())
 
-                                    for(i in 0 until res.body()!!.data.size){
+                                    for (i in 0 until res.body()!!.data.size) {
                                         destinationLat.set(adapter.getAllItems()[i].lat!!)
                                         destinationLong.set(adapter.getAllItems()[i].long!!)
                                     }
-                                    Log.e("SDSDS",destinationLat.get().toString() + "kjljlj;"+ destinationLong.get().toString())
-                                    Log.d("adasWS", pref.retvieLatlong("lati").toDouble().toString()+"sdfdf"+ pref.retvieLatlong("longi").toDouble().toString() )
+                                    Log.e("SDSDS",
+                                        destinationLat.get()
+                                            .toString() + "kjljlj;" + destinationLong.get()
+                                            .toString())
+                                    Log.d("adasWS",
+                                        pref.retvieLatlong("lati").toDouble()
+                                            .toString() + "sdfdf" + pref.retvieLatlong("longi")
+                                            .toDouble().toString())
 
                                     calculateLatLngToMiles()
                                     // distanceCal.set(distance.get().toString().split(".")[0])
 
 
-                                    Log.d("viaksdistance",distance.get().toString().split(".")[0])
+                                    Log.d("viaksdistance", distance.get().toString().split(".")[0])
                                     adapter.setOnItemClick { view, position, type ->
 
                                         when (type) {
@@ -353,29 +363,37 @@ class DashBoardVM @Inject constructor(
                                                     longi.get()
                                                 )
                                                 view.navigateWithId(
-                                                    R.id.action_dashBoardFragment_to_favDetailsFragment, isDashBoard )
+                                                    R.id.action_dashBoardFragment_to_favDetailsFragment,
+                                                    isDashBoard)
 
-                                                Log.d("DashBoardResponse->", "Workingggg-----fine--")
+                                                Log.d("DashBoardResponse->",
+                                                    "Workingggg-----fine--")
 
                                             }
+                                            "dashItemClick_fav" -> {
+                                                //For Favourite click
+                                                Log.e("DFSDFA", "WORKING GOOD")
 
+                                                AddtoFavAPI(adapter.getAllItems()[position].isFavourite!!,
+                                                    adapter.getAllItems()[position]._id.toString(),
+                                                    position)
+                                            }
                                         }
                                     }
 
-                                }else{
+                                } else {
                                     isNodatafound.set(false)
-                                    Log.e("ASDASQKHE","NO Data Found ")
+                                    Log.e("ASDASQKHE", "NO Data Found ")
 
                                 }
-
 
 
                             } else {
                                 Log.d("DashBoardResponse->", res.body()?.message.toString())
 
-                                   if (showLoader) {
-                                       CommonMethods.showToast(context, res.body()?.message.toString())
-                                   }
+                                if (showLoader) {
+                                    CommonMethods.showToast(context, res.body()?.message.toString())
+                                }
                             }
                         } else {
                             Log.d("DashBoardResponse->", res.body()?.message.toString())
@@ -403,7 +421,8 @@ class DashBoardVM @Inject constructor(
     }
 
     fun calculateLatLngToMiles() {
-        val latLngA = LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble() ,)
+        val latLngA =
+            LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
         val latLngB = LatLng(destinationLat.get(), destinationLong.get())
         val locationA = Location("Point A")
         locationA.latitude = latLngA.latitude
@@ -417,7 +436,7 @@ class DashBoardVM @Inject constructor(
         Log.d("distanceCalqwer", distanceCal.get().toString())
 //        distanceCal.set(distance.get().toString())
 
-        userMiles.set( distance.get().toString().split(".")[0])
+        userMiles.set(distance.get().toString().split(".")[0])
 
 
     }
@@ -445,10 +464,11 @@ class DashBoardVM @Inject constructor(
         }
         dialog?.show()
     }
+
     override fun click(categoryName: String, position: Int, _id: String?, s: String, color: Int?) {
 
         title.set(categoryName)
-        Log.e("SDFSDFSdf",categoryName)
+        Log.e("SDFSDFSdf", categoryName)
         dialog!!.dismiss()
 
     }
@@ -464,7 +484,8 @@ class DashBoardVM @Inject constructor(
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetProfileResponseModel>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileResponseModel> {
-                    return retrofitApi.getProfileApi(Authorization = pref.retrieveKey("token").toString())
+                    return retrofitApi.getProfileApi(Authorization = pref.retrieveKey("token")
+                        .toString())
                 }
 
                 override fun onResponse(res: Response<GetProfileResponseModel>) {
@@ -477,7 +498,8 @@ class DashBoardVM @Inject constructor(
 //                    firstName.set(res.body()!!.data.first_name.toString() + " " + " " + res.body()!!.data.last_name.toString())
 
                     dataStoreUtil.saveObject(PROFILE_DATA, res.body())
-                    dataStoreUtil.saveData(PROFILE_IMAGE, res.body()?.data?.profile_picture.toString())
+                    dataStoreUtil.saveData(PROFILE_IMAGE,
+                        res.body()?.data?.profile_picture.toString())
 //                    storedImageUrl.set(res.body()?.data?.profile_picture)
 
 //                    p_id.set(res.body()?.data?.p_id)
@@ -506,6 +528,71 @@ class DashBoardVM @Inject constructor(
             }
         )
     }
+
+
+    private fun AddtoFavAPI(
+        isfav: Boolean, pIdValue: String,
+        position: Int,
+    ) {
+
+        Log.e("SADFddddddddddddd==", pIdValue)
+
+        repository.makeCall(
+            apiKey = ApiEnums.ADD_TO_FAV,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<AddFavPostProfileResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<AddFavPostProfileResponse> {
+                    return retrofitApi.addtoFav(
+                        pref.retrieveKey("token").toString(),
+                        pIdValue,
+                        isfav
+                    )
+                }
+
+                override fun onResponse(res: Response<AddFavPostProfileResponse>) {
+                    Log.e("QWQQWWSSS", res.body().toString())
+
+                    if (res.isSuccessful || res != null) {
+                        if (res.body()!!.status == 200) {
+                            dialog?.dismiss()
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                            context.runOnUiThread {
+                             var  catDataList= adapter.getAllItems() as ArrayList<ProfileCateData>
+                                if (isfav) {
+                                    catDataList[position].isFavourite = false
+//                                    tvRemoveFav?.text="Remove from Favourites"
+                                    // isFav.set(false)
+                                    Log.e("TRUE", res.body().toString())
+
+                                } else {
+                                    catDataList[position].isFavourite = true
+                                    //   isFav.set(true)
+//                                    tvRemoveFav?.text="Add from Favourites"
+                                    Log.e("FALSE", res.body().toString())
+                                }
+                                Log.e("ngwkngwngkwngwgg===",
+                                    catDataList[position].isFavourite.toString())
+                             //   adapter.notifyItemChanged(position)
+                                adapter.notifyDataSetChanged()
+                            }
+                        } else {
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                res.body()?.message.toString()
+                            )
+                        }
+                    } else {
+                        CommonMethods.showToast(CommonMethods.context, res.message())
+                    }
+
+                }
+
+            }
+        )
+    }
+
 }
 
 

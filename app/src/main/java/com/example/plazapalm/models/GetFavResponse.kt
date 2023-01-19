@@ -36,6 +36,7 @@ data class GetFavResponse(
     val tags: String?="",
     val user_name: String?="",
     val favouriteCount: Int?=0,
+    var booking_status: Boolean?=false,
     ) :AbstractModel()
 
     data class FavLocation(

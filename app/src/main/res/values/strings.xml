@@ -65,4 +65,6 @@
     <string name="_25_miles">25 Miles</string>
     <string name="view_profile">View Profile</string>
     <string name="nodata_found">No Data Found</string>
+
+    <string name="booking_txt">Book</string>
 </resources>

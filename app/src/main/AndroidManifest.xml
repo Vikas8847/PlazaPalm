@@ -34,7 +34,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlazaPalm"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+    tools:replace="android:allowBackup">
 
         <provider
             android:name="androidx.core.content.FileProvider"

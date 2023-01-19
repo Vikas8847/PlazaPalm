@@ -31,8 +31,6 @@
             android:background="@drawable/dash_board_items_bg">
 
 
-            //                 setFavImage="@{model.postProfile_picture[0]}"
-
 <!--            <com.google.android.material.imageview.ShapeableImageView-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="@dimen/_200sdp"-->
@@ -94,6 +92,8 @@
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
+                android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`favDetailsItem_heart`)}"
+
                 android:src="@drawable/ic_heart_filled_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvFavItemName" />
@@ -146,7 +146,8 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center_horizontal"
-                android:text="25 Miles"
+
+                setMiles="@{model.distance.toString()}"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/tvFavItemLocation"
