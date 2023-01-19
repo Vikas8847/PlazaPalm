@@ -38,7 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/inter_medium"
-            android:tag="binding_2"            
+            android:tag="binding_2"       
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"

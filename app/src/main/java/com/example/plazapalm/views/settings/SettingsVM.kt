@@ -189,16 +189,21 @@ class SettingsVM @Inject constructor(
                     dataStoreUtil.clearDataStore { clear -> }
 //                    pref.clearPreference()
                     pref.cleardata("token")
+                    pref.cleardata("lati")
+                    pref.cleardata("longi")
 
                     view.findNavController().navigate(R.id.action_setting_to_loginFragment)
                     with(CommonMethods) {
                         showToast(context, res.body()?.message.toString())
                     }
                 }
+
                 override fun onError(message: String) {
                     super.onError(message)
                     CommonMethods.showToast(context, SOMETHING_WRONG)
                 }
+
             })
+
     }
 }

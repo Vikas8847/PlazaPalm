@@ -18,6 +18,7 @@
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <uses-feature android:name="android.hardware.camera.any" />
 
@@ -64,14 +65,14 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <!--
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
+        <uses-feature
+            android:name="android.hardware.camera"
+            android:required="true" />
     -->
     <!--
     <uses-permission android:name="android.permission.CAMERA"
-        android:required="true"
-        android:requiredFeature="true"/>
+            android:required="true"
+            android:requiredFeature="true"/>
     -->
     <application
         android:name="com.example.plazapalm.utils.AppController"
@@ -96,8 +97,7 @@
             android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" >
-            </meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <meta-data

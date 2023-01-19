@@ -119,7 +119,7 @@ class CategoriesListVM @Inject constructor(
         body.put("lat", latitude.get())
         body.put("long", longitude.get())
         body.put("offset", page.get()!!)
-        body.put("limit", 10)
+        body.put("limit", 100)
         body.put("search=", search)
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
@@ -148,6 +148,7 @@ class CategoriesListVM @Inject constructor(
                             adapterCategories.getAllItems()[idx].isCheck=true
                         }
                     }
+
                     adapterCategories.notifyDataSetChanged()
 //                    dataStoreUtil.saveData(res.body()?.data!!)
 //                    Log.e("SSSSS", res.body()?.data!![0]._id.toString())
