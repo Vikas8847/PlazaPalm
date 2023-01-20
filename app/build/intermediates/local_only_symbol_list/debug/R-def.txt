@@ -801,6 +801,9 @@ id tvPicturesAdd
 id tvPicturesUploadCancel
 id tvPicturesUploadChooseOptions
 id tvPrivacyPolicy
+id tvProfileUserAddress
+id tvProfileUserDescription
+id tvProfileUserName
 id tvPushNotification
 id tvQRCode
 id tvQrCodeUserName
@@ -970,6 +973,7 @@ layout advance_map_fragment
 layout advance_sett_gallery_frament_fragment
 layout advance_setting_fragment
 layout advance_setting_map_fragment
+layout advance_show_view_profile
 layout alert_exit
 layout block_user_profile
 layout booking_details_fragment

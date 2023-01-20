@@ -8,23 +8,21 @@
             name="model"
             type="com.example.plazapalm.models.FontsListModelResponse" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="@dimen/_1sdp"
         android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`fontsItemClick`)}"
         android:paddingBottom="@dimen/_5sdp">
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvFontsName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            android:paddingVertical="@dimen/_2sdp"
             android:text="@{model.name}"
             android:textColor="@color/tool_bar_black_color"
             android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/myview"
             android:typeface="@{model.fontTypeface}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,8 +31,9 @@
             android:id="@+id/myview"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:background="@color/white_gray"
             app:layout_constraintTop_toBottomOf="@+id/tvFontsName" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

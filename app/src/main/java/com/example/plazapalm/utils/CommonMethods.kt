@@ -245,13 +245,7 @@ object CommonMethods {
     // Check if location permissions are
     // granted to the application
     fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
         }
@@ -282,6 +276,7 @@ object CommonMethods {
                imageOnClicks.value = true
            }
        }*/
+
     //  var deviceToken="test55"
     fun saveBitmapToFile(file: File): File? {
         return try {
@@ -320,7 +315,6 @@ object CommonMethods {
             null
         }
     }
-
 
     fun persistImage(bitmap: Bitmap, name: String) {
         val filesDir: File = context.filesDir
@@ -477,7 +471,9 @@ object CommonMethods {
     const val walkwayObliqueBlack = "fonts/walkway_oblique_black.ttf"
     const val walkwayObliqueBold = "fonts/walkway_oblique_bold.ttf"
     const val walkwayObliqueSemiBold = "fonts/walkway_oblique_semi_bold.ttf"
-    const val windSong="fonts/windsong.ttf"
+    const val windSong = "fonts/windsong.ttf"
+
+
 
 
 }

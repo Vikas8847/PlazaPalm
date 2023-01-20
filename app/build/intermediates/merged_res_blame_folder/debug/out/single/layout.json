@@ -4,20 +4,20 @@
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\add_questions.xml"
     },
     {
-        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\settings_fragment.xml",
-        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\settings_fragment.xml"
-    },
-    {
-        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\color_picker_layout.xml",
-        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\color_picker_layout.xml"
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\edit_front_page_fragment.xml",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\edit_front_page_fragment.xml"
     },
     {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_question_items.xml",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\add_question_items.xml"
     },
     {
-        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\edit_front_page_fragment.xml",
-        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\edit_front_page_fragment.xml"
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\color_picker_layout.xml",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\color_picker_layout.xml"
+    },
+    {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\settings_fragment.xml",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\settings_fragment.xml"
     },
     {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\report_fragment.xml",
@@ -68,12 +68,12 @@
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\advance_setting_fragment.xml"
     },
     {
-        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\qr_code_scanner_fragment.xml",
-        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\qr_code_scanner_fragment.xml"
-    },
-    {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\open_camera_and_gallery.xml",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\open_camera_and_gallery.xml"
+    },
+    {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\qr_code_scanner_fragment.xml",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\qr_code_scanner_fragment.xml"
     },
     {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_photos_item_list.xml",
@@ -184,12 +184,12 @@
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\thank_you_fragment.xml"
     },
     {
-        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_cities_fragment.xml",
-        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\add_cities_fragment.xml"
-    },
-    {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_cities_fragment.xml",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\add_cities_fragment.xml"
     },
     {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\choose_colors.xml",
@@ -208,16 +208,20 @@
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\delete_swipe_alert.xml"
     },
     {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\advance_show_view_profile.xml",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\advance_show_view_profile.xml"
+    },
+    {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\contact_us_fragment.xml",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\contact_us_fragment.xml"
     },
     {
-        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\qr_code_generate_fragment.xml",
-        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\qr_code_generate_fragment.xml"
-    },
-    {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\repository_alert.xml",
         "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\repository_alert.xml"
+    },
+    {
+        "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\qr_code_generate_fragment.xml",
+        "source": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\src\\main\\res\\layout\\qr_code_generate_fragment.xml"
     },
     {
         "merged": "D:\\Live Projects\\PlazzaVikasWorking\\PlazaPalm\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\messages_user_list.xml",

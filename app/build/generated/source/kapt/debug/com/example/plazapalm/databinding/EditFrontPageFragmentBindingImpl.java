@@ -33,12 +33,49 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
     // listeners
     private OnClickListenerImpl mVmOnClicksAndroidViewViewOnClickListener;
     // Inverse Binding Event Handlers
+    private androidx.databinding.InverseBindingListener tvAdvanceEditFrontPageFontValueandroidTextAttrChanged = new androidx.databinding.InverseBindingListener() {
+        @Override
+        public void onChange() {
+            // Inverse of vm.fontsName.get()
+            //         is vm.fontsName.set((java.lang.String) callbackArg_0)
+            java.lang.String callbackArg_0 = androidx.databinding.adapters.TextViewBindingAdapter.getTextString(tvAdvanceEditFrontPageFontValue);
+            // localize variables for thread safety
+            // vm != null
+            boolean vmJavaLangObjectNull = false;
+            // vm.fontsName.get()
+            java.lang.String vmFontsNameGet = null;
+            // vm
+            com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM vm = mVm;
+            // vm.fontsName != null
+            boolean vmFontsNameJavaLangObjectNull = false;
+            // vm.fontsName
+            androidx.databinding.ObservableField<java.lang.String> vmFontsName = null;
+
+
+
+            vmJavaLangObjectNull = (vm) != (null);
+            if (vmJavaLangObjectNull) {
+
+
+                vmFontsName = vm.getFontsName();
+
+                vmFontsNameJavaLangObjectNull = (vmFontsName) != (null);
+                if (vmFontsNameJavaLangObjectNull) {
+
+
+
+
+                    vmFontsName.set(((java.lang.String) (callbackArg_0)));
+                }
+            }
+        }
+    };
 
     public EditFrontPageFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
         this(bindingComponent, root, mapBindings(bindingComponent, root, 16, sIncludes, sViewsWithIds));
     }
     private EditFrontPageFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 0
+        super(bindingComponent, root, 1
             , (androidx.appcompat.widget.AppCompatButton) bindings[15]
             , (androidx.appcompat.widget.AppCompatButton) bindings[3]
             , (androidx.appcompat.widget.AppCompatCheckBox) bindings[8]
@@ -68,7 +105,7 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x4L;
         }
         requestRebind();
     }
@@ -98,7 +135,7 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
     public void setVm(@Nullable com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM Vm) {
         this.mVm = Vm;
         synchronized(this) {
-            mDirtyFlags |= 0x1L;
+            mDirtyFlags |= 0x2L;
         }
         notifyPropertyChanged(BR.vm);
         super.requestRebind();
@@ -107,6 +144,17 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
+            case 0 :
+                return onChangeVmFontsName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+        }
+        return false;
+    }
+    private boolean onChangeVmFontsName(androidx.databinding.ObservableField<java.lang.String> VmFontsName, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x1L;
+            }
+            return true;
         }
         return false;
     }
@@ -118,25 +166,55 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
+        java.lang.String vmFontsNameGet = null;
+        android.graphics.Typeface vmFontTypeface = null;
         android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
         com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM vm = mVm;
+        androidx.databinding.ObservableField<java.lang.String> vmFontsName = null;
 
-        if ((dirtyFlags & 0x3L) != 0) {
+        if ((dirtyFlags & 0x7L) != 0) {
 
 
+            if ((dirtyFlags & 0x6L) != 0) {
+
+                    if (vm != null) {
+                        // read vm.fontTypeface
+                        vmFontTypeface = vm.getFontTypeface();
+                        // read vm::onClicks
+                        vmOnClicksAndroidViewViewOnClickListener = (((mVmOnClicksAndroidViewViewOnClickListener == null) ? (mVmOnClicksAndroidViewViewOnClickListener = new OnClickListenerImpl()) : mVmOnClicksAndroidViewViewOnClickListener).setValue(vm));
+                    }
+            }
 
                 if (vm != null) {
-                    // read vm::onClicks
-                    vmOnClicksAndroidViewViewOnClickListener = (((mVmOnClicksAndroidViewViewOnClickListener == null) ? (mVmOnClicksAndroidViewViewOnClickListener = new OnClickListenerImpl()) : mVmOnClicksAndroidViewViewOnClickListener).setValue(vm));
+                    // read vm.fontsName
+                    vmFontsName = vm.getFontsName();
+                }
+                updateRegistration(0, vmFontsName);
+
+
+                if (vmFontsName != null) {
+                    // read vm.fontsName.get()
+                    vmFontsNameGet = vmFontsName.get();
                 }
         }
         // batch finished
-        if ((dirtyFlags & 0x3L) != 0) {
+        if ((dirtyFlags & 0x6L) != 0) {
             // api target 1
 
             this.btnEditFrontPageView.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.ivAdvanceEditFrontPage.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.tvAdvanceEditFrontPageFontValue.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
+            this.tvAdvanceEditFrontPageFontValue.setTypeface(vmFontTypeface);
+        }
+        if ((dirtyFlags & 0x7L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvAdvanceEditFrontPageFontValue, vmFontsNameGet);
+        }
+        if ((dirtyFlags & 0x4L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.tvAdvanceEditFrontPageFontValue, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, tvAdvanceEditFrontPageFontValueandroidTextAttrChanged);
         }
     }
     // Listener Stub Implementations
@@ -155,8 +233,9 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): vm
-        flag 1 (0x2L): null
+        flag 0 (0x1L): vm.fontsName
+        flag 1 (0x2L): vm
+        flag 2 (0x3L): null
     flag mapping end*/
     //end
 }

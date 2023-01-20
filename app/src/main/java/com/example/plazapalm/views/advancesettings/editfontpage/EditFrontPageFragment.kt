@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.EditFrontPageFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
@@ -24,9 +26,25 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
-
-        binding!!.clCoordinateEditCoverPage.setOnClickListener {
+        binding!!.clCoordinateEditCoverPage.setOnClickListener{
             CommonMethods.context.hideKeyboard()
+        }
+        viewModel.typfaceObserverLiveData.observe(requireActivity()) {
+            val data = it as Boolean
+            if (data)
+            {
+                binding?.tvAdvanceEditFrontPageFontValue?.typeface = viewModel.fontTypeface
+            }
+        }
+
+        binding?.checkEditFrontPageTopText?.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                viewModel.isChecked.set(true)
+            }
+            else
+            {
+                viewModel.isChecked.set(false)
+            }
         }
     }
 }

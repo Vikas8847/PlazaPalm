@@ -79,7 +79,6 @@ class Repository @Inject constructor(
                 Timer().schedule(2000) {
                     hideProgress()
                 }
-
                 when {
                     response?.code() in 100..199 -> {
                         /**Informational*/

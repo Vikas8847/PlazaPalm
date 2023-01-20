@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clFontListMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/bottom_sheet_bg"
         android:elevation="@dimen/_5sdp"
         android:nestedScrollingEnabled="true"
@@ -40,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/inter_medium"
             android:text="Cancel"
             android:textColor="@color/blue"
@@ -55,13 +56,15 @@
             android:layout_margin="@dimen/_18sdp"
             android:layout_marginTop="24dp"
             android:background="@drawable/dashboard_bg"
+            android:clickable="true"
             android:elevation="@dimen/_1sdp"
             android:paddingStart="@dimen/_10sdp"
             android:textColor="@color/gray"
             android:textColorHint="@color/gray"
+            app:iconifiedByDefault="false"
             app:layout_constraintTop_toBottomOf="@+id/tvChooseFont"
-            app:queryHint="Search"
-            tools:layout_editor_absoluteX="27dp" />
+            app:queryBackground="@null"
+            app:queryHint="Search" />
 
         <View
             android:id="@+id/myview"
@@ -102,11 +105,15 @@
             setRecyclerAdapter="@{model.fontListAdapter}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:nestedScrollingEnabled="true"
-            android:paddingBottom="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/rvChooseFontRecent"
+            tools:layout_editor_absoluteX="6dp"
             tools:listitem="@layout/fonts_list_item" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

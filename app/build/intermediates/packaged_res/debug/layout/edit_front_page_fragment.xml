@@ -12,8 +12,8 @@
            
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
         android:id="@+id/clCoordinateEditCoverPage"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.advancesettings.editlook.AdvanceEditLookFragment" android:tag="layout/edit_front_page_fragment_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
 
@@ -79,7 +79,6 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:button="@drawable/checkbox_drawable"
-                        android:checked="true"
                         android:fontFamily="@font/inter_medium"
                         android:layoutDirection="rtl"
                         android:paddingHorizontal="@dimen/_15sdp"
@@ -109,7 +108,6 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:button="@drawable/checkbox_drawable"
-                        android:checked="true"
                         android:fontFamily="@font/inter_medium"
                         android:layoutDirection="rtl"
                         android:paddingHorizontal="@dimen/_15sdp"
@@ -144,6 +142,7 @@
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditBottomTextFrontPage" />
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvAdvanceEditFrontPageFontValue"
                         android:layout_width="wrap_content"
@@ -151,15 +150,15 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/inter_medium"
                         android:tag="binding_2"          
                         android:paddingHorizontal="@dimen/_10sdp"
-                        android:text="Optima-Regular"
+                                                       
                         android:textColor="@color/sky_blue"
                         android:textSize="16sp"
+                                                             
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/viewEditBottomTextFrontPage" />
-
+                        app:layout_constraintTop_toBottomOf="@id/viewEditBottomTextFrontPage"
+                        tools:text="Optima-Regular" />
                     <View
                         android:id="@+id/viewEditFontPage"
                         style="@style/LocationCatView"
@@ -168,7 +167,6 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvAdvanceEditFrontPageFont" />
-
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvAdvanceEditFrontPageFontColor"
@@ -185,7 +183,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditFontPage" />
 
-
                     <View
                         android:id="@+id/viewBoxLookingBGColor"
                         android:layout_width="@dimen/_20sdp"
@@ -195,7 +192,6 @@
                         android:background="@drawable/forgot_email_bg"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditFontPage" />
-
 
                     <View
                         android:id="@+id/viewEditFontColor"

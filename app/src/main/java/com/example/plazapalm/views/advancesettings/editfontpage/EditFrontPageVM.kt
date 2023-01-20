@@ -1,23 +1,33 @@
 package com.example.plazapalm.views.advancesettings.editfontpage
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
+import com.example.plazapalm.databinding.AdvanceShowViewProfileBinding
 import com.example.plazapalm.databinding.FontsListFragmentBinding
 import com.example.plazapalm.models.FontsListModelResponse
 import com.example.plazapalm.recycleradapter.RecyclerAdapter
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.CommonMethods.academyEngravedLetPlain
 import com.example.plazapalm.utils.CommonMethods.context
+import com.example.plazapalm.utils.CommonMethods.dialog
 import com.example.plazapalm.utils.hideKeyboard
-import com.example.plazapalm.utils.navigateWithId
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,15 +37,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditFrontPageVM @Inject constructor() : ViewModel() {
+    var appCompatTxtFont: AppCompatTextView? = null
     var fontsNameList = ArrayList<FontsListModelResponse>()
+    var fontTypeface: Typeface? = null
+    var isChecked = ObservableBoolean(false)
 
-    //  var fontsNameList = ArrayList<FontsListModelResponse>()
+    var userProfileName=ObservableField("")
+    var userProfileDescription=ObservableField("")
+    var userProfileLocation=ObservableField("")
+
+    var typfaceObserverLiveData = MutableLiveData<Boolean>()
+
+    var fontsName = ObservableField("Optima-Regular")
+
     var fontsFilteredList = ArrayList<FontsListModelResponse>()
     var scheduleBinding: FontsListFragmentBinding? = null
     val fontListAdapter by lazy { RecyclerAdapter<FontsListModelResponse>(R.layout.fonts_list_item) }
 
-    @SuppressLint("StaticFieldLeak")
-    var appCompatTextView: AppCompatTextView? = null
 
     init {
 
@@ -48,22 +66,53 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
             R.id.ivAdvanceEditFrontPage -> {
                 view.findNavController().navigateUp()
             }
+
             R.id.btnEditFrontPageView -> {
-                view.navigateWithId(R.id.favDetailsFragment)
+                /// view.navigateWithId(R.id.favDetailsFragment)
+                //Create new Dialog Alert of view profile
+                showViewProfileDialog()
             }
+
             R.id.tvAdvanceEditFrontPageFontValue -> {
                 showBottomSheetDialogOne()
             }
         }
     }
 
-    var fontBottomSheet: BottomSheetDialog? = null
 
+    private fun showViewProfileDialog() {
+        val profileBinding: AdvanceShowViewProfileBinding?
+        if (dialog != null && dialog?.isShowing!!) {
+            dialog?.dismiss()
+        } else {
+            dialog = Dialog(context, android.R.style.Theme_Dialog)
+            dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog?.setContentView(R.layout.advance_show_view_profile)
+            profileBinding = AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
+            profileBinding.root
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
+            dialog?.setCancelable(true)
+            if (isChecked.get()){
+                userProfileName.set("Vikas Panchal")
+                profileBinding.tvProfileUserName.text="Vikas Panchal"
+               // isChecked.set(false)
+            }
+            else{
+                userProfileName.set("Vikas Panchal")
+                isChecked.set(true)
+            }
+            dialog?.show()
+        }
+    }
+    var fontBottomSheet: BottomSheetDialog? = null
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     private fun showBottomSheetDialogOne() {
-        fontBottomSheet = BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
-        fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_EXPANDED
-        scheduleBinding = FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
+        fontBottomSheet =
+            BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
+        fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        scheduleBinding =
+            FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         scheduleBinding?.model = this
         fontBottomSheet?.setCancelable(true)
         scheduleBinding?.apply {
@@ -74,6 +123,7 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
             clFontListMain.setOnClickListener {
                 context.hideKeyboard()
             }
+
             rvChooseFonts.setOnClickListener {
                 context.hideKeyboard()
             }
@@ -81,12 +131,26 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
         }
         fontBottomSheet?.setContentView(scheduleBinding?.root!!)
         fontBottomSheet?.show()
+        typfaceObserverLiveData.postValue(false)
         fontListAdapter.setOnItemClick { view, position, type ->
             when (type) {
                 "fontsItemClick" -> {
-                    //here we save the fonts on click of the items ...
-                    // fontBottomSheet?.dismiss()
+                    fontBottomSheet?.dismiss()
+                    //  if (fontsNameList.isNotEmpty() && fontsFilteredList.isNotEmpty()) {
+                    val adapterList = fontListAdapter.getAllItems()
+                    val fontName = adapterList[position].name
+                    val typeface = adapterList[position].fontTypeface
+                    appCompatTxtFont?.typeface = typeface
+                    fontTypeface = typeface
+                    fontsName.set(fontName)
+                    typfaceObserverLiveData.postValue(true)
+                    //  fontTypeface=filteredTypeface
+                    //  fontsName.set(filteredFontName)
 
+                    /*  }
+                      else{
+                          CommonMethods.showToast(context,"List is Empty")
+                      }*/
                 }
             }
         }
@@ -100,14 +164,15 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
         // val newfont2: AppCompatTextView? = null
         scheduleBinding?.rvChooseFonts?.layoutManager = LinearLayoutManager(MainActivity.activity)
         scheduleBinding?.rvChooseFonts?.adapter = fontListAdapter
-
+        updateRecyclerView()
     }
+
     @SuppressLint("ClickableViewAccessibility")
     private fun setFontsInAdapterList() {
-        val appCompatTxtFont: AppCompatTextView? = null
+        //  appCompatTxtFont: AppCompatTextView? = null
         /*Academy_Engraved*/
         val academyEngravedLetPlain =
-            Typeface.createFromAsset(context.assets, CommonMethods.academyEngravedLetPlain)
+            Typeface.createFromAsset(context.assets, academyEngravedLetPlain)
         appCompatTxtFont?.typeface = academyEngravedLetPlain
 
         /*AbrilFatFace_Regular*/
@@ -115,8 +180,7 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
             Typeface.createFromAsset(context.assets, CommonMethods.abrilFatFaceRegular)
         appCompatTxtFont?.typeface = abrilFatFaceRegular
 
-
-/*AlexBrush_Regular*/
+        /*AlexBrush_Regular*/
         val alexBrushRegular =
             Typeface.createFromAsset(context.assets, CommonMethods.alexBrushRegular)
         appCompatTxtFont?.typeface = alexBrushRegular
@@ -509,9 +573,13 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
             Typeface.createFromAsset(context.assets, CommonMethods.walkwayObliqueSemiBold)
         appCompatTxtFont?.typeface = walkwayObliqueSemiBold
 
-
         /*Adding data in font list */
-        fontsNameList.add(FontsListModelResponse(academyEngravedLetPlain, "Academy Engraved LET "))
+        fontsNameList.add(
+            FontsListModelResponse(
+                academyEngravedLetPlain!!,
+                "Academy Engraved LET "
+            )
+        )
         fontsNameList.add(FontsListModelResponse(abrilFatFaceRegular, "Abril FatFace"))
         fontsNameList.add(FontsListModelResponse(alexBrushRegular, "Alex Brush"))
         fontsNameList.add(FontsListModelResponse(allerBD, "Aller BD"))
@@ -663,41 +731,44 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
         fontListAdapter.notifyDataSetChanged()
     }
 
-    private fun searchFunctionality(
-    ) {
+    private fun searchFunctionality() {
         scheduleBinding?.etChooseFont?.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search(query)
                 return false
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 search(newText)
                 return true
             }
         })
     }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun search(text: String?) {
-
-        val filteredList=ArrayList<FontsListModelResponse>()
         text.let {
             fontsNameList.forEach { fontsName ->
-                filteredList.clear()
-                if (fontsName.name.toLowerCase().contains(text?.toLowerCase()!!) || fontsName.fontTypeface.toString().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(fontsName)
+                if (fontsName.name.lowercase(Locale.getDefault())
+                        .contains(text?.lowercase(Locale.getDefault())!!) || fontsName.fontTypeface.toString()
+                        .lowercase(Locale.getDefault())
+                        .contains(text.lowercase(Locale.getDefault()))
+                ) {
+                    fontsFilteredList.add(fontsName)
                 }
             }
             fontListAdapter.notifyDataSetChanged()
-            if (filteredList!=null){
-                fontListAdapter.addItems(filteredList)
-            }
-            else{
-               fontListAdapter.addItems(fontsNameList)
+            if (fontsFilteredList != null) {
+                fontListAdapter.addItems(fontsFilteredList)
+            } else {
+                fontListAdapter.addItems(fontsNameList)
             }
             updateRecyclerView()
         }
     }
+
+
     private fun updateRecyclerView() {
         scheduleBinding?.rvChooseFonts.apply {
             fontListAdapter.notifyDataSetChanged()

@@ -4576,6 +4576,9 @@ int id tvPicturesAdd 0x7f0a0492
 int id tvPicturesUploadCancel 0x7f0a0493
 int id tvPicturesUploadChooseOptions 0x7f0a0494
 int id tvPrivacyPolicy 0x7f0a0495
+int id tvProfileUserAddress 0x7f0a0560
+int id tvProfileUserDescription 0x7f0a0561
+int id tvProfileUserName 0x7f0a0562
 int id tvPushNotification 0x7f0a0496
 int id tvQRCode 0x7f0a0497
 int id tvQrCodeUserName 0x7f0a0498
@@ -4860,6 +4863,7 @@ int layout advance_map_fragment 0x7f0d0025
 int layout advance_sett_gallery_frament_fragment 0x7f0d0026
 int layout advance_setting_fragment 0x7f0d0027
 int layout advance_setting_map_fragment 0x7f0d0028
+int layout advance_show_view_profile 0x7f0d00f5
 int layout alert_exit 0x7f0d0029
 int layout amu_info_window 0x7f0d002a
 int layout amu_text_bubble 0x7f0d002b
