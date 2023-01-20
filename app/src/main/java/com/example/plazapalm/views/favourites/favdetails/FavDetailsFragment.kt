@@ -10,6 +10,7 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.FavDetailsFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
@@ -47,8 +47,8 @@ import javax.inject.Inject
 class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback,
     LocationSource.OnLocationChangedListener {
 
-    private var loginUserPId: String?=""
-    private var loginUserId: String?=""
+    private var loginUserPId: String? = ""
+    private var loginUserId: String? = ""
     private var longi: Double? = null
     private var lati: Double? = null
     private var p_id: String? = null
@@ -97,8 +97,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
         getlocalData()
-        Log.e("TOKKEN", pref.retrieveKey("token").toString())
-
+        Log.e("application_token===", pref.retrieveKey("token").toString())
     }
 
     private fun setbackground() {
@@ -107,7 +106,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             if (!(it.equals("")) && it != null) {
 
                 if (it is String) {
-                    val data = it as String
+                    val data = it
                     binding!!.mainConslayout.setBackgroundColor(Color.parseColor(data.toString()))
                     binding!!.mainToolBar.setBackgroundColor(Color.parseColor(data.toString()))
                 }
@@ -119,29 +118,29 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                 if (it is String) {
 
-                    val data = it as String
+                    val data = it
 
-                    viewModel.fontViewColor.set(data!!)
+                    viewModel.fontViewColor.set(data)
 
 //                    binding!!.tvFavDetails.setTextColor(Color.parseColor(data.toString()))
 //                    binding!!.tvFavDetailsDistance.setTextColor(Color.parseColor(data.toString()))
 //                    binding!!.tvFavCityAddress.setTextColor(Color.parseColor(data.toString()))
 //                    binding!!.tvFavDetailsAddress.setTextColor(Color.parseColor(data.toString()))
 
-                    binding?.tvFavCityAddress?.setTextColor(Color.parseColor(data.toString())!!)
-                    binding?.tvFavDetailsAddress?.setTextColor(Color.parseColor(data.toString())!!)
-                    binding?.tvFavDetailsDistance?.setTextColor(Color.parseColor(data.toString())!!)
-                    binding?.tvFavDetails?.setTextColor(Color.parseColor(data.toString())!!)
+                    binding?.tvFavCityAddress?.setTextColor(Color.parseColor(data.toString()))
+                    binding?.tvFavDetailsAddress?.setTextColor(Color.parseColor(data.toString()))
+                    binding?.tvFavDetailsDistance?.setTextColor(Color.parseColor(data.toString()))
+                    binding?.tvFavDetails?.setTextColor(Color.parseColor(data.toString()))
                     binding?.tvFavDetailsLikeCounts?.setTextColor(Color.parseColor(data.toString()))
-                    binding?.tvFavDetailsDisLikeCount?.setTextColor(Color.parseColor(data.toString())!!)
-                    binding?.tvFavDetailsName?.setTextColor(Color.parseColor(data.toString())!!)
-                    binding?.ivFavDetailsBackBtn?.setColorFilter(Color.parseColor(data.toString())!!)
-                    binding?.ivFavDetailsOptions?.setColorFilter(Color.parseColor(data.toString())!!)
-                    binding?.ivFavDetailsChats?.setColorFilter(Color.parseColor(data.toString())!!)
-                    binding?.ivFavDetailsLike?.setColorFilter(Color.parseColor(data.toString())!!)
-                    binding?.ivFavDetailsDislike?.setColorFilter(Color.parseColor(data.toString())!!)
-                    binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(data.toString())!!)
-                    binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(data.toString())!!)
+                    binding?.tvFavDetailsDisLikeCount?.setTextColor(Color.parseColor(data.toString()))
+                    binding?.tvFavDetailsName?.setTextColor(Color.parseColor(data.toString()))
+                    binding?.ivFavDetailsBackBtn?.setColorFilter(Color.parseColor(data.toString()))
+                    binding?.ivFavDetailsOptions?.setColorFilter(Color.parseColor(data.toString()))
+                    binding?.ivFavDetailsChats?.setColorFilter(Color.parseColor(data.toString()))
+                    binding?.ivFavDetailsLike?.setColorFilter(Color.parseColor(data.toString()))
+                    binding?.ivFavDetailsDislike?.setColorFilter(Color.parseColor(data.toString()))
+                    binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(data.toString()))
+                    binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(data.toString()))
                 }
 
             }
@@ -154,7 +153,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             viewModel.u_ID.set(it?.data?.user_id)
 
             loginUserPId = it?.data?.p_id
-
+            viewModel.loginUserPId.set(loginUserPId)
             Log.e("SDASDASDASDASdas", it.toString())
 
 
@@ -218,21 +217,18 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         data.get(pos).postProfile_picture as ArrayList<String>
                     setFavdata(pos, data, image)
 
-                    Log.e("kgvnsngsgggg===",loginUserPId.toString())
-                    Log.e("kgvnsngsgggg11===",data[pos].p_id.toString())
-                    if(!(loginUserPId.toString().equals(data[pos].p_id))){
-                        if(data[pos].booking_status!!)
-                        {
+                    Log.e("kgvnsngsgggg===", loginUserPId.toString())
+                    Log.e("kgvnsngsgggg11===", data[pos].p_id.toString())
+                    if (!(loginUserPId.toString().equals(data[pos].p_id))) {
+                        if (data[pos].booking_status!!) {
                             binding!!.btnBookingProfile.visibility = View.VISIBLE
-                            Log.e("kgvnsngsgggg22===",viewModel.u_ID.get().toString())
-                        }else
-                        {
-                            Log.e("kgvnsngsgggg33===",viewModel.u_ID.get().toString())
+                            Log.e("kgvnsngsgggg22===", viewModel.u_ID.get().toString())
+                        } else {
+                            Log.e("kgvnsngsgggg33===", viewModel.u_ID.get().toString())
                             binding!!.btnBookingProfile.visibility = View.GONE
                         }
-                    }else
-                    {
-                        Log.e("kgvnsngsgggg44===",viewModel.u_ID.get().toString())
+                    } else {
+                        Log.e("kgvnsngsgggg44===", viewModel.u_ID.get().toString())
                         binding!!.btnBookingProfile.visibility = View.GONE
                     }
 
@@ -263,10 +259,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 //                    val _p_id = arguments?.getString("P_ID")
                     viewModel.p_id.set(arguments?.getString("P_ID"))
                     viewModel.CommingFrom.set("isViewProfile")
-                   binding!!.btnBookingProfile.visibility = View.GONE
-                  //  viewModel.tvAllowBooking.set(false)
+                    binding!!.btnBookingProfile.visibility = View.GONE
+                    //  viewModel.tvAllowBooking.set(false)
                     getPostprofile(
-                        viewModel.p_id.get().toString()!!,
+                        viewModel.p_id.get().toString(),
                         pref.retvieLatlong("lati").toDouble(),
                         pref.retvieLatlong("longi").toDouble()
                     )
@@ -278,8 +274,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     /** isEditLook and isViewProfile is same no difference... */
 
                     viewModel.CommingFrom.set("isViewProfile")
-                   binding!!.btnBookingProfile.visibility = View.GONE
-                  //  viewModel.tvAllowBooking.set(false)
+                    binding!!.btnBookingProfile.visibility = View.GONE
+                    //  viewModel.tvAllowBooking.set(false)
                     premiumAccount()
                     viewEditLook()
 
@@ -296,20 +292,22 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                           }
                       }*/
 
-                }"isBookingDetailsFragment" -> {
+                }
+                "isBookingDetailsFragment" -> {
                     /** isBookingDetailsFragment and isViewProfile is same no difference... */
-Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
+                    Log.e("ZCZXCZXCZXCZXC", requireArguments().get("userPostProfileId").toString())
                     viewModel.CommingFrom.set("isViewProfile")
 
 
 //                    val userPostProfileId = requireArguments().get("userPostProfileId").toString()
                     viewModel.p_id.set(requireArguments().get("userPostProfileId").toString())
 
-                    Log.e("ASDASQWEQWe",viewModel.p_id.get().toString() + "xdfdf   " +
-                            pref.retvieLatlong("lati").toDouble()+ " sdfsdf  " +
-                        pref.retvieLatlong("longi").toDouble().toString().toString() )
+                    Log.e("ASDASQWEQWe", viewModel.p_id.get().toString() + "xdfdf   " +
+                            pref.retvieLatlong("lati").toDouble() + " sdfsdf  " +
+                            pref.retvieLatlong("longi").toDouble().toString().toString())
 
-                      getPostprofile(viewModel.p_id.get().toString(),
+                    getPostprofile(
+                        viewModel.p_id.get().toString(),
                         pref.retvieLatlong("lati").toDouble(),
                         pref.retvieLatlong("longi").toDouble(),
                     )
@@ -353,25 +351,25 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
         viewModel.data_list = imageList
 
 
-       /* if(image.get(0).contains(".png")
-            || image.get(0).contains(".jpg")
-            || image.get(0).contains(".jpeg")
-        ) {
-            Glide.with(requireActivity()).load(IMAGE_LOAD_URL + image.get(0))
-                .into(binding!!.ivFavDetails)
-            binding!!.ivFavDetails.visibility=View.VISIBLE
-        }else{
+        /* if(image.get(0).contains(".png")
+             || image.get(0).contains(".jpg")
+             || image.get(0).contains(".jpeg")
+         ) {
+             Glide.with(requireActivity()).load(IMAGE_LOAD_URL + image.get(0))
+                 .into(binding!!.ivFavDetails)
+             binding!!.ivFavDetails.visibility=View.VISIBLE
+         }else{
 
-            binding!!.ivFavDetails.visibility=View.VISIBLE
-        }*/
+             binding!!.ivFavDetails.visibility=View.VISIBLE
+         }*/
 
-       /* viewModel.tvFavouriteCountValue.set(data.get(pos).favouriteCount.toString())
-        if(!(viewModel.u_ID.get().toString().equals(data.get(pos)._id))){
-            viewModel.checkFavouriteShow.set(0)
-        }else
-        {
-            viewModel.checkFavouriteShow.set(1)
-        }*/
+        /* viewModel.tvFavouriteCountValue.set(data.get(pos).favouriteCount.toString())
+         if(!(viewModel.u_ID.get().toString().equals(data.get(pos)._id))){
+             viewModel.checkFavouriteShow.set(0)
+         }else
+         {
+             viewModel.checkFavouriteShow.set(1)
+         }*/
 
         setFirstMediaMethod(image.get(0))
 
@@ -381,25 +379,26 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
     }
 
 
-    fun setFirstMediaMethod(imageValue: String)
-    {
-        if(imageValue.contains(".png")
+    fun setFirstMediaMethod(imageValue: String) {
+        if (imageValue.contains(".png")
             || imageValue.contains(".jpg")
             || imageValue.contains(".jpeg")
         ) {
             Glide.with(requireActivity()).load(IMAGE_LOAD_URL + imageValue).
-          //  apply(RequestOptions().override(1200,1200)).placeholder(R.drawable.dash_board_items_bg).error(R.drawable.dash_board_items_bg)
-         placeholder(R.drawable.dash_board_items_bg).error(R.drawable.dash_board_items_bg)
+                //  apply(RequestOptions().override(1200,1200)).placeholder(R.drawable.dash_board_items_bg).error(R.drawable.dash_board_items_bg)
+            placeholder(R.drawable.dash_board_items_bg).error(R.drawable.dash_board_items_bg)
                 .into(binding!!.ivFavDetails)
-            binding!!.ivFavDetails.visibility=View.VISIBLE
-            binding!!.videoViewDetail.visibility=View.GONE
-            binding!!.ivVideoIconDetails.visibility=View.GONE
-        }else{
-            binding!!.ivFavDetails.visibility=View.GONE
-            binding!!.videoViewDetail.visibility=View.VISIBLE
-            binding!!.ivVideoIconDetails.visibility=View.VISIBLE
-                    var activity=requireActivity() as Activity
-            activity.setVideoPlayMethod(binding!!.videoViewDetail,IMAGE_LOAD_URL + imageValue,binding!!.ivVideoIconDetails)
+            binding!!.ivFavDetails.visibility = View.VISIBLE
+            binding!!.videoViewDetail.visibility = View.GONE
+            binding!!.ivVideoIconDetails.visibility = View.GONE
+        } else {
+            binding!!.ivFavDetails.visibility = View.GONE
+            binding!!.videoViewDetail.visibility = View.VISIBLE
+            binding!!.ivVideoIconDetails.visibility = View.VISIBLE
+            var activity = requireActivity() as Activity
+            activity.setVideoPlayMethod(binding!!.videoViewDetail,
+                IMAGE_LOAD_URL + imageValue,
+                binding!!.ivVideoIconDetails)
         }
     }
 
@@ -535,19 +534,18 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
                                 viewModel.tvFavouriteCountValue.set(res.body()!!.data.favouriteCount.toString())
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
 
-                                Log.e("userIddddd====",loginUserPId.toString())
-                                Log.e("userIddddd111====",res.body()!!.data._id.toString())
+                                Log.e("userIddddd====", loginUserPId.toString())
+                                Log.e("userIddddd111====", res.body()!!.data._id.toString())
 
-                                if(!(loginUserPId.toString().equals(res.body()!!.data._id))){
+                                if (!(loginUserPId.toString().equals(res.body()!!.data._id))) {
                                     viewModel.checkFavouriteShow.set(0)
 
-                                    if(res.body()!!.data.booking_status!!){
+                                    if (res.body()!!.data.booking_status!!) {
                                         binding!!.btnBookingProfile.visibility = View.VISIBLE
-                                    }else
-                                    {    binding!!.btnBookingProfile.visibility = View.GONE
+                                    } else {
+                                        binding!!.btnBookingProfile.visibility = View.GONE
                                     }
-                                }else
-                                {
+                                } else {
                                     viewModel.checkFavouriteShow.set(1)
                                     binding!!.btnBookingProfile.visibility = View.GONE
                                 }
@@ -565,7 +563,8 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
 
                                 }
 
-                                Log.e("mfkwefmfewfwfwwfwef====",viewModel.checkFavouriteShow.get().toString())
+                                Log.e("mfkwefmfewfwfwwfwef====",
+                                    viewModel.checkFavouriteShow.get().toString())
 
                                 dataList =
                                     res.body()!!.data.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
@@ -575,15 +574,13 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
 
                                 for (idx in 0 until dataList.size) {
 
-                                    if(dataList[idx].toString().contains(".jpg")
+                                    if (dataList[idx].toString().contains(".jpg")
                                         || dataList[idx].toString().contains(".jpeg")
                                         || dataList[idx].toString().contains(".png")
-                                            ) {
-                                        newDataList.add(AddPhoto(dataList[idx].toString(), true,1))
-                                    }
-                                    else
-                                    {
-                                        newDataList.add(AddPhoto(dataList[idx].toString(), true,2))
+                                    ) {
+                                        newDataList.add(AddPhoto(dataList[idx].toString(), true, 1))
+                                    } else {
+                                        newDataList.add(AddPhoto(dataList[idx].toString(), true, 2))
                                     }
                                 }
 
@@ -607,24 +604,25 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
 
 
 
-                                setFirstMediaMethod(res.body()!!.data.postProfile_picture!!.get(0).toString())
+                                setFirstMediaMethod(res.body()!!.data.postProfile_picture!!.get(0)
+                                    .toString())
 
-                             /*   if (res.body()!!.data.postProfile_picture != null && !(res.body()!!.data.postProfile_picture!!.isEmpty())) {
-                                    Glide.with(requireActivity())
-                                        .load(
-                                            IMAGE_LOAD_URL + res.body()!!.data.postProfile_picture!!.get(
-                                                0
-                                            )
-                                        ).placeholder(R.drawable.dash_board_items_bg)
-//                                        .apply(RequestOptions().override(1200,1200))
-                                        .into(binding!!.ivFavDetails)
-                                } else {
+                                /*   if (res.body()!!.data.postProfile_picture != null && !(res.body()!!.data.postProfile_picture!!.isEmpty())) {
+                                       Glide.with(requireActivity())
+                                           .load(
+                                               IMAGE_LOAD_URL + res.body()!!.data.postProfile_picture!!.get(
+                                                   0
+                                               )
+                                           ).placeholder(R.drawable.dash_board_items_bg)
+   //                                        .apply(RequestOptions().override(1200,1200))
+                                           .into(binding!!.ivFavDetails)
+                                   } else {
 
-                                    Glide.with(requireActivity())
-                                        .load(R.drawable.dash_board_items_bg)
-                                        .into(binding!!.ivFavDetails)
-                                }
-*/
+                                       Glide.with(requireActivity())
+                                           .load(R.drawable.dash_board_items_bg)
+                                           .into(binding!!.ivFavDetails)
+                                   }
+   */
 
 
                                 checkForMiles(res.body()!!.data.user_id!!)
@@ -689,7 +687,6 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
 
         var dataList = ArrayList<AddImageDescriptionPOJO>()
 
-
         for (item in 1 until data.size) {
             var nameDes = ""
             if (item == 1) {
@@ -723,7 +720,12 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
 
         binding?.rvImages?.layoutManager = LinearLayoutManager(requireContext())
 
-        val addapter = ViewPostProfileAdapter(requireActivity(), dataList)
+        val metrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(metrics)
+        //val params = videoView.layoutParams as LinearLayout.LayoutParams
+        //params.width = metrics.widthPixels
+
+        val addapter = ViewPostProfileAdapter(requireActivity(), dataList, metrics.widthPixels)
         binding?.rvImages?.adapter = addapter
         binding?.rvImages?.adapter?.notifyDataSetChanged()
 
@@ -747,10 +749,10 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
 
     private fun premiumAccount() {
 
-        dataStoreUtil?.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
+        dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
 
             val p_Id = it?.data?.p_id
-             loginUserId = it?.data?.user_id
+            loginUserId = it?.data?.user_id
 
             viewModel.p_id.set(p_Id)
 
@@ -762,7 +764,7 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
                     Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
 
                     getPostprofile(
-                        p_Id!!,
+                        p_Id,
                         pref.retvieLatlong("lati").toDouble(),
                         pref.retvieLatlong("longi").toDouble()
                     )
@@ -850,20 +852,20 @@ Log.e("ZCZXCZXCZXCZXC",requireArguments().get("userPostProfileId").toString())
             viewModel.fontViewColor.set(fontColor!!)
             var data = fontColor as java.lang.String
 
-            binding?.tvFavCityAddress?.setTextColor(Color.parseColor(data.toString())!!)
-            binding?.tvFavDetailsAddress?.setTextColor(Color.parseColor(data.toString())!!)
-            binding?.tvFavDetailsDistance?.setTextColor(Color.parseColor(data.toString())!!)
-            binding?.tvFavDetails?.setTextColor(Color.parseColor(data.toString())!!)
+            binding?.tvFavCityAddress?.setTextColor(Color.parseColor(data.toString()))
+            binding?.tvFavDetailsAddress?.setTextColor(Color.parseColor(data.toString()))
+            binding?.tvFavDetailsDistance?.setTextColor(Color.parseColor(data.toString()))
+            binding?.tvFavDetails?.setTextColor(Color.parseColor(data.toString()))
             binding?.tvFavDetailsLikeCounts?.setTextColor(Color.parseColor(data.toString()))
-            binding?.tvFavDetailsDisLikeCount?.setTextColor(Color.parseColor(data.toString())!!)
-            binding?.tvFavDetailsName?.setTextColor(Color.parseColor(data.toString())!!)
-            binding?.ivFavDetailsBackBtn?.setColorFilter(Color.parseColor(data.toString())!!)
-            binding?.ivFavDetailsOptions?.setColorFilter(Color.parseColor(data.toString())!!)
-            binding?.ivFavDetailsChats?.setColorFilter(Color.parseColor(data.toString())!!)
-            binding?.ivFavDetailsLike?.setColorFilter(Color.parseColor(data.toString())!!)
-            binding?.ivFavDetailsDislike?.setColorFilter(Color.parseColor(data.toString())!!)
-            binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(data.toString())!!)
-            binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(data.toString())!!)
+            binding?.tvFavDetailsDisLikeCount?.setTextColor(Color.parseColor(data.toString()))
+            binding?.tvFavDetailsName?.setTextColor(Color.parseColor(data.toString()))
+            binding?.ivFavDetailsBackBtn?.setColorFilter(Color.parseColor(data.toString()))
+            binding?.ivFavDetailsOptions?.setColorFilter(Color.parseColor(data.toString()))
+            binding?.ivFavDetailsChats?.setColorFilter(Color.parseColor(data.toString()))
+            binding?.ivFavDetailsLike?.setColorFilter(Color.parseColor(data.toString()))
+            binding?.ivFavDetailsDislike?.setColorFilter(Color.parseColor(data.toString()))
+            binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(data.toString()))
+            binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(data.toString()))
 
 
 

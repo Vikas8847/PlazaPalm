@@ -108,4 +108,5 @@ object Constants {
      val SLECTED_CATE_SIGNUP by lazy { stringPreferencesKey("FilterList") }
      val list_Name by lazy { stringPreferencesKey("idsList") }
      val list_CateName by lazy { stringPreferencesKey("idsList") }
+var REDIRECT_CHATSCREEN:String="redirectChatScreen"
 }

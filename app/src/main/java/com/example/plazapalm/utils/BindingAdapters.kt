@@ -1,6 +1,8 @@
 package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.location.Location
 import android.media.MediaPlayer
 import android.os.Build
@@ -23,6 +25,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.pref.preferenceName
 import com.example.plazapalm.views.dashboard.DashBoardVM
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,7 +39,7 @@ import javax.inject.Inject
 /** Binding Adapters */
 object BindingAdapters {
 //    @Inject
-//    lateinit var pref : PreferenceFile
+    lateinit var pref : PreferenceFile
     @BindingAdapter(value = ["setRecyclerAdapter"], requireAll = false)
     @JvmStatic
     fun setRecyclerAdapter(
@@ -314,14 +317,19 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
+    @BindingAdapter(value = ["calculateLatLngToMiles","destLat","destLong"], requireAll = false)
     @JvmStatic
-    fun calculateLatLngToMiles(destinationTV : TextView, viewModel: DashBoardVM?) {
-       // destinationTV.text = "ddsssss"
-        var latValue1="30.7046"
-        var lngValue1="76.7179"
+    fun calculateLatLngToMiles(destinationTV : TextView, pref: PreferenceFile?,
+                               destLat:Double,destLong:Double) {
+        var latValue1= pref!!.retvieLatlong("longi").toDouble()
+        var lngValue1= pref!!.retvieLatlong("lati").toDouble()
+        //   pref.storeLatlong("lati", location.longitude.toFloat())
+        // destinationTV.text = "ddsssss"
+        /* var latValue1="30.7046"
+        var lngValue1="76.7179"*/
         val latLngA = LatLng(latValue1.toDouble(), lngValue1.toDouble())
-        val latLngB = LatLng(viewModel!!.destinationLat.get(), viewModel!!.destinationLong.get())
+       // val latLngB = LatLng(destLat, destLong)
+        val latLngB = LatLng(destLat, destLong)
         val locationA = Location("Point A")
         locationA.latitude = latLngA.latitude
         locationA.longitude = latLngA.longitude
@@ -332,22 +340,22 @@ object BindingAdapters {
         var distance= locationA.distanceTo(locationB).toDouble().toString()
         Handler().postDelayed(object : Runnable {
             override fun run() {
-                destinationTV.text = distance+" Miles"
-             //   destinationTV.text = "dddd"
-                destinationTV.requestLayout()
+                var milesValues="0"
+                if(distance!=null)
+                {
+                    if(distance.toString().contains("."))
+                    {
+                        milesValues=distance.toString().split(".")[0]
+                    }else
+                    {
+                        milesValues=distance.toString()
+                    }
+                }
+                destinationTV.text = milesValues+" Miles"
+                Log.d("distanceCalqwer", destinationTV.text.toString())
             }
         },1000)
-
-    //    distance.set(locationA.distanceTo(locationB).toDouble().toString())
-     //   Log.d("distanceCal", distance.toString().split(".")[0])
-        Log.d("distanceCalqwer", destinationTV.text.toString())
-//        distanceCal.set(distance.get().toString())
-
-      //  userMiles.set( distance.get().toString().split(".")[0])
-
-
     }
-
 
     @BindingAdapter(value = ["setMiles"], requireAll = false)
     @JvmStatic

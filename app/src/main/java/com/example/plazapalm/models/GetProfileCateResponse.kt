@@ -30,12 +30,15 @@ data class ProfileCateData(
     val lat: Double?,
     val likeCount: Int?=0,
     val location_text: String?="",
-    val long: Double?,
+  //  val lng: Double?,
+    var long: Double?=0.0,
     val postProfile_picture: List<String>?,
     val profile_title: String?="",
     val tags: String?="",
     val u_id: String?="",
     val user_name: String?="",
-    val miles: String?=""
+    val miles: String?="",
+    val booking_status: Boolean?=false,
+    var lngValue:Double?
 
 )  : AbstractModel()
