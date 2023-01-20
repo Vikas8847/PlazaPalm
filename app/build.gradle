@@ -187,4 +187,7 @@ dependencies {
 
     implementation 'com.iceteck.silicompressorr:silicompressor:2.2.4'
     implementation 'com.googlecode.mp4parser:isoparser:1.1.22'
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
 }
