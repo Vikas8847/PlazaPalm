@@ -52,8 +52,9 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DashBoardFragmentBinding.inflate(layoutInflater)
 
+        binding = DashBoardFragmentBinding.inflate(layoutInflater)
+        mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0 ) {
             viewModel.lati.set(pref.retvieLatlong("longi").toDouble())
             viewModel.longi.set(pref.retvieLatlong("lati").toDouble())
@@ -61,22 +62,26 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
             Log.e("ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toFloat().toString())
             Log.e("gsdgklslgswgs====",viewModel.lati.get().toString())
             Log.e("gsdgklslgswgs11====",viewModel.longi.get().toString())
+        } else {
+            getLastLocation()
+            Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
         }
 
-        mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
+
         getCategoriesListAndID()
         getlocalData()
         viewModel.getProfile()
         viewModel.getProfileByCategory("", true)
 
-        if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0 ) {
-                    /*   pref.storeLatlong("longi", pref.retvieLatlong("lati").toDouble().toFloat())
-            pref.storeLatlong("lati", pref.retvieLatlong("longi").toDouble().toFloat())*/
-            Log.e("ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toFloat().toString())
-        } else {
-            getLastLocation()
-            Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
-        }
+//        if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0 ) {
+//                    /*   pref.storeLatlong("longi", pref.retvieLatlong("lati").toDouble().toFloat())
+//            pref.storeLatlong("lati", pref.retvieLatlong("longi").toDouble().toFloat())*/
+//            Log.e("ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toFloat().toString())
+//        } else {
+//            getLastLocation()
+//            Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
+//        }
+//
         return binding?.root
 
     }
@@ -433,8 +438,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         viewModel.lati.set(location.latitude)
                         viewModel.longi.set(location.longitude)
 
-                        pref.storeLatlong("longi", location.longitude.toFloat())
-                        pref.storeLatlong("lati", location.latitude.toFloat())
+                        pref.storeLatlong("longi", location.latitude.toFloat())
+                        pref.storeLatlong("lati", location.longitude.toFloat())
                         Log.e("Current_Location==",viewModel.lati.get().toString())
                         Log.e("Current_Location11==",viewModel.longi.get().toString())
 

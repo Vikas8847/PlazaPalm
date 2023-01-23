@@ -346,7 +346,8 @@ object BindingAdapters {
         /* var latValue1="30.7046"
         var lngValue1="76.7179"*/
         val latLngA = LatLng(latValue1.toDouble(), lngValue1.toDouble())
-        val latLngB = LatLng(viewModel!!.destinationLat.get(), viewModel!!.destinationLong.get())
+        // val latLngB = LatLng(destLat, destLong)
+        val latLngB = LatLng(destLat, destLong)
         val locationA = Location("Point A")
         locationA.latitude = latLngA.latitude
         locationA.longitude = latLngA.longitude
@@ -373,6 +374,7 @@ object BindingAdapters {
             }
         },1000)
     }
+
 
     @BindingAdapter(value = ["setMiles"], requireAll = false)
     @JvmStatic
