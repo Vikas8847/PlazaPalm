@@ -17,9 +17,6 @@ import androidx.databinding.ObservableInt
 import androidx.databinding.ObservableParcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.BuildConfig
 import com.example.plazapalm.R
@@ -35,7 +32,6 @@ import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.utils.navigateWithId
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Response
 import javax.inject.Inject
@@ -61,6 +57,9 @@ class FavDetailsVM @Inject constructor(
     var CommingFrom = ObservableField("")
     var p_id = ObservableField("")
     var u_ID = ObservableField("")
+
+    var loginUserPId = ObservableField("")
+
     var userId = ObservableField("")
     var firstName = ObservableField("")
     var lastName = ObservableField("")
@@ -89,12 +88,13 @@ class FavDetailsVM @Inject constructor(
     var tvFavouriteCountValue = ObservableField("0")
     var tvAllowBooking = ObservableBoolean(false)
     var checkFavouriteShow = ObservableInt()
+
     /** Advance setting */
     val backgroundColor = MutableLiveData<Any>()
     val textColor = MutableLiveData<Any>()
 
-init {
-}
+    init {
+    }
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -187,15 +187,19 @@ init {
                 } else if (CommingFrom.get().equals("isViewProfile")) {
                     showViewProfileDialog(view)
                 }
-
             }
 
             R.id.ivFavDetailsChats -> {
-                view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment)
+                if (loginUserPId.get().toString().equals(p_id.get().toString())) {
+                    //Go to the Recent Message screen
+                    view.navigateWithId(R.id.messagesFragment)
+                } else {
+                    //Go to the Single Message screen
+                    view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment)
+                }
             }
 
             R.id.btnBookingProfile -> {
-
                 val booking_pro = Bundle()
                 booking_pro.putString("bookClick", "confirmBook")
                 booking_pro.putString("userName", username.get())
@@ -216,15 +220,15 @@ init {
         var discount = DisLikesCount.get()!!.toInt()
 
 
-     //   Log.e("ADDDDDDD",)
+        //   Log.e("ADDDDDDD",)
         if (!likeButton && !dislikeButton) {
             if (buttonType == 1) {
                 isLike.set(true)
                 count++
-               // discount--
+                // discount--
                 isDisLike.set(false)
             } else {
-               // count--
+                // count--
                 discount++
                 isLike.set(false)
                 isDisLike.set(true)
@@ -234,7 +238,7 @@ init {
                 isLike.set(false)
                 isDisLike.set(false)
                 count--
-               // discount--
+                // discount--
             } else {
                 count--
                 discount++
@@ -261,27 +265,26 @@ init {
         LikesCount.set(count.toString())
         DisLikesCount.set(discount.toString())
 
-        var likeOtherValue=false
-        var dislikeOtherValue=false
+        var likeOtherValue = false
+        var dislikeOtherValue = false
 
         if (buttonType == 1) {
-            likeOtherValue=true
-            dislikeOtherValue=false
-        }else{
-            likeOtherValue=false
-            dislikeOtherValue=true
+            likeOtherValue = true
+            dislikeOtherValue = false
+        } else {
+            likeOtherValue = false
+            dislikeOtherValue = true
         }
 
 
         likeApi(likeOtherValue, dislikeOtherValue)
 
 
-
-       /* if (isLike.get() && isDisLike.get().equals(false)){
-            likeApi(true, false)
-        }else if (isLike.get().equals(false) && isDisLike.get().equals(true)){
-            likeApi(false, true)
-        }*/
+        /* if (isLike.get() && isDisLike.get().equals(false)){
+             likeApi(true, false)
+         }else if (isLike.get().equals(false) && isDisLike.get().equals(true)){
+             likeApi(false, true)
+         }*/
 
     }
 
@@ -350,6 +353,7 @@ init {
 //                        isFav.get()
                     )
                 }
+
                 override fun onResponse(res: Response<AddFavPostProfileResponse>) {
                     Log.e("QWQQWWSSS", res.body().toString())
 
@@ -363,7 +367,7 @@ init {
                                 isFav.set(false)
                                 Log.e("TRUE", res.body().toString())
 
-                               var newFavoriteCount=tvFavouriteCountValue.get()!!.toInt()+1
+                                var newFavoriteCount = tvFavouriteCountValue.get()!!.toInt() + 1
 
                                 tvFavouriteCountValue.set(newFavoriteCount.toString())
 
@@ -371,7 +375,7 @@ init {
                                 isFav.set(true)
 //                                    tvRemoveFav?.text="Add from Favourites"
                                 Log.e("FALSE", res.body().toString())
-                                var newFavoriteCount=tvFavouriteCountValue.get()!!.toInt()-1
+                                var newFavoriteCount = tvFavouriteCountValue.get()!!.toInt() - 1
 
                                 tvFavouriteCountValue.set(newFavoriteCount.toString())
                             }
@@ -546,7 +550,7 @@ init {
                 bundle.putString("longi", userdata.get()?.long!!.toString())
                 bundle.putString("lati", userdata.get()?.lat!!.toString())
                 bundle.putString("location_text", userdata.get()?.location_text)
-                bundle.putBoolean("booking_status", tvAllowBooking.get()!!)
+                bundle.putBoolean("booking_status", tvAllowBooking.get())
 
 //              var dataList : ArrayList<String> =  userdata.get()?.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
 
@@ -604,7 +608,7 @@ init {
         /*** Cancel Button Clicks **/
         deldialog?.findViewById<AppCompatTextView>(R.id.tvFavDetailsCancel)
             ?.setOnClickListener {
-            //    dialog?.dismiss()
+                //    dialog?.dismiss()
                 deldialog?.dismiss()
             }
 //            }
@@ -637,7 +641,7 @@ init {
                                 Log.e("QWQAAAZZZ", res.body().toString())
                                 CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
                                 view.navigateBack()
-                              //  dialog?.dismiss()
+                                //  dialog?.dismiss()
                                 deldialog?.dismiss()
 
 //                                view.findNavController().previousBackStackEntry?.savedStateHandle?.set("changeStatus", false)

@@ -55,22 +55,33 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
         binding = DashBoardFragmentBinding.inflate(layoutInflater)
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
-        getCategoriesListAndID()
-        getlocalData()
-        viewModel.getProfile()
-        viewModel.getProfileByCategory("a", true)
-
         if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0 ) {
+            viewModel.lati.set(pref.retvieLatlong("longi").toDouble())
+            viewModel.longi.set(pref.retvieLatlong("lati").toDouble())
 
-            //            pref.storeLatlong("longi", pref.retvieLatlong("lati").toDouble().toFloat())
-//            pref.storeLatlong("lati", pref.retvieLatlong("longi").toDouble().toFloat())
             Log.e("ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toFloat().toString())
-
-
+            Log.e("gsdgklslgswgs====",viewModel.lati.get().toString())
+            Log.e("gsdgklslgswgs11====",viewModel.longi.get().toString())
         } else {
             getLastLocation()
             Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
         }
+
+
+        getCategoriesListAndID()
+        getlocalData()
+        viewModel.getProfile()
+        viewModel.getProfileByCategory("", true)
+
+//        if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0 ) {
+//                    /*   pref.storeLatlong("longi", pref.retvieLatlong("lati").toDouble().toFloat())
+//            pref.storeLatlong("lati", pref.retvieLatlong("longi").toDouble().toFloat())*/
+//            Log.e("ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toFloat().toString())
+//        } else {
+//            getLastLocation()
+//            Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
+//        }
+//
         return binding?.root
 
     }
@@ -428,7 +439,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                         pref.storeLatlong("longi", location.latitude.toFloat())
                         pref.storeLatlong("lati", location.longitude.toFloat())
-
+                        Log.e("Current_Location==",viewModel.lati.get().toString())
+                        Log.e("Current_Location11==",viewModel.longi.get().toString())
 
                         val geocoder = Geocoder(requireActivity(), Locale.getDefault())
                         val addresses: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
@@ -448,14 +460,11 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                     }
                 }
-
-
             } else {
                 CommonMethods.showToast(requireContext(), "Turn on Location")
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
             }
-
         } else {
             CommonMethods.requestPermissions()
         }

@@ -184,8 +184,6 @@ class DashBoardVM @Inject constructor(
 
                  }
              }*/
-
-
     }
 
     fun onTextChange(editable: Editable) {
@@ -195,7 +193,7 @@ class DashBoardVM @Inject constructor(
             }, 1000)
         } else {
             Handler().postDelayed({
-                getProfileByCategory("a", false)
+                getProfileByCategory("", false)
             }, 1000)
         }
 
@@ -308,7 +306,7 @@ class DashBoardVM @Inject constructor(
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(res: Response<GetProfileCateResponse>) {
 
-                    Log.d("WORKINGG->>>>>---  ", res.body()!!.data.toString() + "DDDDDDDDS")
+                    Log.d("WORKINGG_->>>---  ", res.body()!!.data.toString() + "DDDDDDDDS")
 
                     if (res.isSuccessful) {
                         if (res.body() != null) {
@@ -318,15 +316,22 @@ class DashBoardVM @Inject constructor(
 
                                     isNodatafound.set(true)
 
-                                    adapter.addItems(res.body()?.data!!)
+                                    var profileList=ArrayList<ProfileCateData>()
+                                    profileList.clear()
+                                    for(idx in 0 until res.body()?.data!!.size)
+                                    {
+                                        res.body()?.data!![idx].lngValue=res.body()?.data!![idx].long
+                                        profileList.add(res.body()?.data!![idx])
+                                    }
+                                    adapter.addItems(profileList)
                                     adapter.notifyDataSetChanged()
 
                                     Log.d("DashBoardResponse->", res.body()!!.data.toString())
 
-                                    for (i in 0 until res.body()!!.data.size) {
+                                   /* for (i in 0 until res.body()!!.data.size) {
                                         destinationLat.set(adapter.getAllItems()[i].lat!!)
-                                        destinationLong.set(adapter.getAllItems()[i].long!!)
-                                    }
+                                        destinationLong.set(adapter.getAllItems()[i].lng!!)
+                                    }*/
                                     Log.e("SDSDS",
                                         destinationLat.get()
                                             .toString() + "kjljlj;" + destinationLong.get()
