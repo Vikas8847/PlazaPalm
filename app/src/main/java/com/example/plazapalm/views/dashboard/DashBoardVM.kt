@@ -293,6 +293,7 @@ class DashBoardVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileCateResponse> {
                     return retrofitApi.getProfileByCategory(
                         pref.retrieveKey("token").toString(),
+                        "application/json",
                         idList,
                         5,
                         500,

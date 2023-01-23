@@ -45,7 +45,7 @@ class Repository @Inject constructor(
         getFromCache: Boolean = false,
         requestProcessor: ApiProcessor<Response<T>>
     ) {
-        val activity = MainActivity.context.get()!!
+         val activity = MainActivity.context.get()!!
         if (getFromCache && cacheUtil.snapshot().containsKey(apiKey)) {
             Log.d("cacheUtil", "========${cacheUtil[apiKey]}")
             requestProcessor.onResponse(cacheUtil[apiKey] as Response<T>)

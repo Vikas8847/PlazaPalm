@@ -187,10 +187,13 @@ interface RetrofitApi {
 //        @Field("search")search:String
 //    ):Response<GetProfilebyCateResponse>
 
+
+
     @FormUrlEncoded
     @POST(GET_PROFILE_BY_CATEGORERY)
     suspend fun getProfileByCategory(
         @Header("Authorization") Authorization: String,
+        @Header("Content-Type") contentType: String,
         @Field("c_id") c_id: ArrayList<String>,
         // @Field("c_id") c_id: String,
         @Field("offset") offset: Int,

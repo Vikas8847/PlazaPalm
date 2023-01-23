@@ -1,5 +1,6 @@
 package com.example.plazapalm.models
 
+import com.example.plazapalm.datastore.Location
 import com.example.plazapalm.recycleradapter.AbstractModel
 
 data class GetProfileCateResponse(
@@ -39,6 +40,15 @@ data class ProfileCateData(
     val user_name: String?="",
     val miles: String?="",
     val booking_status: Boolean?=false,
-    var lngValue:Double?
+    var lngValue:Double?,
+    val location: DashLocation,
+    val distance: Double,
+    val likes: List<Any>
 
-)  : AbstractModel()
+    )  : AbstractModel()
+
+
+data class DashLocation(
+    val coordinates: List<Double>,
+    val type: String
+)
