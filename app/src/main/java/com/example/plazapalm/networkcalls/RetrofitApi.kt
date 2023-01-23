@@ -1,6 +1,7 @@
 package com.example.plazapalm.networkcalls
 
 import com.example.plazapalm.models.*
+import com.example.plazapalm.views.dashboard.DashBoardPostData
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import org.json.JSONObject
@@ -189,19 +190,19 @@ interface RetrofitApi {
 
 
 
-    @FormUrlEncoded
-    @POST(GET_PROFILE_BY_CATEGORERY)
+   // @POST(GET_PROFILE_BY_CATEGORERY)
+    @HTTP(method = "POST", path = GET_PROFILE_BY_CATEGORERY, hasBody = true)
     suspend fun getProfileByCategory(
         @Header("Authorization") Authorization: String,
-        @Header("Content-Type") contentType: String,
-        @Field("c_id") c_id: ArrayList<String>,
+       // @Header("Content-Type") contentType: String,
+        @Body body: DashBoardPostData,
         // @Field("c_id") c_id: String,
-        @Field("offset") offset: Int,
+       /* @Field("offset") offset: Int,
         @Field("limit") limit: Int,
         @Field("lat") lat: Double,
         @Field("long") long: Double,
         @Field("search") search: String,
-        @Field("miles") miles: String
+        @Field("miles") miles: String*/
     ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded
