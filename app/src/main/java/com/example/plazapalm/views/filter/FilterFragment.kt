@@ -66,11 +66,11 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
     private fun getLocalData() {
 
 
-        if (pref.retvieMiles()!=null && !(pref.retvieMiles().equals(""))){
+        if (pref.retvieMiles()!=null && (pref.retvieMiles()!=0)){
 
             var miles = pref.retvieMiles()
             binding.tvFilterMilesValue.text=miles.toString() + " Miles"
-            binding.sliderFilter.value =42F
+            binding.sliderFilter.value =miles.toFloat()
           //  binding.sliderFilter.value = 1.0f
 
 
@@ -80,8 +80,10 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
 
         }else{
-            binding.sliderFilter.value =1.0f
+            binding.tvFilterMilesValue.text= 25.toString() + " Miles"
+            binding.sliderFilter.value =25.toFloat()
         }
+
         viewModel.filterDataList.clear()
 
         if (pref.retrieveFilterResponse()!=null && !(pref.retrieveFilterResponse().equals(""))){

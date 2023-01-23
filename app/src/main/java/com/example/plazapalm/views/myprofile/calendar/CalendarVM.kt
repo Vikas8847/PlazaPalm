@@ -45,6 +45,7 @@ class CalendarVM @Inject constructor(
     val month = ObservableInt()
     val year = ObservableInt()
     val click = ObservableBoolean(false)
+    val isBookingStatus = ObservableBoolean(false)
 
     init {
 

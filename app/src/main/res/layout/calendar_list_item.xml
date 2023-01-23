@@ -8,14 +8,21 @@
         <variable
             name="model"
             type="com.example.plazapalm.models.CalenderData" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mail_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        setCalndarBackground="@{model.booking_status}"
         android:layout_margin="@dimen/_5sdp"
         android:background="@drawable/calendar_item_list_bg"
         android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`calendarBookingDetails`)}">
+
+         <!--
+         android:text="@{model.postProfile_first_name}"
+         -->
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvClBookingUserName"
@@ -25,7 +32,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/inter_medium"
-            android:text="@{model.customer_first_name + ' ' + model.customer_last_name}"
+            setText="@{model.postProfile_first_name +' '+ model.postProfile_last_name}"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
