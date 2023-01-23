@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,16 +22,23 @@ import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceShowViewProfileBinding
 import com.example.plazapalm.databinding.FontsListFragmentBinding
+import com.example.plazapalm.datastore.GET_COLORS_EDIT_LOOK
 import com.example.plazapalm.models.FontsListModelResponse
+import com.example.plazapalm.models.GetColorsResponse
+import com.example.plazapalm.networkcalls.ApiEnums
+import com.example.plazapalm.networkcalls.ApiProcessor
+import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.recycleradapter.RecyclerAdapter
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.CommonMethods.academyEngravedLetPlain
 import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.utils.CommonMethods.dialog
+import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.hideKeyboard
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
+import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 
@@ -42,9 +50,9 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
     var fontTypeface: Typeface? = null
     var isChecked = ObservableBoolean(false)
 
-    var userProfileName=ObservableField("")
-    var userProfileDescription=ObservableField("")
-    var userProfileLocation=ObservableField("")
+    var userProfileName = ObservableField("")
+    var userProfileDescription = ObservableField("")
+    var userProfileLocation = ObservableField("")
 
     var typfaceObserverLiveData = MutableLiveData<Boolean>()
 
@@ -56,23 +64,23 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
 
 
     init {
-
         setFontsInAdapterList()
         setAdapter()
     }
 
     fun onClicks(view: View) {
         when (view.id) {
+            /*attac button click */
+            R.id.btnEditFrontLookAttach->{
+                // call here post api of fonts
+            }
             R.id.ivAdvanceEditFrontPage -> {
                 view.findNavController().navigateUp()
             }
-
             R.id.btnEditFrontPageView -> {
-                /// view.navigateWithId(R.id.favDetailsFragment)
-                //Create new Dialog Alert of view profile
-                showViewProfileDialog()
+                /*call herer on view button dialog (get fonts api)*/
+                // showViewProfileDialog()
             }
-
             R.id.tvAdvanceEditFrontPageFontValue -> {
                 showBottomSheetDialogOne()
             }
@@ -88,28 +96,30 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
             dialog = Dialog(context, android.R.style.Theme_Dialog)
             dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog?.setContentView(R.layout.advance_show_view_profile)
-            profileBinding = AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
+            profileBinding =
+                AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
             profileBinding.root
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
             dialog?.setCancelable(true)
-            if (isChecked.get()){
+            if (isChecked.get()) {
                 userProfileName.set("Vikas Panchal")
-                profileBinding.tvProfileUserName.text="Vikas Panchal"
-               // isChecked.set(false)
-            }
-            else{
+                profileBinding.tvProfileUserName.text = "Vikas Panchal"
+                // isChecked.set(false)
+            } else {
                 userProfileName.set("Vikas Panchal")
                 isChecked.set(true)
             }
             dialog?.show()
         }
     }
+
+
     var fontBottomSheet: BottomSheetDialog? = null
+
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     private fun showBottomSheetDialogOne() {
-        fontBottomSheet =
-            BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
+        fontBottomSheet = BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
         fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         scheduleBinding =
             FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
@@ -136,7 +146,6 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
             when (type) {
                 "fontsItemClick" -> {
                     fontBottomSheet?.dismiss()
-                    //  if (fontsNameList.isNotEmpty() && fontsFilteredList.isNotEmpty()) {
                     val adapterList = fontListAdapter.getAllItems()
                     val fontName = adapterList[position].name
                     val typeface = adapterList[position].fontTypeface
@@ -144,13 +153,6 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
                     fontTypeface = typeface
                     fontsName.set(fontName)
                     typfaceObserverLiveData.postValue(true)
-                    //  fontTypeface=filteredTypeface
-                    //  fontsName.set(filteredFontName)
-
-                    /*  }
-                      else{
-                          CommonMethods.showToast(context,"List is Empty")
-                      }*/
                 }
             }
         }
@@ -161,7 +163,6 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
         fontsNameList.map {
             false
         }
-        // val newfont2: AppCompatTextView? = null
         scheduleBinding?.rvChooseFonts?.layoutManager = LinearLayoutManager(MainActivity.activity)
         scheduleBinding?.rvChooseFonts?.adapter = fontListAdapter
         updateRecyclerView()
@@ -574,12 +575,7 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
         appCompatTxtFont?.typeface = walkwayObliqueSemiBold
 
         /*Adding data in font list */
-        fontsNameList.add(
-            FontsListModelResponse(
-                academyEngravedLetPlain!!,
-                "Academy Engraved LET "
-            )
-        )
+        fontsNameList.add(FontsListModelResponse(academyEngravedLetPlain!!, "Academy Engraved LET "))
         fontsNameList.add(FontsListModelResponse(abrilFatFaceRegular, "Abril FatFace"))
         fontsNameList.add(FontsListModelResponse(alexBrushRegular, "Alex Brush"))
         fontsNameList.add(FontsListModelResponse(allerBD, "Aller BD"))
@@ -728,7 +724,7 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
         fontsNameList.add(FontsListModelResponse(walkwayObliqueBlack, "walkway Oblique Black"))
         fontsNameList.add(FontsListModelResponse(walkwayObliqueBold, "walkway Oblique Bold"))
         fontListAdapter.addItems(fontsNameList)
-        fontListAdapter.notifyDataSetChanged()
+        updateRecyclerView()
     }
 
     private fun searchFunctionality() {
@@ -748,30 +744,95 @@ class EditFrontPageVM @Inject constructor() : ViewModel() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun search(text: String?) {
+        val fontsFilteredList = ArrayList<FontsListModelResponse>()
+        fontsFilteredList.clear()
         text.let {
             fontsNameList.forEach { fontsName ->
-                if (fontsName.name.lowercase(Locale.getDefault())
-                        .contains(text?.lowercase(Locale.getDefault())!!) || fontsName.fontTypeface.toString()
-                        .lowercase(Locale.getDefault())
-                        .contains(text.lowercase(Locale.getDefault()))
-                ) {
+                if (fontsName.name.lowercase(Locale.getDefault()).contains(text?.lowercase(Locale.getDefault())!!) || fontsName.fontTypeface.toString().lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))
+                )
+                {
                     fontsFilteredList.add(fontsName)
                 }
+                updateRecyclerView()
             }
-            fontListAdapter.notifyDataSetChanged()
-            if (fontsFilteredList != null) {
-                fontListAdapter.addItems(fontsFilteredList)
-            } else {
-                fontListAdapter.addItems(fontsNameList)
-            }
-            updateRecyclerView()
         }
     }
-
-
     private fun updateRecyclerView() {
         scheduleBinding?.rvChooseFonts.apply {
             fontListAdapter.notifyDataSetChanged()
         }
     }
+
+
+    /*Call here get fonts Api */
+/*
+    fun getEditLookColor() {
+        repository.makeCall(
+            ApiEnums.GET_EDITCOLORS,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<GetColorsResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetColorsResponse> {
+                    return retrofitApi.colorLookGet(preferenceFile.retrieveKey("token").toString())
+                }
+
+                override fun onResponse(res: Response<GetColorsResponse>) {
+                    Log.e("AQQAAA", res.body().toString())
+
+                    if (res.isSuccessful) {
+                        if (res.body() != null) {
+                            if (res.code() == 200) {
+//                                CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                                dataStoreUtil.saveObject(GET_COLORS_EDIT_LOOK, res.body()!!.data!!)
+                                */
+/** Set Colors... */
+/*
+
+                                SelectedDialog.set("Background Color")
+                                val data = res.body()!!.data
+                                backgroundColorLiveData.value = data!!.background_color!!
+                                columnColorLD.value = data.column_color!!
+                                borderColorLD.value = data.border_color!!
+                                fontColorLD.value = data.font_color!!
+                                preferenceFile.storecolorString(
+                                    Constants.BACKGROUND_COLOR,
+                                    data.background_color!!
+                                )
+                                preferenceFile.storecolorString(Constants.FONT_COLOR, data.font_color)
+                                preferenceFile.storecolorString(Constants.BORDER_COLOR, data.border_color)
+                                preferenceFile.storecolorString(
+                                    Constants.COLUMN_COLOR,
+                                    data.border_color
+                                )
+
+                                Log.e("VVVVVVSS", res.body().toString())
+
+                            } else {
+                                CommonMethods.showToast(
+                                    CommonMethods.context,
+                                    res.body()!!.message!!
+                                )
+                            }
+                        } else {
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                        }
+                    } else {
+                        CommonMethods.showToast(CommonMethods.context, res.message())
+                    }
+                }
+
+                override fun onError(message: String) {
+                    super.onError(message)
+                    Log.e("zxczxczxc", message)
+
+                }
+
+            }
+
+        )
+
+    }
+*/
+
 }

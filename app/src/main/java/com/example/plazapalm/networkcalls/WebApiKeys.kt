@@ -50,6 +50,7 @@ const val UPDATE_QUESTION  = "updateQuestion"
 const val POST_COLORS_EDIT  = "colorLook"
 const val GET_COLORS  = "colorLookGet"
 const val MAP_FEATURES  = "mapFeature"
+const val GET_FONTS  = "frontPageGet"
 
 
 

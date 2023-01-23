@@ -217,6 +217,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/ic_upgrade_btn_bg"
                 android:gravity="center"
+                android:onClick="@{vm::onClicks}"
                 android:paddingBottom="@dimen/_5sdp"
                 android:text="Attach"
                 android:textAllCaps="false"

@@ -14,18 +14,17 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.tvAdvanceEditFrontPage, 4);
-        sViewsWithIds.put(R.id.scrollAdvanceEditLook, 5);
-        sViewsWithIds.put(R.id.checkEditFrontPageTopText, 6);
-        sViewsWithIds.put(R.id.viewEditTopTextFrontPage, 7);
-        sViewsWithIds.put(R.id.checkBottomTextFrontPage, 8);
-        sViewsWithIds.put(R.id.viewEditBottomTextFrontPage, 9);
-        sViewsWithIds.put(R.id.tvAdvanceEditFrontPageFont, 10);
-        sViewsWithIds.put(R.id.viewEditFontPage, 11);
-        sViewsWithIds.put(R.id.tvAdvanceEditFrontPageFontColor, 12);
-        sViewsWithIds.put(R.id.viewBoxLookingBGColor, 13);
-        sViewsWithIds.put(R.id.viewEditFontColor, 14);
-        sViewsWithIds.put(R.id.btnEditFrontLookAttach, 15);
+        sViewsWithIds.put(R.id.tvAdvanceEditFrontPage, 5);
+        sViewsWithIds.put(R.id.scrollAdvanceEditLook, 6);
+        sViewsWithIds.put(R.id.checkEditFrontPageTopText, 7);
+        sViewsWithIds.put(R.id.viewEditTopTextFrontPage, 8);
+        sViewsWithIds.put(R.id.checkBottomTextFrontPage, 9);
+        sViewsWithIds.put(R.id.viewEditBottomTextFrontPage, 10);
+        sViewsWithIds.put(R.id.tvAdvanceEditFrontPageFont, 11);
+        sViewsWithIds.put(R.id.viewEditFontPage, 12);
+        sViewsWithIds.put(R.id.tvAdvanceEditFrontPageFontColor, 13);
+        sViewsWithIds.put(R.id.viewBoxLookingBGColor, 14);
+        sViewsWithIds.put(R.id.viewEditFontColor, 15);
     }
     // views
     // variables
@@ -76,23 +75,24 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
     }
     private EditFrontPageFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
-            , (androidx.appcompat.widget.AppCompatButton) bindings[15]
             , (androidx.appcompat.widget.AppCompatButton) bindings[3]
-            , (androidx.appcompat.widget.AppCompatCheckBox) bindings[8]
-            , (androidx.appcompat.widget.AppCompatCheckBox) bindings[6]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[4]
+            , (androidx.appcompat.widget.AppCompatCheckBox) bindings[9]
+            , (androidx.appcompat.widget.AppCompatCheckBox) bindings[7]
             , (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[5]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[10]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[12]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[6]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[11]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[13]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
-            , (android.view.View) bindings[13]
-            , (android.view.View) bindings[9]
             , (android.view.View) bindings[14]
-            , (android.view.View) bindings[11]
-            , (android.view.View) bindings[7]
+            , (android.view.View) bindings[10]
+            , (android.view.View) bindings[15]
+            , (android.view.View) bindings[12]
+            , (android.view.View) bindings[8]
             );
+        this.btnEditFrontLookAttach.setTag(null);
         this.btnEditFrontPageView.setTag(null);
         this.clCoordinateEditCoverPage.setTag(null);
         this.ivAdvanceEditFrontPage.setTag(null);
@@ -201,6 +201,7 @@ public class EditFrontPageFragmentBindingImpl extends EditFrontPageFragmentBindi
         if ((dirtyFlags & 0x6L) != 0) {
             // api target 1
 
+            this.btnEditFrontLookAttach.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.btnEditFrontPageView.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.ivAdvanceEditFrontPage.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.tvAdvanceEditFrontPageFontValue.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);

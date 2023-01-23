@@ -599,9 +599,7 @@ class AdvanceEditLookVM @Inject constructor(
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetColorsResponse>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetColorsResponse> {
-                    return retrofitApi.colorLookGet(
-                        preferenceFile.retrieveKey("token").toString(),
-                    )
+                    return retrofitApi.colorLookGet(preferenceFile.retrieveKey("token").toString())
                 }
 
                 override fun onResponse(res: Response<GetColorsResponse>) {

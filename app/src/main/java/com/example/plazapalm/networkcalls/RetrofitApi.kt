@@ -469,4 +469,10 @@ interface RetrofitApi {
       @Body jsonObject: JSONObject
     ): Response<MapFeaturedDataRes>
 
+    /*call here get Fonts Api */
+
+    @GET(GET_FONTS)
+    suspend fun getFonts(
+        @Header("Authorization")Authorization: String):Response<GetFontResponse>
+
 }
