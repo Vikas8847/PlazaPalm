@@ -130,9 +130,6 @@ public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
   @NonNull
   public final AppCompatTextView tvFavOfDesc3;
 
-  @NonNull
-  public final View view;
-
   @Bindable
   protected FavDetailsVM mVm;
 
@@ -152,7 +149,7 @@ public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
       AppCompatTextView tvFavDetailsDisLikeCount, AppCompatTextView tvFavDetailsDistance,
       AppCompatTextView tvFavDetailsLikeCounts, AppCompatTextView tvFavDetailsName,
       AppCompatTextView tvFavHeartFilledCounts, AppCompatTextView tvFavOfDesc2,
-      AppCompatTextView tvFavOfDesc3, View view) {
+      AppCompatTextView tvFavOfDesc3) {
     super(_bindingComponent, _root, _localFieldCount);
     this.bottomView = bottomView;
     this.btnBookingProfile = btnBookingProfile;
@@ -189,7 +186,6 @@ public abstract class FavDetailsFragmentBinding extends ViewDataBinding {
     this.tvFavHeartFilledCounts = tvFavHeartFilledCounts;
     this.tvFavOfDesc2 = tvFavOfDesc2;
     this.tvFavOfDesc3 = tvFavOfDesc3;
-    this.view = view;
   }
 
   public abstract void setVm(@Nullable FavDetailsVM vm);

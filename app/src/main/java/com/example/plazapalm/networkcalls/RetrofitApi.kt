@@ -515,4 +515,10 @@ interface RetrofitApi {
         @Header("Content-Type") contentType: String,
         @Body jsonObject:DeleteMediaData
     ): Response<DeleteMediaResponse>
+    /*call here get Fonts Api */
+
+    @GET(GET_FONTS)
+    suspend fun getFonts(
+        @Header("Authorization")Authorization: String):Response<GetFontResponse>
+
 }

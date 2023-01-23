@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-                                                        
+                                                       
+                                                   
 
     
 
-
+                 
+                        
+                                                                                              
            
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clFontListMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        android:background="@drawable/choose_font_bg"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_sheet_bg"
         android:elevation="@dimen/_5sdp"
+        android:nestedScrollingEnabled="true"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="170dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" android:tag="layout/fonts_list_fragment_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        app:behavior_peekHeight="220dp"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" android:tag="layout/fonts_list_fragment_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvChooseFont"
             android:layout_width="wrap_content"
@@ -35,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/inter_medium"
             android:text="Cancel"
             android:textColor="@color/blue"
@@ -43,34 +49,71 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clChooseFont"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/etChooseFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_18sdp"
-            app:layout_constraintTop_toBottomOf="@id/tvChooseFontCancel">
+            android:layout_marginTop="24dp"
+            android:background="@drawable/dashboard_bg"
+            android:clickable="true"
+            android:elevation="@dimen/_1sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
+            app:iconifiedByDefault="false"
+            app:layout_constraintTop_toBottomOf="@+id/tvChooseFont"
+            app:queryBackground="@null"
+            app:queryHint="Search" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/etChooseFont"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
-                android:background="@drawable/dashboard_bg"
-                android:drawableStart="@drawable/ic_search_icon_dashboard"
-                android:drawablePadding="@dimen/_8sdp"
-                android:gravity="center_vertical"
-                android:hint="Search"
-                android:paddingStart="@dimen/_10sdp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/gray"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/myview"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/gray"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/etChooseFont" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvChooseFontsRecent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/_10sdp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Recents"
+            android:textColor="@color/light_gray"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myview" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChooseFontRecent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:nestedScrollingEnabled="true"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/tvChooseFontsRecent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChooseFonts"
+            android:tag="binding_1"                      
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clChooseFont" />
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:nestedScrollingEnabled="true"
+            android:paddingTop="@dimen/_5sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/rvChooseFontRecent"
+            tools:layout_editor_absoluteX="6dp"
+            tools:listitem="@layout/fonts_list_item" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
          

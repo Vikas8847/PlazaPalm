@@ -27,20 +27,15 @@ public abstract class AddPhotosItemListBinding extends ViewDataBinding {
   @NonNull
   public final ShapeableImageView setimageView;
 
-  @NonNull
-  public final AppCompatImageView videoIcon;
-
   @Bindable
   protected DashBoardModel mModel;
 
   protected AddPhotosItemListBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ConstraintLayout clAddPhoto, AppCompatImageView plusIcon, ShapeableImageView setimageView,
-      AppCompatImageView videoIcon) {
+      ConstraintLayout clAddPhoto, AppCompatImageView plusIcon, ShapeableImageView setimageView) {
     super(_bindingComponent, _root, _localFieldCount);
     this.clAddPhoto = clAddPhoto;
     this.plusIcon = plusIcon;
     this.setimageView = setimageView;
-    this.videoIcon = videoIcon;
   }
 
   public abstract void setModel(@Nullable DashBoardModel model);

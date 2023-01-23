@@ -89,11 +89,11 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     }
 
     private fun getlocalData() {
-        Log.e("asdsdasdasdasd", pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
+        Log.e("asdsdasdasdasd",pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
 
-        if (pref.retrieveCategeory(SELECTED_CATEGORY_ID) != null) {
+        if (pref.retrieveCategeory(SELECTED_CATEGORY_ID)!=null ){
 
-            Log.e("jkljlss", pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
+            Log.e("jkljlss",pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
 
 //            val myType = object : TypeToken<ArrayList<SelCategory>>() {}.type
 //            val newList1: ArrayList<SelCategory> = Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME), myType)
@@ -116,9 +116,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
             Log.e("AAAZZZZ", pref.retrieveFilterResponse().toString())
 
             val myType = object : TypeToken<ArrayList<SelCategory>>() {}.type
-            val newList: ArrayList<SelCategory> =
-                Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveFilterResponse(), myType)
-            val categoryList = ArrayList<SelectedDataModelList>()
+            val newList: ArrayList<SelCategory> = Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveFilterResponse(), myType)
+            val categoryList=ArrayList<SelectedDataModelList>()
 
             viewModel.selectedCategoriesList.clear()
 
@@ -255,10 +254,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         val gsonValueCateName = Gson().toJson(viewModel.selectedCategoriesList)
                         pref.saveCategeory(Constants.SELECTED_CATEGORY_ID, gsonValueCateName)
 
-                        Log.e(
-                            "ISCATE--ID -- >>",
-                            viewModel.idList.toString() + "ISCATE--NAME -->> " + viewModel.selectedCategoriesList.toString()
-                        )
+                        Log.e("ISCATE--ID -- >>", viewModel.idList.toString() + "ISCATE--NAME -->> " + viewModel.selectedCategoriesList.toString())
 
                         //////////
 

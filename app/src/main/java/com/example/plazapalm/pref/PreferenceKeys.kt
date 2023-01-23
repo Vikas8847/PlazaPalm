@@ -2,7 +2,7 @@ package com.example.plazapalm.pref
 
 const val preferenceName = "Plazza"
 
-const val foreverPreferenceName = "BaronForever"
+const val foreverPreferenceName = ""
 
 const val loginDataKey = "loginData"
 

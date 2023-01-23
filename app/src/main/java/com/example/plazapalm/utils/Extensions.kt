@@ -14,7 +14,6 @@ import android.widget.VideoView
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import com.example.plazapalm.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -68,8 +67,6 @@ fun Activity.printHashKey() {
 
     Log.e("hash : ", Base64.encodeToString(byteArr, Base64.NO_WRAP))*/
 }
-
-
 fun BottomNavigationView.onNavDestinationSelected(
     itemId: Int,
     navController: NavController
@@ -103,47 +100,47 @@ fun BottomNavigationView.onNavDestinationSelected(
 
 }
 
-    fun Activity.setVideoPlayMethod(
-        videoView : VideoView, imageUrl: String?, ivVideoIcon: ImageView
-    ) {
-        var position=0
-        if (imageUrl!=null){
-            videoView.setVideoPath(imageUrl)
-            videoView.setOnPreparedListener { mp ->
-                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
-                mp.setVolume(0f,0f)
-                videoView.seekTo(position!!)
-                ivVideoIcon.visibility=View.GONE
-                if (position==0){
-                    videoView.start()
-                }
-                else{
-                    videoView.pause()
-                }
 
-                mp.isLooping = true
-                // CommonMethods.showToast(requireContext(), "Video is Preparing")
-                Log.d("VideoPreparing", "video is preparing " + videoView.duration)
-            }
-            videoView.setOnErrorListener { mediaPlayer, _, _ ->
-
-                Log.d("VideoError", "$mediaPlayer")
-                CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
-                false
+fun Activity.setVideoPlayMethod(
+    videoView: VideoView, imageUrl: String?, ivVideoIcon: ImageView
+) {
+    var position = 0
+    if (imageUrl != null) {
+        videoView.setVideoPath(imageUrl)
+        videoView.setOnPreparedListener { mp ->
+            mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+            mp.setVolume(0f, 0f)
+            videoView.seekTo(position)
+            ivVideoIcon.visibility = View.GONE
+            if (position == 0) {
+                videoView.start()
+            } else {
+                videoView.pause()
             }
 
-            videoView.setOnCompletionListener { mp ->
-                // videoView.start()
-                if (mp.duration==videoView.duration){
-                    CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
-                }
-            }
-            videoView.requestFocus()
-            videoView.start()
+            mp.isLooping = true
+            // CommonMethods.showToast(requireContext(), "Video is Preparing")
+            Log.d("VideoPreparing", "video is preparing " + videoView.duration)
         }
-        else
-        {
+        videoView.setOnErrorListener { mediaPlayer, _, _ ->
+
+            Log.d("VideoError", "$mediaPlayer")
+            CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
+            false
         }
+
+        videoView.setOnCompletionListener { mp ->
+            // videoView.start()
+            if (mp.duration == videoView.duration) {
+                CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
+            }
+        }
+        videoView.requestFocus()
+        videoView.start()
+    } else {
     }
+}
+
+
 
 
