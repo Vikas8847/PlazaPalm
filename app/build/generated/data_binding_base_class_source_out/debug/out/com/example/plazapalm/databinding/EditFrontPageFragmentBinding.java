@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -31,6 +32,9 @@ public abstract class EditFrontPageFragmentBinding extends ViewDataBinding {
 
   @NonNull
   public final AppCompatCheckBox checkEditFrontPageTopText;
+
+  @NonNull
+  public final CoordinatorLayout clCoordinateEditCoverPage;
 
   @NonNull
   public final AppCompatImageView ivAdvanceEditFrontPage;
@@ -71,8 +75,9 @@ public abstract class EditFrontPageFragmentBinding extends ViewDataBinding {
   protected EditFrontPageFragmentBinding(Object _bindingComponent, View _root, int _localFieldCount,
       AppCompatButton btnEditFrontLookAttach, AppCompatButton btnEditFrontPageView,
       AppCompatCheckBox checkBottomTextFrontPage, AppCompatCheckBox checkEditFrontPageTopText,
-      AppCompatImageView ivAdvanceEditFrontPage, ConstraintLayout scrollAdvanceEditLook,
-      AppCompatTextView tvAdvanceEditFrontPage, AppCompatTextView tvAdvanceEditFrontPageFont,
+      CoordinatorLayout clCoordinateEditCoverPage, AppCompatImageView ivAdvanceEditFrontPage,
+      ConstraintLayout scrollAdvanceEditLook, AppCompatTextView tvAdvanceEditFrontPage,
+      AppCompatTextView tvAdvanceEditFrontPageFont,
       AppCompatTextView tvAdvanceEditFrontPageFontColor,
       AppCompatTextView tvAdvanceEditFrontPageFontValue, View viewBoxLookingBGColor,
       View viewEditBottomTextFrontPage, View viewEditFontColor, View viewEditFontPage,
@@ -82,6 +87,7 @@ public abstract class EditFrontPageFragmentBinding extends ViewDataBinding {
     this.btnEditFrontPageView = btnEditFrontPageView;
     this.checkBottomTextFrontPage = checkBottomTextFrontPage;
     this.checkEditFrontPageTopText = checkEditFrontPageTopText;
+    this.clCoordinateEditCoverPage = clCoordinateEditCoverPage;
     this.ivAdvanceEditFrontPage = ivAdvanceEditFrontPage;
     this.scrollAdvanceEditLook = scrollAdvanceEditLook;
     this.tvAdvanceEditFrontPage = tvAdvanceEditFrontPage;

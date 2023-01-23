@@ -7,11 +7,8 @@ import androidx.work.WorkerParameters
 class WorkManagerForLocation (context: Context, workerParams: WorkerParameters) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {
             Log.d("Work for every second", "doWork: Running")
-
-
 //        uploadUserData()
         return Result.success()
-
     }
 
     private fun uploadUserData() {

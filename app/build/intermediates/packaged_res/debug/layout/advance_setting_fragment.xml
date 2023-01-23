@@ -18,6 +18,7 @@
         android:layout_height="match_parent"
         tools:context=".views.advancesettings.AdvanceSettingFragment" android:tag="layout/advance_setting_fragment_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
 
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,10 +27,6 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
-                app:contentInsetStart="0dp"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -41,6 +38,7 @@
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_back_arrow_white"
                     app:layout_constraintStart_toStartOf="parent" />
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvMessages"
@@ -54,6 +52,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
 
             </com.google.android.material.appbar.MaterialToolbar>
 

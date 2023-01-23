@@ -97,7 +97,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_semibold"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:tag="binding_2"         
+                    android:text="Booking Details"
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
@@ -111,7 +111,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:tag="binding_3"       
+                    android:tag="binding_2"          
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
@@ -126,7 +126,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:tag="binding_4"  
+                    android:tag="binding_3"  
                     tools:text="Doctor"
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="14sp"
@@ -142,7 +142,7 @@
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_1sdp"
                     tools:text="09:43"
-                    android:tag="binding_5"  
+                    android:tag="binding_4"  
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/tvBookingDetailDate"
@@ -156,9 +156,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
-                    android:tag="binding_6"          
+                    android:tag="binding_5"          
                     android:paddingVertical="@dimen/_1sdp"
-                    android:text="@string/view_profile"
+                    android:text="View Profile"
                     android:textColor="@color/blue"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
@@ -184,29 +184,12 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/inter_semibold"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:tag="binding_7"           
+                    android:tag="binding_6"           
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/vBookingDetails" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvCateName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_semibold"
-                    android:paddingVertical="@dimen/_1sdp"
-                    android:tag="binding_8"          
-                    android:textColor="@color/tool_bar_black_color"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvBookingStatus" />
-
 
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -215,7 +198,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:tag="binding_9"          
+                    android:tag="binding_7"          
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_chat_icon_gay"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -235,7 +218,7 @@
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvCateName" />
+                    app:layout_constraintTop_toBottomOf="@id/tvBookingStatus" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -245,7 +228,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
-                    android:tag="binding_10"     
+                    android:tag="binding_8"      
                     tools:text="Chandigarh CH"
                     android:textColor="@color/light_gray"
                     android:textSize="14sp"
@@ -276,7 +259,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     tools:text="Hhh"
-                    android:tag="binding_11"        
+                    android:tag="binding_9"         
                     android:textColor="@color/light_gray"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -292,7 +275,7 @@
                     android:layout_marginEnd="@dimen/_12sdp"
                     android:background="@drawable/ic_red_button_bg"
                     android:gravity="center_horizontal"
-                    android:tag="binding_12"         
+                    android:tag="binding_10"         
                     android:paddingHorizontal="@dimen/_5sdp"
                     android:paddingVertical="@dimen/_9sdp"
                     android:paddingBottom="@dimen/_1sdp"

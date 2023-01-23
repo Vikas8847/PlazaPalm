@@ -131,12 +131,12 @@ class DashBoardVM @Inject constructor(
         /*** 03-01-23
          *  Set Miles and send API.. */
 
-        if (pref.retvieMiles() != null && !(pref.retvieMiles().equals(""))) {
+        if (pref.retvieMiles()!=null && !(pref.retvieMiles().equals(""))){
 
             var miles = pref.retvieMiles()
             userMiles.set(miles.toString())
 
-        } else {
+        }else{
             userMiles.set("25")
         }
 
@@ -163,21 +163,21 @@ class DashBoardVM @Inject constructor(
         /*** 03-01-23
          *  it can create prob.. */
 
-        /*     dataStoreUtil.readData(list_CateName) {
-                 if (it != null) {
-                     selectedCategoriesList.clear()
-                     val myType = object : TypeToken<ArrayList<SelectedDataModelList>>() {}.type
-                     val newList: ArrayList<SelectedDataModelList> =
-                         Gson().fromJson<ArrayList<SelectedDataModelList>>(it, myType)
+   /*     dataStoreUtil.readData(list_CateName) {
+            if (it != null) {
+                selectedCategoriesList.clear()
+                val myType = object : TypeToken<ArrayList<SelectedDataModelList>>() {}.type
+                val newList: ArrayList<SelectedDataModelList> =
+                    Gson().fromJson<ArrayList<SelectedDataModelList>>(it, myType)
 
-                     for (idx in 0 until newList.size) {
+                for (idx in 0 until newList.size) {
 
-                         selectedCategoriesList.add(
-                             SelectedDataModelList(
-                                 newList[idx].cateName, newList[idx].cate_ID,
-                                 newList[idx].adapterPosition, newList[idx].istrue, newList[idx].count
-                             )
-                         )
+                    selectedCategoriesList.add(
+                        SelectedDataModelList(
+                            newList[idx].cateName, newList[idx].cate_ID,
+                            newList[idx].adapterPosition, newList[idx].istrue, newList[idx].count
+                        )
+                    )
 
                      }
 

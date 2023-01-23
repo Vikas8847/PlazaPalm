@@ -47,14 +47,13 @@
     <color name="zxing_transparent">#00000000</color>
     <color name="zxing_viewfinder_laser">#17B61D</color>
     <integer name="dialogplus_animation_default_duration">300</integer>
-    <string name="_25_miles">25 Miles</string>
     <string name="add_new_question">Add New Question</string>
     <string name="add_photo_type">addPhotos</string>
     <string name="addtofav">Add to Favorites</string>
     <string name="app_name">PlazaPalm</string>
     <string name="are_you_sure_you_want_to_delete_n_the_profile">Are you sure you want to delete \n the profile?</string>
     <string name="background_color">Background Color</string>
-    <string name="canecl">Canecl</string>
+    <string name="canecl">Cancel</string>
     <string name="choose">Choose Color</string>
     <string name="choose_categeory">Choose categeory</string>
     <string name="color">Color</string>
@@ -63,7 +62,6 @@
     <string name="confirm_booking">Confirm Booking</string>
     <string name="dd_mm_yy">dd/mm/yy</string>
     <string name="delete">Delete</string>
-    <string name="delete_profile">Delete Profile</string>
     <string name="description2">Description2</string>
     <string name="description_2">Description 2</string>
     <string name="description_3">Description 3</string>
@@ -82,7 +80,6 @@
     <string name="last_name">Last Name</string>
     <string name="log_out">Log Out Successfully Done</string>
     <string name="logout">Logout</string>
-    <string name="lower_name">Lower Name</string>
     <string name="more_colors">More Colors</string>
     <string name="no">No</string>
     <string name="no_favorites_yet">There are no favorites yet!!</string>
@@ -100,16 +97,12 @@
     <string name="submit">Submit</string>
     <string name="take_photo">Take photo</string>
     <string name="thank_you">Thank You</string>
-    <string name="top_name">Top Name</string>
-    <string name="upload_image">Upload Image</string>
-    <string name="upload_video">Upload Video</string>
     <string name="user_name">User Name</string>
-    <string name="view_profile">View Profile</string>
     <string name="yes">Yes</string>
     <string name="you_selected">You Selected</string>
     <string name="your_device_offline">You are offline.</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryDark">@color/light_blue</item>
         <item name="colorAccent">@color/white</item>
@@ -124,6 +117,14 @@
         <item name="colorControlActivated">@color/white</item>
         <item name="android:textColorPrimaryInverse">@color/red</item>
         // color of date selected.
+    </style>
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
     <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/blue</item>
@@ -171,11 +172,11 @@
             <item name="android:backgroundDimEnabled">false</item>
         </style>
     <style name="Theme.PlazaPalm" parent="Theme.AppCompat.DayNight.NoActionBar">
-        
+        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/app_color</item>
         <item name="colorPrimaryDark">@color/app_color</item>
         <item name="colorAccent">@color/white</item>
-        
+        <!-- Customize your theme here. -->
         <item name="colorSecondary">@color/app_color</item>
         <item name="colorSecondaryVariant">@color/app_color</item>
         <item name="colorOnSecondary">@color/white</item>

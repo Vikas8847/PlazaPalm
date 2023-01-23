@@ -4,9 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d19b06c2d70be50a5ef5507d1aad2bd1/transformed/jetified-SuperBottomSheet-1.2.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d19b06c2d70be50a5ef5507d1aad2bd1/transformed/jetified-SuperBottomSheet-1.2.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d19b06c2d70be50a5ef5507d1aad2bd1/transformed/jetified-SuperBottomSheet-1.2.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a1bfbdf2943dec91315166f2f116d994/transformed/jetified-SuperBottomSheet-1.2.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a1bfbdf2943dec91315166f2f116d994/transformed/jetified-SuperBottomSheet-1.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a1bfbdf2943dec91315166f2f116d994/transformed/jetified-SuperBottomSheet-1.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/923e1a8c7e912d07926d29865230dad2/transformed/jetified-SuperBottomSheet-1.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/923e1a8c7e912d07926d29865230dad2/transformed/jetified-SuperBottomSheet-1.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/923e1a8c7e912d07926d29865230dad2/transformed/jetified-SuperBottomSheet-1.2.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
