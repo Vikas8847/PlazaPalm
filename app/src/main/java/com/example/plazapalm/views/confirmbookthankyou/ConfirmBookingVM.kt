@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.CONFIRM_BOOKING_PROFILE
 import com.example.plazapalm.datastore.DataStoreUtil
-import com.example.plazapalm.datastore.LOGIN_DATA
 import com.example.plazapalm.models.AddToCalendarResponseModel
 import com.example.plazapalm.models.ConfirmBookingProfileResponse
 import com.example.plazapalm.models.QuestionAnswer
@@ -32,7 +31,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ConfirmBookingVM @Inject constructor(
     var repository: Repository,
-    var preferenceFile: PreferenceFile ,
+    var preferenceFile: PreferenceFile,
     var dataStoreUtil: DataStoreUtil
 ) : ViewModel() {
 
@@ -94,6 +93,19 @@ class ConfirmBookingVM @Inject constructor(
     }
 
     private fun confirmBooking(view: View) = viewModelScope.launch {
+
+        Log.e(
+
+            "CONFIRMBOOKING",
+               preferenceFile.retrieveKey("token").toString() + " --V--" +
+                    p_id.get().toString() + " --V--" +
+                    chooseDate.get().toString() + " --V--" +
+                    chooseTime.get().toString() + " --V--" +
+                    description.get().toString() + " --V--" +
+                    categoryName.get().toString() + " --V--" +
+                    questionAnswer + "RESS"
+
+        )
 
         repository.makeCall(ApiEnums.CONFIRM_BOOKING,
             loader = true, saveInCache = false, getFromCache = false,

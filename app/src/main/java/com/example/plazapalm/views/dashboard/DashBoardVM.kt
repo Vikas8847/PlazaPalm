@@ -294,11 +294,10 @@ class DashBoardVM @Inject constructor(
                     return retrofitApi.getProfileByCategory(
                         pref.retrieveKey("token").toString(),
                         idList,
-                        1,
+                        5,
                         500,
-
-                        pref.retvieLatlong("lati").toDouble(),
                         pref.retvieLatlong("longi").toDouble(),
+                        pref.retvieLatlong("lati").toDouble(),
                         search,
                         userMiles.get().toString()
                     )
@@ -421,6 +420,7 @@ class DashBoardVM @Inject constructor(
                     Log.e("sdsdsd3", message)
 //                    CommonMethods.showToast(context, message)
                 }
+
             }
         )
     }

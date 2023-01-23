@@ -112,15 +112,24 @@ class CategoriesListVM @Inject constructor(
     fun getCategoriesApi(search: String, showLoader: Boolean) = viewModelScope.launch {
 
 
-        Log.e("ASDASAAA", selectedList.toString())
+        Log.e("ASDASAAA", selectedList.toString() + "--V-- " + latitude.get() +"--V-- "  + longitude.get())
+        Log.e("ASDASAAA111", selectedList.toString() + "--V-- " + pref.retvieLatlong("longi").toDouble()
+                +"--V-- "  +pref.retvieLatlong("longi").toDouble())
+
+        /*
+                 viewModel.lati.set(pref.retvieLatlong("lati").toDouble())
+                    viewModel.longi.set(pref.retvieLatlong("longi").toDouble())
+
+                    * */
 
         val body = JSONObject()
         body.put(Constants.AUTHORIZATION, token.get())
         body.put("lat", latitude.get())
         body.put("long", longitude.get())
         body.put("offset", page.get()!!)
-        body.put("limit", 100)
+        body.put("limit", 500)
         body.put("search=", search)
+
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
             loader = showLoader,
@@ -130,8 +139,8 @@ class CategoriesListVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<CategoriesResponseModel> {
                     return retrofitApi.getCategories(
                         Authorization = token.get().toString(),
-                        Lat = latitude.get(),
-                        Long = longitude.get(),
+                        Lat = pref.retvieLatlong("longi").toDouble(),
+                        Long = pref.retvieLatlong("lati").toDouble(),
                         OffSet = page.get()!!,
                         Limit = 500,
                         Search = search
