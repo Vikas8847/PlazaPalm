@@ -121,7 +121,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
            //63bd052fc4f44108db54e5eb
 
             //if (user_id.equals("63b69bc11545b79696c25120")) {
-            if (user_id.equals("63bd1520c4f44108db54e86d")) {
+            if (user_id.equals("63ce368aa67c70857439f6e1")) {
 
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE

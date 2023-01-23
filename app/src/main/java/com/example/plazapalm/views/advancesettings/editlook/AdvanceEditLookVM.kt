@@ -226,7 +226,7 @@ class AdvanceEditLookVM @Inject constructor(
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
 
-//                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                             dataStoreUtil.saveObject(EDIT_COLORS_LOOK, res.body()!!.data)
                             Log.e("5554455---G", res.body()!!.data.toString() + "RESS")
 
