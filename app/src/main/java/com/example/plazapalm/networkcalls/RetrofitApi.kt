@@ -390,7 +390,6 @@ interface RetrofitApi {
 
     ): Response<GetCalanderResponseModel>
 
-
     /** AddToBlocklist Api */
     @FormUrlEncoded
     @POST(ADDTO_BLOCKLIST)

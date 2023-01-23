@@ -37,5 +37,6 @@ enum class ApiEnums {
     MAP_FEATURED,
     GET_MAP_FEATURED,
     FETCH_GALLERY_PHOTO,
-    REMOVE_FAV
+    REMOVE_FAV,
+    GET_STATUS_INPUT
 }

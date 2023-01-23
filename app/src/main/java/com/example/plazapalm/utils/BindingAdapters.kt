@@ -12,30 +12,28 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
-import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.views.dashboard.DashBoardVM
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import me.relex.circleindicator.CircleIndicator
-import javax.inject.Inject
 
 
 /** Binding Adapters */
 object BindingAdapters {
-//    @Inject
+    //    @Inject
 //    lateinit var pref : PreferenceFile
     @BindingAdapter(value = ["setRecyclerAdapter"], requireAll = false)
     @JvmStatic
@@ -107,12 +105,12 @@ object BindingAdapters {
     @JvmStatic
     fun setText(
         textView: TextView,
-        value : String
+        value: String
     ) {
         val split = value?.split("T")
-        val date  = split?.get(0)
+        val date = split?.get(0)
         textView.text = date
-        Log.e("QOWIEWww",date.toString())
+        Log.e("QOWIEWww", date.toString())
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -120,16 +118,16 @@ object BindingAdapters {
     @JvmStatic
     fun setTextVisibilty(
         textView: TextView,
-        value : String
+        value: String
     ) {
 
-       if(value.equals(true)){
-           textView.text = " "
-           textView.visibility = View.VISIBLE
-       }else{
-           textView.text = "No Data Found"
-           textView.visibility = View.VISIBLE
-       }
+        if (value.equals(true)) {
+            textView.text = " "
+            textView.visibility = View.VISIBLE
+        } else {
+            textView.text = "No Data Found"
+            textView.visibility = View.VISIBLE
+        }
 
     }
 
@@ -143,16 +141,17 @@ object BindingAdapters {
     }
 
     @SuppressLint("CheckResult")
-    @BindingAdapter(value = ["setCircleImage"] , requireAll = false)
+    @BindingAdapter(value = ["setCircleImage"], requireAll = false)
     @JvmStatic
     fun setCircleImage(
         circleImage: CircleImageView,
-        imageUrl: String? ) {
-        Log.e("VVVVV",IMAGE_LOAD_URL + imageUrl)
+        imageUrl: String?
+    ) {
+        Log.e("VVVVV", IMAGE_LOAD_URL + imageUrl)
         if (imageUrl != null) {
             Glide.with(CommonMethods.context)
                 .load(IMAGE_LOAD_URL + imageUrl)
-                .error(R.drawable.ic_place_holder)
+                .error(R.drawable.placeholder)
                 .into(circleImage)
         } else {
             // circleImage.resources.getDrawable(R.drawable.ic_place_holder)
@@ -175,7 +174,28 @@ object BindingAdapters {
         view: View,
         drawable: Int
     ) {
+
         view.background = ContextCompat.getDrawable(view.context, drawable)
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @BindingAdapter(value = ["setCalndarBackground"], requireAll = false)
+    @JvmStatic
+    fun setCalndarBackground(
+        view: androidx.constraintlayout.widget.ConstraintLayout,
+        bookingStatus : String
+    ) {
+        if (bookingStatus.equals("pending")) {
+            Log.e("SDSD","sdwwwwwwa")
+//            view.background = ContextCompat.getDrawable(view.context.resources.getDrawable(R.drawable.placeholder))
+            view.background=(ContextCompat.getDrawable(context, R.drawable.booking_caalnar_back))
+
+        } else {
+            view.background=(ContextCompat.getDrawable(context, R.drawable.add_calander_back))
+//            view.background = ContextCompat.getDrawable(view.context, )
+            Log.e("SDSD","1231321324563")
+
+        }
     }
 
     @BindingAdapter(value = ["radioGroupListener"], requireAll = false)
@@ -203,32 +223,30 @@ object BindingAdapters {
         shapeableImageView: ImageView,
         imageUrl: String?
     ) {
-        if (imageUrl!=null){
+        if (imageUrl != null) {
             Glide.with(CommonMethods.context)
                 .load(IMAGE_LOAD_URL + imageUrl)
 //                .apply( RequestOptions().override(700, 400))
                 .into(shapeableImageView)
 
-        }
-        else
-        {
+        } else {
             //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
         }
     }
+
     @BindingAdapter(value = ["setHeartImage"], requireAll = false)
     @JvmStatic
     fun setHeartImage(
-        heartImage : AppCompatImageView, imageUrl: String? ) {
+        heartImage: AppCompatImageView, imageUrl: String?
+    ) {
 
-        if (imageUrl!=null){
+        if (imageUrl != null) {
             Glide.with(CommonMethods.context)
                 .load(IMAGE_LOAD_URL + imageUrl)
-                .override(100,100)
+                .override(100, 100)
                 .into(heartImage)
 
-        }
-        else
-        {
+        } else {
             //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
         }
     }
@@ -260,31 +278,30 @@ object BindingAdapters {
     }*/
 
 
-
     @BindingAdapter(value = ["setVideoImage"], requireAll = false)
     @JvmStatic
     fun setVideoImage(
-        videoView : VideoView, imageUrl: String? ) {
-        var position=0
-        if (imageUrl!=null){
-         /*   Glide.with(CommonMethods.context)
-                .load(IMAGE_LOAD_URL + imageUrl)
-                .override(100,100)
-                .into(videoView)*/
-            videoView.setVideoPath(IMAGE_LOAD_URL+imageUrl)
-          //  mediaController.setAnchorView(videoView)
-         //   mediaController.setMediaPlayer(videoView)
-           // videoView.setMediaController(mediaController)
+        videoView: VideoView, imageUrl: String?
+    ) {
+        var position = 0
+        if (imageUrl != null) {
+            /*   Glide.with(CommonMethods.context)
+                   .load(IMAGE_LOAD_URL + imageUrl)
+                   .override(100,100)
+                   .into(videoView)*/
+            videoView.setVideoPath(IMAGE_LOAD_URL + imageUrl)
+            //  mediaController.setAnchorView(videoView)
+            //   mediaController.setMediaPlayer(videoView)
+            // videoView.setMediaController(mediaController)
 
             videoView.setOnPreparedListener { mp ->
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
-                mp.setVolume(0f,0f)
+                mp.setVolume(0f, 0f)
                 videoView.seekTo(position!!)
 
-                if (position==0){
+                if (position == 0) {
                     videoView.start()
-                }
-                else{
+                } else {
                     videoView.pause()
                 }
 
@@ -301,25 +318,23 @@ object BindingAdapters {
 
             videoView.setOnCompletionListener { mp ->
                 // videoView.start()
-                if (mp.duration==videoView.duration){
+                if (mp.duration == videoView.duration) {
                     CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
                 }
             }
             videoView.requestFocus()
             videoView.start()
-        }
-        else
-        {
+        } else {
             //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
         }
     }
 
     @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
     @JvmStatic
-    fun calculateLatLngToMiles(destinationTV : TextView, viewModel: DashBoardVM?) {
-       // destinationTV.text = "ddsssss"
-        var latValue1="30.7046"
-        var lngValue1="76.7179"
+    fun calculateLatLngToMiles(destinationTV: TextView, viewModel: DashBoardVM?) {
+        // destinationTV.text = "ddsssss"
+        var latValue1 = "30.7046"
+        var lngValue1 = "76.7179"
         val latLngA = LatLng(latValue1.toDouble(), lngValue1.toDouble())
         val latLngB = LatLng(viewModel!!.destinationLat.get(), viewModel!!.destinationLong.get())
         val locationA = Location("Point A")
@@ -329,21 +344,21 @@ object BindingAdapters {
         val locationB = Location("Point B")
         locationB.latitude = latLngB.latitude
         locationB.longitude = latLngB.longitude
-        var distance= locationA.distanceTo(locationB).toDouble().toString()
+        var distance = locationA.distanceTo(locationB).toDouble().toString()
         Handler().postDelayed(object : Runnable {
             override fun run() {
-                destinationTV.text = distance+" Miles"
-             //   destinationTV.text = "dddd"
+                destinationTV.text = distance + " Miles"
+                //   destinationTV.text = "dddd"
                 destinationTV.requestLayout()
             }
-        },1000)
+        }, 1000)
 
-    //    distance.set(locationA.distanceTo(locationB).toDouble().toString())
-     //   Log.d("distanceCal", distance.toString().split(".")[0])
+        //    distance.set(locationA.distanceTo(locationB).toDouble().toString())
+        //   Log.d("distanceCal", distance.toString().split(".")[0])
         Log.d("distanceCalqwer", destinationTV.text.toString())
 //        distanceCal.set(distance.get().toString())
 
-      //  userMiles.set( distance.get().toString().split(".")[0])
+        //  userMiles.set( distance.get().toString().split(".")[0])
 
 
     }
@@ -353,8 +368,8 @@ object BindingAdapters {
     @JvmStatic
     fun setMiles(
         textView: AppCompatTextView,
-        value : String
+        value: String
     ) {
-        textView.text =value.split(".")[0]+" Miles"
+        textView.text = value.split(".")[0] + " Miles"
     }
 }
