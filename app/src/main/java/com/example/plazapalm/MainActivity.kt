@@ -74,7 +74,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 // Night mode is active, we're using dark theme
             }
         }
-
     }
 
     private fun setUpNav() {

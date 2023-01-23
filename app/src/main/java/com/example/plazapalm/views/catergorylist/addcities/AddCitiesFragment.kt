@@ -149,7 +149,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                         pref.retvieLatlong("longi").toDouble().toString()
             )
 
-        }else{
+        } else{
             getLastLocation()
            Log.e( "ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
             Log.e("SDFSDf","SFSDF")

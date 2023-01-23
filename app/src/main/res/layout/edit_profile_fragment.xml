@@ -28,17 +28,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp"
                 android:elevation="0dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivEditProfileBackBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="start"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:background="@drawable/ic_back_icon_black"
+                    app:tint="@color/black"
+                    android:src="@drawable/ic_back_arrow_white"
                     android:onClick="@{vm::onClicks}"
-                    android:padding="@dimen/_4sdp" />
+                    android:padding="@dimen/_5sdp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvEditProfile"
