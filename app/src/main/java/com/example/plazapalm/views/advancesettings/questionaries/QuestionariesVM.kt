@@ -137,6 +137,7 @@ class QuestionariesVM @Inject constructor(
                             } else {
                                 Log.e("LSSSSCSs", questionsAdapter.getAllItems().size.toString())
                                 noData.set(true)
+                                setAdapter(questionDataList)
 
                             }
 
@@ -174,7 +175,7 @@ class QuestionariesVM @Inject constructor(
 
         questionsAdapter.addItems(questionDataList)
         questionsAdapter.getAllItems()
-        questionsAdapter.notifyDataSetChanged()
+      //  questionsAdapter.notifyDataSetChanged()
 
         questionsAdapter.setOnItemClick { _, pos, type ->
             when (type) {
@@ -183,7 +184,7 @@ class QuestionariesVM @Inject constructor(
                     Log.e("SADQAWQA", pos.toString())
 
                     /**Swipe to Delete .... **/
-                    q_id.set(questionDataList[pos]._id)
+                    q_id.set(questionsAdapter.getAllItems()[pos]._id)
 //                    var q_Id = questionDataList[pos]?._id
                     //  showSwipeDeleteAccountDialog(q_id.get().toString(), pos)
                     showSwipeDeleteAccountDialog(
@@ -224,7 +225,9 @@ class QuestionariesVM @Inject constructor(
         if (CommonMethods.dialog != null && CommonMethods.dialog?.isShowing!!) {
             CommonMethods.dialog?.dismiss()
             CommonMethods.dialog = null
+            Log.e("Show_Dialog====","2222222")
         } else {
+            Log.e("Show_Dialog====","33333")
             CommonMethods.dialog = Dialog(CommonMethods.context, android.R.style.Theme_Dialog)
             CommonMethods.dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
             CommonMethods.dialog?.setContentView(R.layout.add_questions)
@@ -268,6 +271,10 @@ class QuestionariesVM @Inject constructor(
         }
         if (CommonMethods.context is AppCompatActivity && !(CommonMethods.context as AppCompatActivity).isFinishing && !CommonMethods.dialog!!.isShowing) {
             CommonMethods.dialog!!.show()
+            Log.e("Show_Dialog====","2222222")
+        }else
+        {
+            Log.e("Show_Dialog====","1111111")
         }
 
         // dialog?.show()
@@ -394,7 +401,7 @@ class QuestionariesVM @Inject constructor(
 
     private fun deleteQuestionAPI(q_id: String, pos: Int) = viewModelScope.launch {
 
-        Log.e("SADQAWQA12211", pos.toString())
+        Log.e("Delete_Questions====", pos.toString())
 
         repository.makeCall(
             apiKey = ApiEnums.ADD_QUESTIONS,

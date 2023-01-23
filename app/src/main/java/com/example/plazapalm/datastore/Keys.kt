@@ -17,4 +17,9 @@ val ADD_PHOTO_URI by lazy { stringPreferencesKey("ADD_PHOTO_URI") }
 val CONFIRM_BOOKING_PROFILE by lazy { stringPreferencesKey("CONFIRM_BOOKING_PROFILE") }
 val EDIT_COLORS_LOOK by lazy { stringPreferencesKey("EDIT_COLORS_LOOK") }
 val GET_COLORS_EDIT_LOOK by lazy { stringPreferencesKey("GET_COLORS_EDIT_LOOK") }
+val SAVE_MAP_FEATURE_FROM_FAV_DEATILS by lazy { stringPreferencesKey("SAVE_MAP_FEATURE_FROM_FAV_DEATILS") }
+val SAVE_MAP_FEATURE by lazy { stringPreferencesKey("SAVE_MAP_FEATURE") }
+
+
+
 

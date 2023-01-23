@@ -10,12 +10,16 @@ import android.widget.MediaController
 import android.widget.VideoView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.ShowPictureVideoFragmentBinding
+import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.example.plazapalm.utils.CommonMethods
 import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) {
+    private var media_type: String?=""
+    private var mediaUrl: String?=""
     lateinit var videoView: VideoView
     lateinit var mediaController: MediaController
     val position: Int?=0
@@ -29,9 +33,30 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         binding = ShowPictureVideoFragmentBinding.inflate(layoutInflater)
         videoView = VideoView(requireContext())
         mediaController = MediaController(requireContext())
-        setUpVideoPlayer()
+
+       mediaUrl= requireArguments().getString("media")
+        media_type=  requireArguments().getString("media_type")
+
+        viewModel.mediaType.set(media_type!!.toInt())
+        if(media_type=="2")
+        {
+            setUpVideoPlayer(IMAGE_LOAD_URL+mediaUrl)
+        }else
+        {
+         //   showPhotoMethod(IMAGE_LOAD_URL+mediaUrl)
+            viewModel.mediaValue.set(mediaUrl)
+        }
+
         clicks()
         return binding?.root
+    }
+
+   fun showPhotoMethod(mediaUrl:String)
+    {
+        Glide.with(requireActivity())
+            .load(mediaUrl)
+            .error(R.drawable.ic_place_holder)
+            .into(binding!!.ivPhoto)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,17 +64,19 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         binding?.vm = viewModel
     }
 
-    private fun setUpVideoPlayer() {
+    private fun setUpVideoPlayer(videoUrl:String) {
         videoView = binding?.vPlayer!!
-        val uri: Uri = Uri.parse(videoUrl)
-        videoView.setVideoURI(uri)
+       /* val uri: Uri = Uri.parse(videoUrl)
+        videoView.setVideoURI(uri)*/
+        videoView.setVideoPath(videoUrl)
         mediaController.setAnchorView(videoView)
         mediaController.setMediaPlayer(videoView)
         videoView.setMediaController(mediaController)
+
         videoView.setOnPreparedListener { mp ->
 
             videoView.seekTo(position!!)
-
+            mp.setVolume(0f,0f)
             if (position==0){
                 videoView.start()
             }
@@ -58,7 +85,7 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
             }
 
             mp.isLooping = true
-            CommonMethods.showToast(requireContext(), "Video is Preparing")
+           // CommonMethods.showToast(requireContext(), "Video is Preparing")
             Log.d("VideoPreparing", "video is preparing " + videoView.duration)
         }
         videoView.setOnErrorListener { mediaPlayer, _, _ ->
@@ -76,7 +103,6 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         }
         videoView.requestFocus()
         videoView.start()
-
     }
 
     private fun clicks() {

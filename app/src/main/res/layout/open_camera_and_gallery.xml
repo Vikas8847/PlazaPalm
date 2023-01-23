@@ -26,7 +26,7 @@
                 android:id="@+id/tvChooseOptionTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/inter_medium"
                 android:paddingHorizontal="@dimen/_15sdp"
                 android:paddingVertical="@dimen/_2sdp"
@@ -35,20 +35,19 @@
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <View
                 android:id="@+id/vChooseOption"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 android:background="@color/setting_line_views_color"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvChooseOptionTitle" />
-
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTakePhotoBtn"
@@ -59,13 +58,12 @@
                 android:paddingHorizontal="@dimen/_15sdp"
                 android:paddingVertical="@dimen/_3sdp"
                 android:text="@string/take_photo"
-                android:textColor="@color/app_bar_light"
+                android:textColor="@color/dark_bluee"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toTopOf="@+id/vChoosePhoto"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vChooseOption" />
-
 
             <View
                 android:id="@+id/vChoosePhoto"
@@ -78,7 +76,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTakePhotoBtn" />
 
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTakePhotoGalleryBtn"
                 android:layout_width="match_parent"
@@ -88,13 +85,12 @@
                 android:paddingHorizontal="@dimen/_15sdp"
                 android:paddingVertical="@dimen/_3sdp"
                 android:text="@string/photo_library"
-                android:textColor="@color/app_bar_light"
+                android:textColor="@color/dark_bluee"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toTopOf="@+id/vCancel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vChoosePhoto" />
-
 
             <View
                 android:id="@+id/vCancel"

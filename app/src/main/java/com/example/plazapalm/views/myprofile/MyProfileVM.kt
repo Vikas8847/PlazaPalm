@@ -50,6 +50,7 @@ class MyProfileVM @Inject constructor(
     init {
 
         token.set(pref.retrieveKey("token"))
+        Log.e("Application_token====",token.get().toString())
         getProfileImageUrl()
 
     }

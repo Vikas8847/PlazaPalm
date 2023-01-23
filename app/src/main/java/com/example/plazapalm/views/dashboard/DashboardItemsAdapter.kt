@@ -34,15 +34,15 @@ class DashboardItemsAdapter(
         RecyclerView.ViewHolder(bindining.root) {
         fun setDAta(
             context: Context,
-            photos: ArrayList<SelectedDataModelList>,
+            list: ArrayList<SelectedDataModelList>,
             position: Int,
         ) {
             Log.e("LFCSAAZZ", dataList.toString())
 
-            bindining.tvDashBoardSelectedEvents.setText(photos[position].cateName)
+            bindining.tvDashBoardSelectedEvents.setText(list[position].cateName)
 
             bindining.tvDashBoardSelectedEvents.setOnClickListener {
-                clickItem.click("", 0, "", "", 0)
+                clickItem.click(list[position].cateName.toString(), 0, "", "", 0)
             }
         }
     }

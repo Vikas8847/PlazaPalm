@@ -54,12 +54,13 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
     lateinit var mMap: GoogleMap
 
     /**Current location is set to India, this will be of no use**/
+
     lateinit var currentLocation: LatLng
     lateinit var mapFragment: SupportMapFragment
     private var originLatng: LatLng? = null
-    var currentaddress =""
-    var Currentlati : Double?=null
-    var Currentlongi  : Double?=null
+    var currentaddress = ""
+    var Currentlati: Double? = null
+    var Currentlongi: Double? = null
     private var destinationLatng: LatLng? = null
     private var binding: AddCitiesFragmentBinding? = null
     private val viewModel: AddCitiesVM by viewModels()
@@ -117,8 +118,43 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
     override fun onMapReady(map: GoogleMap) {
         mMap = map
         mMap.clear()
-        getLastLocation()
-        Log.e("SSSAAAA", "NOT___WORKINGGG")
+//        getLastLocation()
+
+
+        if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0) {
+            var address =""
+            if (!(pref.retrieveLocation().toString().isNullOrEmpty())){
+                address = pref.retrieveLocation().toString()
+            }
+
+            Log.e("Ssfsaa","AWOQPWOKSD")
+
+           // val location =  LatLng(30.713163375854492, 76.70951843261719)
+            val location =  LatLng(pref.retvieLatlong("longi").toDouble(), pref.retvieLatlong("lati").toDouble())
+
+            mMap.clear()
+            val markerOptions = MarkerOptions().position(location).title(address)
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(location))
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    location,
+                    16F
+                )
+            )
+
+            mMap.addMarker(markerOptions)
+
+            Log.e(
+                "ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toString() + "XVXCV-- " +
+                        pref.retvieLatlong("longi").toDouble().toString()
+            )
+
+        } else{
+            getLastLocation()
+           Log.e( "ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
+            Log.e("SDFSDf","SFSDF")
+        }
+
     }
 
     // Get current location
@@ -149,31 +185,45 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                     } else {
                         currentLocation = LatLng(location.latitude, location.longitude)
 
-                        if (currentLocation!=null){
+                        if (currentLocation != null) {
 
                             val geocoder: Geocoder
                             val addresses: List<Address>
                             geocoder = Geocoder(requireActivity(), Locale.getDefault())
 
                             addresses =
-                                geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address> // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                                geocoder.getFromLocation(
+                                    location.latitude,
+                                    location.longitude,
+                                    1
+                                ) as List<Address> // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 //                            val address = addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                             val city = addresses[0].locality
                             val state = addresses[0].adminArea
-                            val address = city + " " + state
+//                            val address = city + " " + state
+                            val address = city
 
                             currentaddress = address
                             Currentlati = location.latitude
                             Currentlongi = location.longitude
 
-                            Log.e("ADASDASWQEWQE",address.toString() + "assad" + Currentlati + "XCXC"+ Currentlongi)
+                            Log.e(
+                                "ADASDASWQEWQE",
+                                address.toString() + "assad" + Currentlati + "XCXC" + Currentlongi
+                            )
+
                             mMap.clear()
                             val markerOptions =
                                 MarkerOptions().position(currentLocation).title(address.toString())
                             //.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                             //  .icon(BitmapDescriptorFactory.defaultMarker(HUE_AZURE))
                             mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation))
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16F))
+                            mMap.animateCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    currentLocation,
+                                    16F
+                                )
+                            )
                             mMap.addMarker(markerOptions)
 
                         }
@@ -195,11 +245,12 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray )  {
+        grantResults: IntArray
+    ) {
         if (requestCode == CommonMethods.pERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 getLastLocation()
-                Log.e("SFSDSds","WPROFFsdf")
+                Log.e("SFSDSds", "WPROFFsdf")
             }
         }
     }
@@ -223,27 +274,38 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
 
         binding?.btAdd?.setOnClickListener {
 
-            if (originLatng!=null){
+            if (originLatng != null) {
                 Currentlongi = originLatng?.longitude!!
                 Currentlati = originLatng?.latitude!!
                 currentaddress = addressLocation!!
 
                 pref.storeLocation(currentaddress)
-                pref.storeLatlong("longi", originLatng?.longitude!!.toFloat())
-                pref.storeLatlong("lati", originLatng?.latitude!!.toFloat())
+
+                pref.storeLatlong("longi",  originLatng?.latitude!!.toFloat())
+                pref.storeLatlong("lati", originLatng?.longitude!!.toFloat())
+
+
+                Log.e("asdSDWA",originLatng?.longitude!!.toFloat().toString() + "VVC" + originLatng?.latitude!!.toFloat().toString())
+
             }
 
             pref.storeLocation(currentaddress)
 
             if (arguments?.getString("PostProfile") != null) {
 
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("bundle", Currentlongi.toString() + "/" + Currentlati.toString() + "/" + currentaddress )
+                findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                    "bundle",
+                    Currentlongi.toString() + "/" + Currentlati.toString() + "/" + currentaddress
+                )
                 findNavController().popBackStack()
 
                 Log.e("SDSDSD", "DONEE")
             } else {
 
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("bundle", Currentlongi.toString() + "/" + Currentlati.toString() + "/" + currentaddress)
+                findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                    "bundle",
+                    Currentlongi.toString() + "/" + Currentlati.toString() + "/" + currentaddress
+                )
                 findNavController().popBackStack()
             }
         }
@@ -257,11 +319,13 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                 val place = Autocomplete.getPlaceFromIntent(data!!)
 
                 val split = place.address?.split(",")
+
                 val adresss = split?.get(0) // First element
                 Log.e("SSSAAAA", place.address.toString())
 
                 addressLocation = place.address
                 //set address on edittext
+
                 viewModel.address.set(adresss)
 
                 if (place.latLng != null) {

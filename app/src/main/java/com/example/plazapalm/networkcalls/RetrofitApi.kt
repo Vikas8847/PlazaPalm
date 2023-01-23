@@ -1,6 +1,7 @@
 package com.example.plazapalm.networkcalls
 
 import com.example.plazapalm.models.*
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Response
@@ -198,7 +199,6 @@ interface RetrofitApi {
         @Field("long") long: Double,
         @Field("search") search: String,
         @Field("miles") miles: String
-
     ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded
@@ -221,6 +221,7 @@ interface RetrofitApi {
         @Field("lat") lat: String?,
         @Field("profile_title") profile_title: String?,
         @Field("c_id") c_id: String?,
+        @Field("booking_status") booking_status: Boolean?
     ): Response<SavePostProfileResponse>
 
 
@@ -298,7 +299,9 @@ interface RetrofitApi {
         @Field("lat") lat: String?,
         @Field("profile_title") profile_title: String?,
         @Field("c_id") c_id: String?,
-        @Field("p_id") p_id: String?
+        @Field("p_id") p_id: String?,
+        @Field("booking_status") booking_status: Boolean?
+
     ): Response<UpdateProfileResponse>
 
     @FormUrlEncoded
@@ -387,7 +390,6 @@ interface RetrofitApi {
 
     ): Response<GetCalanderResponseModel>
 
-
     /** AddToBlocklist Api */
     @FormUrlEncoded
     @POST(ADDTO_BLOCKLIST)
@@ -463,12 +465,56 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String
     ): Response<GetColorsResponse>
 
-
     @POST(MAP_FEATURES)
     suspend fun mapFeatreData(
       @Body jsonObject: JSONObject
     ): Response<MapFeaturedDataRes>
 
+    @FormUrlEncoded
+    @POST(MAP_FEATURES)
+    suspend fun mapFeatreData(
+        @Header("Authorization") Authorization: String,
+        @Field("darkTheme") darkTheme: Boolean,
+        @Field("locationOnOff") locationOnOff: Boolean,
+        @Field("follow") follow: Boolean
+    ): Response<MapFeaturedDataRes>
+
+    @GET(GET_MAP_FEATURES)
+    suspend fun getMapFeatured(
+        @Header("Authorization") Authorization: String
+    ): Response<GetMapFeature>
+
+    @FormUrlEncoded
+    @POST(UPDATE_LATLONG)
+    suspend fun updateLatlng(
+        @Header("Authorization") Authorization: String,
+        @Field("user_lat") user_lat: Double,
+        @Field("user_long") user_long: Double
+    ):Response<UpdateLatlngResponse>
+
+
+
+  //  @POST(GALLERYPOST)
+    @HTTP(method = "POST", path = GALLERYPOST, hasBody = true)
+    suspend fun uploadSinglePhotoUrl(
+        @Header("Authorization") Authorization: String,
+        @Header("Content-Type") contentType: String,
+        @Body mediaData: UploadedMedia
+    ): Response<UploadMediaResponse>
+
+
+    @GET(GALLERYGET)
+    suspend fun getGalleryList(
+        @Header("Authorization") Authorization: String
+    ): Response<UploadMediaResponse>
+
+   // @DELETE(DELETE_MEDIA)
+    @HTTP(method = "DELETE", path = DELETE_MEDIA, hasBody = true)
+    suspend fun deleteGalleryPhotoAPI(
+        @Header("Authorization") Authorization: String,
+        @Header("Content-Type") contentType: String,
+        @Body jsonObject:DeleteMediaData
+    ): Response<DeleteMediaResponse>
     /*call here get Fonts Api */
 
     @GET(GET_FONTS)

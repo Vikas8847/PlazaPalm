@@ -22,7 +22,7 @@ data class ProfileCateData(
     val frontpage_bottom_text: String?="",
     val frontpage_top_text: String?="",
     val isAddedToCalender: Boolean?=false,
-    val isFavourite: Boolean?=false,
+    var isFavourite: Boolean?=false,
     val isPremium: Int?=0,
     val is_bottom_selected: Boolean?=false,
     val is_top_selected: Boolean?=false,
@@ -30,12 +30,15 @@ data class ProfileCateData(
     val lat: Double?,
     val likeCount: Int?=0,
     val location_text: String?="",
-    val long: Double?,
+  //  val lng: Double?,
+    var long: Double?=0.0,
     val postProfile_picture: List<String>?,
     val profile_title: String?="",
     val tags: String?="",
     val u_id: String?="",
     val user_name: String?="",
-    val miles: String?=""
+    val miles: String?="",
+    val booking_status: Boolean?=false,
+    var lngValue:Double?
 
 )  : AbstractModel()

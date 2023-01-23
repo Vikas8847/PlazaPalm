@@ -99,7 +99,18 @@ class LoginVM @Inject constructor(
 
                             Log.e("===LOGINDATA===", res.body()?.data.toString() +"===TOKKENN===" + res.body()?.data?.token.toString())
 
-                            view.navigateWithId(R.id.action_loginFragment_to_dashBoardFragment)
+                            Log.e("QQAAWW2222!@112", preferences.retrieveFilterResponse().toString())
+
+                            if (preferences.retrieveFilterResponse().isNullOrEmpty()){
+                                val bundle = Bundle()
+                                bundle.putString("comingFrom","login")
+
+                                view.navigateWithId(R.id.action_loginFragment_to_categoriesListFragment,bundle)
+                            }else{
+                                view.navigateWithId(R.id.action_loginFragment_to_dashBoardFragment)
+                            }
+
+//                            view.navigateWithId(R.id.action_loginFragment_to_dashBoardFragment)
                             CommonMethods.context.hideKeyboard()
                             CommonMethods.showToast(
                                 CommonMethods.context,

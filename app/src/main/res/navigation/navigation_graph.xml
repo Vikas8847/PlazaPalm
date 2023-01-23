@@ -56,6 +56,16 @@
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_categoriesListFragment"
+            app:destination="@id/categoriesListFragment"
+            app:enterAnim="@anim/pop_enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+
     </fragment>
     <fragment
         android:id="@+id/dashBoardFragment"
@@ -478,7 +488,8 @@
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/favDetailsFragment" />
+            app:popUpTo="@id/favDetailsFragment"
+            />
         <action
             android:id="@+id/action_favDetailsFragment_to_chatFragment"
             app:destination="@id/chatFragment"
@@ -495,7 +506,17 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/favDetailsFragment" />
 
+        <action
+            android:id="@+id/action_favDetailsFragment_to_MessagesFragment"
+            app:destination="@id/messagesFragment"
+            app:enterAnim="@anim/pop_enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/favDetailsFragment" />
     </fragment>
+
+
     <fragment
         android:id="@+id/reportChooseOptionFragment"
         android:name="com.example.plazapalm.views.reportselection.ReportChooseOptionFragment"
@@ -682,6 +703,10 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/bookingDetailsFragment" />
+
+
+
+
     </fragment>
     <fragment
         android:id="@+id/thankYouFragment"

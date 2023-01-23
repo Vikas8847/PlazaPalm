@@ -9,7 +9,6 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.MyProifleFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
@@ -26,16 +25,18 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
     @Inject
-    lateinit var dataStoreUtil : DataStoreUtil
+    lateinit var dataStoreUtil: DataStoreUtil
+
     @Inject
-    lateinit var pref : PreferenceFile
-    private var binding : MyProifleFragmentBinding? = null
-    private val viewModel : MyProfileVM by viewModels()
+    lateinit var pref: PreferenceFile
+    private var binding: MyProifleFragmentBinding? = null
+    private val viewModel: MyProfileVM by viewModels()
     var username = ObservableField("")
     var postStatus = ObservableBoolean()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
 
         binding = MyProifleFragmentBinding.inflate(inflater, container, false)
         viewModel.getProfile()
@@ -44,15 +45,17 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         getBusinessStatus()
         premiumAccount()
         CommonMethods.statusBar(false)
+
+        Log.e("ekmfkemfefefefefe=e==", pref.retrieveKey("token").toString())
         return binding?.root
 
     }
 
     private fun getBusinessStatus() {
-        if (pref.retrieveBoolKey(business_profile_status)!=null){
+        if (pref.retrieveBoolKey(business_profile_status) != null) {
             val businessStatus = pref.retrieveBoolKey(business_profile_status)
 
-            if (businessStatus!!.equals(true)){
+            if (businessStatus!!.equals(true)) {
 
                 binding?.tvUpgrade?.visibility = View.VISIBLE
                 binding?.viewUpgrade?.visibility = View.VISIBLE
@@ -62,7 +65,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
             }
 
-            Log.e("QAAQAAA",businessStatus.toString())
+            Log.e("QAAQAAA", businessStatus.toString())
 
         }
     }
@@ -79,18 +82,18 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
     private fun getstatus() {
 
 
-        Log.e("SDSDSDSDSDS",pref.retrieveBoolKey(Constants.POSTSTATUS).toString())
+        Log.e("SDSDSDSDSDS", pref.retrieveBoolKey(Constants.POSTSTATUS).toString())
 
-        if (pref.retrieveBoolKey(Constants.POSTSTATUS)!!.equals(true)){
+        if (pref.retrieveBoolKey(Constants.POSTSTATUS)!!.equals(true)) {
 
             viewModel.status.set("View Profile")
             viewModel.changestatus.set(true)
-            Log.e("TRUE" ,pref.retrieveBoolKey(Constants.POSTSTATUS).toString() )
+            Log.e("TRUE", pref.retrieveBoolKey(Constants.POSTSTATUS).toString())
 
-        }else{
+        } else {
             viewModel.status.set("Post a Profile")
             viewModel.changestatus.set(false)
-            Log.e("FALSE" ,pref.retrieveBoolKey(Constants.POSTSTATUS).toString() )
+            Log.e("FALSE", pref.retrieveBoolKey(Constants.POSTSTATUS).toString())
 
         }
     }
@@ -108,36 +111,44 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
 //            binding?.tvMyProfileName?.text = it?.data?.first_name + " " + it?.data?.last_name
 //            username.set(it?.data?.user_name)
-           var  user_id = it?.data?.user_id.toString()
+            var user_id = it?.data?.user_id.toString()
 
-            Log.e("SDSFSDf",it?.data?.user_name + "DFDFDDg   " + user_id.toString())
+            Log.e("SDSFSDf", it?.data?.user_name + "DFDFDDg   " + user_id.toString())
 
             /*** Get  premium */
             //        if (viewModel.premium == 1) {
             //old id
             //63b69f871545b79696c25166
             if (user_id == "63bd1578c4f44108db54e886") {
-                binding?.tvAdvanceSetting?.visibility = View.VISIBLE
-                binding?.viewAdvanceSettings?.visibility = View.VISIBLE
 
-                binding?.tvQRCode?.visibility = View.VISIBLE
-                binding?.viewQRCode?.visibility = View.VISIBLE
+                //63bd052fc4f44108db54e5eb
 
-                binding?.tvViewMyProfile?.visibility = View.VISIBLE
-                binding?.viewProfile?.visibility = View.VISIBLE
+                //if (user_id.equals("63b69bc11545b79696c25120")) {
+                if (user_id.equals("63bd1520c4f44108db54e86d")) {
 
-                binding?.tvUpgrade?.visibility = View.GONE
-                binding?.viewUpgrade?.visibility = View.GONE
+                    binding?.tvAdvanceSetting?.visibility = View.VISIBLE
+                    binding?.viewAdvanceSettings?.visibility = View.VISIBLE
 
-            } else {
+                    binding?.tvQRCode?.visibility = View.VISIBLE
+                    binding?.viewQRCode?.visibility = View.VISIBLE
 
-                /* binding?.tvAdvanceSetting?.visibility = View.GONE
+                    binding?.tvViewMyProfile?.visibility = View.VISIBLE
+                    binding?.viewProfile?.visibility = View.VISIBLE
+
+                    binding?.tvUpgrade?.visibility = View.GONE
+                    binding?.viewUpgrade?.visibility = View.GONE
+
+                } else {
+
+                    /* binding?.tvAdvanceSetting?.visibility = View.GONE
                  binding?.viewAdvanceSettings?.visibility = View.GONE
 
                  binding?.tvUpgrade?.visibility = View.VISIBLE
                  binding?.viewUpgrade?.visibility = View.VISIBLE*/
 
-                Log.e("SAAHAEED","WORKINGGGGGG")
+                    Log.e("SAAHAEED", "WORKINGGGGGG")
+
+                }
 
             }
 
@@ -149,4 +160,5 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         super.onResume()
         getstatus()
     }
+
 }

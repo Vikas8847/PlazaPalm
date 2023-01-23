@@ -83,6 +83,7 @@
                         android:layout_width="@dimen/_62sdp"
                         android:layout_height="@dimen/_62sdp"
                         android:src="@drawable/circle_proifle_image"
+                        setCircleImage="@{vm.imageUrl}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +98,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_semibold"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:text="Booking Details"
+                    android:text="@{vm.userFLName }"
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
@@ -111,7 +112,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:text="@{vm.categaryName}"
+                    android:text="@{vm.userFName}"
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
@@ -158,7 +159,7 @@
                     android:fontFamily="@font/inter_medium"
                     android:onClick="@{vm::onClicks}"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:text="View Profile"
+                    android:text="@string/view_profile"
                     android:textColor="@color/blue"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
@@ -191,6 +192,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/vBookingDetails" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCateName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:paddingVertical="@dimen/_1sdp"
+                    android:text="@{vm.categaryName}"
+                    android:visibility="gone"
+                    android:textColor="@color/tool_bar_black_color"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvBookingStatus" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivFavDetailsOptions"
@@ -218,7 +235,7 @@
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvBookingStatus" />
+                    app:layout_constraintTop_toBottomOf="@id/tvCateName" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -279,7 +296,7 @@
                     android:paddingHorizontal="@dimen/_5sdp"
                     android:paddingVertical="@dimen/_9sdp"
                     android:paddingBottom="@dimen/_1sdp"
-                    android:text="Cancel Booking"
+                    android:text="@{vm.btnText}"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/tvBookDetailsDescriptionValue" />

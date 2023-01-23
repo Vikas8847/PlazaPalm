@@ -23,12 +23,20 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp"
                 android:background="@color/white">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivAddPhotosBackBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="start"
                     android:onClick="@{vm::onClicks}"
                     android:padding="@dimen/_5sdp"

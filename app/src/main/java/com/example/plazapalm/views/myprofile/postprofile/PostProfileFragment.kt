@@ -37,7 +37,7 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
     private var binding: PostProfileFragmentBinding? = null
     private val viewModel: PostProfileVM by viewModels()
-    lateinit var ImageList: ArrayList<AddPhoto>
+   private lateinit var ImageList: ArrayList<AddPhoto>
     lateinit var viewProAddImageAdapter: ViewProAddImageAdapter
     var token = ObservableField("")
     var profileStatus = ObservableBoolean(false)
@@ -56,6 +56,8 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
             Log.e("SSSSVVV", arguments?.get("userDATA").toString())
 
             if (arguments?.getString("comingFromView").equals("ViewPrfoile")) {
+                viewModel.titleScreenProfile.set("Profile")
+
                 viewModel.postdata.set("Update")
 //                val userData:ObservableParcelable<postData?>  = arguments?.getParcelable<postData?>("userDATA") as ObservableParcelable<postData?>
                 viewModel.firstName.set(arguments?.getString("f_name").toString())
@@ -78,6 +80,8 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
                 viewModel.description3.set(arguments?.getString("des_3").toString())
                 viewModel.categeory.set(arguments?.getString("cate").toString())
 
+                viewModel.allowBooking.set(arguments?.getBoolean("booking_status")!!)
+
                 //IMGAE LIST
                 viewModel.photoList = arguments?.getParcelableArrayList<AddPhoto>("profile_Image") as ArrayList<AddPhoto>
 
@@ -88,9 +92,10 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
             } else if (arguments?.getString(Constants.FROM_MY_PROFILE).equals("PostProfile")) {
                 viewModel.postdata.set("Post")
+                viewModel.titleScreenProfile.set("Profile Post")
+
             }
         }
-
     }
 
 
@@ -139,8 +144,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
                 viewModel.lat.set(lati)
 
                 Log.e("WWWWWWWW", data.toString())
-
-
             }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("photos")
@@ -160,11 +163,17 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
 
                 setAdapter()
             }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setAdapter() {
+
+        Log.e("rmglsmgsgsgsg===",ImageList.size.toString())
+
+        for(idx in 0 until ImageList.size)
+        {
+            Log.e("dddsdsdsdsds===",ImageList[idx].Image.toString())
+        }
 
         binding?.rvViewEditAddImages?.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -186,7 +195,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
     }
 
     private fun showRecyclerviewClick() {
-
         if (viewModel.isClicked.get()) {
             viewModel.isClicked.set(true)
         } else {
@@ -195,9 +203,6 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
     }
 
     override fun onClick(view: View, type: String, position: Int) {
-
         Log.e("SSSS", "WWW")
-
     }
-
 }
