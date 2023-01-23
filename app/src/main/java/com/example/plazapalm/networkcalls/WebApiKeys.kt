@@ -59,6 +59,7 @@ const val GALLERYGET  = "galleryGet"
 const val DELETE_MEDIA  = "deleteMedia"
 
 
+const val GET_FONTS  = "frontPageGet"
 
 
 

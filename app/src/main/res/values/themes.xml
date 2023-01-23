@@ -12,6 +12,19 @@
         <item name="android:statusBarColor">@color/app_bar_light</item>
     </style>
 
+
+    //vikas ...
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+
     <!--for Shape-able image view-->
     <style name="corner10Percent" parent="">
         <item name="cornerFamily">rounded</item>

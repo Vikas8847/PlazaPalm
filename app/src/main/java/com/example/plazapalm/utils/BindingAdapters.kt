@@ -1,8 +1,7 @@
 package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
+import android.graphics.Typeface
 import android.location.Location
 import android.media.MediaPlayer
 import android.os.Build
@@ -14,7 +13,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -24,10 +22,8 @@ import com.bumptech.glide.Glide
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
-import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.pref.PreferenceFile
-import com.example.plazapalm.pref.preferenceName
-import com.example.plazapalm.views.dashboard.DashBoardVM
+import com.example.plazapalm.utils.CommonMethods.context
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
@@ -37,8 +33,9 @@ import me.relex.circleindicator.CircleIndicator
 
 /** Binding Adapters */
 object BindingAdapters {
-//    @Inject
-    lateinit var pref : PreferenceFile
+    //    @Inject
+    lateinit var pref: PreferenceFile
+
     //    @Inject
 //    lateinit var pref : PreferenceFile
     @BindingAdapter(value = ["setRecyclerAdapter"], requireAll = false)
@@ -48,6 +45,25 @@ object BindingAdapters {
         adapter: RecyclerView.Adapter<*>
     ) {
         recyclerView.adapter = adapter
+    }
+
+
+    @BindingAdapter(value = ["setBold"])
+    fun setBold(view: AppCompatTextView, isPosition: Int) {
+        when (isPosition) {
+            0 -> {
+                view.setTypeface(null, Typeface.BOLD)
+            }
+            1 -> {
+                view.setTypeface(null, Typeface.NORMAL)
+            }
+            2 -> {
+                view.setTypeface(null, Typeface.ITALIC)
+            }
+            else -> {
+                view.setTypeface(null, Typeface.NORMAL)
+            }
+        }
     }
 
 
@@ -113,7 +129,7 @@ object BindingAdapters {
         textView: TextView,
         value: String
     ) {
-        val split = value?.split("T")
+        val split = value.split("T")
         val date = split?.get(0)
         textView.text = date
         Log.e("QOWIEWww", date.toString())
@@ -189,17 +205,17 @@ object BindingAdapters {
     @JvmStatic
     fun setCalndarBackground(
         view: androidx.constraintlayout.widget.ConstraintLayout,
-        bookingStatus : String
+        bookingStatus: String
     ) {
         if (bookingStatus.equals("pending")) {
-            Log.e("SDSD","sdwwwwwwa")
+            Log.e("SDSD", "sdwwwwwwa")
 //            view.background = ContextCompat.getDrawable(view.context.resources.getDrawable(R.drawable.placeholder))
-            view.background=(ContextCompat.getDrawable(context, R.drawable.booking_caalnar_back))
+            view.background = (ContextCompat.getDrawable(context, R.drawable.booking_caalnar_back))
 
         } else {
-            view.background=(ContextCompat.getDrawable(context, R.drawable.add_calander_back))
+            view.background = (ContextCompat.getDrawable(context, R.drawable.add_calander_back))
 //            view.background = ContextCompat.getDrawable(view.context, )
-            Log.e("SDSD","1231321324563")
+            Log.e("SDSD", "1231321324563")
 
         }
     }
@@ -303,7 +319,7 @@ object BindingAdapters {
             videoView.setOnPreparedListener { mp ->
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
                 mp.setVolume(0f, 0f)
-                videoView.seekTo(position!!)
+                videoView.seekTo(position)
 
                 if (position == 0) {
                     videoView.start()
@@ -335,12 +351,14 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter(value = ["calculateLatLngToMiles","destLat","destLong"], requireAll = false)
+    @BindingAdapter(value = ["calculateLatLngToMiles", "destLat", "destLong"], requireAll = false)
     @JvmStatic
-    fun calculateLatLngToMiles(destinationTV : TextView, pref: PreferenceFile?,
-                               destLat:Double,destLong:Double) {
-        var latValue1= pref!!.retvieLatlong("longi").toDouble()
-        var lngValue1= pref!!.retvieLatlong("lati").toDouble()
+    fun calculateLatLngToMiles(
+        destinationTV: TextView, pref: PreferenceFile?,
+        destLat: Double, destLong: Double
+    ) {
+        var latValue1 = pref!!.retvieLatlong("longi").toDouble()
+        var lngValue1 = pref.retvieLatlong("lati").toDouble()
         //   pref.storeLatlong("lati", location.longitude.toFloat())
         // destinationTV.text = "ddsssss"
         /* var latValue1="30.7046"
@@ -355,24 +373,21 @@ object BindingAdapters {
         val locationB = Location("Point B")
         locationB.latitude = latLngB.latitude
         locationB.longitude = latLngB.longitude
-        var distance= locationA.distanceTo(locationB).toDouble().toString()
+        var distance = locationA.distanceTo(locationB).toDouble().toString()
         Handler().postDelayed(object : Runnable {
             override fun run() {
-                var milesValues="0"
-                if(distance!=null)
-                {
-                    if(distance.toString().contains("."))
-                    {
-                        milesValues=distance.toString().split(".")[0]
-                    }else
-                    {
-                        milesValues=distance.toString()
+                var milesValues = "0"
+                if (distance != null) {
+                    if (distance.toString().contains(".")) {
+                        milesValues = distance.toString().split(".")[0]
+                    } else {
+                        milesValues = distance.toString()
                     }
                 }
-                destinationTV.text = milesValues+" Miles"
+                destinationTV.text = milesValues + " Miles"
                 Log.d("distanceCalqwer", destinationTV.text.toString())
             }
-        },1000)
+        }, 1000)
     }
 
 
@@ -380,8 +395,8 @@ object BindingAdapters {
     @JvmStatic
     fun setMiles(
         textView: AppCompatTextView,
-        value : String
+        value: String
     ) {
-        textView.text =value.split(".")[0]+" Miles"
+        textView.text = value.split(".")[0] + " Miles"
     }
 }

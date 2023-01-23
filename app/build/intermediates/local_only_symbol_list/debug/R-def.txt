@@ -62,11 +62,13 @@ drawable add_photo_bg
 drawable add_photos_bg
 drawable advance_map
 drawable advance_map_bg
+drawable advance_setting_colors_bg
 drawable android
 drawable app_icons
 drawable back_color_choose
 drawable bottom_home_icon
 drawable bottom_nav_bg
+drawable bottom_sheet_bg
 drawable calendar_item_list_bg
 drawable capsule_login_bg
 drawable capsule_login_button
@@ -169,7 +171,6 @@ drawable like_true
 drawable like_unfilled_image
 drawable likes_true
 drawable map_search_white_bg
-drawable media_remove_icon
 drawable minus_button
 drawable naguyen_girl
 drawable navigation
@@ -202,6 +203,7 @@ drawable time_cirecle
 drawable welcome_layer
 drawable welcome_plazza_icon
 drawable williamson_dog
+font academy_engraved_letplain
 font hello_valentina
 font inter_black
 font inter_bold
@@ -328,9 +330,9 @@ id clCategoriesList
 id clCategoriesListSearch
 id clChangePassMain
 id clChatSendMessage
-id clChooseFont
 id clConfirmPass
 id clContactUs
+id clCoordinateEditCoverPage
 id clCurrentMail
 id clCurrentPass
 id clDashBoardListSearch
@@ -348,6 +350,7 @@ id clFavItemMain
 id clFavOfDesc2
 id clFavOfDesc3
 id clFilterSecond
+id clFontListMain
 id clForgotMain
 id clForgotPassEmail
 id clHeaderLocation
@@ -522,7 +525,6 @@ id ivForgotPassword
 id ivMyProfile
 id ivMyProfileScanner
 id ivNotificationItemsDelete
-id ivPhoto
 id ivPictureAddBackBtn
 id ivPictures
 id ivPicturesAdd
@@ -570,6 +572,7 @@ id messagesFragment
 id more_colors
 id myProfile
 id myProfileFragment
+id myview
 id nScrollLogin
 id nScrollSigUp
 id nScrollVerifyEmail
@@ -597,6 +600,8 @@ id rgFirst
 id rvAddPhotos
 id rvCategoryLocation
 id rvChats
+id rvChooseFontRecent
+id rvChooseFonts
 id rvDashBoard
 id rvDashBoardSelectedEvents
 id rvFavourites
@@ -695,6 +700,7 @@ id tvChatUserName
 id tvChatUserTime
 id tvChooseFont
 id tvChooseFontCancel
+id tvChooseFontsRecent
 id tvChooseOptAddToCalFavDetails
 id tvChooseOptCancel
 id tvChooseOptDeleteProfile
@@ -774,6 +780,7 @@ id tvFilterLocation
 id tvFilterLocationDescription
 id tvFilterMiles
 id tvFilterMilesValue
+id tvFontsName
 id tvForgotPass
 id tvForgotPasswordHeader
 id tvLogOutBtn
@@ -794,6 +801,9 @@ id tvPicturesAdd
 id tvPicturesUploadCancel
 id tvPicturesUploadChooseOptions
 id tvPrivacyPolicy
+id tvProfileUserAddress
+id tvProfileUserDescription
+id tvProfileUserName
 id tvPushNotification
 id tvQRCode
 id tvQrCodeUserName
@@ -913,7 +923,6 @@ id vPlayer5
 id vPlayer6
 id vProfileLikeDisComment
 id verifyEmailFragment
-id video_icon
 id viewAccount
 id viewAdvanceSettingEditFontPage
 id viewAdvanceSettingEditLook
@@ -948,7 +957,6 @@ id viewSettingsTermsUse
 id viewSomethingWrong
 id viewUpdateEmail
 id viewUpgrade
-id view_
 id view_id
 id welcomeFragment
 integer dialogplus_animation_default_duration
@@ -965,6 +973,7 @@ layout advance_map_fragment
 layout advance_sett_gallery_frament_fragment
 layout advance_setting_fragment
 layout advance_setting_map_fragment
+layout advance_show_view_profile
 layout alert_exit
 layout block_user_profile
 layout booking_details_fragment
@@ -996,7 +1005,6 @@ layout dash_selected_events
 layout delete_account_alert
 layout delete_postprofile
 layout delete_swipe_alert
-layout demo_dialog
 layout edit_front_page_fragment
 layout edit_or_delete_profile
 layout edit_profile_fragment
@@ -1009,11 +1017,13 @@ layout favourites_list_items
 layout filter_catergories_item
 layout filter_fragment
 layout fonts_list_fragment
+layout fonts_list_item
 layout forgot_password_fragment
 layout fragment_details_categeroy
 layout fragment_open_categeroy
 layout fragment_report_choose_option
 layout fragment_report_choose_option_items
+layout fragment_search_demo
 layout fragment_select_category
 layout login_fragment
 layout logout_alert
@@ -1058,7 +1068,6 @@ mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 navigation navigation_graph
 raw map_json_dark_mode
-string _25_miles
 string add_new_question
 string add_photo_type
 string addtofav
@@ -1074,7 +1083,6 @@ string colorss
 string confirm_booking
 string dd_mm_yy
 string delete
-string delete_profile
 string description2
 string description_2
 string description_3
@@ -1093,7 +1101,6 @@ string inter_regular
 string last_name
 string log_out
 string logout
-string lower_name
 string more_colors
 string no
 string no_favorites_yet
@@ -1111,11 +1118,7 @@ string space
 string submit
 string take_photo
 string thank_you
-string top_name
-string upload_image
-string upload_video
 string user_name
-string view_profile
 string yes
 string you_selected
 string your_device_offline
@@ -1123,6 +1126,8 @@ style AppTheme
 style BottomNavigationView
 style BottomNavigationView.Active
 style CalenderViewCustom.
+style CustomBottomSheetDialogTheme
+style CustomBottomSheetStyle
 style DatePickerDialogTheme
 style DialogeTheme
 style Divider

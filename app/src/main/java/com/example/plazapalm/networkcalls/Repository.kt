@@ -53,9 +53,7 @@ class Repository @Inject constructor(
         }
         if (!activity.isNetworkAvailable()) {
             CommonMethods.showToast(CommonMethods.context, "You are offline.")
-
             // activity.showNegativeAlerter(activity.getString(R.string.your_device_offline))
-
             return
         }
         if (loader) {
@@ -81,7 +79,6 @@ class Repository @Inject constructor(
                 Timer().schedule(2000) {
                     hideProgress()
                 }
-
                 when {
                     response?.code() in 100..199 -> {
                         /**Informational*/
@@ -116,7 +113,6 @@ class Repository @Inject constructor(
                         requestProcessor.onError(activity.resources?.getString(R.string.some_error_occured) ?: "")
                         getRefreshToken()
                         dataStoreUtil.clearDataStore {
-
                         }
                         //activity.sessionExpired()
                         requestProcessor.onError("unAuthorized")

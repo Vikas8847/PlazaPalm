@@ -17,287 +17,293 @@
 
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_transparent"
-        android:elevation="@dimen/_8sdp"
-        app:cardCornerRadius="@dimen/_10sdp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@null">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDeleteTitle"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/inter_medium"
-                android:paddingVertical="@dimen/_8sdp"
-                android:text="@{vm.titlename}"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="@drawable/advance_setting_colors_bg"
+                android:elevation="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/show_color_id"
-                android:layout_width="@dimen/_250sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:background="@drawable/back_color_choose"
-                app:cardCornerRadius="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvDeleteTitle">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDeleteTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/inter_medium"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:text="@{vm.titlename}"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <!--                    android:background="@{ContextCompat.getColor(context, model.color)}"
-                -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/Show_back"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/show_color_id"
+                    android:layout_width="@dimen/_240sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@drawable/back_color_choose"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDeleteTitle">
+
+                    <!--                    android:background="@{ContextCompat.getColor(context, model.color)}"
+                    -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/Show_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/change_back_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_medium"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:id="@+id/vDesc"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    >
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/show_color_id" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/change_back_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/inter_medium"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <View
-                android:id="@+id/vDesc"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:background="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/show_color_id" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/color_id"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_12sdp"
-                android:fontFamily="@font/inter_medium"
-                android:gravity="left"
-                android:onClick="@{vm::onClicks}"
-                android:paddingVertical="@dimen/_5sdp"
-                android:paddingLeft="@dimen/_12sdp"
-                android:text="@string/color"
-                android:textColor="@color/black"
-                android:textSize="12dp"
-                app:layout_constraintEnd_toEndOf="@id/vMid"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vDesc" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/color_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="left"
+                    android:onClick="@{vm::onClicks}"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="@string/color"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="@id/vMid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vDesc" />
 
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/reset_all"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:fontFamily="@font/inter_medium"
-                android:gravity="right"
-                android:onClick="@{vm::onClicks}"
-                android:paddingVertical="@dimen/_5sdp"
-                android:paddingEnd="@dimen/_12sdp"
-                android:text="@string/reset_all"
-                android:textColor="@color/blue"
-                android:textSize="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/vMid"
-                app:layout_constraintTop_toBottomOf="@id/vDesc" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reset_all"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="right"
+                    android:onClick="@{vm::onClicks}"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:text="@string/reset_all"
+                    android:textColor="@color/blue"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/vMid"
+                    app:layout_constraintTop_toBottomOf="@id/vDesc" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/color_recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginLeft="@dimen/_12sdp"
-                android:padding="@dimen/_3sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/reset_all"
-                tools:itemCount="6"
-                tools:listitem="@layout/choose_color_items" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/color_recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:padding="@dimen/_3sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/reset_all"
+                    tools:itemCount="6"
+                    tools:listitem="@layout/choose_color_items" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/opacity_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:fontFamily="@font/inter_medium"
-                android:gravity="start"
-                android:onClick="@{vm::onClicks}"
-                android:padding="@dimen/_5sdp"
-                android:paddingEnd="@dimen/_12sdp"
-                android:text="@string/opacity"
-                android:textColor="@color/black"
-                android:textSize="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/more_colors"
-                tools:ignore="RtlHardcoded" />
-
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/sliderOpacitty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:theme="@style/ThemeOverlay.Slider"
-                android:value="100"
-                android:valueFrom="0"
-                android:valueTo="100"
-                app:haloColor="@color/blue"
-                app:haloRadius="@dimen/_1sdp"
-                app:labelBehavior="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/opacity_tv"
-                app:thumbColor="@color/white"
-                app:thumbElevation="@dimen/_1sdp"
-                app:thumbRadius="@dimen/_10sdp"
-                app:trackColorActive="@color/blue"
-                app:trackHeight="@dimen/_3sdp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/size_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:fontFamily="@font/inter_medium"
-                android:gravity="start"
-                android:onClick="@{vm::onClicks}"
-                android:padding="@dimen/_5sdp"
-                android:paddingEnd="@dimen/_12sdp"
-                android:text="Size"
-                android:textColor="@color/black"
-                android:textSize="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sliderOpacitty"
-                tools:ignore="RtlHardcoded" />
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_size"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:theme="@style/ThemeOverlay.Slider"
-                android:value="16"
-                android:valueFrom="14"
-                android:valueTo="22"
-                app:haloColor="@color/blue"
-                app:haloRadius="@dimen/_1sdp"
-                app:labelBehavior="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/size_tv"
-                app:thumbColor="@color/white"
-                app:thumbElevation="@dimen/_1sdp"
-                app:thumbRadius="@dimen/_10sdp"
-                app:trackColorActive="@color/blue"
-                app:trackHeight="@dimen/_3sdp" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/opacity_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="start"
+                    android:onClick="@{vm::onClicks}"
+                    android:padding="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:text="@string/opacity"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/more_colors"
+                    tools:ignore="RtlHardcoded" />
 
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/more_colors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:fontFamily="@font/inter_medium"
-                android:gravity="right"
-                android:onClick="@{vm::onClicks}"
-                android:padding="@dimen/_5sdp"
-                android:paddingEnd="@dimen/_12sdp"
-                android:text="@string/more_colors"
-                android:textColor="@color/blue"
-                android:textSize="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/color_recyclerView"
-                tools:ignore="RtlHardcoded" />
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderOpacitty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:theme="@style/ThemeOverlay.Slider"
+                    android:value="100"
+                    android:valueFrom="0"
+                    android:valueTo="100"
+                    app:haloColor="@color/blue"
+                    app:haloRadius="@dimen/_1sdp"
+                    app:labelBehavior="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/opacity_tv"
+                    app:thumbColor="@color/white"
+                    app:thumbElevation="@dimen/_1sdp"
+                    app:thumbRadius="@dimen/_10sdp"
+                    app:trackColorActive="@color/blue"
+                    app:trackHeight="@dimen/_3sdp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvCancelBtn"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_12sdp"
-                android:background="@drawable/round_cornerback"
-                android:fontFamily="@font/inter_medium"
-                android:gravity="center"
-                android:onClick="@{vm::onClicks}"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="@string/canecl"
-                android:textColor="@color/gray"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@id/vMid"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/slider_size" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/size_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="start"
+                    android:onClick="@{vm::onClicks}"
+                    android:padding="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:text="Size"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sliderOpacitty"
+                    tools:ignore="RtlHardcoded" />
 
-            <View
-                android:id="@+id/vMid"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:background="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/tvCancelBtn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvCancelBtn" />
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:theme="@style/ThemeOverlay.Slider"
+                    android:value="16"
+                    android:valueFrom="14"
+                    android:valueTo="22"
+                    app:haloColor="@color/blue"
+                    app:haloRadius="@dimen/_1sdp"
+                    app:labelBehavior="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/size_tv"
+                    app:thumbColor="@color/white"
+                    app:thumbElevation="@dimen/_1sdp"
+                    app:thumbRadius="@dimen/_10sdp"
+                    app:trackColorActive="@color/blue"
+                    app:trackHeight="@dimen/_3sdp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvSaveSwipeBtn"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:layout_marginRight="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:background="@drawable/save_btn_back"
-                android:fontFamily="@font/inter_medium"
-                android:gravity="center"
-                android:onClick="@{vm::onClicks}"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="@string/save"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/vMid"
-                app:layout_constraintTop_toBottomOf="@id/slider_size" />
 
-            <View
-                android:id="@+id/vDecsc"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvSaveSwipeBtn" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/more_colors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="right"
+                    android:onClick="@{vm::onClicks}"
+                    android:padding="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:text="@string/more_colors"
+                    android:textColor="@color/blue"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/color_recyclerView"
+                    tools:ignore="RtlHardcoded" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCancelBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_20sdp"
+                    android:background="@drawable/round_cornerback"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center_horizontal"
+                    android:onClick="@{vm::onClicks}"
+                    android:paddingVertical="@dimen/_9sdp"
+                    android:text="@string/canecl"
+                    android:textColor="@color/light_black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvSaveSwipeBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/slider_size" />
+
+                <View
+                    android:id="@+id/vMid"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tvCancelBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvCancelBtn" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSaveSwipeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_15sdp"
+                    android:background="@drawable/ic_bluemix_button_bg"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center"
+                    android:onClick="@{vm::onClicks}"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:text="@string/save"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvCancelBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/vMid"
+                    app:layout_constraintTop_toTopOf="@+id/tvCancelBtn" />
+
+                <View
+                    android:id="@+id/vDecsc"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSaveSwipeBtn" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 
 </layout>

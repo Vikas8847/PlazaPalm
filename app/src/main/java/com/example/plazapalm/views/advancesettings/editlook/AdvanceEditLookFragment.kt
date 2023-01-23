@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.advancesettings.editlook
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -47,6 +49,13 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         binding = AdvanceEditLookFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
         binding?.vm = viewModel
+
+
+
+
+
+
+
         setbackground()
 
         return binding?.root
@@ -54,14 +63,12 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         preferenceFile.cleardata(Constants.BORDER_COLOR)
         preferenceFile.cleardata(Constants.COLUMN_COLOR)
         preferenceFile.cleardata(Constants.BACKGROUND_COLOR)
         preferenceFile.cleardata(Constants.FONT_COLOR)
         checkApi.set(true)
         viewModel.getEditLookColor()
-
         Log.e("QWCGGH222", "Working---22")
     }
 
@@ -71,7 +78,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
         Log.e("QWCGGH111", "Working---")
 
-        if (checkApi.get().equals(false)) {
+        if (!checkApi.get()) {
             getLocalData()
             Log.e("QWCGGH333", "Working---")
 
@@ -81,9 +88,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getLocalData() {
-
         if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR).equals(""))) {
-            var backgroundColor = preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR)
+            val backgroundColor = preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR)
 //            setBorderBackground(binding?.viewBoxLookingBGColor!! , backgroundColor!!)
 
 //                var data = backgroundColor as String

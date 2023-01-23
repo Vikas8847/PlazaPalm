@@ -9,14 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.databinding.DashSelectedEventsBinding
 import com.example.plazapalm.interfaces.clickItem
 import com.example.plazapalm.models.SelectedDataModelList
-
-
 class DashboardItemsAdapter(
     var requireActivity: Context,
     var dataList: ArrayList<SelectedDataModelList>,
     var clickItem: clickItem
 )
-
     : RecyclerView.Adapter<DashboardItemsAdapter.ViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")
 
@@ -27,19 +24,14 @@ class DashboardItemsAdapter(
         return viewHolder
 
     }
-
     override fun getItemCount(): Int = dataList.size
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.e("SDSDSDSDSd", dataList.toString())
-
         holder.setDAta(requireActivity, dataList, position)
     }
 
     inner class ViewHolder(var bindining: DashSelectedEventsBinding) :
         RecyclerView.ViewHolder(bindining.root) {
-
         fun setDAta(
             context: Context,
             list: ArrayList<SelectedDataModelList>,

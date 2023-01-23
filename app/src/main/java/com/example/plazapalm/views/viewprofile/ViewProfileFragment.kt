@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.ViewProfileFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-
-
 @AndroidEntryPoint
 class ViewProfileFragment : Fragment(R.layout.view_profile_fragment) {
     private var binding: ViewProfileFragmentBinding? = null
