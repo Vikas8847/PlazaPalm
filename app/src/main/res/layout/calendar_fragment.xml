@@ -111,14 +111,15 @@
 
             // custom clendarView
 
-         <!--   <com.applandeo.materialcalendarview.CalendarView
+            <com.applandeo.materialcalendarview.CalendarView
                 android:id="@+id/clCalendar"
                 android:layout_width="match_parent"
+                android:theme="@style/CalenderViewCustom."
                 android:layout_height="@dimen/_265sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCalendar"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent"
                 app:headerColor="@color/app_bar_light"
                 app:abbreviationsBarColor="@color/app_bar_light"
@@ -126,9 +127,9 @@
                 app:selectionLabelColor="@color/red"
                 app:daysLabelsColor="@color/white"
                 app:todayLabelColor="@color/red"
-                />-->
+                />
 
-            <CalendarView
+         <!--   <CalendarView
                 android:id="@+id/clCalendar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_265sdp"
@@ -138,7 +139,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintTop_toBottomOf="@+id/tvCalendarScreen"
 
-            />
+            />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 setRecyclerAdapter="@{vm.adapterCalendar}"
