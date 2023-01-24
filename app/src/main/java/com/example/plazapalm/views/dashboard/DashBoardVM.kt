@@ -40,9 +40,11 @@ import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
@@ -263,22 +265,18 @@ class DashBoardVM @Inject constructor(
 
     fun getProfileByCategory(search: String, showLoader: Boolean) {
 
-        val body = JSONObject()
-        body.put("c_id", idList)
-        body.put("offset", 1)
-        body.put("lat", lati.get())
-        body.put("lng", longi.get())
-        body.put("search", search)
+        var dataArray=ArrayList<String>()
+        for(idx in 0 until idList.size)
+        {
+            dataArray.add(idList[idx].toString())
+        }
 
-
-//                idList.add("61d3f7356441e05580a169a7")
-//                idList.add("61d3f7e26441e05580a17e98")
-//                idList.add("61dfff4a5fc0f8aff4cf2a78")
-//                idList.add("61d3f87d6441e05580a191d5")
+        var dataObject=DashBoardPostData(dataArray,pref.retvieLatlong("lati").toDouble().toString(),
+       "500",pref.retvieLatlong("longi").toDouble().toString(),userMiles.get().toString(),"1",search)
 
         Log.e("KADJrtgdfASDASDKL", idList.toString())
 
-
+        Log.e("Dash_Board_Input===",dataObject.toString())
         Log.e("SDAMILES",
             userMiles.get().toString() + " LATI " + pref.retvieLatlong("lati").toDouble()
                     + " LONG " + pref.retvieLatlong("longi")
@@ -293,13 +291,15 @@ class DashBoardVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileCateResponse> {
                     return retrofitApi.getProfileByCategory(
                         pref.retrieveKey("token").toString(),
-                        idList,
+                       "application/json",
+                        dataObject
+                       /* idList,
                         5,
                         500,
-                        pref.retvieLatlong("longi").toDouble(),
-                        pref.retvieLatlong("lati").toDouble(),
+                        pref.retvieLatlong("longi").toDouble().toString(),
+                        pref.retvieLatlong("lati").toDouble().toString(),
                         search,
-                        userMiles.get().toString()
+                        userMiles.get().toString()*/
                     )
                 }
 
@@ -376,7 +376,7 @@ class DashBoardVM @Inject constructor(
                                             }
                                             "dashItemClick_fav" -> {
                                                 //For Favourite click
-                                                Log.e("DFSDFA", "WORKING GOOD")
+                                                Log.e("DFSddddddddDFA", adapter.getAllItems()[position].isFavourite!!.toString())
 
                                                 AddtoFavAPI(adapter.getAllItems()[position].isFavourite!!,
                                                     adapter.getAllItems()[position]._id.toString(),
@@ -566,19 +566,19 @@ class DashBoardVM @Inject constructor(
                             context.runOnUiThread {
                              var  catDataList= adapter.getAllItems() as ArrayList<ProfileCateData>
                                 if (isfav) {
-                                    catDataList[position].isFavourite = false
+                                    adapter.getAllItems()[position].isFavourite = false
 //                                    tvRemoveFav?.text="Remove from Favourites"
                                     // isFav.set(false)
-                                    Log.e("TRUE", res.body().toString())
-
+                                    Log.e("check_valueee===", res.body().toString())
                                 } else {
-                                    catDataList[position].isFavourite = true
+                                    adapter.getAllItems()[position].isFavourite = true
                                     //   isFav.set(true)
 //                                    tvRemoveFav?.text="Add from Favourites"
-                                    Log.e("FALSE", res.body().toString())
+                                    Log.e("check_valueee===", res.body().toString())
                                 }
+                              //  Toast.makeText(context,res.body()!!.message.toString(),Toast.LENGTH_LONG).show()
                                 Log.e("ngwkngwngkwngwgg===",
-                                    catDataList[position].isFavourite.toString())
+                                    adapter.getAllItems()[position].isFavourite.toString())
                              //   adapter.notifyItemChanged(position)
                                 adapter.notifyDataSetChanged()
                             }

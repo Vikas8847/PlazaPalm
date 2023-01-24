@@ -79,7 +79,7 @@ class CategoriesListVM @Inject constructor(
             }, 1000)
         } else {
             Handler().postDelayed({
-                getCategoriesApi("a", false)
+                getCategoriesApi("", false)
             }, 1000)
         }
 
@@ -111,7 +111,6 @@ class CategoriesListVM @Inject constructor(
     /*call get Categories Api..*/
     fun getCategoriesApi(search: String, showLoader: Boolean) = viewModelScope.launch {
 
-
         Log.e("ASDASAAA", selectedList.toString() + "--V-- " + latitude.get() +"--V-- "  + longitude.get())
         Log.e("ASDASAAA111", selectedList.toString() + "--V-- " + pref.retvieLatlong("longi").toDouble()
                 +"--V-- "  +pref.retvieLatlong("longi").toDouble())
@@ -129,7 +128,7 @@ class CategoriesListVM @Inject constructor(
         body.put("offset", page.get()!!)
         body.put("limit", 500)
         body.put("search=", search)
-
+Log.e("fgmlfmgssssgegeg====",body.toString())
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
             loader = showLoader,
@@ -139,8 +138,8 @@ class CategoriesListVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<CategoriesResponseModel> {
                     return retrofitApi.getCategories(
                         Authorization = token.get().toString(),
-                        Lat = pref.retvieLatlong("longi").toDouble(),
-                        Long = pref.retvieLatlong("lati").toDouble(),
+                        Lat = pref.retvieLatlong("lati").toDouble(),
+                        Long = pref.retvieLatlong("longi").toDouble(),
                         OffSet = page.get()!!,
                         Limit = 500,
                         Search = search
@@ -150,7 +149,7 @@ class CategoriesListVM @Inject constructor(
                 override fun onResponse(res: Response<CategoriesResponseModel>) {
 
                     adapterCategories.addItems(res.body()?.data!!)
-
+                    Log.e("Category_list_response==",res.body()?.data!!.toString())
                     for (idx in 0 until adapterCategories.getAllItems().size) {
                         if (selectedList.contains(adapterCategories.getAllItems()[idx].category_name)) {
 
