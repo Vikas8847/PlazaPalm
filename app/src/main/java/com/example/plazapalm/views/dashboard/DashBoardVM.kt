@@ -271,8 +271,8 @@ class DashBoardVM @Inject constructor(
             dataArray.add(idList[idx].toString())
         }
 
-        var dataObject=DashBoardPostData(dataArray,pref.retvieLatlong("longi").toDouble().toString(),
-       "500",pref.retvieLatlong("lati").toDouble().toString(),userMiles.get().toString(),"1",search)
+        var dataObject=DashBoardPostData(dataArray,pref.retvieLatlong("lati").toDouble().toString(),
+       "500",pref.retvieLatlong("longi").toDouble().toString(),userMiles.get().toString(),"1",search)
 
         Log.e("KADJrtgdfASDASDKL", idList.toString())
 
@@ -291,7 +291,7 @@ class DashBoardVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileCateResponse> {
                     return retrofitApi.getProfileByCategory(
                         pref.retrieveKey("token").toString(),
-                       // "application/json",
+                       "application/json",
                         dataObject
                        /* idList,
                         5,
@@ -376,7 +376,7 @@ class DashBoardVM @Inject constructor(
                                             }
                                             "dashItemClick_fav" -> {
                                                 //For Favourite click
-                                                Log.e("DFSDFA", "WORKING GOOD")
+                                                Log.e("DFSddddddddDFA", adapter.getAllItems()[position].isFavourite!!.toString())
 
                                                 AddtoFavAPI(adapter.getAllItems()[position].isFavourite!!,
                                                     adapter.getAllItems()[position]._id.toString(),
@@ -566,19 +566,19 @@ class DashBoardVM @Inject constructor(
                             context.runOnUiThread {
                              var  catDataList= adapter.getAllItems() as ArrayList<ProfileCateData>
                                 if (isfav) {
-                                    catDataList[position].isFavourite = false
+                                    adapter.getAllItems()[position].isFavourite = false
 //                                    tvRemoveFav?.text="Remove from Favourites"
                                     // isFav.set(false)
-                                    Log.e("TRUE", res.body().toString())
-
+                                    Log.e("check_valueee===", res.body().toString())
                                 } else {
-                                    catDataList[position].isFavourite = true
+                                    adapter.getAllItems()[position].isFavourite = true
                                     //   isFav.set(true)
 //                                    tvRemoveFav?.text="Add from Favourites"
-                                    Log.e("FALSE", res.body().toString())
+                                    Log.e("check_valueee===", res.body().toString())
                                 }
+                              //  Toast.makeText(context,res.body()!!.message.toString(),Toast.LENGTH_LONG).show()
                                 Log.e("ngwkngwngkwngwgg===",
-                                    catDataList[position].isFavourite.toString())
+                                    adapter.getAllItems()[position].isFavourite.toString())
                              //   adapter.notifyItemChanged(position)
                                 adapter.notifyDataSetChanged()
                             }

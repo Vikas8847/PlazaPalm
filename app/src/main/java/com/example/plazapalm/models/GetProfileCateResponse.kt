@@ -1,6 +1,5 @@
 package com.example.plazapalm.models
 
-import com.example.plazapalm.datastore.Location
 import com.example.plazapalm.recycleradapter.AbstractModel
 
 data class GetProfileCateResponse(
@@ -25,7 +24,7 @@ data class ProfileCateData(
     val frontpage_bottom_text: String,
     val frontpage_top_text: String,
     val isAddedToCalender: Boolean,
-    var isFavourite: Boolean,
+    var isFavourite: Boolean?=false,
     val isPremium: Int,
     val is_bottom_selected: Boolean,
     val is_top_selected: Boolean,

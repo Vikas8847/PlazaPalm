@@ -298,6 +298,7 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:padding="@dimen/_5sdp"
                         android:src="@drawable/ic_heart_icon"
+                        app:tint="@color/black"
                         android:visibility="@{vm.checkFavouriteShow==1 ? view.VISIBLE : view.GONE}"
                         app:layout_constraintStart_toEndOf="@id/tvFavDetailsDisLikeCount"
                         app:layout_constraintTop_toTopOf="parent" />

@@ -194,7 +194,7 @@ interface RetrofitApi {
     @HTTP(method = "POST", path = GET_PROFILE_BY_CATEGORERY, hasBody = true)
     suspend fun getProfileByCategory(
         @Header("Authorization") Authorization: String,
-       // @Header("Content-Type") contentType: String,
+        @Header("Content-Type") contentType: String,
         @Body body: DashBoardPostData,
         // @Field("c_id") c_id: String,
        /* @Field("offset") offset: Int,
