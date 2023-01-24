@@ -106,10 +106,28 @@
             android:fontFamily="@font/inter_medium"
             android:paddingBottom="@dimen/_5sdp"
             android:textColor="@color/white"
+            android:text="Mohali PB "
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClBookingUserDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/inter_medium"
+            android:paddingBottom="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:text="@{model.booking_status}"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/tvClBookLocationName"
             app:layout_constraintTop_toBottomOf="@id/tvClBookingUserDate"
-            tools:text="Mohali PB" />
+
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

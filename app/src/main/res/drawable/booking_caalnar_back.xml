@@ -8,8 +8,8 @@
         android:radius="50dp"
         android:topLeftRadius="10dp"
         android:topRightRadius="10dp" />
+    <solid android:color="#80C6D3DC">
 
-    <solid android:color="#33C6D3DC">
 
     </solid>
     <size

@@ -111,7 +111,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
         }
 
-
         if (pref.retrieveFilterResponse() != null && !(pref.retrieveFilterResponse().equals(""))) {
             Log.e("AAAZZZZ", pref.retrieveFilterResponse().toString())
 

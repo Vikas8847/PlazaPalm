@@ -58,6 +58,9 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
             if (arguments?.getString("comingFromView").equals("ViewPrfoile")) {
                 viewModel.titleScreenProfile.set("Profile")
 
+                // pref.storeLocation
+                //dsfsdf0010121.0
+
                 viewModel.postdata.set("Update")
 //                val userData:ObservableParcelable<postData?>  = arguments?.getParcelable<postData?>("userDATA") as ObservableParcelable<postData?>
                 viewModel.firstName.set(arguments?.getString("f_name").toString())

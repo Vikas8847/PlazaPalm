@@ -152,13 +152,13 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
             }
 
-        }
 
     }
-
     override fun onResume() {
         super.onResume()
         getstatus()
+        Log.e("","")
+
     }
 
 }

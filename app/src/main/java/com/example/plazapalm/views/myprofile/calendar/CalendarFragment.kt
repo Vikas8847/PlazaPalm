@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.applandeo.materialcalendarview.EventDay
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.CalendarFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
@@ -67,6 +69,40 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
     @SuppressLint("ResourceType")
     private fun calendarClick() {
 
+        val calendars: List<Calendar> = ArrayList()
+
+
+
+        viewModel.SeletedDate.observe(requireActivity()){
+
+            Log.e("SDSDQQWq" , it.toString())
+        }
+
+
+        binding?.clCalendar?.setOnDayClickListener(object : OnDayClickListener {
+            override fun onDayClick(eventDay: EventDay) {
+                val clickedDayCalendar = eventDay.calendar
+
+               /* val date = (dayofMonth.toString() + "-" + (month + 1) + "-" + year)
+
+                val month = ((month + 1))
+                val year = (year)
+
+                viewModel.month.set(month)
+                viewModel.year.set(year)
+
+                binding?.tvCalendar?.text = date
+                viewModel.click.set(true)
+                viewModel.getCalanderDataMonthWise(month, year)*/
+
+                Log.e("DATAEE", clickedDayCalendar.toString())
+
+                // binding?
+            }
+
+        })
+
+/*
         binding?.clCalendar?.setOnDateChangeListener { _, year, month, dayofMonth ->
             // In this Listener we are getting values
             // such as year, month and day of month
@@ -88,6 +124,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
             // binding?.clCalendar?.dateTextAppearance = Color.RED
 
         }
+*/
 
         /* binding?.clCalendar?.setOnDayClickListener(object : OnDayClickListener {
              override fun onDayClick(eventDay: EventDay) {
