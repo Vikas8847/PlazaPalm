@@ -62,5 +62,5 @@ fun generateQRCodeMethod(user_id:String)
     } catch (e: Exception) {
 
     }
-}
+ }
 }

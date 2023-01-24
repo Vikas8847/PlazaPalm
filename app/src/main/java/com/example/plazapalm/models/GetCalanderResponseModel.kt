@@ -19,7 +19,7 @@ data class GetCalanderResponseModel(
     val customer_last_name: String? = "",
     val description: String? = "",
     val location_text: String? = "",
-    val location_dumm: String? = "Mohali PB ",
+    val location_dumm: String? = "",
     val month: Int? = 0,
     val postProfile_first_name: String? = "",
     val postProfile_last_name: String? = "",

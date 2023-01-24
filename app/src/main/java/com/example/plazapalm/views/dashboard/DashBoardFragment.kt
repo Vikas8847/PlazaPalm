@@ -48,6 +48,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     private lateinit var mFusedLocation: FusedLocationProviderClient
     private val viewModel: DashBoardVM by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,6 +83,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 //            Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
 //        }
 //
+
         return binding?.root
 
     }
@@ -109,7 +111,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 //            }
 
         }
-
 
         if (pref.retrieveFilterResponse() != null && !(pref.retrieveFilterResponse().equals(""))) {
             Log.e("AAAZZZZ", pref.retrieveFilterResponse().toString())

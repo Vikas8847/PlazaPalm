@@ -284,7 +284,6 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                 pref.storeLatlong("longi",  originLatng?.latitude!!.toFloat())
                 pref.storeLatlong("lati", originLatng?.longitude!!.toFloat())
 
-
                 Log.e("asdSDWA",originLatng?.longitude!!.toFloat().toString() + "VVC" + originLatng?.latitude!!.toFloat().toString())
 
             }
