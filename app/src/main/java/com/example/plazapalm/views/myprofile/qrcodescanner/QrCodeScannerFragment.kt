@@ -40,6 +40,7 @@ class QrCodeScannerFragment : Fragment(R.layout.qr_code_scanner_fragment) {
         codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
         codeScanner.isFlashEnabled = false // Whether to enable flash or not
         codeScanner.decodeCallback = DecodeCallback { barCodeResult ->
+
             activity?.runOnUiThread {
                 if (!barCodeResult.equals("")) {
                     CommonMethods.showToast(requireContext(), "Code Scanned .. ")

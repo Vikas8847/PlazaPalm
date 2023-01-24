@@ -6,6 +6,7 @@ import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
@@ -45,6 +46,8 @@ class CalendarVM @Inject constructor(
     val month = ObservableInt()
     val year = ObservableInt()
     val click = ObservableBoolean(false)
+    val SeletedDate = MutableLiveData<List<String?>?>()
+
     val isBookingStatus = ObservableBoolean(false)
 
     init {
@@ -134,6 +137,10 @@ class CalendarVM @Inject constructor(
 
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body()?.data != null) {
+
+                            for (i in 0 until res.body()!!.data.size){
+                                SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
+                            }
 
                             calendarBookingList =
                                 res.body()!!.data as ArrayList<CalenderData> /* = java.util.ArrayList<com.example.plazapalm.models.CalenderData> */
