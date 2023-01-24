@@ -92,6 +92,9 @@ object Constants {
     const val BORDER_COLOR = "BORDER_COLOR"
     const val FONT_COLOR = "FONT_COLOR"
     const val COLUMN_COLOR = "COLUMN_COLOR"
+
+    //ADVANCE_EDIT_LOOK (FONTS NAMES)
+    const val ADVANCE_EDIT_LOOK_FONTS_NAME="AdvanceEdit_FontName"
 // SIZE
    const val BORDER_WIDTH = "BORDER_WIDTH"
    const val FONT_SIZE = "FONT_SIZE"

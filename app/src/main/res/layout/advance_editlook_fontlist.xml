@@ -2,12 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="model"
-            type="com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM" />
+            type="com.example.plazapalm.views.advancesettings.editlook.AdvanceEditLookVM" />
 
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clFontListMain"
         android:layout_width="match_parent"
@@ -32,8 +35,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvChooseFontCancel"
+            android:id="@+id/tvAdvanceEditLookChooseFontCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -47,7 +51,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/etChooseFont"
+            android:id="@+id/etAdvanceEditLookChooseFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_18sdp"
@@ -70,7 +74,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:background="@color/gray"
             android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@+id/etChooseFont" />
+            app:layout_constraintTop_toBottomOf="@+id/etAdvanceEditLookChooseFont" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvChooseFontsRecent"
@@ -87,7 +91,7 @@
             app:layout_constraintTop_toBottomOf="@+id/myview" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvChooseFontRecent"
+            android:id="@+id/rvAdvanceEditFontChooseRecent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
@@ -98,8 +102,8 @@
             app:layout_constraintTop_toBottomOf="@+id/tvChooseFontsRecent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvChooseFonts"
-            setRecyclerAdapter="@{model.fontListAdapter}"
+            android:id="@+id/rvAdvanceChooseFonts"
+            setRecyclerAdapter="@{model.advanceFontListAdapter}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_5sdp"
@@ -108,9 +112,9 @@
             android:nestedScrollingEnabled="true"
             android:paddingTop="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/rvChooseFontRecent"
+            app:layout_constraintTop_toBottomOf="@id/rvAdvanceEditFontChooseRecent"
             tools:layout_editor_absoluteX="6dp"
-            tools:listitem="@layout/fonts_list_item" />
+            tools:listitem="@layout/advance_editlook_fonts_list_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

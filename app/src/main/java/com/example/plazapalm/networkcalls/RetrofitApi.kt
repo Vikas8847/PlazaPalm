@@ -196,13 +196,6 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String,
         @Header("Content-Type") contentType: String,
         @Body body: DashBoardPostData,
-        // @Field("c_id") c_id: String,
-       /* @Field("offset") offset: Int,
-        @Field("limit") limit: Int,
-        @Field("lat") lat: Double,
-        @Field("long") long: Double,
-        @Field("search") search: String,
-        @Field("miles") miles: String*/
     ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded
@@ -521,8 +514,7 @@ interface RetrofitApi {
     /*call here get Fonts Api */
 
     @GET(GET_FONTS)
-    suspend fun getFonts(
-        @Header("Authorization")Authorization: String):Response<GetFontResponse>
+    suspend fun getFonts(@Header("Authorization")Authorization: String):Response<GetFontResponse>
 
     @FormUrlEncoded
     @POST(POST_FONTS)
@@ -530,10 +522,10 @@ interface RetrofitApi {
         @Header("Authorization")Authorization: String,
         @Field("frontPageTopText")FrontPageTopText:String,
         @Field("frontPageBottomText")FrontPageBottomText:String,
-        @Field("frontPageFontSize")FrontPageFontSize:String,
+        @Field("frontPageFontSize")FrontPageFontSize:Int,
         @Field("frontPageFontColor")FrontPagerFrontColor:String,
         @Field("frontPageFontOpacity")FrontPagerFontOpacity:String,
         @Field("isTopSelected")isTopSelected:Boolean?=false,
         @Field("isBottomSelected")isBottomSelected:Boolean?=false
-    ):Response<GetFontResponse>
+    ):Response<PostFrontPageResponse>
 }

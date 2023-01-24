@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white">
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivAdvanceEditLookBack"
                     android:layout_width="@dimen/_30sdp"
@@ -132,8 +133,8 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_15sdp"
-                        android:background="@drawable/color_set_back"
                         android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@drawable/color_set_back"
                         android:onClick="@{vm.onClicks}"
                         app:layout_constraintBottom_toTopOf="@id/viewBoxColumnBGColor"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -172,8 +173,8 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:onClick="@{vm.onClicks}"
                         android:background="@drawable/color_set_back"
+                        android:onClick="@{vm.onClicks}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditColumnBGColor" />
 
@@ -190,10 +191,11 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvAdvanceEditLookFont"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/inter_medium"
                         android:paddingHorizontal="@dimen/_10sdp"
@@ -206,19 +208,25 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvAdvanceEditLookFontValues"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:fontFamily="@font/inter_medium"
-                        android:paddingVertical="@dimen/_1sdp"
-                        android:text="@string/inter_regular"
+                        android:gravity="end"
+                        android:layoutDirection="ltr"
                         android:onClick="@{vm.onClicks}"
+                        android:paddingVertical="@dimen/_1sdp"
+                        android:singleLine="true"
+                        android:text="@{vm.fontsName}"
                         android:textColor="@color/sky_blue"
                         android:textSize="16sp"
+                        android:typeface="@{vm.fontTypeface}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/viewEditBorderColor" />
+                        app:layout_constraintStart_toEndOf="@+id/tvAdvanceEditLookFont"
+                        app:layout_constraintTop_toBottomOf="@+id/viewEditBorderColor"
+                        tools:text="@string/inter_regular" />
 
                     <View
                         android:id="@+id/viewEditFont"
@@ -253,9 +261,9 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:visibility="visible"
-                        android:onClick="@{vm.onClicks}"
                         android:background="@drawable/color_set_back"
+                        android:onClick="@{vm.onClicks}"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/viewEditFont" />
 
@@ -283,8 +291,8 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/ic_upgrade_btn_bg"
                 android:gravity="center"
-                android:paddingBottom="@dimen/_5sdp"
                 android:onClick="@{vm.onClicks}"
+                android:paddingBottom="@dimen/_5sdp"
                 android:text="Attach"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -297,13 +305,13 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginStart="@dimen/_17sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:onClick="@{vm::onClicks}"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/ic_upgrade_btn_bg"
                 android:gravity="center"
+                android:onClick="@{vm::onClicks}"
                 android:paddingHorizontal="@dimen/_5sdp"
-                android:text="View"
                 android:paddingBottom="@dimen/_5sdp"
+                android:text="View"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent" />

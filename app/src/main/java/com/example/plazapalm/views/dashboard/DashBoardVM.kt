@@ -162,7 +162,6 @@ class DashBoardVM @Inject constructor(
 
         /*** 03-01-23
          *  it can create prob.. */
-
    /*     dataStoreUtil.readData(list_CateName) {
             if (it != null) {
                 selectedCategoriesList.clear()
@@ -171,14 +170,12 @@ class DashBoardVM @Inject constructor(
                     Gson().fromJson<ArrayList<SelectedDataModelList>>(it, myType)
 
                 for (idx in 0 until newList.size) {
-
                     selectedCategoriesList.add(
                         SelectedDataModelList(
                             newList[idx].cateName, newList[idx].cate_ID,
                             newList[idx].adapterPosition, newList[idx].istrue, newList[idx].count
                         )
                     )
-
                      }
 
                      Log.e("sad", it.toString())
@@ -187,11 +184,9 @@ class DashBoardVM @Inject constructor(
                  }
              }*/
     }
-
     fun onTextChange(editable: Editable) {
-        if (editable.toString().length > 0) {
-            Handler().postDelayed({
-                getProfileByCategory(editable.toString(), false)
+        if (editable.toString().isNotEmpty()) {
+            Handler().postDelayed({ getProfileByCategory(editable.toString(), false)
             }, 1000)
         } else {
             Handler().postDelayed({
@@ -268,19 +263,16 @@ class DashBoardVM @Inject constructor(
         var dataArray=ArrayList<String>()
         for(idx in 0 until idList.size)
         {
-            dataArray.add(idList[idx].toString())
+            dataArray.add(idList[idx])
         }
 
-        var dataObject=DashBoardPostData(dataArray,pref.retvieLatlong("lati").toDouble().toString(),
+        val dataObject=DashBoardPostData(dataArray,pref.retvieLatlong("lati").toDouble().toString(),
        "500",pref.retvieLatlong("longi").toDouble().toString(),userMiles.get().toString(),"1",search)
 
         Log.e("KADJrtgdfASDASDKL", idList.toString())
 
         Log.e("Dash_Board_Input===",dataObject.toString())
-        Log.e("SDAMILES",
-            userMiles.get().toString() + " LATI " + pref.retvieLatlong("lati").toDouble()
-                    + " LONG " + pref.retvieLatlong("longi")
-                .toDouble() + " CATEIDDD - " + idList.toString() + "search --- " + search)
+        Log.e("SDAMILES", userMiles.get().toString() + " LATI " + pref.retvieLatlong("lati").toDouble() + " LONG " + pref.retvieLatlong("longi").toDouble() + " CATEIDDD - " + idList.toString() + "search --- " + search)
 
         repository.makeCall(
             ApiEnums.GETPROFILE_BYCATE,
