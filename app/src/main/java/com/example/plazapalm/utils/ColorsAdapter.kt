@@ -66,10 +66,7 @@ class ColorsAdapter(
                 11 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.orange))
             }*/
 
-
-
             Log.e("SDFFFFF",photos[position].color.toString())
-
             bindining.changeColors.setBackgroundColor(requireActivity.getColor(photos[position].color!!))
 
            /* for (idx in 0 until photos.size){

@@ -457,7 +457,6 @@ interface RetrofitApi {
         @Field("fontColor") fontColor: String,
         @Field("fontSize") fontSize: Int,
         @Field("fontOpacity") fontOpacity: Double
-
     ): Response<EditLookColorsResponse>
 
     @GET(GET_COLORS)
@@ -521,4 +520,16 @@ interface RetrofitApi {
     suspend fun getFonts(
         @Header("Authorization")Authorization: String):Response<GetFontResponse>
 
+    @FormUrlEncoded
+    @POST(POST_FONTS)
+    suspend fun postFonts(
+        @Header("Authorization")Authorization: String,
+        @Field("frontPageTopText")FrontPageTopText:String,
+        @Field("frontPageBottomText")FrontPageBottomText:String,
+        @Field("frontPageFontSize")FrontPageFontSize:String,
+        @Field("frontPageFontColor")FrontPagerFrontColor:String,
+        @Field("frontPageFontOpacity")FrontPagerFontOpacity:String,
+        @Field("isTopSelected")isTopSelected:Boolean?=false,
+        @Field("isBottomSelected")isBottomSelected:Boolean?=false
+    ):Response<GetFontResponse>
 }

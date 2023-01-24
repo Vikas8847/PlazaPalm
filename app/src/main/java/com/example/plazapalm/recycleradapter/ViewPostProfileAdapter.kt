@@ -52,8 +52,7 @@ class ViewPostProfileAdapter(
         holder.setDAta(requireActivity, dataList, position)
     }
 
-    inner class ViewHolder(var bindining: ViewProfileImagesListBinding) :
-        RecyclerView.ViewHolder(bindining.root) {
+    inner class ViewHolder(var bindining: ViewProfileImagesListBinding) : RecyclerView.ViewHolder(bindining.root) {
 
         @RequiresApi(Build.VERSION_CODES.M)
         fun setDAta(
@@ -163,60 +162,58 @@ class ViewPostProfileAdapter(
         widthPixels: Int, parentLayout: ConstraintLayout,
     ) {
         var position = 0
-
         val metrics = DisplayMetrics()
         //   context.getWindowManager().getDefaultDisplay().getMetrics(metrics)
-
         //  val videoView = FullScreenVideoView(getActivity())
+        try {
+            if (imageUrl != null && imageUrl != "") {
+                videoView.setVideoPath(imageUrl)
+                videoView.setOnPreparedListener { mp ->
+                    mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
+                    parentLayout.removeAllViews()
+                    parentLayout.addView(videoView,
+                        ConstraintLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT))
+                    val params = videoView.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = widthPixels
+                    //params.height = metrics.heightPixels
+                    params.leftMargin = 0
+                    videoView.layoutParams = params
+                    mp.setVolume(0f, 0f)
+                    videoView.seekTo(position)
+                    ivVideoIcon.visibility = View.GONE
+                    if (position == 0) {
+                        videoView.start()
+                    } else {
+                        videoView.pause()
+                    }
 
-        if (imageUrl != null && imageUrl != "") {
-            videoView.setVideoPath(imageUrl)
-            videoView.setOnPreparedListener { mp ->
-                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
+                    mp.isLooping = true
+                    // CommonMethods.showToast(requireContext(), "Video is Preparing")
+                    Log.d("VideoPreparing", "video is preparing " + videoView.duration)
+                }
+                videoView.setOnErrorListener { mediaPlayer, _, _ ->
 
-                parentLayout.removeAllViews()
-                parentLayout.addView(videoView,
-                    ConstraintLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                        FrameLayout.LayoutParams.MATCH_PARENT))
-
-
-                val params = videoView.layoutParams as ConstraintLayout.LayoutParams
-                params.width = widthPixels
-                //params.height = metrics.heightPixels
-                params.leftMargin = 0
-                videoView.layoutParams = params
-
-                mp.setVolume(0f, 0f)
-                videoView.seekTo(position)
-                ivVideoIcon.visibility = View.GONE
-                if (position == 0) {
-                    videoView.start()
-                } else {
-                    videoView.pause()
+                    Log.d("VideoError", "$mediaPlayer")
+                    CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
+                    false
                 }
 
-                mp.isLooping = true
-                // CommonMethods.showToast(requireContext(), "Video is Preparing")
-                Log.d("VideoPreparing", "video is preparing " + videoView.duration)
-            }
-            videoView.setOnErrorListener { mediaPlayer, _, _ ->
-
-                Log.d("VideoError", "$mediaPlayer")
-                CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
-                false
-            }
-
-            videoView.setOnCompletionListener { mp ->
-                // videoView.start()
-                if (mp.duration == videoView.duration) {
-                    CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
+                videoView.setOnCompletionListener { mp ->
+                    // videoView.start()
+                    if (mp.duration == videoView.duration) {
+                        CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
+                    }
                 }
+                videoView.requestFocus()
+                videoView.start()
+            } else {
             }
-            videoView.requestFocus()
-            videoView.start()
-        } else {
-
         }
+        catch (e:Exception){
+            Log.d("ErrorInViewPostProfile","Error coming in player ${e.message.toString()}")
+        }
+
     }
 
 }
