@@ -130,7 +130,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
             Log.e("Ssfsaa","AWOQPWOKSD")
 
            // val location =  LatLng(30.713163375854492, 76.70951843261719)
-            val location =  LatLng(pref.retvieLatlong("longi").toDouble(), pref.retvieLatlong("lati").toDouble())
+            val location =  LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
 
             mMap.clear()
             val markerOptions = MarkerOptions().position(location).title(address)
@@ -281,8 +281,8 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
 
                 pref.storeLocation(currentaddress)
 
-                pref.storeLatlong("longi",  originLatng?.latitude!!.toFloat())
-                pref.storeLatlong("lati", originLatng?.longitude!!.toFloat())
+                pref.storeLatlong("longi",  originLatng?.longitude!!.toFloat())
+                pref.storeLatlong("lati", originLatng?.latitude!!.toFloat())
 
                 Log.e("asdSDWA",originLatng?.longitude!!.toFloat().toString() + "VVC" + originLatng?.latitude!!.toFloat().toString())
 
@@ -294,7 +294,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
 
                 findNavController().previousBackStackEntry?.savedStateHandle?.set(
                     "bundle",
-                    Currentlongi.toString() + "/" + Currentlati.toString() + "/" + currentaddress
+                    Currentlati.toString() + "/" + Currentlongi.toString() + "/" + currentaddress
                 )
                 findNavController().popBackStack()
 
@@ -303,7 +303,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
 
                 findNavController().previousBackStackEntry?.savedStateHandle?.set(
                     "bundle",
-                    Currentlongi.toString() + "/" + Currentlati.toString() + "/" + currentaddress
+                    Currentlati.toString() + "/" + Currentlongi.toString() + "/" + currentaddress
                 )
                 findNavController().popBackStack()
             }

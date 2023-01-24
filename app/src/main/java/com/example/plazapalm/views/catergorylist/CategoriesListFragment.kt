@@ -69,7 +69,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
         binding?.vm = viewmodel
         bottomNavigationView = requireActivity().findViewById(R.id.bottNavMain)
         showCategories()
-        getData()
+      //  getData()
 
         //vikas 10-10-2022
         /*  if (viewmodel.categoriesDataList.size < 0) {
@@ -100,7 +100,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
 
                     viewmodel.selectedList.addAll(data)
 
-                    viewmodel.getCategoriesApi("a", true)
+                    viewmodel.getCategoriesApi("", true)
                     binding?.tvCategories?.text = "Choose Category"
 
                     binding?.tvCategories?.visibility = View.VISIBLE
@@ -184,11 +184,11 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     binding?.ivCategoriesForward?.visibility = View.GONE
                     viewmodel.isChecked.set(false)
                     binding?.rvCategoryLocation?.isSelected = false
-                    viewmodel.getCategoriesApi("a", true)
+                    viewmodel.getCategoriesApi("", true)
 
                 }
                 "login" -> {
-                    viewmodel.getCategoriesApi("a", true)
+                    viewmodel.getCategoriesApi("", true)
 
                     Log.e("ADSDasd","DFASASD")
                     binding?.tvCategories?.text = "Choose Category"
@@ -223,7 +223,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                 }
                 "signup" -> {
 
-                    viewmodel.getCategoriesApi("a", true)
+                    viewmodel.getCategoriesApi("", true)
                     binding?.tvCategories?.text = "Choose Category"
                     binding?.ivCategory?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
@@ -273,13 +273,13 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                 }
 
                 "addCities" -> {
-                    viewmodel.getCategoriesApi("a", true)
+                    viewmodel.getCategoriesApi("", true)
                     var longitude = arguments?.containsKey("longitude")
                     var latitude = arguments?.containsKey("latitude")
                     viewmodel.address.set(arguments?.getString("addressFromCities"))
                 }
                 "postProfile" -> {
-                    viewmodel.getCategoriesApi("a", true)
+                    viewmodel.getCategoriesApi("", true)
                     binding?.tvCategories?.text = "Choose Category"
                     binding?.tvCategories?.visibility = View.VISIBLE
                     binding?.tvCategories?.visibility = View.VISIBLE
@@ -333,9 +333,13 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                         viewmodel.longitude.set(list[0].longitude)
                         list[0].countryName
                         Log.e("countryName", "" + list[0].locality + "" + list[0].countryName)
+
+                       pref.storeLatlong("lati",viewmodel.latitude.get().toFloat())
+                       pref.storeLatlong("longi",viewmodel.longitude.get().toFloat())
+
+                        getData()
                     }
                 }
-
             } else {
                 CommonMethods.showToast(requireContext(), "Turn on Location")
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)

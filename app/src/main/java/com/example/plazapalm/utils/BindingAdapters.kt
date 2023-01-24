@@ -351,7 +351,7 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter(value = ["calculateLatLngToMiles", "destLat", "destLong"], requireAll = false)
+  /*  @BindingAdapter(value = ["calculateLatLngToMiles", "destLat", "destLong"], requireAll = false)
     @JvmStatic
     fun calculateLatLngToMiles(
         destinationTV: TextView, pref: PreferenceFile?,
@@ -361,8 +361,8 @@ object BindingAdapters {
         var lngValue1 = pref.retvieLatlong("lati").toDouble()
         //   pref.storeLatlong("lati", location.longitude.toFloat())
         // destinationTV.text = "ddsssss"
-        /* var latValue1="30.7046"
-        var lngValue1="76.7179"*/
+        *//* var latValue1="30.7046"
+        var lngValue1="76.7179"*//*
         val latLngA = LatLng(latValue1.toDouble(), lngValue1.toDouble())
         // val latLngB = LatLng(destLat, destLong)
         val latLngB = LatLng(destLat, destLong)
@@ -388,8 +388,16 @@ object BindingAdapters {
                 Log.d("distanceCalqwer", destinationTV.text.toString())
             }
         }, 1000)
-    }
+    }*/
 
+
+    @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
+    @JvmStatic
+    fun calculateLatLngToMiles(
+        destinationTV: TextView, distacneValue: Double
+    ) {
+        destinationTV.text=distacneValue.toString().split(".")[0]+" miles"
+    }
 
     @BindingAdapter(value = ["setMiles"], requireAll = false)
     @JvmStatic

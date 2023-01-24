@@ -130,8 +130,8 @@ class ViewPostProfileAdapter(
 
                 bindining.ivFavOfDesc1Img.visibility = View.GONE
                 bindining.ivFavOfDesc1.visibility = View.GONE
-
-                try {
+Log.e("gkdegmgeggswg====",IMAGE_LOAD_URL + photos.get(position).Image.toString())
+                /*try {
                     setVideoPlayerMethod(bindining.videoViewDetail,
                         IMAGE_LOAD_URL + photos.get(position).Image,
                         bindining.ivVideoIcon,
@@ -140,7 +140,7 @@ class ViewPostProfileAdapter(
                 }catch (e:Exception)
                 {
 
-                }
+                }*/
             }
         }
     }
