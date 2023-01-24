@@ -186,6 +186,7 @@
                     <View
                         android:id="@+id/viewBoxLookingBGColor"
                         android:layout_width="@dimen/_20sdp"
+                        android:onClick="@{vm::onClicks}"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"

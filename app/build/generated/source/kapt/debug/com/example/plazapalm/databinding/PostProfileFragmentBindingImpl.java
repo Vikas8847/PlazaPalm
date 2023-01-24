@@ -14,31 +14,32 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.tvViewEditMyProfile, 17);
-        sViewsWithIds.put(R.id.clSecond, 18);
-        sViewsWithIds.put(R.id.scrollEditViewProfile, 19);
-        sViewsWithIds.put(R.id.clEditProAllViewsHolder, 20);
-        sViewsWithIds.put(R.id.gLineAddImages, 21);
-        sViewsWithIds.put(R.id.tvViewEditProfileAdd, 22);
-        sViewsWithIds.put(R.id.rvViewEditAddImages, 23);
-        sViewsWithIds.put(R.id.tvVEditProFirstName, 24);
-        sViewsWithIds.put(R.id.tvVEditProLastName, 25);
-        sViewsWithIds.put(R.id.tvVEditProUserName, 26);
-        sViewsWithIds.put(R.id.tvVEditProTitle, 27);
-        sViewsWithIds.put(R.id.tvVEditProChooseCategory, 28);
-        sViewsWithIds.put(R.id.tvVEditProAddAddress, 29);
-        sViewsWithIds.put(R.id.tvVEditProTags, 30);
-        sViewsWithIds.put(R.id.tvVEditProDescription, 31);
-        sViewsWithIds.put(R.id.tvVEditProDescriptionSecond, 32);
-        sViewsWithIds.put(R.id.tvVEditProDescriptionThird, 33);
-        sViewsWithIds.put(R.id.tvVEditProExpiryDate, 34);
+        sViewsWithIds.put(R.id.tvViewEditMyProfile, 18);
+        sViewsWithIds.put(R.id.clSecond, 19);
+        sViewsWithIds.put(R.id.scrollEditViewProfile, 20);
+        sViewsWithIds.put(R.id.clEditProAllViewsHolder, 21);
+        sViewsWithIds.put(R.id.gLineAddImages, 22);
+        sViewsWithIds.put(R.id.tvViewEditProfileAdd, 23);
+        sViewsWithIds.put(R.id.rvViewEditAddImages, 24);
+        sViewsWithIds.put(R.id.tvVEditProFirstName, 25);
+        sViewsWithIds.put(R.id.tvVEditProLastName, 26);
+        sViewsWithIds.put(R.id.tvVEditProUserName, 27);
+        sViewsWithIds.put(R.id.tvVEditProTitle, 28);
+        sViewsWithIds.put(R.id.tvVEditProChooseCategory, 29);
+        sViewsWithIds.put(R.id.tvVEditProAddAddress, 30);
+        sViewsWithIds.put(R.id.tvVEditProTags, 31);
+        sViewsWithIds.put(R.id.tvVEditProDescription, 32);
+        sViewsWithIds.put(R.id.tvVEditProDescriptionSecond, 33);
+        sViewsWithIds.put(R.id.tvVEditProDescriptionThird, 34);
+        sViewsWithIds.put(R.id.tvVEditProExpiryDate, 35);
+        sViewsWithIds.put(R.id.tvAllowBooking, 36);
     }
     // views
     @NonNull
     private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
     // variables
     @Nullable
-    private final androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged mCallback13;
+    private final androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged mCallback19;
     // values
     // listeners
     private OnClickListenerImpl mVmOnClicksAndroidViewViewOnClickListener;
@@ -489,13 +490,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
     };
 
     public PostProfileFragmentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 35, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 37, sIncludes, sViewsWithIds));
     }
     private PostProfileFragmentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 12
-            , (androidx.appcompat.widget.AppCompatButton) bindings[16]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[20]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[18]
+        super(bindingComponent, root, 13
+            , (androidx.appcompat.widget.AppCompatButton) bindings[17]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[21]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[19]
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[3]
             , (androidx.appcompat.widget.AppCompatEditText) bindings[10]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[9]
@@ -508,25 +509,27 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
             , (androidx.appcompat.widget.AppCompatTextView) bindings[11]
             , (androidx.appcompat.widget.AppCompatEditText) bindings[7]
             , (androidx.appcompat.widget.AppCompatEditText) bindings[8]
-            , (androidx.constraintlayout.widget.Guideline) bindings[21]
+            , (androidx.constraintlayout.widget.Guideline) bindings[22]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[4]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[2]
-            , (androidx.recyclerview.widget.RecyclerView) bindings[23]
-            , (androidx.core.widget.NestedScrollView) bindings[19]
+            , (androidx.recyclerview.widget.RecyclerView) bindings[24]
+            , (androidx.core.widget.NestedScrollView) bindings[20]
+            , (androidx.appcompat.widget.SwitchCompat) bindings[16]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[36]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[30]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[29]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[28]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[31]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[32]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[33]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[34]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[24]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[35]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[25]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[30]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[27]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[26]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[17]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[22]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[31]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[28]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[27]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[18]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[23]
             );
         this.btnUpdateEmail.setTag(null);
         this.clViewEditProfileAdd.setTag(null);
@@ -546,16 +549,17 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         this.ivViewEditProfileDotsBtn.setTag(null);
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
+        this.switchAllowBooking.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback13 = new com.example.plazapalm.generated.callback.AfterTextChanged(this, 1);
+        mCallback19 = new com.example.plazapalm.generated.callback.AfterTextChanged(this, 1);
         invalidateAll();
     }
 
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x2000L;
+                mDirtyFlags = 0x4000L;
         }
         requestRebind();
     }
@@ -585,7 +589,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
     public void setVm(@Nullable com.example.plazapalm.views.myprofile.postprofile.PostProfileVM Vm) {
         this.mVm = Vm;
         synchronized(this) {
-            mDirtyFlags |= 0x1000L;
+            mDirtyFlags |= 0x2000L;
         }
         notifyPropertyChanged(BR.vm);
         super.requestRebind();
@@ -597,26 +601,28 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
             case 0 :
                 return onChangeVmLocation((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 1 :
-                return onChangeVmDescription1((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmAllowBooking((androidx.databinding.ObservableBoolean) object, fieldId);
             case 2 :
-                return onChangeVmDescription3((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmDescription1((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 3 :
-                return onChangeVmUserName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmDescription3((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 4 :
-                return onChangeVmFirstName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmUserName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 5 :
-                return onChangeVmPostdata((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmFirstName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 6 :
-                return onChangeVmProfileTitle((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmPostdata((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 7 :
-                return onChangeVmExpireDate((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmProfileTitle((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 8 :
-                return onChangeVmLastName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmExpireDate((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 9 :
-                return onChangeVmCategeory((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmLastName((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 10 :
-                return onChangeVmAddress((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+                return onChangeVmCategeory((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
             case 11 :
+                return onChangeVmAddress((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
+            case 12 :
                 return onChangeVmDescription2((androidx.databinding.ObservableField<java.lang.String>) object, fieldId);
         }
         return false;
@@ -630,7 +636,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmDescription1(androidx.databinding.ObservableField<java.lang.String> VmDescription1, int fieldId) {
+    private boolean onChangeVmAllowBooking(androidx.databinding.ObservableBoolean VmAllowBooking, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x2L;
@@ -639,7 +645,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmDescription3(androidx.databinding.ObservableField<java.lang.String> VmDescription3, int fieldId) {
+    private boolean onChangeVmDescription1(androidx.databinding.ObservableField<java.lang.String> VmDescription1, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x4L;
@@ -648,7 +654,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmUserName(androidx.databinding.ObservableField<java.lang.String> VmUserName, int fieldId) {
+    private boolean onChangeVmDescription3(androidx.databinding.ObservableField<java.lang.String> VmDescription3, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x8L;
@@ -657,7 +663,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmFirstName(androidx.databinding.ObservableField<java.lang.String> VmFirstName, int fieldId) {
+    private boolean onChangeVmUserName(androidx.databinding.ObservableField<java.lang.String> VmUserName, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x10L;
@@ -666,7 +672,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmPostdata(androidx.databinding.ObservableField<java.lang.String> VmPostdata, int fieldId) {
+    private boolean onChangeVmFirstName(androidx.databinding.ObservableField<java.lang.String> VmFirstName, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x20L;
@@ -675,7 +681,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmProfileTitle(androidx.databinding.ObservableField<java.lang.String> VmProfileTitle, int fieldId) {
+    private boolean onChangeVmPostdata(androidx.databinding.ObservableField<java.lang.String> VmPostdata, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x40L;
@@ -684,7 +690,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmExpireDate(androidx.databinding.ObservableField<java.lang.String> VmExpireDate, int fieldId) {
+    private boolean onChangeVmProfileTitle(androidx.databinding.ObservableField<java.lang.String> VmProfileTitle, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x80L;
@@ -693,7 +699,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmLastName(androidx.databinding.ObservableField<java.lang.String> VmLastName, int fieldId) {
+    private boolean onChangeVmExpireDate(androidx.databinding.ObservableField<java.lang.String> VmExpireDate, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x100L;
@@ -702,7 +708,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmCategeory(androidx.databinding.ObservableField<java.lang.String> VmCategeory, int fieldId) {
+    private boolean onChangeVmLastName(androidx.databinding.ObservableField<java.lang.String> VmLastName, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x200L;
@@ -711,7 +717,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmAddress(androidx.databinding.ObservableField<java.lang.String> VmAddress, int fieldId) {
+    private boolean onChangeVmCategeory(androidx.databinding.ObservableField<java.lang.String> VmCategeory, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x400L;
@@ -720,10 +726,19 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         }
         return false;
     }
-    private boolean onChangeVmDescription2(androidx.databinding.ObservableField<java.lang.String> VmDescription2, int fieldId) {
+    private boolean onChangeVmAddress(androidx.databinding.ObservableField<java.lang.String> VmAddress, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x800L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeVmDescription2(androidx.databinding.ObservableField<java.lang.String> VmDescription2, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x1000L;
             }
             return true;
         }
@@ -743,6 +758,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         java.lang.String vmAddressGet = null;
         java.lang.String vmExpireDateGet = null;
         android.view.View.OnClickListener vmOnClicksAndroidViewViewOnClickListener = null;
+        androidx.databinding.ObservableBoolean vmAllowBooking = null;
         java.lang.String vmDescription1Get = null;
         androidx.databinding.ObservableField<java.lang.String> vmDescription1 = null;
         androidx.databinding.ObservableField<java.lang.String> vmDescription3 = null;
@@ -752,9 +768,11 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         java.lang.String vmCategeoryGet = null;
         androidx.databinding.ObservableField<java.lang.String> vmPostdata = null;
         androidx.databinding.ObservableField<java.lang.String> vmProfileTitle = null;
+        boolean vmAllowBookingGet = false;
         java.lang.String vmDescription2Get = null;
         java.lang.String vmProfileTitleGet = null;
         androidx.databinding.ObservableField<java.lang.String> vmExpireDate = null;
+        boolean vmAllowBookingBooleanTrueBooleanFalse = false;
         java.lang.String vmFirstNameGet = null;
         androidx.databinding.ObservableField<java.lang.String> vmLastName = null;
         java.lang.String vmPostdataGet = null;
@@ -764,10 +782,10 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
         androidx.databinding.ObservableField<java.lang.String> vmAddress = null;
         androidx.databinding.ObservableField<java.lang.String> vmDescription2 = null;
 
-        if ((dirtyFlags & 0x3fffL) != 0) {
+        if ((dirtyFlags & 0x7fffL) != 0) {
 
 
-            if ((dirtyFlags & 0x3001L) != 0) {
+            if ((dirtyFlags & 0x6001L) != 0) {
 
                     if (vm != null) {
                         // read vm.location
@@ -781,20 +799,46 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmLocationGet = vmLocation.get();
                     }
             }
-            if ((dirtyFlags & 0x3000L) != 0) {
+            if ((dirtyFlags & 0x6000L) != 0) {
 
                     if (vm != null) {
                         // read vm::onClicks
                         vmOnClicksAndroidViewViewOnClickListener = (((mVmOnClicksAndroidViewViewOnClickListener == null) ? (mVmOnClicksAndroidViewViewOnClickListener = new OnClickListenerImpl()) : mVmOnClicksAndroidViewViewOnClickListener).setValue(vm));
                     }
             }
-            if ((dirtyFlags & 0x3002L) != 0) {
+            if ((dirtyFlags & 0x6002L) != 0) {
+
+                    if (vm != null) {
+                        // read vm.allowBooking
+                        vmAllowBooking = vm.getAllowBooking();
+                    }
+                    updateRegistration(1, vmAllowBooking);
+
+
+                    if (vmAllowBooking != null) {
+                        // read vm.allowBooking.get()
+                        vmAllowBookingGet = vmAllowBooking.get();
+                    }
+                if((dirtyFlags & 0x6002L) != 0) {
+                    if(vmAllowBookingGet) {
+                            dirtyFlags |= 0x10000L;
+                    }
+                    else {
+                            dirtyFlags |= 0x8000L;
+                    }
+                }
+
+
+                    // read vm.allowBooking.get() ? true : false
+                    vmAllowBookingBooleanTrueBooleanFalse = ((vmAllowBookingGet) ? (true) : (false));
+            }
+            if ((dirtyFlags & 0x6004L) != 0) {
 
                     if (vm != null) {
                         // read vm.description1
                         vmDescription1 = vm.getDescription1();
                     }
-                    updateRegistration(1, vmDescription1);
+                    updateRegistration(2, vmDescription1);
 
 
                     if (vmDescription1 != null) {
@@ -802,13 +846,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmDescription1Get = vmDescription1.get();
                     }
             }
-            if ((dirtyFlags & 0x3004L) != 0) {
+            if ((dirtyFlags & 0x6008L) != 0) {
 
                     if (vm != null) {
                         // read vm.description3
                         vmDescription3 = vm.getDescription3();
                     }
-                    updateRegistration(2, vmDescription3);
+                    updateRegistration(3, vmDescription3);
 
 
                     if (vmDescription3 != null) {
@@ -816,13 +860,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmDescription3Get = vmDescription3.get();
                     }
             }
-            if ((dirtyFlags & 0x3008L) != 0) {
+            if ((dirtyFlags & 0x6010L) != 0) {
 
                     if (vm != null) {
                         // read vm.userName
                         vmUserName = vm.getUserName();
                     }
-                    updateRegistration(3, vmUserName);
+                    updateRegistration(4, vmUserName);
 
 
                     if (vmUserName != null) {
@@ -830,13 +874,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmUserNameGet = vmUserName.get();
                     }
             }
-            if ((dirtyFlags & 0x3010L) != 0) {
+            if ((dirtyFlags & 0x6020L) != 0) {
 
                     if (vm != null) {
                         // read vm.firstName
                         vmFirstName = vm.getFirstName();
                     }
-                    updateRegistration(4, vmFirstName);
+                    updateRegistration(5, vmFirstName);
 
 
                     if (vmFirstName != null) {
@@ -844,13 +888,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmFirstNameGet = vmFirstName.get();
                     }
             }
-            if ((dirtyFlags & 0x3020L) != 0) {
+            if ((dirtyFlags & 0x6040L) != 0) {
 
                     if (vm != null) {
                         // read vm.postdata
                         vmPostdata = vm.getPostdata();
                     }
-                    updateRegistration(5, vmPostdata);
+                    updateRegistration(6, vmPostdata);
 
 
                     if (vmPostdata != null) {
@@ -858,13 +902,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmPostdataGet = vmPostdata.get();
                     }
             }
-            if ((dirtyFlags & 0x3040L) != 0) {
+            if ((dirtyFlags & 0x6080L) != 0) {
 
                     if (vm != null) {
                         // read vm.profileTitle
                         vmProfileTitle = vm.getProfileTitle();
                     }
-                    updateRegistration(6, vmProfileTitle);
+                    updateRegistration(7, vmProfileTitle);
 
 
                     if (vmProfileTitle != null) {
@@ -872,13 +916,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmProfileTitleGet = vmProfileTitle.get();
                     }
             }
-            if ((dirtyFlags & 0x3080L) != 0) {
+            if ((dirtyFlags & 0x6100L) != 0) {
 
                     if (vm != null) {
                         // read vm.expireDate
                         vmExpireDate = vm.getExpireDate();
                     }
-                    updateRegistration(7, vmExpireDate);
+                    updateRegistration(8, vmExpireDate);
 
 
                     if (vmExpireDate != null) {
@@ -886,13 +930,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmExpireDateGet = vmExpireDate.get();
                     }
             }
-            if ((dirtyFlags & 0x3100L) != 0) {
+            if ((dirtyFlags & 0x6200L) != 0) {
 
                     if (vm != null) {
                         // read vm.lastName
                         vmLastName = vm.getLastName();
                     }
-                    updateRegistration(8, vmLastName);
+                    updateRegistration(9, vmLastName);
 
 
                     if (vmLastName != null) {
@@ -900,13 +944,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmLastNameGet = vmLastName.get();
                     }
             }
-            if ((dirtyFlags & 0x3200L) != 0) {
+            if ((dirtyFlags & 0x6400L) != 0) {
 
                     if (vm != null) {
                         // read vm.categeory
                         vmCategeory = vm.getCategeory();
                     }
-                    updateRegistration(9, vmCategeory);
+                    updateRegistration(10, vmCategeory);
 
 
                     if (vmCategeory != null) {
@@ -914,13 +958,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmCategeoryGet = vmCategeory.get();
                     }
             }
-            if ((dirtyFlags & 0x3400L) != 0) {
+            if ((dirtyFlags & 0x6800L) != 0) {
 
                     if (vm != null) {
                         // read vm.address
                         vmAddress = vm.getAddress();
                     }
-                    updateRegistration(10, vmAddress);
+                    updateRegistration(11, vmAddress);
 
 
                     if (vmAddress != null) {
@@ -928,13 +972,13 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
                         vmAddressGet = vmAddress.get();
                     }
             }
-            if ((dirtyFlags & 0x3800L) != 0) {
+            if ((dirtyFlags & 0x7000L) != 0) {
 
                     if (vm != null) {
                         // read vm.description2
                         vmDescription2 = vm.getDescription2();
                     }
-                    updateRegistration(11, vmDescription2);
+                    updateRegistration(12, vmDescription2);
 
 
                     if (vmDescription2 != null) {
@@ -944,7 +988,7 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
             }
         }
         // batch finished
-        if ((dirtyFlags & 0x3000L) != 0) {
+        if ((dirtyFlags & 0x6000L) != 0) {
             // api target 1
 
             this.btnUpdateEmail.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
@@ -955,13 +999,14 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
             this.ivViewEditProfileAdd.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.ivViewEditProfileBackBtn.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
             this.ivViewEditProfileDotsBtn.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
+            this.switchAllowBooking.setOnClickListener(vmOnClicksAndroidViewViewOnClickListener);
         }
-        if ((dirtyFlags & 0x3020L) != 0) {
+        if ((dirtyFlags & 0x6040L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.btnUpdateEmail, vmPostdataGet);
         }
-        if ((dirtyFlags & 0x2000L) != 0) {
+        if ((dirtyFlags & 0x4000L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.btnUpdateEmail, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, btnUpdateEmailandroidTextAttrChanged);
@@ -974,63 +1019,68 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProFirstName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etVEditProFirstNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProLastName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etVEditProLastNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProTags, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etVEditProTagsandroidTextAttrChanged);
-            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProUserName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, mCallback13, etVEditProUserNameandroidTextAttrChanged);
+            androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProUserName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, mCallback19, etVEditProUserNameandroidTextAttrChanged);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.etVEditProfileTitle, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, etVEditProfileTitleandroidTextAttrChanged);
         }
-        if ((dirtyFlags & 0x3400L) != 0) {
+        if ((dirtyFlags & 0x6800L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProAddAddress, vmAddressGet);
         }
-        if ((dirtyFlags & 0x3200L) != 0) {
+        if ((dirtyFlags & 0x6400L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProChooseCategory, vmCategeoryGet);
         }
-        if ((dirtyFlags & 0x3002L) != 0) {
+        if ((dirtyFlags & 0x6004L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProDescription, vmDescription1Get);
         }
-        if ((dirtyFlags & 0x3800L) != 0) {
+        if ((dirtyFlags & 0x7000L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProDescriptionSecond, vmDescription2Get);
         }
-        if ((dirtyFlags & 0x3004L) != 0) {
+        if ((dirtyFlags & 0x6008L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProDescriptionThird, vmDescription3Get);
         }
-        if ((dirtyFlags & 0x3080L) != 0) {
+        if ((dirtyFlags & 0x6100L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProExpiryDate, vmExpireDateGet);
         }
-        if ((dirtyFlags & 0x3010L) != 0) {
+        if ((dirtyFlags & 0x6020L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProFirstName, vmFirstNameGet);
         }
-        if ((dirtyFlags & 0x3100L) != 0) {
+        if ((dirtyFlags & 0x6200L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProLastName, vmLastNameGet);
         }
-        if ((dirtyFlags & 0x3001L) != 0) {
+        if ((dirtyFlags & 0x6001L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProTags, vmLocationGet);
         }
-        if ((dirtyFlags & 0x3008L) != 0) {
+        if ((dirtyFlags & 0x6010L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProUserName, vmUserNameGet);
         }
-        if ((dirtyFlags & 0x3040L) != 0) {
+        if ((dirtyFlags & 0x6080L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.etVEditProfileTitle, vmProfileTitleGet);
+        }
+        if ((dirtyFlags & 0x6002L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.CompoundButtonBindingAdapter.setChecked(this.switchAllowBooking, vmAllowBookingBooleanTrueBooleanFalse);
         }
     }
     // Listener Stub Implementations
@@ -1067,19 +1117,22 @@ public class PostProfileFragmentBindingImpl extends PostProfileFragmentBinding i
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
         flag 0 (0x1L): vm.location
-        flag 1 (0x2L): vm.description1
-        flag 2 (0x3L): vm.description3
-        flag 3 (0x4L): vm.userName
-        flag 4 (0x5L): vm.firstName
-        flag 5 (0x6L): vm.postdata
-        flag 6 (0x7L): vm.profileTitle
-        flag 7 (0x8L): vm.expireDate
-        flag 8 (0x9L): vm.lastName
-        flag 9 (0xaL): vm.categeory
-        flag 10 (0xbL): vm.address
-        flag 11 (0xcL): vm.description2
-        flag 12 (0xdL): vm
-        flag 13 (0xeL): null
+        flag 1 (0x2L): vm.allowBooking
+        flag 2 (0x3L): vm.description1
+        flag 3 (0x4L): vm.description3
+        flag 4 (0x5L): vm.userName
+        flag 5 (0x6L): vm.firstName
+        flag 6 (0x7L): vm.postdata
+        flag 7 (0x8L): vm.profileTitle
+        flag 8 (0x9L): vm.expireDate
+        flag 9 (0xaL): vm.lastName
+        flag 10 (0xbL): vm.categeory
+        flag 11 (0xcL): vm.address
+        flag 12 (0xdL): vm.description2
+        flag 13 (0xeL): vm
+        flag 14 (0xfL): null
+        flag 15 (0x10L): vm.allowBooking.get() ? true : false
+        flag 16 (0x11L): vm.allowBooking.get() ? true : false
     flag mapping end*/
     //end
 }

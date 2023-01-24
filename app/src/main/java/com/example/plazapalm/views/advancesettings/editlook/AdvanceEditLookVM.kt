@@ -201,7 +201,6 @@ class AdvanceEditLookVM @Inject constructor(
             object : ApiProcessor<Response<EditLookColorsResponse>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<EditLookColorsResponse> {
                     return retrofitApi.postEditLookColors(
-
                         preferenceFile.retrieveKey("token").toString(),
                         backgroundColor = backgroundColor.get().toString(),
                         backgroundType = backgroundType.get().toString(),
@@ -244,7 +243,6 @@ class AdvanceEditLookVM @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("NotifyDataSetChanged", "ResourceAsColor", "CutPasteId")
     private fun showColorDialog(From: String) {
-
         dialog = Dialog(CommonMethods.context/*, android.R.style.Theme_Dialog*/)
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -259,6 +257,8 @@ class AdvanceEditLookVM @Inject constructor(
         cardLayoutColrs = dialog?.findViewById(R.id.show_color_id)
 
         when (checkColor.get()) {
+
+            //for background ..
             "BACKGROUND" -> {
                 title?.text = "Background Color"
                 sliderOpacitty?.visibility = View.GONE
@@ -271,6 +271,7 @@ class AdvanceEditLookVM @Inject constructor(
 
             }
 
+            //for column ...
             "COLUMN" -> {
                 slider_size?.visibility = View.GONE
                 size_tv?.visibility = View.GONE
@@ -290,6 +291,7 @@ class AdvanceEditLookVM @Inject constructor(
                 }
             }
 
+            //for border ..
             "BORDER" -> {
                 val layout = dialog!!.findViewById<CardView>(R.id.show_color_id)
                 setBorderBackground(layout, 12f, R.color.gray)
@@ -321,33 +323,33 @@ class AdvanceEditLookVM @Inject constructor(
                 title?.text = "Border Color"
                 SelectedDialog.set("Border Color")
             }
+
+            //for font color...
             "FONTCOLOR" -> {
-                dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
-                    .setBackgroundColor(CommonMethods.context.getColor(R.color.gray))
+                dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).setBackgroundColor(CommonMethods.context.getColor(R.color.gray))
                 title?.text = "Font Color"
                 changeColor?.text = "Font Sample"
                 SelectedDialog.set("Font Color")
-
                 Log.e("SDFFFSDFFF", SelectedDialog.get().toString())
 
                 /** Slider for SIZE */
-                slider_size?.addOnChangeListener { slider, value, fromUser ->
+                slider_size?.addOnChangeListener { _, value, _ ->
                     changeColor?.textSize = value
                     fontSize.set(value)
+                    //store text size
                     preferenceFile.storeosize(FONT_SIZE, value)
 
                     Log.e("WOrking", "---$value")
                 }
 
                 /** Slider for Opacity */
-
-                sliderOpacitty?.addOnChangeListener { slider, value, fromUser ->
+                sliderOpacitty?.addOnChangeListener { _, value, _ ->
                     val alpha = value / 100
                     changeColor?.alpha = alpha
                     fontOpacity.set(alpha)
+                    //store font opacity ..
                     preferenceFile.storeopacity(FONT_OPACITY, alpha)
-
-                    Log.e("WOrking11222", "---" + value.toString())
+                    Log.e("WOrking11222", "---$value")
 
                 }
 
@@ -378,6 +380,7 @@ class AdvanceEditLookVM @Inject constructor(
             showBottomDialog()
         }
 
+        //for reset color ..
         dialog?.findViewById<TextView>(R.id.reset_all)?.setOnClickListener {
             /** Correction is pending */
             dialog!!.findViewById<CardView>(R.id.show_color_id)
@@ -389,11 +392,13 @@ class AdvanceEditLookVM @Inject constructor(
 
         }
 
+        //Cancel Button..
         dialog?.findViewById<TextView>(R.id.tvCancelBtn)?.setOnClickListener {
             dialog?.dismiss()
         }
-        dialog?.findViewById<TextView>(R.id.tvSaveSwipeBtn)?.setOnClickListener {
 
+        //Save Button
+        dialog?.findViewById<TextView>(R.id.tvSaveSwipeBtn)?.setOnClickListener {
             backgroundColorLiveData.value = selectedbackgrouncolor
             Log.e("ZZZZZZZZZ", selectedbackgrouncolor.toString())
             dialog?.dismiss()
@@ -418,11 +423,11 @@ class AdvanceEditLookVM @Inject constructor(
 
     }
 
+
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceAsColor")
     override fun click(categoryName: String, position: Int, _id: String?, s: String, color: Int?) {
         Log.e("SFFFFFFFF", color.toString() + "mzCVAVSSA" + position.toString())
-
         when (checkColor.get()) {
             "BACKGROUND" -> {
 
@@ -504,25 +509,19 @@ class AdvanceEditLookVM @Inject constructor(
 //                selectedbackgrouncolor = color
 
                 Log.e("SDFFFSDFFF", colorCode.toString())
-
             }
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceType")
     fun showBottomDialog() {
-
         val dialog = BottomSheetDialog(CommonMethods.context /*R.style.DialogeTheme*/)
         dialog.setContentView(R.layout.color_picker_layout)
-
         val colorPickerView = dialog.findViewById<ColorPickerView>(R.id.colorPickerView)
         val showColor = dialog.findViewById<TextView>(R.id.show_colors)
         val cancel = dialog.findViewById<ImageView>(R.id.cancel_iv)
         val choose = dialog.findViewById<TextView>(R.id.selectcancel_iv)
-
-
         colorPickerView!!.setColorListener(ColorEnvelopeListener { envelope, fromUser ->
             when (checkColor.get()) {
                 "BACKGROUND" -> {
@@ -591,6 +590,7 @@ class AdvanceEditLookVM @Inject constructor(
         dialog.show()
     }
 
+
     fun getEditLookColor() {
         repository.makeCall(
             ApiEnums.GET_EDITCOLORS,
@@ -601,10 +601,8 @@ class AdvanceEditLookVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetColorsResponse> {
                     return retrofitApi.colorLookGet(preferenceFile.retrieveKey("token").toString())
                 }
-
                 override fun onResponse(res: Response<GetColorsResponse>) {
                     Log.e("AQQAAA", res.body().toString())
-
                     if (res.isSuccessful) {
                         if (res.body() != null) {
                             if (res.code() == 200) {
@@ -617,16 +615,14 @@ class AdvanceEditLookVM @Inject constructor(
                                 columnColorLD.value = data.column_color!!
                                 borderColorLD.value = data.border_color!!
                                 fontColorLD.value = data.font_color!!
-                                preferenceFile.storecolorString(
-                                    BACKGROUND_COLOR,
-                                    data.background_color!!
-                                )
+                                //store background color in shared pref
+                                preferenceFile.storecolorString(BACKGROUND_COLOR, data.background_color!!)
+                                //store font color in share pref
                                 preferenceFile.storecolorString(FONT_COLOR, data.font_color)
+                                //store border color in shared pref
                                 preferenceFile.storecolorString(BORDER_COLOR, data.border_color)
-                                preferenceFile.storecolorString(
-                                    COLUMN_COLOR,
-                                    data.border_color
-                                )
+                                //store column color in shared pref
+                                preferenceFile.storecolorString(COLUMN_COLOR, data.border_color)
 
                                 Log.e("VVVVVVSS", res.body().toString())
 

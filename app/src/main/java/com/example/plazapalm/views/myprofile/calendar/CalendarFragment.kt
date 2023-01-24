@@ -71,8 +71,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
         val calendars: List<Calendar> = ArrayList()
 
-
-
         viewModel.SeletedDate.observe(requireActivity()){
 
             Log.e("SDSDQQWq" , it.toString())
@@ -82,7 +80,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         binding?.clCalendar?.setOnDayClickListener(object : OnDayClickListener {
             override fun onDayClick(eventDay: EventDay) {
                 val clickedDayCalendar = eventDay.calendar
-
                /* val date = (dayofMonth.toString() + "-" + (month + 1) + "-" + year)
 
                 val month = ((month + 1))
@@ -94,14 +91,10 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
                 binding?.tvCalendar?.text = date
                 viewModel.click.set(true)
                 viewModel.getCalanderDataMonthWise(month, year)*/
-
                 Log.e("DATAEE", clickedDayCalendar.toString())
-
                 // binding?
             }
-
         })
-
 /*
         binding?.clCalendar?.setOnDateChangeListener { _, year, month, dayofMonth ->
             // In this Listener we are getting values
@@ -125,7 +118,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
         }
 */
-
         /* binding?.clCalendar?.setOnDayClickListener(object : OnDayClickListener {
              override fun onDayClick(eventDay: EventDay) {
                  val clickedDayCalendar = eventDay.calendar
@@ -156,8 +148,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
              }
 
          })*/
-
-
     }
 
     /*  @SuppressLint("ResourceType")

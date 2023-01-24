@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.EditFrontPageFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
@@ -18,31 +16,34 @@ import dagger.hilt.android.AndroidEntryPoint
 class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     private var binding: EditFrontPageFragmentBinding? = null
     private val viewModel: EditFrontPageVM by viewModels()
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = EditFrontPageFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
+        viewModel.getFontsApi()
         return binding?.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
-        binding!!.clCoordinateEditCoverPage.setOnClickListener{
+        binding!!.clCoordinateEditCoverPage.setOnClickListener {
             CommonMethods.context.hideKeyboard()
         }
         viewModel.typfaceObserverLiveData.observe(requireActivity()) {
             val data = it as Boolean
-            if (data)
-            {
+            if (data) {
                 binding?.tvAdvanceEditFrontPageFontValue?.typeface = viewModel.fontTypeface
             }
         }
 
         binding?.checkEditFrontPageTopText?.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
+            if (isChecked) {
                 viewModel.isChecked.set(true)
-            }
-            else
-            {
+            } else {
                 viewModel.isChecked.set(false)
             }
         }

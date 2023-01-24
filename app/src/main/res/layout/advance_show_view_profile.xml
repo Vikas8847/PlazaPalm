@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,7 +24,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="wrap_content"
@@ -33,7 +31,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivDashBoardCat"
                     android:layout_width="@dimen/_180sdp"
@@ -45,6 +42,24 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="@+id/ivDashBoardCat"
+                    android:layout_height="@dimen/_250sdp">
+
+                    <com.example.plazapalm.utils.FullScreenVideoView
+                        android:layout_width="match_parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="wrap_content">
+
+                    </com.example.plazapalm.utils.FullScreenVideoView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                 <View
                     android:layout_width="match_parent"
@@ -71,7 +86,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="center_horizontal"
-                    android:text="@={model.userProfileName}"
+                    android:text="Vikas Panchal"
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     tool:text="Vikas Panchal"
@@ -96,7 +111,7 @@
                     android:fontFamily="@font/inter_medium"
                     android:maxLines="2"
                     android:singleLine="true"
-                    android:text="@{model.userProfileDescription}"
+                    android:text="jdjfdjdj"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     tool:text="Gohana (Sonipat)"
