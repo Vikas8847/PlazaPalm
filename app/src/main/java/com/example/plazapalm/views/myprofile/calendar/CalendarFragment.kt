@@ -99,6 +99,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
                 // binding?
             }
+
         })
 
 /*
