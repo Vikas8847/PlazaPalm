@@ -25,7 +25,6 @@ import com.example.plazapalm.models.CategoriesData
 import com.example.plazapalm.models.SelectedDataModelList
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
-import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -69,7 +68,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
         binding?.vm = viewmodel
         bottomNavigationView = requireActivity().findViewById(R.id.bottNavMain)
         showCategories()
-      //  getData()
+        //  getData()
 
         //vikas 10-10-2022
         /*  if (viewmodel.categoriesDataList.size < 0) {
@@ -95,7 +94,8 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
             when (arguments?.getString("comingFrom")) {
                 "isFilter" -> {
 
-                    val data: ArrayList<String> = arguments?.getSerializable("SelecatedCategory") as ArrayList<String>
+                    val data: ArrayList<String> =
+                        arguments?.getSerializable("SelecatedCategory") as ArrayList<String>
 
 
                     viewmodel.selectedList.addAll(data)
@@ -125,18 +125,23 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                                     dataList[idx]._id,
                                     dataList[idx].adapterPosition,
                                     dataList[idx].isCheck,
-                                    dataList[idx].count ))
+                                    dataList[idx].count
+                                )
+                            )
 
                             SelectedIdList.addAll(listOf(dataList[idx]._id.toString()))
 
                         }
 
-                        Log.e("OPWKDSDSK",SelectedIdList.toString())
+                        Log.e("OPWKDSDSK", SelectedIdList.toString())
 
                         val SelectedidList = Gson().toJson(SelectedIdList)
                         pref.saveCateIdList(SelectedidList)
 
-                        Log.e("SADASA", "CATENAMEEEE+++++ " + SelectedList + "adpterPso ===" + adapterPos.toString() + "cat_Id==== " + cat_Id )
+                        Log.e(
+                            "SADASA",
+                            "CATENAMEEEE+++++ " + SelectedList + "adpterPso ===" + adapterPos.toString() + "cat_Id==== " + cat_Id
+                        )
 
                         val bundle = Bundle()
                         /*bundle.putParcelableArrayList(
@@ -149,16 +154,18 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                         bundle.putDouble("Filterlatitude", viewmodel.latitude.get())
                         bundle.putDouble("currentLatitude", viewmodel.currentLatitude.get())
                         bundle.putDouble("currentLongitude", viewmodel.currentLongitude.get())
-
                         var gsonValue = Gson().toJson(bundle)
 
                         val newList = ArrayList<String>()
-                        for (idx in 0 until dataList.size) {
-                            newList.add(dataList[idx].category_name)
+                        for (element in dataList) {
+                            newList.add(element.category_name)
                         }
 
-                        findNavController()?.previousBackStackEntry?.savedStateHandle?.set("selectedCategories", gsonValue)
-                        findNavController()?.popBackStack()
+                        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                            "selectedCategories",
+                            gsonValue
+                        )
+                        findNavController().popBackStack()
 
 //                        view?.navigateBack()
 //                        }
@@ -168,14 +175,12 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
 //                        }
 
                     }
-
                     if (viewmodel.isChecked.get()) {
                         viewmodel.isChecked.set(false)
                     } else {
                         viewmodel.isChecked.set(true)
                     }
                     bottomNavigationView?.visibility = View.GONE
-
                 }
                 "main" -> {
                     binding?.tvCategories?.text = "Category"
@@ -190,23 +195,20 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                 "login" -> {
                     viewmodel.getCategoriesApi("", true)
 
-                    Log.e("ADSDasd","DFASASD")
+                    Log.e("ADSDasd", "DFASASD")
                     binding?.tvCategories?.text = "Choose Category"
                     binding?.tvCategories?.visibility = View.VISIBLE
                     binding?.ivCategory?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.setOnClickListener {
                         val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
-
                         if (dataList.isNotEmpty()) {
-
                             Log.e("BANDRA3232", dataList.toString())
-
                             val bundle = Bundle()
                             bundle.putParcelableArrayList(
                                 "FromLoginScreenCategoriesIds",
-                                dataList as ArrayList<CategoriesData>)
-
+                                dataList as ArrayList<CategoriesData>
+                            )
                             bundle.putDouble("Loginlongitude", viewmodel.longitude.get())
                             bundle.putDouble("Loginlatitude", viewmodel.latitude.get())
                             bundle.putDouble("currentLatitude", viewmodel.currentLatitude.get())
@@ -231,34 +233,17 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     binding?.ivCategoriesForward?.setOnClickListener {
                         //from here we have to send categories id's and send in dashboard getProfile by id api..
                         val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
-
                         Log.e("BANDRA", dataList.toString())
-
                         if (dataList.isNotEmpty()) {
                             val bundle = Bundle()
                             bundle.putString("fromCategories", "fromCategoriesFragList")
-                            bundle.putParcelableArrayList(
-                                "fromCategoriesList",
-                                dataList as ArrayList<CategoriesData>
-                            )
+                            bundle.putParcelableArrayList("fromCategoriesList", dataList as ArrayList<CategoriesData>)
 
                             bundle.putDouble("longitude", viewmodel.longitude.get())
                             bundle.putDouble("latitude", viewmodel.latitude.get())
                             bundle.putDouble("currentLatitude", viewmodel.currentLatitude.get())
                             bundle.putDouble("currentLongitude", viewmodel.currentLongitude.get())
-
                             Log.e("BANDRA", dataList.toString())
-
-
-//                            /** for categeory Name */
-//                            var gsonValueCAte_Name = Gson().toJson(selectedCategoriesList)
-//                            pref.saveCategeory(Constants.SELECTED_CATEGORY,gsonValueCAte_Name)
-//
-//                            /** for categeory Id */
-//                            var gsonValueCate_ID = Gson().toJson(idList)
-//                            pref.saveCategeory(Constants.SELECTED_CATEGORY,gsonValueCate_ID)
-
-
                             view?.navigateWithId(R.id.dashBoardFragment, bundle)
 
                         } else {
@@ -328,14 +313,18 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
 
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
                         val list: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
+                            geocoder.getFromLocation(
+                                location.latitude,
+                                location.longitude,
+                                1
+                            ) as List<Address>
                         viewmodel.latitude.set(list[0].latitude)
                         viewmodel.longitude.set(list[0].longitude)
                         list[0].countryName
                         Log.e("countryName", "" + list[0].locality + "" + list[0].countryName)
 
-                       pref.storeLatlong("lati",viewmodel.latitude.get().toFloat())
-                       pref.storeLatlong("longi",viewmodel.longitude.get().toFloat())
+                        pref.storeLatlong("lati", viewmodel.latitude.get().toFloat())
+                        pref.storeLatlong("longi", viewmodel.longitude.get().toFloat())
 
                         getData()
                     }

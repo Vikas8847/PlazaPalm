@@ -944,7 +944,6 @@ class EditFrontPageVM @Inject constructor(
                     dialog!!.findViewById<CardView>(R.id.show_color_id)?.alpha = alpha
                     val e = Log.e("WOrking11222", "---$value")
                 }
-
                 title?.text = "Border Color"
                 SelectedDialog.set("Border Color")
             }
@@ -971,7 +970,6 @@ class EditFrontPageVM @Inject constructor(
                     preferenceFile.storeopacity(Constants.FONT_OPACITY, alpha)
                     Log.e("WOrking11222", "---$value")
                 }
-
             }
         }
 //        dialog!!.getWindow()!!.getAttributes().gravity = Gravity.LEFT or Gravity.TOP

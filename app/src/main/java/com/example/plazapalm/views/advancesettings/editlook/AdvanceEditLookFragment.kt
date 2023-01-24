@@ -1,7 +1,6 @@
 package com.example.plazapalm.views.advancesettings.editlook
 
 import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -11,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,13 +47,6 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         binding = AdvanceEditLookFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
         binding?.vm = viewModel
-
-
-
-
-
-
-
         setbackground()
 
         return binding?.root
@@ -88,7 +79,10 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getLocalData() {
-        if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR).equals(""))) {
+        if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(
+                Constants.BACKGROUND_COLOR
+            ).equals(""))
+        ) {
             val backgroundColor = preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR)
 //            setBorderBackground(binding?.viewBoxLookingBGColor!! , backgroundColor!!)
 
@@ -103,7 +97,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
             Log.e("SSSSSSSSSqw1", backgroundColor.toString())
 
         }
-        
+
 /*        if (preferenceFile.retviecolor(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolor(Constants.BACKGROUND_COLOR) == 0)) {
             var backgroundColor = preferenceFile.retviecolor(Constants.BACKGROUND_COLOR)
 //            setBorderBackground(binding?.viewBoxLookingBGColor!! , backgroundColor!!)
@@ -112,8 +106,11 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
             Log.e("SSSSSSSSSqw1", backgroundColor.toString())
         }*/
 
-        if (preferenceFile.retviecolorString(Constants.COLUMN_COLOR) != null && !(preferenceFile.retviecolorString(Constants.COLUMN_COLOR).equals(""))) {
-            var columnColor = preferenceFile.retviecolorString(Constants.COLUMN_COLOR)
+        if (preferenceFile.retviecolorString(Constants.COLUMN_COLOR) != null && !(preferenceFile.retviecolorString(
+                Constants.COLUMN_COLOR
+            ).equals(""))
+        ) {
+            val columnColor = preferenceFile.retviecolorString(Constants.COLUMN_COLOR)
 //            setBorderBackground(binding?.viewBoxColumnBGColor!! , columnColor!!)
 //            binding?.viewBoxColumnBGColor?.setBackgroundColor(columnColor!!)
             viewModel.columnColorLD.value = columnColor
@@ -123,7 +120,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         }
 
         if (preferenceFile.retviecolorString(Constants.BORDER_COLOR) != null
-            && !(preferenceFile.retviecolorString(Constants.BORDER_COLOR).equals(""))) {
+            && !(preferenceFile.retviecolorString(Constants.BORDER_COLOR).equals(""))
+        ) {
 
             var borderColor = preferenceFile.retviecolorString(Constants.BORDER_COLOR)
             viewModel.borderColorLD.value = borderColor
@@ -133,7 +131,10 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
             Log.e("SSSSSSSSSqw3", borderColor.toString())
         }
 
-        if (preferenceFile.retviecolorString(Constants.FONT_COLOR) != null && !(preferenceFile.retviecolorString(Constants.FONT_COLOR).equals(""))) {
+        if (preferenceFile.retviecolorString(Constants.FONT_COLOR) != null && !(preferenceFile.retviecolorString(
+                Constants.FONT_COLOR
+            ).equals(""))
+        ) {
             var fontColor = preferenceFile.retviecolorString(Constants.FONT_COLOR)
 ////            setBorderBackground(binding?.viewBoxEditFonts!! , fontColor!!)
 //            binding?.viewBoxEditFonts?.setBackgroundColor(fontColor!!)
@@ -148,37 +149,31 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         viewModel.backgroundColorLiveData.observe(viewLifecycleOwner) {
             Log.e("sadsdaaaaaaaaa", it.toString())
             when (viewModel.SelectedDialog.get().toString()) {
-
                 "Background Color" -> {
-                    //  var  data=it as String
                     if (it != null && !(it.equals(""))) {
-
                         if (it is String) {
-                            var data = it as String
+                            var data = it
                             binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                        } else {
+                        }
+                        else
+                        {
                             var data = it as Int
                             binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
                         }
-
                         val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
                         val colorCode = cd.color
                         val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
                         viewModel.backgroundColor.set(hexColor)
-
-                        preferenceFile.storecolorString(Constants.BACKGROUND_COLOR,hexColor)
-
+                        preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
                         Log.e("asdasdasBackground", hexColor.toString())
 
                     }
                 }
 
                 "Column Color" -> {
-
                     //  var  data=it as Int
-
                     if (it is Int) {
-                        var data = it as Int
+                        var data = it
                         binding?.viewBoxColumnBGColor?.setBackgroundColor(data)
                     } else {
                         var data = it as String
@@ -194,10 +189,11 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
                     Log.e("asdasdasColumn", viewModel.columnColor.get().toString())
                 }
+
                 "Border Color" -> {
 
                     if (it is Int) {
-                        var data = it as Int
+                        var data = it
                         binding?.viewBoxBorderColor?.setBackgroundColor(
                             CommonMethods.context.getColor(
                                 data
@@ -218,9 +214,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                 }
 
                 "Font Color" -> {
-
                     if (it is Int) {
-                        var data = it as Int
+                        var data = it
                         binding?.viewBoxEditFonts?.setBackgroundColor(data)
                     } else {
                         var data = it as String
@@ -240,12 +235,10 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
         }
         viewModel.columnColorLD.observe(viewLifecycleOwner) {
-
             Log.e("COLOR---", it.toString())
-
             if (it != null && !(it.equals(""))) {
                 if (it is Int) {
-                    var data = it as Int
+                    var data = it
                     binding?.viewBoxColumnBGColor?.setBackgroundColor(data)
                 } else {
                     var data = it as String
@@ -254,13 +247,13 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
             }
 
         }
-        viewModel.borderColorLD.observe(viewLifecycleOwner) {
 
+        viewModel.borderColorLD.observe(viewLifecycleOwner) {
             Log.e("borderColorLD---", it.toString())
 
             if (it != null && !(it.equals(""))) {
                 if (it is Int) {
-                    var data = it as Int
+                    var data = it
                     binding?.viewBoxBorderColor?.setBackgroundColor(data)
                 } else {
                     var data = it as String
@@ -268,13 +261,12 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                 }
             }
         }
+
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
-
             Log.e("fontColorLD---", it.toString())
-
             if (it != null && !(it.equals(""))) {
                 if (it is Int) {
-                    var data = it as Int
+                    var data = it
                     binding?.viewBoxEditFonts?.setBackgroundColor(data)
                 } else {
                     var data = it as String
@@ -294,20 +286,19 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setBorderBackground(layout: View, color: Int) {
         val shape = GradientDrawable()
-        shape.setShape(GradientDrawable.RECTANGLE)
+        shape.shape = GradientDrawable.RECTANGLE
         shape.cornerRadii = floatArrayOf(12f, 12f, 12f, 12f, 12f, 12f, 12f, 12f)
         shape.setColor(color)
         shape.setStroke(0, CommonMethods.context.getColor(R.color.black))
-        layout?.setBackground(shape)
+        layout?.background = shape
 
     }
 
-    fun backPressedData() {
+    private fun backPressedData() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<kotlin.String>("changeStatus")
             ?.observe(viewLifecycleOwner) { data ->
-
                 Log.e("WERWEFDSFD", data.toString())
-                if (data!=null){
+                if (data != null) {
                     checkApi.set(false)
                 }
 

@@ -257,6 +257,8 @@ class AdvanceEditLookVM @Inject constructor(
         cardLayoutColrs = dialog?.findViewById(R.id.show_color_id)
 
         when (checkColor.get()) {
+
+            //for background ..
             "BACKGROUND" -> {
                 title?.text = "Background Color"
                 sliderOpacitty?.visibility = View.GONE
@@ -269,6 +271,7 @@ class AdvanceEditLookVM @Inject constructor(
 
             }
 
+            //for column ...
             "COLUMN" -> {
                 slider_size?.visibility = View.GONE
                 size_tv?.visibility = View.GONE
@@ -288,6 +291,7 @@ class AdvanceEditLookVM @Inject constructor(
                 }
             }
 
+            //for border ..
             "BORDER" -> {
                 val layout = dialog!!.findViewById<CardView>(R.id.show_color_id)
                 setBorderBackground(layout, 12f, R.color.gray)
@@ -320,6 +324,7 @@ class AdvanceEditLookVM @Inject constructor(
                 SelectedDialog.set("Border Color")
             }
 
+            //for font color...
             "FONTCOLOR" -> {
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).setBackgroundColor(CommonMethods.context.getColor(R.color.gray))
                 title?.text = "Font Color"
