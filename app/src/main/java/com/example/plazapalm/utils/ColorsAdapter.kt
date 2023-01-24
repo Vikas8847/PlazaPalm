@@ -68,7 +68,6 @@ class ColorsAdapter(
 
             Log.e("SDFFFFF",photos[position].color.toString())
             bindining.changeColors.setBackgroundColor(requireActivity.getColor(photos[position].color!!))
-
            /* for (idx in 0 until photos.size){
                 val color = photos[position].color
 
@@ -77,7 +76,6 @@ class ColorsAdapter(
                 }
 
             }*/
-
 
             bindining.changeClick.setOnClickListener {
 
