@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.location.Location
 import android.os.Build
 import android.util.Log
 import android.view.*
@@ -17,10 +18,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,46 +32,56 @@ import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceShowViewProfileBinding
 import com.example.plazapalm.databinding.FontsListFragmentBinding
+import com.example.plazapalm.datastore.DataStoreUtil
+import com.example.plazapalm.datastore.SAVE_EDIT_COVER_PAGE
 import com.example.plazapalm.interfaces.clickItem
-import com.example.plazapalm.models.ChooseColor
-import com.example.plazapalm.models.FontsListModelResponse
-import com.example.plazapalm.models.GetFontResponse
+import com.example.plazapalm.models.*
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
 import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.recycleradapter.RecyclerAdapter
+import com.example.plazapalm.utils.BindingAdapters.pref
 import com.example.plazapalm.utils.ColorsAdapter
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.CommonMethods.academyEngravedLetPlain
 import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.utils.CommonMethods.dialog
+import com.example.plazapalm.utils.CommonMethods.showToast
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.hideKeyboard
+import com.example.plazapalm.views.dashboard.DashBoardPostData
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.Slider
 import com.skydoves.colorpickerview.ColorPickerView
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 
-
 @HiltViewModel
 class EditFrontPageVM @Inject constructor(
     private var preferenceFile: PreferenceFile,
-    private var repository:Repository
-
-    ) : ViewModel(), clickItem {
+    private var repository: Repository,
+    private var dataStoreUtil: DataStoreUtil
+) : ViewModel(), clickItem {
+    private var profileBinding: AdvanceShowViewProfileBinding? = null
     var appCompatTxtFont: AppCompatTextView? = null
     var fontsNameList = ArrayList<FontsListModelResponse>()
     var SelectedDialog = ObservableField("")
-    val backgroundColorLiveData = MutableLiveData<Any>()
-
+    val fontListAdapter by lazy { RecyclerAdapter<FontsListModelResponse>(R.layout.fonts_list_item) }
+    var fontSize = ObservableFloat()
     var titlename = ObservableField("")
+    var backgroundColor = ObservableField("")
+    var idList = ArrayList<String>()
+    var userMiles = ObservableField("")
+    var distanceCal = ObservableField("")
+
 
     var selectedbackgrouncolor = -65536
 
@@ -78,14 +91,25 @@ class EditFrontPageVM @Inject constructor(
 
     var fontTypeface: Typeface? = null
     var isChecked = ObservableBoolean(false)
+    var isBottomText = ObservableBoolean(false)
+    var isTopText = ObservableBoolean(false)
 
     var userProfileName = ObservableField("")
     var userProfileDescription = ObservableField("")
     var userProfileLocation = ObservableField("")
 
     var typfaceObserverLiveData = MutableLiveData<Boolean>()
+    val distance = ObservableField("")
 
-     var sliderOpacitty: Slider? = null
+
+    val backgroundColorLiveData = MutableLiveData<Any>()
+    val columnColorLD = MutableLiveData<Any>()
+    val fontColorLD = MutableLiveData<Any>()
+    val borderColorLD = MutableLiveData<Any>()
+
+
+    var sliderOpacitty: Slider? = null
+
     @SuppressLint("StaticFieldLeak")
     var slider_size: Slider? = null
     var size_tv: TextView? = null
@@ -93,29 +117,35 @@ class EditFrontPageVM @Inject constructor(
     var opacity_tv: TextView? = null
 
     var fontsName = ObservableField("Optima-Regular")
+
+
     private var layoutColrs: ConstraintLayout? = null
     var fontsFilteredList = ArrayList<FontsListModelResponse>()
     var scheduleBinding: FontsListFragmentBinding? = null
-    val fontListAdapter by lazy { RecyclerAdapter<FontsListModelResponse>(R.layout.fonts_list_item) }
     var columnOpacity = ObservableFloat()
     var borderOpacity = ObservableFloat()
     var borderWidth = ObservableFloat()
     var borderColor = ObservableField("")
     var fontName = ObservableField("mdgdfg")
     var fontColor = ObservableField("")
-    var fontSize = ObservableFloat()
     var fontOpacity = ObservableFloat()
+    var destinationLat = ObservableDouble()
+    var destinationLong = ObservableDouble()
     var recyclerChoosecolor: RecyclerView? = null
     var borderSlideValue = 0F
     var columnColorLiveData = 0
+
     @SuppressLint("StaticFieldLeak")
     var title: TextView? = null
+
     @SuppressLint("StaticFieldLeak")
     private var changeColor: TextView? = null
+
     @SuppressLint("StaticFieldLeak")
     private var cardLayoutColrs: CardView? = null
     var checkColor = ObservableField("")
     var colorList = ArrayList<ChooseColor>()
+
     init {
         colorList.add(ChooseColor(R.color.goldYellow))
         colorList.add(ChooseColor(R.color.gold))
@@ -139,16 +169,16 @@ class EditFrontPageVM @Inject constructor(
             /*attac button click */
             R.id.btnEditFrontLookAttach -> {
                 // call here post api of fonts
+                postFrontPageApi()
             }
             R.id.ivAdvanceEditFrontPage -> {
                 view.findNavController().navigateUp()
             }
-
             R.id.btnEditFrontPageView -> {
                 /*call herer on view button dialog (get fonts api)*/
-                showViewProfileDialog()
+                showToast(context, "In Progress ....")
+                //showViewProfileDialog()
             }
-
             R.id.viewBoxLookingBGColor -> {
                 checkColor.set("FONTCOLOR")
                 showColorDialog("FONTCOLOR")
@@ -161,7 +191,8 @@ class EditFrontPageVM @Inject constructor(
 
 
     private fun showViewProfileDialog() {
-        val profileBinding: AdvanceShowViewProfileBinding?
+
+        // getProfileByCategory("",true)
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
         } else {
@@ -170,19 +201,43 @@ class EditFrontPageVM @Inject constructor(
             dialog?.setContentView(R.layout.advance_show_view_profile)
             profileBinding =
                 AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
-            profileBinding.root
+            profileBinding!!.root
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
             dialog?.setCancelable(true)
-            /*  if (isChecked.get()) {
-                  userProfileName.set("Vikas Panchal")
-                  profileBinding.tvProfileUserName.text = "Vikas Panchal"
-                  // isChecked.set(false)
-              } else {
-                  userProfileName.set("Vikas Panchal")
-                  isChecked.set(true)
-              }*/
+            // setDataOnViewClickDialog()
             dialog?.show()
+        }
+    }
+
+    private fun setDataOnViewClickDialog() {
+        if (isTopText.get()) {
+            profileBinding?.tvProfileUserName?.text = "Vikas Panchal"
+            profileBinding?.tvProfileUserName?.typeface = fontTypeface
+        } else if (isBottomText.get()) {
+            profileBinding?.tvProfileUserName?.text = "Vikas Panchal"
+            profileBinding?.tvProfileUserDescription?.text = "Mohali"
+            profileBinding?.tvProfileUserDescription?.typeface = fontTypeface
+            profileBinding?.tvProfileUserAddress?.typeface = fontTypeface
+            profileBinding?.tvProfileUserAddress?.text = "Punjab"
+
+        } else if (isBottomText.get() && isTopText.get()) {
+//Top Text
+            profileBinding?.tvProfileUserName?.text = "Vikas Panchal"
+            profileBinding?.tvProfileUserName?.typeface = fontTypeface
+
+            //Bottom Text..
+            profileBinding?.tvProfileUserDescription?.text = "Mohali"
+            profileBinding?.tvProfileUserDescription?.typeface = fontTypeface
+            profileBinding?.tvProfileUserAddress?.typeface = fontTypeface
+            profileBinding?.tvProfileUserAddress?.text = "Punjab"
+
+        } else {
+            profileBinding?.tvProfileUserName?.text = "Vikas Panchal"
+            //Bottom Text..
+            profileBinding?.tvProfileUserDescription?.text = "Mohali"
+            profileBinding?.tvProfileUserAddress?.text = "Punjab"
+
         }
     }
 
@@ -833,8 +888,9 @@ class EditFrontPageVM @Inject constructor(
                 ) {
                     fontsFilteredList.add(fontsName)
                 }
-                updateRecyclerView()
             }
+            fontListAdapter.addItems(fontsFilteredList)
+            updateRecyclerView()
         }
     }
 
@@ -844,41 +900,7 @@ class EditFrontPageVM @Inject constructor(
         }
     }
 
-    /*Call here get fonts Api */
-    fun getFontsApi() {
-        repository.makeCall(
-            ApiEnums.GET_EDITCOLORS,
-            loader = true,
-            saveInCache = false,
-            getFromCache = false,
-            requestProcessor = object : ApiProcessor<Response<GetFontResponse>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetFontResponse> {
-                    return retrofitApi.getFonts(preferenceFile.retrieveKey("token").toString())
-                }
-                override fun onResponse(res: Response<GetFontResponse>) {
-                    Log.e("AQQAAA", res.body().toString())
-                    if (res.isSuccessful) {
-                        if (res.body() != null) {
-                            if (res.code() == 200 && res.isSuccessful) {
 
-                            }
-                            else {
-                                CommonMethods.showToast(context, res.body()!!.message!!)
-                            }
-                        } else {
-                            CommonMethods.showToast(context, res.body()!!.message!!)
-                        }
-                    } else {
-                        CommonMethods.showToast(context, res.message())
-                    }
-                }
-                override fun onError(message: String) {
-                    super.onError(message)
-                    Log.e("zxczxczxc", message)
-                }
-            }
-        )
-    }
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("NotifyDataSetChanged", "ResourceAsColor", "CutPasteId")
     private fun showColorDialog(From: String) {
@@ -895,58 +917,7 @@ class EditFrontPageVM @Inject constructor(
         layoutColrs = dialog?.findViewById(R.id.Show_back)
         cardLayoutColrs = dialog?.findViewById(R.id.show_color_id)
         when (checkColor.get()) {
-            "BACKGROUND" -> {
-                title?.text = "Background Color"
-                sliderOpacitty?.visibility = View.GONE
-                slider_size?.visibility = View.GONE
-                opacity_tv?.visibility = View.GONE
-                size_tv?.visibility = View.GONE
-//                titlename.set("Background Color")
-                SelectedDialog.set("Background Color")
-                Log.e("SDAFSDFF", titlename.get().toString())
 
-            }
-
-            "COLUMN" -> {
-                slider_size?.visibility = View.GONE
-                size_tv?.visibility = View.GONE
-
-                title?.text = "Column Color"
-                SelectedDialog.set("Column Color")
-
-                /** Slider for Opacity */
-                sliderOpacitty?.addOnChangeListener { _, value, _ ->
-                    val alpha = value / 100
-                    dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).alpha = alpha
-                    columnOpacity.set(alpha)
-                    preferenceFile.storeopacity(Constants.COLUMN_OPACITY, alpha)
-                    Log.e("WOrking11222", "---$value")
-
-                }
-            }
-
-            "BORDER" -> {
-                val layout = dialog!!.findViewById<CardView>(R.id.show_color_id)
-                setBorderBackground(layout, 12f, R.color.gray)
-                /** Slider for SIZE */
-                slider_size?.addOnChangeListener { slider, value, fromUser ->
-                    changeColor?.textSize = value
-                    borderWidth.set(value)
-                    preferenceFile.storeosize(Constants.BORDER_WIDTH, value)
-                    setBorderBackground(layout, value, selectedbackgrouncolor)
-                    Log.e("WOrking", "---$value")
-                }
-                /** Slider for Opacity */
-                sliderOpacitty?.addOnChangeListener { slider, value, fromUser ->
-                    val alpha = value / 100
-                    borderOpacity.set(alpha)
-                    preferenceFile.storeopacity(Constants.BORDER_OPACITY, alpha)
-                    dialog!!.findViewById<CardView>(R.id.show_color_id)?.alpha = alpha
-                    val e = Log.e("WOrking11222", "---$value")
-                }
-                title?.text = "Border Color"
-                SelectedDialog.set("Border Color")
-            }
             "FONTCOLOR" -> {
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(context.getColor(R.color.gray))
@@ -975,7 +946,10 @@ class EditFrontPageVM @Inject constructor(
 //        dialog!!.getWindow()!!.getAttributes().gravity = Gravity.LEFT or Gravity.TOP
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
-        dialog?.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog?.window!!.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
 //         setColor =   dialog!!.findViewById<AppCompatTextView>(R.id.change_back_id)
 
         recyclerChoosecolor = dialog!!.findViewById(R.id.color_recyclerView)
@@ -1011,9 +985,10 @@ class EditFrontPageVM @Inject constructor(
         if (!context.isFinishing) {
             dialog?.show()
         }
-        /// localStorage....
+
 
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setBorderBackground(layout: CardView, value: Float, color: Int) {
         borderSlideValue = value
@@ -1029,7 +1004,7 @@ class EditFrontPageVM @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceType")
     fun showBottomDialog() {
-        val dialog = BottomSheetDialog(context /*R.style.DialogeTheme*/)
+        val dialog = BottomSheetDialog(context)
         dialog.setContentView(R.layout.color_picker_layout)
 
         val colorPickerView = dialog.findViewById<ColorPickerView>(R.id.colorPickerView)
@@ -1045,7 +1020,6 @@ class EditFrontPageVM @Inject constructor(
 //                    dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)?.setBackgroundColor(envelope.color!!)
                     layoutColrs?.setBackgroundColor(envelope.color)
                     selectedbackgrouncolor = envelope.color
-                    /** Store locally */
                     /** Store locally */
                     preferenceFile.storecolor(Constants.BACKGROUND_COLOR, envelope.color)
                 }
@@ -1094,6 +1068,7 @@ class EditFrontPageVM @Inject constructor(
         }
         dialog.show()
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceAsColor")
     override fun click(categoryName: String, position: Int, _id: String?, s: String, color: Int?) {
@@ -1102,7 +1077,6 @@ class EditFrontPageVM @Inject constructor(
             "BACKGROUND" -> {
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(context.getColor(color!!))
-
                 val cd =
                     dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).background as ColorDrawable
                 val colorCode = cd.color
@@ -1177,6 +1151,231 @@ class EditFrontPageVM @Inject constructor(
 
                 Log.e("SDFFFSDFFF", colorCode.toString())
             }
+        }
+    }
+
+
+    /*Call here get fonts Api */
+    fun getFontsApi() {
+        repository.makeCall(
+            ApiEnums.GET_FRONT_FONT_PAGE,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<GetFontResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetFontResponse> {
+                    return retrofitApi.getFonts(preferenceFile.retrieveKey("token").toString())
+                }
+
+                override fun onResponse(res: Response<GetFontResponse>) {
+                    Log.e("AQQAAA", res.body().toString())
+                    if (res.body() != null) {
+                        if (res.isSuccessful && res.code() == 200) {
+                            val data = res.body()!!.data
+                            fontColor.set(data.frontpage_font_color)
+                            // dataStoreUtil.saveObject(SAVE_EDIT_COVER_PAGE, res.body()!!.data)
+                            /** Set Colors... */
+                            SelectedDialog.set("Font Color")
+                            /**Set Font Not According to Type**/
+                            preferenceFile.storecolorString(
+                                Constants.FONT_COLOR,
+                                data.frontpage_font_color.toString()
+                            )
+                            //STORE FONT COLOR
+                            fontColorLD.value = data.frontpage_font_color!!
+
+                            if (data.is_top_selected == true || data.is_bottom_selected == true) {
+                                isTopText.set(true)
+                                isBottomText.set(true)
+                            } else {
+                                isBottomText.set(false)
+                                isTopText.set(false)
+                            }
+                        } else {
+                            showToast(context, res.body()!!.message)
+                        }
+                    } else {
+                        showToast(context, res.body()!!.message)
+                    }
+                }
+
+                override fun onError(message: String) {
+                    super.onError(message)
+                    Log.e("zxczxczxc", message)
+                }
+            }
+        )
+    }
+
+    /** Post api for color back ground ..**/
+    private fun postFrontPageApi() = viewModelScope.launch {
+        Log.e(
+            "PRINT--REQUEST--BODY",
+            "TOKEN-- " + preferenceFile.retrieveKey("token").toString() +
+                    "BACK-- " + backgroundColor.get().toString() +
+                    // "backgroundType-- " + backgroundType.get().toString() +
+                    //  "columnColor-- " + columnColor.get().toString() +
+                    "columnOpacity-- " + columnOpacity.get().toDouble() +
+                    "borderOpacity-- " + borderOpacity.get().toDouble() +
+                    "borderWidth-- " + borderWidth.get() +
+                    "borderColor-- " + borderColor.get().toString() +
+                    "fontName-- " + fontsName.get().toString() +
+                    "fontColor-- " + fontColor.get().toString() +
+                    "fontSize-- " + fontSize.get().toInt() +
+                    "fontOpacity -- " + fontOpacity.get().toDouble()
+        )
+
+        repository.makeCall(ApiEnums.POST_EDIT_COVER_PAGE,
+            loader = true, saveInCache = false, getFromCache = false,
+            object : ApiProcessor<Response<PostFrontPageResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<PostFrontPageResponse> {
+                    return retrofitApi.postFonts(
+                        Authorization = preferenceFile.retrieveKey("token").toString(),
+                        FrontPageBottomText = "",
+                        FrontPageFontSize = fontSize.get().toInt(),
+                        FrontPageTopText = "",
+                        FrontPagerFontOpacity = fontOpacity.get().toString(),
+                        FrontPagerFrontColor = fontColor.get().toString(),
+                        isTopSelected = isTopText.get(),
+                        isBottomSelected = isBottomText.get()
+                    )
+                }
+
+                override fun onResponse(res: Response<PostFrontPageResponse>) {
+                    Log.e("CONFIRMBOOKING", res.body().toString() + "RESS")
+
+                    if (res.isSuccessful && res.code() == 200) {
+                        if (res.body() != null) {
+                            showToast(context, res.body()!!.message)
+                            dataStoreUtil.saveObject(SAVE_EDIT_COVER_PAGE, res.body()!!.data)
+
+                        } else {
+                            showToast(context, res.body()!!.message)
+                        }
+                    } else {
+                        showToast(context, res.message())
+                    }
+                }
+            })
+    }
+
+    /**Get view Profile by categories ***/
+    private fun getProfileByCategory(search: String, showLoader: Boolean) {
+        val dataArray = ArrayList<String>()
+        for (idx in 0 until idList.size) {
+            dataArray.add(idList[idx])
+        }
+        val dataObject = DashBoardPostData(
+            dataArray, pref.retvieLatlong("lati").toDouble().toString(),
+            "500", pref.retvieLatlong("longi").toDouble().toString(),
+            userMiles.get().toString(), "1", search
+        )
+
+        Log.e("KADJrtgdfASDASDKL", idList.toString())
+
+        Log.e("Dash_Board_Input===", dataObject.toString())
+        Log.e(
+            "SDAMILES",
+            userMiles.get().toString() + " LATI " + pref.retvieLatlong("lati")
+                .toDouble() + " LONG " + pref.retvieLatlong("longi")
+                .toDouble() + " CATEIDDD - " + idList.toString() + "search --- " + search
+        )
+
+        repository.makeCall(
+            ApiEnums.GETPROFILE_BYCATE,
+            loader = showLoader,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<GetProfileCateResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileCateResponse> {
+                    return retrofitApi.getProfileByCategory(
+                        pref.retrieveKey("token").toString(),
+                        "application/json",
+                        dataObject
+
+                    )
+                }
+
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onResponse(res: Response<GetProfileCateResponse>) {
+
+                    Log.d("WORKINGG_->>>---  ", res.body()!!.data.toString() + "DDDDDDDDS")
+
+                    if (res.isSuccessful) {
+                        if (res.body() != null) {
+                            if (res.body()!!.status == 200) {
+
+                                if (res.body()!!.data.size > 0) {
+                                    val profileList = ArrayList<ProfileCateData>()
+                                    profileList.clear()
+                                    for (idx in 0 until res.body()?.data!!.size) {
+                                        res.body()?.data!![idx].lngValue =
+                                            res.body()?.data!![idx].long
+                                        profileList.add(res.body()?.data!![idx])
+                                    }
+                                    Log.d("DashBoardResponse->", res.body()!!.data.toString())
+
+                                    calculateLatLngToMiles()
+                                    Log.d("viaksdistance", distance.get().toString().split(".")[0])
+
+                                } else {
+                                    Log.e("ASDASQKHE", "NO Data Found ")
+
+                                }
+
+                            } else {
+                                Log.d("DashBoardResponse->", res.body()?.message.toString())
+
+                                if (showLoader) {
+                                    showToast(context, res.body()?.message.toString())
+                                }
+                            }
+                        } else {
+                            Log.d("DashBoardResponse->", res.body()?.message.toString())
+
+                            if (showLoader) {
+                                showToast(context, res.body()?.message.toString())
+                            }
+                        }
+                    } else {
+                        Log.d("DashBoardResponse->", res.body()?.message.toString())
+
+                        if (showLoader) {
+                            showToast(context, res.body()?.message.toString())
+                        }
+                    }
+                }
+
+                override fun onError(message: String) {
+                    super.onError(message)
+                    Log.e("sdsdsd3", message)
+                }
+
+            }
+        )
+    }
+
+    fun calculateLatLngToMiles() {
+        val latLngA =
+            LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
+        val latLngB = LatLng(destinationLat.get(), destinationLong.get())
+        val locationA = Location("Point A")
+        locationA.latitude = latLngA.latitude
+        locationA.longitude = latLngA.longitude
+        val locationB = Location("Point B")
+        locationB.latitude = latLngB.latitude
+        locationB.longitude = latLngB.longitude
+        distance.set(locationA.distanceTo(locationB).toDouble().toString())
+        Log.d("distanceCal", distance.get().toString().split(".")[0])
+        Log.d("distanceCalqwer", distanceCal.get().toString())
+        userMiles.set(distance.get().toString().split(".")[0])
+
+
+    }
+
+    private fun getDataFromDataStroe() {
+        dataStoreUtil.readObject(SAVE_EDIT_COVER_PAGE, GetFontResponse::class.java) {
+            fontColor.set(it?.data?.frontpage_font_color)
         }
     }
 

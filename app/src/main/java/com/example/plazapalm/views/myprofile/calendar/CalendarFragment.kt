@@ -72,12 +72,11 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
     private fun calendarClick() {
 
         val calandar = Calendar.getInstance()
-        var month = 1
+        var month = 0
 
         viewModel.SeletedDate.observe(requireActivity()){
             Log.e("SDSDQQWq" , it.toString())
         }
-
 
 
 /*
@@ -109,7 +108,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
         binding?.clCalendar?.setOnPreviousPageChangeListener(object : OnCalendarPageChangeListener {
             override fun onChange() {
-                month ++
+                month +1
                 var year =2023
                 viewModel.month.set(month)
                 viewModel.year.set(year)
@@ -122,11 +121,10 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
             }
 
-
         })
         binding?.clCalendar?.setOnForwardPageChangeListener(object : OnCalendarPageChangeListener {
             override fun onChange() {
-                 month--
+                 month-1
                 var year =2023
                 viewModel.month.set(month)
                 viewModel.year.set(year)

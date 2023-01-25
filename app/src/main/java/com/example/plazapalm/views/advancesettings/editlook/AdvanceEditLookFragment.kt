@@ -49,17 +49,26 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         binding?.vm = viewModel
         setbackground()
 
+        viewModel.typfaceObserverLiveData.observe(requireActivity()) {
+            val data = it as Boolean
+            if (data) {
+                binding?.tvAdvanceEditLookFontValues?.typeface = viewModel.fontTypeface
+            }
+        }
+
         return binding?.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         preferenceFile.cleardata(Constants.BORDER_COLOR)
         preferenceFile.cleardata(Constants.COLUMN_COLOR)
         preferenceFile.cleardata(Constants.BACKGROUND_COLOR)
         preferenceFile.cleardata(Constants.FONT_COLOR)
         checkApi.set(true)
         viewModel.getEditLookColor()
+
         Log.e("QWCGGH222", "Working---22")
     }
 
@@ -79,69 +88,47 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getLocalData() {
-        if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(
-                Constants.BACKGROUND_COLOR
-            ).equals(""))
-        ) {
-            val backgroundColor = preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR)
-//            setBorderBackground(binding?.viewBoxLookingBGColor!! , backgroundColor!!)
 
-//                var data = backgroundColor as String
+        /**Back ground color ...**/
+        if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR).equals(""))) {
+            val backgroundColor = preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR)
             viewModel.SelectedDialog.set("Background Color")
             viewModel.backgroundColorLiveData.value = backgroundColor
-
-            //   binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-//                binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-
-//            binding?.viewBoxLookingBGColor?.setBackgroundColor(backgroundColor!!)
             Log.e("SSSSSSSSSqw1", backgroundColor.toString())
-
         }
 
-/*        if (preferenceFile.retviecolor(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolor(Constants.BACKGROUND_COLOR) == 0)) {
-            var backgroundColor = preferenceFile.retviecolor(Constants.BACKGROUND_COLOR)
-//            setBorderBackground(binding?.viewBoxLookingBGColor!! , backgroundColor!!)
-
-            binding?.viewBoxLookingBGColor?.setBackgroundColor(backgroundColor!!)
-            Log.e("SSSSSSSSSqw1", backgroundColor.toString())
-        }*/
-
+        /**Coloumn color..**/
         if (preferenceFile.retviecolorString(Constants.COLUMN_COLOR) != null && !(preferenceFile.retviecolorString(
                 Constants.COLUMN_COLOR
             ).equals(""))
         ) {
             val columnColor = preferenceFile.retviecolorString(Constants.COLUMN_COLOR)
-//            setBorderBackground(binding?.viewBoxColumnBGColor!! , columnColor!!)
-//            binding?.viewBoxColumnBGColor?.setBackgroundColor(columnColor!!)
             viewModel.columnColorLD.value = columnColor
-
             Log.e("SSSSSSSSSqw2", columnColor.toString())
 
         }
 
+        /** Border Color ..***/
         if (preferenceFile.retviecolorString(Constants.BORDER_COLOR) != null
             && !(preferenceFile.retviecolorString(Constants.BORDER_COLOR).equals(""))
         ) {
 
             var borderColor = preferenceFile.retviecolorString(Constants.BORDER_COLOR)
             viewModel.borderColorLD.value = borderColor
-//            setBorderBackground(binding?.viewBoxBorderColor!! , borderColor!!)
-//            binding?.viewBoxBorderColor?.setBackgroundColor(Color.parseColor(borderColor!!))
-
             Log.e("SSSSSSSSSqw3", borderColor.toString())
         }
 
-        if (preferenceFile.retviecolorString(Constants.FONT_COLOR) != null && !(preferenceFile.retviecolorString(
-                Constants.FONT_COLOR
-            ).equals(""))
+        /**Get Fonts Color..**/
+        if (preferenceFile.retviecolorString(Constants.FONT_COLOR) != null && !(preferenceFile.retviecolorString(Constants.FONT_COLOR).equals(""))
         ) {
             var fontColor = preferenceFile.retviecolorString(Constants.FONT_COLOR)
-////            setBorderBackground(binding?.viewBoxEditFonts!! , fontColor!!)
-//            binding?.viewBoxEditFonts?.setBackgroundColor(fontColor!!)
+
             viewModel.fontColorLD.value = fontColor
 
             Log.e("SSSSSSSSSqw4", fontColor.toString())
         }
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -234,6 +221,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
 
         }
+
         viewModel.columnColorLD.observe(viewLifecycleOwner) {
             Log.e("COLOR---", it.toString())
             if (it != null && !(it.equals(""))) {
@@ -245,9 +233,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                     binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
                 }
             }
-
         }
-
         viewModel.borderColorLD.observe(viewLifecycleOwner) {
             Log.e("borderColorLD---", it.toString())
 
