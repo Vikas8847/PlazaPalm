@@ -118,4 +118,8 @@ var FILTER_SCREEN_ADDRESS:String="filter_screen_address"
     var CATEGORY_SCREEN_LAT:String="category_screen_lat"
     var CATEGORY_SCREEN_LONG:String="category_screen_long"
     var CATEGORY_SCREEN_ADDRESS:String="category_screen_address"
+
+    const val ADVANCE_EDIT_LOOK_FONTS_NAME="AdvanceEdit_FontName"
+
+
 }
