@@ -28,6 +28,13 @@ class PreferenceFile @Inject constructor(
         editor.putString(key, value)
         editor.apply()
     }
+    fun storeFontName(key: String,value: String){
+        editor.putString(key,value)
+        editor.apply()
+    }
+    fun getFontName(key: String): String? {
+        return sharedPreferencesForever.getString(key, "{}")
+    }
 
     fun storeBoolKey(key: String, value: Boolean) {
         editor.putBoolean(key, value)
@@ -52,6 +59,7 @@ class PreferenceFile @Inject constructor(
         editor.putString("catelistId", body)
         editor.apply()
     }
+
 
     fun retrvieCateIdList(): String? {
         return sharedPreferences.getString("catelistId", "")

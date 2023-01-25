@@ -128,7 +128,8 @@ class CategoriesListVM @Inject constructor(
         body.put("offset", page.get()!!)
         body.put("limit", 500)
         body.put("search=", search)
-Log.e("fgmlfmgssssgegeg====",body.toString())
+        Log.e("fgmlfmgssssgegeg====",body.toString())
+
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
             loader = showLoader,
@@ -149,7 +150,7 @@ Log.e("fgmlfmgssssgegeg====",body.toString())
                 override fun onResponse(res: Response<CategoriesResponseModel>) {
 
                     adapterCategories.addItems(res.body()?.data!!)
-                    Log.e("Category_list_response==",res.body()?.data!!.toString())
+                    Log.e("Category_response==",res.body()?.data!!.toString())
                     for (idx in 0 until adapterCategories.getAllItems().size) {
                         if (selectedList.contains(adapterCategories.getAllItems()[idx].category_name)) {
 

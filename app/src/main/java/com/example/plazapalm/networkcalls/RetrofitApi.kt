@@ -530,10 +530,13 @@ interface RetrofitApi {
         @Header("Authorization")Authorization: String,
         @Field("frontPageTopText")FrontPageTopText:String,
         @Field("frontPageBottomText")FrontPageBottomText:String,
-        @Field("frontPageFontSize")FrontPageFontSize:String,
+        @Field("frontPageFontSize")FrontPageFontSize:Int,
         @Field("frontPageFontColor")FrontPagerFrontColor:String,
         @Field("frontPageFontOpacity")FrontPagerFontOpacity:String,
         @Field("isTopSelected")isTopSelected:Boolean?=false,
         @Field("isBottomSelected")isBottomSelected:Boolean?=false
-    ):Response<GetFontResponse>
+    ):Response<PostFrontPageResponse>
+
+
+
 }

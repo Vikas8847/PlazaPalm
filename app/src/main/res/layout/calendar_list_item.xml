@@ -50,7 +50,7 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvClBookingUserName"
-            tools:text="Kotlin" />
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvClBookingUserTime"
@@ -66,7 +66,7 @@
             app:layout_constraintStart_toEndOf="@id/tvClBookingUserDate"
             app:layout_constraintTop_toBottomOf="@id/tvClBookingUserName"
             app:layout_constraintTop_toTopOf="@id/tvClBookingUserDate"
-            tools:text="Flutter" />
+            />
 
 
         <androidx.appcompat.widget.AppCompatImageView

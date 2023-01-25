@@ -67,4 +67,5 @@
     <string name="nodata_found">No Data Found</string>
 
     <string name="booking_txt">Book</string>
+    <string name="calendar">Calendar</string>
 </resources>
