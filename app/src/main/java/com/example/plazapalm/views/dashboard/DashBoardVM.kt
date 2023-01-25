@@ -100,6 +100,7 @@ class DashBoardVM @Inject constructor(
          *  Set Cate. Id and send API.. */
 
         dataStoreUtil.readData(list_Name) {
+            idList.clear()
             if (it != null) {
                 idList.addAll(arrayListOf(it))
                 Log.e("KADJASDASDKL", idList.toString())
@@ -266,21 +267,21 @@ class DashBoardVM @Inject constructor(
     fun getProfileByCategory(search: String, showLoader: Boolean) {
 
         var dataArray=ArrayList<String>()
+        dataArray.clear()
         for(idx in 0 until idList.size)
         {
             dataArray.add(idList[idx].toString())
         }
 
-        var dataObject=DashBoardPostData(dataArray,pref.retvieLatlong("lati").toDouble().toString(),
-       "500",pref.retvieLatlong("longi").toDouble().toString(),userMiles.get().toString(),"1",search)
+        var dataObject=DashBoardPostData(dataArray,lati.get().toString(),
+       "500",longi.get().toString(),userMiles.get().toString(),"1",search)
 
         Log.e("KADJrtgdfASDASDKL", idList.toString())
 
         Log.e("Dash_Board_Input===",dataObject.toString())
         Log.e("SDAMILES",
-            userMiles.get().toString() + " LATI " + pref.retvieLatlong("lati").toDouble()
-                    + " LONG " + pref.retvieLatlong("longi")
-                .toDouble() + " CATEIDDD - " + idList.toString() + "search --- " + search)
+            userMiles.get().toString() + " LATI " + lati.get().toString()
+                    + " LONG " + longi.get().toString() + " CATEIDDD - " + idList.toString() + "search --- " + search)
 
         repository.makeCall(
             ApiEnums.GETPROFILE_BYCATE,
@@ -337,9 +338,7 @@ class DashBoardVM @Inject constructor(
                                             .toString() + "kjljlj;" + destinationLong.get()
                                             .toString())
                                     Log.d("adasWS",
-                                        pref.retvieLatlong("lati").toDouble()
-                                            .toString() + "sdfdf" + pref.retvieLatlong("longi")
-                                            .toDouble().toString())
+                                        lati.toString() + "sdfdf" + longi)
 
                                     calculateLatLngToMiles()
                                     // distanceCal.set(distance.get().toString().split(".")[0])
@@ -378,7 +377,7 @@ class DashBoardVM @Inject constructor(
                                                 //For Favourite click
                                                 Log.e("DFSddddddddDFA", adapter.getAllItems()[position].isFavourite!!.toString())
 
-                                                AddtoFavAPI(adapter.getAllItems()[position].isFavourite!!,
+                                                AddtoFavAPI(!(adapter.getAllItems()[position].isFavourite!!),
                                                     adapter.getAllItems()[position]._id.toString(),
                                                     position)
                                             }
@@ -427,7 +426,7 @@ class DashBoardVM @Inject constructor(
 
     fun calculateLatLngToMiles() {
         val latLngA =
-            LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
+            LatLng(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble(), pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
         val latLngB = LatLng(destinationLat.get(), destinationLong.get())
         val locationA = Location("Point A")
         locationA.latitude = latLngA.latitude
@@ -566,12 +565,12 @@ class DashBoardVM @Inject constructor(
                             context.runOnUiThread {
                              var  catDataList= adapter.getAllItems() as ArrayList<ProfileCateData>
                                 if (isfav) {
-                                    adapter.getAllItems()[position].isFavourite = false
+                                    adapter.getAllItems()[position].isFavourite = true
 //                                    tvRemoveFav?.text="Remove from Favourites"
                                     // isFav.set(false)
                                     Log.e("check_valueee===", res.body().toString())
                                 } else {
-                                    adapter.getAllItems()[position].isFavourite = true
+                                    adapter.getAllItems()[position].isFavourite = false
                                     //   isFav.set(true)
 //                                    tvRemoveFav?.text="Add from Favourites"
                                     Log.e("check_valueee===", res.body().toString())

@@ -3,14 +3,17 @@ package com.example.plazapalm.utils
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import androidx.multidex.MultiDex
+import androidx.multidex.MultiDexApplication
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import dagger.hilt.android.HiltAndroidApp
+import io.branch.referral.Branch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class AppController : Application() {
+class AppController : MultiDexApplication() {
     @Inject
     lateinit var dataStoreUtil: DataStoreUtil
 
@@ -26,6 +29,15 @@ class AppController : Application() {
 
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        // Branch logging for debugging
+        Branch.enableTestMode()
+
+        // Branch object initialization
+        Branch.getAutoInstance(this)
+        MultiDex.install(this)
+    }
 
 /*    override fun onCreate() {
         super.onCreate()

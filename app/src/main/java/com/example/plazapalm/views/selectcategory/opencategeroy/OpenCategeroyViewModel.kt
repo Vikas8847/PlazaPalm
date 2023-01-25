@@ -61,6 +61,7 @@ class OpenCategeroyViewModel @Inject constructor(
             R.id.clSearchLocation -> {
                 val bundle = Bundle()
                 bundle.putString("CommingFrom", "OpenCategery")
+                bundle.putString("location_txt",address.get().toString())
                 view.navigateWithId(R.id.action_openCategeroyFragment_to_addCitiesFragment)
 
             }
@@ -85,10 +86,10 @@ class OpenCategeroyViewModel @Inject constructor(
 
         Log.e(
             "dsadas",
-            pref.retvieLatlong("lati").toDouble().toString() + "  <<--DFDF-->>  " + pref.retvieLatlong("longi").toDouble().toString()
+            latitude.get().toDouble().toString() + "  <<--DFDF-->>  " + longitude.get().toString()
                 .toString() + name.get() + "XXXX"
         )
-
+        Log.e("cateogory_Responseeee===",body.toString())
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
             loader = true,

@@ -65,6 +65,20 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
     @SuppressLint("NotifyDataSetChanged")
     private fun getLocalData() {
 
+        if (pref.retrieveFilterLocation() != null && pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble()!=0.0) {
+            viewModel.location.set(pref.retrieveFilterLocation())
+            viewModel.lat.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString())
+            viewModel.long.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toString())
+            Log.e("QQQQQQ",pref.retrieveFilterLocation().toString())
+           // getdata()
+        }else
+        {
+            //getLastLocation()
+        }
+
+
+
+
 
         if (pref.retvieMiles()!=null && (pref.retvieMiles()!=0)){
 
@@ -211,8 +225,11 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
                 // Split will return an array
                 val split = datafromLocation.split("/")
 
-                val longi = split[0] // First element
-                val lati = split[1] // Second element
+                /*val longi = split[0] // First element
+                val lati = split[1] // Second element*/
+
+                val lati = split[0] // First element
+                val longi = split[1] // Second element
                 val address = split[2] // Second element
 
                 viewModel.location.set(address)

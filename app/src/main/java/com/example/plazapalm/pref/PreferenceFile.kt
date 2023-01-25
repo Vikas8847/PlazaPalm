@@ -62,6 +62,16 @@ class PreferenceFile @Inject constructor(
         editor.apply()
     }
 
+    fun storeFilterLocation(value: String) {
+        editor.putString("location_filter", value)
+        editor.apply()
+    }
+
+    fun retrieveFilterLocation(): String? {
+        return sharedPreferences.getString("location_filter", null)
+    }
+
+
     fun storeLatlong(key: String, value: Float) {
         editor.putFloat(key, value)
         editor.apply()
@@ -166,4 +176,13 @@ class PreferenceFile @Inject constructor(
     }
 */
 
+
+    fun storeCategoryLocation(value: String) {
+        editor.putString("location_category", value)
+        editor.apply()
+    }
+
+    fun retrieveCategoryLocation(): String? {
+        return sharedPreferences.getString("location_category", null)
+    }
 }

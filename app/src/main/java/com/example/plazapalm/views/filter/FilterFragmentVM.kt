@@ -36,10 +36,10 @@ class FilterFragmentVM @Inject constructor(
 
     init {
 
-        if (pref.retrieveLocation()!=null){
+       /* if (pref.retrieveLocation()!=null){
             location.set(pref.retrieveLocation())
             Log.e("SSSSSWWWQQQ0", location.get().toString())
-        }
+        }*/
 
 //        filterAdapter.addItems(filterDataList)
 //        filterAdapter.notifyDataSetChanged()
@@ -72,7 +72,11 @@ class FilterFragmentVM @Inject constructor(
                 view.navigateWithId(R.id.action_filterFragment_to_categoriesListFragment, bundle)
             }
             R.id.tvFilterLocationDescription -> {
-                view.navigateWithId(R.id.addCitiesFragment)
+               var bundle=Bundle()
+                bundle.putString("PostProfile", "filter_screen")
+
+                bundle.putString("location_txt",location.get().toString())
+                view.navigateWithId(R.id.addCitiesFragment,bundle)
             }
 
             R.id.btnReportSubmit -> {

@@ -138,8 +138,10 @@ class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickL
                 // Split will return an array
                 val split = datafromLocation.split("/")
 
-                val longi = split[0] // First element
-                val lati = split[1] // Second element
+              /*  val longi = split[0] // First element
+                val lati = split[1] // Second element*/
+                val lati = split[0] // First element
+                val longi = split[1] // Second element
                 val address = split[2] // Second element
 
                 viewModel.location.set(address)

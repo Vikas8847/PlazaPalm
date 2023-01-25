@@ -109,4 +109,13 @@ object Constants {
      val list_Name by lazy { stringPreferencesKey("idsList") }
      val list_CateName by lazy { stringPreferencesKey("idsList") }
 var REDIRECT_CHATSCREEN:String="redirectChatScreen"
+var FILTER_SCREEN_LAT:String="filter_Screen_Lat"
+var FILTER_SCREEN_LONG:String="filter_screen_long"
+var FILTER_SCREEN_ADDRESS:String="filter_screen_address"
+
+
+
+    var CATEGORY_SCREEN_LAT:String="category_screen_lat"
+    var CATEGORY_SCREEN_LONG:String="category_screen_long"
+    var CATEGORY_SCREEN_ADDRESS:String="category_screen_address"
 }

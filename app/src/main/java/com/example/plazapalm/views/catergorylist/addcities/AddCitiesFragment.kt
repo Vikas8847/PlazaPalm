@@ -21,6 +21,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AddCitiesFragmentBinding
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.Constants
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -66,7 +67,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
     private val viewModel: AddCitiesVM by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         binding = AddCitiesFragmentBinding.inflate(layoutInflater)
@@ -120,39 +121,163 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
         mMap.clear()
 //        getLastLocation()
 
+        if (arguments?.getString("PostProfile") != null && arguments?.getString("PostProfile")
+                .equals("postProfile")
+        ) {
 
-        if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0) {
-            var address =""
-            if (!(pref.retrieveLocation().toString().isNullOrEmpty())){
-                address = pref.retrieveLocation().toString()
+            var lat = requireArguments().getString("lat")
+            var long = requireArguments().getString("long")
+            var location_txt = requireArguments().getString("location_txt")
+            //bundle.putString("lat",lat.get().toString())
+
+            if (lat.equals("")) {
+                lat = "0.0"
+                long = "0.0"
+                location_txt = ""
             }
 
-            Log.e("Ssfsaa","AWOQPWOKSD")
+            if (lat!!.toDouble() != 0.0 && long!!.toDouble() != 0.0
+            ) {
+                viewModel.address.set(location_txt.toString())
+                Log.e("dsdsdsdsdSsfsaa", lat + "===" + long + "===" + location_txt)
+                var address = ""
+                if (!(location_txt.isNullOrEmpty())) {
+                    address = location_txt.toString()
+                }
+                originLatng = LatLng(lat.toDouble(), long.toDouble())
+                addressLocation = location_txt
+                Currentlongi = originLatng?.longitude!!
+                Currentlati = originLatng?.latitude!!
+                currentaddress = addressLocation!!
 
-           // val location =  LatLng(30.713163375854492, 76.70951843261719)
-            val location =  LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
+                Log.e("Ssfsaa", "AWOQPWOKSD")
 
-            mMap.clear()
-            val markerOptions = MarkerOptions().position(location).title(address)
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(location))
-            mMap.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    location,
-                    16F
+                // val location =  LatLng(30.713163375854492, 76.70951843261719)
+                val location = LatLng(lat.toDouble(),
+                    long.toDouble())
+
+                mMap.clear()
+                val markerOptions = MarkerOptions().position(location).title(address)
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(location))
+                mMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        location,
+                        16F
+                    )
                 )
-            )
 
-            mMap.addMarker(markerOptions)
+                mMap.addMarker(markerOptions)
 
-            Log.e(
-                "ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toString() + "XVXCV-- " +
-                        pref.retvieLatlong("longi").toDouble().toString()
-            )
+                Log.e(
+                    "ASDASWWERWR00ss",
+                    lat.toDouble().toString() + "XVXCV-- " +
+                            long.toDouble().toString()
+                )
+            } else {
+                getLastLocation()
+                Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
+                Log.e("SDFSDf", "SFSDF")
+            }
+        } else if (arguments?.getString("PostProfile") != null && arguments?.getString("PostProfile")
+                .equals("filter_screen")
+        ) {
+            if (pref.retvieLatlong(Constants.FILTER_SCREEN_LONG)
+                    .toDouble() != 0.0 && pref.retvieLatlong(Constants.FILTER_SCREEN_LAT)
+                    .toDouble() != 0.0
+            ) {
+                var address = ""
+                if (!(pref.retrieveFilterLocation().toString().isNullOrEmpty())) {
+                    address = pref.retrieveFilterLocation().toString()
+                }
 
-        } else{
-            getLastLocation()
-           Log.e( "ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
-            Log.e("SDFSDf","SFSDF")
+                originLatng = LatLng(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble(), pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
+                addressLocation = address
+                Currentlongi = originLatng?.longitude!!
+                Currentlati = originLatng?.latitude!!
+                currentaddress = addressLocation!!
+
+                viewModel.address.set(address)
+                Log.e("Ssfsaa", "AWOQPWOKSD")
+
+                // val location =  LatLng(30.713163375854492, 76.70951843261719)
+                val location = LatLng(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble(),
+                    pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
+
+                mMap.clear()
+                val markerOptions = MarkerOptions().position(location).title(address)
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(location))
+                mMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        location,
+                        16F
+                    )
+                )
+
+                mMap.addMarker(markerOptions)
+
+                Log.e(
+                    "ASDASWWERWR00ss",
+                    pref.retvieLatlong("lati").toDouble().toString() + "XVXCV-- " +
+                            pref.retvieLatlong("longi").toDouble().toString()
+                )
+
+            } else {
+                getLastLocation()
+                Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
+                Log.e("SDFSDf", "SFSDF")
+            }
+
+        } else {
+
+            //var location_txt = requireArguments().getString("location_txt")
+
+            //for category location
+            if (pref.retvieLatlong(Constants.CATEGORY_SCREEN_LAT)
+                    .toDouble() != 0.0 && pref.retvieLatlong(Constants.CATEGORY_SCREEN_LONG)
+                    .toDouble() != 0.0
+            ) {
+                var address = ""
+                if (!(pref.retrieveCategoryLocation().toString().isNullOrEmpty())) {
+                    address = pref.retrieveCategoryLocation().toString()
+                }
+
+                originLatng = LatLng(pref.retvieLatlong(Constants.CATEGORY_SCREEN_LAT).toDouble(), pref.retvieLatlong(Constants.CATEGORY_SCREEN_LONG).toDouble())
+                addressLocation = address
+                Currentlongi = originLatng?.longitude!!
+                Currentlati = originLatng?.latitude!!
+                currentaddress = addressLocation!!
+
+                Log.e("Ssfsaa", "AWOQPWOKSD")
+                viewModel.address.set(address)
+                // val location =  LatLng(30.713163375854492, 76.70951843261719)
+                val location = LatLng(pref.retvieLatlong(Constants.CATEGORY_SCREEN_LAT).toDouble(),
+                    pref.retvieLatlong(Constants.CATEGORY_SCREEN_LONG).toDouble())
+
+                mMap.clear()
+                val markerOptions = MarkerOptions().position(location).title(address)
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(location))
+                mMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        location,
+                        16F
+                    )
+                )
+
+                mMap.addMarker(markerOptions)
+
+                Log.e(
+                    "ASDASWWERWR00ss",
+                    pref.retvieLatlong(Constants.CATEGORY_SCREEN_LAT).toDouble()
+                        .toString() + "XVXCV-- " +
+                            pref.retvieLatlong(Constants.CATEGORY_SCREEN_LONG).toDouble().toString()
+                )
+
+            } else {
+                getLastLocation()
+                Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
+                Log.e("SDFSDf", "SFSDF")
+            }
+
         }
 
     }
@@ -207,6 +332,15 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                             Currentlati = location.latitude
                             Currentlongi = location.longitude
 
+                            originLatng =
+                                LatLng(Currentlongi!!.toDouble(), Currentlongi!!.toDouble())
+                            addressLocation = currentaddress
+                            Currentlongi = Currentlongi
+                            Currentlati = Currentlati
+                            currentaddress = addressLocation!!
+
+
+
                             Log.e(
                                 "ADASDASWQEWQE",
                                 address.toString() + "assad" + Currentlati + "XCXC" + Currentlongi
@@ -245,7 +379,7 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         if (requestCode == CommonMethods.pERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
@@ -273,24 +407,51 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
         }
 
         binding?.btAdd?.setOnClickListener {
-
-            if (originLatng != null) {
+            if (arguments?.getString("PostProfile") != null && arguments?.getString("PostProfile")
+                    .equals("postProfile")
+            ) {
                 Currentlongi = originLatng?.longitude!!
                 Currentlati = originLatng?.latitude!!
                 currentaddress = addressLocation!!
+            } else {
+                if (originLatng != null) {
+                    Currentlongi = originLatng?.longitude!!
+                    Currentlati = originLatng?.latitude!!
+                    currentaddress = addressLocation!!
 
-                pref.storeLocation(currentaddress)
+                    if (arguments?.getString("PostProfile") != null && arguments?.getString("PostProfile")
+                            .equals("filter_screen")
+                    ) {
+                        //For filter screen
+                        pref.storeLatlong(Constants.FILTER_SCREEN_LONG,
+                            originLatng?.longitude!!.toFloat())
+                        pref.storeLatlong(Constants.FILTER_SCREEN_LAT,
+                            originLatng?.latitude!!.toFloat())
+                        pref.storeFilterLocation(currentaddress)
+                        Log.e("asdSDWA",
+                            originLatng?.longitude!!.toFloat()
+                                .toString() + "VVC" + originLatng?.latitude!!.toFloat().toString())
+                    } else {
+                        pref.storeLatlong(Constants.CATEGORY_SCREEN_LONG,
+                            originLatng?.longitude!!.toFloat())
+                        pref.storeLatlong(Constants.CATEGORY_SCREEN_LAT,
+                            originLatng?.latitude!!.toFloat())
+                        pref.storeCategoryLocation(currentaddress)
+                        Log.e("asdSDWA",
+                            originLatng?.longitude!!.toFloat()
+                                .toString() + "VVC" + originLatng?.latitude!!.toFloat().toString())
 
-                pref.storeLatlong("longi",  originLatng?.longitude!!.toFloat())
-                pref.storeLatlong("lati", originLatng?.latitude!!.toFloat())
+                        // pref.storeLocation(currentaddress)
+                    }
 
-                Log.e("asdSDWA",originLatng?.longitude!!.toFloat().toString() + "VVC" + originLatng?.latitude!!.toFloat().toString())
 
+                }
+                //pref.storeLocation(currentaddress)
             }
 
-            pref.storeLocation(currentaddress)
-
-            if (arguments?.getString("PostProfile") != null) {
+            if (arguments?.getString("PostProfile") != null && arguments?.getString("PostProfile")
+                    .equals("postProfile")
+            ) {
 
                 findNavController().previousBackStackEntry?.savedStateHandle?.set(
                     "bundle",
@@ -345,7 +506,6 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                 } else if (resultCode == FragmentActivity.RESULT_CANCELED) {
                     // The user canceled the operation.
                 }
-
             }
         }
     }

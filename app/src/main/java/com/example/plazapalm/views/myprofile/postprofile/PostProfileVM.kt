@@ -187,6 +187,9 @@ class PostProfileVM @Inject constructor(
             }
             R.id.etVEditProTags -> {
                 val bundle = Bundle()
+                bundle.putString("long",long.get().toString())
+                bundle.putString("lat",lat.get().toString())
+                bundle.putString("location_txt",location.get().toString())
                 bundle.putString("PostProfile", "postProfile")
                 view.navigateWithId(R.id.action_viewProfileFragment_to_addCitiesFragment, bundle)
             }
