@@ -13,10 +13,12 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -32,6 +34,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import io.branch.referral.Branch
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -47,11 +50,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         lateinit var activity: Activity
     }
     private var binding: ActivityMainBinding? = null
-    override fun onStart() {
+   /* override fun onStart() {
         super.onStart()
         context = WeakReference(this)
         activity = Activity()
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,12 +84,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding?.bottNavMain?.setOnNavigationItemSelectedListener(this)
         navController?.addOnDestinationChangedListener {
                 _, destination, _ ->
+
             if (destination.id == R.id.dashBoardFragment || destination.id == R.id.myProfileFragment || destination.id == R.id.messagesFragment || destination.id == R.id.openCategeroyFragment || destination.id == R.id.advanceMapFragment || destination.id == R.id.picturesFragment) {
                 binding?.bottNavMain?.selectedItemId = destination.id
                 binding?.bottNavMain?.isVisible = true
-
+                Log.e("gmslgsgsgs11====","wgwgqwgewg")
             } else {
                 binding?.bottNavMain?.isVisible = false
+                Log.e("gmslgsgsgs22====","wgwgqwgewg")
             }
         }
 
@@ -97,6 +102,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             when (item.itemId) {
                 R.id.dashBoard -> {
                     hideKeyboard()
+                    Log.e("gmslgsgsgs====","wgwgqwgewg")
                     binding?.bottNavMain?.onNavDestinationSelected(item.itemId, navController!!)
                     navController?.navigate(R.id.dashBoardFragment)
 
@@ -170,5 +176,41 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         activity.startActivity(intent, bundle)
     }
 
+    override fun onStart() {
+        super.onStart()
 
+        context = WeakReference(this)
+        activity = Activity()
+        Branch.sessionBuilder(this).withCallback { branchUniversalObject, linkProperties, error ->
+            if (error != null) {
+                Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.message)
+            } else {
+                Log.e("BranchSDK_Tester", "branch init complete!")
+                if (branchUniversalObject != null) {
+                    Log.e("BranchSDK_Tester", "title " + branchUniversalObject.title)
+                    Log.e("BranchSDK_Tester", "CanonicalIdentifier " + branchUniversalObject.canonicalIdentifier)
+                    Log.e("BranchSDK_Tester", "metadata " + branchUniversalObject.contentMetadata.convertToJson())
+
+                    var dataObject=branchUniversalObject.contentMetadata.convertToJson()
+                    var deeplink_path= dataObject.getString("deeplink_path")
+                    //Toast.makeText(this,deeplink_path,Toast.LENGTH_LONG).show()
+                }
+                if (linkProperties != null) {
+                    Log.e("BranchSDK_Tester", "Channel " + linkProperties.channel)
+                    Log.e("BranchSDK_Tester", "control params " + linkProperties.controlParams)
+                }
+            }
+        }.withData(this.intent.data).init()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Branch.sessionBuilder(this).withCallback { referringParams, error ->
+            if (error != null) {
+                Log.e("BranchSDK_Tester", error.message)
+            } else if (referringParams != null) {
+                Log.e("BranchSDK_Tester", referringParams.toString())
+            }
+        }.reInit()
+    }
 }

@@ -36,10 +36,10 @@ class FilterFragmentVM @Inject constructor(
 
     init {
 
-        if (pref.retrieveLocation()!=null){
+       /* if (pref.retrieveLocation()!=null){
             location.set(pref.retrieveLocation())
             Log.e("SSSSSWWWQQQ0", location.get().toString())
-        }
+        }*/
 
 //        filterAdapter.addItems(filterDataList)
 //        filterAdapter.notifyDataSetChanged()
@@ -68,11 +68,40 @@ class FilterFragmentVM @Inject constructor(
                 }
                 Log.e("Sender_List_Data===",senderList.toString())
                 bundle.putSerializable("SelecatedCategory", senderList)
+                if(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0) {
+                    Log.e("gsgswgswg==",pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString())
+                    bundle.putString("lat_value",
+                        pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString())
+                    bundle.putString("lng_value",
+                        pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toString())
+
+                    bundle.putString("location_value", pref.retrieveFilterLocation())
+                }else
+                {
+                    Log.e("gsgswgswg==","ffff")
+                    bundle.putString("lat_value", "0.0")
+                    bundle.putString("lng_value", "0.0")
+                    bundle.putString("location_value", "")
+                }
+
+Log.e("fkghchchdfh====",pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString()+"==="+pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toString())
+
 
                 view.navigateWithId(R.id.action_filterFragment_to_categoriesListFragment, bundle)
             }
             R.id.tvFilterLocationDescription -> {
-                view.navigateWithId(R.id.addCitiesFragment)
+               var bundle=Bundle()
+                bundle.putString("PostProfile", "filter_screen")
+
+                if(location.get().toString()!=null && !(location.get().toString().equals("null")))
+                {
+                    bundle.putString("location_txt",location.get().toString())
+                }else
+                {
+                    bundle.putString("location_txt","")
+                }
+
+                view.navigateWithId(R.id.addCitiesFragment,bundle)
             }
 
             R.id.btnReportSubmit -> {

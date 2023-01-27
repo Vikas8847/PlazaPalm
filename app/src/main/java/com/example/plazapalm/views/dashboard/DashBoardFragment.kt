@@ -54,11 +54,11 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     ): View? {
         binding = DashBoardFragmentBinding.inflate(layoutInflater)
 
-        if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0 ) {
-            viewModel.lati.set(pref.retvieLatlong("lati").toDouble())
-            viewModel.longi.set(pref.retvieLatlong("longi").toDouble())
+        if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0 &&  pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble()!=0.0 ) {
+            viewModel.lati.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble())
+            viewModel.longi.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
 
-            Log.e("ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toFloat().toString())
+            Log.e("ASDASWWERWR00ss", pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toFloat().toString())
             Log.e("gsdgklslgswgs====",viewModel.lati.get().toString())
             Log.e("gsdgklslgswgs11====",viewModel.longi.get().toString())
         }
@@ -66,10 +66,10 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
 
 
-        if (pref.retvieLatlong("lati").toDouble()!=0.0 &&  pref.retvieLatlong("longi").toDouble()!=0.0 ) {
+        if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0 &&  pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble()!=0.0 ) {
                     /*   pref.storeLatlong("longi", pref.retvieLatlong("lati").toDouble().toFloat())
             pref.storeLatlong("lati", pref.retvieLatlong("longi").toDouble().toFloat())*/
-            Log.e("ASDASWWERWR00ss", pref.retvieLatlong("lati").toDouble().toFloat().toString())
+            Log.e("ASDASWWERWR00ss", pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toFloat().toString())
             initUI()
         } else {
             getLastLocation()
@@ -81,10 +81,20 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     fun initUI()
     {
-        getCategoriesListAndID()
+        if(arguments?.getString("fromCategories") != null && arguments?.containsKey("fromCategories")!! || arguments?.getStringArrayList("filterCategoriesIds") != null ||
+            arguments?.getStringArrayList("FromLoginScreenCategoriesIds") != null ||   arguments?.getString("fromOpencate") != null      )
+        {
+            getCategoriesListAndID()
+        }else
+        {
+            viewModel.lati.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble())
+            viewModel.longi.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
+            viewModel.getProfileByCategory("", true,"")
+        }
+
         getlocalData()
         viewModel.getProfile()
-        viewModel.getProfileByCategory("", true)
+       // viewModel.getProfileByCategory("", true)
     }
 
     private fun getlocalData() {
@@ -268,6 +278,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     viewModel.lati.set(arguments?.getDouble("latitude")!!)
                     viewModel.longi.set(arguments?.getDouble("longitude")!!)
 
+                    viewModel.getProfileByCategory("", true,"")
+
                 }
 
                 arguments?.getStringArrayList("filterCategoriesIds") != null -> {
@@ -294,10 +306,10 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                             viewModel.list_CateName,
                             Gson().toJson(viewModel.selectedCategoriesList)
                         )
-
                     }
                     viewModel.lati.set(arguments?.getDouble("Filterlatitude")!!)
                     viewModel.longi.set(arguments?.getDouble("Filterlongitude")!!)
+                    viewModel.getProfileByCategory("", true,"")
                 }
 
                 arguments?.getStringArrayList("FromLoginScreenCategoriesIds") != null -> {
@@ -343,7 +355,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
 
                     Log.e("DDDDWoij", viewModel.idList.toString())
-
+                    viewModel.getProfileByCategory("", true,"")
                 }
 
                 arguments?.getString("fromOpencate") != null -> {
@@ -378,19 +390,19 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         Gson().toJson(viewModel.selectedCategoriesList)
                     )
 
-//                    viewModel.lati.set(arguments?.getDouble("latitude")!!)
-//                    viewModel.longi.set(arguments?.getDouble("longitude")!!)
+                    viewModel.lati.set(arguments?.getDouble("latitude")!!)
+                    viewModel.longi.set(arguments?.getDouble("longitude")!!)
 
-                    viewModel.lati.set(pref.retvieLatlong("lati").toDouble())
-                    viewModel.longi.set(pref.retvieLatlong("longi").toDouble())
+                  //  viewModel.lati.set(pref.retvieLatlong("lati").toDouble())
+               //     viewModel.longi.set(pref.retvieLatlong("longi").toDouble())
 
                     Log.e(
                         "LATLANGG",
-                        pref.retvieLatlong("lati").toDouble()
+                        viewModel.lati.get()
                             .toString() + "  <<<--- Longiii ---->>>  " +
-                                pref.retvieLatlong("longi").toDouble() + " CIdd--- " + c_id
+                                viewModel.longi.get() + " CIdd--- " + c_id
                     )
-
+                    viewModel.getProfileByCategory("", true,c_id!!)
                 }
 
                 arguments?.getString("comingFromIsfilter") != null -> {
@@ -434,8 +446,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         viewModel.lati.set(location.latitude)
                         viewModel.longi.set(location.longitude)
 
-                        pref.storeLatlong("longi", location.longitude.toFloat())
-                        pref.storeLatlong("lati", location.latitude.toFloat())
+                        pref.storeLatlong(Constants.FILTER_SCREEN_LONG, location.longitude.toFloat())
+                        pref.storeLatlong(Constants.FILTER_SCREEN_LAT, location.latitude.toFloat())
                         Log.e("Current_Location==",viewModel.lati.get().toString())
                         Log.e("Current_Location11==",viewModel.longi.get().toString())
 
@@ -445,7 +457,10 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         val state = addresses[0].adminArea
                         val country = addresses[0].countryName
 
+
                         pref.storeLocation(city)
+
+                        pref.storeFilterLocation(city)
 
                         Log.e("addresSSe",city)
 //                        pref.retrieveLocation
@@ -471,8 +486,8 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         super.onResume()
         CommonMethods.statusBar(true)
 
-        if (!(pref.retvieLatlong("lati").toDouble().toString().isNullOrEmpty()) &&
-            !(pref.retvieLatlong("longi").toDouble().toString().isNullOrEmpty())
+        if (!(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toString().isNullOrEmpty()) &&
+            !(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble().toString().isNullOrEmpty())
         ) {
 
 //            pref.storeLatlong("longi", pref.retvieLatlong("longi").toDouble().toFloat())
