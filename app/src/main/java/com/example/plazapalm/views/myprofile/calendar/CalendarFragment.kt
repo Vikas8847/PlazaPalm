@@ -1,22 +1,23 @@
 package com.example.plazapalm.views.myprofile.calendar
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.CalendarFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -68,143 +69,90 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceType")
     private fun calendarClick() {
 
-        val calandar = Calendar.getInstance()
-        var month = 0
+//        val calendar = Calendar.getInstance()
+//        calendar[2023, 0] = 5
+//
+//        binding?.clCalendar?.setDate(calendar)
 
-        viewModel.SeletedDate.observe(requireActivity()){
-            Log.e("SDSDQQWq" , it.toString())
+
+        var calendars =Calendar.getInstance()
+        calendars.set(2023, 0, 5)
+
+        var calendars2 =Calendar.getInstance()
+        calendars2.set(2023, 0, 8)
+
+        var calendars3 =Calendar.getInstance()
+        calendars3.set(2023, 0, 7)
+
+        var calendars4 =Calendar.getInstance()
+        calendars4.set(2023, 0, 12)
+
+        var calendarList=ArrayList<Calendar>()
+        calendarList.add(calendars)
+        calendarList.add(calendars2)
+        calendarList.add(calendars3)
+        calendarList.add(calendars4)
+
+        binding?.clCalendar?.setHighlightedDays(calendarList)
+        binding?.clCalendar?.selectedDates=calendarList
+        viewModel.SeletedDate.observe(requireActivity()) {
+            Log.e("SDSDQQWq", it.toString())
         }
-
-
-/*
-        binding?.clCalendar?.setOnDayClickListener(object : OnDayClickListener {
-            override fun onDayClick(eventDay: EventDay) {
-                val clickedDayCalendar = eventDay.calendar
-
-               */
-              /*  val date = (dayofMonth.toString() + "-" + (month + 1) + "-" + year)
-
-                val month = ((month + 1))
-                val year = (year)
-
-                viewModel.month.set(month)
-                viewModel.year.set(year)
-
-                binding?.tvCalendar?.text = date
-                viewModel.click.set(true)
-                viewModel.getCalanderDataMonthWise(month, year)*//*
-
-
-                Log.e("DATAEE", clickedDayCalendar.toString())
-                // binding?
-
-            }
-
-        })
-*/
-
+        binding?.clCalendar?.isEnabled=false
         binding?.clCalendar?.setOnPreviousPageChangeListener(object : OnCalendarPageChangeListener {
             override fun onChange() {
-                month +1
-                var year =2023
-                viewModel.month.set(month)
-                viewModel.year.set(year)
 
-//                binding?.tvCalendar?.text = date
-                viewModel.click.set(true)
-                viewModel.getCalanderDataMonthWise(month, year)
+                montYear(
+                    binding?.clCalendar?.currentPageDate!!.get(Calendar.MONTH) + 1,
+                    binding?.clCalendar?.currentPageDate!!.get(Calendar.YEAR)
+                )
 
-                Log.e("DATAEE", month.toString())
+                Log.e(
+                    "Calendar_Dateee====",
+                    binding?.clCalendar?.currentPageDate!!.get(Calendar.MONTH)
+                        .toString() + 1.toString() + "FF-- " + binding?.clCalendar?.currentPageDate!!.get(
+                        Calendar.YEAR
+                    ).toString()
+                )
 
             }
 
         })
+
         binding?.clCalendar?.setOnForwardPageChangeListener(object : OnCalendarPageChangeListener {
             override fun onChange() {
-                 month-1
-                var year =2023
-                viewModel.month.set(month)
-                viewModel.year.set(year)
+                montYear(
+                    binding?.clCalendar?.currentPageDate!!.get(Calendar.MONTH) + 1,
+                    binding?.clCalendar?.currentPageDate!!.get(Calendar.YEAR)
+                )
 
-//                binding?.tvCalendar?.text = date
-                viewModel.click.set(true)
-                viewModel.getCalanderDataMonthWise(month , year)
-
-                Log.e("DATAEE", month.toString())
+                Log.e(
+                    "Calendar_Dateee====",
+                    binding?.clCalendar?.currentPageDate!!.get(Calendar.MONTH)
+                        .toString() + 1.toString() + "FF-- " + binding?.clCalendar?.currentPageDate!!.get(
+                        Calendar.YEAR
+                    ).toString()
+                )
 
             }
 
-
         })
-        binding?.clCalendar?.setSelectionBetweenMonthsEnabled(true)
+        binding?.clCalendar?.setSelectionBetweenMonthsEnabled(false)
 
-      /*  binding?.clCalendar?.setOnDateChangeListener {
-                _, year, month, dayofMonth ->
-            // In this Listener we are getting values
-            // such as year, month and day of month
-            // on below line we are creating a variable
-            // in which we are adding all the variables in it.
-
-            val date = (dayofMonth.toString() + "-" + (month + 1) + "-" + year)
-
-            val month = ((month + 1))
-            val year = (year)
-
-            viewModel.month.set(month)
-            viewModel.year.set(year)
-
-            binding?.tvCalendar?.text = date
-            viewModel.click.set(true)
-            viewModel.getCalanderDataMonthWise(month, year)
-            Log.e("DATAEE", date)
-
-            // binding?.clCalendar?.dateTextAppearance = Color.RED
-
-        }
-        binding?.clCalendar */
-
-
-
-        /* binding?.clCalendar?.setOnDayClickListener(object : OnDayClickListener {
-             override fun onDayClick(eventDay: EventDay) {
-                 val clickedDayCalendar = eventDay.calendar
-
-                 val selectedDates: List<Calendar> = binding!!.clCalendar.selectedDates
-
-                 val calendar = Calendar.getInstance()
-                 calendar[2019, 7] = 5
-
-                 binding?.clCalendar?.setDate(calendar)
-
-                 Log.e("QQWAA", clickedDayCalendar.toString() + "CVCVCV" + selectedDates)
-
-             }
-         })
-
-         binding?.clCalendar?.setOnForwardPageChangeListener(object : OnCalendarPageChangeListener {
-             override fun onChange() {
-
-                 Log.e("QQWAA", "ForwardPageChange")
-
-             }
-         })
-
-         binding?.clCalendar?.setOnPreviousPageChangeListener(object  : OnCalendarPageChangeListener{
-             override fun onChange() {
-                 Log.e("QQWAA", "PreviousPageChange")
-             }
-
-         })*/
     }
 
-    /*  @SuppressLint("ResourceType")
-      private fun calendar(){
-          binding?.clCalendar?.setHeaderColor(resources.getColor(R.color.app_bar_light))
-          //binding.clCalendar.setPages="[color]"
-      }*/
+    private fun montYear(month: Int, year: Int) {
+
+        viewModel.month.set(month)
+        viewModel.year.set(year)
+        viewModel.click.set(true)
+        viewModel.getCalanderDataMonthWise(month, year)
+
+    }
 
 }
 

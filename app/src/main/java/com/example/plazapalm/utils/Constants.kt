@@ -92,9 +92,12 @@ object Constants {
     const val BORDER_COLOR = "BORDER_COLOR"
     const val FONT_COLOR = "FONT_COLOR"
     const val COLUMN_COLOR = "COLUMN_COLOR"
-// SIZE
-   const val BORDER_WIDTH = "BORDER_WIDTH"
-   const val FONT_SIZE = "FONT_SIZE"
+
+    //ADVANCE_EDIT_LOOK (FONTS NAMES)
+    const val ADVANCE_EDIT_LOOK_FONTS_NAME="AdvanceEdit_FontName"
+    // SIZE
+    const val BORDER_WIDTH = "BORDER_WIDTH"
+    const val FONT_SIZE = "FONT_SIZE"
 
     // Pref keys
     const val SELECTED_CATEGORY_NAME = "SELECTED_CATEGORY_NAME"
@@ -102,11 +105,11 @@ object Constants {
 
 
     /** dataStore key */
-     val  CategoryList by lazy { stringPreferencesKey("CategoryList") }
-     val FilterList by lazy { stringPreferencesKey("FilterList") }
-     val SELECTED_SLIDER by lazy { stringPreferencesKey("SELECTED_SLIDER") }
-     val SLECTED_CATE_SIGNUP by lazy { stringPreferencesKey("FilterList") }
-     val list_Name by lazy { stringPreferencesKey("idsList") }
-     val list_CateName by lazy { stringPreferencesKey("idsList") }
-var REDIRECT_CHATSCREEN:String="redirectChatScreen"
+    val  CategoryList by lazy { stringPreferencesKey("CategoryList") }
+    val FilterList by lazy { stringPreferencesKey("FilterList") }
+    val SELECTED_SLIDER by lazy { stringPreferencesKey("SELECTED_SLIDER") }
+    val SLECTED_CATE_SIGNUP by lazy { stringPreferencesKey("FilterList") }
+    val list_Name by lazy { stringPreferencesKey("idsList") }
+    val list_CateName by lazy { stringPreferencesKey("idsList") }
+    var REDIRECT_CHATSCREEN:String="redirectChatScreen"
 }

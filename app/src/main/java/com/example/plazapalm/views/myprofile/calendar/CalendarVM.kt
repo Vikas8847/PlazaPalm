@@ -26,7 +26,9 @@ import com.example.plazapalm.utils.navigateWithId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class CalendarVM @Inject constructor(
@@ -47,6 +49,7 @@ class CalendarVM @Inject constructor(
     val year = ObservableInt()
     val click = ObservableBoolean(false)
     val SeletedDate = MutableLiveData<List<String?>?>()
+    var calendarList=ArrayList<Calendar>()
 
     val isBookingStatus = ObservableBoolean(false)
 
@@ -121,6 +124,11 @@ class CalendarVM @Inject constructor(
     }
 
     fun getCalanderDataMonthWise(month: Int, year: Int) {
+
+        Log.e("FSSSAAA",pref.retrieveKey("token").toString()+ "  ---  " +
+                month.toString()+ "--CC--" + year.toString() + "  ---  " +
+                p_Id.get().toString())
+
         repository.makeCall(ApiEnums.GET_PREMIUM_STATUS, loader = false,
             saveInCache = false,
             getFromCache = false,
@@ -137,9 +145,21 @@ class CalendarVM @Inject constructor(
 
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body()?.data != null) {
+                            var calendars4 =Calendar.getInstance()
 
                             for (i in 0 until res.body()!!.data.size){
                                 SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
+                                val day =res.body()!!.data[i]?.choose_date
+                                val month =res.body()!!.data[i]?.month
+                                val year =res.body()!!.data[i]?.year
+
+                                var split = day!!.split("-")
+                                val daY = split[2].toInt()
+
+                                calendars4.set(year!!,month!!,daY)
+
+                                Log.e("FQWQWQQQ",daY.toString() + "--" + month + "--" + year)
+//                                calendarList.add()
                             }
 
                             calendarBookingList =
