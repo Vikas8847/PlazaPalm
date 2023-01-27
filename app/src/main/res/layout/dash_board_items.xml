@@ -148,7 +148,9 @@
                 android:fontFamily="@font/inter_medium"
                 android:gravity="end"
                 calculateLatLngToMiles="@{model.distance}"
-
+                calculateDistance="@{model.location_text}"
+                destinationLat="@{model.location.coordinates[1]}"
+                destinationLong="@{model.location.coordinates[0]}"
                 android:singleLine="true"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/white"

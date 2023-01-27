@@ -131,7 +131,7 @@
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="start"
-                android:text="@{model.location_text}"
+                android:text="@{model.address}"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

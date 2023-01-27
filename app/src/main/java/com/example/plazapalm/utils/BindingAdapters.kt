@@ -397,7 +397,43 @@ object BindingAdapters {
         destinationTV: TextView, distacneValue: Double
     ) {
         destinationTV.text=distacneValue.toString().split(".")[0]+" miles"
+        Log.e("dmfledmfdf===",distacneValue.toString())
     }
+
+
+
+    @BindingAdapter(value = ["calculateDistance","destinationLat","destinationLong"], requireAll = false)
+    @JvmStatic
+    fun calculateDistance(
+        destinationTV: TextView, preferenceFile: String,destinationLat:Double,destinationLong:Double
+    ) {
+
+      //  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
+       // var currentLong=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()
+
+        var currentLat="30.7046".toDouble()
+        var currentLong="76.7179".toDouble()
+        Log.e("egmhamgasg===",currentLat.toString())
+        Log.e("egmhamgasg111===",currentLong.toString())
+        val latLngA = LatLng(currentLat.toDouble(), currentLong.toDouble())
+        // val latLngB = LatLng(destLat, destLong)
+        val latLngB = LatLng(destinationLat, destinationLong)
+        val locationA = Location("Point A")
+        locationA.latitude = latLngA.latitude
+        locationA.longitude = latLngA.longitude
+
+        val locationB = Location("Point B")
+        locationB.latitude = latLngB.latitude
+        locationB.longitude = latLngB.longitude
+
+        Log.e("ABCDDDDDDD==",locationA.toString())
+        Log.e("ABCDDDDDDD1111==",locationB.toString())
+        var distance = locationA.distanceTo(locationB).toDouble().toString()
+
+        destinationTV.text=distance.toString().split(".")[0]+" miles"
+        Log.e("ABCDDDDDDD2222==",distance.toString())
+    }
+
 
     @BindingAdapter(value = ["setMiles"], requireAll = false)
     @JvmStatic
