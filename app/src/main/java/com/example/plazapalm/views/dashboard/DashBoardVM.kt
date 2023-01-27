@@ -192,11 +192,11 @@ class DashBoardVM @Inject constructor(
     fun onTextChange(editable: Editable) {
         if (editable.toString().length > 0) {
             Handler().postDelayed({
-                getProfileByCategory(editable.toString(), false)
+                getProfileByCategory(editable.toString(), false,"")
             }, 1000)
         } else {
             Handler().postDelayed({
-                getProfileByCategory("", false)
+                getProfileByCategory("", false,"")
             }, 1000)
         }
 
@@ -264,19 +264,39 @@ class DashBoardVM @Inject constructor(
 
     }
 
-    fun getProfileByCategory(search: String, showLoader: Boolean) {
+    fun getProfileByCategory(search: String, showLoader: Boolean,c_id:String) {
 
         var dataArray=ArrayList<String>()
         dataArray.clear()
+        if (pref.retrvieCateIdList() != null && !(pref.retrvieCateIdList().equals(""))) {
+
+            val myType = object : TypeToken<ArrayList<String>>() {}.type
+            val newList: ArrayList<String> =
+                Gson().fromJson<ArrayList<String>>(pref.retrvieCateIdList(), myType)
+
+            idList.clear()
+            for (idx in 0 until newList.size) {
+                idList.addAll(listOf(newList[idx].toString()))
+            }
+        }
+
         for(idx in 0 until idList.size)
         {
             dataArray.add(idList[idx].toString())
         }
-
-        var dataObject=DashBoardPostData(dataArray,lati.get().toString(),
-       "500",longi.get().toString(),userMiles.get().toString(),"1",search)
-
-        Log.e("KADJrtgdfASDASDKL", idList.toString())
+        var singleList=ArrayList<String>()
+        singleList.clear()
+        var dataObject:DashBoardPostData?=null
+        if(!(c_id.equals("")))
+        {
+            singleList.add(c_id)
+             dataObject=DashBoardPostData(singleList,lati.get().toString(),
+                "500",longi.get().toString(),userMiles.get().toString(),"1",search)
+        }else
+        {
+             dataObject=DashBoardPostData(dataArray,lati.get().toString(),
+                "500",longi.get().toString(),userMiles.get().toString(),"1",search)
+        }
 
         Log.e("Dash_Board_Input===",dataObject.toString())
         Log.e("SDAMILES",
@@ -349,7 +369,7 @@ class DashBoardVM @Inject constructor(
 
                                         when (type) {
                                             "dashItemClick" -> {
-
+Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
                                                 val isDashBoard = Bundle()
                                                 isDashBoard.putString("comingFrom", "isDashBoard")
 
@@ -440,7 +460,7 @@ class DashBoardVM @Inject constructor(
         Log.d("distanceCalqwer", distanceCal.get().toString())
 //        distanceCal.set(distance.get().toString())
 
-        userMiles.set(distance.get().toString().split(".")[0])
+       // userMiles.set(distance.get().toString().split(".")[0])
 
 
     }

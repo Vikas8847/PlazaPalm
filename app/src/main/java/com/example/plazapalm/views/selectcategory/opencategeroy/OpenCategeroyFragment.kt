@@ -45,13 +45,8 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         binding = FragmentOpenCategeroyBinding.inflate(inflater, container, false)
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
 
-
-
         return binding?.root
-
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -152,7 +147,11 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                         viewmodel.longitude.set(list[0].longitude!!)
 
                       //  viewmodel.name.set(list[0].countryName)
-                        viewmodel.address.set(list[0].countryName)
+                      // viewmodel.address.set(list[0].countryName)
+                        viewmodel.address.set(list[0].getAddressLine(0))
+
+                        pref.storeLatlong(Constants.CURRENT_LOCATION_LAT,viewmodel.latitude.get().toFloat())
+                        pref.storeLatlong(Constants.CURRENT_LOCATION_LONG,viewmodel.longitude.get().toFloat())
 
                         getdata()
                         Log.e("countryName", "" + list[0].locality + "" + list[0].countryName + "XCXCX" +

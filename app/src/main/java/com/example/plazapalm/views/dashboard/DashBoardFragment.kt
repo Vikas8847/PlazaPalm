@@ -89,7 +89,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         {
             viewModel.lati.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble())
             viewModel.longi.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
-            viewModel.getProfileByCategory("", true)
+            viewModel.getProfileByCategory("", true,"")
         }
 
         getlocalData()
@@ -278,7 +278,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     viewModel.lati.set(arguments?.getDouble("latitude")!!)
                     viewModel.longi.set(arguments?.getDouble("longitude")!!)
 
-                    viewModel.getProfileByCategory("", true)
+                    viewModel.getProfileByCategory("", true,"")
 
                 }
 
@@ -309,7 +309,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     }
                     viewModel.lati.set(arguments?.getDouble("Filterlatitude")!!)
                     viewModel.longi.set(arguments?.getDouble("Filterlongitude")!!)
-                    viewModel.getProfileByCategory("", true)
+                    viewModel.getProfileByCategory("", true,"")
                 }
 
                 arguments?.getStringArrayList("FromLoginScreenCategoriesIds") != null -> {
@@ -355,7 +355,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
 
                     Log.e("DDDDWoij", viewModel.idList.toString())
-                    viewModel.getProfileByCategory("", true)
+                    viewModel.getProfileByCategory("", true,"")
                 }
 
                 arguments?.getString("fromOpencate") != null -> {
@@ -398,11 +398,11 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                     Log.e(
                         "LATLANGG",
-                        viewModel.lati
+                        viewModel.lati.get()
                             .toString() + "  <<<--- Longiii ---->>>  " +
-                                viewModel.longi + " CIdd--- " + c_id
+                                viewModel.longi.get() + " CIdd--- " + c_id
                     )
-                    viewModel.getProfileByCategory("", true)
+                    viewModel.getProfileByCategory("", true,c_id!!)
                 }
 
                 arguments?.getString("comingFromIsfilter") != null -> {
@@ -457,7 +457,10 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         val state = addresses[0].adminArea
                         val country = addresses[0].countryName
 
+
                         pref.storeLocation(city)
+
+                        pref.storeFilterLocation(city)
 
                         Log.e("addresSSe",city)
 //                        pref.retrieveLocation

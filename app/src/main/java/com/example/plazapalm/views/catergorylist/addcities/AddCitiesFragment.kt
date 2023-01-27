@@ -121,8 +121,9 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
         mMap.clear()
 //        getLastLocation()
 
-        if (arguments?.getString("PostProfile") != null && arguments?.getString("PostProfile")
-                .equals("postProfile")
+        if (arguments?.getString("PostProfile") != null
+            && (arguments?.getString("PostProfile").equals("postProfile")
+            || arguments?.getString("PostProfile").equals("open_cat_screen"))
         ) {
 
             var lat = requireArguments().getString("lat")
@@ -407,12 +408,22 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
         }
 
         binding?.btAdd?.setOnClickListener {
-            if (arguments?.getString("PostProfile") != null && arguments?.getString("PostProfile")
-                    .equals("postProfile")
+            if (arguments?.getString("PostProfile") != null
+                && (arguments?.getString("PostProfile").equals("postProfile")
+                || arguments?.getString("PostProfile").equals("open_cat_screen"))
             ) {
                 Currentlongi = originLatng?.longitude!!
                 Currentlati = originLatng?.latitude!!
                 currentaddress = addressLocation!!
+
+                if(arguments?.getString("PostProfile").equals("open_cat_screen"))
+                {
+                    pref.storeLatlong(Constants.FILTER_SCREEN_LONG,
+                        originLatng?.longitude!!.toFloat())
+                    pref.storeLatlong(Constants.FILTER_SCREEN_LAT,
+                        originLatng?.latitude!!.toFloat())
+                    pref.storeFilterLocation(currentaddress)
+                }
             } else {
                 if (originLatng != null) {
                     Currentlongi = originLatng?.longitude!!
