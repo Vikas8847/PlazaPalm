@@ -61,12 +61,6 @@ class ViewPostProfileAdapter(
             position: Int,
         ) {
 
-            if (!(photos[position].Desc.toString().trim().equals(""))) {
-                bindining.clVEditProDescription.visibility = View.VISIBLE
-            } else {
-                bindining.clVEditProDescription.visibility = View.GONE
-            }
-
             var fontColor = "#000000"
             var borderColor = "#C3C3C3"
             var columnColor = "#FFFFFFFF"
@@ -101,37 +95,29 @@ class ViewPostProfileAdapter(
                 setbackground(bindining.clVEditProDescription, columnColor, borSiz, borderColor)
             }
 
-//            if ((photos[position].borderSiz!=0)) {
-//                borSiz = photos[position].borderSiz!!
-//                setbackground(bindining.clVEditProDescription, columnColor, borSiz, borderColor)
-//            } else {
-//                setbackground(bindining.clVEditProDescription, columnColor, borSiz, borderColor)
-//            }
+            if(!(photos.get(position).Image!!.equals(""))) {
+                if (photos.get(position).Image!!.contains(".png") || photos.get(position).Image!!.contains(
+                        ".jpg") || photos.get(position).Image!!.contains(".jpeg")
+                ) {
+                    Log.e("Media_Valueeeeee===", photos.get(position).Image!!)
+                    Glide.with(context).load(IMAGE_LOAD_URL + photos.get(position).Image)
+                        .into(bindining.ivFavOfDesc1Img)
+                    bindining.videoViewDetail.visibility = View.GONE
+                    bindining.ivVideoIcon.visibility = View.GONE
+                    bindining.vPlayer1.visibility = View.GONE
 
+                    bindining.ivFavOfDesc1Img.visibility = View.VISIBLE
+                    bindining.ivFavOfDesc1.visibility = View.VISIBLE
+                } else {
+                    bindining.videoViewDetail.visibility = View.VISIBLE
+                    bindining.ivVideoIcon.visibility = View.VISIBLE
+                    bindining.vPlayer1.visibility = View.VISIBLE
 
-//            bindining.etVEditProDescription.setTextSize(photos[position].fontSize)
-
-            if (photos.get(position).Image!!.contains(".png") || photos.get(position).Image!!.contains(
-                    ".jpg") || photos.get(position).Image!!.contains(".jpeg")
-            ) {
-                Log.e("Media_Valueeeeee===", photos.get(position).Image!!)
-                Glide.with(context).load(IMAGE_LOAD_URL + photos.get(position).Image)
-                    .into(bindining.ivFavOfDesc1Img)
-                bindining.videoViewDetail.visibility = View.GONE
-                bindining.ivVideoIcon.visibility = View.GONE
-                bindining.vPlayer1.visibility = View.GONE
-
-                bindining.ivFavOfDesc1Img.visibility = View.VISIBLE
-                bindining.ivFavOfDesc1.visibility = View.VISIBLE
-            } else {
-                bindining.videoViewDetail.visibility = View.VISIBLE
-                bindining.ivVideoIcon.visibility = View.VISIBLE
-                bindining.vPlayer1.visibility = View.VISIBLE
-
-                bindining.ivFavOfDesc1Img.visibility = View.GONE
-                bindining.ivFavOfDesc1.visibility = View.GONE
-Log.e("gkdegmgeggswg====",IMAGE_LOAD_URL + photos.get(position).Image.toString())
-                /*try {
+                    bindining.ivFavOfDesc1Img.visibility = View.GONE
+                    bindining.ivFavOfDesc1.visibility = View.GONE
+                    Log.e("gkdegmgeggswg====",
+                        IMAGE_LOAD_URL + photos.get(position).Image.toString())
+                    /*try {
                     setVideoPlayerMethod(bindining.videoViewDetail,
                         IMAGE_LOAD_URL + photos.get(position).Image,
                         bindining.ivVideoIcon,
@@ -141,8 +127,24 @@ Log.e("gkdegmgeggswg====",IMAGE_LOAD_URL + photos.get(position).Image.toString()
                 {
 
                 }*/
+                }
+            }else
+            {
+                bindining.ivFavOfDesc1Img.visibility = View.GONE
+                bindining.ivFavOfDesc1.visibility = View.GONE
+
+                bindining.videoViewDetail.visibility = View.GONE
+                bindining.ivVideoIcon.visibility = View.GONE
+                bindining.vPlayer1.visibility = View.GONE
+            }
+            if (!(photos[position].Desc.toString().trim().equals(""))) {
+                bindining.clVEditProDescription.visibility = View.VISIBLE
+            } else {
+                bindining.clVEditProDescription.visibility = View.GONE
             }
         }
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

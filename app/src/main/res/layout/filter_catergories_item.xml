@@ -17,7 +17,6 @@
         app:dragEdge="right"
         app:mode="same_level">
 
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="100dp"
             android:layout_height="match_parent"

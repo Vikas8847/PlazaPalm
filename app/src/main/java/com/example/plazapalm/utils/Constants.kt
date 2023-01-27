@@ -123,4 +123,6 @@ var FILTER_SCREEN_ADDRESS:String="filter_screen_address"
 
 var CURRENT_LOCATION_LAT:String="current_location_lat"
 var CURRENT_LOCATION_LONG:String="current_location_long"
+    var TEMP_LATVALUE:Double?=0.0
+    var TEMP_LONGVALUE:Double?=0.0
 }

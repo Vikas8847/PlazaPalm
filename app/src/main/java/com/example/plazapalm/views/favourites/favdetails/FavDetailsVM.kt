@@ -12,6 +12,7 @@ import android.view.Window
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.databinding.ObservableParcelable
@@ -91,6 +92,7 @@ class FavDetailsVM @Inject constructor(
     var tvFavouriteCountValue = ObservableField("0")
     var tvAllowBooking = ObservableBoolean(false)
     var checkFavouriteShow = ObservableInt()
+    var distanceValue = ObservableField("")
 
     /** Advance setting */
     val backgroundColor = MutableLiveData<Any>()
@@ -182,13 +184,19 @@ class FavDetailsVM @Inject constructor(
 
             R.id.ivFavDetailsOptions -> {
 
-                if (CommingFrom.get().equals("isFavorite")) {
+              /*  if (CommingFrom.get().equals("isFavorite")) {
                     showFavDetailsDialog(view, isFav.get())
                 } else if (CommingFrom.get().equals("isDashBoard")) {
                     showFavDetailsDialog(view, isFav.get())
 
                 } else if (CommingFrom.get().equals("isViewProfile")) {
                     showViewProfileDialog(view)
+                }*/
+                if (loginUserPId.get().toString().equals(p_id.get().toString())) {
+                    showViewProfileDialog(view)
+                }else
+                {
+                    showFavDetailsDialog(view, isFav.get())
                 }
             }
 

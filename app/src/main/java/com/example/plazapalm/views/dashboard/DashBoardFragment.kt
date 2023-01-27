@@ -8,6 +8,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.DashBoardFragmentBinding
@@ -27,6 +29,7 @@ import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.Constants.SELECTED_CATEGORY_ID
+import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
@@ -65,7 +68,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
 
-
         if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0 &&  pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble()!=0.0 ) {
                     /*   pref.storeLatlong("longi", pref.retvieLatlong("lati").toDouble().toFloat())
             pref.storeLatlong("lati", pref.retvieLatlong("longi").toDouble().toFloat())*/
@@ -94,8 +96,52 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
         getlocalData()
         viewModel.getProfile()
+
+
+viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer {
+    var data =it as Boolean
+    Handler().postDelayed(object : Runnable {
+        override fun run() {
+            if(data) {
+                if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey("link_share_pid")
+                        .equals(""))
+                ) {
+                    Log.e("Profile_API_HIT===","1111")
+                    openDirectProfileDetail(pref.retrieveKey("link_share_pid")!!, 0.0, 0.0)
+                } else {
+                    Log.e("Share_PID=====", pref.retrieveKey("link_share_pid").toString())
+                }
+            }
+        }
+    },1000)
+
+})
+
        // viewModel.getProfileByCategory("", true)
     }
+
+    fun openDirectProfileDetail(postId:String,lati:Double,longi:Double)
+    {
+        val isDashBoard = Bundle()
+        isDashBoard.putString("comingFrom", "isDashBoard")
+        isDashBoard.putString(
+            "DashBoardPostId",
+            postId
+        )
+        isDashBoard.putDouble(
+            "DashBoardPostLatitude",
+            lati
+        )
+        isDashBoard.putDouble(
+            "DashBoardPostLongitude",
+            longi
+        )
+        findNavController().navigate(R.id.action_dashBoardFragment_to_favDetailsFragment,
+            isDashBoard)
+
+        pref.storeKey("link_share_pid","")
+    }
+
 
     private fun getlocalData() {
         Log.e("asdsdasdasdasd",pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
@@ -446,6 +492,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         viewModel.lati.set(location.latitude)
                         viewModel.longi.set(location.longitude)
 
+                        //for Filter lat long
                         pref.storeLatlong(Constants.FILTER_SCREEN_LONG, location.longitude.toFloat())
                         pref.storeLatlong(Constants.FILTER_SCREEN_LAT, location.latitude.toFloat())
                         Log.e("Current_Location==",viewModel.lati.get().toString())
@@ -456,6 +503,10 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         val city = addresses[0].locality
                         val state = addresses[0].adminArea
                         val country = addresses[0].countryName
+
+                        //for current lat long
+                        pref.storeLatlong("lati",location.latitude.toFloat())
+                        pref.storeLatlong("longi",location.longitude.toFloat())
 
 
                         pref.storeLocation(city)
@@ -502,6 +553,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
             getLastLocation()
             Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
         }
-    }
 
+
+    }
 }

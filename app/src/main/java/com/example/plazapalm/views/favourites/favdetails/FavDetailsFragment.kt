@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +30,7 @@ import com.example.plazapalm.models.*
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.recycleradapter.ViewPostProfileAdapter
+import com.example.plazapalm.utils.BindingAdapters
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.setVideoPlayMethod
@@ -232,6 +234,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         binding!!.btnBookingProfile.visibility = View.GONE
                     }
 
+                    getPostprofile(data.get(pos).p_id!!, data.get(pos).lat!!, data.get(pos).long!!)
 
 
                     Log.e(
@@ -350,6 +353,40 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         Log.e("KJHEMMDADDAS", imageList.toString())
         viewModel.data_list = imageList
 
+        var postData = postData(
+            data.get(pos).p_id,
+            data.get(pos).address,
+            data.get(pos).booking_status,
+            data.get(pos).c_id,
+            data.get(pos).category_name,
+            dark_theme = false,
+            data.get(pos).description_1,
+            data.get(pos).description_2,
+            data.get(pos).description_3, 0,
+            data.get(pos).distance,
+            data.get(pos).expiry_date,
+            data.get(pos).favouriteCount,
+            data.get(pos).first_name,
+            false,
+            0,
+            false,
+            false,
+            isFavourite = false,
+            isLiked = false,
+            data.get(pos).isPremium,
+            data.get(pos).last_name,
+            data.get(pos).lat,
+            data.get(pos).favouriteCount,
+            null, false,
+            data.get(pos).location_text,
+            data.get(pos).long,
+            data.get(pos).postProfile_picture,
+            data.get(pos).profile_title,
+            data.get(pos).tags,
+            data.get(pos)._id,
+            data.get(pos).user_name
+        )
+        viewModel.userdata.set(postData)
 
         /* if(image.get(0).contains(".png")
              || image.get(0).contains(".jpg")
@@ -376,6 +413,50 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         setAdapter(image, dscList)
 
         Log.e("fkqwfrkwqkfqwff===", data.get(pos)._id.toString())
+
+        calculateDistance(binding!!.tvFavDetailsDistance,
+            data.get(pos).lat!!,
+            data.get(pos).long!!,
+            Constants.TEMP_LATVALUE!!,
+            Constants.TEMP_LONGVALUE!!)
+
+    }
+
+    //Calculate distance between two location
+    fun calculateDistance(
+        destinationTV: TextView,
+        destinationLat: Double,
+        destinationLong: Double,
+        currentLat: Double,
+        currentLong: Double,
+    ) {
+        Log.e("egmhamgasg===", Constants.TEMP_LATVALUE!!.toString())
+        Log.e("egmhamgasg111===", Constants.TEMP_LONGVALUE!!.toString())
+        val latLngA =
+            LatLng(Constants.TEMP_LATVALUE!!.toDouble(), Constants.TEMP_LONGVALUE!!.toDouble())
+        // val latLngB = LatLng(destLat, destLong)
+        val latLngB = LatLng(destinationLat, destinationLong)
+        val locationA = Location("Point A")
+        locationA.latitude = latLngA.latitude
+        locationA.longitude = latLngA.longitude
+
+        val locationB = Location("Point B")
+        locationB.latitude = latLngB.latitude
+        locationB.longitude = latLngB.longitude
+
+        Log.e("ABCDDDDDDD==", locationA.toString())
+        Log.e("ABCDDDDDDD1111==", locationB.toString())
+        var distance = locationA.distanceTo(locationB).toDouble().toString()
+
+        var milesValues = BindingAdapters.metersToMiles(distance.toDouble())
+        var finalMilesDiatance = ""
+        if (milesValues.toString().contains(".")) {
+            finalMilesDiatance = milesValues.toString().split(".")[0] + " miles"
+        } else {
+            finalMilesDiatance = milesValues.toString() + " miles"
+        }
+        Log.e("ABCDDDDDDD444==", finalMilesDiatance.toString())
+        viewModel.distanceValue.set(finalMilesDiatance)
     }
 
 
@@ -443,6 +524,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                             )
                         )
 
+                        //for current lat long
+                        pref.storeLatlong("lati",location.latitude.toFloat())
+                        pref.storeLatlong("longi",location.longitude.toFloat())
+
                         /* mMap.addMarker(MarkerOptions().position(latLng)
                                  .title("Your Destination is Here ")
                                  .snippet("Destination Description")
@@ -493,7 +578,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
     private fun getPostprofile(p_id: String, lati: Double, longi: Double) {
 
-        Log.e("KKKKAAALLLL", p_id + " PID " + lati + " LAT  " + longi + " LONG ")
+        Log.e("KKKKAAALLLL", p_id + " PID " + pref.retvieLatlong("lati").toFloat() + " LAT  " + pref.retvieLatlong("longi").toFloat() + " LONG ")
 
         repository.makeCall(
             ApiEnums.GET_POST_PROFILE,
@@ -551,12 +636,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 }
 
                                 if (viewModel.isFav.get()) {
-                                    Glide.with(CommonMethods.context)
+                                    Glide.with(requireActivity())
                                         .load(R.drawable.ic_heart_filled_icon)
                                         .into(binding!!.ivFavDetailsFilledHeart)
                                     viewModel.isFav.set(false)
                                 } else {
-                                    Glide.with(CommonMethods.context)
+                                    Glide.with(requireActivity())
                                         .load(R.drawable.ic_heart_icon)
                                         .into(binding!!.ivFavDetailsFilledHeart)
                                     viewModel.isFav.set(true)
@@ -607,6 +692,13 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 setFirstMediaMethod(res.body()!!.data.postProfile_picture!!.get(0)
                                     .toString())
 
+                                calculateDistance(binding!!.tvFavDetailsDistance,
+                                    res.body()!!.data.lat!!,
+                                    res.body()!!.data.long!!,
+                                    Constants.TEMP_LATVALUE!!,
+                                    Constants.TEMP_LONGVALUE!!)
+
+
                                 /*   if (res.body()!!.data.postProfile_picture != null && !(res.body()!!.data.postProfile_picture!!.isEmpty())) {
                                        Glide.with(requireActivity())
                                            .load(
@@ -642,15 +734,15 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                             } else {
                                 binding?.displayBack?.visibility = View.GONE
-                                CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
+                                CommonMethods.showToast(requireActivity(), res.body()!!.message)
                             }
                         } else {
                             binding?.displayBack?.visibility = View.GONE
-                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
+                            CommonMethods.showToast(requireActivity(), res.body()!!.message)
                         }
                     } else {
                         binding?.displayBack?.visibility = View.GONE
-                        CommonMethods.showToast(CommonMethods.context, res.message())
+                        CommonMethods.showToast(requireActivity(), res.message())
                     }
                 }
 
@@ -686,24 +778,46 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     private fun setAdapter(data: ArrayList<String>, dscList: ArrayList<String>) {
 
         var dataList = ArrayList<AddImageDescriptionPOJO>()
+        dataList.clear()
+        var listSize = 0
+        if (data.size - 1 >= dscList.size) {
+            listSize = data.size
+        } else {
+            listSize = dscList.size + 1
+        }
 
-        for (item in 1 until data.size) {
+        Log.e("Size_Of_List====", listSize.toString())
+        for (item in 1 until listSize) {
             var nameDes = ""
             if (item == 1) {
-                nameDes = dscList[0]
+                if (dscList[0] != null) {
+                    nameDes = dscList[0]
+                } else {
+                    nameDes = ""
+                }
             } else
                 if (item == 2) {
                     nameDes = dscList[1]
                 } else
-                    if (item == data.size - 1) {
+                    if (item == listSize - 1) {
                         nameDes = dscList[2]
                     } else {
                         nameDes = ""
                     }
 
+            var photoUrl = ""
+            try {
+                if (data[item] != null) {
+                    photoUrl = data[item].toString()
+                } else {
+                    photoUrl = ""
+                }
+            } catch (e: Exception) {
+                photoUrl = ""
+            }
             dataList.add(
                 AddImageDescriptionPOJO(
-                    data[item].toString(),
+                    photoUrl,
                     nameDes,
                     "",
                     viewModel.fontViewColor.get().toString(),
@@ -724,7 +838,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         requireActivity().windowManager.defaultDisplay.getMetrics(metrics)
         //val params = videoView.layoutParams as LinearLayout.LayoutParams
         //params.width = metrics.widthPixels
-
+        Log.e("Updated_List_Size===", dataList.size.toString())
         val addapter = ViewPostProfileAdapter(requireActivity(), dataList, metrics.widthPixels)
         binding?.rvImages?.adapter = addapter
         binding?.rvImages?.adapter?.notifyDataSetChanged()
@@ -924,13 +1038,13 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                         } else {
                             CommonMethods.showToast(
-                                CommonMethods.context,
+                                requireActivity(),
                                 res.body()!!.data.toString()
                             )
                         }
 
                     } else {
-                        CommonMethods.showToast(CommonMethods.context, res.message())
+                        CommonMethods.showToast(requireActivity(), res.message())
                     }
 
                 }

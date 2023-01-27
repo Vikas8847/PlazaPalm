@@ -25,6 +25,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.plazapalm.databinding.ActivityMainBinding
+import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.onNavDestinationSelected
@@ -37,12 +38,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.branch.referral.Branch
 import java.lang.ref.WeakReference
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private val mainVM: MainVM? = null
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
-
+    @Inject
+    lateinit var pref: PreferenceFile
     private var navController: NavController? = null
     companion object {
         // var navListener: NavigationListener? = null
@@ -81,7 +84,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun setUpNav() {
         navController = findNavController(R.id.fragmentMain)
+       // navController!!.setGraph(navController!!.graph,Bundle())
         binding?.bottNavMain?.setOnNavigationItemSelectedListener(this)
+     //   navController?.navigate(R.id.dashBoardFragment)
         navController?.addOnDestinationChangedListener {
                 _, destination, _ ->
 
@@ -94,7 +99,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 Log.e("gmslgsgsgs22====","wgwgqwgewg")
             }
         }
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -184,6 +188,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         Branch.sessionBuilder(this).withCallback { branchUniversalObject, linkProperties, error ->
             if (error != null) {
                 Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.message)
+
             } else {
                 Log.e("BranchSDK_Tester", "branch init complete!")
                 if (branchUniversalObject != null) {
@@ -194,6 +199,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     var dataObject=branchUniversalObject.contentMetadata.convertToJson()
                     var deeplink_path= dataObject.getString("deeplink_path")
                     //Toast.makeText(this,deeplink_path,Toast.LENGTH_LONG).show()
+
+                    pref.storeKey("link_share_pid",deeplink_path)
+                   // setUpNav()
                 }
                 if (linkProperties != null) {
                     Log.e("BranchSDK_Tester", "Channel " + linkProperties.channel)

@@ -153,6 +153,12 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                         pref.storeLatlong(Constants.CURRENT_LOCATION_LAT,viewmodel.latitude.get().toFloat())
                         pref.storeLatlong(Constants.CURRENT_LOCATION_LONG,viewmodel.longitude.get().toFloat())
 
+
+                        //for current lat long
+                        pref.storeLatlong("lati",location.latitude.toFloat())
+                        pref.storeLatlong("longi",location.longitude.toFloat())
+
+
                         getdata()
                         Log.e("countryName", "" + list[0].locality + "" + list[0].countryName + "XCXCX" +
                                 list[0].latitude + "LATTTTT " + list[0].longitude)

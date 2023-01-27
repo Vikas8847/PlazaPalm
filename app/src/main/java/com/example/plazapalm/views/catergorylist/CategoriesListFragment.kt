@@ -361,6 +361,11 @@ Log.e("fmvsladmvsdav===",location_value.toString())
                         pref.storeLatlong(Constants.CURRENT_LOCATION_LAT,viewmodel.latitude.get().toFloat())
                         pref.storeLatlong(Constants.CURRENT_LOCATION_LONG,viewmodel.longitude.get().toFloat())
 
+
+                        //for current lat long
+                        pref.storeLatlong("lati",location.latitude.toFloat())
+                        pref.storeLatlong("longi",location.longitude.toFloat())
+
                         //pref.storeLatlong("lati", viewmodel.latitude.get().toFloat())
                        // pref.storeLatlong("longi", viewmodel.longitude.get().toFloat())
 

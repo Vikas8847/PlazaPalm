@@ -180,8 +180,8 @@
                         android:layout_width="@dimen/_200sdp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_12sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
                         android:fontFamily="@font/inter_medium"
                         android:singleLine="true"
                         android:text="@={vm.tvFavDetailsAddress}"
@@ -195,16 +195,17 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_12sdp"
-                        android:layout_marginTop="@dimen/_48sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
                         android:layout_marginEnd="@dimen/_12sdp"
                         android:fontFamily="@font/inter_medium"
                         android:singleLine="true"
                         android:text="@{vm.tvFavCityAddress}"
                         android:textColor="@color/white"
                         android:textSize="13sp"
-                        app:layout_constraintBottom_toBottomOf="@id/bottom_view"
+
                         app:layout_constraintBottom_toTopOf="@id/tvFavDetailsAddress"
-                       app:layout_constraintEnd_toStartOf="@+id/tvFavDetailsDistance"
+                        app:layout_constraintEnd_toStartOf="@+id/tvFavDetailsDistance"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -212,15 +213,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_78sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
                         android:layout_marginEnd="@dimen/_12sdp"
                         android:fontFamily="@font/inter_medium"
-                        android:text="@string/_25_miles"
+                        android:text="@{vm.distanceValue}"
                         android:textColor="@color/white"
                         android:textSize="13sp"
-                        app:layout_constraintBottom_toBottomOf="@id/bottom_view"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/bottom_view" />
+                        />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

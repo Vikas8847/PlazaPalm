@@ -5,7 +5,6 @@ import android.graphics.Typeface
 import android.location.Location
 import android.media.MediaPlayer
 import android.os.Build
-import android.os.Handler
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
@@ -42,7 +41,7 @@ object BindingAdapters {
     @JvmStatic
     fun setRecyclerAdapter(
         recyclerView: RecyclerView,
-        adapter: RecyclerView.Adapter<*>
+        adapter: RecyclerView.Adapter<*>,
     ) {
         recyclerView.adapter = adapter
     }
@@ -79,7 +78,7 @@ object BindingAdapters {
     fun setViewPagerAdapter(
         vp: ViewPager,
         adapter: PagerAdapter,
-        circleDotIndicator: CircleIndicator
+        circleDotIndicator: CircleIndicator,
     ) {
         vp.adapter = adapter
         circleDotIndicator.setViewPager(vp)
@@ -89,7 +88,7 @@ object BindingAdapters {
     @JvmStatic
     fun addScrollListener(
         recyclerView: RecyclerView,
-        listener: RecyclerView.OnScrollListener
+        listener: RecyclerView.OnScrollListener,
     ) {
         recyclerView.addOnScrollListener(listener)
     }
@@ -107,7 +106,7 @@ object BindingAdapters {
     @JvmStatic
     fun bottomNavigationListener(
         bottomNavigationView: BottomNavigationView,
-        listener: BottomNavigationView.OnNavigationItemSelectedListener
+        listener: BottomNavigationView.OnNavigationItemSelectedListener,
     ) {
         bottomNavigationView.setOnNavigationItemSelectedListener(listener)
     }
@@ -117,7 +116,7 @@ object BindingAdapters {
     @JvmStatic
     fun setColorOfText(
         textView: TextView,
-        color: Int
+        color: Int,
     ) {
         textView.setTextColor(textView.context.getColor(color))
     }
@@ -127,7 +126,7 @@ object BindingAdapters {
     @JvmStatic
     fun setText(
         textView: TextView,
-        value: String
+        value: String,
     ) {
         val split = value.split("T")
         val date = split?.get(0)
@@ -140,7 +139,7 @@ object BindingAdapters {
     @JvmStatic
     fun setTextVisibilty(
         textView: TextView,
-        value: String
+        value: String,
     ) {
 
         if (value.equals(true)) {
@@ -157,7 +156,7 @@ object BindingAdapters {
     @JvmStatic
     fun onCheckChange(
         compoundButton: CompoundButton,
-        listener: CompoundButton.OnCheckedChangeListener
+        listener: CompoundButton.OnCheckedChangeListener,
     ) {
         compoundButton.setOnCheckedChangeListener(listener)
     }
@@ -167,7 +166,7 @@ object BindingAdapters {
     @JvmStatic
     fun setCircleImage(
         circleImage: CircleImageView,
-        imageUrl: String?
+        imageUrl: String?,
     ) {
         Log.e("VVVVV", IMAGE_LOAD_URL + imageUrl)
         if (imageUrl != null) {
@@ -185,7 +184,7 @@ object BindingAdapters {
     @JvmStatic
     fun setDrawable(
         imageView: ImageView,
-        drawable: Int
+        drawable: Int,
     ) {
         imageView.setImageResource(drawable)
     }
@@ -194,7 +193,7 @@ object BindingAdapters {
     @JvmStatic
     fun setBackground(
         view: View,
-        drawable: Int
+        drawable: Int,
     ) {
 
         view.background = ContextCompat.getDrawable(view.context, drawable)
@@ -205,7 +204,7 @@ object BindingAdapters {
     @JvmStatic
     fun setCalndarBackground(
         view: androidx.constraintlayout.widget.ConstraintLayout,
-        bookingStatus: String
+        bookingStatus: String,
     ) {
         if (bookingStatus.equals("pending")) {
             Log.e("SDSD", "sdwwwwwwa")
@@ -225,7 +224,7 @@ object BindingAdapters {
 
     fun radioGroupListener(
         view: RadioGroup,
-        listener: RadioGroup.OnCheckedChangeListener
+        listener: RadioGroup.OnCheckedChangeListener,
     ) {
         view.setOnCheckedChangeListener(listener)
     }
@@ -234,7 +233,7 @@ object BindingAdapters {
     @JvmStatic
     fun addTextWatcher(
         view: EditText,
-        listener: TextWatcher
+        listener: TextWatcher,
     ) {
         view.addTextChangedListener(listener)
     }
@@ -243,7 +242,7 @@ object BindingAdapters {
     @JvmStatic
     fun setImage(
         shapeableImageView: ImageView,
-        imageUrl: String?
+        imageUrl: String?,
     ) {
         if (imageUrl != null) {
             Glide.with(CommonMethods.context)
@@ -259,7 +258,7 @@ object BindingAdapters {
     @BindingAdapter(value = ["setHeartImage"], requireAll = false)
     @JvmStatic
     fun setHeartImage(
-        heartImage: AppCompatImageView, imageUrl: String?
+        heartImage: AppCompatImageView, imageUrl: String?,
     ) {
 
         if (imageUrl != null) {
@@ -279,7 +278,7 @@ object BindingAdapters {
         viewPager: ViewPager,
         adapter: PagerAdapter?,
         tabLayout: TabLayout?,
-        indicator: CircleIndicator?
+        indicator: CircleIndicator?,
     ) {
         if (adapter != null) {
             viewPager.adapter = adapter
@@ -303,7 +302,7 @@ object BindingAdapters {
     @BindingAdapter(value = ["setVideoImage"], requireAll = false)
     @JvmStatic
     fun setVideoImage(
-        videoView: VideoView, imageUrl: String?
+        videoView: VideoView, imageUrl: String?,
     ) {
         var position = 0
         if (imageUrl != null) {
@@ -394,7 +393,7 @@ object BindingAdapters {
     @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
     @JvmStatic
     fun calculateLatLngToMiles(
-        destinationTV: TextView, distacneValue: Double
+        destinationTV: TextView, distacneValue: Double,
     ) {
         destinationTV.text=distacneValue.toString().split(".")[0]+" miles"
         Log.e("dmfledmfdf===",distacneValue.toString())
@@ -402,20 +401,30 @@ object BindingAdapters {
 
 
 
-    @BindingAdapter(value = ["calculateDistance","destinationLat","destinationLong"], requireAll = false)
+    @BindingAdapter(value = ["calculateDistance","destinationLat","destinationLong",
+                            "currentLat","currentLong"], requireAll = false)
     @JvmStatic
     fun calculateDistance(
-        destinationTV: TextView, preferenceFile: String,destinationLat:Double,destinationLong:Double
+        destinationTV: TextView,
+        preferenceFile11: String,
+        destinationLat: Double,
+        destinationLong: Double,
+        currentLat:Double,
+        currentLong:Double
     ) {
 
-      //  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
-       // var currentLong=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()
+      /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
+        var currentLong=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()*/
 
-        var currentLat="30.7046".toDouble()
-        var currentLong="76.7179".toDouble()
-        Log.e("egmhamgasg===",currentLat.toString())
-        Log.e("egmhamgasg111===",currentLong.toString())
-        val latLngA = LatLng(currentLat.toDouble(), currentLong.toDouble())
+        //currentLat= Constants.TEMP_LATVALUE!!
+        //currentLong= Constants.TEMP_LONGVALUE!!
+
+
+        //var currentLat="30.7046".toDouble()
+        //var currentLong="76.7179".toDouble()
+        Log.e("egmhamgasg===",Constants.TEMP_LATVALUE!!.toString())
+        Log.e("egmhamgasg111===",Constants.TEMP_LONGVALUE!!.toString())
+        val latLngA = LatLng(Constants.TEMP_LATVALUE!!.toDouble(), Constants.TEMP_LONGVALUE!!.toDouble())
         // val latLngB = LatLng(destLat, destLong)
         val latLngB = LatLng(destinationLat, destinationLong)
         val locationA = Location("Point A")
@@ -430,8 +439,16 @@ object BindingAdapters {
         Log.e("ABCDDDDDDD1111==",locationB.toString())
         var distance = locationA.distanceTo(locationB).toDouble().toString()
 
-        destinationTV.text=distance.toString().split(".")[0]+" miles"
-        Log.e("ABCDDDDDDD2222==",distance.toString())
+      var milesValues= metersToMiles(distance.toDouble())
+        if(milesValues.toString().contains("."))
+        {
+            destinationTV.text=milesValues.toString().split(".")[0]+" miles"
+        }else
+        {
+            destinationTV.text=milesValues.toString()+" miles"
+        }
+
+        Log.e("ABCDDDDDDD2222==",milesValues.toString())
     }
 
 
@@ -439,8 +456,18 @@ object BindingAdapters {
     @JvmStatic
     fun setMiles(
         textView: AppCompatTextView,
-        value: String
+        value: String,
     ) {
         textView.text = value.split(".")[0] + " Miles"
+    }
+
+    const val METERS_IN_MILE = 1609.344
+
+    fun metersToMiles(meters: Double): Double {
+        return meters / METERS_IN_MILE
+    }
+
+    fun milesToMeters(miles: Double): Double {
+        return miles * METERS_IN_MILE
     }
 }
