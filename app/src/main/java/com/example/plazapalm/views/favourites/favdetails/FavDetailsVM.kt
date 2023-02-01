@@ -1,5 +1,6 @@
 package com.example.plazapalm.views.favourites.favdetails
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -47,7 +48,7 @@ class FavDetailsVM @Inject constructor(
     private var pref: PreferenceFile,
 ) : ViewModel() {
 
-    // private var tvRemoveFav=ObservableField("")
+    @SuppressLint("StaticFieldLeak")
     private var tvRemoveFav: AppCompatTextView? = null
 
     var uploadImagesList = ArrayList<ImagesVideosModel>()
@@ -56,7 +57,6 @@ class FavDetailsVM @Inject constructor(
 
     val videosAdapter by lazy { RecyclerAdapter<ImagesVideosModel>(R.layout.view_profile_videos_list) }
     var isFavourites = ObservableBoolean(false)
-    var isViewProfile = ObservableBoolean(false)
     var CommingFrom = ObservableField("")
     var p_id = ObservableField("")
     var u_ID = ObservableField("")
@@ -69,35 +69,27 @@ class FavDetailsVM @Inject constructor(
     var DisLikesCount = ObservableField("")
     var LikesCount = ObservableField("")
     var username = ObservableField("")
-    var addData = ObservableField("")
-    var fav_title = ObservableField("")
-
     var fontViewColor = ObservableField("")
     var columnViewColor = ObservableField("")
     var borderViewColor = ObservableField("")
-
     var etVEditProDescription = ObservableField("")
     var tvFavDetailsAddress = ObservableField("")
     var tvFavCityAddress = ObservableField("")
     var isFav = ObservableBoolean(false)
     var isLike = ObservableBoolean(false)
-    var isLikeDislike = ObservableBoolean(false)
     var isDisLike = ObservableBoolean(false)
     var data_list: ArrayList<AddPhoto>? = null
     var userdata = ObservableParcelable<postData?>()
     var dialog: Dialog? = null
     var deldialog: Dialog? = null
+    @SuppressLint("StaticFieldLeak")
     var reportText: TextView? = null
     var tvFavouriteCountValue = ObservableField("0")
     var tvAllowBooking = ObservableBoolean(false)
     var checkFavouriteShow = ObservableInt()
-
     /** Advance setting */
     val backgroundColor = MutableLiveData<Any>()
     val textColor = MutableLiveData<Any>()
-
-    init {
-    }
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -166,38 +158,36 @@ class FavDetailsVM @Inject constructor(
             }
             R.id.ivFavDetailsFilledHeart -> {
 
-                if (CommingFrom.get().equals("isFavorite")) {
-                    AddtoFavAPI(view, isFav.get(), "isFavorite")
+                if (CommingFrom.get().equals(Constants.isFavorite)) {
+                    AddtoFavAPI(view, isFav.get(), Constants.isFavorite)
 
-                } else if (CommingFrom.get().equals("isDashBoard")) {
+                } else if (CommingFrom.get().equals(Constants.isDashBoard)) {
 
-                    AddtoFavAPI(view, isFav.get(), "isDashBoard")
+                    AddtoFavAPI(view, isFav.get(), Constants.isDashBoard)
 
-                } else if (CommingFrom.get().equals("isViewProfile")) {
+                } else if (CommingFrom.get().equals(Constants.isViewProfile)) {
 
-                    AddtoFavAPI(view, isFav.get(), "addFav")
+                    AddtoFavAPI(view, isFav.get(), Constants.addFav)
                 }
 
             }
 
             R.id.ivFavDetailsOptions -> {
 
-                if (CommingFrom.get().equals("isFavorite")) {
+                if (CommingFrom.get().equals(Constants.isFavorite)) {
                     showFavDetailsDialog(view, isFav.get())
-                } else if (CommingFrom.get().equals("isDashBoard")) {
+                } else if (CommingFrom.get().equals(Constants.isFavorite)) {
                     showFavDetailsDialog(view, isFav.get())
 
-                } else if (CommingFrom.get().equals("isViewProfile")) {
+                } else if (CommingFrom.get().equals(Constants.isViewProfile)) {
                     showViewProfileDialog(view)
                 }
             }
 
             R.id.ivFavDetailsChats -> {
-                if (loginUserPId.get().toString().equals(p_id.get().toString())) {
-                    //Go to the Recent Message screen
+                if (loginUserPId.get().toString() == p_id.get().toString()) {
                     view.navigateWithId(R.id.messagesFragment)
                 } else {
-                    //Go to the Single Message screen
                     view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment)
                 }
             }
@@ -223,7 +213,6 @@ class FavDetailsVM @Inject constructor(
         var discount = DisLikesCount.get()!!.toInt()
 
 
-        //   Log.e("ADDDDDDD",)
         if (!likeButton && !dislikeButton) {
             if (buttonType == 1) {
                 isLike.set(true)
@@ -278,17 +267,7 @@ class FavDetailsVM @Inject constructor(
             likeOtherValue = false
             dislikeOtherValue = true
         }
-
-
         likeApi(likeOtherValue, dislikeOtherValue)
-
-
-        /* if (isLike.get() && isDisLike.get().equals(false)){
-             likeApi(true, false)
-         }else if (isLike.get().equals(false) && isDisLike.get().equals(true)){
-             likeApi(false, true)
-         }*/
-
     }
 
     // private fun likeApi(isLiked: Boolean, isDislike: Boolean, from: String, image: ImageView) {
@@ -309,7 +288,7 @@ class FavDetailsVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<LikesResPonse>) {
-                    if (res.isSuccessful || res != null) {
+                    if (true) {
                         if (res.body()!!.status == 200) {
 
                             dialog?.dismiss()
@@ -589,9 +568,7 @@ class FavDetailsVM @Inject constructor(
                 bundle.putString("lati", userdata.get()?.lat!!.toString())
                 bundle.putString("location_text", userdata.get()?.location_text)
                 bundle.putBoolean("booking_status", tvAllowBooking.get())
-
 //              var dataList : ArrayList<String> =  userdata.get()?.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
-
                 bundle.putParcelableArrayList("profile_Image", data_list)
 
                 Log.e(

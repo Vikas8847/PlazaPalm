@@ -230,20 +230,16 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 }
 
                 "isDashBoard" -> {
-
                     viewModel.CommingFrom.set("isDashBoard")
-
                     p_id = arguments?.getString("DashBoardPostId").toString()
                     lati = arguments?.getDouble("DashBoardPostLatitude")
                     longi = arguments?.getDouble("DashBoardPostLongitude")
                     viewModel.p_id.set(p_id)
-
                     getPostprofile(p_id!!, lati!!, longi!!)
 
                 }
 
                 "isViewProfile" -> {
-
 //                    val _p_id = arguments?.getString("P_ID")
                     viewModel.p_id.set(arguments?.getString("P_ID"))
                     viewModel.CommingFrom.set("isViewProfile")
@@ -260,13 +256,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 }
                 "isEditLook" -> {
                     /** isEditLook and isViewProfile is same no difference... */
-
                     viewModel.CommingFrom.set("isViewProfile")
                     binding!!.btnBookingProfile.visibility = View.GONE
                     //  viewModel.tvAllowBooking.set(false)
                     premiumAccount()
                     viewEditLook()
-
 
                     /*  viewModel.backgroundColor.observe(viewLifecycleOwner) {
                           if (!(it.equals("")) && it != null) {
@@ -320,19 +314,19 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         dscList.add(data.get(pos).description_2.toString())
         dscList.add(data.get(pos).description_3.toString())
 
-        viewModel.tvFavDetailsAddress.set(data.get(pos).address)
-        viewModel.tvFavCityAddress.set(data.get(pos).location_text)
+        viewModel.tvFavDetailsAddress.set(data[pos].address)
+        viewModel.tvFavCityAddress.set(data[pos].location_text)
 //        viewModel.fav_title.set(data.get(pos).user_name)
-        viewModel.username.set(data.get(pos).user_name)
-        viewModel.p_id.set(data.get(pos).p_id)
+        viewModel.username.set(data[pos].user_name)
+        viewModel.p_id.set(data[pos].p_id)
 
-        viewModel.userId.set(data.get(pos)._id)
+        viewModel.userId.set(data[pos]._id)
 
-        checkForMiles(data.get(pos)._id.toString())
+        checkForMiles(data[pos]._id.toString())
         val imageList = ArrayList<AddPhoto>()
 
         for (idx in 0 until image.size) {
-            imageList.add(AddPhoto(image[idx].toString(), true))
+            imageList.add(AddPhoto(image[idx], true))
         }
 
         Log.e("KJHEMMDADDAS", imageList.toString())
@@ -359,11 +353,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
              viewModel.checkFavouriteShow.set(1)
          }*/
 
-        setFirstMediaMethod(image.get(0))
+        setFirstMediaMethod(image[0])
 
         setAdapter(image, dscList)
 
-        Log.e("fkqwfrkwqkfqwff===", data.get(pos)._id.toString())
+        Log.e("fkqwfrkwqkfqwff===", data[pos]._id.toString())
     }
 
 
@@ -408,7 +402,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     }
 
     /** Get current location of user  */
-
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
         if (CommonMethods.checkPermissions()) {
@@ -424,19 +417,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         val markerOptions = MarkerOptions().position(CommonMethods.currentLocation)
                             .title("I am here! On Your Current Location")
                         mMap.animateCamera(CameraUpdateFactory.newLatLng(CommonMethods.currentLocation))
-                        mMap.animateCamera(
-                            CameraUpdateFactory.newLatLngZoom(
-                                CommonMethods.currentLocation,
-                                15F
-                            )
-                        )
-
-                        /* mMap.addMarker(MarkerOptions().position(latLng)
-                                 .title("Your Destination is Here ")
-                                 .snippet("Destination Description")
-                         )*/
-                        // addPolyGon()
-
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(CommonMethods.currentLocation, 15F))
                         mMap.isMyLocationEnabled = true
                         mMap.addMarker(markerOptions)
 
@@ -480,9 +461,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     /** GET POST PROFILE  API **/
 
     private fun getPostprofile(p_id: String, lati: Double, longi: Double) {
-
-        Log.e("KKKKAAALLLL", p_id + " PID " + lati + " LAT  " + longi + " LONG ")
-
+        val e = Log.e("KKKKAAALLLL", "$p_id PID $lati LAT  $longi LONG ")
         repository.makeCall(
             ApiEnums.GET_POST_PROFILE,
             loader = true,
@@ -492,11 +471,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetPostProfileResponse> {
                     return retrofitApi.getPostProfile(
-
                         pref.retrieveKey("token").toString(),
                         p_id,
-                        pref.retvieLatlong("lati").toFloat(),
-                        pref.retvieLatlong("longi").toFloat()
+                        pref.retvieLatlong("lati"),
+                        pref.retvieLatlong("longi")
                     )
                 }
 
@@ -554,21 +532,20 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 Log.e("mfkwefmfewfwfwwfwef====",
                                     viewModel.checkFavouriteShow.get().toString())
 
-                                dataList =
-                                    res.body()!!.data.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
+                                dataList = res.body()!!.data.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
 
-                                var newDataList = ArrayList<AddPhoto>()
+                                val newDataList = ArrayList<AddPhoto>()
                                 newDataList.clear()
 
                                 for (idx in 0 until dataList.size) {
 
-                                    if (dataList[idx].toString().contains(".jpg")
-                                        || dataList[idx].toString().contains(".jpeg")
-                                        || dataList[idx].toString().contains(".png")
+                                    if (dataList[idx].contains(".jpg")
+                                        || dataList[idx].contains(".jpeg")
+                                        || dataList[idx].contains(".png")
                                     ) {
-                                        newDataList.add(AddPhoto(dataList[idx].toString(), true, 1))
+                                        newDataList.add(AddPhoto(dataList[idx], true, 1))
                                     } else {
-                                        newDataList.add(AddPhoto(dataList[idx].toString(), true, 2))
+                                        newDataList.add(AddPhoto(dataList[idx], true, 2))
                                     }
                                 }
 
@@ -584,35 +561,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 dscList.add(res.body()!!.data.description_3.toString())
 
                                 /// set data
-
                                 binding!!.etVEditProDescription.text = dsc1
                                 binding!!.tvFavDetailsAddress.text = res.body()!!.data.address
                                 binding!!.tvFavDetails.text = res.body()!!.data.user_name
                                 viewModel.username.set(res.body()!!.data.user_name)
-
-
-
                                 setFirstMediaMethod(res.body()!!.data.postProfile_picture!!.get(0)
                                     .toString())
-
-                                /*   if (res.body()!!.data.postProfile_picture != null && !(res.body()!!.data.postProfile_picture!!.isEmpty())) {
-                                       Glide.with(requireActivity())
-                                           .load(
-                                               IMAGE_LOAD_URL + res.body()!!.data.postProfile_picture!!.get(
-                                                   0
-                                               )
-                                           ).placeholder(R.drawable.dash_board_items_bg)
-   //                                        .apply(RequestOptions().override(1200,1200))
-                                           .into(binding!!.ivFavDetails)
-                                   } else {
-
-                                       Glide.with(requireActivity())
-                                           .load(R.drawable.dash_board_items_bg)
-                                           .into(binding!!.ivFavDetails)
-                                   }
-   */
-
-
                                 checkForMiles(res.body()!!.data.user_id!!)
 
 
@@ -661,19 +615,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             binding!!.tvFavDetailsDistance.visibility = View.VISIBLE
         }
     }
-/*
-    @SuppressLint("NotifyDataSetChanged")
-    private fun setDashAdapter(data: ArrayList<String>, dsc1: String, dsc2: String, dsc3: String) {
-        binding?.rvImages?.layoutManager = LinearLayoutManager(requireContext())
-        val addapter = ViewPostProfileAdapter(requireActivity(), data, dsc2, dsc3, dsc1,)
-        binding?.rvImages?.adapter = addapter
-        binding?.rvImages?.adapter?.notifyDataSetChanged()
-    }
-*/
+
 
     private fun setAdapter(data: ArrayList<String>, dscList: ArrayList<String>) {
 
-        var dataList = ArrayList<AddImageDescriptionPOJO>()
+        val dataList = ArrayList<AddImageDescriptionPOJO>()
 
         for (item in 1 until data.size) {
             var nameDes = ""
@@ -736,9 +682,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     }
 
     private fun premiumAccount() {
-
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
-
             val p_Id = it?.data?.p_id
             loginUserId = it?.data?.user_id
 
@@ -811,67 +755,78 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     }
 
     /** View Edit Look Data **/
-
-    fun viewEditLook() {
+    @SuppressLint("LongLogTag")
+    private fun viewEditLook() {
         if (pref.retviecolorString(Constants.BACKGROUND_COLOR) != null) {
-            var backgroundColor = pref.retviecolorString(Constants.BACKGROUND_COLOR)
-            var data = backgroundColor as java.lang.String
 
-            binding?.mainToolBar?.setBackgroundColor(Color.parseColor(data.toString()))
-            binding?.mainConslayout?.setBackgroundColor(Color.parseColor(data.toString()))
+            try {
+                val backgroundColor = pref.retviecolorString(Constants.BACKGROUND_COLOR)
+                val data = backgroundColor as String
+                binding?.mainToolBar?.setBackgroundColor(Color.parseColor(data))
+                binding?.mainConslayout?.setBackgroundColor(Color.parseColor(data))
 //            viewModel.columnViewColor.set(backgroundColor!!)
 
-            Log.e("SSSSSSSSSqw1", backgroundColor.toString())
-
+                Log.e("SSSSSSSSSqw1", backgroundColor.toString())
+            }
+            catch (e:Exception){
+                Log.d("retviecolorStringExcep->",e.message.toString())
+            }
         }
+
+
         if (pref.retviecolorString(Constants.COLUMN_COLOR) != null) {
-            var columnColor = pref.retviecolorString(Constants.COLUMN_COLOR)
-            viewModel.columnViewColor.set(columnColor!!)
-        }
-        if (pref.retviecolorString(Constants.BORDER_COLOR) != null) {
-            var borderColor = pref.retviecolorString(Constants.BORDER_COLOR)
-            viewModel.borderViewColor.set(borderColor!!)
 
-//            binding?.viewBoxBorderColor?.setBackgroundColor(borderColor!!)
+            try {
+                val columnColor = pref.retviecolorString(Constants.COLUMN_COLOR)
+                viewModel.columnViewColor.set(columnColor!!)
+            }
+            catch (e:Exception){
+
+            }
+
+        }
+
+
+        if (pref.retviecolorString(Constants.BORDER_COLOR) != null) {
+
+            try {
+                val borderColor = pref.retviecolorString(Constants.BORDER_COLOR)
+                viewModel.borderViewColor.set(borderColor!!)
+            }
+            catch (e:Exception){
+                Log.d("ExceptBorderColor->",e.message.toString())
+            }
+
         }
 
         if (pref.retviecolorString(Constants.FONT_COLOR) != null) {
-            var fontColor = pref.retviecolorString(Constants.FONT_COLOR)
-            viewModel.fontViewColor.set(fontColor!!)
-            var data = fontColor as java.lang.String
 
-            binding?.tvFavCityAddress?.setTextColor(Color.parseColor(data.toString()))
-            binding?.tvFavDetailsAddress?.setTextColor(Color.parseColor(data.toString()))
-            binding?.tvFavDetailsDistance?.setTextColor(Color.parseColor(data.toString()))
-            binding?.tvFavDetails?.setTextColor(Color.parseColor(data.toString()))
-            binding?.tvFavDetailsLikeCounts?.setTextColor(Color.parseColor(data.toString()))
-            binding?.tvFavDetailsDisLikeCount?.setTextColor(Color.parseColor(data.toString()))
-            binding?.tvFavDetailsName?.setTextColor(Color.parseColor(data.toString()))
-            binding?.ivFavDetailsBackBtn?.setColorFilter(Color.parseColor(data.toString()))
-            binding?.ivFavDetailsOptions?.setColorFilter(Color.parseColor(data.toString()))
-            binding?.ivFavDetailsChats?.setColorFilter(Color.parseColor(data.toString()))
-            binding?.ivFavDetailsLike?.setColorFilter(Color.parseColor(data.toString()))
-            binding?.ivFavDetailsDislike?.setColorFilter(Color.parseColor(data.toString()))
-            binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(data.toString()))
-            binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(data.toString()))
+            try {
+                val fontColor = pref.retviecolorString(Constants.FONT_COLOR)
+                viewModel.fontViewColor.set(fontColor!!)
+                binding?.tvFavCityAddress?.setTextColor(Color.parseColor(fontColor.toString()))
+                binding?.tvFavDetailsAddress?.setTextColor(Color.parseColor(fontColor.toString()))
+                binding?.tvFavDetailsDistance?.setTextColor(Color.parseColor(fontColor.toString()))
+                binding?.tvFavDetails?.setTextColor(Color.parseColor(fontColor.toString()))
+                binding?.tvFavDetailsLikeCounts?.setTextColor(Color.parseColor(fontColor.toString()))
+                binding?.tvFavDetailsDisLikeCount?.setTextColor(Color.parseColor(fontColor.toString()))
+                binding?.tvFavDetailsName?.setTextColor(Color.parseColor(fontColor.toString()))
+                binding?.ivFavDetailsBackBtn?.setColorFilter(Color.parseColor(fontColor.toString()))
+                binding?.ivFavDetailsOptions?.setColorFilter(Color.parseColor(fontColor.toString()))
+                binding?.ivFavDetailsChats?.setColorFilter(Color.parseColor(fontColor.toString()))
+                binding?.ivFavDetailsLike?.setColorFilter(Color.parseColor(fontColor.toString()))
+                binding?.ivFavDetailsDislike?.setColorFilter(Color.parseColor(fontColor.toString()))
+                binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(fontColor.toString()))
+                binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(fontColor.toString()))
+            }
+            catch (e:Exception){
+                Log.d("Exception--> favDetails","Error in retriveColorString")
+            }
 
-
-
-
-            Log.e("SSSSSSSSSqw4", fontColor.toString())
         }
-
-//        if (pref.retviesize(Constants.BORDER_WIDTH)!=null){
-//            viewModel.bor.set(fontColor!!)
-//            Log.e("SSSSSSSSSqw4",fontColor.toString())
-//
-//
-//            }
-
     }
 
-    fun mapFeatureGet() {
-
+    private fun mapFeatureGet() {
         repository.makeCall(
             apiKey = ApiEnums.GET_MAP_FEATURED,
             loader = true,
@@ -886,36 +841,26 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     Log.e("SDASDASWQ", res.body().toString())
 
                     if (res.isSuccessful && res.code() == 200) {
-                        if (res.body()!!.data != null) {
-
-                            if (res.body()!!.data.location_OnOff == true) {
-                                binding!!.cvFavDetails.visibility = View.VISIBLE
-                            }
-
-                            if (res.body()!!.data.dark_theme == true) {
-                                mMap.setMapStyle(
-                                    MapStyleOptions.loadRawResourceStyle(
-                                        requireContext(),
-                                        R.raw.map_json_dark_mode
-                                    )
-                                )
-                            } else {
-                                mMap.setMapStyle(null)
-                            }
-
-                            dataStoreUtil.saveObject(
-                                SAVE_MAP_FEATURE_FROM_FAV_DEATILS,
-                                res.body()!!.data
-                            )
-
-                            Log.e("SDASDASWQ123", res.body()!!.data.toString())
-
-                        } else {
-                            CommonMethods.showToast(
-                                CommonMethods.context,
-                                res.body()!!.data.toString()
-                            )
+                        if (res.body()!!.data.location_OnOff) {
+                            binding!!.cvFavDetails.visibility = View.VISIBLE
                         }
+
+                        if (res.body()!!.data.dark_theme) {
+                            mMap.setMapStyle(
+                                MapStyleOptions.loadRawResourceStyle(
+                                    requireContext(),
+                                    R.raw.map_json_dark_mode
+                                )
+                            )
+                        } else {
+                            mMap.setMapStyle(null)
+                        }
+
+                        dataStoreUtil.saveObject(
+                            SAVE_MAP_FEATURE_FROM_FAV_DEATILS,
+                            res.body()!!.data
+                        )
+                        Log.e("SDASDASWQ123", res.body()!!.data.toString())
 
                     } else {
                         CommonMethods.showToast(CommonMethods.context, res.message())
@@ -926,5 +871,4 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             }
         )
     }
-
 }

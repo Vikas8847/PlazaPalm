@@ -171,7 +171,7 @@ object BindingAdapters {
     ) {
         Log.e("VVVVV", IMAGE_LOAD_URL + imageUrl)
         if (imageUrl != null) {
-            Glide.with(CommonMethods.context)
+            Glide.with(context)
                 .load(IMAGE_LOAD_URL + imageUrl)
                 .error(R.drawable.placeholder)
                 .into(circleImage)
@@ -246,10 +246,30 @@ object BindingAdapters {
         imageUrl: String?
     ) {
         if (imageUrl != null) {
-            Glide.with(CommonMethods.context)
+            Glide.with(context)
                 .load(IMAGE_LOAD_URL + imageUrl)
 //                .apply( RequestOptions().override(700, 400))
                 .into(shapeableImageView)
+
+        } else {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
+    }
+
+
+
+
+    @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
+    @JvmStatic
+    fun setEditCoverImage(
+        appCompatImageView: AppCompatImageView,
+        imageUrl: String?
+    ) {
+        if (imageUrl != null) {
+            Glide.with(context)
+                .load(IMAGE_LOAD_URL + imageUrl)
+//                .apply( RequestOptions().override(700, 400))
+                .into(appCompatImageView)
 
         } else {
             //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
@@ -263,7 +283,7 @@ object BindingAdapters {
     ) {
 
         if (imageUrl != null) {
-            Glide.with(CommonMethods.context)
+            Glide.with(context)
                 .load(IMAGE_LOAD_URL + imageUrl)
                 .override(100, 100)
                 .into(heartImage)
@@ -334,14 +354,14 @@ object BindingAdapters {
             videoView.setOnErrorListener { mediaPlayer, _, _ ->
 
                 Log.d("VideoError", "$mediaPlayer")
-                CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
+                CommonMethods.showToast(context, "Error in Video Playing..")
                 false
             }
 
             videoView.setOnCompletionListener { mp ->
                 // videoView.start()
                 if (mp.duration == videoView.duration) {
-                    CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
+                    CommonMethods.showToast(context, "Video is Completed ..")
                 }
             }
             videoView.requestFocus()

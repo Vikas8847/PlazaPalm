@@ -101,9 +101,26 @@ object Constants {
     const val BORDER_WIDTH = "BORDER_WIDTH"
     const val FONT_SIZE = "FONT_SIZE"
 
+    //ADVANCE_EDIT_LOOK (FONTS NAMES)
+    const val ADVANCE_EDIT_LOOK_FONTS_NAME="AdvanceEdit_FontName"
+// SIZE
+   const val BORDER_WIDTH = "BORDER_WIDTH"
+   const val FONT_SIZE = "FONT_SIZE"
+
     // Pref keys
     const val SELECTED_CATEGORY_NAME = "SELECTED_CATEGORY_NAME"
     const val SELECTED_CATEGORY_ID = "SELECTED_CATEGORY_ID"
+    const val isTopTextSelected="isTopTextChecked"
+    const val isBottomTextSelected="isBottomTextChecked"
+
+    //Bundle Data Strings..
+    const val isFavorite= "isFavorite"
+    const val isDashBoard= "isDashBoard"
+    const val isViewProfile= "isViewProfile"
+    const val addFav= "addFav"
+    //Colors Strings
+
+    const val FONTCOLOR="FONTCOLOR"
 
 
     /** dataStore key */

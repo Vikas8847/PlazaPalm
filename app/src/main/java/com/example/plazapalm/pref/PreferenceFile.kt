@@ -25,6 +25,18 @@ class PreferenceFile @Inject constructor(
     }
 
 
+    /***vikas added for store checkbox functionality */
+/*
+    fun saveBoolean(key: String,value: Boolean){
+        editor.putBoolean(key,value)
+        editor.commit()
+    }
+
+    fun getBoolean(key: String):Boolean{
+        return sharedPreferences.getBoolean(key,false)
+    }*/
+
+
     fun storeKey(key: String, value: String) {
         editor.putString(key, value)
         editor.apply()

@@ -2,13 +2,10 @@ package com.example.plazapalm.networkcalls
 
 import com.example.plazapalm.models.*
 import com.example.plazapalm.views.dashboard.DashBoardPostData
-import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 interface RetrofitApi {
     /*SignUp api..*/
@@ -92,7 +89,6 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String,
         @Field("email") Email: String?
     ): Response<VerifyOtpData>
-
 
     /*Log out api..*/
     @FormUrlEncoded
@@ -190,8 +186,7 @@ interface RetrofitApi {
 //    ):Response<GetProfilebyCateResponse>
 
 
-
-   // @POST(GET_PROFILE_BY_CATEGORERY)
+    // @POST(GET_PROFILE_BY_CATEGORERY)
     @HTTP(method = "POST", path = GET_PROFILE_BY_CATEGORERY, hasBody = true)
     suspend fun getProfileByCategory(
         @Header("Authorization") Authorization: String,
@@ -228,32 +223,6 @@ interface RetrofitApi {
         @Field("c_id") c_id: String?,
         @Field("booking_status") booking_status: Boolean?
     ): Response<SavePostProfileResponse>
-
-
-/*
-    @Multipart
-    @POST(SAVE_POST_PROFILE)
-    suspend fun postProfile(
-
-        @Header("Authorization") Authorization: String?,
-        @Part("first_name") FirstName: RequestBody?,
-        @Part("last_name") LastName: RequestBody?,
-        @Part("long") long: RequestBody?,
-        @Part("expiry_date") expiry_date: RequestBody?,
-        @Part("address") address: RequestBody?,
-        @Part("location_text") location_text: RequestBody?,
-        @Part image_url : Array<MultipartBody.Part?>,
-//      @Part("image_url") image_url : MultipartBody.Part,
-        @Part("user_name") user_name: RequestBody?,
-        @Part("tags") tags: RequestBody?,
-        @Part("description_2") description_2: RequestBody?,
-        @Part("description_1") description_1: RequestBody?,
-        @Part("description_3") description_3: RequestBody?,
-        @Part("lat") lat: RequestBody?,
-        @Part("profile_title") profile_title: RequestBody?,
-        @Part("c_id") c_id: RequestBody?,
-        ): Response<SavePostProfileResponse>
-*/
 
     @FormUrlEncoded
     @POST(VALIDATE_USERNAME)
@@ -471,7 +440,7 @@ interface RetrofitApi {
 
     @POST(MAP_FEATURES)
     suspend fun mapFeatreData(
-      @Body jsonObject: JSONObject
+        @Body jsonObject: JSONObject
     ): Response<MapFeaturedDataRes>
 
     @FormUrlEncoded
@@ -497,6 +466,7 @@ interface RetrofitApi {
     ):Response<UpdateLatlngResponse>
 
 
+
   //  @POST(GALLERYPOST)
     @HTTP(method = "POST", path = GALLERYPOST, hasBody = true)
     suspend fun uploadSinglePhotoUrl(
@@ -511,38 +481,28 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String
     ): Response<UploadMediaResponse>
 
-   // @DELETE(DELETE_MEDIA)
+    // @DELETE(DELETE_MEDIA)
     @HTTP(method = "DELETE", path = DELETE_MEDIA, hasBody = true)
     suspend fun deleteGalleryPhotoAPI(
         @Header("Authorization") Authorization: String,
         @Header("Content-Type") contentType: String,
-        @Body jsonObject:DeleteMediaData
+        @Body jsonObject: DeleteMediaData
     ): Response<DeleteMediaResponse>
     /*call here get Fonts Api */
 
     @GET(GET_FONTS)
-    suspend fun getFonts(
-        @Header("Authorization")Authorization: String):Response<GetFontResponse>
+    suspend fun getFonts(@Header("Authorization") Authorization: String): Response<GetFontResponse>
 
     @FormUrlEncoded
     @POST(POST_FONTS)
     suspend fun postFonts(
-        @Header("Authorization")Authorization: String,
-        @Field("frontPageTopText")FrontPageTopText:String,
-        @Field("frontPageBottomText")FrontPageBottomText:String,
-        @Field("frontPageFontSize")FrontPageFontSize:Int,
-        @Field("frontPageFontColor")FrontPagerFrontColor:String,
-        @Field("frontPageFontOpacity")FrontPagerFontOpacity:String,
-        @Field("isTopSelected")isTopSelected:Boolean?=false,
-        @Field("isBottomSelected")isBottomSelected:Boolean?=false
-    ):Response<PostFrontPageResponse>
-
-    @FormUrlEncoded
-    @POST(DEVICE_TOKEN_UPDATE)
-    suspend fun deviceTokenUpdate(
         @Header("Authorization") Authorization: String,
-        @Field("device_token") DeviceToken: String?,
-        @Field("device_type") DeviceType: String?
-    ): Response<DeviceTokenUpdateResponse>
-
+        @Field("frontPageTopText") FrontPageTopText: String,
+        @Field("frontPageBottomText") FrontPageBottomText: String,
+        @Field("frontPageFontSize") FrontPageFontSize: Int,
+        @Field("frontPageFontColor") FrontPagerFrontColor: String,
+        @Field("frontPageFontOpacity") FrontPagerFontOpacity: String,
+        @Field("isBottomSelected") isBottomSelected: Boolean,
+        @Field("isTopSelected") isTopSelected: Boolean
+    ): Response<PostFrontPageResponse>
 }
