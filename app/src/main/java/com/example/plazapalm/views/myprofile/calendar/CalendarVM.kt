@@ -127,13 +127,13 @@ class CalendarVM @Inject constructor(
             requestProcessor = object : ApiProcessor<Response<GetCalanderResponseModel>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetCalanderResponseModel> {
                     return retrofitApi.getCalendarBookingDateMonthWiseForBoth(
-                        pref.retrieveKey("token").toString(), month, year, p_Id.get().toString()
+                        pref.retrieveKey("token").toString(), 1, 2023, p_Id.get().toString()
                     )
                 }
 
                 override fun onResponse(res: Response<GetCalanderResponseModel>) {
                     Log.e("CHECKQASWEA", res.body().toString())
-                    Log.e("CHECK--RESPOSNESsw", res.body()!!.data.get(0)!!.post_profile_id.toString())
+//                    Log.e("CHECK--RESPOSNESsw", res.body()!!.data.get(0)!!.post_profile_id.toString())
 
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body()?.data != null) {

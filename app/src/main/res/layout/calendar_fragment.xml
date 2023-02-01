@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/inter_medium"
-                android:text="Calendar"
+                android:text="@string/calendar"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:textSize="18sp"
@@ -111,23 +111,44 @@
 
             // custom clendarView
 
+            <!--  app:layout_constraintTop_toTopOf="parent"
+                app:headerColor="@color/app_bar_light"
+                app:abbreviationsBarColor="@color/app_bar_light"
+                app:abbreviationsLabelsColor="@color/app_bar_light"
+                app:selectionLabelColor="@color/red"
+                app:daysLabelsColor="@color/black"
+                app:todayLabelColor="@color/red"
+
+-->
+
             <com.applandeo.materialcalendarview.CalendarView
                 android:id="@+id/clCalendar"
                 android:layout_width="match_parent"
-                android:theme="@style/CalenderViewCustom."
-                android:layout_height="@dimen/_265sdp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvCalendar"
+                app:layout_constraintTop_toBottomOf="@+id/ivCalendarBackBtn"
                 android:visibility="visible"
-                app:layout_constraintTop_toTopOf="parent"
-                app:headerColor="@color/app_bar_light"
-                app:abbreviationsBarColor="@color/app_bar_light"
+                app:headerColor="@color/light_sky_blue"
+                app:abbreviationsBarColor="@color/light_sky_blue"
+                android:layout_marginTop="@dimen/_10sdp"
                 app:abbreviationsLabelsColor="@color/white"
-                app:selectionLabelColor="@color/red"
+                app:selectionLabelColor="@color/white"
                 app:daysLabelsColor="@color/white"
-                app:todayLabelColor="@color/red"
+                app:todayLabelColor="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:pagesColor="@color/light_sky_blue"
+                app:eventsEnabled="false"
+                app:selectionColor="@android:color/holo_red_dark"
+                app:anotherMonthsDaysLabelsColor="@color/white"
+                app:type="one_day_picker"
+                android:clickable="false"
+                android:focusable="false"
+                android:checked="false"
+
                 />
+
 
          <!--   <CalendarView
                 android:id="@+id/clCalendar"

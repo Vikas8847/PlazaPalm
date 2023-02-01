@@ -20,6 +20,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.BuildConfig
+import com.example.plazapalm.MainActivity.Companion.activity
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.*
@@ -34,6 +35,8 @@ import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.utils.navigateWithId
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.util.LinkProperties
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -453,13 +456,15 @@ class FavDetailsVM @Inject constructor(
                 }
             */
 
-                val shareIntent = Intent(Intent.ACTION_SEND)
-                shareIntent.type = "text/plain"
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Test")
-                val app_url = "http://www.plazapalm.com?profileId=${BuildConfig.APPLICATION_ID}"
-                shareIntent.putExtra(Intent.EXTRA_TEXT, app_url)
-                CommonMethods.context.startActivity(Intent.createChooser(shareIntent, "Share via"))
-                dialog?.dismiss()
+
+                setDataaa(p_id.get().toString())
+
+
+
+
+
+
+
 
             }
 
@@ -493,6 +498,39 @@ class FavDetailsVM @Inject constructor(
 
         dialog?.show()
 
+    }
+
+    fun setDataaa(pid:String)
+    {
+        val lp = LinkProperties()
+            .addControlParameter("deeplink_path","$pid")
+
+        val buo = BranchUniversalObject()
+            .setCanonicalIdentifier(pid)
+            .setTitle("Plaza Palm")
+          //  .setContentDescription("Hello Description")
+            //.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+          //  .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+
+        buo.generateShortUrl(
+            CommonMethods.context, lp
+        ) { url, error ->
+            if (error == null) {
+
+                val shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "text/plain"
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Test")
+            //    val app_url = "http://www.plazapalm.com?profileId=${BuildConfig.APPLICATION_ID}"
+                val app_url = url
+                shareIntent.putExtra(Intent.EXTRA_TEXT, app_url)
+                CommonMethods.context.startActivity(Intent.createChooser(shareIntent, "Share via"))
+                dialog?.dismiss()
+
+                // share intent
+            } else {
+               // Logger.e("error: ${error.message}")
+            }
+        }
     }
 
     private fun showViewProfileDialog(view: View) {

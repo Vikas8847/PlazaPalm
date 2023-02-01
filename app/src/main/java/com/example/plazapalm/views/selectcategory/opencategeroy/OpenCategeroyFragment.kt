@@ -21,6 +21,7 @@ import com.example.plazapalm.databinding.FragmentOpenCategeroyBinding
 import com.example.plazapalm.interfaces.clickItem
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -44,23 +45,23 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         binding = FragmentOpenCategeroyBinding.inflate(inflater, container, false)
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
 
-        getLastLocation()
         return binding?.root
-
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.vm = viewmodel
 
-        getdata()
-
-        if (pref.retrieveLocation() != null) {
-            viewmodel.address.set(pref.retrieveLocation())
-            Log.e("QQQQQQ",pref.retrieveLocation().toString())
+        if (pref.retrieveCategoryLocation() != null && pref.retvieLatlong(Constants.CATEGORY_SCREEN_LAT).toDouble()!=0.0) {
+            viewmodel.address.set(pref.retrieveCategoryLocation())
+            viewmodel.latitude.set(pref.retvieLatlong(Constants.CATEGORY_SCREEN_LAT).toDouble())
+            viewmodel.longitude.set(pref.retvieLatlong(Constants.CATEGORY_SCREEN_LONG).toDouble())
+            Log.e("QQQQQQ",pref.retrieveCategoryLocation().toString())
+            getdata()
+        }else
+        {
+            getLastLocation()
         }
     }
 
@@ -80,8 +81,8 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                 // Split will return an array
                 val split = datafromLocation.split("/")
 
-                val longi = split[0] // First element
-                val lati = split[1] // Second element
+                val lati = split[0] // First element
+                val longi = split[1] // Second element
                 val address = split[2] // Second element
 
                 /***
@@ -103,8 +104,8 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         bundle.putString("fromOpencate", "openCategeroy")
         bundle.putString("cateName", categoryName)
         bundle.putString("c_id", c_id)
-        bundle.getDouble("longitude", viewmodel.longitude.get()!!)
-        bundle.getDouble("latitude", viewmodel.latitude.get()!!)
+        bundle.putDouble("longitude", viewmodel.longitude.get()!!)
+        bundle.putDouble("latitude", viewmodel.latitude.get()!!)
         bundle.putString("status", "OPEN")
 
         view?.navigateWithId(R.id.dashBoardFragment, bundle)
@@ -145,9 +146,14 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                         viewmodel.latitude.set(list[0].latitude!!)
                         viewmodel.longitude.set(list[0].longitude!!)
 
-                        viewmodel.name.set(list[0].countryName)
+                      //  viewmodel.name.set(list[0].countryName)
+                      // viewmodel.address.set(list[0].countryName)
+                        viewmodel.address.set(list[0].getAddressLine(0))
 
+                        pref.storeLatlong(Constants.CURRENT_LOCATION_LAT,viewmodel.latitude.get().toFloat())
+                        pref.storeLatlong(Constants.CURRENT_LOCATION_LONG,viewmodel.longitude.get().toFloat())
 
+                        getdata()
                         Log.e("countryName", "" + list[0].locality + "" + list[0].countryName + "XCXCX" +
                                 list[0].latitude + "LATTTTT " + list[0].longitude)
                     }

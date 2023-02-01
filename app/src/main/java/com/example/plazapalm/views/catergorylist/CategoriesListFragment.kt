@@ -25,6 +25,7 @@ import com.example.plazapalm.models.CategoriesData
 import com.example.plazapalm.models.SelectedDataModelList
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -90,13 +91,21 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
     /**Get Type from previous screen using bundle **/
     private fun getData() {
         if (arguments != null) {
-
+        Log.e("getDataaaaa====",arguments?.getString("comingFrom").toString())
             when (arguments?.getString("comingFrom")) {
                 "isFilter" -> {
 
+                  var  lat_value=  arguments?.getString("lat_value")
+                    var  lng_value=arguments?.getString("lng_value")
+                    var location_value= arguments?.getString("location_value")
+Log.e("fmvsladmvsdav11===",lat_value.toString())
+Log.e("fmvsladmvsdav===",location_value.toString())
+                    viewmodel.latitude.set(lat_value!!.toDouble())
+                    viewmodel.longitude.set(lng_value!!.toDouble())
+                    viewmodel.address.set(location_value!!)
+
                     val data: ArrayList<String> =
                         arguments?.getSerializable("SelecatedCategory") as ArrayList<String>
-
 
                     viewmodel.selectedList.addAll(data)
 
@@ -107,6 +116,8 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.setOnClickListener {
                         // from here we have to send categories id's and send in dashboard getProfile by id api...
+
+
                         val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
 
                         /** Its not essential to select category here */
@@ -279,6 +290,29 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     viewmodel.getCategoriesApi()*/
                 }
             }
+
+
+            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("bundle")
+                ?.observe(viewLifecycleOwner) { data ->
+
+                    val datafromLocation = data
+                    // Split will return an array
+                    val split = datafromLocation.split("/")
+
+                    val lati = split[0] // First element
+                    val longi = split[1] // Second element
+                    val address = split[2] // Second element
+
+                    /***
+                     * */
+                    viewmodel.address.set(address)
+                    viewmodel.longitude.set(longi.toDouble())
+                    viewmodel.latitude.set(lati.toDouble())
+                    viewmodel.address.set(address)
+
+                    Log.e("ADDKFJSDFJSDJF", data.toString() + "CIIDDDD" + viewmodel.latitude.get().toString()+"==="+viewmodel.longitude.get().toString())
+
+                }
         }
     }
 
@@ -321,10 +355,14 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                         viewmodel.latitude.set(list[0].latitude)
                         viewmodel.longitude.set(list[0].longitude)
                         list[0].countryName
+                        viewmodel.address.set(list[0].getAddressLine(0))
                         Log.e("countryName", "" + list[0].locality + "" + list[0].countryName)
 
-                        pref.storeLatlong("lati", viewmodel.latitude.get().toFloat())
-                        pref.storeLatlong("longi", viewmodel.longitude.get().toFloat())
+                        pref.storeLatlong(Constants.CURRENT_LOCATION_LAT,viewmodel.latitude.get().toFloat())
+                        pref.storeLatlong(Constants.CURRENT_LOCATION_LONG,viewmodel.longitude.get().toFloat())
+
+                        //pref.storeLatlong("lati", viewmodel.latitude.get().toFloat())
+                       // pref.storeLatlong("longi", viewmodel.longitude.get().toFloat())
 
                         getData()
                     }

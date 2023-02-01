@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.catergorylist
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.util.Log
@@ -94,7 +95,14 @@ class CategoriesListVM @Inject constructor(
             }
             R.id.clSearchLocation -> {
                 //Add City screen will be open hare
-                view.navigateWithId(R.id.action_categoriesListFragment_to_addCitiesFragment)
+                var bundle = Bundle()
+                bundle.putString("PostProfile", "open_cat_screen")
+
+                bundle.putString("location_txt", address.get().toString())
+                bundle.putString("lat", latitude.get().toString())
+                bundle.putString("long", longitude.get().toString())
+
+                view.navigateWithId(R.id.action_categoriesListFragment_to_addCitiesFragment,bundle)
             }
             R.id.ivCategory -> {
                 view.findNavController().navigateUp()
@@ -128,7 +136,8 @@ class CategoriesListVM @Inject constructor(
         body.put("offset", page.get()!!)
         body.put("limit", 500)
         body.put("search=", search)
-Log.e("fgmlfmgssssgegeg====",body.toString())
+        Log.e("fgmlfmgssssgegeg====",body.toString())
+
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
             loader = showLoader,
@@ -138,8 +147,10 @@ Log.e("fgmlfmgssssgegeg====",body.toString())
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<CategoriesResponseModel> {
                     return retrofitApi.getCategories(
                         Authorization = token.get().toString(),
-                        Lat = pref.retvieLatlong("lati").toDouble(),
-                        Long = pref.retvieLatlong("longi").toDouble(),
+                       /* Lat = pref.retvieLatlong("lati").toDouble(),
+                        Long = pref.retvieLatlong("longi").toDouble(),*/
+                        latitude.get(),
+                        longitude.get(),
                         OffSet = page.get()!!,
                         Limit = 500,
                         Search = search
@@ -149,14 +160,19 @@ Log.e("fgmlfmgssssgegeg====",body.toString())
                 override fun onResponse(res: Response<CategoriesResponseModel>) {
 
                     adapterCategories.addItems(res.body()?.data!!)
-                    Log.e("Category_list_response==",res.body()?.data!!.toString())
+                    Log.e("Category_response==",res.body()?.data!!.toString())
+                    var newDataList=ArrayList<CategoriesData>()
+                    newDataList.clear()
+                    categoriesDataList.clear()
                     for (idx in 0 until adapterCategories.getAllItems().size) {
                         if (selectedList.contains(adapterCategories.getAllItems()[idx].category_name)) {
 
                             adapterCategories.getAllItems()[idx].isCheck=true
+                            newDataList.add(adapterCategories.getAllItems()[idx])
                         }
                     }
-
+                    categoriesDataList.addAll(newDataList)
+                    Log.e("nvkwdnwvdswvdvd===",categoriesDataList.toString())
                     adapterCategories.notifyDataSetChanged()
 //                    dataStoreUtil.saveData(res.body()?.data!!)
 //                    Log.e("SSSSS", res.body()?.data!![0]._id.toString())
