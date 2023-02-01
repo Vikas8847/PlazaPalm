@@ -2,10 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools">
+
     <data>
+
         <variable
-            name="model"
+            name="vm"
             type="com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,6 +17,7 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,6 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="wrap_content"
@@ -31,6 +36,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivDashBoardCat"
                     android:layout_width="@dimen/_180sdp"
@@ -42,17 +48,20 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/_250sdp"
+                    android:id="@+id/clAdvanceProfileEditCover"
                     android:visibility="gone"
-                    app:layout_constraintTop_toTopOf="@+id/ivDashBoardCat"
-                    android:layout_height="@dimen/_250sdp">
+                    app:layout_constraintTop_toTopOf="@+id/ivDashBoardCat">
 
                     <com.example.plazapalm.utils.FullScreenVideoView
                         android:layout_width="match_parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/videVAdvanceShowProfile"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_height="wrap_content">
+                        app:layout_constraintTop_toTopOf="parent">
 
                     </com.example.plazapalm.utils.FullScreenVideoView>
 
@@ -60,10 +69,9 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_80sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:background="@drawable/dash_board_items_gradient_top"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +80,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_80sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:background="@drawable/dash_board_items_gradient"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent" />
@@ -82,21 +90,23 @@
                     android:id="@+id/tvProfileUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="center_horizontal"
+                    android:padding="@dimen/_3sdp"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="13sp"
-                    tool:text="Vikas Panchal"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="Vikas Panchal" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/ivAdvanceHeart"
                     android:layout_marginEnd="@dimen/_12sdp"
                     android:src="@drawable/ic_heart_icon"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -104,35 +114,37 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvProfileUserDescription"
-                    android:layout_width="150dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_2sdp"
                     android:fontFamily="@font/inter_medium"
                     android:maxLines="2"
-                    android:singleLine="true"
-                    android:text=""
+                    android:padding="@dimen/_3sdp"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="@string/testing_nprofile"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    tool:text="Gohana (Sonipat)"
                     app:layout_constraintBottom_toTopOf="@id/tvProfileUserAddress"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvProfileUserAddress"
-                    android:layout_width="110dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="start"
-                    android:singleLine="true"
+                    android:padding="@dimen/_3sdp"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    tool:text="Haryana (HR-11) "
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    tool:text="Haryana (HR-11) " />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvDashBoardItemDistance"

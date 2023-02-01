@@ -9,6 +9,10 @@
             name="vm"
             type="com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM" />
 
+        <variable
+            name="model"
+            type="com.example.plazapalm.models.GetFontResponse" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -71,7 +75,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
+
+                    <!--
+                                        android:button="@drawable/checkbox_drawable"
+                    -->
+
+                    <CheckBox
                         android:id="@+id/checkEditFrontPageTopText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -79,8 +88,10 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:button="@drawable/checkbox_drawable"
+                        android:checked="@{vm.isTopText()}"
                         android:fontFamily="@font/inter_medium"
                         android:layoutDirection="rtl"
+                        android:onClick="@{vm::onClicks}"
                         android:paddingHorizontal="@dimen/_15sdp"
                         android:paddingVertical="@dimen/_1sdp"
                         android:text="Top Text"
@@ -99,8 +110,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/checkEditFrontPageTopText" />
                     <!--color fill box (bg )-->
 
+                    <!--
+                                        android:checked="@{model.data.is_bottom_selected()==true}"
+                    -->
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
+                    <CheckBox
                         android:id="@+id/checkBottomTextFrontPage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -108,8 +122,10 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:button="@drawable/checkbox_drawable"
+                        android:checked="@{vm.isBottomText()}"
                         android:fontFamily="@font/inter_medium"
                         android:layoutDirection="rtl"
+                        android:onClick="@{vm::onClicks}"
                         android:paddingHorizontal="@dimen/_15sdp"
                         android:paddingVertical="@dimen/_1sdp"
                         android:text="Bottom Text"

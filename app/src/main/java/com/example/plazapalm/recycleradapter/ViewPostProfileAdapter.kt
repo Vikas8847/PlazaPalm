@@ -61,7 +61,7 @@ class ViewPostProfileAdapter(
             position: Int,
         ) {
 
-            if (!(photos[position].Desc.toString().trim().equals(""))) {
+            if (photos[position].Desc.toString().trim() != "") {
                 bindining.clVEditProDescription.visibility = View.VISIBLE
             } else {
                 bindining.clVEditProDescription.visibility = View.GONE
@@ -111,8 +111,7 @@ class ViewPostProfileAdapter(
 
 //            bindining.etVEditProDescription.setTextSize(photos[position].fontSize)
 
-            if (photos.get(position).Image!!.contains(".png") || photos.get(position).Image!!.contains(
-                    ".jpg") || photos.get(position).Image!!.contains(".jpeg")
+            if (photos.get(position).Image!!.contains(".png") || photos.get(position).Image!!.contains(".jpg") || photos.get(position).Image!!.contains(".jpeg")
             ) {
                 Log.e("Media_Valueeeeee===", photos.get(position).Image!!)
                 Glide.with(context).load(IMAGE_LOAD_URL + photos.get(position).Image)

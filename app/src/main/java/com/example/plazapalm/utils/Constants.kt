@@ -102,6 +102,17 @@ object Constants {
     // Pref keys
     const val SELECTED_CATEGORY_NAME = "SELECTED_CATEGORY_NAME"
     const val SELECTED_CATEGORY_ID = "SELECTED_CATEGORY_ID"
+    const val isTopTextSelected="isTopTextChecked"
+    const val isBottomTextSelected="isBottomTextChecked"
+
+    //Bundle Data Strings..
+    const val isFavorite= "isFavorite"
+    const val isDashBoard= "isDashBoard"
+    const val isViewProfile= "isViewProfile"
+    const val addFav= "addFav"
+    //Colors Strings
+
+    const val FONTCOLOR="FONTCOLOR"
 
 
     /** dataStore key */

@@ -259,13 +259,11 @@ class DashBoardVM @Inject constructor(
     }
 
     fun getProfileByCategory(search: String, showLoader: Boolean) {
-
-        var dataArray=ArrayList<String>()
+        val dataArray=ArrayList<String>()
         for(idx in 0 until idList.size)
         {
             dataArray.add(idList[idx])
         }
-
         val dataObject=DashBoardPostData(dataArray,pref.retvieLatlong("lati").toDouble().toString(),
        "500",pref.retvieLatlong("longi").toDouble().toString(),userMiles.get().toString(),"1",search)
 
@@ -285,13 +283,7 @@ class DashBoardVM @Inject constructor(
                         pref.retrieveKey("token").toString(),
                        "application/json",
                         dataObject
-                       /* idList,
-                        5,
-                        500,
-                        pref.retvieLatlong("longi").toDouble().toString(),
-                        pref.retvieLatlong("lati").toDouble().toString(),
-                        search,
-                        userMiles.get().toString()*/
+
                     )
                 }
 
@@ -416,7 +408,6 @@ class DashBoardVM @Inject constructor(
             }
         )
     }
-
     fun calculateLatLngToMiles() {
         val latLngA =
             LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
