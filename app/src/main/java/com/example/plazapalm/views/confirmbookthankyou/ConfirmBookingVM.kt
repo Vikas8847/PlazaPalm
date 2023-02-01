@@ -84,7 +84,6 @@ class ConfirmBookingVM @Inject constructor(
                             confirmBooking(view)
                         } else if (commingFrom.get().equals("addToCalander")) {
                             addToCalendar(view)
-
                         }
                     }
                 }
@@ -181,6 +180,7 @@ class ConfirmBookingVM @Inject constructor(
 
     private fun selectDate(observableField: ObservableField<String>) {
         val calender: Calendar = Calendar.getInstance()
+
         val datePicker = DatePickerDialog(
             CommonMethods.context,
             R.style.DatePickerDialogTheme, { view, year, month, dayOfMonth ->
@@ -192,6 +192,9 @@ class ConfirmBookingVM @Inject constructor(
             calender.get(Calendar.YEAR), calender.get(Calendar.MONTH),
             calender.get(Calendar.DAY_OF_MONTH)
         )
+        datePicker .getDatePicker().setMinDate(System.currentTimeMillis() - 1000)
+
+
         //datePicker.datePicker.maxDate = System.currentTimeMillis()
         datePicker.show()
     }
@@ -203,14 +206,17 @@ class ConfirmBookingVM @Inject constructor(
                 CommonMethods.showToast(CommonMethods.context, "Please select date")
                 return false
             }
+
             chooseTime.get()?.trim().isNullOrEmpty() -> {
                 CommonMethods.showToast(CommonMethods.context, "Please choose time")
                 return false
             }
+
             description.get()?.trim().isNullOrEmpty() -> {
                 CommonMethods.showToast(CommonMethods.context, "Please enter description")
                 return false
             }
+
             else -> {
                 return true
             }
@@ -220,6 +226,7 @@ class ConfirmBookingVM @Inject constructor(
 
     /*Add to Calendar Api ...*/
     private fun addToCalendar(view: View) = viewModelScope.launch {
+
         val body = JSONObject()
         body.put("category_name", categoryName.get())
         body.put("choose_date", chooseDate.get())
@@ -228,12 +235,14 @@ class ConfirmBookingVM @Inject constructor(
         body.put("description", description.get())
         body.put("question_answer", questionAnswer)
 
+        Log.e("CHOOSE-- ", chooseDate.get().toString())
+
         repository.makeCall(ApiEnums.ADD_TO_CALENDAR,
             true,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<AddToCalendarResponseModel>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<AddToCalendarResponseModel> {
+                override suspend fun sendRequest(retrofitApi : RetrofitApi) : Response<AddToCalendarResponseModel> {
                     return retrofitApi.addToCalendarBooking(
                         Authorization = preferenceFile.retrieveKey("token")!!,
                         Category_Name = categoryName.get()!!,
@@ -243,7 +252,6 @@ class ConfirmBookingVM @Inject constructor(
                         Description = description.get()!!,
                         Question_Answer = questionAnswer
                     )
-
 
                 }
 

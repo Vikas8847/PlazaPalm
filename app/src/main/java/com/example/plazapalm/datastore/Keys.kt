@@ -20,6 +20,7 @@ val GET_COLORS_EDIT_LOOK by lazy { stringPreferencesKey("GET_COLORS_EDIT_LOOK") 
 val SAVE_MAP_FEATURE_FROM_FAV_DEATILS by lazy { stringPreferencesKey("SAVE_MAP_FEATURE_FROM_FAV_DEATILS") }
 val SAVE_MAP_FEATURE by lazy { stringPreferencesKey("SAVE_MAP_FEATURE") }
 val SAVE_EDIT_COVER_PAGE by lazy { stringPreferencesKey("SAVE_EDIT_COVER_PAGE") }
+val SAVE_FIREBASE_TOKEN ="SAVE_FIREBASE_TOKEN"
 
 
 

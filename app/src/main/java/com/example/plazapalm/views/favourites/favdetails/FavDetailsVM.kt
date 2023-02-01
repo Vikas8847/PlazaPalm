@@ -1,5 +1,6 @@
 package com.example.plazapalm.views.favourites.favdetails
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -76,13 +77,11 @@ class FavDetailsVM @Inject constructor(
     var fontViewColor = ObservableField("")
     var columnViewColor = ObservableField("")
     var borderViewColor = ObservableField("")
-
     var etVEditProDescription = ObservableField("")
     var tvFavDetailsAddress = ObservableField("")
     var tvFavCityAddress = ObservableField("")
     var isFav = ObservableBoolean(false)
     var isLike = ObservableBoolean(false)
-    var isLikeDislike = ObservableBoolean(false)
     var isDisLike = ObservableBoolean(false)
     var data_list: ArrayList<AddPhoto>? = null
     var userdata = ObservableParcelable<postData?>()

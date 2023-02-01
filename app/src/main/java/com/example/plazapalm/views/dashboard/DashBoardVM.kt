@@ -37,6 +37,7 @@ import com.example.plazapalm.recycleradapter.RecyclerAdapter
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.utils.Constants
+import com.example.plazapalm.utils.Constants.DeviceType
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.maps.model.LatLng
@@ -134,12 +135,12 @@ class DashBoardVM @Inject constructor(
         /*** 03-01-23
          *  Set Miles and send API.. */
 
-        if (pref.retvieMiles() != null && !(pref.retvieMiles().equals(""))) {
+        if (pref.retvieMiles()!=null && !(pref.retvieMiles().equals(""))){
 
             var miles = pref.retvieMiles()
             userMiles.set(miles.toString())
 
-        } else {
+        }else{
             userMiles.set("25")
         }
 
@@ -697,8 +698,7 @@ class DashBoardVM @Inject constructor(
                             dialog?.dismiss()
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                             context.runOnUiThread {
-                                var catDataList =
-                                    adapter.getAllItems() as ArrayList<ProfileCateData>
+                             var  catDataList= adapter.getAllItems() as ArrayList<ProfileCateData>
                                 if (isfav) {
                                     adapter.getAllItems()[position].isFavourite = true
 //                                    tvRemoveFav?.text="Remove from Favourites"
@@ -732,6 +732,43 @@ class DashBoardVM @Inject constructor(
         )
     }
 
+    fun updateDeviceToken() {
+
+        Log.e("SADFd--dKJEMD==", pref.retrieveFirebaseToken().toString())
+
+        repository.makeCall(
+            apiKey = ApiEnums.ADD_TO_FAV,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<DeviceTokenUpdateResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<DeviceTokenUpdateResponse> {
+                    return retrofitApi.deviceTokenUpdate(
+                        pref.retrieveKey("token").toString(),
+                        pref.retrieveFirebaseToken().toString(),
+                        DeviceType
+                    )
+                }
+
+                override fun onResponse(res: Response<DeviceTokenUpdateResponse>) {
+                    Log.e("QWQQWWSSS", res.body().toString())
+
+                    if (res.isSuccessful || res != null) {
+                        if (res.body()!!.status == 200) {
+
+                            Log.e("ASDSADWW", res.body()?.message.toString() )
+
+
+                        } else {
+                            Log.e("ASDSADWW", res.body()?.message.toString() )
+                        }
+                    }
+
+                }
+
+            }
+        )
+    }
 }
 
 

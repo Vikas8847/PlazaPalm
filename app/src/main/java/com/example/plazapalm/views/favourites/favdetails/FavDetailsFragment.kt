@@ -46,8 +46,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback,
-    LocationSource.OnLocationChangedListener {
+class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback, LocationSource.OnLocationChangedListener {
 
     private var loginUserPId: String? = ""
     private var loginUserId: String? = ""
@@ -308,7 +307,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     Log.e("ASDASQWEQWe", viewModel.p_id.get().toString() + "xdfdf   " +
                             pref.retvieLatlong("lati").toDouble() + " sdfsdf  " +
                             pref.retvieLatlong("longi").toDouble().toString().toString())
-
 
                     getPostprofile(
                         viewModel.p_id.get().toString(),

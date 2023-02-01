@@ -27,23 +27,21 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     private var binding: EditFrontPageFragmentBinding? = null
+
     @Inject
     lateinit var dataStoreUtil: DataStoreUtil
+
     @Inject
     lateinit var preferenceFile: PreferenceFile
     private val viewModel: EditFrontPageVM by viewModels()
     private var checkApi = ObservableBoolean(false)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        preferenceFile.cleardata(Constants.BORDER_COLOR)
-        preferenceFile.cleardata(Constants.COLUMN_COLOR)
-        preferenceFile.cleardata(Constants.BACKGROUND_COLOR)
-        preferenceFile.cleardata(Constants.FONT_COLOR)
-        checkApi.set(true)
         viewModel.getFontsApi()
-
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,14 +49,17 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     ): View? {
         binding = EditFrontPageFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
+        // setCheckBoxData()
         return binding?.root
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
-        backPressedData()
+        // backPressedData()
         setbackground()
+        //getLocalData()
 
         binding!!.clCoordinateEditCoverPage.setOnClickListener {
             CommonMethods.context.hideKeyboard()
@@ -69,30 +70,96 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
                 binding?.tvAdvanceEditFrontPageFontValue?.typeface = viewModel.fontTypeface
             }
         }
-        binding?.checkEditFrontPageTopText?.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                viewModel.isTopText.set(true)
-            } else {
-                viewModel.isTopText.set(false)
-            }
-
-        }
-
-        binding?.checkBottomTextFrontPage?.setOnCheckedChangeListener { _, isChecked ->
-
-            if (isChecked){
-                viewModel.isBottomText.set(true)
-            }
-            else{
-                viewModel.isBottomText.set(false)
-            }
-
-        }
     }
 
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setbackground() {
+        viewModel.backgroundColorLiveData.observe(viewLifecycleOwner) {
+            Log.e("sadsdaaaaaaaaa", it.toString())
+            when (viewModel.SelectedDialog.get().toString()) {
+                "Background Color" -> {
+                    if (it != null && !(it.equals(""))) {
+                        if (it is String) {
+                            val data = it
+                            binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                        } else {
+                            val data = it as Int
+                            binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
+                        }
+                        val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
+                        val colorCode = cd.color
+                        val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+                        viewModel.backgroundColor.set(hexColor)
+                        preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
+                        Log.e("asdasdasBackground", hexColor.toString())
+
+                    }
+                }
+
+                "Column Color" -> {
+                    //  var  data=it as Int
+                    if (it is Int) {
+                        var data = it
+                        binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
+                    } else {
+                        var data = it as String
+                        binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                    }
+
+
+                    val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
+                    val colorCode = cd.color
+                    val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+                    viewModel.columnColor.set(hexColor)
+
+                    Log.e("asdasdasColumn", viewModel.columnColor.get().toString())
+                }
+
+                "Border Color" -> {
+                    if (it is Int) {
+                        var data = it
+                        binding?.viewBoxLookingBGColor?.setBackgroundColor(
+                            CommonMethods.context.getColor(
+                                data
+                            )
+                        )
+                    } else {
+                        var data = it as String
+                        binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                    }
+
+                    //  binding?.viewBoxBorderColor?.setBackgroundColor(CommonMethods.context.getColor(it))
+                    val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
+                    val colorCode = cd.color
+                    val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+                    viewModel.borderColor.set(hexColor)
+                    Log.e("asdasdasBorder", viewModel.borderColor.get().toString())
+
+                }
+
+                "Font Color" -> {
+                    if (it is Int) {
+                        var data = it
+                        binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
+                    } else {
+                        var data = it as String
+                        binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                    }
+                    Log.e("dfsdfsdf", "working")
+                    // binding?.viewBoxEditFonts?.setBackgroundColor(it)
+                    val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
+                    val colorCode = cd.color
+                    val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+                    viewModel.fontColor.set(hexColor)
+                    Log.e("asdasdasFONTS", viewModel.fontColor.get().toString())
+                }
+
+            }
+
+
+        }
+        //font Color live data ..
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
             Log.e("fontColorLD---", it.toString())
             if (it != null && !(it.equals(""))) {
@@ -104,28 +171,29 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
                     binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
                 }
             }
-
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onResume() {
         super.onResume()
         if (!checkApi.get()) {
-            getLocalData()
+            //  getLocalData()
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getLocalData() {
         /**Get Fonts Color..**/
-        if (preferenceFile.retviecolorString(Constants.FONT_COLOR) != null && !(preferenceFile.retviecolorString(Constants.FONT_COLOR).equals(""))
+        if (preferenceFile.retviecolorString(Constants.FONT_COLOR) != null && !(preferenceFile.retviecolorString(
+                Constants.FONT_COLOR
+            ).equals(""))
         ) {
             val fontColor = preferenceFile.retviecolorString(Constants.FONT_COLOR)
             viewModel.fontColorLD.value = fontColor
             Log.e("SSSSSSSSSqw4", fontColor.toString())
         }
+
     }
 
     private fun backPressedData() {
@@ -135,8 +203,8 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
                 if (data != null) {
                     checkApi.set(false)
                 }
-
             }
     }
+
 
 }

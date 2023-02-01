@@ -7,9 +7,12 @@ import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.location.Location
+import android.media.MediaPlayer
 import android.os.Build
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -28,31 +31,25 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceShowViewProfileBinding
+import com.example.plazapalm.databinding.EditFrontPageFragmentBinding
 import com.example.plazapalm.databinding.FontsListFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
+import com.example.plazapalm.datastore.PROFILE_DATA
 import com.example.plazapalm.datastore.SAVE_EDIT_COVER_PAGE
 import com.example.plazapalm.interfaces.clickItem
 import com.example.plazapalm.models.*
-import com.example.plazapalm.networkcalls.ApiEnums
-import com.example.plazapalm.networkcalls.ApiProcessor
-import com.example.plazapalm.networkcalls.Repository
-import com.example.plazapalm.networkcalls.RetrofitApi
+import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.recycleradapter.RecyclerAdapter
-import com.example.plazapalm.utils.BindingAdapters.pref
-import com.example.plazapalm.utils.ColorsAdapter
-import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.*
 import com.example.plazapalm.utils.CommonMethods.academyEngravedLetPlain
 import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.utils.CommonMethods.dialog
 import com.example.plazapalm.utils.CommonMethods.showToast
-import com.example.plazapalm.utils.Constants
-import com.example.plazapalm.utils.hideKeyboard
-import com.example.plazapalm.views.dashboard.DashBoardPostData
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.Slider
@@ -70,78 +67,44 @@ class EditFrontPageVM @Inject constructor(
     private var repository: Repository,
     private var dataStoreUtil: DataStoreUtil
 ) : ViewModel(), clickItem {
+    var columnColor = ObservableField("")
+    private var longi: Double? = null
+    private var lati: Double? = null
+    private var p_id: String? = null
+    var editFrontPageBinding: EditFrontPageFragmentBinding? = null
     private var profileBinding: AdvanceShowViewProfileBinding? = null
     var appCompatTxtFont: AppCompatTextView? = null
     var fontsNameList = ArrayList<FontsListModelResponse>()
     var SelectedDialog = ObservableField("")
     val fontListAdapter by lazy { RecyclerAdapter<FontsListModelResponse>(R.layout.fonts_list_item) }
-    var fontSize = ObservableFloat()
-    var titlename = ObservableField("")
+    var fontSize = ObservableFloat(14f)
     var backgroundColor = ObservableField("")
-    var idList = ArrayList<String>()
-    var userMiles = ObservableField("")
-    var distanceCal = ObservableField("")
-
-
     var selectedbackgrouncolor = -65536
-
     var fontColorLiveData = 0
-
     var borderColorLiveData = 0
-
     var fontTypeface: Typeface? = null
     var isChecked = ObservableBoolean(false)
-    var isBottomText = ObservableBoolean(false)
-    var isTopText = ObservableBoolean(false)
-
-    var userProfileName = ObservableField("")
-    var userProfileDescription = ObservableField("")
-    var userProfileLocation = ObservableField("")
-
+    var isBottomText = ObservableBoolean()
+    var isTopText = ObservableBoolean()
     var typfaceObserverLiveData = MutableLiveData<Boolean>()
     val distance = ObservableField("")
-
-
     val backgroundColorLiveData = MutableLiveData<Any>()
-    val columnColorLD = MutableLiveData<Any>()
-    val fontColorLD = MutableLiveData<Any>()
-    val borderColorLD = MutableLiveData<Any>()
-
-
-    var sliderOpacitty: Slider? = null
-
-    @SuppressLint("StaticFieldLeak")
+    var fontColorLD = MutableLiveData<Any>()
+    private var sliderOpacitty: Slider? = null
     var slider_size: Slider? = null
-    var size_tv: TextView? = null
-
+    private var size_tv: TextView? = null
     var opacity_tv: TextView? = null
-
     var fontsName = ObservableField("Optima-Regular")
-
-
     private var layoutColrs: ConstraintLayout? = null
-    var fontsFilteredList = ArrayList<FontsListModelResponse>()
     var scheduleBinding: FontsListFragmentBinding? = null
-    var columnOpacity = ObservableFloat()
-    var borderOpacity = ObservableFloat()
-    var borderWidth = ObservableFloat()
     var borderColor = ObservableField("")
-    var fontName = ObservableField("mdgdfg")
     var fontColor = ObservableField("")
     var fontOpacity = ObservableFloat()
-    var destinationLat = ObservableDouble()
-    var destinationLong = ObservableDouble()
     var recyclerChoosecolor: RecyclerView? = null
     var borderSlideValue = 0F
     var columnColorLiveData = 0
-
-    @SuppressLint("StaticFieldLeak")
     var title: TextView? = null
-
-    @SuppressLint("StaticFieldLeak")
     private var changeColor: TextView? = null
-
-    @SuppressLint("StaticFieldLeak")
     private var cardLayoutColrs: CardView? = null
     var checkColor = ObservableField("")
     var colorList = ArrayList<ChooseColor>()
@@ -159,6 +122,7 @@ class EditFrontPageVM @Inject constructor(
         colorList.add(ChooseColor(R.color.sky))
         colorList.add(ChooseColor(R.color.green))
         colorList.add(ChooseColor(R.color.orange))
+        getProfileId()
         setFontsInAdapterList()
         setAdapter()
     }
@@ -166,22 +130,25 @@ class EditFrontPageVM @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.M)
     fun onClicks(view: View) {
         when (view.id) {
-            /*attac button click */
             R.id.btnEditFrontLookAttach -> {
-                // call here post api of fonts
                 postFrontPageApi()
             }
             R.id.ivAdvanceEditFrontPage -> {
                 view.findNavController().navigateUp()
             }
+            R.id.checkEditFrontPageTopText -> {
+                isTopText.set(!(isTopText.get()))
+            }
+            R.id.checkBottomTextFrontPage -> {
+                isBottomText.set(!(isBottomText.get()))
+            }
+
             R.id.btnEditFrontPageView -> {
-                /*call herer on view button dialog (get fonts api)*/
-                showToast(context, "In Progress ....")
-                //showViewProfileDialog()
+                getProfileApi()
             }
             R.id.viewBoxLookingBGColor -> {
-                checkColor.set("FONTCOLOR")
-                showColorDialog("FONTCOLOR")
+                checkColor.set(Constants.FONTCOLOR)
+                showColorDialog(Constants.FONT_COLOR)
             }
             R.id.tvAdvanceEditFrontPageFontValue -> {
                 showBottomSheetDialogOne()
@@ -190,9 +157,18 @@ class EditFrontPageVM @Inject constructor(
     }
 
 
-    private fun showViewProfileDialog() {
+    private fun getProfileApi() {
+        lati = preferenceFile.retvieLatlong("lati").toDouble()
+        longi = preferenceFile.retvieLatlong("longi").toDouble()
+        getProfileId()
+        getPostProfileApi(p_id!!, lati!!, longi!!)
+    }
 
-        // getProfileByCategory("",true)
+
+    //vikas
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun showViewProfileDialog(response: GetPostProfileResponse) {
+        //get post profile api ..
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
         } else {
@@ -201,46 +177,1528 @@ class EditFrontPageVM @Inject constructor(
             dialog?.setContentView(R.layout.advance_show_view_profile)
             profileBinding =
                 AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
-            profileBinding!!.root
+            dialog?.setContentView(profileBinding?.root!!)
+
+
+            /**Set advance  profile edit cover page data **/
+            profileBinding?.apply {
+
+
+                /**Check if fontlist text contains names set typeface according to their name **/
+
+
+                tvProfileUserName.text = response.data.first_name
+                tvProfileUserAddress.text = response.data.address
+                tvProfileUserDescription.text = response.data.description_1
+
+                /**Set font color for view only **/
+                tvProfileUserName.setTextColor(Color.parseColor(fontColor.get()))
+                tvProfileUserAddress.setTextColor(Color.parseColor(fontColor.get()))
+                tvProfileUserDescription.setTextColor(Color.parseColor(fontColor.get()))
+
+                /**Set font size for view **/
+                tvProfileUserName.textSize = fontSize.get()
+                tvProfileUserAddress.textSize = fontSize.get()
+                tvProfileUserDescription.textSize = fontSize.get()
+                /**Set type face of view according to topText and Bottom Text is Selected or not **/
+                if (this@EditFrontPageVM.isTopText.get()) {
+                    tvProfileUserName.typeface = fontTypeface
+
+                    //call here toptext selected font-typfaces...
+                    topTextSelecedTypeFaces()
+                }
+                if (this@EditFrontPageVM.isBottomText.get()) {
+                    tvProfileUserAddress.typeface = fontTypeface
+                    tvProfileUserDescription.typeface = fontTypeface
+
+                    bottomTextSelectedTypeFaces()
+
+                }
+                /**set ImageView or video view **/
+                if (!response.data.postProfile_picture?.contains("")!!) {
+                    Glide.with(context)
+                        .load(IMAGE_LOAD_URL + response.data.postProfile_picture[0])
+                        .error(R.drawable.placeholder)
+                        .into(profileBinding?.ivDashBoardCat!!)
+                }
+
+                /**play Video functionality is pending due to updated code ... **/
+            }
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
             dialog?.setCancelable(true)
-            // setDataOnViewClickDialog()
             dialog?.show()
         }
     }
 
-    private fun setDataOnViewClickDialog() {
-        if (isTopText.get()) {
-            profileBinding?.tvProfileUserName?.text = "Vikas Panchal"
-            profileBinding?.tvProfileUserName?.typeface = fontTypeface
-        } else if (isBottomText.get()) {
-            profileBinding?.tvProfileUserName?.text = "Vikas Panchal"
-            profileBinding?.tvProfileUserDescription?.text = "Mohali"
-            profileBinding?.tvProfileUserDescription?.typeface = fontTypeface
-            profileBinding?.tvProfileUserAddress?.typeface = fontTypeface
-            profileBinding?.tvProfileUserAddress?.text = "Punjab"
+    private fun topTextSelecedTypeFaces() {
+        profileBinding?.apply {
+            when {
 
-        } else if (isBottomText.get() && isTopText.get()) {
-//Top Text
-            profileBinding?.tvProfileUserName?.text = "Vikas Panchal"
-            profileBinding?.tvProfileUserName?.typeface = fontTypeface
+                fontsName.get() == CommonMethods.acadeMyLetFontName -> {
+                    val academyEngravedLetPlain =
+                        Typeface.createFromAsset(context.assets, academyEngravedLetPlain)
+                    tvProfileUserName.typeface = academyEngravedLetPlain
+                }
+                fontsName.get() == CommonMethods.abrilFatFaceFontName -> {
+                    val abrilFatFaceRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.abrilFatFaceRegular)
+                    tvProfileUserName.typeface = abrilFatFaceRegular
+                }
+                fontsName.get() == CommonMethods.alexBrushFontName -> {
+                    val alexBrushRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.alexBrushRegular)
+                    tvProfileUserName.typeface = alexBrushRegular
+                }
 
-            //Bottom Text..
-            profileBinding?.tvProfileUserDescription?.text = "Mohali"
-            profileBinding?.tvProfileUserDescription?.typeface = fontTypeface
-            profileBinding?.tvProfileUserAddress?.typeface = fontTypeface
-            profileBinding?.tvProfileUserAddress?.text = "Punjab"
+                fontsName.get() == CommonMethods.allerBDItFontName -> {
+                    val allerBD = Typeface.createFromAsset(context.assets, CommonMethods.allerBD)
+                    tvProfileUserName.typeface = allerBD
+                }
 
-        } else {
-            profileBinding?.tvProfileUserName?.text = "Vikas Panchal"
-            //Bottom Text..
-            profileBinding?.tvProfileUserDescription?.text = "Mohali"
-            profileBinding?.tvProfileUserAddress?.text = "Punjab"
+                fontsName.get() == CommonMethods.allerBDItFontName -> {
+                    val allerBDLT =
+                        Typeface.createFromAsset(context.assets, CommonMethods.allerBDLT)
+                    tvProfileUserName.typeface = allerBDLT
+                }
 
+                fontsName.get() == CommonMethods.AllerDisplayFontName -> {
+                    val allerDisplay =
+                        Typeface.createFromAsset(context.assets, CommonMethods.allerDisplay)
+                    tvProfileUserName.typeface = allerDisplay
+                }
+
+                fontsName.get() == CommonMethods.allerItFontName -> {
+                    val allerIt = Typeface.createFromAsset(context.assets, CommonMethods.allerIt)
+                    tvProfileUserName.typeface = allerIt
+                }
+
+                fontsName.get() == CommonMethods.AllerRGFontName -> {
+                    val allerRG = Typeface.createFromAsset(context.assets, CommonMethods.allerRG)
+                    tvProfileUserName.typeface = allerRG
+                }
+
+                fontsName.get() == CommonMethods.amaticBoldFontName -> {
+                    val amaticBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.amaticBold)
+                    tvProfileUserName.typeface = amaticBold
+                }
+
+                fontsName.get() == CommonMethods.amaticSCRegularFontName -> {
+                    val amaticSCRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.amaticSCRegular)
+                    tvProfileUserName.typeface = amaticSCRegular
+                }
+
+                fontsName.get() == CommonMethods.AntonioBoldFontName -> {
+                    val antonioBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.antonioBold)
+                    tvProfileUserName.typeface = antonioBold
+                }
+
+                fontsName.get() == CommonMethods.AntonioLightFontName -> {
+                    val antonioLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.antonioLight)
+                    tvProfileUserName.typeface = antonioLight
+                }
+
+                fontsName.get() == CommonMethods.AntonioRegularFontName -> {
+                    val antonioRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.antonioRegular)
+                    tvProfileUserName.typeface = antonioRegular
+                }
+
+                fontsName.get() == CommonMethods.bebasRegularFontName -> {
+                    val bebasRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.bebasRegular)
+                    tvProfileUserName.typeface = bebasRegular
+                }
+
+
+                fontsName.get() == CommonMethods.caviarDreamsFontName -> {
+                    val caviarDreams =
+                        Typeface.createFromAsset(context.assets, CommonMethods.caviarDreams)
+                    tvProfileUserName.typeface = caviarDreams
+                }
+
+
+                fontsName.get() == CommonMethods.caviarDreamsItalicFontName -> {
+                    val caviarDreamsItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.caviarDreamsItalic)
+                    tvProfileUserName.typeface = caviarDreamsItalic
+                }
+
+                fontsName.get() == CommonMethods.chunkFivePrintFontName -> {
+                    val chunkFivePrint =
+                        Typeface.createFromAsset(context.assets, CommonMethods.chunkFivePrint)
+                    tvProfileUserName.typeface = chunkFivePrint
+                }
+
+                fontsName.get() == CommonMethods.chunkFiveRegularFontName -> {
+                    val chunkFiveRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.chunkFiveRegular)
+                    tvProfileUserName.typeface = chunkFiveRegular
+                }
+
+                fontsName.get() == CommonMethods.chunkFiveRegularFontName -> {
+                    val chunkFiveRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.chunkFiveRegular)
+                    tvProfileUserName.typeface = chunkFiveRegular
+                }
+
+                fontsName.get() == CommonMethods.cooperHewittBoldFontName -> {
+                    val cooperHewittBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.cooperHewittBold)
+                    tvProfileUserName.typeface = cooperHewittBold
+                }
+
+                fontsName.get() == CommonMethods.cooperHewittBoldFontName -> {
+                    val cooperHewittBook =
+                        Typeface.createFromAsset(context.assets, CommonMethods.cooperHewittBook)
+                    tvProfileUserName.typeface = cooperHewittBook
+                }
+
+                fontsName.get() == CommonMethods.cooperHewittBoldItalicFontName -> {
+                    val cooperHewittBoldItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.cooperHewittBoldItalic
+                    )
+                    tvProfileUserName.typeface = cooperHewittBoldItalic
+                }
+
+                fontsName.get() == CommonMethods.cooperHewittHeavyFontName -> {
+                    val cooperHewittHeavy =
+                        Typeface.createFromAsset(context.assets, CommonMethods.cooperHewittHeavy)
+                    tvProfileUserName.typeface = cooperHewittHeavy
+                }
+
+
+                fontsName.get() == CommonMethods.dancingRegularFontName -> {
+                    val dancingScriptRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.dancingScriptRegular)
+                    tvProfileUserName.typeface = dancingScriptRegular
+                }
+
+
+                fontsName.get() == CommonMethods.ftusFontName -> {
+                    val fTusj = Typeface.createFromAsset(context.assets, CommonMethods.fTusj)
+                    tvProfileUserName.typeface = fTusj
+                }
+
+
+                fontsName.get() == CommonMethods.firaSansBoldFontName -> {
+                    val firaSansBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.firaSansBold)
+                    tvProfileUserName.typeface = firaSansBold
+                }
+
+
+                fontsName.get() == CommonMethods.firaSansBoldItalicFontName -> {
+                    val firaSansBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.firaSansBoldItalic)
+                    tvProfileUserName.typeface = firaSansBoldItalic
+                }
+
+                fontsName.get() == CommonMethods.firaSansBookFontName -> {
+                    val firaSansBook =
+                        Typeface.createFromAsset(context.assets, CommonMethods.firaSansBook)
+                    tvProfileUserName.typeface = firaSansBook
+                }
+
+                fontsName.get() == CommonMethods.firaSansEightFontName -> {
+                    val firaSansEight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.firaSansEight)
+                    tvProfileUserName.typeface = firaSansEight
+                }
+
+                fontsName.get() == CommonMethods.greatVibesRegularFontName -> {
+                    val greatVibesRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.greatVibesRegular)
+                    tvProfileUserName.typeface = greatVibesRegular
+                }
+
+
+                fontsName.get() == CommonMethods.helloValentinaFontName -> {
+                    val helloValentina =
+                        Typeface.createFromAsset(context.assets, CommonMethods.helloValentina)
+                    tvProfileUserName.typeface = helloValentina
+                }
+
+
+                fontsName.get() == CommonMethods.interBlackFontName -> {
+                    val interBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.interBlack)
+                    tvProfileUserName.typeface = interBlack
+                }
+
+
+                fontsName.get() == CommonMethods.interBoldFontName -> {
+                    val interBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.interBold)
+                    tvProfileUserName.typeface = interBold
+                }
+
+
+                fontsName.get() == CommonMethods.interBoldItalicFontName -> {
+                    val interBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.interBoldItalic)
+                    tvProfileUserName.typeface = interBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.interExtraBoldFontName -> {
+                    val interExtraBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.interExtraBold)
+                    tvProfileUserName.typeface = interExtraBold
+                }
+
+
+                fontsName.get() == CommonMethods.josefinBoldFontName -> {
+                    val josefinBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.josefinBold)
+                    tvProfileUserName.typeface = josefinBold
+                }
+
+
+                fontsName.get() == CommonMethods.josefinBoldItalicFontName -> {
+                    val josefinBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.josefinBoldItalic)
+                    tvProfileUserName.typeface = josefinBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.josefinLightFontName -> {
+                    val josefinLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.josefinLight)
+                    tvProfileUserName.typeface = josefinLight
+                }
+
+
+                fontsName.get() == CommonMethods.josefinRegularFontName -> {
+                    val josefinRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.josefinRegular)
+                    tvProfileUserName.typeface = josefinRegular
+                }
+
+                fontsName.get() == CommonMethods.latoBlackFontName -> {
+                    val latoBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.latoBlack)
+                    tvProfileUserName.typeface = latoBlack
+                }
+
+                fontsName.get() == CommonMethods.latoBlackItalicFontName -> {
+                    val latoBlackItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.latoBlackItalic)
+                    tvProfileUserName.typeface = latoBlackItalic
+                }
+
+
+                fontsName.get() == CommonMethods.latoBoldFontName -> {
+                    val latoBold = Typeface.createFromAsset(context.assets, CommonMethods.latoBold)
+                    tvProfileUserName.typeface = latoBold
+                }
+
+                fontsName.get() == CommonMethods.latoBoldItalicFontName -> {
+                    val latoBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.latoBoldItalic)
+                    tvProfileUserName.typeface = latoBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.montSerratAlternatesBlackFontName -> {
+                    val montSerratAlternatesBlack = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.montSerratAlternatesBlack
+                    )
+                    tvProfileUserName.typeface = montSerratAlternatesBlack
+                }
+
+
+                fontsName.get() == CommonMethods.montSerratAlternatesBlackItalicFontName -> {
+                    val montSerratAlternatesBlackItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.montSerratAlternatesBlackItalic
+                    )
+                    tvProfileUserName.typeface = montSerratAlternatesBlackItalic
+                }
+
+                fontsName.get() == CommonMethods.montSerratAlternatesBoldFontName -> {
+                    val montSerratAlternatesBold = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.montSerratAlternatesBold
+                    )
+                    tvProfileUserName.typeface = montSerratAlternatesBold
+                }
+
+                fontsName.get() == CommonMethods.openSansBoldFontName -> {
+                    val openSansBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansBold)
+                    tvProfileUserName.typeface = openSansBold
+                }
+
+
+                fontsName.get() == CommonMethods.openSansBoldItalicFontName -> {
+                    val openSansBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansBoldItalic)
+                    tvProfileUserName.typeface = openSansBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.openSansBoldItalicFontName -> {
+                    val openSansItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansItalic)
+                    tvProfileUserName.typeface = openSansItalic
+                }
+
+
+                fontsName.get() == CommonMethods.openSansLightFontName -> {
+                    val openSansLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansLight)
+                    tvProfileUserName.typeface = openSansLight
+                }
+
+
+                fontsName.get() == CommonMethods.openSansRegularFontName -> {
+                    val openSansRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansRegular)
+                    tvProfileUserName.typeface = openSansRegular
+                }
+
+
+                fontsName.get() == CommonMethods.openSansSemiBoldFontName -> {
+                    val openSansSemiBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansSemiBold)
+                    tvProfileUserName.typeface = openSansSemiBold
+                }
+
+
+                fontsName.get() == CommonMethods.openSansSemiBoldItalicFontName -> {
+                    val openSansSemiBoldItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.openSansSemiBoldItalic
+                    )
+                    tvProfileUserName.typeface = openSansSemiBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichRegularFontName -> {
+                    val ostrichRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichRegular)
+                    tvProfileUserName.typeface = ostrichRegular
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichSansBlackFontName -> {
+                    val ostrichSansBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansBlack)
+                    tvProfileUserName.typeface = ostrichSansBlack
+                }
+
+                fontsName.get() == CommonMethods.ostrichSansBoldFontName -> {
+                    val ostrichSansBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansBold)
+                    tvProfileUserName.typeface = ostrichSansBold
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichSansHeavyFontName -> {
+                    val ostrichSansHeavy =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansHeavy)
+                    tvProfileUserName.typeface = ostrichSansHeavy
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichSansLightFontName -> {
+                    val ostrichSansLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansLight)
+                    tvProfileUserName.typeface = ostrichSansLight
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichSansMediumFontName -> {
+                    val ostrichSansMedium =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansMedium)
+                    tvProfileUserName.typeface = ostrichSansMedium
+                }
+
+
+                fontsName.get() == CommonMethods.oswaldBoldFontName -> {
+                    val osWaldBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.osWaldBold)
+                    tvProfileUserName.typeface = osWaldBold
+                }
+
+
+                fontsName.get() == CommonMethods.oswaldBoldItalicFontName -> {
+                    val osWaldBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.osWaldBoldItalic)
+                    tvProfileUserName.typeface = osWaldBold
+                }
+
+
+                fontsName.get() == CommonMethods.oswaldSemiBoldItalicFontName -> {
+                    val osWaldSemiBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.osWaldSemiBoldItalic)
+                    tvProfileUserName.typeface = osWaldSemiBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.playFairDisplayBlackFontName -> {
+                    val playfairDisplayBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.playfairDisplayBlack)
+                    tvProfileUserName.typeface = playfairDisplayBlack
+                }
+
+
+                fontsName.get() == CommonMethods.playFairDisplayBlackItalicFontName -> {
+                    val playfairDisplayBlackItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.playfairDisplayBlackItalic
+                    )
+                    tvProfileUserName.typeface = playfairDisplayBlackItalic
+                }
+
+
+                fontsName.get() == CommonMethods.playFairDisplayBoldFontName -> {
+                    val playfairDisplayBlackItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.playfairDisplayBlackItalic
+                    )
+                    tvProfileUserName.typeface = playfairDisplayBlackItalic
+                }
+
+
+                fontsName.get() == CommonMethods.poppinBlackItalicFontName -> {
+                    val poppinBlackItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBlackItalic)
+                    tvProfileUserName.typeface = poppinBlackItalic
+                }
+
+                fontsName.get() == CommonMethods.poppinBlackFontName -> {
+                    val poppinBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBlack)
+                    tvProfileUserName.typeface = poppinBlack
+                }
+
+
+                fontsName.get() == CommonMethods.poppinBoldFontName -> {
+                    val poppinBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBold)
+                    tvProfileUserName.typeface = poppinBold
+                }
+                fontsName.get() == CommonMethods.poppinBoldItalicFontName -> {
+                    val poppinBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBoldItalic)
+                    tvProfileUserName.typeface = poppinBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.poppinBoldItalicFontName -> {
+                    val poppinBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBoldItalic)
+                    tvProfileUserName.typeface = poppinBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.poppinExtraBoldFontName -> {
+                    val poppinExtraBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinExtraBold)
+                    tvProfileUserName.typeface = poppinExtraBold
+                }
+
+
+                fontsName.get() == CommonMethods.ptc55FontName -> {
+                    val ptc55 = Typeface.createFromAsset(context.assets, CommonMethods.ptc55)
+                    tvProfileUserName.typeface = ptc55
+                }
+
+
+                fontsName.get() == CommonMethods.ptc75FontName -> {
+                    val ptc75F = Typeface.createFromAsset(context.assets, CommonMethods.ptc75F)
+                    tvProfileUserName.typeface = ptc75F
+                }
+
+
+                fontsName.get() == CommonMethods.quicksAndBoldFontName -> {
+                    val quicksAndBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.quicksAndBold)
+                    tvProfileUserName.typeface = quicksAndBold
+                }
+
+
+                fontsName.get() == CommonMethods.quicksAndBoldItalicFontName -> {
+                    val quicksAndBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.quicksAndBoldItalic)
+                    tvProfileUserName.typeface = quicksAndBoldItalic
+                }
+
+                fontsName.get() == CommonMethods.quicksDashFontName -> {
+                    val quicksDash =
+                        Typeface.createFromAsset(context.assets, CommonMethods.quicksDash)
+                    tvProfileUserName.typeface = quicksDash
+                }
+
+                fontsName.get() == CommonMethods.quicksAndBoldItalicFontName -> {
+                    val quicksAndItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.quicksAndItalic)
+                    tvProfileUserName.typeface = quicksAndItalic
+                }
+
+                fontsName.get() == CommonMethods.raleWayBlackFontName -> {
+                    val raleWayBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayBlack)
+                    tvProfileUserName.typeface = raleWayBlack
+                }
+
+
+                fontsName.get() == CommonMethods.raleWayBlackItalicFontName -> {
+                    val raleWayBlackItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayBlackItalic)
+                    tvProfileUserName.typeface = raleWayBlackItalic
+                }
+
+                fontsName.get() == CommonMethods.raleWayBoldFontName -> {
+                    val raleWayBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayBold)
+                    tvProfileUserName.typeface = raleWayBold
+                }
+
+                fontsName.get() == CommonMethods.raleWayBoldItalicFontName -> {
+                    val raleWayBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayBoldItalic)
+                    tvProfileUserName.typeface = raleWayBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.raleWayItalicFontName -> {
+                    val raleWayItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayItalic)
+                    tvProfileUserName.typeface = raleWayItalic
+                }
+
+
+                fontsName.get() == CommonMethods.raleWayMediumFontName -> {
+                    val raleWayMedium =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayMedium)
+                    tvProfileUserName.typeface = raleWayMedium
+                }
+
+
+                fontsName.get() == CommonMethods.seasRnFontName -> {
+                    val seasRn = Typeface.createFromAsset(context.assets, CommonMethods.seasRn)
+                    tvProfileUserName.typeface = seasRn
+                }
+
+
+                fontsName.get() == CommonMethods.sofiaRegularFontName -> {
+                    val sofiaRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sofiaRegular)
+                    tvProfileUserName.typeface = sofiaRegular
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProBlackItFontName -> {
+                    val sourceSansProBlackIt =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sourceSansProBlackIt)
+                    tvProfileUserName.typeface = sourceSansProBlackIt
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProBoldFontName -> {
+                    val sourceSansProBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sourceSansProBold)
+                    tvProfileUserName.typeface = sourceSansProBold
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProExtraLightFontName -> {
+                    val sourceSansProExtraLight = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.sourceSansProExtraLight
+                    )
+                    tvProfileUserName.typeface = sourceSansProExtraLight
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProBlackFontName -> {
+                    val sourceSansProBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sourceSansProBlack)
+                    tvProfileUserName.typeface = sourceSansProBlack
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProExtraLightFontName -> {
+                    val sourceSansProExtraLight = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.sourceSansProExtraLight
+                    )
+                    tvProfileUserName.typeface = sourceSansProExtraLight
+                }
+
+                fontsName.get() == CommonMethods.sourceSansProBlackFontName -> {
+                    val sourceSansProBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sourceSansProBlack)
+                    tvProfileUserName.typeface = sourceSansProBlack
+                }
+
+
+                fontsName.get() == CommonMethods.titiliumSemiBoldFontName -> {
+                    val titiliumSemiBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.titiliumSemiBold)
+                    tvProfileUserName.typeface = titiliumSemiBold
+                }
+
+
+                fontsName.get() == CommonMethods.titiliumLightFontName -> {
+                    val titiliumLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.titiliumLight)
+                    tvProfileUserName.typeface = titiliumLight
+                }
+
+
+                fontsName.get() == CommonMethods.titiliumRegularFontName -> {
+                    val titiliumRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.titiliumRegular)
+                    tvProfileUserName.typeface = titiliumRegular
+                }
+
+
+                fontsName.get() == CommonMethods.titiliumRegularItalicFontName -> {
+                    val titiliumRegularItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.titiliumRegularItalic
+                    )
+                    tvProfileUserName.typeface = titiliumRegularItalic
+                }
+
+                fontsName.get() == CommonMethods.windSongFontName -> {
+                    val windSong = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.windSong
+                    )
+                    tvProfileUserName.typeface = windSong
+                }
+
+
+                fontsName.get() == CommonMethods.walkWayBlackFontName -> {
+                    val walkwayBlack = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.walkwayBlack
+                    )
+                    tvProfileUserName.typeface = walkwayBlack
+                }
+
+
+                fontsName.get() == CommonMethods.walkWayObliqueFontName -> {
+                    val walkwayOblique = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.walkwayOblique
+                    )
+                    tvProfileUserName.typeface = walkwayOblique
+                }
+
+                fontsName.get() == CommonMethods.walkWayObliqueBlackFontName -> {
+                    val walkwayObliqueBlack = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.walkwayObliqueBlack
+                    )
+                    tvProfileUserName.typeface = walkwayObliqueBlack
+                }
+
+                fontsName.get() == CommonMethods.walkwayObliqueSemiBoldFontName -> {
+                    val walkwayObliqueSemiBold = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.walkwayObliqueSemiBold
+                    )
+                    tvProfileUserName.typeface = walkwayObliqueSemiBold
+                }
+
+
+            }
         }
     }
 
+    private fun bottomTextSelectedTypeFaces(){
+        profileBinding?.apply {
+            when {
+                fontsName.get() == CommonMethods.acadeMyLetFontName -> {
+                    val academyEngravedLetPlain =
+                        Typeface.createFromAsset(context.assets, academyEngravedLetPlain)
+                    tvProfileUserDescription!!.typeface = academyEngravedLetPlain
+                    tvProfileUserAddress.typeface=academyEngravedLetPlain
+                }
+                fontsName.get() == CommonMethods.abrilFatFaceFontName -> {
+                    val abrilFatFaceRegular = Typeface.createFromAsset(context.assets, CommonMethods.abrilFatFaceRegular)
+                    tvProfileUserDescription.typeface = abrilFatFaceRegular
+                    tvProfileUserAddress.typeface=abrilFatFaceRegular
+
+                }
+                fontsName.get() == CommonMethods.alexBrushFontName -> {
+                    val alexBrushRegular = Typeface.createFromAsset(context.assets, CommonMethods.alexBrushRegular)
+                    tvProfileUserDescription.typeface = alexBrushRegular
+                    tvProfileUserAddress.typeface=alexBrushRegular
+
+                }
+
+                fontsName.get() == CommonMethods.allerBDItFontName -> {
+                    val allerBD = Typeface.createFromAsset(context.assets, CommonMethods.allerBD)
+                    tvProfileUserDescription.typeface = allerBD
+                    tvProfileUserAddress.typeface=allerBD
+                }
+
+                fontsName.get() == CommonMethods.allerBDItFontName -> {
+                    val allerBDLT =
+                        Typeface.createFromAsset(context.assets, CommonMethods.allerBDLT)
+                    tvProfileUserDescription.typeface = allerBDLT
+                    tvProfileUserAddress.typeface=allerBDLT
+                }
+
+                fontsName.get() == CommonMethods.AllerDisplayFontName -> {
+                    val allerDisplay =
+                        Typeface.createFromAsset(context.assets, CommonMethods.allerDisplay)
+                    tvProfileUserDescription.typeface = allerDisplay
+                    tvProfileUserAddress.typeface=allerDisplay
+                }
+
+                fontsName.get() == CommonMethods.allerItFontName -> {
+                    val allerIt = Typeface.createFromAsset(context.assets, CommonMethods.allerIt)
+                    tvProfileUserDescription.typeface = allerIt
+                    tvProfileUserAddress.typeface=allerIt
+                }
+
+                fontsName.get() == CommonMethods.AllerRGFontName -> {
+                    val allerRG = Typeface.createFromAsset(context.assets, CommonMethods.allerRG)
+                    tvProfileUserDescription.typeface = allerRG
+                    tvProfileUserAddress.typeface=allerRG
+                }
+
+                fontsName.get() == CommonMethods.amaticBoldFontName -> {
+                    val amaticBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.amaticBold)
+                    tvProfileUserDescription.typeface = amaticBold
+                    tvProfileUserAddress.typeface=amaticBold
+                }
+
+                fontsName.get() == CommonMethods.amaticSCRegularFontName -> {
+                    val amaticSCRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.amaticSCRegular)
+                    tvProfileUserDescription.typeface = amaticSCRegular
+                    tvProfileUserAddress.typeface=amaticSCRegular
+                }
+
+                fontsName.get() == CommonMethods.AntonioBoldFontName -> {
+                    val antonioBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.antonioBold)
+                    tvProfileUserDescription.typeface = antonioBold
+                    tvProfileUserAddress.typeface= antonioBold
+                }
+
+                fontsName.get() == CommonMethods.AntonioLightFontName -> {
+                    val antonioLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.antonioLight)
+                    tvProfileUserDescription.typeface = antonioLight
+                    tvProfileUserAddress.typeface=antonioLight
+                }
+
+                fontsName.get() == CommonMethods.AntonioRegularFontName -> {
+                    val antonioRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.antonioRegular)
+                    tvProfileUserDescription.typeface = antonioRegular
+                    tvProfileUserAddress.typeface=antonioRegular
+                }
+
+                fontsName.get() == CommonMethods.bebasRegularFontName -> {
+                    val bebasRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.bebasRegular)
+                    tvProfileUserDescription.typeface = bebasRegular
+                    tvProfileUserAddress.typeface=bebasRegular
+                }
+
+
+                fontsName.get() == CommonMethods.caviarDreamsFontName -> {
+                    val caviarDreams =
+                        Typeface.createFromAsset(context.assets, CommonMethods.caviarDreams)
+                    tvProfileUserDescription.typeface = caviarDreams
+                    tvProfileUserAddress.typeface=caviarDreams
+                }
+
+
+                fontsName.get() == CommonMethods.caviarDreamsItalicFontName -> {
+                    val caviarDreamsItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.caviarDreamsItalic)
+                    tvProfileUserDescription.typeface = caviarDreamsItalic
+                    tvProfileUserAddress.typeface=caviarDreamsItalic
+                }
+
+                fontsName.get() == CommonMethods.chunkFivePrintFontName -> {
+                    val chunkFivePrint =
+                        Typeface.createFromAsset(context.assets, CommonMethods.chunkFivePrint)
+                    tvProfileUserDescription.typeface = chunkFivePrint
+                    tvProfileUserAddress.typeface=chunkFivePrint
+                }
+
+                fontsName.get() == CommonMethods.chunkFiveRegularFontName -> {
+                    val chunkFiveRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.chunkFiveRegular)
+                    tvProfileUserDescription.typeface = chunkFiveRegular
+                    tvProfileUserAddress.typeface= chunkFiveRegular
+                }
+
+                fontsName.get() == CommonMethods.chunkFiveRegularFontName -> {
+                    val chunkFiveRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.chunkFiveRegular)
+                    tvProfileUserDescription.typeface = chunkFiveRegular
+                    tvProfileUserAddress.typeface=chunkFiveRegular
+                }
+
+                fontsName.get() == CommonMethods.cooperHewittBoldFontName -> {
+                    val cooperHewittBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.cooperHewittBold)
+                    tvProfileUserDescription.typeface = cooperHewittBold
+                    tvProfileUserAddress.typeface= cooperHewittBold
+                }
+
+                fontsName.get() == CommonMethods.cooperHewittBoldFontName -> {
+                    val cooperHewittBook =
+                        Typeface.createFromAsset(context.assets, CommonMethods.cooperHewittBook)
+                    tvProfileUserDescription.typeface = cooperHewittBook
+                    tvProfileUserAddress.typeface=cooperHewittBook
+                }
+
+                fontsName.get() == CommonMethods.cooperHewittBoldItalicFontName -> {
+                    val cooperHewittBoldItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.cooperHewittBoldItalic
+                    )
+                    tvProfileUserDescription.typeface = cooperHewittBoldItalic
+                    tvProfileUserAddress.typeface=cooperHewittBoldItalic
+                }
+
+                fontsName.get() == CommonMethods.cooperHewittHeavyFontName -> {
+                    val cooperHewittHeavy =
+                        Typeface.createFromAsset(context.assets, CommonMethods.cooperHewittHeavy)
+                    tvProfileUserDescription.typeface = cooperHewittHeavy
+                    tvProfileUserAddress.typeface=cooperHewittHeavy
+                }
+
+
+                fontsName.get() == CommonMethods.dancingRegularFontName -> {
+                    val dancingScriptRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.dancingScriptRegular)
+                    tvProfileUserDescription.typeface = dancingScriptRegular
+                    tvProfileUserAddress.typeface=dancingScriptRegular
+                }
+
+
+                fontsName.get() == CommonMethods.ftusFontName -> {
+                    val fTusj = Typeface.createFromAsset(context.assets, CommonMethods.fTusj)
+                    tvProfileUserDescription.typeface = fTusj
+                    tvProfileUserDescription.typeface=fTusj
+                }
+
+
+                fontsName.get() == CommonMethods.firaSansBoldFontName -> {
+                    val firaSansBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.firaSansBold)
+                    tvProfileUserDescription.typeface = firaSansBold
+                    tvProfileUserAddress.typeface=firaSansBold
+                }
+
+
+                fontsName.get() == CommonMethods.firaSansBoldItalicFontName -> {
+                    val firaSansBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.firaSansBoldItalic)
+                    tvProfileUserDescription.typeface = firaSansBoldItalic
+                    tvProfileUserAddress.typeface=firaSansBoldItalic
+                }
+
+                fontsName.get() == CommonMethods.firaSansBookFontName -> {
+                    val firaSansBook =
+                        Typeface.createFromAsset(context.assets, CommonMethods.firaSansBook)
+                    tvProfileUserDescription.typeface = firaSansBook
+                    tvProfileUserAddress.typeface=firaSansBook
+                }
+
+                fontsName.get() == CommonMethods.firaSansEightFontName -> {
+                    val firaSansEight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.firaSansEight)
+                    tvProfileUserDescription.typeface = firaSansEight
+                    tvProfileUserAddress.typeface=firaSansEight
+                }
+
+                fontsName.get() == CommonMethods.greatVibesRegularFontName -> {
+                    val greatVibesRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.greatVibesRegular)
+                    tvProfileUserDescription.typeface = greatVibesRegular
+                    tvProfileUserAddress.typeface=greatVibesRegular
+                }
+
+
+                fontsName.get() == CommonMethods.helloValentinaFontName -> {
+                    val helloValentina =
+                        Typeface.createFromAsset(context.assets, CommonMethods.helloValentina)
+                    tvProfileUserDescription.typeface = helloValentina
+                    tvProfileUserAddress.typeface=helloValentina
+                }
+
+
+                fontsName.get() == CommonMethods.interBlackFontName -> {
+                    val interBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.interBlack)
+                    tvProfileUserDescription.typeface = interBlack
+                    tvProfileUserAddress.typeface= interBlack
+                }
+
+
+                fontsName.get() == CommonMethods.interBoldFontName -> {
+                    val interBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.interBold)
+                    tvProfileUserDescription.typeface = interBold
+                    tvProfileUserAddress.typeface= interBold
+                }
+
+
+                fontsName.get() == CommonMethods.interBoldItalicFontName -> {
+                    val interBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.interBoldItalic)
+                    tvProfileUserDescription.typeface = interBoldItalic
+                    tvProfileUserAddress.typeface=interBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.interExtraBoldFontName -> {
+                    val interExtraBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.interExtraBold)
+                    tvProfileUserDescription.typeface = interExtraBold
+                    tvProfileUserAddress.typeface=interExtraBold
+                }
+
+
+                fontsName.get() == CommonMethods.josefinBoldFontName -> {
+                    val josefinBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.josefinBold)
+                    tvProfileUserDescription.typeface = josefinBold
+                    tvProfileUserAddress.typeface=josefinBold
+                }
+
+
+                fontsName.get() == CommonMethods.josefinBoldItalicFontName -> {
+                    val josefinBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.josefinBoldItalic)
+                    tvProfileUserDescription.typeface = josefinBoldItalic
+                    tvProfileUserAddress.typeface=josefinBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.josefinLightFontName -> {
+                    val josefinLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.josefinLight)
+                    tvProfileUserDescription.typeface = josefinLight
+                    tvProfileUserAddress.typeface=josefinLight
+                }
+
+
+                fontsName.get() == CommonMethods.josefinRegularFontName -> {
+                    val josefinRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.josefinRegular)
+                    tvProfileUserDescription.typeface = josefinRegular
+                    tvProfileUserAddress.typeface= josefinRegular
+                }
+
+                fontsName.get() == CommonMethods.latoBlackFontName -> {
+                    val latoBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.latoBlack)
+                    tvProfileUserDescription.typeface = latoBlack
+                    tvProfileUserAddress.typeface=latoBlack
+                }
+
+                fontsName.get() == CommonMethods.latoBlackItalicFontName -> {
+                    val latoBlackItalic = Typeface.createFromAsset(context.assets, CommonMethods.latoBlackItalic)
+                    tvProfileUserDescription.typeface = latoBlackItalic
+                    tvProfileUserAddress.typeface= latoBlackItalic
+                }
+
+
+                fontsName.get() == CommonMethods.latoBoldFontName -> {
+                    val latoBold = Typeface.createFromAsset(context.assets, CommonMethods.latoBold)
+                    tvProfileUserDescription.typeface = latoBold
+                    tvProfileUserAddress.typeface= latoBold
+                }
+
+                fontsName.get() == CommonMethods.latoBoldItalicFontName -> {
+                    val latoBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.latoBoldItalic)
+                    tvProfileUserDescription.typeface = latoBoldItalic
+                    tvProfileUserAddress.typeface=latoBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.montSerratAlternatesBlackFontName -> {
+                    val montSerratAlternatesBlack = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.montSerratAlternatesBlack
+                    )
+                    tvProfileUserDescription.typeface = montSerratAlternatesBlack
+                    tvProfileUserAddress.typeface=montSerratAlternatesBlack
+                }
+
+
+                fontsName.get() == CommonMethods.montSerratAlternatesBlackItalicFontName -> {
+                    val montSerratAlternatesBlackItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.montSerratAlternatesBlackItalic
+                    )
+                    tvProfileUserDescription.typeface = montSerratAlternatesBlackItalic
+                    tvProfileUserAddress.typeface= montSerratAlternatesBlackItalic
+                }
+
+                fontsName.get() == CommonMethods.montSerratAlternatesBoldFontName -> {
+                    val montSerratAlternatesBold = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.montSerratAlternatesBold
+                    )
+                    tvProfileUserDescription.typeface = montSerratAlternatesBold
+                    tvProfileUserAddress.typeface= montSerratAlternatesBold
+                }
+
+                fontsName.get() == CommonMethods.openSansBoldFontName -> {
+                    val openSansBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansBold)
+                    tvProfileUserDescription.typeface = openSansBold
+                    tvProfileUserAddress.typeface=openSansBold
+                }
+
+
+                fontsName.get() == CommonMethods.openSansBoldItalicFontName -> {
+                    val openSansBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansBoldItalic)
+                    tvProfileUserDescription.typeface = openSansBoldItalic
+                    tvProfileUserAddress.typeface= openSansBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.openSansBoldItalicFontName -> {
+                    val openSansItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansItalic)
+                    tvProfileUserDescription.typeface = openSansItalic
+                    tvProfileUserAddress.typeface= openSansItalic
+                }
+
+
+                fontsName.get() == CommonMethods.openSansLightFontName -> {
+                    val openSansLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansLight)
+                    tvProfileUserDescription.typeface = openSansLight
+                    tvProfileUserAddress.typeface=openSansLight
+                }
+
+
+                fontsName.get() == CommonMethods.openSansRegularFontName -> {
+                    val openSansRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansRegular)
+                    tvProfileUserDescription.typeface = openSansRegular
+                    tvProfileUserAddress.typeface=openSansRegular
+                }
+
+
+                fontsName.get() == CommonMethods.openSansSemiBoldFontName -> {
+                    val openSansSemiBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.openSansSemiBold)
+                    tvProfileUserDescription.typeface = openSansSemiBold
+                    tvProfileUserAddress.typeface=openSansSemiBold
+                }
+
+
+                fontsName.get() == CommonMethods.openSansSemiBoldItalicFontName -> {
+                    val openSansSemiBoldItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.openSansSemiBoldItalic
+                    )
+                    tvProfileUserDescription.typeface = openSansSemiBoldItalic
+                    tvProfileUserAddress.typeface=openSansSemiBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichRegularFontName -> {
+                    val ostrichRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichRegular)
+                    tvProfileUserDescription.typeface = ostrichRegular
+                    tvProfileUserAddress.typeface= ostrichRegular
+
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichSansBlackFontName -> {
+                    val ostrichSansBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansBlack)
+                    tvProfileUserDescription.typeface = ostrichSansBlack
+                    tvProfileUserAddress.typeface=ostrichSansBlack
+                }
+
+                fontsName.get() == CommonMethods.ostrichSansBoldFontName -> {
+                    val ostrichSansBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansBold)
+                    tvProfileUserDescription.typeface = ostrichSansBold
+                    tvProfileUserAddress.typeface= ostrichSansBold
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichSansHeavyFontName -> {
+                    val ostrichSansHeavy =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansHeavy)
+                    tvProfileUserDescription.typeface = ostrichSansHeavy
+                    tvProfileUserAddress.typeface=ostrichSansHeavy
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichSansLightFontName -> {
+                    val ostrichSansLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansLight)
+                    tvProfileUserDescription.typeface = ostrichSansLight
+                    tvProfileUserAddress.typeface= ostrichSansLight
+                }
+
+
+                fontsName.get() == CommonMethods.ostrichSansMediumFontName -> {
+                    val ostrichSansMedium =
+                        Typeface.createFromAsset(context.assets, CommonMethods.ostrichSansMedium)
+                    tvProfileUserDescription.typeface = ostrichSansMedium
+                    tvProfileUserAddress.typeface=ostrichSansMedium
+                }
+
+
+                fontsName.get() == CommonMethods.oswaldBoldFontName -> {
+                    val osWaldBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.osWaldBold)
+                    tvProfileUserDescription.typeface = osWaldBold
+                    tvProfileUserAddress.typeface=osWaldBold
+                }
+
+
+                fontsName.get() == CommonMethods.oswaldBoldItalicFontName -> {
+                    val osWaldBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.osWaldBoldItalic)
+                    tvProfileUserDescription.typeface = osWaldBold
+                }
+
+
+                fontsName.get() == CommonMethods.oswaldSemiBoldItalicFontName -> {
+                    val osWaldSemiBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.osWaldSemiBoldItalic)
+                    tvProfileUserDescription.typeface = osWaldSemiBoldItalic
+                    tvProfileUserAddress.typeface= osWaldSemiBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.playFairDisplayBlackFontName -> {
+                    val playfairDisplayBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.playfairDisplayBlack)
+                    tvProfileUserDescription.typeface = playfairDisplayBlack
+                    tvProfileUserAddress.typeface= playfairDisplayBlack
+                }
+
+
+                fontsName.get() == CommonMethods.playFairDisplayBlackItalicFontName -> {
+                    val playfairDisplayBlackItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.playfairDisplayBlackItalic
+                    )
+                    tvProfileUserDescription.typeface = playfairDisplayBlackItalic
+                    tvProfileUserAddress.typeface= playfairDisplayBlackItalic
+                }
+
+
+                fontsName.get() == CommonMethods.playFairDisplayBoldFontName -> {
+                    val playfairDisplayBlackItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.playfairDisplayBlackItalic
+                    )
+                    tvProfileUserDescription.typeface = playfairDisplayBlackItalic
+                    tvProfileUserAddress.typeface= playfairDisplayBlackItalic
+                }
+
+
+                fontsName.get() == CommonMethods.poppinBlackItalicFontName -> {
+                    val poppinBlackItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBlackItalic)
+                    tvProfileUserDescription.typeface = poppinBlackItalic
+                    tvProfileUserAddress.typeface = poppinBlackItalic
+                }
+
+                fontsName.get() == CommonMethods.poppinBlackFontName -> {
+                    val poppinBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBlack)
+                    tvProfileUserDescription.typeface = poppinBlack
+                    tvProfileUserAddress.typeface=poppinBlack
+                }
+
+
+                fontsName.get() == CommonMethods.poppinBoldFontName -> {
+                    val poppinBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBold)
+                    tvProfileUserDescription.typeface = poppinBold
+                    tvProfileUserAddress.typeface=poppinBold
+                }
+                fontsName.get() == CommonMethods.poppinBoldItalicFontName -> {
+                    val poppinBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBoldItalic)
+                    tvProfileUserDescription.typeface = poppinBoldItalic
+                    tvProfileUserAddress.typeface= poppinBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.poppinBoldItalicFontName -> {
+                    val poppinBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinBoldItalic)
+                    tvProfileUserDescription.typeface = poppinBoldItalic
+                    tvProfileUserAddress.typeface = poppinBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.poppinExtraBoldFontName -> {
+                    val poppinExtraBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.poppinExtraBold)
+                    tvProfileUserDescription.typeface = poppinExtraBold
+                    tvProfileUserAddress.typeface = poppinExtraBold
+                }
+
+
+                fontsName.get() == CommonMethods.ptc55FontName -> {
+                    val ptc55 = Typeface.createFromAsset(context.assets, CommonMethods.ptc55)
+                    tvProfileUserDescription.typeface = ptc55
+                    tvProfileUserAddress.typeface = ptc55
+                }
+
+
+                fontsName.get() == CommonMethods.ptc75FontName -> {
+                    val ptc75F = Typeface.createFromAsset(context.assets, CommonMethods.ptc75F)
+                    tvProfileUserDescription.typeface = ptc75F
+                    tvProfileUserAddress.typeface= ptc75F
+                }
+
+
+                fontsName.get() == CommonMethods.quicksAndBoldFontName -> {
+                    val quicksAndBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.quicksAndBold)
+                    tvProfileUserDescription.typeface = quicksAndBold
+                    tvProfileUserAddress.typeface= quicksAndBold
+                }
+
+
+                fontsName.get() == CommonMethods.quicksAndBoldItalicFontName -> {
+                    val quicksAndBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.quicksAndBoldItalic)
+                    tvProfileUserDescription.typeface = quicksAndBoldItalic
+                    tvProfileUserAddress.typeface= quicksAndBoldItalic
+                }
+
+                fontsName.get() == CommonMethods.quicksDashFontName -> {
+                    val quicksDash =
+                        Typeface.createFromAsset(context.assets, CommonMethods.quicksDash)
+                    tvProfileUserDescription.typeface = quicksDash
+                    tvProfileUserAddress.typeface = quicksDash
+                }
+
+                fontsName.get() == CommonMethods.quicksAndBoldItalicFontName -> {
+                    val quicksAndItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.quicksAndItalic)
+                    tvProfileUserDescription.typeface = quicksAndItalic
+                    tvProfileUserAddress.typeface= quicksAndItalic
+                }
+
+                fontsName.get() == CommonMethods.raleWayBlackFontName -> {
+                    val raleWayBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayBlack)
+                    tvProfileUserDescription.typeface = raleWayBlack
+                    tvProfileUserAddress.typeface= raleWayBlack
+                }
+
+
+                fontsName.get() == CommonMethods.raleWayBlackItalicFontName -> {
+                    val raleWayBlackItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayBlackItalic)
+                    tvProfileUserDescription.typeface = raleWayBlackItalic
+                    tvProfileUserAddress.typeface= raleWayBlackItalic
+                }
+
+                fontsName.get() == CommonMethods.raleWayBoldFontName -> {
+                    val raleWayBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayBold)
+                    tvProfileUserDescription.typeface = raleWayBold
+                    tvProfileUserAddress.typeface = raleWayBold
+                }
+
+                fontsName.get() == CommonMethods.raleWayBoldItalicFontName -> {
+                    val raleWayBoldItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayBoldItalic)
+                    tvProfileUserDescription.typeface = raleWayBoldItalic
+                    tvProfileUserAddress.typeface = raleWayBoldItalic
+                }
+
+
+                fontsName.get() == CommonMethods.raleWayItalicFontName -> {
+                    val raleWayItalic =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayItalic)
+                    tvProfileUserDescription.typeface = raleWayItalic
+                     tvProfileUserAddress.typeface = raleWayItalic
+                }
+
+
+                fontsName.get() == CommonMethods.raleWayMediumFontName -> {
+                    val raleWayMedium =
+                        Typeface.createFromAsset(context.assets, CommonMethods.raleWayMedium)
+                    tvProfileUserDescription.typeface = raleWayMedium
+                }
+
+
+                fontsName.get() == CommonMethods.seasRnFontName -> {
+                    val seasRn = Typeface.createFromAsset(context.assets, CommonMethods.seasRn)
+                    tvProfileUserDescription.typeface = seasRn
+                    tvProfileUserAddress.typeface = seasRn
+                }
+
+
+                fontsName.get() == CommonMethods.sofiaRegularFontName -> {
+                    val sofiaRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sofiaRegular)
+                    tvProfileUserDescription.typeface = sofiaRegular
+                    tvProfileUserAddress.typeface = sofiaRegular
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProBlackItFontName -> {
+                    val sourceSansProBlackIt =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sourceSansProBlackIt)
+                    tvProfileUserDescription.typeface = sourceSansProBlackIt
+                    tvProfileUserAddress.typeface = sourceSansProBlackIt
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProBoldFontName -> {
+                    val sourceSansProBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sourceSansProBold)
+                    tvProfileUserDescription.typeface = sourceSansProBold
+                    tvProfileUserAddress.typeface= sourceSansProBold
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProExtraLightFontName -> {
+                    val sourceSansProExtraLight = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.sourceSansProExtraLight
+                    )
+                    tvProfileUserDescription.typeface = sourceSansProExtraLight
+                    tvProfileUserAddress.typeface = sourceSansProExtraLight
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProBlackFontName -> {
+                    val sourceSansProBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sourceSansProBlack)
+                    tvProfileUserDescription.typeface = sourceSansProBlack
+                    tvProfileUserAddress.typeface= sourceSansProBlack
+                }
+
+
+                fontsName.get() == CommonMethods.sourceSansProExtraLightFontName -> {
+                    val sourceSansProExtraLight = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.sourceSansProExtraLight
+                    )
+                    tvProfileUserDescription.typeface = sourceSansProExtraLight
+                    tvProfileUserAddress.typeface = sourceSansProExtraLight
+                }
+
+                fontsName.get() == CommonMethods.sourceSansProBlackFontName -> {
+                    val sourceSansProBlack =
+                        Typeface.createFromAsset(context.assets, CommonMethods.sourceSansProBlack)
+                    tvProfileUserDescription.typeface = sourceSansProBlack
+                    tvProfileUserAddress.typeface = sourceSansProBlack
+                }
+
+
+                fontsName.get() == CommonMethods.titiliumSemiBoldFontName -> {
+                    val titiliumSemiBold =
+                        Typeface.createFromAsset(context.assets, CommonMethods.titiliumSemiBold)
+                    tvProfileUserDescription.typeface = titiliumSemiBold
+                    tvProfileUserAddress.typeface = titiliumSemiBold
+                }
+
+
+                fontsName.get() == CommonMethods.titiliumLightFontName -> {
+                    val titiliumLight =
+                        Typeface.createFromAsset(context.assets, CommonMethods.titiliumLight)
+                    tvProfileUserDescription.typeface = titiliumLight
+                    tvProfileUserAddress.typeface = titiliumLight
+                }
+
+
+                fontsName.get() == CommonMethods.titiliumRegularFontName -> {
+                    val titiliumRegular =
+                        Typeface.createFromAsset(context.assets, CommonMethods.titiliumRegular)
+                    tvProfileUserDescription.typeface = titiliumRegular
+                    tvProfileUserAddress.typeface = titiliumRegular
+                }
+
+
+                fontsName.get() == CommonMethods.titiliumRegularItalicFontName -> {
+                    val titiliumRegularItalic = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.titiliumRegularItalic
+                    )
+                    tvProfileUserDescription.typeface = titiliumRegularItalic
+                    tvProfileUserAddress.typeface = titiliumRegularItalic
+                }
+
+                fontsName.get() == CommonMethods.windSongFontName -> {
+                    val windSong = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.windSong
+                    )
+                    tvProfileUserDescription.typeface = windSong
+                    tvProfileUserAddress.typeface = windSong
+                }
+
+
+                fontsName.get() == CommonMethods.walkWayBlackFontName -> {
+                    val walkwayBlack = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.walkwayBlack
+                    )
+                    tvProfileUserDescription.typeface = walkwayBlack
+                    tvProfileUserAddress.typeface = walkwayBlack
+                }
+
+
+                fontsName.get() == CommonMethods.walkWayObliqueFontName -> {
+                    val walkwayOblique = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.walkwayOblique
+                    )
+                    tvProfileUserDescription.typeface = walkwayOblique
+                    tvProfileUserAddress.typeface = walkwayOblique
+                }
+
+                fontsName.get() == CommonMethods.walkWayObliqueBlackFontName -> {
+                    val walkwayObliqueBlack = Typeface.createFromAsset(
+                        context.assets,
+                        CommonMethods.walkwayObliqueBlack
+                    )
+                    tvProfileUserDescription.typeface = walkwayObliqueBlack
+                    tvProfileUserAddress.typeface = walkwayObliqueBlack
+                }
+
+                fontsName.get() == CommonMethods.walkwayObliqueSemiBoldFontName -> {
+                    val walkwayObliqueSemiBold = Typeface.createFromAsset(context.assets, CommonMethods.walkwayObliqueSemiBold)
+                    tvProfileUserDescription.typeface = walkwayObliqueSemiBold
+                    tvProfileUserAddress.typeface = walkwayObliqueSemiBold
+                }
+
+
+            }
+        }
+
+    }
 
     var fontBottomSheet: BottomSheetDialog? = null
 
@@ -249,8 +1707,7 @@ class EditFrontPageVM @Inject constructor(
         fontBottomSheet =
             BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
         fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-        scheduleBinding =
-            FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
+        scheduleBinding = FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         scheduleBinding?.model = this
         fontBottomSheet?.setCancelable(true)
         scheduleBinding?.apply {
@@ -261,7 +1718,6 @@ class EditFrontPageVM @Inject constructor(
             clFontListMain.setOnClickListener {
                 context.hideKeyboard()
             }
-
             rvChooseFonts.setOnClickListener {
                 context.hideKeyboard()
             }
@@ -272,7 +1728,7 @@ class EditFrontPageVM @Inject constructor(
         typfaceObserverLiveData.postValue(false)
         fontListAdapter.setOnItemClick { view, position, type ->
             when (type) {
-                "fontsItemClick" -> {
+                CommonMethods.fontsItemClick -> {
                     fontBottomSheet?.dismiss()
                     val adapterList = fontListAdapter.getAllItems()
                     val fontName = adapterList[position].name
@@ -299,6 +1755,8 @@ class EditFrontPageVM @Inject constructor(
     @SuppressLint("ClickableViewAccessibility")
     private fun setFontsInAdapterList() {
         //  appCompatTxtFont: AppCompatTextView? = null
+
+        //vikas
         /*Academy_Engraved*/
         val academyEngravedLetPlain =
             Typeface.createFromAsset(context.assets, academyEngravedLetPlain)
@@ -347,7 +1805,7 @@ class EditFrontPageVM @Inject constructor(
         val antonioRegular = Typeface.createFromAsset(context.assets, CommonMethods.antonioRegular)
         appCompatTxtFont?.typeface = antonioRegular
 
-        val BebasRegular = Typeface.createFromAsset(context.assets, CommonMethods.BebasRegular)
+        val BebasRegular = Typeface.createFromAsset(context.assets, CommonMethods.bebasRegular)
         appCompatTxtFont?.typeface = BebasRegular
 
         /*  val blackJack = Typeface.createFromAsset(context.assets, CommonMethods.blackJack)
@@ -703,159 +2161,441 @@ class EditFrontPageVM @Inject constructor(
         appCompatTxtFont?.typeface = walkwayObliqueSemiBold
 
         /*Adding data in font list */
+        //vikas
         fontsNameList.add(
             FontsListModelResponse(
                 academyEngravedLetPlain!!,
-                "Academy Engraved LET "
+                CommonMethods.acadeMyLetFontName
             )
         )
-        fontsNameList.add(FontsListModelResponse(abrilFatFaceRegular, "Abril FatFace"))
-        fontsNameList.add(FontsListModelResponse(alexBrushRegular, "Alex Brush"))
-        fontsNameList.add(FontsListModelResponse(allerBD, "Aller BD"))
-        fontsNameList.add(FontsListModelResponse(allerBDLT, " Aller BD IT"))
-        fontsNameList.add(FontsListModelResponse(allerIt, "Aller IT "))
-        fontsNameList.add(FontsListModelResponse(allerDisplay, " Aller Display "))
-        fontsNameList.add(FontsListModelResponse(allerRG, "Aller RG "))
-        fontsNameList.add(FontsListModelResponse(antinoBold, "Antoino Bold"))
-        fontsNameList.add(FontsListModelResponse(antonioLight, "Antonio Light"))
-        fontsNameList.add(FontsListModelResponse(antonioRegular, "Antonio Regular"))
-        fontsNameList.add(FontsListModelResponse(antonioRegular, "Antonio Regular"))
+        fontsNameList.add(
+            FontsListModelResponse(
+                abrilFatFaceRegular,
+                CommonMethods.abrilFatFaceFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(alexBrushRegular, CommonMethods.alexBrushFontName))
+        fontsNameList.add(FontsListModelResponse(allerBD, CommonMethods.allerBDFontName))
+        fontsNameList.add(FontsListModelResponse(allerBDLT, CommonMethods.allerBDItFontName))
+        fontsNameList.add(FontsListModelResponse(allerIt, CommonMethods.allerItFontName))
+        fontsNameList.add(FontsListModelResponse(allerDisplay, CommonMethods.AllerDisplayFontName))
+        fontsNameList.add(FontsListModelResponse(allerRG, CommonMethods.AllerRGFontName))
+        fontsNameList.add(FontsListModelResponse(antinoBold, CommonMethods.AntonioBoldFontName))
+        fontsNameList.add(FontsListModelResponse(antonioLight, CommonMethods.AntonioLightFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                antonioRegular,
+                CommonMethods.AntonioRegularFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(amaticBold, CommonMethods.amaticBoldFontName))
         //B
-        fontsNameList.add(FontsListModelResponse(BebasRegular, " Bebas Regular"))
+        fontsNameList.add(FontsListModelResponse(BebasRegular, CommonMethods.bebasRegularFontName))
         //ontsNameList.add(FontsListModelResponse(blackJack, "Black Jack"))
+
         //C
-        fontsNameList.add(FontsListModelResponse(caviarDreams, "Caviar Dreams"))
-        fontsNameList.add(FontsListModelResponse(caviarDreamsItalic, "Caviar Dreams Italic"))
-        fontsNameList.add(FontsListModelResponse(chunkFivePrint, "ChunkFive Print"))
-        fontsNameList.add(FontsListModelResponse(chunkFiveRegular, "Chunk Five Regular "))
-        fontsNameList.add(FontsListModelResponse(cooperHewittBold, "Cooper HewittBold"))
+        fontsNameList.add(FontsListModelResponse(caviarDreams, CommonMethods.caviarDreamsFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                caviarDreamsItalic,
+                CommonMethods.caviarDreamsItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                chunkFivePrint,
+                CommonMethods.chunkFivePrintFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                chunkFiveRegular,
+                CommonMethods.chunkFiveRegularFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                cooperHewittBold,
+                CommonMethods.cooperHewittBoldFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                cooperHewittBoldItalic,
+                CommonMethods.cooperHewittBoldItalicFontName
+            )
+        )
         //D
-        fontsNameList.add(FontsListModelResponse(dancingScriptRegular, "Dancing Regular"))
-        //F
-        fontsNameList.add(FontsListModelResponse(fTus, "FTus"))
-        fontsNameList.add(FontsListModelResponse(firaSansBold, "Firs Sans Bold"))
-        fontsNameList.add(FontsListModelResponse(firaSansBoldItalic, "Fira Sans Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(firaSansBook, "Fira Sans Book "))
-        fontsNameList.add(FontsListModelResponse(firaSansEight, "Fira Sans Eight"))
+        fontsNameList.add(
+            FontsListModelResponse(
+                dancingScriptRegular,
+                CommonMethods.dancingRegularFontName
+            )
+        )
+        //Fc
+        fontsNameList.add(FontsListModelResponse(fTus, CommonMethods.ftusFontName))
+        fontsNameList.add(FontsListModelResponse(firaSansBold, CommonMethods.firaSansBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                firaSansBoldItalic,
+                CommonMethods.firaSansBoldItalicFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(firaSansBook, CommonMethods.firaSansBookFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                firaSansEight,
+                CommonMethods.firaSansEightFontName
+            )
+        )
         //G
-        fontsNameList.add(FontsListModelResponse(greatVibesRegular, "Great Vibes Regular"))
-        fontsNameList.add(FontsListModelResponse(helloValentina, "Hello Valentina"))
-        fontsNameList.add(FontsListModelResponse(interBlack, "Inter Black"))
-        fontsNameList.add(FontsListModelResponse(interBold, "interBold"))
-        fontsNameList.add(FontsListModelResponse(interBoldItalic, "inter Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(interExtraBold, "interExtraBold"))
-        fontsNameList.add(FontsListModelResponse(interBold, "interBold"))
-        fontsNameList.add(FontsListModelResponse(interBoldItalic, "Inter Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(interExtraBold, "Inter Extra Bold"))
+        fontsNameList.add(
+            FontsListModelResponse(
+                greatVibesRegular,
+                CommonMethods.greatVibesRegularFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                helloValentina,
+                CommonMethods.helloValentinaFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(interBlack, CommonMethods.interBlackFontName))
+        fontsNameList.add(FontsListModelResponse(interBold, CommonMethods.interBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                interBoldItalic,
+                CommonMethods.interBoldItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                interExtraBold,
+                CommonMethods.interExtraBoldFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(interBold, CommonMethods.interBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                interExtraBold,
+                CommonMethods.inter_Extra_Bold_FontName
+            )
+        )
         //J
-        fontsNameList.add(FontsListModelResponse(josefinBold, "Josefin Bold"))
-        fontsNameList.add(FontsListModelResponse(josefinBoldItalic, "Josefin Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(josefinLight, "Josefin Light"))
-        fontsNameList.add(FontsListModelResponse(josefinRegular, "Josefin Regular"))
+        fontsNameList.add(FontsListModelResponse(josefinBold, CommonMethods.josefinBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                josefinBoldItalic,
+                CommonMethods.josefinBoldItalicFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(josefinLight, CommonMethods.josefinLightFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                josefinRegular,
+                CommonMethods.josefinRegularFontName
+            )
+        )
         //L
-        fontsNameList.add(FontsListModelResponse(latoBlack, "Lato Black"))
-        fontsNameList.add(FontsListModelResponse(latoBlackItalic, "Lato Black Italic"))
-        fontsNameList.add(FontsListModelResponse(latoBold, "Lato Bold"))
-        fontsNameList.add(FontsListModelResponse(latoBoldItalic, "Lato Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(latoHairLIneItalic, "Lato Hair Italic "))
+        fontsNameList.add(FontsListModelResponse(latoBlack, CommonMethods.latoBlackFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                latoBlackItalic,
+                CommonMethods.latoBlackItalicFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(latoBold, CommonMethods.latoBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                latoBoldItalic,
+                CommonMethods.latoBoldItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                latoHairLIneItalic,
+                CommonMethods.latoHairItalicFontName
+            )
+        )
         fontsNameList.add(
             FontsListModelResponse(
                 montSerratAlternatesBlack,
-                "Mont Serrat Alternates Black"
+                CommonMethods.montSerratAlternatesBlackFontName
             )
         )
         fontsNameList.add(
             FontsListModelResponse(
                 montSerratAlternatesBlackItalic,
-                "Mont Serrat Alternates Black Italic"
+                CommonMethods.montSerratAlternatesBlackItalicFontName
             )
         )
         fontsNameList.add(
             FontsListModelResponse(
                 montSerratAlternatesBold,
-                "Mont Serrat Alternates Bold"
+                CommonMethods.montSerratAlternatesBoldFontName
             )
         )
-        fontsNameList.add(FontsListModelResponse(openSansBold, "Open Sans Bold"))
-        fontsNameList.add(FontsListModelResponse(openSansBoldItalic, "Open Sans Bold Italic"))
+        fontsNameList.add(FontsListModelResponse(openSansBold, CommonMethods.openSansBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                openSansBoldItalic,
+                CommonMethods.openSansBoldItalicFontName
+            )
+        )
         fontsNameList.add(
             FontsListModelResponse(
                 openSansExtraBoldItalic,
-                "Open Sans Extra Bold Italic"
+                CommonMethods.openSansExtraBoldItalicFontName
             )
         )
-        fontsNameList.add(FontsListModelResponse(openSansItalic, "Open Sans Italic"))
-        fontsNameList.add(FontsListModelResponse(openSansLight, "Open Sans Light"))
-        fontsNameList.add(FontsListModelResponse(openSansRegular, "Open Sans Regular"))
-        fontsNameList.add(FontsListModelResponse(openSansSemiBold, "Open Sans Semi Bold"))
+        fontsNameList.add(
+            FontsListModelResponse(
+                openSansItalic,
+                CommonMethods.openSansItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                openSansLight,
+                CommonMethods.openSansLightFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                openSansRegular,
+                CommonMethods.openSansRegularFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                openSansSemiBold,
+                CommonMethods.openSansSemiBoldFontName
+            )
+        )
         fontsNameList.add(
             FontsListModelResponse(
                 openSansSemiBoldItalic,
-                "Open Sans Semi Bold Italic"
+                CommonMethods.openSansSemiBoldItalicFontName
             )
         )
-        fontsNameList.add(FontsListModelResponse(ostrichRegular, "Ostrich Regular"))
-        fontsNameList.add(FontsListModelResponse(ostrichSansBlack, "Ostrich Sans Black"))
-        fontsNameList.add(FontsListModelResponse(ostrichSansBold, "Ostrich Sans Bold"))
-        fontsNameList.add(FontsListModelResponse(ostrichSansHeavy, "Ostrich Sans Heavy"))
-        fontsNameList.add(FontsListModelResponse(ostrichSansLight, "Ostrich Sans Light"))
-        fontsNameList.add(FontsListModelResponse(ostrichSansMedium, "Ostrich Sans Medium"))
+        fontsNameList.add(
+            FontsListModelResponse(
+                ostrichRegular,
+                CommonMethods.ostrichRegularFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansBlack,
+                CommonMethods.ostrichSansBlackFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansBold,
+                CommonMethods.ostrichSansBoldFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansHeavy,
+                CommonMethods.ostrichSansHeavyFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansLight,
+                CommonMethods.ostrichSansLightFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansMedium,
+                CommonMethods.ostrichSansMediumFontName
+            )
+        )
         fontsNameList.add(
             FontsListModelResponse(
                 ostrichSansRoundedMedium,
-                "Ostrich Sans Rounded Medium"
+                CommonMethods.ostrichSansRoundedFontName
             )
         )
-        fontsNameList.add(FontsListModelResponse(osWaldBold, "OsWald Bold"))
-        fontsNameList.add(FontsListModelResponse(osWaldBoldItalic, "OsWald Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(osWaldSemiBoldItalic, "OsWald Semi Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(playfairDisplayBlack, "Play Fair Display Black"))
+        fontsNameList.add(FontsListModelResponse(osWaldBold, CommonMethods.oswaldBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                osWaldBoldItalic,
+                CommonMethods.oswaldBoldItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                osWaldSemiBoldItalic,
+                CommonMethods.oswaldSemiBoldItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                playfairDisplayBlack,
+                CommonMethods.playFairDisplayBlackFontName
+            )
+        )
         fontsNameList.add(
             FontsListModelResponse(
                 playfairDisplayBlackItalic,
-                "Play Fair Display Black Italic"
+                CommonMethods.playFairDisplayBlackItalicFontName
             )
         )
-        fontsNameList.add(FontsListModelResponse(playfairDisplayBold, "Play Fair Display Bold"))
-        fontsNameList.add(FontsListModelResponse(poppinBlackItalic, "Poppin Black Italic"))
-        fontsNameList.add(FontsListModelResponse(poppinBlack, "Poppin Black"))
-        fontsNameList.add(FontsListModelResponse(poppinBold, "Poppin Bold"))
-        fontsNameList.add(FontsListModelResponse(poppinBoldItalic, "Poppin Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(poppinExtraBold, "Poppin Extra Bold"))
-        fontsNameList.add(FontsListModelResponse(ptc55, "PTC 55"))
-        fontsNameList.add(FontsListModelResponse(ptc75F, "PTC 75F"))
-        fontsNameList.add(FontsListModelResponse(quicksAndBold, "Quicks And Bold"))
-        fontsNameList.add(FontsListModelResponse(quicksAndBoldItalic, "Quicks And Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(quicksDash, "Quicks Dash"))
-        fontsNameList.add(FontsListModelResponse(quicksAndItalic, "Quicks And Italic"))
-        fontsNameList.add(FontsListModelResponse(quicksAndLight, "Quicks And Light"))
-        fontsNameList.add(FontsListModelResponse(raleWayBlack, "RaleWay Black"))
-        fontsNameList.add(FontsListModelResponse(raleWayBlackItalic, "RaleWay Black Italic"))
-        fontsNameList.add(FontsListModelResponse(raleWayBold, "RaleWay Bold"))
-        fontsNameList.add(FontsListModelResponse(raleWayBoldItalic, "RaleWay Bold Italic"))
-        fontsNameList.add(FontsListModelResponse(raleWayItalic, "RaleWayItalic"))
-        fontsNameList.add(FontsListModelResponse(raleWayMedium, "RaleWay Medium"))
-        fontsNameList.add(FontsListModelResponse(seasRn, "SeasRn"))
-        fontsNameList.add(FontsListModelResponse(sofiaRegular, "Sofia Regular"))
-        fontsNameList.add(FontsListModelResponse(sourceSansProBlackIt, "SourceSans ProBlackIt"))
-        fontsNameList.add(FontsListModelResponse(sourceSansProBold, "SourceSans ProBold"))
+        fontsNameList.add(
+            FontsListModelResponse(
+                playfairDisplayBold,
+                CommonMethods.playFairDisplayBoldFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                poppinBlackItalic,
+                CommonMethods.poppinBlackItalicFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(poppinBlack, CommonMethods.poppinBlackFontName))
+        fontsNameList.add(FontsListModelResponse(poppinBold, CommonMethods.poppinBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                poppinBoldItalic,
+                CommonMethods.poppinBoldItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                poppinExtraBold,
+                CommonMethods.poppinExtraBoldFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(ptc55, CommonMethods.ptc55FontName))
+        fontsNameList.add(FontsListModelResponse(ptc75F, CommonMethods.ptc75FontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                quicksAndBold,
+                CommonMethods.quicksAndBoldFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                quicksAndBoldItalic,
+                CommonMethods.quicksAndBoldItalicFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(quicksDash, CommonMethods.quicksDashFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                quicksAndItalic,
+                CommonMethods.quickAndItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                quicksAndLight,
+                CommonMethods.quickAndLightFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(raleWayBlack, CommonMethods.raleWayBlackFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                raleWayBlackItalic,
+                CommonMethods.raleWayBlackItalicFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(raleWayBold, CommonMethods.raleWayBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                raleWayBoldItalic,
+                CommonMethods.raleWayBoldItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                raleWayItalic,
+                CommonMethods.raleWayItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                raleWayMedium,
+                CommonMethods.raleWayMediumFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(seasRn, CommonMethods.seasRnFontName))
+        fontsNameList.add(FontsListModelResponse(sofiaRegular, CommonMethods.sofiaRegularFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                sourceSansProBlackIt,
+                CommonMethods.sourceSansProBlackItFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                sourceSansProBold,
+                CommonMethods.sourceSansProBoldFontName
+            )
+        )
         fontsNameList.add(
             FontsListModelResponse(
                 sourceSansProExtraLight,
-                "SourceSans ProExtra Light"
+                CommonMethods.sourceSansProExtraLightFontName
             )
         )
-        fontsNameList.add(FontsListModelResponse(sourceSansProBlack, "SourceSans ProBlack"))
-        fontsNameList.add(FontsListModelResponse(titiliumLight, "Titilium Light"))
-        fontsNameList.add(FontsListModelResponse(titiliumRegular, "Titilium Regular"))
-        fontsNameList.add(FontsListModelResponse(titiliumRegularItalic, "Titilium RegularItalic"))
-        fontsNameList.add(FontsListModelResponse(titiliumSemiBold, "Titilium SemiBold"))
-        fontsNameList.add(FontsListModelResponse(windSong, "WindSong"))
-        fontsNameList.add(FontsListModelResponse(walkwayBlack, "walkway Black"))
-        fontsNameList.add(FontsListModelResponse(walkwayBold, "walkway Bold"))
-        fontsNameList.add(FontsListModelResponse(walkwayOblique, "walkway Oblique"))
-        fontsNameList.add(FontsListModelResponse(walkwayObliqueBlack, "walkway Oblique Black"))
-        fontsNameList.add(FontsListModelResponse(walkwayObliqueBold, "walkway Oblique Bold"))
+        fontsNameList.add(
+            FontsListModelResponse(
+                sourceSansProBlack,
+                CommonMethods.sourceSansProBlackFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                titiliumLight,
+                CommonMethods.titiliumLightFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                titiliumRegular,
+                CommonMethods.titiliumRegularFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                titiliumRegularItalic,
+                CommonMethods.titiliumRegularItalicFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                titiliumSemiBold,
+                CommonMethods.titiliumSemiBoldFontName
+            )
+        )
+        fontsNameList.add(FontsListModelResponse(windSong, CommonMethods.windSongFontName))
+        fontsNameList.add(FontsListModelResponse(walkwayBlack, CommonMethods.walkWayBlackFontName))
+        fontsNameList.add(FontsListModelResponse(walkwayBold, CommonMethods.walkWayBoldFontName))
+        fontsNameList.add(
+            FontsListModelResponse(
+                walkwayOblique,
+                CommonMethods.walkWayObliqueFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                walkwayObliqueBlack,
+                CommonMethods.walkWayObliqueBlackFontName
+            )
+        )
+        fontsNameList.add(
+            FontsListModelResponse(
+                walkwayObliqueBold,
+                CommonMethods.walkWayObliqueBoldFontName
+            )
+        )
         fontListAdapter.addItems(fontsNameList)
         updateRecyclerView()
     }
@@ -1000,13 +2740,12 @@ class EditFrontPageVM @Inject constructor(
 
     }
 
-
+    /**Color picker dialog ..**/
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceType")
     fun showBottomDialog() {
         val dialog = BottomSheetDialog(context)
         dialog.setContentView(R.layout.color_picker_layout)
-
         val colorPickerView = dialog.findViewById<ColorPickerView>(R.id.colorPickerView)
         val showColor = dialog.findViewById<TextView>(R.id.show_colors)
         val cancel = dialog.findViewById<ImageView>(R.id.cancel_iv)
@@ -1041,12 +2780,11 @@ class EditFrontPageVM @Inject constructor(
 //                    borderColorLiveData = envelope.color
                     //crash app
                     //       setBorderBackground(layout!!, 5F,selectedbackgrouncolor)
-
-                    /** Store locally */
-
                     /** Store locally */
                     preferenceFile.storecolor(Constants.BORDER_COLOR, envelope.color)
                 }
+
+
                 "FONTCOLOR" -> {
                     selectedbackgrouncolor = envelope.color
                     showColor?.setBackgroundColor(envelope.color)
@@ -1057,6 +2795,8 @@ class EditFrontPageVM @Inject constructor(
                     /** Store locally */
                     preferenceFile.storecolorString(Constants.FONT_COLOR, hexColor)
                 }
+
+
             }
             Log.e("DFSDF", selectedbackgrouncolor.toString())
         })
@@ -1074,7 +2814,7 @@ class EditFrontPageVM @Inject constructor(
     override fun click(categoryName: String, position: Int, _id: String?, s: String, color: Int?) {
         Log.e("SFFFFFFFF", color.toString() + "mzCVAVSSA" + position.toString())
         when (checkColor.get()) {
-            "BACKGROUND" -> {
+            CommonMethods.BACKGROUND -> {
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(context.getColor(color!!))
                 val cd =
@@ -1082,13 +2822,11 @@ class EditFrontPageVM @Inject constructor(
                 val colorCode = cd.color
 
                 selectedbackgrouncolor = colorCode
-//                preferenceFile.storecolor(BACKGROUND_COLOR,colorCode)
                 Log.e("ASFDf", colorCode.toString())
 
             }
 
-            "COLUMN" -> {
-//                dialog!!.findViewById<TextView>(R.id.change_back_id).setBackgroundColor(CommonMethods.context.getColor(color!!))
+            CommonMethods.COLUMN -> {
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(context.getColor(color!!))
 
@@ -1105,36 +2843,31 @@ class EditFrontPageVM @Inject constructor(
                 Log.e("ASFDf", colorCode.toString())
 
             }
-            "BORDER" -> {
+            CommonMethods.BORDER -> {
                 borderColorLiveData = color!!
                 selectedbackgrouncolor = color
                 setBorderBackground(cardLayoutColrs!!, borderSlideValue, selectedbackgrouncolor)
-//                cardLayoutColrs?.setBackgroundColor(CommonMethods.context.getColor(color!!))
                 val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and color)
-
                 preferenceFile.storecolorString(Constants.BORDER_COLOR, hexColor)
 
                 Log.e("ASFDf", color.toString())
 
             }
 
-            "FONTCOLOR" -> {
+            CommonMethods.FONTCOLOR -> {
 
                 /** Slider for size */
-                slider_size?.addOnChangeListener { slider, value, fromUser ->
+                slider_size?.addOnChangeListener { _, value, _ ->
 
                     changeColor?.textSize = value
                     Log.e(
-                        "WOrking", "---" + value.toString()
+                        "WOrking", "---$value"
                     )
                 }
 
-                dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
-                    .setBackgroundColor(context.getColor(R.color.gray))
-
+                dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).setBackgroundColor(context.getColor(R.color.gray))
                 title?.text = "Font Color"
                 changeColor?.text = "Font Sample"
-
                 dialog!!.findViewById<TextView>(R.id.change_back_id)
                     .setTextColor(context.getColor(color!!))
                 val colorCode =
@@ -1144,12 +2877,6 @@ class EditFrontPageVM @Inject constructor(
                 fontColorLiveData = colorCode
                 val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and colorCode)
                 preferenceFile.storecolorString(Constants.FONT_COLOR, hexColor)
-
-
-//                changeColor?.setTextColor(CommonMethods.context.getColor(color!!))
-//                selectedbackgrouncolor = color
-
-                Log.e("SDFFFSDFFF", colorCode.toString())
             }
         }
     }
@@ -1172,25 +2899,30 @@ class EditFrontPageVM @Inject constructor(
                     if (res.body() != null) {
                         if (res.isSuccessful && res.code() == 200) {
                             val data = res.body()!!.data
-                            fontColor.set(data.frontpage_font_color)
-                            // dataStoreUtil.saveObject(SAVE_EDIT_COVER_PAGE, res.body()!!.data)
+                            // fontColorLD.value = data.frontpage_font_color!!
                             /** Set Colors... */
                             SelectedDialog.set("Font Color")
-                            /**Set Font Not According to Type**/
-                            preferenceFile.storecolorString(
-                                Constants.FONT_COLOR,
-                                data.frontpage_font_color.toString()
-                            )
+                            //preferenceFile.storecolorString(Constants.FONT_COLOR, data.frontpage_font_color.toString())
                             //STORE FONT COLOR
                             fontColorLD.value = data.frontpage_font_color!!
 
-                            if (data.is_top_selected == true || data.is_bottom_selected == true) {
-                                isTopText.set(true)
-                                isBottomText.set(true)
-                            } else {
-                                isBottomText.set(false)
-                                isTopText.set(false)
-                            }
+                            preferenceFile.storeBoolKey(
+                                Constants.isTopTextSelected,
+                                data.is_top_selected!!
+                            )
+                            isBottomText.set(data.is_bottom_selected!!)
+                            isTopText.set(data.is_top_selected)
+
+                            fontsName.set(data.frontpage_top_text)
+                            fontsName.set(data.frontpage_bottom_text)
+                            fontColor.set(data.frontpage_font_color)
+
+                            preferenceFile.storeBoolKey(
+                                Constants.isBottomTextSelected,
+                                data.is_bottom_selected
+                            )
+
+
                         } else {
                             showToast(context, res.body()!!.message)
                         }
@@ -1209,22 +2941,8 @@ class EditFrontPageVM @Inject constructor(
 
     /** Post api for color back ground ..**/
     private fun postFrontPageApi() = viewModelScope.launch {
-        Log.e(
-            "PRINT--REQUEST--BODY",
-            "TOKEN-- " + preferenceFile.retrieveKey("token").toString() +
-                    "BACK-- " + backgroundColor.get().toString() +
-                    // "backgroundType-- " + backgroundType.get().toString() +
-                    //  "columnColor-- " + columnColor.get().toString() +
-                    "columnOpacity-- " + columnOpacity.get().toDouble() +
-                    "borderOpacity-- " + borderOpacity.get().toDouble() +
-                    "borderWidth-- " + borderWidth.get() +
-                    "borderColor-- " + borderColor.get().toString() +
-                    "fontName-- " + fontsName.get().toString() +
-                    "fontColor-- " + fontColor.get().toString() +
-                    "fontSize-- " + fontSize.get().toInt() +
-                    "fontOpacity -- " + fontOpacity.get().toDouble()
-        )
-
+        Log.e("TopText_data===", isTopText.get().toString())
+        Log.e("TopText_data111===", isBottomText.get().toString())
         repository.makeCall(ApiEnums.POST_EDIT_COVER_PAGE,
             loader = true, saveInCache = false, getFromCache = false,
             object : ApiProcessor<Response<PostFrontPageResponse>> {
@@ -1233,21 +2951,21 @@ class EditFrontPageVM @Inject constructor(
                         Authorization = preferenceFile.retrieveKey("token").toString(),
                         FrontPageBottomText = "",
                         FrontPageFontSize = fontSize.get().toInt(),
-                        FrontPageTopText = "",
+                        FrontPageTopText = fontsName.get()!!,
                         FrontPagerFontOpacity = fontOpacity.get().toString(),
                         FrontPagerFrontColor = fontColor.get().toString(),
+                        isBottomSelected = isBottomText.get(),
                         isTopSelected = isTopText.get(),
-                        isBottomSelected = isBottomText.get()
                     )
                 }
 
                 override fun onResponse(res: Response<PostFrontPageResponse>) {
-                    Log.e("CONFIRMBOOKING", res.body().toString() + "RESS")
-
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
                             showToast(context, res.body()!!.message)
                             dataStoreUtil.saveObject(SAVE_EDIT_COVER_PAGE, res.body()!!.data)
+                            //   preferenceFile.saveBoolean(Constants.isTopTextSelected,res.body()!!.data.is_top_selected!!)
+                            //  preferenceFile.saveBoolean(Constants.isBottomTextSelected,res.body()!!.data.is_bottom_selected!!)
 
                         } else {
                             showToast(context, res.body()!!.message)
@@ -1259,124 +2977,114 @@ class EditFrontPageVM @Inject constructor(
             })
     }
 
-    /**Get view Profile by categories ***/
-    private fun getProfileByCategory(search: String, showLoader: Boolean) {
-        val dataArray = ArrayList<String>()
-        for (idx in 0 until idList.size) {
-            dataArray.add(idList[idx])
-        }
-        val dataObject = DashBoardPostData(
-            dataArray, pref.retvieLatlong("lati").toDouble().toString(),
-            "500", pref.retvieLatlong("longi").toDouble().toString(),
-            userMiles.get().toString(), "1", search
-        )
 
-        Log.e("KADJrtgdfASDASDKL", idList.toString())
-
-        Log.e("Dash_Board_Input===", dataObject.toString())
-        Log.e(
-            "SDAMILES",
-            userMiles.get().toString() + " LATI " + pref.retvieLatlong("lati")
-                .toDouble() + " LONG " + pref.retvieLatlong("longi")
-                .toDouble() + " CATEIDDD - " + idList.toString() + "search --- " + search
-        )
-
+    private fun getPostProfileApi(p_id: String, lati: Double, longi: Double) {
+        val e = Log.e("KKKKAAALLLL", "$p_id PID $lati LAT  $longi LONG ")
         repository.makeCall(
-            ApiEnums.GETPROFILE_BYCATE,
-            loader = showLoader,
+            ApiEnums.GET_POST_PROFILE,
+            loader = true,
             saveInCache = false,
             getFromCache = false,
-            requestProcessor = object : ApiProcessor<Response<GetProfileCateResponse>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileCateResponse> {
-                    return retrofitApi.getProfileByCategory(
-                        pref.retrieveKey("token").toString(),
-                        "application/json",
-                        dataObject
+            requestProcessor = object : ApiProcessor<Response<GetPostProfileResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetPostProfileResponse> {
 
+                    return retrofitApi.getPostProfile(
+                        preferenceFile.retrieveKey("token").toString(),
+                        p_id,
+                        preferenceFile.retvieLatlong("lati"),
+                        preferenceFile.retvieLatlong("longi")
                     )
                 }
 
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(res: Response<GetProfileCateResponse>) {
-
-                    Log.d("WORKINGG_->>>---  ", res.body()!!.data.toString() + "DDDDDDDDS")
-
+                override fun onResponse(res: Response<GetPostProfileResponse>) {
+                    Log.e("AQQAAARESPONEEES", res.body().toString())
                     if (res.isSuccessful) {
-                        if (res.body() != null) {
-                            if (res.body()!!.status == 200) {
-
-                                if (res.body()!!.data.size > 0) {
-                                    val profileList = ArrayList<ProfileCateData>()
-                                    profileList.clear()
-                                    for (idx in 0 until res.body()?.data!!.size) {
-                                        res.body()?.data!![idx].lngValue =
-                                            res.body()?.data!![idx].long
-                                        profileList.add(res.body()?.data!![idx])
-                                    }
-                                    Log.d("DashBoardResponse->", res.body()!!.data.toString())
-
-                                    calculateLatLngToMiles()
-                                    Log.d("viaksdistance", distance.get().toString().split(".")[0])
-
-                                } else {
-                                    Log.e("ASDASQKHE", "NO Data Found ")
-
-                                }
-
-                            } else {
-                                Log.d("DashBoardResponse->", res.body()?.message.toString())
-
-                                if (showLoader) {
-                                    showToast(context, res.body()?.message.toString())
-                                }
-                            }
+                        if (res.code() == 200) {
+                            showViewProfileDialog(res.body()!!)
                         } else {
-                            Log.d("DashBoardResponse->", res.body()?.message.toString())
-
-                            if (showLoader) {
-                                showToast(context, res.body()?.message.toString())
-                            }
+                            showToast(context, res.message())
                         }
                     } else {
-                        Log.d("DashBoardResponse->", res.body()?.message.toString())
-
-                        if (showLoader) {
-                            showToast(context, res.body()?.message.toString())
-                        }
+                        showToast(context, res.message())
                     }
                 }
 
                 override fun onError(message: String) {
                     super.onError(message)
-                    Log.e("sdsdsd3", message)
+                    Log.e("zxczxczxc", message)
                 }
-
             }
         )
     }
 
-    fun calculateLatLngToMiles() {
-        val latLngA =
-            LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
-        val latLngB = LatLng(destinationLat.get(), destinationLong.get())
-        val locationA = Location("Point A")
-        locationA.latitude = latLngA.latitude
-        locationA.longitude = latLngA.longitude
-        val locationB = Location("Point B")
-        locationB.latitude = latLngB.latitude
-        locationB.longitude = latLngB.longitude
-        distance.set(locationA.distanceTo(locationB).toDouble().toString())
-        Log.d("distanceCal", distance.get().toString().split(".")[0])
-        Log.d("distanceCalqwer", distanceCal.get().toString())
-        userMiles.set(distance.get().toString().split(".")[0])
 
+    fun setVideoPlayerMethod(
+        videoView: FullScreenVideoView, imageUrl: String?, ivVideoIcon: ImageView,
+        widthPixels: Int, parentLayout: ConstraintLayout,
+    ) {
+        var position = 0
+        val metrics = DisplayMetrics()
+        //   context.getWindowManager().getDefaultDisplay().getMetrics(metrics)
+        //  val videoView = FullScreenVideoView(getActivity())
+        try {
+            if (imageUrl != null && imageUrl != "") {
+                videoView.setVideoPath(imageUrl)
+                videoView.setOnPreparedListener { mp ->
+                    mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
+                    parentLayout.removeAllViews()
+                    parentLayout.addView(videoView,
+                        ConstraintLayout.LayoutParams(
+                            FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT))
+                    val params = videoView.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = widthPixels
+                    //params.height = metrics.heightPixels
+                    params.leftMargin = 0
+                    videoView.layoutParams = params
+                    mp.setVolume(0f, 0f)
+                    videoView.seekTo(position)
+                    ivVideoIcon.visibility = View.GONE
+                    if (position == 0) {
+                        videoView.start()
+                    } else {
+                        videoView.pause()
+                    }
+
+                    mp.isLooping = true
+                    Log.d("VideoPreparing", "video is preparing " + videoView.duration)
+                }
+                videoView.setOnErrorListener { mediaPlayer, _, _ ->
+
+                    Log.d("VideoError", "$mediaPlayer")
+                    showToast(context, "Error in Video Playing..")
+                    false
+                }
+
+                videoView.setOnCompletionListener { mp ->
+                    // videoView.start()
+                    if (mp.duration == videoView.duration) {
+                        showToast(context, "Video is Completed ..")
+                    }
+                }
+                videoView.requestFocus()
+                videoView.start()
+            } else {
+            }
+        }
+        catch (e:Exception){
+            Log.d("ErrorInViewPostProfile","Error coming in player ${e.message.toString()}")
+        }
 
     }
 
-    private fun getDataFromDataStroe() {
-        dataStoreUtil.readObject(SAVE_EDIT_COVER_PAGE, GetFontResponse::class.java) {
-            fontColor.set(it?.data?.frontpage_font_color)
+
+
+
+    private fun getProfileId() {
+        dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
+            p_id = it?.data?.p_id
         }
     }
+
 
 }

@@ -56,7 +56,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/plaza"
+            android:background="@color/light_sky_blue"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -133,19 +133,18 @@
                 app:abbreviationsBarColor="@color/light_sky_blue"
                 android:layout_marginTop="@dimen/_10sdp"
                 app:abbreviationsLabelsColor="@color/white"
-                app:selectionLabelColor="@color/white"
+                app:selectionLabelColor="@color/red"
                 app:daysLabelsColor="@color/white"
-                app:todayLabelColor="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:pagesColor="@color/light_sky_blue"
                 app:eventsEnabled="false"
-                app:selectionColor="@android:color/holo_red_dark"
-                app:anotherMonthsDaysLabelsColor="@color/white"
-                app:type="one_day_picker"
+                app:type="many_days_picker"
+                app:todayLabelColor="@color/red"
+                app:selectionColor="@color/white"
+                app:selectionBetweenMonthsEnabled="false"
                 android:clickable="false"
                 android:focusable="false"
-                android:checked="false"
 
                 />
 

@@ -14,7 +14,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.tvClBookLocationName, 6);
+        sViewsWithIds.put(R.id.tvClBookLocationName, 7);
     }
     // views
     // variables
@@ -29,7 +29,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
     // Inverse Binding Event Handlers
 
     public CalendarListItemBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
     }
     private CalendarListItemBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
@@ -37,6 +37,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
             , (androidx.appcompat.widget.AppCompatImageView) bindings[5]
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[0]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[7]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[1]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
@@ -44,6 +45,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
         this.ivCalendarDelete.setTag(null);
         this.ivCalenderChat.setTag(null);
         this.mailLayout.setTag(null);
+        this.tvAddress.setTag(null);
         this.tvClBookingUserDate.setTag(null);
         this.tvClBookingUserName.setTag(null);
         this.tvClBookingUserTime.setTag(null);
@@ -154,6 +156,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
             // api target 1
 
             com.example.plazapalm.utils.BindingAdapters.setCalndarBackground(this.mailLayout, modelBookingStatus);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvAddress, modelBookingStatus);
             com.example.plazapalm.utils.BindingAdapters.setText(this.tvClBookingUserDate, modelChooseDate);
             com.example.plazapalm.utils.BindingAdapters.setText(this.tvClBookingUserName, modelPostProfileFirstNameCharModelPostProfileLastName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookingUserTime, modelChooseTime);
