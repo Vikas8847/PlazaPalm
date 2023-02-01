@@ -181,7 +181,7 @@ class EditProfileVM @Inject constructor(
 
 
     /*getStored image*/
-    fun getStoreImage() {
+    private fun getStoreImage() {
         dataStoreUtil.readData(PROFILE_IMAGE) {
             profile_pic.set(it)
         }
