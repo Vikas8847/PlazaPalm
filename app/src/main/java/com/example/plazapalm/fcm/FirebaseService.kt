@@ -1,9 +1,6 @@
 package com.example.plazapalm.fcm
 
 import android.util.Log
-import com.example.plazapalm.datastore.DataStoreUtil
-import com.example.plazapalm.datastore.SAVE_FIREBASE_TOKEN
-import com.example.plazapalm.pref.PreferenceFile
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import javax.inject.Inject

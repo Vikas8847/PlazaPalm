@@ -7,9 +7,12 @@ import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.location.Location
+import android.media.MediaPlayer
 import android.os.Build
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi

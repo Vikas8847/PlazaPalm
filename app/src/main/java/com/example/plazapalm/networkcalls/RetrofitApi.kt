@@ -505,4 +505,13 @@ interface RetrofitApi {
         @Field("isBottomSelected") isBottomSelected: Boolean,
         @Field("isTopSelected") isTopSelected: Boolean
     ): Response<PostFrontPageResponse>
+
+    @FormUrlEncoded
+    @POST(DEVICE_TOKEN_UPDATE)
+    suspend fun deviceTokenUpdate(
+        @Header("Authorization") Authorization: String,
+        @Field("device_token") DeviceToken: String?,
+        @Field("device_type") DeviceType: String?
+    ): Response<DeviceTokenUpdateResponse>
+
 }
