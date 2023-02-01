@@ -42,7 +42,6 @@ import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.recycleradapter.RecyclerAdapter
-import com.example.plazapalm.utils.BindingAdapters.pref
 import com.example.plazapalm.utils.ColorsAdapter
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.CommonMethods.academyEngravedLetPlain
@@ -1260,11 +1259,13 @@ class EditFrontPageVM @Inject constructor(
     }
 
     /**Get view Profile by categories ***/
+/*
     private fun getProfileByCategory(search: String, showLoader: Boolean) {
         val dataArray = ArrayList<String>()
         for (idx in 0 until idList.size) {
             dataArray.add(idList[idx])
         }
+
         val dataObject = DashBoardPostData(
             dataArray, pref.retvieLatlong("lati").toDouble().toString(),
             "500", pref.retvieLatlong("longi").toDouble().toString(),
@@ -1354,10 +1355,11 @@ class EditFrontPageVM @Inject constructor(
             }
         )
     }
+*/
 
     fun calculateLatLngToMiles() {
         val latLngA =
-            LatLng(pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
+            LatLng(preferenceFile.retvieLatlong("lati").toDouble(), preferenceFile.retvieLatlong("longi").toDouble())
         val latLngB = LatLng(destinationLat.get(), destinationLong.get())
         val locationA = Location("Point A")
         locationA.latitude = latLngA.latitude

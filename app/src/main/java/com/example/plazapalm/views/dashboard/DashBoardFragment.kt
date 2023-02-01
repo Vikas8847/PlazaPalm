@@ -53,7 +53,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         savedInstanceState: Bundle?
     ): View? {
         binding = DashBoardFragmentBinding.inflate(layoutInflater)
-
+        viewModel.updateDeviceToken()
         if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0 &&  pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble()!=0.0 ) {
             viewModel.lati.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble())
             viewModel.longi.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())

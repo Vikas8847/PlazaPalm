@@ -125,4 +125,6 @@ object Constants {
 
     var CURRENT_LOCATION_LAT: String = "current_location_lat"
     var CURRENT_LOCATION_LONG: String = "current_location_long"
+
+
 }

@@ -49,8 +49,8 @@ class CalendarVM @Inject constructor(
     val year = ObservableInt()
     val click = ObservableBoolean(false)
     val SeletedDate = MutableLiveData<List<String?>?>()
-    var calendarList=ArrayList<Calendar>()
 
+    var calendarList=ArrayList<Calendar>()
     val isBookingStatus = ObservableBoolean(false)
 
     init {
@@ -123,19 +123,16 @@ class CalendarVM @Inject constructor(
             })
     }
 
+    var calendarMutableResponse=MutableLiveData<ArrayList<Calendar>>()
+
     fun getCalanderDataMonthWise(month: Int, year: Int) {
-
-        Log.e("FSSSAAA",pref.retrieveKey("token").toString()+ "  ---  " +
-                month.toString()+ "--CC--" + year.toString() + "  ---  " +
-                p_Id.get().toString())
-
         repository.makeCall(ApiEnums.GET_PREMIUM_STATUS, loader = false,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetCalanderResponseModel>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetCalanderResponseModel> {
                     return retrofitApi.getCalendarBookingDateMonthWiseForBoth(
-                        pref.retrieveKey("token").toString(), 1, 2023, p_Id.get().toString()
+                        pref.retrieveKey("token").toString(), month, year, p_Id.get().toString()
                     )
                 }
 
@@ -145,23 +142,34 @@ class CalendarVM @Inject constructor(
 
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body()?.data != null) {
-                            var calendars4 =Calendar.getInstance()
 
                             for (i in 0 until res.body()!!.data.size){
                                 SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
+                            }
+
+
+                            for (i in 0 until res.body()!!.data.size){
+                                var calendars4 = Calendar.getInstance()
+                               // SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
                                 val day =res.body()!!.data[i]?.choose_date
-                                val month =res.body()!!.data[i]?.month
-                                val year =res.body()!!.data[i]?.year
-
                                 var split = day!!.split("-")
-                                val daY = split[2].toInt()
+                                val year = split[0]
+                                val month = split[1].toInt()-1
+                                val daY = split[2]
 
-                                calendars4.set(year!!,month!!,daY)
+                                val split2 =  daY!!.split("T")
+                                val fDay =split2[0]
 
-                                Log.e("FQWQWQQQ",daY.toString() + "--" + month + "--" + year)
-//                                calendarList.add()
+                                calendars4.set(year!!.toInt(),month!!.toInt(),fDay.toInt())
+
+                                Log.e("FQWQWQQQ1", year+" C " )
+                                Log.e("FQWQWQQQ2",month.toString() +"  F " )
+                                Log.e("FQWQWQQQ3",fDay.toString() +"  B " )
+                                calendarList.add(calendars4)
 
                             }
+
+                            calendarMutableResponse.value=calendarList
 
                             calendarBookingList =
                                 res.body()!!.data as ArrayList<CalenderData> /* = java.util.ArrayList<com.example.plazapalm.models.CalenderData> */

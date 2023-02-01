@@ -93,6 +93,7 @@ interface RetrofitApi {
         @Field("email") Email: String?
     ): Response<VerifyOtpData>
 
+
     /*Log out api..*/
     @FormUrlEncoded
     @POST(LOG_OUT)
@@ -496,7 +497,6 @@ interface RetrofitApi {
     ):Response<UpdateLatlngResponse>
 
 
-
   //  @POST(GALLERYPOST)
     @HTTP(method = "POST", path = GALLERYPOST, hasBody = true)
     suspend fun uploadSinglePhotoUrl(
@@ -537,6 +537,12 @@ interface RetrofitApi {
         @Field("isBottomSelected")isBottomSelected:Boolean?=false
     ):Response<PostFrontPageResponse>
 
-
+    @FormUrlEncoded
+    @POST(DEVICE_TOKEN_UPDATE)
+    suspend fun deviceTokenUpdate(
+        @Header("Authorization") Authorization: String,
+        @Field("device_token") DeviceToken: String?,
+        @Field("device_type") DeviceType: String?
+    ): Response<DeviceTokenUpdateResponse>
 
 }

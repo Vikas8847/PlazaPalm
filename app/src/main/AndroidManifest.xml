@@ -8,10 +8,12 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <!--
         <uses-feature
             android:name="android.hardware.camera"
@@ -35,7 +37,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlazaPalm"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup"
+        tools:targetApi="r">
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -45,7 +48,7 @@
             tools:ignore="WrongManifestParent">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <meta-data
@@ -88,6 +91,15 @@
         <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_hk8WXNKhWTQDd55HippK7ldkxEe9hszY" />
         <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_live_hk8WXNKhWTQDd55HippK7ldkxEe9hszY" />
         <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />     <!-- Set to true to use Branch_Test_Key (useful when simulating installs and/or switching between debug and production flavors) -->
+
+        <service
+            android:name=".fcm.FirebaseService"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
     </application>
 

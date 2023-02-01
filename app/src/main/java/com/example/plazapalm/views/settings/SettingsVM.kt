@@ -3,6 +3,7 @@ package com.example.plazapalm.views.settings
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -166,6 +167,9 @@ class SettingsVM @Inject constructor(
 
     /*Logout Api.. */
     private fun logOutApi(view: View) = viewModelScope.launch {
+
+        Log.e(" LUTFIREBASEOKEN-->> : " , pref.retrieveFirebaseToken().toString())
+
         val body = JSONObject()
         body.put("Authorization", token.get())
         body.put("device_token", deviceToken)
@@ -180,10 +184,11 @@ class SettingsVM @Inject constructor(
 
                     return retrofitApi.logOutUser(
                         Authorization = token.get()?.trim().toString(),
-                        DeviceToken = deviceToken.get(),
+                        DeviceToken = pref.retrieveFirebaseToken().toString(),
                         DeviceType
                     )
                 }
+
                 override fun onResponse(res: Response<UserLogoutModel>) {
 
                     dataStoreUtil.clearDataStore { clear -> }

@@ -19,6 +19,8 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
         savedInstanceState: Bundle?
     ): View? {
         binding = SettingsFragmentBinding.inflate(layoutInflater)
+
+
         return binding?.root
     }
 
