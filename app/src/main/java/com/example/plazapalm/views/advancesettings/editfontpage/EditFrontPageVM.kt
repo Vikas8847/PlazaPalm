@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.location.Location
 import android.media.MediaPlayer
 import android.os.Build
 import android.util.DisplayMetrics
@@ -20,6 +21,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.lifecycle.MutableLiveData
@@ -172,6 +174,7 @@ class EditFrontPageVM @Inject constructor(
         } else {
             dialog = Dialog(context, android.R.style.Theme_Dialog)
             dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog?.setContentView(R.layout.advance_show_view_profile)
             profileBinding =
                 AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
             dialog?.setContentView(profileBinding?.root!!)
@@ -2946,7 +2949,7 @@ class EditFrontPageVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<PostFrontPageResponse> {
                     return retrofitApi.postFonts(
                         Authorization = preferenceFile.retrieveKey("token").toString(),
-                        FrontPageBottomText = fontsName.get()!!,
+                        FrontPageBottomText = "",
                         FrontPageFontSize = fontSize.get().toInt(),
                         FrontPageTopText = fontsName.get()!!,
                         FrontPagerFontOpacity = fontOpacity.get().toString(),

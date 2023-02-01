@@ -1,7 +1,6 @@
 package com.example.plazapalm.utils
 
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.example.plazapalm.models.CategoriesData
 
 object Constants {
     /** Validation Strings for Signup Page **/
@@ -83,10 +82,12 @@ object Constants {
     const val POSTSTATUS = "POSTSTATUS"
     const val POSTRESPONSE = "POSTRESPONSE"
     const val FROM_MY_PROFILE = "FROM_MY_PROFILE"
+
     // OPACITY
     const val COLUMN_OPACITY = "COLUMN_OPACITY"
     const val BORDER_OPACITY = "BORDER_OPACITY"
     const val FONT_OPACITY = "BORDER_OPACITY"
+
     // COLORS
     const val BACKGROUND_COLOR = "BACKGROUND_COLOR"
     const val BORDER_COLOR = "BORDER_COLOR"
@@ -94,10 +95,17 @@ object Constants {
     const val COLUMN_COLOR = "COLUMN_COLOR"
 
     //ADVANCE_EDIT_LOOK (FONTS NAMES)
-    const val ADVANCE_EDIT_LOOK_FONTS_NAME="AdvanceEdit_FontName"
+    const val ADVANCE_EDIT_LOOK_FONTS_NAME = "AdvanceEdit_FontName"
+
+    // SIZE
+    const val BORDER_WIDTH = "BORDER_WIDTH"
+    const val FONT_SIZE = "FONT_SIZE"
+
+    //ADVANCE_EDIT_LOOK (FONTS NAMES)
+//    const val ADVANCE_EDIT_LOOK_FONTS_NAME="AdvanceEdit_FontName"
 // SIZE
-   const val BORDER_WIDTH = "BORDER_WIDTH"
-   const val FONT_SIZE = "FONT_SIZE"
+//   const val BORDER_WIDTH = "BORDER_WIDTH"
+//   const val FONT_SIZE = "FONT_SIZE"
 
     // Pref keys
     const val SELECTED_CATEGORY_NAME = "SELECTED_CATEGORY_NAME"
@@ -116,25 +124,24 @@ object Constants {
 
 
     /** dataStore key */
-     val  CategoryList by lazy { stringPreferencesKey("CategoryList") }
-     val FilterList by lazy { stringPreferencesKey("FilterList") }
-     val SELECTED_SLIDER by lazy { stringPreferencesKey("SELECTED_SLIDER") }
-     val SLECTED_CATE_SIGNUP by lazy { stringPreferencesKey("FilterList") }
-     val list_Name by lazy { stringPreferencesKey("idsList") }
-     val list_CateName by lazy { stringPreferencesKey("idsList") }
-var REDIRECT_CHATSCREEN:String="redirectChatScreen"
-var FILTER_SCREEN_LAT:String="filter_Screen_Lat"
-var FILTER_SCREEN_LONG:String="filter_screen_long"
-var FILTER_SCREEN_ADDRESS:String="filter_screen_address"
+    val CategoryList by lazy { stringPreferencesKey("CategoryList") }
+    val FilterList by lazy { stringPreferencesKey("FilterList") }
+    val SELECTED_SLIDER by lazy { stringPreferencesKey("SELECTED_SLIDER") }
+    val SLECTED_CATE_SIGNUP by lazy { stringPreferencesKey("FilterList") }
+    val list_Name by lazy { stringPreferencesKey("idsList") }
+    val list_CateName by lazy { stringPreferencesKey("idsList") }
+    var REDIRECT_CHATSCREEN: String = "redirectChatScreen"
+    var FILTER_SCREEN_LAT: String = "filter_Screen_Lat"
+    var FILTER_SCREEN_LONG: String = "filter_screen_long"
+    var FILTER_SCREEN_ADDRESS: String = "filter_screen_address"
 
 
+    var CATEGORY_SCREEN_LAT: String = "category_screen_lat"
+    var CATEGORY_SCREEN_LONG: String = "category_screen_long"
+    var CATEGORY_SCREEN_ADDRESS: String = "category_screen_address"
 
-    var CATEGORY_SCREEN_LAT:String="category_screen_lat"
-    var CATEGORY_SCREEN_LONG:String="category_screen_long"
-    var CATEGORY_SCREEN_ADDRESS:String="category_screen_address"
+    var CURRENT_LOCATION_LAT: String = "current_location_lat"
+    var CURRENT_LOCATION_LONG: String = "current_location_long"
 
-    const val ADVANCE_EDIT_LOOK_FONTS_NAME="AdvanceEdit_FontName"
 
-var CURRENT_LOCATION_LAT:String="current_location_lat"
-var CURRENT_LOCATION_LONG:String="current_location_long"
 }

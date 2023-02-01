@@ -14,6 +14,8 @@ import com.example.plazapalm.databinding.AddPhotosItemListBindingImpl;
 import com.example.plazapalm.databinding.AddQuestionItemsBindingImpl;
 import com.example.plazapalm.databinding.AddQuestionsBindingImpl;
 import com.example.plazapalm.databinding.AdvanceEditLookFragmentBindingImpl;
+import com.example.plazapalm.databinding.AdvanceEditlookFontlistBindingImpl;
+import com.example.plazapalm.databinding.AdvanceEditlookFontsListItemBindingImpl;
 import com.example.plazapalm.databinding.AdvanceMapBottomSheetBindingImpl;
 import com.example.plazapalm.databinding.AdvanceMapFragmentBindingImpl;
 import com.example.plazapalm.databinding.AdvanceSettGalleryFramentFragmentBindingImpl;
@@ -127,179 +129,183 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ADVANCEEDITLOOKFRAGMENT = 8;
 
-  private static final int LAYOUT_ADVANCEMAPBOTTOMSHEET = 9;
+  private static final int LAYOUT_ADVANCEEDITLOOKFONTLIST = 9;
 
-  private static final int LAYOUT_ADVANCEMAPFRAGMENT = 10;
+  private static final int LAYOUT_ADVANCEEDITLOOKFONTSLISTITEM = 10;
 
-  private static final int LAYOUT_ADVANCESETTGALLERYFRAMENTFRAGMENT = 11;
+  private static final int LAYOUT_ADVANCEMAPBOTTOMSHEET = 11;
 
-  private static final int LAYOUT_ADVANCESETTINGFRAGMENT = 12;
+  private static final int LAYOUT_ADVANCEMAPFRAGMENT = 12;
 
-  private static final int LAYOUT_ADVANCESETTINGMAPFRAGMENT = 13;
+  private static final int LAYOUT_ADVANCESETTGALLERYFRAMENTFRAGMENT = 13;
 
-  private static final int LAYOUT_ADVANCESHOWVIEWPROFILE = 14;
+  private static final int LAYOUT_ADVANCESETTINGFRAGMENT = 14;
 
-  private static final int LAYOUT_ALERTEXIT = 15;
+  private static final int LAYOUT_ADVANCESETTINGMAPFRAGMENT = 15;
 
-  private static final int LAYOUT_BLOCKUSERPROFILE = 16;
+  private static final int LAYOUT_ADVANCESHOWVIEWPROFILE = 16;
 
-  private static final int LAYOUT_BOOKINGDETAILSFRAGMENT = 17;
+  private static final int LAYOUT_ALERTEXIT = 17;
 
-  private static final int LAYOUT_CALENDARFRAGMENT = 18;
+  private static final int LAYOUT_BLOCKUSERPROFILE = 18;
 
-  private static final int LAYOUT_CALENDARLISTITEM = 19;
+  private static final int LAYOUT_BOOKINGDETAILSFRAGMENT = 19;
 
-  private static final int LAYOUT_CAMERAANDGALLERYEDITPROFILE = 20;
+  private static final int LAYOUT_CALENDARFRAGMENT = 20;
 
-  private static final int LAYOUT_CATEGORIESLISTFRAGMENT = 21;
+  private static final int LAYOUT_CALENDARLISTITEM = 21;
 
-  private static final int LAYOUT_CATEGORIESLISTITEMS = 22;
+  private static final int LAYOUT_CAMERAANDGALLERYEDITPROFILE = 22;
 
-  private static final int LAYOUT_CATEGORIESTEMP = 23;
+  private static final int LAYOUT_CATEGORIESLISTFRAGMENT = 23;
 
-  private static final int LAYOUT_CHANGEPASSWORDFRAGMENT = 24;
+  private static final int LAYOUT_CATEGORIESLISTITEMS = 24;
 
-  private static final int LAYOUT_CHATFRAGMENT = 25;
+  private static final int LAYOUT_CATEGORIESTEMP = 25;
 
-  private static final int LAYOUT_CHATRECEIVER = 26;
+  private static final int LAYOUT_CHANGEPASSWORDFRAGMENT = 26;
 
-  private static final int LAYOUT_CHATSENDER = 27;
+  private static final int LAYOUT_CHATFRAGMENT = 27;
 
-  private static final int LAYOUT_CHOOSECOLORITEMS = 28;
+  private static final int LAYOUT_CHATRECEIVER = 28;
 
-  private static final int LAYOUT_CHOOSECOLORS = 29;
+  private static final int LAYOUT_CHATSENDER = 29;
 
-  private static final int LAYOUT_CHOOSEPROFILEOPTIONS = 30;
+  private static final int LAYOUT_CHOOSECOLORITEMS = 30;
 
-  private static final int LAYOUT_CONFIRMBOOKINGDATEPICKER = 31;
+  private static final int LAYOUT_CHOOSECOLORS = 31;
 
-  private static final int LAYOUT_CONFIRMBOOKINGFRAGMENT = 32;
+  private static final int LAYOUT_CHOOSEPROFILEOPTIONS = 32;
 
-  private static final int LAYOUT_CONFIRMBOOKINGTIMEPICKER = 33;
+  private static final int LAYOUT_CONFIRMBOOKINGDATEPICKER = 33;
 
-  private static final int LAYOUT_CONTACTUSFRAGMENT = 34;
+  private static final int LAYOUT_CONFIRMBOOKINGFRAGMENT = 34;
 
-  private static final int LAYOUT_DASHBOARDEVENTSITEMS = 35;
+  private static final int LAYOUT_CONFIRMBOOKINGTIMEPICKER = 35;
 
-  private static final int LAYOUT_DASHBOARDFRAGMENT = 36;
+  private static final int LAYOUT_CONTACTUSFRAGMENT = 36;
 
-  private static final int LAYOUT_DASHBOARDITEMS = 37;
+  private static final int LAYOUT_DASHBOARDEVENTSITEMS = 37;
 
-  private static final int LAYOUT_DASHBOARDITEMSTEMP = 38;
+  private static final int LAYOUT_DASHBOARDFRAGMENT = 38;
 
-  private static final int LAYOUT_DASHSELECTEDEVENTS = 39;
+  private static final int LAYOUT_DASHBOARDITEMS = 39;
 
-  private static final int LAYOUT_DELETEACCOUNTALERT = 40;
+  private static final int LAYOUT_DASHBOARDITEMSTEMP = 40;
 
-  private static final int LAYOUT_DELETEPOSTPROFILE = 41;
+  private static final int LAYOUT_DASHSELECTEDEVENTS = 41;
 
-  private static final int LAYOUT_DELETESWIPEALERT = 42;
+  private static final int LAYOUT_DELETEACCOUNTALERT = 42;
 
-  private static final int LAYOUT_EDITFRONTPAGEFRAGMENT = 43;
+  private static final int LAYOUT_DELETEPOSTPROFILE = 43;
 
-  private static final int LAYOUT_EDITORDELETEPROFILE = 44;
+  private static final int LAYOUT_DELETESWIPEALERT = 44;
 
-  private static final int LAYOUT_EDITPROFILEFRAGMENT = 45;
+  private static final int LAYOUT_EDITFRONTPAGEFRAGMENT = 45;
 
-  private static final int LAYOUT_EMAILVERIFYFRAGMENT = 46;
+  private static final int LAYOUT_EDITORDELETEPROFILE = 46;
 
-  private static final int LAYOUT_FAVDETAILSCHOOSEOPTIONS = 47;
+  private static final int LAYOUT_EDITPROFILEFRAGMENT = 47;
 
-  private static final int LAYOUT_FAVDETAILSFRAGMENT = 48;
+  private static final int LAYOUT_EMAILVERIFYFRAGMENT = 48;
 
-  private static final int LAYOUT_FAVTEMP = 49;
+  private static final int LAYOUT_FAVDETAILSCHOOSEOPTIONS = 49;
 
-  private static final int LAYOUT_FAVOURITESFRAGMENT = 50;
+  private static final int LAYOUT_FAVDETAILSFRAGMENT = 50;
 
-  private static final int LAYOUT_FAVOURITESLISTITEMS = 51;
+  private static final int LAYOUT_FAVTEMP = 51;
 
-  private static final int LAYOUT_FILTERCATERGORIESITEM = 52;
+  private static final int LAYOUT_FAVOURITESFRAGMENT = 52;
 
-  private static final int LAYOUT_FILTERFRAGMENT = 53;
+  private static final int LAYOUT_FAVOURITESLISTITEMS = 53;
 
-  private static final int LAYOUT_FONTSLISTFRAGMENT = 54;
+  private static final int LAYOUT_FILTERCATERGORIESITEM = 54;
 
-  private static final int LAYOUT_FONTSLISTITEM = 55;
+  private static final int LAYOUT_FILTERFRAGMENT = 55;
 
-  private static final int LAYOUT_FORGOTPASSWORDFRAGMENT = 56;
+  private static final int LAYOUT_FONTSLISTFRAGMENT = 56;
 
-  private static final int LAYOUT_FRAGMENTDETAILSCATEGEROY = 57;
+  private static final int LAYOUT_FONTSLISTITEM = 57;
 
-  private static final int LAYOUT_FRAGMENTOPENCATEGEROY = 58;
+  private static final int LAYOUT_FORGOTPASSWORDFRAGMENT = 58;
 
-  private static final int LAYOUT_FRAGMENTREPORTCHOOSEOPTION = 59;
+  private static final int LAYOUT_FRAGMENTDETAILSCATEGEROY = 59;
 
-  private static final int LAYOUT_FRAGMENTREPORTCHOOSEOPTIONITEMS = 60;
+  private static final int LAYOUT_FRAGMENTOPENCATEGEROY = 60;
 
-  private static final int LAYOUT_FRAGMENTSELECTCATEGORY = 61;
+  private static final int LAYOUT_FRAGMENTREPORTCHOOSEOPTION = 61;
 
-  private static final int LAYOUT_LOGINFRAGMENT = 62;
+  private static final int LAYOUT_FRAGMENTREPORTCHOOSEOPTIONITEMS = 62;
 
-  private static final int LAYOUT_LOGOUTALERT = 63;
+  private static final int LAYOUT_FRAGMENTSELECTCATEGORY = 63;
 
-  private static final int LAYOUT_MESSAGESFRAGMENT = 64;
+  private static final int LAYOUT_LOGINFRAGMENT = 64;
 
-  private static final int LAYOUT_MESSAGESUSERLIST = 65;
+  private static final int LAYOUT_LOGOUTALERT = 65;
 
-  private static final int LAYOUT_MYPROIFLEFRAGMENT = 66;
+  private static final int LAYOUT_MESSAGESFRAGMENT = 66;
 
-  private static final int LAYOUT_OPENCAMERAANDGALLERY = 67;
+  private static final int LAYOUT_MESSAGESUSERLIST = 67;
 
-  private static final int LAYOUT_PICTURESFRAGMENT = 68;
+  private static final int LAYOUT_MYPROIFLEFRAGMENT = 68;
 
-  private static final int LAYOUT_PICTURESITEMLIST = 69;
+  private static final int LAYOUT_OPENCAMERAANDGALLERY = 69;
 
-  private static final int LAYOUT_PICTURESITEMUPLOADIMAGEVIDEOS = 70;
+  private static final int LAYOUT_PICTURESFRAGMENT = 70;
 
-  private static final int LAYOUT_POSTPROFILEFRAGMENT = 71;
+  private static final int LAYOUT_PICTURESITEMLIST = 71;
 
-  private static final int LAYOUT_PREMIUMEDITPROFILEFRAGMENT = 72;
+  private static final int LAYOUT_PICTURESITEMUPLOADIMAGEVIDEOS = 72;
 
-  private static final int LAYOUT_PRIVACYPOLICYFRAGMENT = 73;
+  private static final int LAYOUT_POSTPROFILEFRAGMENT = 73;
 
-  private static final int LAYOUT_PROGRESSLAYOUT = 74;
+  private static final int LAYOUT_PREMIUMEDITPROFILEFRAGMENT = 74;
 
-  private static final int LAYOUT_QRCODEGENERATEFRAGMENT = 75;
+  private static final int LAYOUT_PRIVACYPOLICYFRAGMENT = 75;
 
-  private static final int LAYOUT_QRCODESCANNERFRAGMENT = 76;
+  private static final int LAYOUT_PROGRESSLAYOUT = 76;
 
-  private static final int LAYOUT_QUESTIONARIESFRAGMENT = 77;
+  private static final int LAYOUT_QRCODEGENERATEFRAGMENT = 77;
 
-  private static final int LAYOUT_REPORTFRAGMENT = 78;
+  private static final int LAYOUT_QRCODESCANNERFRAGMENT = 78;
 
-  private static final int LAYOUT_REPOSITORYALERT = 79;
+  private static final int LAYOUT_QUESTIONARIESFRAGMENT = 79;
 
-  private static final int LAYOUT_SELECTEDCATEORIESITEMS = 80;
+  private static final int LAYOUT_REPORTFRAGMENT = 80;
 
-  private static final int LAYOUT_SETTINGSFRAGMENT = 81;
+  private static final int LAYOUT_REPOSITORYALERT = 81;
 
-  private static final int LAYOUT_SHOWPICTUREVIDEOFRAGMENT = 82;
+  private static final int LAYOUT_SELECTEDCATEORIESITEMS = 82;
 
-  private static final int LAYOUT_SIGNUPFRAGMENT = 83;
+  private static final int LAYOUT_SETTINGSFRAGMENT = 83;
 
-  private static final int LAYOUT_SLECTCATEITEMS = 84;
+  private static final int LAYOUT_SHOWPICTUREVIDEOFRAGMENT = 84;
 
-  private static final int LAYOUT_SPLASHFRAGMENT = 85;
+  private static final int LAYOUT_SIGNUPFRAGMENT = 85;
 
-  private static final int LAYOUT_TERMSUSEFRAGMENT = 86;
+  private static final int LAYOUT_SLECTCATEITEMS = 86;
 
-  private static final int LAYOUT_THANKYOUFRAGMENT = 87;
+  private static final int LAYOUT_SPLASHFRAGMENT = 87;
 
-  private static final int LAYOUT_UPDATEEMAILFRAGMENT = 88;
+  private static final int LAYOUT_TERMSUSEFRAGMENT = 88;
 
-  private static final int LAYOUT_UPGRADEPROFRAGMENT = 89;
+  private static final int LAYOUT_THANKYOUFRAGMENT = 89;
 
-  private static final int LAYOUT_VERIFYEMAILFRAGMENT = 90;
+  private static final int LAYOUT_UPDATEEMAILFRAGMENT = 90;
 
-  private static final int LAYOUT_VIEWPROFILEFRAGMENT = 91;
+  private static final int LAYOUT_UPGRADEPROFRAGMENT = 91;
 
-  private static final int LAYOUT_VIEWPROFILEIMAGESLIST = 92;
+  private static final int LAYOUT_VERIFYEMAILFRAGMENT = 92;
 
-  private static final int LAYOUT_VIEWPROFILECHOOSEOPTION = 93;
+  private static final int LAYOUT_VIEWPROFILEFRAGMENT = 93;
 
-  private static final int LAYOUT_WELCOMEFRAGMENT = 94;
+  private static final int LAYOUT_VIEWPROFILEIMAGESLIST = 94;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(94);
+  private static final int LAYOUT_VIEWPROFILECHOOSEOPTION = 95;
+
+  private static final int LAYOUT_WELCOMEFRAGMENT = 96;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(96);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.activity_main, LAYOUT_ACTIVITYMAIN);
@@ -310,6 +316,8 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.add_question_items, LAYOUT_ADDQUESTIONITEMS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.add_questions, LAYOUT_ADDQUESTIONS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.advance_edit_look_fragment, LAYOUT_ADVANCEEDITLOOKFRAGMENT);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.advance_editlook_fontlist, LAYOUT_ADVANCEEDITLOOKFONTLIST);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.advance_editlook_fonts_list_item, LAYOUT_ADVANCEEDITLOOKFONTSLISTITEM);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.advance_map_bottom_sheet, LAYOUT_ADVANCEMAPBOTTOMSHEET);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.advance_map_fragment, LAYOUT_ADVANCEMAPFRAGMENT);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.plazapalm.R.layout.advance_sett_gallery_frament_fragment, LAYOUT_ADVANCESETTGALLERYFRAMENTFRAGMENT);
@@ -448,6 +456,18 @@ public class DataBinderMapperImpl extends DataBinderMapper {
           return new AdvanceEditLookFragmentBindingImpl(component, view);
         }
         throw new IllegalArgumentException("The tag for advance_edit_look_fragment is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ADVANCEEDITLOOKFONTLIST: {
+        if ("layout/advance_editlook_fontlist_0".equals(tag)) {
+          return new AdvanceEditlookFontlistBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for advance_editlook_fontlist is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ADVANCEEDITLOOKFONTSLISTITEM: {
+        if ("layout/advance_editlook_fonts_list_item_0".equals(tag)) {
+          return new AdvanceEditlookFontsListItemBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for advance_editlook_fonts_list_item is invalid. Received: " + tag);
       }
       case  LAYOUT_ADVANCEMAPBOTTOMSHEET: {
         if ("layout/advance_map_bottom_sheet_0".equals(tag)) {
@@ -689,6 +709,13 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for fav_details_fragment is invalid. Received: " + tag);
       }
+    }
+    return null;
+  }
+
+  private final ViewDataBinding internalGetViewDataBinding1(DataBindingComponent component,
+      View view, int internalId, Object tag) {
+    switch(internalId) {
       case  LAYOUT_FAVTEMP: {
         if ("layout/fav_temp_0".equals(tag)) {
           return new FavTempBindingImpl(component, view);
@@ -701,13 +728,6 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for favourites_fragment is invalid. Received: " + tag);
       }
-    }
-    return null;
-  }
-
-  private final ViewDataBinding internalGetViewDataBinding1(DataBindingComponent component,
-      View view, int internalId, Object tag) {
-    switch(internalId) {
       case  LAYOUT_FAVOURITESLISTITEMS: {
         if ("layout/favourites_list_items_0".equals(tag)) {
           return new FavouritesListItemsBindingImpl(component, view);
@@ -1055,7 +1075,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(94);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(96);
 
     static {
       sKeys.put("layout/activity_main_0", com.example.plazapalm.R.layout.activity_main);
@@ -1066,6 +1086,8 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/add_question_items_0", com.example.plazapalm.R.layout.add_question_items);
       sKeys.put("layout/add_questions_0", com.example.plazapalm.R.layout.add_questions);
       sKeys.put("layout/advance_edit_look_fragment_0", com.example.plazapalm.R.layout.advance_edit_look_fragment);
+      sKeys.put("layout/advance_editlook_fontlist_0", com.example.plazapalm.R.layout.advance_editlook_fontlist);
+      sKeys.put("layout/advance_editlook_fonts_list_item_0", com.example.plazapalm.R.layout.advance_editlook_fonts_list_item);
       sKeys.put("layout/advance_map_bottom_sheet_0", com.example.plazapalm.R.layout.advance_map_bottom_sheet);
       sKeys.put("layout/advance_map_fragment_0", com.example.plazapalm.R.layout.advance_map_fragment);
       sKeys.put("layout/advance_sett_gallery_frament_fragment_0", com.example.plazapalm.R.layout.advance_sett_gallery_frament_fragment);

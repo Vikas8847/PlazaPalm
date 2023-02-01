@@ -20,6 +20,7 @@ import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
 import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.networkcalls.RetrofitApi
+import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.*
 import com.example.plazapalm.utils.Constants.CHECK_INTERNET
 import com.example.plazapalm.utils.Constants.ConfirmPasswordCantEmpty
@@ -32,6 +33,8 @@ import com.example.plazapalm.utils.Constants.FirstNameCantEmpty
 import com.example.plazapalm.utils.Constants.LastNameCantEmpty
 import com.example.plazapalm.utils.Constants.PasswordCantEmpty
 import com.example.plazapalm.validation.ValidatorUtils.isEmailValid
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -42,6 +45,7 @@ import javax.inject.Inject
 class SignupVM @Inject constructor(
     private var repository: Repository,
     private val dataStore: DataStoreUtil,
+    private val pref: PreferenceFile,
 ) : ViewModel() {
     //get Android (Device Id)..
     @SuppressLint("HardwareIds")
@@ -55,6 +59,7 @@ class SignupVM @Inject constructor(
     var password = ObservableField("")
     var ischecked = ObservableField("")
     var confirmPassword = ObservableField("")
+    var sendFirebaseSignUpToken = ObservableField("")
     var businessStatus = ObservableBoolean(false)
 
     fun selectOption(radioGroup: RadioGroup, radioButton: View) {
@@ -136,15 +141,20 @@ class SignupVM @Inject constructor(
 
     /**Call Signup Api here..**/
     private fun callSignUp(view: View) = viewModelScope.launch {
+
+
         val body = JSONObject()
         body.put(Constants.FIRST_NAME, firstName.get())
         body.put(Constants.LAST_NAME, lastName.get())
         body.put(Constants.EMAIL, email.get())
         body.put(Constants.PASSWORD, password.get())
-        body.put(DEVICE_TOKEN, DeviceToken)
+        body.put(DEVICE_TOKEN, pref.retrieveFirebaseToken())
         body.put(DEVICE_TYPE, DeviceType)
 
         Log.e("ASASZZZ",businessStatus.get().toString())
+        Log.e("LOGIN--REQUEST--",email.get() + "-- "+ password.get() + "--Local--"+sendFirebaseSignUpToken.get().toString()+
+                " --->>>> " +pref.retrieveFirebaseToken()+"--"+Constants.DeviceType+"--" +
+                firstName.get() +"--"+lastName.get() )
 
         repository.makeCall(
             ApiEnums.SIGNUP,
@@ -158,7 +168,8 @@ class SignupVM @Inject constructor(
                         LastName = lastName.get()?.trim().toString(),
                         Email = email.get()?.trim().toString(),
                         Password = password.get()?.trim().toString(),
-                        DeviceToken,
+                        /*DeviceToken*/
+                        sendFirebaseSignUpToken.get(),
                         DeviceType,
                         businessStatus.get()
                     )

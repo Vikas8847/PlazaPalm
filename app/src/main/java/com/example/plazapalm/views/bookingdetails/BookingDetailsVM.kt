@@ -49,7 +49,10 @@ class BookingDetailsVM @Inject constructor(
 
     fun getCustomerDetails() = viewModelScope.launch {
 
-        Log.e("SCCXXWQQ", preferenceFile.retrieveKey("token").toString() + " ----- "+ booking_id.get().toString())
+        Log.e(
+            "SCCXXWQQ",
+            preferenceFile.retrieveKey("token").toString() + " ----- " + booking_id.get().toString()
+        )
 
         repository.makeCall(
             apiKey = ApiEnums.GETPROFILE_BYCATE,
@@ -104,14 +107,14 @@ class BookingDetailsVM @Inject constructor(
 
                 Log.e("ASCCZZ", "WORKINGg9")
 
-                if (btnText.get()?.trim().equals("Cancel Booking")){
+                if (btnText.get()?.trim().equals("Cancel Booking")) {
                     getBookingStatus()
                     Log.e("ASCCZZ", "WORKINGg10")
 
-                }else if (btnText.get()?.trim().equals("Delete Reminder")){
+                } else if (btnText.get()?.trim().equals("Delete Reminder")) {
                     Log.e("ASCCZZ", "WORKINGg11")
-                }else if (btnText.get()?.trim().equals("cancelled")){
-                    Log.e("ASCCZZ","WORKINGg22")
+                } else if (btnText.get()?.trim().equals("cancelled")) {
+                    Log.e("ASCCZZ", "WORKINGg22")
 
                 }
                 //Here Cancel Api will hit and navigate back to details page...
@@ -128,24 +131,27 @@ class BookingDetailsVM @Inject constructor(
             R.id.tvBookingDetailViewProfile -> {
                 //Here Navigate View profile Screen....
                 val bundle = Bundle()
-                bundle.putString("comingFrom","isBookingDetailsFragment")
-                bundle.putString("userPostProfileId",userPostProfileId.get())
+                bundle.putString("comingFrom", "isBookingDetailsFragment")
+                bundle.putString("userPostProfileId", userPostProfileId.get())
 
-
-                Log.e("SAASAqqwqwq",userPostProfileId.get().toString())
-                view.navigateWithId(R.id.action_bookingDetailsFragment_to_favDetailsFragment,bundle)
+                Log.e("SAASAqqwqwq", userPostProfileId.get().toString())
+                view.navigateWithId(
+                    R.id.action_bookingDetailsFragment_to_favDetailsFragment,
+                    bundle
+                )
             }
 
         }
     }
 
-    private fun getBookingStatus()=viewModelScope.launch {
+    private fun getBookingStatus() = viewModelScope.launch {
 
-        Log.e("FSDFSDFQ",
-            preferenceFile.retrieveKey("token").toString()+ "---iii---" +
-            booking_id.get().toString()+ "---iii---" +
-            bookingStatus.get().toString()
-            )
+        Log.e(
+            "FSDFSDFQ",
+            preferenceFile.retrieveKey("token").toString() + "---iii---" +
+                    booking_id.get().toString() + "---iii---" +
+                    bookingStatus.get().toString()
+        )
 
         repository.makeCall(
             ApiEnums.GET_STATUS_INPUT,
@@ -163,7 +169,7 @@ class BookingDetailsVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<BookingStatusInputResponse>) {
-                    Log.e("RESEER" , res.body().toString())
+                    Log.e("RESEER", res.body().toString())
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
                             CommonMethods.showToast(CommonMethods.context, res.message())

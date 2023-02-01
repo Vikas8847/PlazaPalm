@@ -34,7 +34,7 @@ import me.relex.circleindicator.CircleIndicator
 /** Binding Adapters */
 object BindingAdapters {
     //    @Inject
-    lateinit var pref: PreferenceFile
+//    lateinit var pref: PreferenceFile
 
     //    @Inject
 //    lateinit var pref : PreferenceFile
@@ -463,4 +463,5 @@ object BindingAdapters {
     ) {
         textView.text = value.split(".")[0] + " Miles"
     }
-}
+
+ }

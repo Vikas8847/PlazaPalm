@@ -44,8 +44,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback,
-    LocationSource.OnLocationChangedListener {
+class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback, LocationSource.OnLocationChangedListener {
 
     private var loginUserPId: String? = ""
     private var loginUserId: String? = ""
@@ -101,10 +100,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     }
 
     private fun setbackground() {
-
         viewModel.backgroundColor.observe(viewLifecycleOwner) {
             if (!(it.equals("")) && it != null) {
-
                 if (it is String) {
                     val data = it
                     binding!!.mainConslayout.setBackgroundColor(Color.parseColor(data.toString()))
@@ -112,16 +109,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 }
             }
         }
-
         viewModel.textColor.observe(viewLifecycleOwner) {
             if (!(it.equals("")) && it != null) {
-
                 if (it is String) {
-
                     val data = it
-
                     viewModel.fontViewColor.set(data)
-
 //                    binding!!.tvFavDetails.setTextColor(Color.parseColor(data.toString()))
 //                    binding!!.tvFavDetailsDistance.setTextColor(Color.parseColor(data.toString()))
 //                    binding!!.tvFavCityAddress.setTextColor(Color.parseColor(data.toString()))
@@ -154,7 +146,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             loginUserPId = it?.data?.p_id
             viewModel.loginUserPId.set(loginUserPId)
             Log.e("SDASDASDASDASdas", it.toString())
-
             fetchApiKey()
             getSharedata()
             getFavoriteData()
@@ -205,7 +196,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             when (arguments?.get("comingFrom")) {
                 "isFavorite" -> {
                     viewModel.CommingFrom.set("isFavorite")
-
                     binding?.ivFavDetailsFilledHeart?.visibility = View.VISIBLE
                     /** GET DATA FROM FAVOURITES // BY SERIALIZABLE */
 

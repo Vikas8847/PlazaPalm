@@ -318,7 +318,6 @@ class PostProfileVM @Inject constructor(
                 surveyImagesParts[index] = createFormData("profile_picture", file.name, surveyBody)
                 Log.e("SDDDSS-----SSSS", tempList.toString())
 
-
             }
 
 
