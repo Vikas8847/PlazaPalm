@@ -79,6 +79,7 @@ dependencies {
 
     //Dimensions
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
     //dataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
