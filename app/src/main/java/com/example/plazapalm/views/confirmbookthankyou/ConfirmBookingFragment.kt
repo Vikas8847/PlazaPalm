@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.ConfirmBookingFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.scrollContentInEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,6 +42,7 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                     viewModel.user_image.set(arguments?.getString("pro_imageg")!!)
                     viewModel.title.set("Add to Calendar")
                     viewModel.addtoCalendar.set("Add to Calendar")
+                    viewModel.user_miles.set(arguments?.getString("miles")!!)
                     viewModel.p_id.set(arguments?.getString("p_id")!!)
 
                 }
@@ -54,13 +56,12 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                     viewModel.user_image.set(arguments?.getString("proImageg")!!)
                     viewModel.p_id.set(arguments?.getString("p_id")!!)
                     viewModel.addtoCalendar.set("Book")
-
+                    viewModel.user_miles.set(arguments?.getString("miles")!!)
                     Log.e(
                         "FROMBOOK", viewModel.user_Name.get().toString() + " ------" +
                                 "- " + viewModel.user_location.get()
                             .toString() + " --- " + viewModel.user_image
                     )
-
                 }
 
               /*  *//** comming From Add to Calendar popup *//*
@@ -80,6 +81,8 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
+
+        scrollContentInEditText(binding?.etConfirmBookDescription!!)
     }
 
 }

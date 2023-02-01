@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.DashBoardFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
@@ -29,7 +30,6 @@ import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.Constants.SELECTED_CATEGORY_ID
-import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
@@ -53,25 +53,31 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     private val viewModel: DashBoardVM by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = DashBoardFragmentBinding.inflate(layoutInflater)
 
-        if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0 &&  pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble()!=0.0 ) {
+        if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble() != 0.0 && pref.retvieLatlong(
+                Constants.FILTER_SCREEN_LONG).toDouble() != 0.0
+        ) {
             viewModel.lati.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble())
             viewModel.longi.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
 
-            Log.e("ASDASWWERWR00ss", pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toFloat().toString())
-            Log.e("gsdgklslgswgs====",viewModel.lati.get().toString())
-            Log.e("gsdgklslgswgs11====",viewModel.longi.get().toString())
+            Log.e("ASDASWWERWR00ss",
+                pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toFloat().toString())
+            Log.e("gsdgklslgswgs====", viewModel.lati.get().toString())
+            Log.e("gsdgklslgswgs11====", viewModel.longi.get().toString())
         }
 
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
 
-        if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0 &&  pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble()!=0.0 ) {
-                    /*   pref.storeLatlong("longi", pref.retvieLatlong("lati").toDouble().toFloat())
-            pref.storeLatlong("lati", pref.retvieLatlong("longi").toDouble().toFloat())*/
-            Log.e("ASDASWWERWR00ss", pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toFloat().toString())
+        if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble() != 0.0 && pref.retvieLatlong(
+                Constants.FILTER_SCREEN_LONG).toDouble() != 0.0
+        ) {
+            /*   pref.storeLatlong("longi", pref.retvieLatlong("lati").toDouble().toFloat())
+    pref.storeLatlong("lati", pref.retvieLatlong("longi").toDouble().toFloat())*/
+            Log.e("ASDASWWERWR00ss",
+                pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toFloat().toString())
             initUI()
         } else {
             getLastLocation()
@@ -81,47 +87,50 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     }
 
-    fun initUI()
-    {
-        if(arguments?.getString("fromCategories") != null && arguments?.containsKey("fromCategories")!! || arguments?.getStringArrayList("filterCategoriesIds") != null ||
-            arguments?.getStringArrayList("FromLoginScreenCategoriesIds") != null ||   arguments?.getString("fromOpencate") != null      )
-        {
+    fun initUI() {
+        if (arguments?.getString("fromCategories") != null && arguments?.containsKey("fromCategories")!! || arguments?.getStringArrayList(
+                "filterCategoriesIds") != null ||
+            arguments?.getStringArrayList("FromLoginScreenCategoriesIds") != null || arguments?.getString(
+                "fromOpencate") != null
+        ) {
             getCategoriesListAndID()
-        }else
-        {
+        } else {
             viewModel.lati.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble())
             viewModel.longi.set(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
-            viewModel.getProfileByCategory("", true,"")
+
+            if (!(viewModel.selectedCatId.get().toString().equals(""))) {
+                viewModel.getProfileByCategory("", true, viewModel.selectedCatId.get().toString())
+            } else {
+                viewModel.getProfileByCategory("", true, "")
+            }
         }
 
         getlocalData()
         viewModel.getProfile()
 
-
-viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer {
-    var data =it as Boolean
-    Handler().postDelayed(object : Runnable {
-        override fun run() {
-            if(data) {
-                if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey("link_share_pid")
-                        .equals(""))
-                ) {
-                    Log.e("Profile_API_HIT===","1111")
-                    openDirectProfileDetail(pref.retrieveKey("link_share_pid")!!, 0.0, 0.0)
-                } else {
-                    Log.e("Share_PID=====", pref.retrieveKey("link_share_pid").toString())
+        viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer {
+            var data = it as Boolean
+            Handler().postDelayed(object : Runnable {
+                override fun run() {
+                    if (data) {
+                        if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey("link_share_pid")
+                                .equals(""))
+                        ) {
+                            Log.e("Profile_API_HIT===", "1111")
+                            openDirectProfileDetail(pref.retrieveKey("link_share_pid")!!, 0.0, 0.0)
+                        } else {
+                            Log.e("Share_PID=====", pref.retrieveKey("link_share_pid").toString())
+                        }
+                    }
                 }
-            }
-        }
-    },1000)
+            }, 1000)
 
-})
+        })
 
-       // viewModel.getProfileByCategory("", true)
+        // viewModel.getProfileByCategory("", true)
     }
 
-    fun openDirectProfileDetail(postId:String,lati:Double,longi:Double)
-    {
+    fun openDirectProfileDetail(postId: String, lati: Double, longi: Double) {
         val isDashBoard = Bundle()
         isDashBoard.putString("comingFrom", "isDashBoard")
         isDashBoard.putString(
@@ -139,16 +148,16 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
         findNavController().navigate(R.id.action_dashBoardFragment_to_favDetailsFragment,
             isDashBoard)
 
-        pref.storeKey("link_share_pid","")
+        pref.storeKey("link_share_pid", "")
     }
 
 
     private fun getlocalData() {
-        Log.e("asdsdasdasdasd",pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
+        Log.e("asdsdasdasdasd", pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
 
-        if (pref.retrieveCategeory(SELECTED_CATEGORY_ID)!=null ){
+        if (pref.retrieveCategeory(SELECTED_CATEGORY_ID) != null) {
 
-            Log.e("jkljlss",pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
+            Log.e("jkljlss", pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME).toString())
 
 //            val myType = object : TypeToken<ArrayList<SelCategory>>() {}.type
 //            val newList1: ArrayList<SelCategory> = Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveCategeory(Constants.SELECTED_CATEGORY_NAME), myType)
@@ -171,8 +180,9 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
             Log.e("AAAZZZZ", pref.retrieveFilterResponse().toString())
 
             val myType = object : TypeToken<ArrayList<SelCategory>>() {}.type
-            val newList: ArrayList<SelCategory> = Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveFilterResponse(), myType)
-            val categoryList=ArrayList<SelectedDataModelList>()
+            val newList: ArrayList<SelCategory> =
+                Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveFilterResponse(), myType)
+            val categoryList = ArrayList<SelectedDataModelList>()
 
             viewModel.selectedCategoriesList.clear()
 
@@ -260,6 +270,7 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         binding?.vm = viewModel
+        viewModel.rvView=binding!!.rvDashBoard
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -285,11 +296,11 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
 
                         viewModel.selectedCategoriesList.add(
                             SelectedDataModelList(
-                                idData[idx].category_name!!,
+                                idData[idx].category_name,
                                 idData[idx]._id!!,
-                                idData[idx].adapterPosition!!,
+                                idData[idx].adapterPosition,
                                 idData[idx].isCheck!!,
-                                idData[idx].count!!
+                                idData[idx].count
                             )
                         )
 
@@ -309,7 +320,8 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
                         val gsonValueCateName = Gson().toJson(viewModel.selectedCategoriesList)
                         pref.saveCategeory(Constants.SELECTED_CATEGORY_ID, gsonValueCateName)
 
-                        Log.e("ISCATE--ID -- >>", viewModel.idList.toString() + "ISCATE--NAME -->> " + viewModel.selectedCategoriesList.toString())
+                        Log.e("ISCATE--ID -- >>",
+                            viewModel.idList.toString() + "ISCATE--NAME -->> " + viewModel.selectedCategoriesList.toString())
 
                         //////////
 
@@ -324,7 +336,7 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
                     viewModel.lati.set(arguments?.getDouble("latitude")!!)
                     viewModel.longi.set(arguments?.getDouble("longitude")!!)
 
-                    viewModel.getProfileByCategory("", true,"")
+                    viewModel.getProfileByCategory("", true, "")
 
                 }
 
@@ -336,11 +348,11 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
                         viewModel.idList.addAll(listOf(idData[idx]._id!!))
                         viewModel.selectedCategoriesList.add(
                             SelectedDataModelList(
-                                idData[idx].category_name!!,
+                                idData[idx].category_name,
                                 idData[idx]._id!!,
-                                idData[idx].adapterPosition!!,
+                                idData[idx].adapterPosition,
                                 idData[idx].isCheck!!,
-                                idData[idx].count!!
+                                idData[idx].count
                             )
                         )
 
@@ -355,7 +367,7 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
                     }
                     viewModel.lati.set(arguments?.getDouble("Filterlatitude")!!)
                     viewModel.longi.set(arguments?.getDouble("Filterlongitude")!!)
-                    viewModel.getProfileByCategory("", true,"")
+                    viewModel.getProfileByCategory("", true, "")
                 }
 
                 arguments?.getStringArrayList("FromLoginScreenCategoriesIds") != null -> {
@@ -369,11 +381,11 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
                         viewModel.idList.addAll(listOf(idData[idx]._id!!))
                         viewModel.selectedCategoriesList.add(
                             SelectedDataModelList(
-                                idData[idx].category_name!!,
+                                idData[idx].category_name,
                                 idData[idx]._id!!,
-                                idData[idx].adapterPosition!!,
+                                idData[idx].adapterPosition,
                                 idData[idx].isCheck!!,
-                                idData[idx].count!!
+                                idData[idx].count
                             )
                         )
 
@@ -401,7 +413,7 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
 
 
                     Log.e("DDDDWoij", viewModel.idList.toString())
-                    viewModel.getProfileByCategory("", true,"")
+                    viewModel.getProfileByCategory("", true, "")
                 }
 
                 arguments?.getString("fromOpencate") != null -> {
@@ -439,8 +451,8 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
                     viewModel.lati.set(arguments?.getDouble("latitude")!!)
                     viewModel.longi.set(arguments?.getDouble("longitude")!!)
 
-                  //  viewModel.lati.set(pref.retvieLatlong("lati").toDouble())
-               //     viewModel.longi.set(pref.retvieLatlong("longi").toDouble())
+                    //  viewModel.lati.set(pref.retvieLatlong("lati").toDouble())
+                    //     viewModel.longi.set(pref.retvieLatlong("longi").toDouble())
 
                     Log.e(
                         "LATLANGG",
@@ -448,7 +460,7 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
                             .toString() + "  <<<--- Longiii ---->>>  " +
                                 viewModel.longi.get() + " CIdd--- " + c_id
                     )
-                    viewModel.getProfileByCategory("", true,c_id!!)
+                    viewModel.getProfileByCategory("", true, c_id)
                 }
 
                 arguments?.getString("comingFromIsfilter") != null -> {
@@ -493,27 +505,29 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
                         viewModel.longi.set(location.longitude)
 
                         //for Filter lat long
-                        pref.storeLatlong(Constants.FILTER_SCREEN_LONG, location.longitude.toFloat())
+                        pref.storeLatlong(Constants.FILTER_SCREEN_LONG,
+                            location.longitude.toFloat())
                         pref.storeLatlong(Constants.FILTER_SCREEN_LAT, location.latitude.toFloat())
-                        Log.e("Current_Location==",viewModel.lati.get().toString())
-                        Log.e("Current_Location11==",viewModel.longi.get().toString())
+                        Log.e("Current_Location==", viewModel.lati.get().toString())
+                        Log.e("Current_Location11==", viewModel.longi.get().toString())
 
                         val geocoder = Geocoder(requireActivity(), Locale.getDefault())
-                        val addresses: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        val addresses: List<Address> =
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         val city = addresses[0].locality
                         val state = addresses[0].adminArea
                         val country = addresses[0].countryName
 
                         //for current lat long
-                        pref.storeLatlong("lati",location.latitude.toFloat())
-                        pref.storeLatlong("longi",location.longitude.toFloat())
+                        pref.storeLatlong("lati", location.latitude.toFloat())
+                        pref.storeLatlong("longi", location.longitude.toFloat())
 
 
                         pref.storeLocation(city)
 
                         pref.storeFilterLocation(city)
 
-                        Log.e("addresSSe",city)
+                        Log.e("addresSSe", city)
 //                        pref.retrieveLocation
                         initUI()
                         Log.e(
@@ -537,8 +551,10 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
         super.onResume()
         CommonMethods.statusBar(true)
 
-        if (!(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toString().isNullOrEmpty()) &&
-            !(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble().toString().isNullOrEmpty())
+        if (!(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble().toString()
+                .isNullOrEmpty()) &&
+            !(pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble().toString()
+                .isNullOrEmpty())
         ) {
 
 //            pref.storeLatlong("longi", pref.retvieLatlong("longi").toDouble().toFloat())
@@ -555,5 +571,36 @@ viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer
         }
 
 
+        //binding.rvDashBoard.seton
+        binding?.rvDashBoard?.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var ydy = 0
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val offset = dy - ydy
+                ydy = dy
+                var manager = (binding!!.rvDashBoard.layoutManager) as GridLayoutManager
+
+                val currentFirstVisible: Int = manager.findFirstVisibleItemPosition()
+
+                //   if (currentFirstVisible > firstVisibleInListview) Log.i("RecyclerView scrolled: ", "scroll up!") else Log.i("RecyclerView scrolled: ", "scroll down!")
+
+                var firstVisibleInListview = currentFirstVisible
+                Log.e("Scroll_Position===",firstVisibleInListview.toString())
+if(!viewModel.isRVScroll.get()){
+                if (viewModel.adapter.getAllItems().size > 0) {
+                    if(!(viewModel.title.get().toString().equals(viewModel.adapter.getAllItems()
+                            .get(firstVisibleInListview).category_name.toString()))){
+                    viewModel.title.set(viewModel.adapter.getAllItems()
+                        .get(firstVisibleInListview).category_name.toString())
+                }}
+}
+
+                if(viewModel.isRVScroll.get()) {
+                    viewModel.isRVScroll.set(false)
+                }
+                // swipeRefreshLayout.setRefreshing(false)
+            }
+        })
     }
 }

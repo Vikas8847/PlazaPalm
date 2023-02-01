@@ -19,6 +19,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.R
@@ -91,7 +92,10 @@ class DashBoardVM @Inject constructor(
     val list_Name by lazy { stringPreferencesKey("idsList") }
     val list_CateName by lazy { stringPreferencesKey("CateNameList") }
     var dialog: Dialog? = null
+    var rvView:RecyclerView?=null
 
+    var selectedCatId=ObservableField("")
+    var isRVScroll=ObservableBoolean(false)
     init {
 
         /*** 03-01-23
@@ -200,6 +204,36 @@ class DashBoardVM @Inject constructor(
 
         Log.e("QQWQWQw", editable.toString())
     }
+
+    fun scrollListener(rvView:RecyclerView)
+    {
+        rvView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var ydy = 0
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val offset = dy - ydy
+                ydy = dy
+              var  manager=(rvView.layoutManager) as GridLayoutManager
+
+
+                val currentFirstVisible: Int = manager.findFirstVisibleItemPosition()
+
+             //   if (currentFirstVisible > firstVisibleInListview) Log.i("RecyclerView scrolled: ", "scroll up!") else Log.i("RecyclerView scrolled: ", "scroll down!")
+
+               var firstVisibleInListview = currentFirstVisible
+
+
+             //   title.set(adapter.getAllItems().get(firstVisibleInListview).category_name.toString())
+
+                // swipeRefreshLayout.setRefreshing(false)
+            }
+        })
+    }
+
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -340,12 +374,24 @@ class DashBoardVM @Inject constructor(
                                 // longi.set(pref.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble())
 
 
-                                if (res.body()!!.data.size > 0) {
+                                if (res.body()!!.data.size > 0 || adapter.getAllItems().size>0) {
 
                                     isNodatafound.set(true)
 
+
+                                    for(idx in 0 until adapter.getAllItems().size)
+                                    {
+
+                                        Log.e("Dashboard_itemsss===",adapter.getAllItems()[idx].category_name)
+                                    }
+
                                     var profileList = ArrayList<ProfileCateData>()
                                     profileList.clear()
+                                   /* if(adapter!=null && adapter.getAllItems()!=null && adapter.getAllItems().size>0)
+                                    {
+                                        profileList.addAll(adapter.getAllItems());
+                                    }*/
+
                                     for (idx in 0 until res.body()?.data!!.size) {
                                         res.body()?.data!![idx].lngValue =
                                             res.body()?.data!![idx].long
@@ -353,6 +399,9 @@ class DashBoardVM @Inject constructor(
                                     }
                                     adapter.addItems(profileList)
                                     adapter.notifyDataSetChanged()
+
+
+
 
                                     Log.d("DashBoardResponse->", res.body()!!.data.toString())
 
@@ -508,13 +557,53 @@ class DashBoardVM @Inject constructor(
     }
 
     override fun click(categoryName: String, position: Int, _id: String?, s: String, color: Int?) {
-
+        dialog!!.dismiss()
         title.set(categoryName)
         Log.e("SDFSDFSdf", categoryName)
-        dialog!!.dismiss()
-
+        selectedCatId.set(_id!!)
+        isRVScroll.set(true)
+        selectSpecificCategory(_id!!)
+        //getProfileByCategory("", true,_id!!)
     }
 
+    fun selectSpecificCategory(_id:String)
+    {
+
+       // var manager = (binding!!.rvDashBoard.layoutManager) as GridLayoutManager
+
+
+        //val currentFirstVisible: Int = manager.findFirstVisibleItemPosition()
+
+        //   if (currentFirstVisible > firstVisibleInListview) Log.i("RecyclerView scrolled: ", "scroll up!") else Log.i("RecyclerView scrolled: ", "scroll down!")
+
+ //       var firstVisibleInListview = (adapter.layoutId).
+       // Log.e("gdsmgksgsgsg===",firstVisibleInListview.toString())
+    /*    if (adapter.getAllItems().size > 0) {
+            title.set(adapter.getAllItems()
+                .get(firstVisibleInListview).category_name.toString())
+        }*/
+
+        var selectedPosition=-1
+        for(idx in 0 until adapter.getAllItems().size)
+        {
+            if(adapter.getAllItems()[idx].c_id==_id)
+            {
+                selectedPosition=idx
+                break
+            }
+        }
+        Log.e("Selected_Position===",selectedPosition.toString())
+        if(selectedPosition!=-1){
+        (rvView!!.getLayoutManager() as GridLayoutManager).scrollToPositionWithOffset(
+            selectedPosition,
+            0)
+
+    /*    if (adapter.getAllItems().size > 0) {
+            title.set(adapter.getAllItems()
+                .get(selectedPosition).category_name.toString())
+        }*/
+    }
+    }
     var profileResponse = MutableLiveData<Boolean>()
 
     /**call Get Profile Api..**/

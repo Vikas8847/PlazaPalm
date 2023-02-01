@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
@@ -30,6 +31,7 @@ class FilterFragmentVM @Inject constructor(
     var long = ObservableField("")
     var lat = ObservableField("")
 
+    var swipeEnable=ObservableBoolean()
     var filterDataList = ArrayList<SelectedDataModelList>()
     var newfilterList =  ObservableField(ArrayList<String>())
     val filterAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.filter_catergories_item) }

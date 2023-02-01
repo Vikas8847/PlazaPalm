@@ -14,6 +14,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -169,6 +170,12 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
     @SuppressLint("NotifyDataSetChanged")
     private fun setAdapter() {
 
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        var screenWidth = displayMetrics.widthPixels
+     //   var height = displayMetrics.heightPixels
+
         binding?.rvAddPhotos?.layoutManager =
             GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
 
@@ -185,7 +192,7 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
             newPhotoList.add(AddPhoto("", false))
         }
 
-        addPhotosAdapter = AddPhotosAdapter(requireActivity(), newPhotoList, this)
+        addPhotosAdapter = AddPhotosAdapter(requireActivity(), newPhotoList, this,screenWidth)
         binding?.rvAddPhotos?.adapter = addPhotosAdapter
         binding?.rvAddPhotos?.adapter?.notifyDataSetChanged()
 

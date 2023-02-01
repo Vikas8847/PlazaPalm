@@ -125,4 +125,6 @@ var CURRENT_LOCATION_LAT:String="current_location_lat"
 var CURRENT_LOCATION_LONG:String="current_location_long"
     var TEMP_LATVALUE:Double?=0.0
     var TEMP_LONGVALUE:Double?=0.0
+
+    var MILES_TEXT:String="mi"
 }

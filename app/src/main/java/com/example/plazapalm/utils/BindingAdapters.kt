@@ -169,12 +169,13 @@ object BindingAdapters {
         imageUrl: String?,
     ) {
         Log.e("VVVVV", IMAGE_LOAD_URL + imageUrl)
-        if (imageUrl != null) {
+        if (imageUrl != null && imageUrl!="null" && imageUrl!="") {
             Glide.with(CommonMethods.context)
                 .load(IMAGE_LOAD_URL + imageUrl)
                 .error(R.drawable.placeholder)
                 .into(circleImage)
         } else {
+            circleImage.setImageResource(R.drawable.placeholder)
             // circleImage.resources.getDrawable(R.drawable.ic_place_holder)
             //circleImage.setImageResource(R.drawable.ic_place_holder)
         }
@@ -395,7 +396,7 @@ object BindingAdapters {
     fun calculateLatLngToMiles(
         destinationTV: TextView, distacneValue: Double,
     ) {
-        destinationTV.text=distacneValue.toString().split(".")[0]+" miles"
+        destinationTV.text=distacneValue.toString().split(".")[0]+" "+Constants.MILES_TEXT
         Log.e("dmfledmfdf===",distacneValue.toString())
     }
 
@@ -442,10 +443,10 @@ object BindingAdapters {
       var milesValues= metersToMiles(distance.toDouble())
         if(milesValues.toString().contains("."))
         {
-            destinationTV.text=milesValues.toString().split(".")[0]+" miles"
+            destinationTV.text=milesValues.toString().split(".")[0]+" "+Constants.MILES_TEXT
         }else
         {
-            destinationTV.text=milesValues.toString()+" miles"
+            destinationTV.text=milesValues.toString()+" "+Constants.MILES_TEXT
         }
 
         Log.e("ABCDDDDDDD2222==",milesValues.toString())
@@ -458,7 +459,7 @@ object BindingAdapters {
         textView: AppCompatTextView,
         value: String,
     ) {
-        textView.text = value.split(".")[0] + " Miles"
+        textView.text = value.split(".")[0] + " "+Constants.MILES_TEXT
     }
 
     const val METERS_IN_MILE = 1609.344

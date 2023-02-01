@@ -309,6 +309,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                             pref.retvieLatlong("lati").toDouble() + " sdfsdf  " +
                             pref.retvieLatlong("longi").toDouble().toString().toString())
 
+
                     getPostprofile(
                         viewModel.p_id.get().toString(),
                         pref.retvieLatlong("lati").toDouble(),

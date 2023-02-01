@@ -12,6 +12,7 @@
     </data>
 
     <com.apachat.swipereveallayout.core.SwipeLayout
+        android:id="@+id/swipLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:dragEdge="right"
@@ -55,6 +56,8 @@
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:src="@drawable/minus_button"
+                android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`minus_click`)}"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

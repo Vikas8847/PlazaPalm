@@ -8,11 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.VideoView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AddPhotosItemListBinding
 import com.example.plazapalm.interfaces.ItemClickListener
 import com.example.plazapalm.models.AddPhoto
@@ -23,7 +26,7 @@ import java.io.File
 class AddPhotosAdapter(
     val activity: FragmentActivity,
     var photos: ArrayList<AddPhoto>,
-    var itemClickListener: ItemClickListener,
+    var itemClickListener: ItemClickListener,var screenWidth:Int
 ) : RecyclerView.Adapter<AddPhotosAdapter.ViewHolder>() {
     var poss: Int? = null
 
@@ -146,6 +149,16 @@ class AddPhotosAdapter(
         holder.bindining.clAddPhoto.setOnClickListener {
             itemClickListener.onClick(it, "addPhotos", position)
         }
+
+
+      //  ConstraintLayout.LayoutParams()
+     var height=  activity.resources.getDimension(com.intuit.sdp.R.dimen._90sdp).toInt()
+       var finalWidth=screenWidth/3-activity.resources.getDimension(com.intuit.sdp.R.dimen._7sdp).toInt()
+        val params = ConstraintLayout.LayoutParams(
+            finalWidth,
+            height
+        )
+        holder.bindining.clAddPhoto.layoutParams = params
         holder.setImage(activity, photos, position)
     }
 

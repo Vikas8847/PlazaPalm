@@ -131,7 +131,6 @@ class BookingDetailsVM @Inject constructor(
                 bundle.putString("comingFrom","isBookingDetailsFragment")
                 bundle.putString("userPostProfileId",userPostProfileId.get())
 
-
                 Log.e("SAASAqqwqwq",userPostProfileId.get().toString())
                 view.navigateWithId(R.id.action_bookingDetailsFragment_to_favDetailsFragment,bundle)
             }

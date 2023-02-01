@@ -217,7 +217,7 @@ class FavDetailsVM @Inject constructor(
                 booking_pro.putString("p_id", p_id.get())
                 booking_pro.putString("userLocation", tvFavCityAddress.get().toString())
                 booking_pro.putString("proImageg", data_list!!.get(0).Image)
-                booking_pro.putFloat("miles", 0.0f)
+                booking_pro.putString("miles", distanceValue.get().toString())
 
                 view.navigateWithId(R.id.confirmBookingFragment, booking_pro)
 
@@ -455,7 +455,7 @@ class FavDetailsVM @Inject constructor(
                     ispopUpAddCal.putString("p_id", p_id.get())
                     ispopUpAddCal.putString("user_location", tvFavCityAddress.get().toString())
                     ispopUpAddCal.putString("pro_imageg", data_list!!.get(0).Image)
-                    ispopUpAddCal.putFloat("miles", 0.0f)
+                    ispopUpAddCal.putString("miles",  distanceValue.get().toString())
                     Log.e("SSSSSSs", userdata.get()!!.location_text.toString())
                     view.navigateWithId(R.id.confirmBookingFragment, ispopUpAddCal)
                     dialog?.dismiss()
