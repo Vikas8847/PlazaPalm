@@ -502,6 +502,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
             getLastLocation()
             Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
         }
+
     }
 
 }

@@ -14,6 +14,7 @@ import com.example.plazapalm.databinding.SignupFragmentBinding
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,6 +34,8 @@ class SignUpFragment : Fragment(R.layout.signup_fragment) {
     ): View? {
 
         binding = SignupFragmentBinding.inflate(layoutInflater)
+
+        FirebaseApp.initializeApp(CommonMethods.context)
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String> ->
             if (!task.isSuccessful) {
                 return@addOnCompleteListener
