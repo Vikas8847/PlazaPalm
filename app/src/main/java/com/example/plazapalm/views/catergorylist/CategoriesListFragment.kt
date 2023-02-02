@@ -98,8 +98,8 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                   var  lat_value=  arguments?.getString("lat_value")
                     var  lng_value=arguments?.getString("lng_value")
                     var location_value= arguments?.getString("location_value")
-Log.e("fmvsladmvsdav11===",lat_value.toString())
-Log.e("fmvsladmvsdav===",location_value.toString())
+                    Log.e("fmvsladmvsdav11===",lat_value.toString())
+                    Log.e("fmvsladmvsdav===",location_value.toString())
                     viewmodel.latitude.set(lat_value!!.toDouble())
                     viewmodel.longitude.set(lng_value!!.toDouble())
                     viewmodel.address.set(location_value!!)
@@ -112,6 +112,7 @@ Log.e("fmvsladmvsdav===",location_value.toString())
                     viewmodel.getCategoriesApi("", true)
                     binding?.tvCategories?.text = "Choose Category"
 
+                    binding?.ivCategory?.visibility = View.VISIBLE
                     binding?.tvCategories?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.setOnClickListener {
@@ -360,6 +361,11 @@ Log.e("fmvsladmvsdav===",location_value.toString())
 
                         pref.storeLatlong(Constants.CURRENT_LOCATION_LAT,viewmodel.latitude.get().toFloat())
                         pref.storeLatlong(Constants.CURRENT_LOCATION_LONG,viewmodel.longitude.get().toFloat())
+
+
+                        //for current lat long
+                        pref.storeLatlong("lati",location.latitude.toFloat())
+                        pref.storeLatlong("longi",location.longitude.toFloat())
 
                         //pref.storeLatlong("lati", viewmodel.latitude.get().toFloat())
                        // pref.storeLatlong("longi", viewmodel.longitude.get().toFloat())

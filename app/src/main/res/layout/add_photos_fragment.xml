@@ -70,7 +70,7 @@
                 android:id="@+id/rvAddPhotos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_7sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

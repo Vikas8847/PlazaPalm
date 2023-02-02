@@ -27,7 +27,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class FilterFragment : Fragment(R.layout.filter_fragment) {
     lateinit var binding: FilterFragmentBinding
@@ -83,7 +82,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
         if (pref.retvieMiles()!=null && (pref.retvieMiles()!=0)){
 
             var miles = pref.retvieMiles()
-            binding.tvFilterMilesValue.text=miles.toString() + " Miles"
+            binding.tvFilterMilesValue.text=miles.toString() + " "+Constants.MILES_TEXT
             binding.sliderFilter.value =miles.toFloat()
           //  binding.sliderFilter.value = 1.0f
 
@@ -94,7 +93,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
 
         }else{
-            binding.tvFilterMilesValue.text= 25.toString() + " Miles"
+            binding.tvFilterMilesValue.text= 25.toString() + " "+Constants.MILES_TEXT
             binding.sliderFilter.value =25.toFloat()
         }
 
@@ -123,6 +122,11 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
                             viewModel.filterAdapter.notifyDataSetChanged()
 
                         }
+                "minus_click"->{
+                    //for minus click
+                  //  viewModel.swipeEnable.set(true)
+                   // viewModel.filterAdapter.get
+                }
                     }
             }
 
@@ -206,7 +210,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
             viewModel.miles.set(value.toInt().toString())
 
-            binding.tvFilterMilesValue.text = "${value.toInt()} Miles"
+            binding.tvFilterMilesValue.text = "${value.toInt()} "+Constants.MILES_TEXT
             Log.e("SSSSSSSS----",value.toInt().toString())
 
             pref.storeMiles(value.toInt())

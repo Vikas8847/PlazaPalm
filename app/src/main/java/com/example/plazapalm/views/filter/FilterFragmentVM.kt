@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
@@ -30,6 +31,7 @@ class FilterFragmentVM @Inject constructor(
     var long = ObservableField("")
     var lat = ObservableField("")
 
+    var swipeEnable=ObservableBoolean()
     var filterDataList = ArrayList<SelectedDataModelList>()
     var newfilterList =  ObservableField(ArrayList<String>())
     val filterAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.filter_catergories_item) }
@@ -45,7 +47,6 @@ class FilterFragmentVM @Inject constructor(
 //        filterAdapter.notifyDataSetChanged()
 
         Log.e("SSSSSWWWQQQ0", filterDataList.toString())
-        Log.e("SSSSSWWWQQQ0", newfilterList.toString())
 
     }
 
@@ -66,7 +67,6 @@ class FilterFragmentVM @Inject constructor(
                 {
                     senderList.add(dataList[idx].cateName.toString())
                 }
-                Log.e("Sender_List_Data===",senderList.toString())
                 bundle.putSerializable("SelecatedCategory", senderList)
                 if(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0) {
                     Log.e("gsgswgswg==",pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString())
@@ -84,9 +84,6 @@ class FilterFragmentVM @Inject constructor(
                     bundle.putString("location_value", "")
                 }
 
-Log.e("fkghchchdfh====",pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString()+"==="+pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toString())
-
-
                 view.navigateWithId(R.id.action_filterFragment_to_categoriesListFragment, bundle)
             }
             R.id.tvFilterLocationDescription -> {
@@ -100,7 +97,6 @@ Log.e("fkghchchdfh====",pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString
                 {
                     bundle.putString("location_txt","")
                 }
-
                 view.navigateWithId(R.id.addCitiesFragment,bundle)
             }
 
@@ -108,7 +104,6 @@ Log.e("fkghchchdfh====",pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString
 
                 val bundle = Bundle()
                 bundle.putString("comingFromIsfilter", "isFilter")
-//                bundle.putSerializable("SelecatedCategory", filterDataList)
                 var selCateList = ArrayList<SelCategory>()
                 selCateList.clear()
 
@@ -119,15 +114,12 @@ Log.e("fkghchchdfh====",pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString
 
                 var gsonValue = Gson().toJson(selCateList)
                 pref.storeFilterResponse(gsonValue)
-
 //                dataStoreUtil.saveData(Constants.CategoryList, gsonValue)
                 view.navigateWithId(R.id.dashBoardFragment, bundle)
-
                 Log.e("Sender_List_Data===",filterAdapter.getAllItems().toString())
                 Log.e("afj;asdioas===",selCateList.toString())
 
             }
         }
     }
-
 }

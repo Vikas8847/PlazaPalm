@@ -7,13 +7,17 @@ import android.media.MediaPlayer
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.VideoView
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import com.example.plazapalm.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -139,6 +143,19 @@ fun Activity.setVideoPlayMethod(
         videoView.start()
     } else {
     }
+}
+
+fun scrollContentInEditText(editText: EditText)
+{
+    editText.setOnTouchListener(View.OnTouchListener { v, event ->
+        if (v.id == R.id.etContactUsMessage) {
+            v.parent.requestDisallowInterceptTouchEvent(true)
+            when (event.action and MotionEvent.ACTION_MASK) {
+                MotionEvent.ACTION_UP -> v.parent.requestDisallowInterceptTouchEvent(false)
+            }
+        }
+        false
+    })
 }
 
 

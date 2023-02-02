@@ -340,7 +340,9 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                             Currentlati = Currentlati
                             currentaddress = addressLocation!!
 
-
+                            //for current lat long
+                            pref.storeLatlong("lati",location.latitude.toFloat())
+                            pref.storeLatlong("longi",location.longitude.toFloat())
 
                             Log.e(
                                 "ADASDASWQEWQE",
@@ -423,6 +425,12 @@ class AddCitiesFragment : Fragment(R.layout.add_cities_fragment), OnMapReadyCall
                     pref.storeLatlong(Constants.FILTER_SCREEN_LAT,
                         originLatng?.latitude!!.toFloat())
                     pref.storeFilterLocation(currentaddress)
+                }else
+                {
+                  /*  pref.storeLatlong(Constants.CURRENT_LOCATION_LONG,
+                        originLatng?.longitude!!.toFloat())
+                    pref.storeLatlong(Constants.CURRENT_LOCATION_LAT,
+                        originLatng?.latitude!!.toFloat())*/
                 }
             } else {
                 if (originLatng != null) {
