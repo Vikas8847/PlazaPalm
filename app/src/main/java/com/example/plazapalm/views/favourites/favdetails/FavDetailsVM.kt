@@ -13,6 +13,7 @@ import android.view.Window
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.databinding.ObservableParcelable
@@ -48,7 +49,7 @@ class FavDetailsVM @Inject constructor(
     private var pref: PreferenceFile,
 ) : ViewModel() {
 
-    @SuppressLint("StaticFieldLeak")
+    // private var tvRemoveFav=ObservableField("")
     private var tvRemoveFav: AppCompatTextView? = null
 
     var uploadImagesList = ArrayList<ImagesVideosModel>()
@@ -57,6 +58,7 @@ class FavDetailsVM @Inject constructor(
 
     val videosAdapter by lazy { RecyclerAdapter<ImagesVideosModel>(R.layout.view_profile_videos_list) }
     var isFavourites = ObservableBoolean(false)
+    var isViewProfile = ObservableBoolean(false)
     var CommingFrom = ObservableField("")
     var p_id = ObservableField("")
     var u_ID = ObservableField("")
@@ -69,6 +71,9 @@ class FavDetailsVM @Inject constructor(
     var DisLikesCount = ObservableField("")
     var LikesCount = ObservableField("")
     var username = ObservableField("")
+    var addData = ObservableField("")
+    var fav_title = ObservableField("")
+
     var fontViewColor = ObservableField("")
     var columnViewColor = ObservableField("")
     var borderViewColor = ObservableField("")
@@ -82,14 +87,18 @@ class FavDetailsVM @Inject constructor(
     var userdata = ObservableParcelable<postData?>()
     var dialog: Dialog? = null
     var deldialog: Dialog? = null
-    @SuppressLint("StaticFieldLeak")
     var reportText: TextView? = null
     var tvFavouriteCountValue = ObservableField("0")
     var tvAllowBooking = ObservableBoolean(false)
     var checkFavouriteShow = ObservableInt()
+    var distanceValue = ObservableField("")
+
     /** Advance setting */
     val backgroundColor = MutableLiveData<Any>()
     val textColor = MutableLiveData<Any>()
+
+    init {
+    }
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -158,36 +167,44 @@ class FavDetailsVM @Inject constructor(
             }
             R.id.ivFavDetailsFilledHeart -> {
 
-                if (CommingFrom.get().equals(Constants.isFavorite)) {
-                    AddtoFavAPI(view, isFav.get(), Constants.isFavorite)
+                if (CommingFrom.get().equals("isFavorite")) {
+                    AddtoFavAPI(view, isFav.get(), "isFavorite")
 
-                } else if (CommingFrom.get().equals(Constants.isDashBoard)) {
+                } else if (CommingFrom.get().equals("isDashBoard")) {
 
-                    AddtoFavAPI(view, isFav.get(), Constants.isDashBoard)
+                    AddtoFavAPI(view, isFav.get(), "isDashBoard")
 
-                } else if (CommingFrom.get().equals(Constants.isViewProfile)) {
+                } else if (CommingFrom.get().equals("isViewProfile")) {
 
-                    AddtoFavAPI(view, isFav.get(), Constants.addFav)
+                    AddtoFavAPI(view, isFav.get(), "addFav")
                 }
 
             }
 
             R.id.ivFavDetailsOptions -> {
 
-                if (CommingFrom.get().equals(Constants.isFavorite)) {
+              /*  if (CommingFrom.get().equals("isFavorite")) {
                     showFavDetailsDialog(view, isFav.get())
-                } else if (CommingFrom.get().equals(Constants.isFavorite)) {
+                } else if (CommingFrom.get().equals("isDashBoard")) {
                     showFavDetailsDialog(view, isFav.get())
 
-                } else if (CommingFrom.get().equals(Constants.isViewProfile)) {
+                } else if (CommingFrom.get().equals("isViewProfile")) {
                     showViewProfileDialog(view)
+                }*/
+                if (loginUserPId.get().toString().equals(p_id.get().toString())) {
+                    showViewProfileDialog(view)
+                }else
+                {
+                    showFavDetailsDialog(view, isFav.get())
                 }
             }
 
             R.id.ivFavDetailsChats -> {
-                if (loginUserPId.get().toString() == p_id.get().toString()) {
+                if (loginUserPId.get().toString().equals(p_id.get().toString())) {
+                    //Go to the Recent Message screen
                     view.navigateWithId(R.id.messagesFragment)
                 } else {
+                    //Go to the Single Message screen
                     view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment)
                 }
             }
@@ -199,7 +216,7 @@ class FavDetailsVM @Inject constructor(
                 booking_pro.putString("p_id", p_id.get())
                 booking_pro.putString("userLocation", tvFavCityAddress.get().toString())
                 booking_pro.putString("proImageg", data_list!!.get(0).Image)
-                booking_pro.putFloat("miles", 0.0f)
+                booking_pro.putString("miles", distanceValue.get().toString())
 
                 view.navigateWithId(R.id.confirmBookingFragment, booking_pro)
 
@@ -213,6 +230,7 @@ class FavDetailsVM @Inject constructor(
         var discount = DisLikesCount.get()!!.toInt()
 
 
+        //   Log.e("ADDDDDDD",)
         if (!likeButton && !dislikeButton) {
             if (buttonType == 1) {
                 isLike.set(true)
@@ -267,7 +285,17 @@ class FavDetailsVM @Inject constructor(
             likeOtherValue = false
             dislikeOtherValue = true
         }
+
+
         likeApi(likeOtherValue, dislikeOtherValue)
+
+
+        /* if (isLike.get() && isDisLike.get().equals(false)){
+             likeApi(true, false)
+         }else if (isLike.get().equals(false) && isDisLike.get().equals(true)){
+             likeApi(false, true)
+         }*/
+
     }
 
     // private fun likeApi(isLiked: Boolean, isDislike: Boolean, from: String, image: ImageView) {
@@ -288,7 +316,7 @@ class FavDetailsVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<LikesResPonse>) {
-                    if (true) {
+                    if (res.isSuccessful || res != null) {
                         if (res.body()!!.status == 200) {
 
                             dialog?.dismiss()
@@ -426,7 +454,7 @@ class FavDetailsVM @Inject constructor(
                     ispopUpAddCal.putString("p_id", p_id.get())
                     ispopUpAddCal.putString("user_location", tvFavCityAddress.get().toString())
                     ispopUpAddCal.putString("pro_imageg", data_list!!.get(0).Image)
-                    ispopUpAddCal.putFloat("miles", 0.0f)
+                    ispopUpAddCal.putString("miles",  distanceValue.get().toString())
                     Log.e("SSSSSSs", userdata.get()!!.location_text.toString())
                     view.navigateWithId(R.id.confirmBookingFragment, ispopUpAddCal)
                     dialog?.dismiss()
@@ -568,7 +596,9 @@ class FavDetailsVM @Inject constructor(
                 bundle.putString("lati", userdata.get()?.lat!!.toString())
                 bundle.putString("location_text", userdata.get()?.location_text)
                 bundle.putBoolean("booking_status", tvAllowBooking.get())
+
 //              var dataList : ArrayList<String> =  userdata.get()?.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
+
                 bundle.putParcelableArrayList("profile_Image", data_list)
 
                 Log.e(

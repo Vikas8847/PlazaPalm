@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableDouble
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
@@ -20,6 +21,7 @@ import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.recycleradapter.RecyclerAdapter
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateWithId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Response
@@ -37,6 +39,8 @@ class FavouritesVM @Inject constructor(
     val favAdapter by lazy { RecyclerAdapter<FavData>(R.layout.favourites_list_items) }
     var isFavorite = Bundle()
     var noData = ObservableBoolean(false)
+    var lati = ObservableDouble()
+    var longi = ObservableDouble()
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -76,6 +80,9 @@ class FavouritesVM @Inject constructor(
     }
 
      fun getFavdata() {
+         Constants.TEMP_LATVALUE = preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
+         Constants.TEMP_LONGVALUE = preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()
+
         repository.makeCall(ApiEnums.GET_FAVDETAILS,
             loader = true, saveInCache = false,
             getFromCache = false,
@@ -112,8 +119,6 @@ class FavouritesVM @Inject constructor(
                                 noData.set(true)
                             }
                             }
-
-
 
                         } else {
 

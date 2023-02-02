@@ -139,6 +139,8 @@ class BookingDetailsVM @Inject constructor(
                     R.id.action_bookingDetailsFragment_to_favDetailsFragment,
                     bundle
                 )
+                Log.e("SAASAqqwqwq",userPostProfileId.get().toString())
+                view.navigateWithId(R.id.action_bookingDetailsFragment_to_favDetailsFragment,bundle)
             }
 
         }

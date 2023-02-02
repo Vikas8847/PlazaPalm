@@ -43,9 +43,23 @@ class QrCodeScannerFragment : Fragment(R.layout.qr_code_scanner_fragment) {
 
             activity?.runOnUiThread {
                 if (!barCodeResult.equals("")) {
-                    CommonMethods.showToast(requireContext(), "Code Scanned .. ")
-                    Log.d("qrCodeResult-->", "barCodeResult" + barCodeResult.text.toString())
-                    findNavController().navigateUp()
+                   // CommonMethods.showToast(requireContext(), "Code Scanned .. ")
+                    Log.d("qrCodeResult-->", "barCodeResult==" + barCodeResult.text.toString())
+                    val isDashBoard = Bundle()
+                    isDashBoard.putString("comingFrom", "isDashBoard")
+                    isDashBoard.putString(
+                        "DashBoardPostId",
+                        barCodeResult.text.toString()
+                    )
+                    isDashBoard.putDouble(
+                        "DashBoardPostLatitude",
+                        0.0
+                    )
+                    isDashBoard.putDouble(
+                        "DashBoardPostLongitude",
+                        0.0
+                    )
+                    findNavController().navigate(R.id.action_qrCodeScannerFragment_to_favDetailsFragment,isDashBoard)
                 } else {
                     CommonMethods.showToast(requireContext(), "Code not scanned")
                 }
@@ -54,13 +68,11 @@ class QrCodeScannerFragment : Fragment(R.layout.qr_code_scanner_fragment) {
         codeScanner.errorCallback = ErrorCallback { barCodeError ->
             // or ErrorCallback.SUPPRESS
             activity?.runOnUiThread {
-
                 Log.d("qrCodeError-->", "Error in Scanned Code.." + barCodeError.message)
                 CommonMethods.showToast(requireContext(), "Error in Scanned Code..")
-
             }
-
         }
+
         binding?.scannerView?.setOnClickListener {
             codeScanner.startPreview()
         }

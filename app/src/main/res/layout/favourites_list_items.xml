@@ -9,16 +9,17 @@
             name="model"
             type="com.example.plazapalm.models.FavData" />
 
-
+        <variable
+            name="vm"
+            type="com.example.plazapalm.views.favourites.FavouritesVM" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/clFavItemMain"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_230sdp"
+        android:layout_height="@dimen/_200sdp"
         android:layout_marginHorizontal="@dimen/_3sdp"
         android:layout_marginTop="@dimen/_6sdp"
-        android:background="@android:color/transparent"
         android:elevation="@dimen/_2sdp"
         android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`favDetailsItem`)}"
         android:paddingBottom="@dimen/_10sdp"
@@ -26,10 +27,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/player_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/dash_board_items_bg">
-
 
 <!--            <com.google.android.material.imageview.ShapeableImageView-->
 <!--                android:layout_width="match_parent"-->
@@ -42,21 +42,21 @@
 <!--                app:layout_constraintTop_toTopOf="parent"-->
 <!--                app:shapeAppearanceOverlay="@style/roundedImageView" />-->
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivFavItem"
                 setImage="@{model.postProfile_picture[0]}"
-                android:layout_width="@dimen/_310sdp"
-                android:layout_height="@dimen/_220sdp"
-                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:src="@drawable/placeholder"
+                android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/roundedImageView" />
-
+               />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_70sdp"
                 android:background="@drawable/dash_board_items_gradient_top"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_70sdp"
                 android:background="@drawable/dash_board_items_gradient"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -93,7 +93,6 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`favDetailsItem_heart`)}"
-
                 android:src="@drawable/ic_heart_filled_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvFavItemName" />
@@ -146,8 +145,12 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center_horizontal"
-
-                setMiles="@{model.distance.toString()}"
+                calculateDistance="@{model.location_text}"
+                destinationLat="@{model.location.coordinates[1]}"
+                destinationLong="@{model.location.coordinates[0]}"
+                currentLat="@{vm.lati}"
+                currentLong="@{vm.longi}"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/tvFavItemLocation"
