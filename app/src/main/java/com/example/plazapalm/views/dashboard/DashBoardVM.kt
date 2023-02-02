@@ -10,7 +10,6 @@ import android.os.Handler
 import android.text.Editable
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
@@ -36,15 +35,14 @@ import com.example.plazapalm.recycleradapter.RecyclerAdapter
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.CommonMethods.context
 import com.example.plazapalm.utils.Constants
+import com.example.plazapalm.utils.Constants.DeviceType
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.navigateWithId
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
@@ -132,12 +130,12 @@ class DashBoardVM @Inject constructor(
         /*** 03-01-23
          *  Set Miles and send API.. */
 
-        if (pref.retvieMiles()!=null && !(pref.retvieMiles().equals(""))){
+        if (pref.retvieMiles() != null && !(pref.retvieMiles().equals(""))) {
 
             var miles = pref.retvieMiles()
             userMiles.set(miles.toString())
 
-        }else{
+        } else {
             userMiles.set("25")
         }
 
@@ -164,39 +162,39 @@ class DashBoardVM @Inject constructor(
         /*** 03-01-23
          *  it can create prob.. */
 
-   /*     dataStoreUtil.readData(list_CateName) {
-            if (it != null) {
-                selectedCategoriesList.clear()
-                val myType = object : TypeToken<ArrayList<SelectedDataModelList>>() {}.type
-                val newList: ArrayList<SelectedDataModelList> =
-                    Gson().fromJson<ArrayList<SelectedDataModelList>>(it, myType)
+        /*     dataStoreUtil.readData(list_CateName) {
+                 if (it != null) {
+                     selectedCategoriesList.clear()
+                     val myType = object : TypeToken<ArrayList<SelectedDataModelList>>() {}.type
+                     val newList: ArrayList<SelectedDataModelList> =
+                         Gson().fromJson<ArrayList<SelectedDataModelList>>(it, myType)
 
-                for (idx in 0 until newList.size) {
+                     for (idx in 0 until newList.size) {
 
-                    selectedCategoriesList.add(
-                        SelectedDataModelList(
-                            newList[idx].cateName, newList[idx].cate_ID,
-                            newList[idx].adapterPosition, newList[idx].istrue, newList[idx].count
-                        )
-                    )
+                         selectedCategoriesList.add(
+                             SelectedDataModelList(
+                                 newList[idx].cateName, newList[idx].cate_ID,
+                                 newList[idx].adapterPosition, newList[idx].istrue, newList[idx].count
+                             )
+                         )
 
-                     }
+                          }
 
-                     Log.e("sad", it.toString())
-                     Log.e("zxccx", selectedCategoriesList.toString())
+                          Log.e("sad", it.toString())
+                          Log.e("zxccx", selectedCategoriesList.toString())
 
-                 }
-             }*/
+                      }
+                  }*/
     }
 
     fun onTextChange(editable: Editable) {
         if (editable.toString().length > 0) {
             Handler().postDelayed({
-                getProfileByCategory(editable.toString(), false,"")
+                getProfileByCategory(editable.toString(), false, "")
             }, 1000)
         } else {
             Handler().postDelayed({
-                getProfileByCategory("", false,"")
+                getProfileByCategory("", false, "")
             }, 1000)
         }
 
@@ -264,9 +262,9 @@ class DashBoardVM @Inject constructor(
 
     }
 
-    fun getProfileByCategory(search: String, showLoader: Boolean,c_id:String) {
+    fun getProfileByCategory(search: String, showLoader: Boolean, c_id: String) {
 
-        var dataArray=ArrayList<String>()
+        var dataArray = ArrayList<String>()
         dataArray.clear()
         if (pref.retrvieCateIdList() != null && !(pref.retrvieCateIdList().equals(""))) {
 
@@ -280,28 +278,32 @@ class DashBoardVM @Inject constructor(
             }
         }
 
-        for(idx in 0 until idList.size)
-        {
+        for (idx in 0 until idList.size) {
             dataArray.add(idList[idx].toString())
         }
-        var singleList=ArrayList<String>()
+        var singleList = ArrayList<String>()
         singleList.clear()
-        var dataObject:DashBoardPostData?=null
-        if(!(c_id.equals("")))
-        {
+        var dataObject: DashBoardPostData? = null
+        if (!(c_id.equals(""))) {
             singleList.add(c_id)
-             dataObject=DashBoardPostData(singleList,lati.get().toString(),
-                "500",longi.get().toString(),userMiles.get().toString(),"1",search)
-        }else
-        {
-             dataObject=DashBoardPostData(dataArray,lati.get().toString(),
-                "500",longi.get().toString(),userMiles.get().toString(),"1",search)
+            dataObject = DashBoardPostData(
+                singleList, lati.get().toString(),
+                "500", longi.get().toString(), userMiles.get().toString(), "1", search
+            )
+        } else {
+            dataObject = DashBoardPostData(
+                dataArray, lati.get().toString(),
+                "500", longi.get().toString(), userMiles.get().toString(), "1", search
+            )
         }
 
-        Log.e("Dash_Board_Input===",dataObject.toString())
-        Log.e("SDAMILES",
+        Log.e("Dash_Board_Input===", dataObject.toString())
+        Log.e(
+            "SDAMILES",
             userMiles.get().toString() + " LATI " + lati.get().toString()
-                    + " LONG " + longi.get().toString() + " CATEIDDD - " + idList.toString() + "search --- " + search)
+                    + " LONG " + longi.get()
+                .toString() + " CATEIDDD - " + idList.toString() + "search --- " + search
+        )
 
         repository.makeCall(
             ApiEnums.GETPROFILE_BYCATE,
@@ -312,15 +314,15 @@ class DashBoardVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileCateResponse> {
                     return retrofitApi.getProfileByCategory(
                         pref.retrieveKey("token").toString(),
-                       "application/json",
+                        "application/json",
                         dataObject
-                       /* idList,
-                        5,
-                        500,
-                        pref.retvieLatlong("longi").toDouble().toString(),
-                        pref.retvieLatlong("lati").toDouble().toString(),
-                        search,
-                        userMiles.get().toString()*/
+                        /* idList,
+                         5,
+                         500,
+                         pref.retvieLatlong("longi").toDouble().toString(),
+                         pref.retvieLatlong("lati").toDouble().toString(),
+                         search,
+                         userMiles.get().toString()*/
                     )
                 }
 
@@ -337,11 +339,11 @@ class DashBoardVM @Inject constructor(
 
                                     isNodatafound.set(true)
 
-                                    var profileList=ArrayList<ProfileCateData>()
+                                    var profileList = ArrayList<ProfileCateData>()
                                     profileList.clear()
-                                    for(idx in 0 until res.body()?.data!!.size)
-                                    {
-                                        res.body()?.data!![idx].lngValue=res.body()?.data!![idx].long
+                                    for (idx in 0 until res.body()?.data!!.size) {
+                                        res.body()?.data!![idx].lngValue =
+                                            res.body()?.data!![idx].long
                                         profileList.add(res.body()?.data!![idx])
                                     }
                                     adapter.addItems(profileList)
@@ -349,16 +351,20 @@ class DashBoardVM @Inject constructor(
 
                                     Log.d("DashBoardResponse->", res.body()!!.data.toString())
 
-                                   /* for (i in 0 until res.body()!!.data.size) {
-                                        destinationLat.set(adapter.getAllItems()[i].lat!!)
-                                        destinationLong.set(adapter.getAllItems()[i].lng!!)
-                                    }*/
-                                    Log.e("SDSDS",
+                                    /* for (i in 0 until res.body()!!.data.size) {
+                                         destinationLat.set(adapter.getAllItems()[i].lat!!)
+                                         destinationLong.set(adapter.getAllItems()[i].lng!!)
+                                     }*/
+                                    Log.e(
+                                        "SDSDS",
                                         destinationLat.get()
                                             .toString() + "kjljlj;" + destinationLong.get()
-                                            .toString())
-                                    Log.d("adasWS",
-                                        lati.toString() + "sdfdf" + longi)
+                                            .toString()
+                                    )
+                                    Log.d(
+                                        "adasWS",
+                                        lati.toString() + "sdfdf" + longi
+                                    )
 
                                     calculateLatLngToMiles()
                                     // distanceCal.set(distance.get().toString().split(".")[0])
@@ -369,7 +375,10 @@ class DashBoardVM @Inject constructor(
 
                                         when (type) {
                                             "dashItemClick" -> {
-Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
+                                                Log.e(
+                                                    "dvsvwsdvsder_Going===",
+                                                    idList.toString()
+                                                )
                                                 val isDashBoard = Bundle()
                                                 isDashBoard.putString("comingFrom", "isDashBoard")
 
@@ -387,19 +396,27 @@ Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
                                                 )
                                                 view.navigateWithId(
                                                     R.id.action_dashBoardFragment_to_favDetailsFragment,
-                                                    isDashBoard)
+                                                    isDashBoard
+                                                )
 
-                                                Log.d("DashBoardResponse->",
-                                                    "Workingggg-----fine--")
+                                                Log.d(
+                                                    "DashBoardResponse->",
+                                                    "Workingggg-----fine--"
+                                                )
 
                                             }
                                             "dashItemClick_fav" -> {
                                                 //For Favourite click
-                                                Log.e("DFSddddddddDFA", adapter.getAllItems()[position].isFavourite!!.toString())
+                                                Log.e(
+                                                    "DFSddddddddDFA",
+                                                    adapter.getAllItems()[position].isFavourite!!.toString()
+                                                )
 
-                                                AddtoFavAPI(!(adapter.getAllItems()[position].isFavourite!!),
+                                                AddtoFavAPI(
+                                                    !(adapter.getAllItems()[position].isFavourite!!),
                                                     adapter.getAllItems()[position]._id.toString(),
-                                                    position)
+                                                    position
+                                                )
                                             }
                                         }
                                     }
@@ -446,7 +463,10 @@ Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
 
     fun calculateLatLngToMiles() {
         val latLngA =
-            LatLng(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble(), pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble())
+            LatLng(
+                pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble(),
+                pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toDouble()
+            )
         val latLngB = LatLng(destinationLat.get(), destinationLong.get())
         val locationA = Location("Point A")
         locationA.latitude = latLngA.latitude
@@ -460,7 +480,7 @@ Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
         Log.d("distanceCalqwer", distanceCal.get().toString())
 //        distanceCal.set(distance.get().toString())
 
-       // userMiles.set(distance.get().toString().split(".")[0])
+        // userMiles.set(distance.get().toString().split(".")[0])
 
 
     }
@@ -508,8 +528,10 @@ Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetProfileResponseModel>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetProfileResponseModel> {
-                    return retrofitApi.getProfileApi(Authorization = pref.retrieveKey("token")
-                        .toString())
+                    return retrofitApi.getProfileApi(
+                        Authorization = pref.retrieveKey("token")
+                            .toString()
+                    )
                 }
 
                 override fun onResponse(res: Response<GetProfileResponseModel>) {
@@ -522,8 +544,10 @@ Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
 //                    firstName.set(res.body()!!.data.first_name.toString() + " " + " " + res.body()!!.data.last_name.toString())
 
                     dataStoreUtil.saveObject(PROFILE_DATA, res.body())
-                    dataStoreUtil.saveData(PROFILE_IMAGE,
-                        res.body()?.data?.profile_picture.toString())
+                    dataStoreUtil.saveData(
+                        PROFILE_IMAGE,
+                        res.body()?.data?.profile_picture.toString()
+                    )
 //                    storedImageUrl.set(res.body()?.data?.profile_picture)
 
 //                    p_id.set(res.body()?.data?.p_id)
@@ -583,7 +607,8 @@ Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
                             dialog?.dismiss()
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                             context.runOnUiThread {
-                             var  catDataList= adapter.getAllItems() as ArrayList<ProfileCateData>
+                                var catDataList =
+                                    adapter.getAllItems() as ArrayList<ProfileCateData>
                                 if (isfav) {
                                     adapter.getAllItems()[position].isFavourite = true
 //                                    tvRemoveFav?.text="Remove from Favourites"
@@ -595,10 +620,12 @@ Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
 //                                    tvRemoveFav?.text="Add from Favourites"
                                     Log.e("check_valueee===", res.body().toString())
                                 }
-                              //  Toast.makeText(context,res.body()!!.message.toString(),Toast.LENGTH_LONG).show()
-                                Log.e("ngwkngwngkwngwgg===",
-                                    adapter.getAllItems()[position].isFavourite.toString())
-                             //   adapter.notifyItemChanged(position)
+                                //  Toast.makeText(context,res.body()!!.message.toString(),Toast.LENGTH_LONG).show()
+                                Log.e(
+                                    "ngwkngwngkwngwgg===",
+                                    adapter.getAllItems()[position].isFavourite.toString()
+                                )
+                                //   adapter.notifyItemChanged(position)
                                 adapter.notifyDataSetChanged()
                             }
                         } else {
@@ -617,6 +644,43 @@ Log.e("dvsvwsdvsdvs_after_Going===",idList.toString())
         )
     }
 
+    fun updateDeviceToken() {
+
+        Log.e("SADFd--dKJEMD==", pref.retrieveFirebaseToken().toString())
+
+        repository.makeCall(
+            apiKey = ApiEnums.ADD_TO_FAV,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<DeviceTokenUpdateResponse>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<DeviceTokenUpdateResponse> {
+                    return retrofitApi.deviceTokenUpdate(
+                        pref.retrieveKey("token").toString(),
+                        pref.retrieveFirebaseToken().toString(),
+                        DeviceType
+                    )
+                }
+
+                override fun onResponse(res: Response<DeviceTokenUpdateResponse>) {
+                    Log.e("QWQQWWSSS", res.body().toString())
+
+                    if (res.isSuccessful || res != null) {
+                        if (res.body()!!.status == 200) {
+
+                            Log.e("ASDSADWW", res.body()?.message.toString() )
+
+
+                        } else {
+                            Log.e("ASDSADWW", res.body()?.message.toString() )
+                        }
+                    }
+
+                }
+
+            }
+        )
+    }
 }
 
 

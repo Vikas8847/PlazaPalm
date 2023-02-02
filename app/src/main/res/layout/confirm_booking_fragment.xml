@@ -90,24 +90,29 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvConfirmBookName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_200sdp"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:fontFamily="@font/inter_medium"
                     android:text="@={vm.user_Name}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
+                    android:singleLine="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivConfirmBook" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvConfirmBookLocation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_200sdp"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
                     android:text="@={vm.user_location}"
                     android:textColor="@color/white"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -121,9 +126,9 @@
                     android:text="@={vm.user_miles}"
                     android:textColor="@color/light_white_opacity"
                     android:textSize="13sp"
+                    android:gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:hint="25 mi"
                     android:textColorHint="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/tvConfirmBookLocation" />
 

@@ -84,7 +84,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding?.bottNavMain?.setOnNavigationItemSelectedListener(this)
         navController?.addOnDestinationChangedListener { _, destination, _ ->
 
-            if (destination.id == R.id.dashBoardFragment || destination.id == R.id.myProfileFragment || destination.id == R.id.messagesFragment || destination.id == R.id.openCategeroyFragment || destination.id == R.id.advanceMapFragment || destination.id == R.id.picturesFragment) {
+            if (destination.id == R.id.dashBoardFragment || destination.id == R.id.myProfileFragment ||
+                destination.id == R.id.messagesFragment || destination.id == R.id.openCategeroyFragment ||
+                destination.id == R.id.advanceMapFragment || destination.id == R.id.picturesFragment ||
+                destination.id == R.id.bookingDetailsFragment) {
+
                 binding?.bottNavMain?.selectedItemId = destination.id
                 binding?.bottNavMain?.isVisible = true
                 Log.e("gmslgsgsgs11====", "wgwgqwgewg")
@@ -112,6 +116,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         navController?.navigate(R.id.dashBoardFragment)
                     }
                 }
+
                 R.id.categories -> {
                     if (binding!!.bottNavMain.menu.getItem(1).isChecked) {
                         binding!!.bottNavMain.isEnabled = false

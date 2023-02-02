@@ -18,6 +18,8 @@ import com.example.plazapalm.pref.business_profile_status
 import com.example.plazapalm.pref.token
 import com.example.plazapalm.utils.*
 import com.example.plazapalm.validation.ValidatorUtils
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -33,6 +35,7 @@ class LoginVM @Inject constructor(
     var email = ObservableField("")
     var password = ObservableField("")
     var sendTypeLogin = ObservableField("Login")
+    var sendFirebaseLoginToken = ObservableField("")
 
     fun clicks(view: View) {
         when (view.id) {
@@ -70,11 +73,16 @@ class LoginVM @Inject constructor(
     }
 
     private fun loginApi(view: View) = viewModelScope.launch {
+
         val body = JSONObject()
         body.put(Constants.EMAIL, email.get())
         body.put(Constants.PASSWORD, password.get())
-        body.put(Constants.DEVICE_TOKEN, Constants.DeviceToken)
+        body.put(Constants.DEVICE_TOKEN, sendFirebaseLoginToken.get())
         body.put(Constants.DEVICE_TYPE, Constants.DeviceType)
+
+        Log.e("LOGIN--REQUEST--",email.get() + "-- "+ password.get() + " Local-->> " + preferences.retrieveFirebaseToken()
+                + "--->> "+ sendFirebaseLoginToken.get().toString() +"--"+Constants.DeviceType+"--")
+
         repository.makeCall(
             apiKey = ApiEnums.LOGIN,
             loader = true,
@@ -85,10 +93,12 @@ class LoginVM @Inject constructor(
                     return retrofitApi.loginApi(
                         email.get()?.trim().toString(),
                         password.get()?.trim().toString(),
-                        Constants.DeviceToken,
+                        /*Constants.DeviceToken*/
+                        sendFirebaseLoginToken.get(),
                         Constants.DeviceType
                     )
                 }
+
                 override fun onResponse(res: Response<LoginDataModel>) {
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body()?.status == 200) {

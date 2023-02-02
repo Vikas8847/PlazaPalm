@@ -1,6 +1,7 @@
 package com.example.plazapalm.pref
 
 import android.content.SharedPreferences
+import com.example.plazapalm.datastore.SAVE_FIREBASE_TOKEN
 import com.example.plazapalm.models.AddPhoto
 import com.google.gson.Gson
 import javax.inject.Inject
@@ -205,4 +206,14 @@ class PreferenceFile @Inject constructor(
     fun retrieveCategoryLocation(): String? {
         return sharedPreferences.getString("location_category", null)
     }
+
+    fun saveFirebaseToken(value: String) {
+        editor.putString(SAVE_FIREBASE_TOKEN, value)
+        editor.apply()
+    }
+
+    fun retrieveFirebaseToken(): String? {
+        return sharedPreferences.getString(SAVE_FIREBASE_TOKEN, "")
+    }
+
 }

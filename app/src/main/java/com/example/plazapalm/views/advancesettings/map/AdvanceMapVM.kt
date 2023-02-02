@@ -154,7 +154,8 @@ class AdvanceMapVM @Inject constructor(
                     if (res.isSuccessful && res.code()==200){
                         if (res.body()!!.data!=null){
 
-                            CommonMethods.showToast(CommonMethods.context,res.body()!!.message!!)
+//                            CommonMethods.showToast(CommonMethods.context,res.body()!!.message!!)
+
                             darkTheme.set(res.body()!!.data.dark_theme)
                             locationOnOF.set(res.body()!!.data.location_OnOff)
                             follow.set(res.body()!!.data.follow)

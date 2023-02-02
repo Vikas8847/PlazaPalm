@@ -148,6 +148,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                 requireContext().applicationContext.packageName,
                 PackageManager.GET_META_DATA
             )
+
         val value = ai.metaData["com.google.android.geo.API_KEY"]
         val apiKey = value.toString()
         /** Initialized Places Api key with the help of API -KEY **/
@@ -413,7 +414,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
     }
 
     override fun onLocationChanged(location: Location) {
-        mMap.clear()
+       // mMap.clear()
     }
 
 }

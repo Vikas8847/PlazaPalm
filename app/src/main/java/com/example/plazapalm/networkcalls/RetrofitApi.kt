@@ -192,6 +192,13 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String,
         @Header("Content-Type") contentType: String,
         @Body body: DashBoardPostData,
+        // @Field("c_id") c_id: String,
+       /* @Field("offset") offset: Int,
+        @Field("limit") limit: Int,
+        @Field("lat") lat: Double,
+        @Field("long") long: Double,
+        @Field("search") search: String,
+        @Field("miles") miles: String*/
     ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded
@@ -456,10 +463,11 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String,
         @Field("user_lat") user_lat: Double,
         @Field("user_long") user_long: Double
-    ): Response<UpdateLatlngResponse>
+    ):Response<UpdateLatlngResponse>
 
 
-    //  @POST(GALLERYPOST)
+
+  //  @POST(GALLERYPOST)
     @HTTP(method = "POST", path = GALLERYPOST, hasBody = true)
     suspend fun uploadSinglePhotoUrl(
         @Header("Authorization") Authorization: String,
@@ -497,4 +505,13 @@ interface RetrofitApi {
         @Field("isBottomSelected") isBottomSelected: Boolean,
         @Field("isTopSelected") isTopSelected: Boolean
     ): Response<PostFrontPageResponse>
+
+    @FormUrlEncoded
+    @POST(DEVICE_TOKEN_UPDATE)
+    suspend fun deviceTokenUpdate(
+        @Header("Authorization") Authorization: String,
+        @Field("device_token") DeviceToken: String?,
+        @Field("device_type") DeviceType: String?
+    ): Response<DeviceTokenUpdateResponse>
+
 }
