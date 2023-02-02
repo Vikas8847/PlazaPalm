@@ -140,7 +140,6 @@ object Constants {
     var CATEGORY_SCREEN_LONG: String = "category_screen_long"
     var CATEGORY_SCREEN_ADDRESS: String = "category_screen_address"
 
-    const val ADVANCE_EDIT_LOOK_FONTS_NAME="AdvanceEdit_FontName"
 
 var CURRENT_LOCATION_LAT:String="current_location_lat"
 var CURRENT_LOCATION_LONG:String="current_location_long"
@@ -148,8 +147,7 @@ var CURRENT_LOCATION_LONG:String="current_location_long"
     var TEMP_LONGVALUE:Double?=0.0
 
     var MILES_TEXT:String="mi"
-    var CURRENT_LOCATION_LAT: String = "current_location_lat"
-    var CURRENT_LOCATION_LONG: String = "current_location_long"
+
 
 
 }

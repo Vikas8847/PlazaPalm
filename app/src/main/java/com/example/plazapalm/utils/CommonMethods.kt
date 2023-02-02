@@ -233,7 +233,7 @@ object CommonMethods {
     lateinit var currentLocation: LatLng
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            val mLastLocation: Location = locationResult.lastLocation
+            val mLastLocation: Location = locationResult.lastLocation!!
             currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
         }
     }

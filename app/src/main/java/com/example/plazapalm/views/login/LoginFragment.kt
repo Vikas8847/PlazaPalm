@@ -12,6 +12,7 @@ import com.example.plazapalm.databinding.LoginFragmentBinding
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,13 +30,11 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         savedInstanceState: Bundle?
     ): View? {
         binding = LoginFragmentBinding.inflate(layoutInflater)
-
+FirebaseApp.initializeApp(requireActivity())
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String> ->
             if (!task.isSuccessful) {
                 return@addOnCompleteListener
             }
-
-
             viewModel.sendFirebaseLoginToken.set(task.result)
             pref.saveFirebaseToken(task.result)
 
