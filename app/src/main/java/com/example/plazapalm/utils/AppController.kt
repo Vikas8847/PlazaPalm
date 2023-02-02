@@ -8,6 +8,7 @@ import androidx.multidex.MultiDexApplication
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.HiltAndroidApp
 import io.branch.referral.Branch
 import javax.inject.Inject
@@ -31,9 +32,9 @@ class AppController : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(applicationContext)
         // Branch logging for debugging
         Branch.enableTestMode()
-
         // Branch object initialization
         Branch.getAutoInstance(this)
         MultiDex.install(this)

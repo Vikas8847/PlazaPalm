@@ -33,7 +33,7 @@ class QRCodeGenerateFragment : Fragment(R.layout.qr_code_generate_fragment) {
         binding = QrCodeGenerateFragmentBinding.inflate(layoutInflater)
 
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
-            var user_id = it?.data?.user_id.toString()
+            var user_id = it?.data?.p_id.toString()
             var firstLastName = it?.data?.first_name+" "+it?.data?.last_name
             var userName = it?.data?.user_name
             var imageUrl = it?.data?.profile_picture

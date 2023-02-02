@@ -717,7 +717,17 @@
         android:id="@+id/qrCodeScannerFragment"
         android:name="com.example.plazapalm.views.myprofile.qrcodescanner.QrCodeScannerFragment"
         android:label="qr_code_scanner_fragment"
-        tools:layout="@layout/qr_code_scanner_fragment" />
+        tools:layout="@layout/qr_code_scanner_fragment" >
+        <action
+            android:id="@+id/action_qrCodeScannerFragment_to_favDetailsFragment"
+            app:destination="@id/favDetailsFragment"
+            app:enterAnim="@anim/pop_enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/myProfileFragment"
+            tools:layout="@layout/fav_details_fragment"  />
+    </fragment>
     <fragment
         android:id="@+id/emailVerifyFragment"
         android:name="com.example.plazapalm.views.verifyemailsecond.EmailVerifyFragment"

@@ -20,6 +20,8 @@ import androidx.databinding.ObservableBoolean
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.plazapalm.databinding.ActivityMainBinding
+import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.onNavDestinationSelected
 import com.example.plazapalm.views.MainVM
@@ -31,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.branch.referral.Branch
 import java.lang.ref.WeakReference
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -41,6 +44,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private var isCategoryClicked = ObservableBoolean(false)
     private var isMessageClicked = ObservableBoolean(false)
 
+    @Inject
+    lateinit var pref: PreferenceFile
     private var navController: NavController? = null
 
     companion object {
@@ -81,7 +86,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun setUpNav() {
         navController = findNavController(R.id.fragmentMain)
+       // navController!!.setGraph(navController!!.graph,Bundle())
         binding?.bottNavMain?.setOnNavigationItemSelectedListener(this)
+     //   navController?.navigate(R.id.dashBoardFragment)
+        navController?.addOnDestinationChangedListener {
+                _, destination, _ ->
         navController?.addOnDestinationChangedListener { _, destination, _ ->
 
             if (destination.id == R.id.dashBoardFragment || destination.id == R.id.myProfileFragment ||
@@ -97,7 +106,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 Log.e("gmslgsgsgs22====", "wgwgqwgewg")
             }
         }
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
