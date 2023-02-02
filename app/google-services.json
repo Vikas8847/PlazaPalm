@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "382014364773",
+    "project_id": "plazapalam-9e9b1",
+    "storage_bucket": "plazapalam-9e9b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382014364773:android:020b6707edaeeb8ae1ba8c",
+        "android_client_info": {
+          "package_name": "com.example.plazapalm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382014364773-1u12rjvgcabb2f4ab8vttm1v5r3rna2v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plazapalm",
+            "certificate_hash": "1fe4f51d561aa3c4ed68280e637d4114627da54e"
+          }
+        },
+        {
+          "client_id": "382014364773-lndu3cper9epta2c0355oh3vhciq491k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plazapalm",
+            "certificate_hash": "46bbec611e95cca312d20b88172d693b2a06eb3a"
+          }
+        },
+        {
+          "client_id": "382014364773-ul3gldkrvoufi04k47qk6fot5ffdis4v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plazapalm",
+            "certificate_hash": "da09135531ca5514fec22a9bf8caa25e2aedc337"
+          }
+        },
+        {
+          "client_id": "382014364773-clrr14u0n8bcfsuoqtgqc75bjom1s76a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0vDzs1LSWuxD8ypPR6D6q9jIeC-Z1LDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382014364773-clrr14u0n8bcfsuoqtgqc75bjom1s76a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -58,7 +58,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
-
 @HiltViewModel
 class EditFrontPageVM @Inject constructor(
     private var preferenceFile: PreferenceFile,
@@ -161,8 +160,6 @@ class EditFrontPageVM @Inject constructor(
         getProfileId()
         getPostProfileApi(p_id!!, lati!!, longi!!)
     }
-
-
     //vikas
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun showViewProfileDialog(response: GetPostProfileResponse) {
@@ -172,18 +169,11 @@ class EditFrontPageVM @Inject constructor(
         } else {
             dialog = Dialog(context, android.R.style.Theme_Dialog)
             dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            profileBinding =
-                AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
+            profileBinding = AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
             dialog?.setContentView(profileBinding?.root!!)
-
-
             /**Set advance  profile edit cover page data **/
             profileBinding?.apply {
-
-
                 /**Check if fontlist text contains names set typeface according to their name **/
-
-
                 tvProfileUserName.text = response.data.first_name
                 tvProfileUserAddress.text = response.data.address
                 tvProfileUserDescription.text = response.data.description_1
@@ -200,7 +190,6 @@ class EditFrontPageVM @Inject constructor(
                 /**Set type face of view according to topText and Bottom Text is Selected or not **/
                 if (this@EditFrontPageVM.isTopText.get()) {
                     tvProfileUserName.typeface = fontTypeface
-
                     //call here toptext selected font-typfaces...
                     topTextSelecedTypeFaces()
                 }
@@ -213,13 +202,15 @@ class EditFrontPageVM @Inject constructor(
                 }
                 /**set ImageView or video view **/
                 if (!response.data.postProfile_picture?.contains("")!!) {
-                    Glide.with(context)
+                    Glide.with(MainActivity.context.get()!!)
                         .load(IMAGE_LOAD_URL + response.data.postProfile_picture[0])
                         .error(R.drawable.placeholder)
                         .into(profileBinding?.ivDashBoardCat!!)
                 }
 
                 /**play Video functionality is pending due to updated code ... **/
+
+               // setVideoPlayerMethod(videVAdvanceShowProfile,response.data.postProfile_picture,)
             }
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
@@ -231,7 +222,6 @@ class EditFrontPageVM @Inject constructor(
     private fun topTextSelecedTypeFaces() {
         profileBinding?.apply {
             when {
-
                 fontsName.get() == CommonMethods.acadeMyLetFontName -> {
                     val academyEngravedLetPlain =
                         Typeface.createFromAsset(context.assets, academyEngravedLetPlain)
@@ -252,19 +242,16 @@ class EditFrontPageVM @Inject constructor(
                     val allerBD = Typeface.createFromAsset(context.assets, CommonMethods.allerBD)
                     tvProfileUserName.typeface = allerBD
                 }
-
                 fontsName.get() == CommonMethods.allerBDItFontName -> {
                     val allerBDLT =
                         Typeface.createFromAsset(context.assets, CommonMethods.allerBDLT)
                     tvProfileUserName.typeface = allerBDLT
                 }
-
                 fontsName.get() == CommonMethods.AllerDisplayFontName -> {
                     val allerDisplay =
                         Typeface.createFromAsset(context.assets, CommonMethods.allerDisplay)
                     tvProfileUserName.typeface = allerDisplay
                 }
-
                 fontsName.get() == CommonMethods.allerItFontName -> {
                     val allerIt = Typeface.createFromAsset(context.assets, CommonMethods.allerIt)
                     tvProfileUserName.typeface = allerIt
@@ -1751,8 +1738,6 @@ class EditFrontPageVM @Inject constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setFontsInAdapterList() {
-        //  appCompatTxtFont: AppCompatTextView? = null
-
         //vikas
         /*Academy_Engraved*/
         val academyEngravedLetPlain =
@@ -2604,7 +2589,6 @@ class EditFrontPageVM @Inject constructor(
                 search(query)
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 search(newText)
                 return true
@@ -3019,7 +3003,7 @@ class EditFrontPageVM @Inject constructor(
         videoView: FullScreenVideoView, imageUrl: String?, ivVideoIcon: ImageView,
         widthPixels: Int, parentLayout: ConstraintLayout,
     ) {
-        var position = 0
+        val position = 0
         val metrics = DisplayMetrics()
         //   context.getWindowManager().getDefaultDisplay().getMetrics(metrics)
         //  val videoView = FullScreenVideoView(getActivity())

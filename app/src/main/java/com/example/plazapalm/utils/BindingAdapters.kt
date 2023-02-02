@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
@@ -27,6 +28,7 @@ import com.example.plazapalm.utils.CommonMethods.context
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.qualifiers.ApplicationContext
 import de.hdodenhof.circleimageview.CircleImageView
 import me.relex.circleindicator.CircleIndicator
 
@@ -171,7 +173,7 @@ object BindingAdapters {
     ) {
         Log.e("VVVVV", IMAGE_LOAD_URL + imageUrl)
         if (imageUrl != null) {
-            Glide.with(context)
+            Glide.with(MainActivity.context.get()!!)
                 .load(IMAGE_LOAD_URL + imageUrl)
                 .error(R.drawable.placeholder)
                 .into(circleImage)
