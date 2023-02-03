@@ -143,29 +143,27 @@
                   android:text="@{vm.distance}"
         -->
 
-<!--
             <TextView
                 android:id="@+id/tvDashBoardItemDistance"
-                calculateDistance="@{model.location_text}"
-                calculateLatLngToMiles="@{model.distance}"
-                currentLat="@{vm.lati}"
-                currentLong="@{vm.longi}"
-                destinationLat="@{model.location.coordinates[1]}"
-                destinationLong="@{model.location.coordinates[0]}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-
                 android:fontFamily="@font/inter_medium"
                 android:gravity="end"
+                calculateLatLngToMiles="@{model.distance}"
+                calculateDistance="@{model.location_text}"
+                destinationLat="@{model.location.coordinates[1]}"
+                destinationLong="@{model.location.coordinates[0]}"
+                currentLat="@{vm.lati}"
+                currentLong="@{vm.longi}"
+
                 android:singleLine="true"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
--->
+                android:layout_marginBottom="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -421,7 +421,7 @@ object BindingAdapters {
     }
 
 
-    @SuppressLint("SetTextI18n")
+/*    @SuppressLint("SetTextI18n")
     @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
     @JvmStatic
     fun calculateLatLngToMiles(
@@ -429,7 +429,7 @@ object BindingAdapters {
     ) {
         destinationTV.text = distacneValue.toString().split(".")[0] + " " + Constants.MILES_TEXT
         Log.e("dmfledmfdf===", distacneValue.toString())
-    }
+    }*/
 
     @BindingAdapter(value = ["setImage"], requireAll = false)
     @JvmStatic
@@ -460,5 +460,80 @@ object BindingAdapters {
             //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
         }
     }
+
+
+
+    @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
+    @JvmStatic
+    fun calculateLatLngToMiles(
+        destinationTV: TextView, distacneValue: Double,
+    ) {
+        destinationTV.text=distacneValue.toString().split(".")[0]+" "+Constants.MILES_TEXT
+        Log.e("dmfledmfdf===",distacneValue.toString())
+    }
+
+
+
+    @BindingAdapter(value = ["calculateDistance","destinationLat","destinationLong",
+        "currentLat","currentLong"], requireAll = false)
+    @JvmStatic
+    fun calculateDistance(
+        destinationTV: TextView,
+        preferenceFile11: String,
+        destinationLat: Double,
+        destinationLong: Double,
+        currentLat:Double,
+        currentLong:Double
+    ) {
+
+        /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
+          var currentLong=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()*/
+
+        //currentLat= Constants.TEMP_LATVALUE!!
+        //currentLong= Constants.TEMP_LONGVALUE!!
+
+
+        //var currentLat="30.7046".toDouble()
+        //var currentLong="76.7179".toDouble()
+        Log.e("egmhamgasg===",Constants.TEMP_LATVALUE!!.toString())
+        Log.e("egmhamgasg111===",Constants.TEMP_LONGVALUE!!.toString())
+        val latLngA = LatLng(Constants.TEMP_LATVALUE!!.toDouble(), Constants.TEMP_LONGVALUE!!.toDouble())
+        // val latLngB = LatLng(destLat, destLong)
+        val latLngB = LatLng(destinationLat, destinationLong)
+        val locationA = Location("Point A")
+        locationA.latitude = latLngA.latitude
+        locationA.longitude = latLngA.longitude
+
+        val locationB = Location("Point B")
+        locationB.latitude = latLngB.latitude
+        locationB.longitude = latLngB.longitude
+
+        Log.e("ABCDDDDDDD==",locationA.toString())
+        Log.e("ABCDDDDDDD1111==",locationB.toString())
+        var distance = locationA.distanceTo(locationB).toDouble().toString()
+
+        var milesValues= metersToMiles(distance.toDouble())
+        if(milesValues.toString().contains("."))
+        {
+            destinationTV.text=milesValues.toString().split(".")[0]+" "+Constants.MILES_TEXT
+        }else
+        {
+            destinationTV.text=milesValues.toString()+" "+Constants.MILES_TEXT
+        }
+
+        Log.e("ABCDDDDDDD2222==",milesValues.toString())
+    }
+
+
+    @BindingAdapter(value = ["setMiles"], requireAll = false)
+    @JvmStatic
+    fun setMiles(
+        textView: AppCompatTextView,
+        value: String,
+    ) {
+        textView.text = value.split(".")[0] + " "+Constants.MILES_TEXT
+    }
+
+
 
 }
