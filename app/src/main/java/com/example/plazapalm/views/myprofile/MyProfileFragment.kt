@@ -9,6 +9,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.MyProifleFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
@@ -47,9 +48,13 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         CommonMethods.statusBar(false)
 
         Log.e("ekmfkemfefefefefe=e==", pref.retrieveKey("token").toString())
+
+
         return binding?.root
 
     }
+
+
 
     private fun getBusinessStatus() {
         if (pref.retrieveBoolKey(business_profile_status) != null) {
@@ -153,6 +158,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
     override fun onResume() {
         super.onResume()
+        (activity as MainActivity?)!!.setTabMethod(4)
         getstatus()
     }
 

@@ -349,17 +349,17 @@ object BindingAdapters {
                 // CommonMethods.showToast(requireContext(), "Video is Preparing")
                 Log.d("VideoPreparing", "video is preparing " + videoView.duration)
             }
-            videoView.setOnErrorListener { mediaPlayer, _, _ ->
-
-                Log.d("VideoError", "$mediaPlayer")
-                CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
-                false
+            videoView.setOnErrorListener { mediaPlayer, code1, _ ->
+Log.e("Video_ErrorCode===",code1.toString())
+              //  Log.d("VideoError", "$mediaPlayer")
+              //  CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
+                true
             }
             videoView.setOnCompletionListener { mp ->
                 // videoView.start()
-                if (mp.duration == videoView.duration) {
+               /* if (mp.duration == videoView.duration) {
                     CommonMethods.showToast(MainActivity.context.get()!!, "Video is Completed ..")
-                }
+                }*/
             }
             videoView.requestFocus()
             videoView.start()

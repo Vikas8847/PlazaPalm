@@ -196,16 +196,16 @@ class ViewPostProfileAdapter(
                 }
                 videoView.setOnErrorListener { mediaPlayer, _, _ ->
 
-                    Log.d("VideoError", "$mediaPlayer")
-                    CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
-                    false
+                 //   Log.d("VideoError", "$mediaPlayer")
+                   // CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
+                    true
                 }
 
                 videoView.setOnCompletionListener { mp ->
                     // videoView.start()
-                    if (mp.duration == videoView.duration) {
+                 /*   if (mp.duration == videoView.duration) {
                         CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
-                    }
+                    }*/
                 }
                 videoView.requestFocus()
                 videoView.start()
