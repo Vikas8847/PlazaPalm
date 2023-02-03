@@ -2,12 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="model"
             type="com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM" />
 
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clFontListMain"
         android:layout_width="match_parent"
@@ -32,6 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvChooseFontCancel"
             android:layout_width="wrap_content"
@@ -50,12 +54,14 @@
             android:id="@+id/etChooseFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_7sdp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:background="@drawable/dashboard_bg"
             android:clickable="true"
             android:elevation="@dimen/_1sdp"
-            android:paddingStart="@dimen/_10sdp"
+            android:focusableInTouchMode="true"
+            android:paddingStart="@dimen/_2sdp"
             android:textColor="@color/gray"
             android:textColorHint="@color/gray"
             app:iconifiedByDefault="false"
@@ -67,6 +73,7 @@
             android:id="@+id/myview"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:background="@color/gray"
             android:visibility="visible"
@@ -102,9 +109,9 @@
             setRecyclerAdapter="@{model.fontListAdapter}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:nestedScrollingEnabled="true"
             android:paddingTop="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

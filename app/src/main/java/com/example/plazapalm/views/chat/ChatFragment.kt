@@ -2,13 +2,15 @@ package com.example.plazapalm.views.chat
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.ChatFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
@@ -24,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ChatFragment : Fragment(R.layout.chat_fragment) {
     private var binding: ChatFragmentBinding? = null
+
     val viewModel: ChatVM by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,10 +39,33 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Initialize Firebase Auth
+
         binding?.vm=viewModel
        // openUserBlockButton()
         setAdapter()
+        sendClicks()
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun sendClicks() {
+
+
+        binding?.sendMessageTv?.setOnTouchListener(OnTouchListener { v, event ->
+            val DRAWABLE_RIGHT = 2
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= binding?.sendMessageTv!!.getRight() - binding?.sendMessageTv!!.getCompoundDrawables()
+                        .get(DRAWABLE_RIGHT).getBounds().width()
+                ) {
+                    Log.e("ADACHASHA" , "WORKINGFINEE")
+//                    viewModel.sendChatMessage()
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
+    }
+
 
     /** Here Set Chat Adapter in on Created method **/
     @SuppressLint("NotifyDataSetChanged")

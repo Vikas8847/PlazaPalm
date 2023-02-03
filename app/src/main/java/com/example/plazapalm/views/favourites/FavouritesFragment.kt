@@ -36,7 +36,6 @@ class FavouritesFragment : Fragment(R.layout.favourites_fragment) {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setFavouritesAdapter() {
-
         binding?.rvFavourites?.layoutManager = GridLayoutManager(requireContext(), 2)
         binding?.rvFavourites?.adapter = viewModel.favAdapter
         binding?.rvFavourites?.adapter?.notifyDataSetChanged()

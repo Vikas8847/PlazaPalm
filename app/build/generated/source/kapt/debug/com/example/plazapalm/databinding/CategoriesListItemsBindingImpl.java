@@ -235,29 +235,3 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
             if (modelOnItemClickJavaLangObjectNull) {
 
 
-
-
-
-                modelAdapterPosition = model.getAdapterPosition();
-
-
-                modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "PostProfile");
-            }
-        }
-    }
-    // dirty flag
-    private  long mDirtyFlags = 0xffffffffffffffffL;
-    /* flag mapping
-        flag 0 (0x1L): model
-        flag 1 (0x2L): vm
-        flag 2 (0x3L): categoryName
-        flag 3 (0x4L): null
-        flag 4 (0x5L): androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) == true ? @android:drawable/ic_checkbox_tick_icon : @android:drawable/ic_checkbox_unselect_tick_icon
-        flag 5 (0x6L): androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) == true ? @android:drawable/ic_checkbox_tick_icon : @android:drawable/ic_checkbox_unselect_tick_icon
-        flag 6 (0x7L): model.count == null ? "" : model.count
-        flag 7 (0x8L): model.count == null ? "" : model.count
-        flag 8 (0x9L): model.category_name == null ? "" : model.category_name
-        flag 9 (0xaL): model.category_name == null ? "" : model.category_name
-    flag mapping end*/
-    //end
-}

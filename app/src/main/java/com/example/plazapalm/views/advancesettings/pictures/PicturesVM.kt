@@ -75,37 +75,37 @@ class PicturesVM @Inject constructor() : ViewModel() {
             }
             R.id.ivPicturesAdd -> {
                 //open dialog alert to upload image or videos.
-                //     uploadImageVideo()
-                //  showVideoPhotoDialog()
+           //     uploadImageVideo()
+              //  showVideoPhotoDialog()
             }
         }
     }
 
-    /*  private fun uploadImageVideo() {
-          if (CommonMethods.dialog != null && CommonMethods.dialog?.isShowing!!) {
-              CommonMethods.dialog?.dismiss()
-          } else {
-              CommonMethods.dialog = Dialog(CommonMethods.context, android.R.style.Theme_Dialog)
-              CommonMethods.dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-              CommonMethods.dialog?.setContentView(R.layout.pictures_item_upload_image_videos)
-              CommonMethods.dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-              CommonMethods.dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
-              CommonMethods.dialog?.setCancelable(false)
-              CommonMethods.dialog?.findViewById<AppCompatTextView>(R.id.tvUploadImage)
-                  ?.setOnClickListener {
-                      CommonMethods.dialog?.dismiss()
-                  }
-              CommonMethods.dialog?.findViewById<AppCompatTextView>(R.id.tvUploadVideo)
-                  ?.setOnClickListener {
-                      CommonMethods.dialog?.dismiss()
-                  }
-              CommonMethods.dialog?.findViewById<AppCompatTextView>(R.id.tvPicturesUploadCancel)
-                  ?.setOnClickListener {
-                      CommonMethods.dialog?.dismiss()
-                  }
-          }
-          CommonMethods.dialog?.show()
-      }*/
+  /*  private fun uploadImageVideo() {
+        if (CommonMethods.dialog != null && CommonMethods.dialog?.isShowing!!) {
+            CommonMethods.dialog?.dismiss()
+        } else {
+            CommonMethods.dialog = Dialog(CommonMethods.context, android.R.style.Theme_Dialog)
+            CommonMethods.dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            CommonMethods.dialog?.setContentView(R.layout.pictures_item_upload_image_videos)
+            CommonMethods.dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            CommonMethods.dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
+            CommonMethods.dialog?.setCancelable(false)
+            CommonMethods.dialog?.findViewById<AppCompatTextView>(R.id.tvUploadImage)
+                ?.setOnClickListener {
+                    CommonMethods.dialog?.dismiss()
+                }
+            CommonMethods.dialog?.findViewById<AppCompatTextView>(R.id.tvUploadVideo)
+                ?.setOnClickListener {
+                    CommonMethods.dialog?.dismiss()
+                }
+            CommonMethods.dialog?.findViewById<AppCompatTextView>(R.id.tvPicturesUploadCancel)
+                ?.setOnClickListener {
+                    CommonMethods.dialog?.dismiss()
+                }
+        }
+        CommonMethods.dialog?.show()
+    }*/
 
     //For Upload file to the Server
     fun UploadMediaMethod(filePath: String, type: Int) {

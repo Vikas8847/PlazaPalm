@@ -6,9 +6,12 @@
     <data>
 
         <variable
+            name="model"
+            type="com.example.plazapalm.models.PostFrontPageData" />
+
+        <variable
             name="vm"
             type="com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,15 +25,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="visible"
             app:cardCornerRadius="@dimen/_12sdp"
-            app:cardElevation="@dimen/_10sdp"
+            app:cardElevation="@dimen/_2sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="@dimen/_180sdp"
+                android:layout_width="@dimen/_170sdp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,29 +49,10 @@
                     android:alpha="1"
                     android:scaleType="fitXY"
                     android:src="@drawable/placeholder"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_250sdp"
-                    android:id="@+id/clAdvanceProfileEditCover"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toTopOf="@+id/ivDashBoardCat">
-
-                    <com.example.plazapalm.utils.FullScreenVideoView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/videVAdvanceShowProfile"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </com.example.plazapalm.utils.FullScreenVideoView>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <View
                     android:layout_width="match_parent"
@@ -86,28 +71,43 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
 
 
+                <com.example.plazapalm.utils.FullScreenVideoView
+                    android:id="@+id/videVAdvanceShowProfile"
+                    android:layout_width="@dimen/_170sdp"
+                    android:layout_height="@dimen/_250sdp"
+                    android:clipToOutline="true"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tool:layout_editor_absoluteX="16dp" />
+
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvProfileUserName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/inter_medium"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/_3sdp"
+                    android:gravity="start"
+                    android:padding="@dimen/_4sdp"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/ivAdvanceHeart"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tool:text="Vikas Panchal" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivAdvanceHeart"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:id="@+id/ivAdvanceHeart"
-                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:src="@drawable/ic_heart_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -116,13 +116,13 @@
                     android:id="@+id/tvProfileUserDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_2sdp"
                     android:fontFamily="@font/inter_medium"
                     android:maxLines="2"
-                    android:padding="@dimen/_3sdp"
-                    android:paddingStart="@dimen/_5sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:paddingStart="@dimen/_4sdp"
                     android:text="@string/testing_nprofile"
                     android:textColor="@color/white"
                     android:textSize="12sp"
@@ -135,10 +135,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="start"
-                    android:padding="@dimen/_3sdp"
+                    android:padding="@dimen/_2sdp"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="12sp"
@@ -152,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="end"
                     android:singleLine="true"
@@ -167,11 +167,6 @@
 
         </androidx.cardview.widget.CardView>
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--
-        android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`dashItemClick`)}"
-    -->
-
 </layout>
