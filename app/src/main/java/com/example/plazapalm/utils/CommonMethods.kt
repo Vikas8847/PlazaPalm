@@ -61,6 +61,9 @@ object CommonMethods {
 //        toast.show()
     }
 
+
+
+
     var context = (MainActivity.context.get() as Activity)
     private fun getColoredSpanned(text: String, color: String): String? {
         return "<font color=$color>$text</font>"

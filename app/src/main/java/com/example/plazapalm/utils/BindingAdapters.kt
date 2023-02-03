@@ -2,6 +2,7 @@ package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
 import android.graphics.Typeface
+import android.location.Location
 import android.media.MediaPlayer
 import android.os.Build
 import android.text.TextWatcher
@@ -21,6 +22,9 @@ import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
+import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.utils.CommonMethods.context
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
@@ -34,17 +38,6 @@ object BindingAdapters {
 
     //    @Inject
 //    lateinit var pref : PreferenceFile
-
-    @BindingAdapter(value = ["setBackground"], requireAll = false)
-    @JvmStatic
-    fun setBackground(
-        view: View,
-        drawable: Int,
-    ) {
-
-        view.background = ContextCompat.getDrawable(MainActivity.context.get()!!, drawable)
-    }
-
     @BindingAdapter(value = ["setRecyclerAdapter"], requireAll = false)
     @JvmStatic
     fun setRecyclerAdapter(
@@ -56,7 +49,6 @@ object BindingAdapters {
 
 
     @BindingAdapter(value = ["setBold"])
-    @JvmStatic
     fun setBold(view: AppCompatTextView, isPosition: Int) {
         when (isPosition) {
             0 -> {
@@ -138,7 +130,7 @@ object BindingAdapters {
         value: String,
     ) {
         val split = value.split("T")
-        val date = split.get(0)
+        val date = split?.get(0)
         textView.text = date
         Log.e("QOWIEWww", date.toString())
     }
@@ -197,6 +189,7 @@ object BindingAdapters {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @BindingAdapter(value = ["setCalndarBackground"], requireAll = false)
+    @JvmStatic
     fun setCalndarBackground(
         view: androidx.constraintlayout.widget.ConstraintLayout,
         bookingStatus: String,
@@ -222,6 +215,8 @@ object BindingAdapters {
     }
 
     @BindingAdapter(value = ["radioGroupListener"], requireAll = false)
+    @JvmStatic
+
     fun radioGroupListener(
         view: RadioGroup,
         listener: RadioGroup.OnCheckedChangeListener,
@@ -230,6 +225,7 @@ object BindingAdapters {
     }
 
     @BindingAdapter(value = ["addTextWatcher"], requireAll = false)
+    @JvmStatic
     fun addTextWatcher(
         view: EditText,
         listener: TextWatcher,
@@ -237,8 +233,45 @@ object BindingAdapters {
         view.addTextChangedListener(listener)
     }
 
+    @BindingAdapter(value = ["setImage"], requireAll = false)
+    @JvmStatic
+    fun setImage(
+        shapeableImageView: ImageView,
+        imageUrl: String?,
+    ) {
+        if (imageUrl != null) {
+            Glide.with(context)
+                .load(IMAGE_LOAD_URL + imageUrl)
+//                .apply( RequestOptions().override(700, 400))
+                .into(shapeableImageView)
+
+        } else {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
+    }
+
+
+
+
+ /*   @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
+    @JvmStatic
+    fun setEditCoverImage(
+        appCompatImageView: AppCompatImageView,
+        imageUrl: String?
+    ) {
+        if (imageUrl != null) {
+            Glide.with(context)
+                .load(IMAGE_LOAD_URL + imageUrl)
+//                .apply( RequestOptions().override(700, 400))
+                .into(appCompatImageView)
+
+        } else {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
+    }*/
 
     @BindingAdapter(value = ["setHeartImage"], requireAll = false)
+    @JvmStatic
     fun setHeartImage(
         heartImage: AppCompatImageView, imageUrl: String?,
     ) {

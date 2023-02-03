@@ -172,7 +172,7 @@ class SettingsVM @Inject constructor(
 
         val body = JSONObject()
         body.put("Authorization", token.get())
-        body.put("device_token", deviceToken)
+        body.put("device_token", pref.retrieveFirebaseToken().toString())
         body.put("device_type", DeviceType)
         repository.makeCall(
             apiKey = ApiEnums.LOG_OUT,

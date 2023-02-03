@@ -26,15 +26,14 @@ import com.example.plazapalm.utils.Constants.CHECK_INTERNET
 import com.example.plazapalm.utils.Constants.ConfirmPasswordCantEmpty
 import com.example.plazapalm.utils.Constants.DEVICE_TOKEN
 import com.example.plazapalm.utils.Constants.DEVICE_TYPE
-import com.example.plazapalm.utils.Constants.DeviceToken
 import com.example.plazapalm.utils.Constants.DeviceType
 import com.example.plazapalm.utils.Constants.EmailCantEmpty
 import com.example.plazapalm.utils.Constants.FirstNameCantEmpty
 import com.example.plazapalm.utils.Constants.LastNameCantEmpty
 import com.example.plazapalm.utils.Constants.PasswordCantEmpty
 import com.example.plazapalm.validation.ValidatorUtils.isEmailValid
-import com.google.android.gms.tasks.Task
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -61,6 +60,7 @@ class SignupVM @Inject constructor(
     var confirmPassword = ObservableField("")
     var sendFirebaseSignUpToken = ObservableField("")
     var businessStatus = ObservableBoolean(false)
+    val firestore = FirebaseFirestore.getInstance()
 
     fun selectOption(radioGroup: RadioGroup, radioButton: View) {
         radioGroup.check(radioButton.id)
@@ -129,7 +129,7 @@ class SignupVM @Inject constructor(
                 CommonMethods.showToast(CommonMethods.context, "Password does not match")
                 return false
             }
-            ischecked.get().toString().isEmpty() ->{
+            ischecked.get().toString().isEmpty() -> {
                 CommonMethods.showToast(CommonMethods.context, "Please slecet account type ")
                 return false
             }
@@ -151,10 +151,14 @@ class SignupVM @Inject constructor(
         body.put(DEVICE_TOKEN, pref.retrieveFirebaseToken())
         body.put(DEVICE_TYPE, DeviceType)
 
-        Log.e("ASASZZZ",businessStatus.get().toString())
-        Log.e("LOGIN--REQUEST--",email.get() + "-- "+ password.get() + "--Local--"+sendFirebaseSignUpToken.get().toString()+
-                " --->>>> " +pref.retrieveFirebaseToken()+"--"+Constants.DeviceType+"--" +
-                firstName.get() +"--"+lastName.get() )
+        Log.e("ASASZZZ", businessStatus.get().toString())
+        Log.e(
+            "LOGIN--REQUEST--",
+            email.get() + "-- " + password.get() + "--Local--" + sendFirebaseSignUpToken.get()
+                .toString() +
+                    " --->>>> " + pref.retrieveFirebaseToken() + "--" + Constants.DeviceType + "--" +
+                    firstName.get() + "--" + lastName.get()
+        )
 
         repository.makeCall(
             ApiEnums.SIGNUP,
@@ -163,6 +167,7 @@ class SignupVM @Inject constructor(
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<SignupResponseModel>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<SignupResponseModel> {
+
                     return retrofitApi.signUp(
                         FirstName = firstName.get()?.trim().toString(),
                         LastName = lastName.get()?.trim().toString(),
@@ -194,25 +199,53 @@ class SignupVM @Inject constructor(
                                 )
                                 Log.e("RESSPONSEE", res.body().toString())
 
-                            } else {
-                                CommonMethods.showToast(
-                                    CommonMethods.context,
-                                    res.body()?.message.toString() )
-                                view.navigateWithId(R.id.action_signUpFragment_to_loginFragment)
+                                /** Add user on firestore **/
+                                FireStorechatVM().firestoreLogin(pref)
 
+
+                               /* val users = HashMap<String, Any>()
+
+                                var currentTime = System.currentTimeMillis()
+
+                                users["fcmToken"] = sendFirebaseSignUpToken.get().toString()
+                                users["osType"] = "1"
+                                users["notificationStatus"] = ""
+
+                                //SetOptions.merge()
+
+                                firestore.collection("Users").document()
+                                    .set(users, SetOptions.merge())
+                                    .addOnSuccessListener {
+                                        Log.e("TAG--US", "sucess")
+                                    }
+                                    .addOnFailureListener {
+                                        Log.e("TAG--US", "faild")
+
+                                    }*/
+
+                                    } else {
+                                    CommonMethods.showToast(
+                                        CommonMethods.context,
+                                        res.body()?.message.toString()
+                                    )
+                                    view.navigateWithId(R.id.action_signUpFragment_to_loginFragment)
+
+                                }
                             }
+
+                        } else {
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                "Oops! Something went wrong"
+                            )
                         }
-
-                    } else {
-                        CommonMethods.showToast(CommonMethods.context, "Oops! Something went wrong")
                     }
-                }
 
-                override fun onError(message: String) {
-                    super.onError(message)
-                    CommonMethods.showToast(CommonMethods.context, message)
-                }
-            })
+                    override fun onError(message: String) {
+                        super.onError(message)
+                        CommonMethods.showToast(CommonMethods.context, message)
+                    }
+                })
+            }
+
     }
-
-}
