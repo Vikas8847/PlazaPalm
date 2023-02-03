@@ -22,6 +22,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:contentInsetStart="0dp"
                 android:background="@color/white">
 
                 <androidx.appcompat.widget.AppCompatTextView

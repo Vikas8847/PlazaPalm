@@ -48,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_5sdp"
+            android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -200,9 +201,11 @@
                     android:onClick="@{vm::onClicks}"
                     android:paddingBottom="@dimen/_1sdp"
                     android:text="@string/save"
+                    android:layout_marginBottom="@dimen/_20sdp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@id/clConfirmPass">
+                    app:layout_constraintBottom_toBottomOf="parent"
+                   >
 
                 </androidx.appcompat.widget.AppCompatButton>
             </androidx.constraintlayout.widget.ConstraintLayout>

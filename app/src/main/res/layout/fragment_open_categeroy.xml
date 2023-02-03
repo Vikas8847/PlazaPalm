@@ -15,6 +15,7 @@
         android:id="@+id/clMainCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:onClick="@{vm::onClicks}"
         android:background="@drawable/ic_plaza_splash_bg"
         >
 
@@ -62,6 +63,7 @@
                 android:inputType="text"
                 android:text="@={vm.searchText}"
                 android:maxLines="1"
+                android:afterTextChanged="@{(text) -> vm.onTextChange(text)}"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingEnd="@dimen/_13sdp"
                 android:singleLine="true"

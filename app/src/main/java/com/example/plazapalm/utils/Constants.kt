@@ -27,7 +27,7 @@ object Constants {
     const val ENTER_OTP = "Enter otp"
     const val USER_ACCOUNT_DELETED = "User account is deleted successfully."
     const val PASSWORD_CHANGED = "Password changed successfully"
-    const val EMAIL_MUST_VALID = "email must be a valid email address"
+    const val EMAIL_MUST_VALID = "Email must be a valid email address"
     const val OOPS_SOMETHING_WRONG = "Oops! Something went wrong"
     const val SOMETHING_WRONG = "Something went wrong"
     const val OTP_RESENT = "Otp re-sent"
