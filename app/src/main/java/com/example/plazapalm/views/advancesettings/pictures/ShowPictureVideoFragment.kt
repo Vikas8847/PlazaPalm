@@ -87,16 +87,16 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         }
         videoView.setOnErrorListener { mediaPlayer, _, _ ->
 
-            Log.d("VideoError", "$mediaPlayer")
-            CommonMethods.showToast(requireContext(), "Error in Video Playing..")
-            false
+          //  Log.d("VideoError", "$mediaPlayer")
+          //  CommonMethods.showToast(requireContext(), "Error in Video Playing..")
+            true
         }
 
         videoView.setOnCompletionListener { mp ->
             // videoView.start()
-            if (mp.duration == videoView.duration) {
+          /*  if (mp.duration == videoView.duration) {
                 CommonMethods.showToast(requireContext(), "Video is Completed ..")
-            }
+            }*/
         }
         videoView.requestFocus()
         videoView.start()
