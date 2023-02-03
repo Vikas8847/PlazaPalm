@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
@@ -252,7 +253,7 @@ object BindingAdapters {
 
 
 
-    @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
+ /*   @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
     @JvmStatic
     fun setEditCoverImage(
         appCompatImageView: AppCompatImageView,
@@ -267,7 +268,7 @@ object BindingAdapters {
         } else {
             //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
         }
-    }
+    }*/
 
     @BindingAdapter(value = ["setHeartImage"], requireAll = false)
     @JvmStatic

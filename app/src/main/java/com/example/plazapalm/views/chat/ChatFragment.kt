@@ -2,6 +2,7 @@ package com.example.plazapalm.views.chat
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -56,6 +57,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
                 if (event.rawX >= binding?.sendMessageTv!!.getRight() - binding?.sendMessageTv!!.getCompoundDrawables()
                         .get(DRAWABLE_RIGHT).getBounds().width()
                 ) {
+                    Log.e("ADACHASHA" , "WORKINGFINEE")
 //                    viewModel.sendChatMessage()
                     return@OnTouchListener true
                 }
