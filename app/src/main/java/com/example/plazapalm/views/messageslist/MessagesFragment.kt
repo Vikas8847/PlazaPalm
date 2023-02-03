@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.MessagesFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
@@ -30,6 +31,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm=viewModel
+        (activity as MainActivity?)!!.setTabMethod(3)
         setAdapter()
     }
 
@@ -43,5 +45,4 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
         super.onResume()
         CommonMethods.statusBar(true)
     }
-
 }

@@ -125,7 +125,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
             }*/
 
-            if (user_id == "63ce2311a67c70857439f543") {
+            if (user_id == "63dcec08a2454da11c970c2c") {
 
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE
@@ -149,11 +149,8 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
              binding?.viewUpgrade?.visibility = View.VISIBLE*/
 
                 Log.e("SAAHAEED", "WORKINGGGGGG")
-
             }
-
         }
-
     }
 
     override fun onResume() {
@@ -161,5 +158,4 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         (activity as MainActivity?)!!.setTabMethod(4)
         getstatus()
     }
-
 }

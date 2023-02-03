@@ -93,7 +93,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
 
         }else{
-            binding.tvFilterMilesValue.text= 25.toString() + " "+Constants.MILES_TEXT
+            binding.tvFilterMilesValue.text= 25.toString() + " Miles"
             binding.sliderFilter.value =25.toFloat()
         }
 
@@ -211,7 +211,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
             viewModel.miles.set(value.toInt().toString())
 
-            binding.tvFilterMilesValue.text = "${value.toInt()} "+Constants.MILES_TEXT
+            binding.tvFilterMilesValue.text = "${value.toInt()} Miles"
             Log.e("SSSSSSSS----",value.toInt().toString())
 
             pref.storeMiles(value.toInt())
