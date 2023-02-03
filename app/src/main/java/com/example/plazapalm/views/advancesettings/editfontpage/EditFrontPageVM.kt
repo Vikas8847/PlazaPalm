@@ -1,7 +1,6 @@
 package com.example.plazapalm.views.advancesettings.editfontpage
 
 import android.annotation.SuppressLint
-import android.app.ActionBar
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.Typeface
@@ -20,7 +19,6 @@ import android.widget.VideoView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
-import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.ObservableBoolean
