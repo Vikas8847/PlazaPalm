@@ -32,10 +32,10 @@ class AppController : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        FirebaseApp.initializeApp(applicationContext)
         // Branch logging for debugging
         FirebaseApp.initializeApp(applicationContext)
         Branch.enableTestMode()
+
         // Branch object initialization
         Branch.getAutoInstance(this)
         MultiDex.install(this)

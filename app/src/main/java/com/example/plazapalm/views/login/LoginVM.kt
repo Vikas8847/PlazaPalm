@@ -18,8 +18,11 @@ import com.example.plazapalm.pref.business_profile_status
 import com.example.plazapalm.pref.token
 import com.example.plazapalm.utils.*
 import com.example.plazapalm.validation.ValidatorUtils
-import com.google.android.gms.tasks.Task
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -31,11 +34,21 @@ class LoginVM @Inject constructor(
     private var repository: Repository,
     private var dataStore: DataStoreUtil,
     private var cacheUtil: CacheUtil,
-    private var preferences: PreferenceFile) : ViewModel() {
+    private var preferences: PreferenceFile
+) : ViewModel() {
     var email = ObservableField("")
     var password = ObservableField("")
+
+
     var sendTypeLogin = ObservableField("Login")
     var sendFirebaseLoginToken = ObservableField("")
+    val firestore = FirebaseFirestore.getInstance()
+
+    private var auth: FirebaseAuth
+
+    init {
+        auth = Firebase.auth
+    }
 
     fun clicks(view: View) {
         when (view.id) {
@@ -80,8 +93,12 @@ class LoginVM @Inject constructor(
         body.put(Constants.DEVICE_TOKEN, sendFirebaseLoginToken.get())
         body.put(Constants.DEVICE_TYPE, Constants.DeviceType)
 
-        Log.e("LOGIN--REQUEST--",email.get() + "-- "+ password.get() + " Local-->> " + preferences.retrieveFirebaseToken()
-                + "--->> "+ sendFirebaseLoginToken.get().toString() +"--"+Constants.DeviceType+"--")
+        Log.e(
+            "LOGIN--REQUEST--",
+            email.get() + "-- " + password.get() + " Local-->> " + preferences.retrieveFirebaseToken()
+                    + "--->> " + sendFirebaseLoginToken.get()
+                .toString() + "--" + Constants.DeviceType + "--"
+        )
 
         repository.makeCall(
             apiKey = ApiEnums.LOGIN,
@@ -105,18 +122,30 @@ class LoginVM @Inject constructor(
                             // dataStore.saveObject(PROFILE_DATA, GetProfileData::class.java)
                             dataStore.saveObject(LOGIN_DATA, res.body())
                             preferences.storeKey(token, res.body()?.data?.token ?: "")
-                            preferences.storeBoolKey(business_profile_status, res.body()?.data?.business_profile_status.toBoolean())
+                            preferences.storeBoolKey(
+                                business_profile_status,
+                                res.body()?.data?.business_profile_status.toBoolean()
+                            )
 
-                            Log.e("===LOGINDATA===", res.body()?.data.toString() +"===TOKKENN===" + res.body()?.data?.token.toString())
+                            Log.e(
+                                "===LOGINDATA===",
+                                res.body()?.data.toString() + "===TOKKENN===" + res.body()?.data?.token.toString()
+                            )
 
-                            Log.e("QQAAWW2222!@112", preferences.retrieveFilterResponse().toString())
+                            Log.e(
+                                "QQAAWW2222!@112",
+                                preferences.retrieveFilterResponse().toString()
+                            )
 
-                            if (preferences.retrieveFilterResponse().isNullOrEmpty()){
+                            if (preferences.retrieveFilterResponse().isNullOrEmpty()) {
                                 val bundle = Bundle()
-                                bundle.putString("comingFrom","login")
+                                bundle.putString("comingFrom", "login")
+                                view.navigateWithId(
+                                    R.id.action_loginFragment_to_categoriesListFragment,
+                                    bundle
+                                )
 
-                                view.navigateWithId(R.id.action_loginFragment_to_categoriesListFragment,bundle)
-                            }else{
+                            } else {
                                 view.navigateWithId(R.id.action_loginFragment_to_dashBoardFragment)
                             }
 
@@ -127,13 +156,36 @@ class LoginVM @Inject constructor(
                                 res.body()?.message.toString()
                             )
 
+                            FireStorechatVM().firestoreLogin(preferences)
+
+                          /*  val users = HashMap<String, Any>()
+
+                            users["fcmToken"] = sendFirebaseLoginToken.get().toString()
+                            users["osType"] = "1"
+                            users["notificationStatus"] = ""
+
+                            //SetOptions.merge()
+
+                            firestore.collection("Users").document()
+                                .set(users, SetOptions.merge())
+                                .addOnSuccessListener {
+                                    Log.e("TAG--US", "sucess")
+                                }
+                                .addOnFailureListener {
+                                    Log.e("TAG--US", "faild")
+
+                                }*/
+
                         } else {
                             val bundle = Bundle()
                             bundle.putString("comingFrom", "login")
                             //bundle.putString("login", email.get())
                             bundle.putString("email", email.get())
                             view.navigateWithId(R.id.verifyEmailFragment, bundle)
-                            CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                res.body()?.message.toString()
+                            )
                             CommonMethods.context.hideKeyboard()
                         }
                     } else {
@@ -168,4 +220,24 @@ class LoginVM @Inject constructor(
             }
         }
     }
+
+    /** Here  signInAnonymously user sucess or failed **/
+
+    fun anonymousUser() {
+        auth.signInAnonymously()
+            .addOnCompleteListener(CommonMethods.context) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("TAG--FDD", "signInAnonymously:success")
+                    val user = auth.currentUser
+                    //updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("TAG--CWKAKS", "signInAnonymously:failure", task.exception)
+                    CommonMethods.showToast(CommonMethods.context, "Authentication failed.")
+//                    updateUI(null)
+                }
+            }
+    }
+
 }

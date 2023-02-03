@@ -166,7 +166,8 @@ class BookingDetailsVM @Inject constructor(
                     return retrofitApi.bookingStatusInput(
                         preferenceFile.retrieveKey("token").toString(),
                         booking_id.get().toString(),
-                        bookingStatus.get().toString()
+                        /*bookingStatus.get().toString()*/
+                    "cancelle"
                     )
                 }
 
@@ -179,6 +180,7 @@ class BookingDetailsVM @Inject constructor(
                             CommonMethods.showToast(CommonMethods.context, res.message())
 
                         }
+
                     } else {
                         CommonMethods.showToast(CommonMethods.context, res.message())
                     }

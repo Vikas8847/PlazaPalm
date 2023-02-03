@@ -464,7 +464,7 @@ object BindingAdapters {
         if(milesValues.toString().contains("."))
         {
             destinationTV.text=milesValues.toString().split(".")[0]+" "+Constants.MILES_TEXT
-        }else
+        } else
         {
             destinationTV.text=milesValues.toString()+" "+Constants.MILES_TEXT
         }

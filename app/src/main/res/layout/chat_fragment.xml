@@ -117,11 +117,11 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-
                 android:background="@drawable/chat_send_bg"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/sendMessage_tv"
                     style="@style/MyEditText"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
@@ -129,7 +129,7 @@
                     android:drawableEnd="@drawable/ic_chat_send_icon"
                     android:drawablePadding="@dimen/_5sdp"
                     android:fontFamily="@font/inter_medium"
-                    android:hint="Type here.."
+                    android:hint="@string/type_here"
                     android:inputType="text"
                     android:maxLines="15"
                     android:paddingHorizontal="@dimen/_10sdp"
@@ -137,6 +137,8 @@
                     android:textColor="@color/black"
                     android:textCursorDrawable="@drawable/color_cursor_black"
                     android:textSize="14sp"
+                    android:text="@{vm.messageText}"
+                    android:onClick="@{vm::onClicks}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

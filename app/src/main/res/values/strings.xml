@@ -69,4 +69,5 @@
     <string name="booking_txt">Book</string>
     <string name="calendar">Calendar</string>
     <string name="testing_nprofile">Testing\nProfile</string>
+    <string name="type_here">Type here..</string>
 </resources>

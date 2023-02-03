@@ -21,10 +21,12 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding=MessagesFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
         return binding?.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm=viewModel
