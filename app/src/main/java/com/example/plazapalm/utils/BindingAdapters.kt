@@ -2,7 +2,6 @@ package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
 import android.graphics.Typeface
-import android.location.Location
 import android.media.MediaPlayer
 import android.os.Build
 import android.text.TextWatcher
@@ -18,12 +17,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
-import com.example.plazapalm.pref.PreferenceFile
-import com.example.plazapalm.utils.CommonMethods.context
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
@@ -37,6 +34,17 @@ object BindingAdapters {
 
     //    @Inject
 //    lateinit var pref : PreferenceFile
+
+    @BindingAdapter(value = ["setBackground"], requireAll = false)
+    @JvmStatic
+    fun setBackground(
+        view: View,
+        drawable: Int,
+    ) {
+
+        view.background = ContextCompat.getDrawable(MainActivity.context.get()!!, drawable)
+    }
+
     @BindingAdapter(value = ["setRecyclerAdapter"], requireAll = false)
     @JvmStatic
     fun setRecyclerAdapter(
@@ -48,6 +56,7 @@ object BindingAdapters {
 
 
     @BindingAdapter(value = ["setBold"])
+    @JvmStatic
     fun setBold(view: AppCompatTextView, isPosition: Int) {
         when (isPosition) {
             0 -> {
@@ -129,7 +138,7 @@ object BindingAdapters {
         value: String,
     ) {
         val split = value.split("T")
-        val date = split?.get(0)
+        val date = split.get(0)
         textView.text = date
         Log.e("QOWIEWww", date.toString())
     }
@@ -161,7 +170,6 @@ object BindingAdapters {
         compoundButton.setOnCheckedChangeListener(listener)
     }
 
-    @SuppressLint("CheckResult")
     @BindingAdapter(value = ["setCircleImage"], requireAll = false)
     @JvmStatic
     fun setCircleImage(
@@ -169,15 +177,11 @@ object BindingAdapters {
         imageUrl: String?,
     ) {
         Log.e("VVVVV", IMAGE_LOAD_URL + imageUrl)
-        if (imageUrl != null && imageUrl!="null" && imageUrl!="") {
-            Glide.with(CommonMethods.context)
+        if (imageUrl != null && imageUrl != "null" && imageUrl != "") {
+            Glide.with(MainActivity.context.get()!!)
                 .load(IMAGE_LOAD_URL + imageUrl)
                 .error(R.drawable.placeholder)
                 .into(circleImage)
-        } else {
-            circleImage.setImageResource(R.drawable.placeholder)
-            // circleImage.resources.getDrawable(R.drawable.ic_place_holder)
-            //circleImage.setImageResource(R.drawable.ic_place_holder)
         }
     }
 
@@ -190,19 +194,9 @@ object BindingAdapters {
         imageView.setImageResource(drawable)
     }
 
-    @BindingAdapter(value = ["setBackground"], requireAll = false)
-    @JvmStatic
-    fun setBackground(
-        view: View,
-        drawable: Int,
-    ) {
-
-        view.background = ContextCompat.getDrawable(view.context, drawable)
-    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @BindingAdapter(value = ["setCalndarBackground"], requireAll = false)
-    @JvmStatic
     fun setCalndarBackground(
         view: androidx.constraintlayout.widget.ConstraintLayout,
         bookingStatus: String,
@@ -210,10 +204,17 @@ object BindingAdapters {
         if (bookingStatus.equals("pending")) {
             Log.e("SDSD", "sdwwwwwwa")
 //            view.background = ContextCompat.getDrawable(view.context.resources.getDrawable(R.drawable.placeholder))
-            view.background = (ContextCompat.getDrawable(context, R.drawable.booking_caalnar_back))
+            view.background =
+                (ContextCompat.getDrawable(
+                    MainActivity.context.get()!!,
+                    R.drawable.booking_caalnar_back
+                ))
 
         } else {
-            view.background = (ContextCompat.getDrawable(context, R.drawable.add_calander_back))
+            view.background = (ContextCompat.getDrawable(
+                MainActivity.context.get()!!,
+                R.drawable.add_calander_back
+            ))
 //            view.background = ContextCompat.getDrawable(view.context, )
             Log.e("SDSD", "1231321324563")
 
@@ -221,8 +222,6 @@ object BindingAdapters {
     }
 
     @BindingAdapter(value = ["radioGroupListener"], requireAll = false)
-    @JvmStatic
-
     fun radioGroupListener(
         view: RadioGroup,
         listener: RadioGroup.OnCheckedChangeListener,
@@ -231,7 +230,6 @@ object BindingAdapters {
     }
 
     @BindingAdapter(value = ["addTextWatcher"], requireAll = false)
-    @JvmStatic
     fun addTextWatcher(
         view: EditText,
         listener: TextWatcher,
@@ -239,51 +237,14 @@ object BindingAdapters {
         view.addTextChangedListener(listener)
     }
 
-    @BindingAdapter(value = ["setImage"], requireAll = false)
-    @JvmStatic
-    fun setImage(
-        shapeableImageView: ImageView,
-        imageUrl: String?,
-    ) {
-        if (imageUrl != null) {
-            Glide.with(context)
-                .load(IMAGE_LOAD_URL + imageUrl)
-//                .apply( RequestOptions().override(700, 400))
-                .into(shapeableImageView)
-
-        } else {
-            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
-        }
-    }
-
-
-
-
-    @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
-    @JvmStatic
-    fun setEditCoverImage(
-        appCompatImageView: AppCompatImageView,
-        imageUrl: String?
-    ) {
-        if (imageUrl != null) {
-            Glide.with(context)
-                .load(IMAGE_LOAD_URL + imageUrl)
-//                .apply( RequestOptions().override(700, 400))
-                .into(appCompatImageView)
-
-        } else {
-            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
-        }
-    }
 
     @BindingAdapter(value = ["setHeartImage"], requireAll = false)
-    @JvmStatic
     fun setHeartImage(
         heartImage: AppCompatImageView, imageUrl: String?,
     ) {
 
         if (imageUrl != null) {
-            Glide.with(context)
+            Glide.with(MainActivity.context.get()!!)
                 .load(IMAGE_LOAD_URL + imageUrl)
                 .override(100, 100)
                 .into(heartImage)
@@ -293,8 +254,21 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter(value = ["setViewPager", "addTabLayout", "setIndicator"], requireAll = false)
+
+    val METERS_IN_MILE = 1609.344
+
+    fun metersToMiles(meters: Double): Double {
+        return meters / METERS_IN_MILE
+    }
+    fun milesToMeters(miles: Double): Double {
+        return miles * METERS_IN_MILE
+    }
+
     @JvmStatic
+    @BindingAdapter(
+        value = ["setViewPager", "addTabLayout", "setIndicator"],
+        requireAll = false
+    )
     fun setViewPager(
         viewPager: ViewPager,
         adapter: PagerAdapter?,
@@ -309,24 +283,15 @@ object BindingAdapters {
 
     }
 
-/*    @BindingAdapter(value = ["swipeRefresh"], requireAll = false)
-    @JvmStatic
-    fun swipeRefresh(
-        swipeRefreshLayout: SwipeRefreshLayout,
-        onRefreshListener: SwipeRefreshLayout.OnRefreshListener
-    ) {
-        swipeRefreshLayout.setOnRefreshListener(onRefreshListener)
-        //swipeRefreshLayout.isRefreshing = false
-    }*/
 
-
-    @BindingAdapter(value = ["setVideoImage"], requireAll = false)
     @JvmStatic
+    @BindingAdapter("setVideoImage", requireAll = false)
     fun setVideoImage(
         videoView: VideoView, imageUrl: String?,
     ) {
         var position = 0
         if (imageUrl != null) {
+
             /*   Glide.with(CommonMethods.context)
                    .load(IMAGE_LOAD_URL + imageUrl)
                    .override(100,100)
@@ -354,14 +319,13 @@ object BindingAdapters {
             videoView.setOnErrorListener { mediaPlayer, _, _ ->
 
                 Log.d("VideoError", "$mediaPlayer")
-                CommonMethods.showToast(context, "Error in Video Playing..")
+                CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
                 false
             }
-
             videoView.setOnCompletionListener { mp ->
                 // videoView.start()
                 if (mp.duration == videoView.duration) {
-                    CommonMethods.showToast(context, "Video is Completed ..")
+                    CommonMethods.showToast(MainActivity.context.get()!!, "Video is Completed ..")
                 }
             }
             videoView.requestFocus()
@@ -371,125 +335,97 @@ object BindingAdapters {
         }
     }
 
-  /*  @BindingAdapter(value = ["calculateLatLngToMiles", "destLat", "destLong"], requireAll = false)
+    /***for full screen video view */
+
     @JvmStatic
-    fun calculateLatLngToMiles(
-        destinationTV: TextView, pref: PreferenceFile?,
-        destLat: Double, destLong: Double
+    @BindingAdapter("setFullScreenVideo", requireAll = false)
+    fun setFullScreenVideo(
+        fullScreenVideoView: VideoView, imageUrl: String?,
     ) {
-        var latValue1 = pref!!.retvieLatlong("longi").toDouble()
-        var lngValue1 = pref.retvieLatlong("lati").toDouble()
-        //   pref.storeLatlong("lati", location.longitude.toFloat())
-        // destinationTV.text = "ddsssss"
-        *//* var latValue1="30.7046"
-        var lngValue1="76.7179"*//*
-        val latLngA = LatLng(latValue1.toDouble(), lngValue1.toDouble())
-        // val latLngB = LatLng(destLat, destLong)
-        val latLngB = LatLng(destLat, destLong)
-        val locationA = Location("Point A")
-        locationA.latitude = latLngA.latitude
-        locationA.longitude = latLngA.longitude
+        var position = 0
+        if (imageUrl != null) {
+            /*   Glide.with(CommonMethods.context)
+                   .load(IMAGE_LOAD_URL + imageUrl)
+                   .override(100,100)
+                   .into(videoView)*/
+            fullScreenVideoView.setVideoPath(IMAGE_LOAD_URL + imageUrl)
+            //  mediaController.setAnchorView(videoView)
+            //   mediaController.setMediaPlayer(videoView)
+            // videoView.setMediaController(mediaController)
 
-        val locationB = Location("Point B")
-        locationB.latitude = latLngB.latitude
-        locationB.longitude = latLngB.longitude
-        var distance = locationA.distanceTo(locationB).toDouble().toString()
-        Handler().postDelayed(object : Runnable {
-            override fun run() {
-                var milesValues = "0"
-                if (distance != null) {
-                    if (distance.toString().contains(".")) {
-                        milesValues = distance.toString().split(".")[0]
-                    } else {
-                        milesValues = distance.toString()
-                    }
+            fullScreenVideoView.setOnPreparedListener { mp ->
+                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+                mp.setVolume(0f, 0f)
+                fullScreenVideoView.seekTo(position)
+
+                if (position == 0) {
+                    fullScreenVideoView.start()
+                } else {
+                    fullScreenVideoView.pause()
                 }
-                destinationTV.text = milesValues + " Miles"
-                Log.d("distanceCalqwer", destinationTV.text.toString())
+
+                mp.isLooping = true
+                // CommonMethods.showToast(requireContext(), "Video is Preparing")
+                Log.d("VideoPreparing", "video is preparing " + fullScreenVideoView.duration)
             }
-        }, 1000)
-    }*/
+            fullScreenVideoView.setOnErrorListener { mediaPlayer, _, _ ->
+
+                Log.d("VideoError", "$mediaPlayer")
+                CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
+                false
+            }
+            fullScreenVideoView.setOnCompletionListener { mp ->
+                // videoView.start()
+                if (mp.duration == fullScreenVideoView.duration) {
+                    CommonMethods.showToast(MainActivity.context.get()!!, "Video is Completed ..")
+                }
+            }
+            fullScreenVideoView.requestFocus()
+            fullScreenVideoView.start()
+        } else {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
+    }
 
 
+    @SuppressLint("SetTextI18n")
     @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
     @JvmStatic
     fun calculateLatLngToMiles(
         destinationTV: TextView, distacneValue: Double,
     ) {
-        destinationTV.text=distacneValue.toString().split(".")[0]+" "+Constants.MILES_TEXT
-        Log.e("dmfledmfdf===",distacneValue.toString())
+        destinationTV.text = distacneValue.toString().split(".")[0] + " " + Constants.MILES_TEXT
+        Log.e("dmfledmfdf===", distacneValue.toString())
     }
 
-
-
-    @BindingAdapter(value = ["calculateDistance","destinationLat","destinationLong",
-                            "currentLat","currentLong"], requireAll = false)
+    @BindingAdapter(value = ["setImage"], requireAll = false)
     @JvmStatic
-    fun calculateDistance(
-        destinationTV: TextView,
-        preferenceFile11: String,
-        destinationLat: Double,
-        destinationLong: Double,
-        currentLat:Double,
-        currentLong:Double
+    fun setImage(
+        appCompatImageView: AppCompatImageView,
+        imageUrl: String?,
     ) {
-
-      /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
-        var currentLong=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()*/
-
-        //currentLat= Constants.TEMP_LATVALUE!!
-        //currentLong= Constants.TEMP_LONGVALUE!!
-
-
-        //var currentLat="30.7046".toDouble()
-        //var currentLong="76.7179".toDouble()
-        Log.e("egmhamgasg===",Constants.TEMP_LATVALUE!!.toString())
-        Log.e("egmhamgasg111===",Constants.TEMP_LONGVALUE!!.toString())
-        val latLngA = LatLng(Constants.TEMP_LATVALUE!!.toDouble(), Constants.TEMP_LONGVALUE!!.toDouble())
-        // val latLngB = LatLng(destLat, destLong)
-        val latLngB = LatLng(destinationLat, destinationLong)
-        val locationA = Location("Point A")
-        locationA.latitude = latLngA.latitude
-        locationA.longitude = latLngA.longitude
-
-        val locationB = Location("Point B")
-        locationB.latitude = latLngB.latitude
-        locationB.longitude = latLngB.longitude
-
-        Log.e("ABCDDDDDDD==",locationA.toString())
-        Log.e("ABCDDDDDDD1111==",locationB.toString())
-        var distance = locationA.distanceTo(locationB).toDouble().toString()
-
-      var milesValues= metersToMiles(distance.toDouble())
-        if(milesValues.toString().contains("."))
-        {
-            destinationTV.text=milesValues.toString().split(".")[0]+" "+Constants.MILES_TEXT
-        }else
-        {
-            destinationTV.text=milesValues.toString()+" "+Constants.MILES_TEXT
+        if (imageUrl != null) {
+            Glide.with(MainActivity.context.get()!!)
+                .load(IMAGE_LOAD_URL + imageUrl)
+                .into(appCompatImageView)
+        } else {
         }
-
-        Log.e("ABCDDDDDDD2222==",milesValues.toString())
     }
 
 
-    @BindingAdapter(value = ["setMiles"], requireAll = false)
-    @JvmStatic
-    fun setMiles(
-        textView: AppCompatTextView,
-        value: String,
+    @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
+    fun setEditCoverImage(
+        appCompatImageView: AppCompatImageView,
+        imageUrl: String?
     ) {
-        textView.text = value.split(".")[0] + " "+Constants.MILES_TEXT
+        if (imageUrl != null) {
+            Glide.with(MainActivity.context.get()!!)
+                .load(IMAGE_LOAD_URL + imageUrl)
+                .into(appCompatImageView)
+
+        } else {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
     }
 
-    const val METERS_IN_MILE = 1609.344
-
-    fun metersToMiles(meters: Double): Double {
-        return meters / METERS_IN_MILE
-    }
-
-    fun milesToMeters(miles: Double): Double {
-        return miles * METERS_IN_MILE
-    }
-
- }
+}

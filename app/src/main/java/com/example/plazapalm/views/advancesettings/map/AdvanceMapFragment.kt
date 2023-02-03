@@ -121,11 +121,11 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
             if (it!=null){
                 if (it.equals(true)){
                     binding?.bSheetAdvanceMap?.switchMapFollow?.setOnCheckedChangeListener (null)
-                    binding?.bSheetAdvanceMap?.switchMapFollow?.setChecked(true)
+                    binding?.bSheetAdvanceMap?.switchMapFollow?.isChecked = true
 
                 }else{
                     binding?.bSheetAdvanceMap?.switchMapFollow?.setOnCheckedChangeListener (null)
-                    binding?.bSheetAdvanceMap?.switchMapFollow?.setChecked(false)
+                    binding?.bSheetAdvanceMap?.switchMapFollow?.isChecked = false
                     Log.e("ASDQWQQqq","SADASD")
                 }
             }
@@ -164,6 +164,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
 
     // Services such as getLastLocation()
     // will only run once map is ready
+    @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         this.mMap.setOnMapClickListener(this)
@@ -181,17 +182,20 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
 
         this.mMap.setOnMarkerDragListener(@SuppressLint("PotentialBehaviorOverride")
         object : OnMarkerDragListener {
+            @SuppressLint("PotentialBehaviorOverride")
             override fun onMarkerDragStart(marker: Marker) {
                 // TODO Auto-generated method stub
             }
 
+            @SuppressLint("PotentialBehaviorOverride")
             override fun onMarkerDragEnd(marker: Marker) {
                 // TODO Auto-generated method stub
 //                lat = marker.position.latitude
 //                lng = marker.position.longitude
             }
 
-            override fun onMarkerDrag(marker: Marker) {
+            @SuppressLint("PotentialBehaviorOverride")
+            override fun onMarkerDrag(@SuppressLint("PotentialBehaviorOverride") marker: Marker) {
                 // TODO Auto-generated method stub
             }
         })
@@ -221,14 +225,16 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                         mMap.addMarker(markerOptions)
 
 
-                        Log.e("ASDQWXCSD" , currentLocation.toString() + "  -- DDDDDD0" )
+                        Log.e("ASDQWXCSD" , "$currentLocation  -- DDDDDD0")
 
 
                         /**Poly lines clicks ***/
                         mMap.setOnPolylineClickListener(this@AdvanceMapFragment)
                         mMap.setOnPolylineClickListener(this@AdvanceMapFragment)
 
-                        mMap.setOnMarkerDragListener(object : OnMarkerDragListener {
+                        mMap.setOnMarkerDragListener(@SuppressLint("PotentialBehaviorOverride")
+                        object : OnMarkerDragListener {
+                            @SuppressLint("PotentialBehaviorOverride")
                             override fun onMarkerDragStart(marker: Marker) {
                                 // TODO Auto-generated method stub
                             }
@@ -290,7 +296,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
         /**Here on Switch button click dark mode and light mode handled (Dark Mode enabled-disabled)**/
         binding?.bSheetAdvanceMap?.switchAdvanceMap?.setOnClickListener {
 
-            if (viewModel.darkTheme.get()==true) {
+            if (viewModel.darkTheme.get()) {
                 viewModel.setMapThemeAPI(false, viewModel.locationOnOF.get(), viewModel.follow.get())
                 Log.e("SDFSDF2",viewModel.darkTheme.get().toString())
                 mMap.setMapStyle(null)
@@ -311,7 +317,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
 
         /**Here on Switch button click enabled-disabled the GPS Location and hit MAp Featured API... ) **/
         binding?.bSheetAdvanceMap?.switchMapLocationOnOff?.setOnClickListener {
-            if (viewModel.locationOnOF.get() == true) {
+            if (viewModel.locationOnOF.get()) {
                 viewModel.setMapThemeAPI(viewModel.darkTheme.get(), false, viewModel.follow.get())
                 viewModel.locationOnOF.set(false)
                 Log.e("SDFSDF",viewModel.locationOnOF.get().toString())
@@ -328,7 +334,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
 
         /**Here on Switch button click enabled-disabled the follow hit MAp Featured API... ) **/
         binding?.bSheetAdvanceMap?.switchMapFollow?.setOnClickListener {
-            if (viewModel.follow.get() == true) {
+            if (viewModel.follow.get()) {
 
                 viewModel.setMapThemeAPI(viewModel.darkTheme.get(),  viewModel.locationOnOF.get(), false)
                 viewModel.follow.set(false)

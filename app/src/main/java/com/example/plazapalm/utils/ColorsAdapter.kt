@@ -37,7 +37,6 @@ class ColorsAdapter(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.e("SDSDSDSDSd", dataList.toString())
-
         holder.setDAta(requireActivity, dataList, position)
     }
 

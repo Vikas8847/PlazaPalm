@@ -119,7 +119,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSettingsChangePassword"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_13sdp"
@@ -142,7 +142,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSettingsUpdateEmail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -165,7 +165,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSettingsPrivacyPolicy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -188,7 +188,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSettingsTermsUse"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -210,7 +210,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSettingsContactUs"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -234,7 +234,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSettingsDeleteAccount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_12sdp"
