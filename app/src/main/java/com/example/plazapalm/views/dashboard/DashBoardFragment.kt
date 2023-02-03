@@ -288,6 +288,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         }
 
         private fun getCategoriesListAndID() {
+            binding!!.ivDashBackBtn.visibility = View.GONE
             if (arguments != null) {
                 when {
 
@@ -431,11 +432,14 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         binding!!.ivDashBoardFilter.visibility = View.GONE
                         binding!!.searchBar.visibility = View.GONE
                         binding!!.ivDashBoardSelectedList.visibility = View.GONE
+                        binding!!.ivDashBackBtn.visibility = View.VISIBLE
                         binding!!.tvDashBoardTitle.text = arguments?.getString("cateName")
                         viewModel.status.set(arguments?.getString("status"))
 
                         val cateName = arguments?.getString("cateName")
                         val c_id = arguments?.getString("c_id")
+
+                        viewModel.title.set(cateName)
 
                         viewModel.idList.add(c_id!!)
                         viewModel.selectedCategoriesList.add(

@@ -8,6 +8,10 @@
         <variable
             name="vm"
             type="com.example.plazapalm.views.advancesettings.pictures.PicturesVM" />
+
+        <variable
+            name="mView"
+            type="android.view.View" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -26,15 +30,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:contentInsetLeft="0dp"
                 android:contentInsetStart="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                android:contentInsetRight="0dp"
+                android:contentInsetLeft="0dp"
                 android:contentInsetEnd="0dp"
-                app:contentInsetRight="0dp"
+                android:contentInsetRight="0dp"
+                android:elevation="0dp"
                 app:contentInsetEnd="0dp"
-                android:elevation="0dp">
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivPictureAddBackBtn"
@@ -51,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_1sdp"
                     android:text="Pictures"
@@ -67,7 +72,7 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:padding="@dimen/_5sdp"
-                    android:src="@drawable/ic_add_image"/>
+                    android:src="@drawable/ic_add_image" />
 
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -76,22 +81,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPictures"
                 setRecyclerAdapter="@{vm.picturesAdapter}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_1sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="@dimen/_1sdp"
                 tools:itemCount="8"
                 tools:listitem="@layout/pictures_item_list">
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <TextView
+                android:id="@+id/tvNoFoundGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="No pictures has been uploaded yet!!!"
+                android:textColor="@color/tool_bar_black_color"
+                android:textSize="@dimen/_14ssp"
+                android:visibility="@{vm.photosAvailable?mView.VISIBLE:mView.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

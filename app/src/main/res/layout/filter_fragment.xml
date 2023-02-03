@@ -24,6 +24,7 @@
                 android:id="@+id/tbFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:contentInsetStart="0dp"
                 android:background="@color/white"
                 app:titleTextColor="@color/tool_bar_black_color">
 
@@ -34,6 +35,7 @@
                     android:layout_height="@dimen/_25sdp"
                     android:onClick="@{vm::onClicks}"
                     android:padding="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:src="@drawable/ic_back_arrow_button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:fontFamily="@font/inter_medium"
                         android:paddingHorizontal="@dimen/_10sdp"
@@ -96,16 +98,17 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvFilterLocationDescription"
-                        android:layout_width="@dimen/_210sdp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:gravity="right"
-                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         android:drawableEnd="@drawable/ic_forward_icon"
                         android:drawablePadding="@dimen/_8sdp"
                         android:fontFamily="@font/inter_medium"
                         android:singleLine="true"
                         android:layoutDirection="ltr"
+
                         android:onClick="@{vm::onClicks}"
                         android:paddingHorizontal="@dimen/_1sdp"
                         android:paddingVertical="@dimen/_1sdp"
@@ -114,6 +117,7 @@
                         android:textDirection="rtl"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tvFilterLocation"
                         app:layout_constraintTop_toTopOf="@id/tvFilterLocation"
                         tools:ignore="RtlHardcoded" />
 
@@ -130,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:fontFamily="@font/inter_medium"
                         android:paddingHorizontal="@dimen/_10sdp"
@@ -146,8 +150,8 @@
                         android:id="@+id/sliderFilter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:theme="@style/ThemeOverlay.Slider"
                         android:valueFrom="1"
                         android:valueTo="100"
@@ -160,15 +164,14 @@
                         app:thumbElevation="@dimen/_1sdp"
                         app:thumbRadius="@dimen/_10sdp"
                         app:trackColorActive="@color/blue"
-                        app:trackHeight="@dimen/_3sdp"
-                        />
+                        app:trackHeight="@dimen/_3sdp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvFilterMilesValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:fontFamily="@font/inter_medium"
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:paddingVertical="@dimen/_1sdp"
@@ -196,7 +199,7 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/inter_medium"
-                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingHorizontal="@dimen/_5sdp"
                         android:paddingVertical="@dimen/_1sdp"
                         android:text="Categories"
                         android:textColor="@color/tool_bar_black_color"
@@ -224,6 +227,7 @@
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:paddingVertical="@dimen/_1sdp"
                         android:text="+ Add Categories"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:textColor="@color/sky_blue"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"

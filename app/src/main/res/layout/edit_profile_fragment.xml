@@ -98,17 +98,14 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clEditProfileCircular"
-                    android:layout_width="@dimen/_105sdp"
+                    android:layout_width="@dimen/_112sdp"
                     android:layout_marginTop="@dimen/_25sdp"
-                    android:layout_height="@dimen/_105sdp"
+                    android:layout_height="@dimen/_112sdp"
                     android:background="@drawable/ic_image_circle_bg"
                     android:onClick="@{vm::onClicks}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/gLineEditProfile">
-
-                    //                        setCircleImage="@{vm.profile_pic}"
-
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/ivEditProfile"

@@ -19,7 +19,7 @@ import com.example.plazapalm.utils.navigateWithId
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
+import com.apachat.swipereveallayout.core.SwipeLayout
 @SuppressLint("NotifyDataSetChanged")
 @HiltViewModel
 class FilterFragmentVM @Inject constructor(

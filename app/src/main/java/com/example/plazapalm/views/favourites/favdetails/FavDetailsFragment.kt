@@ -279,7 +279,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     binding!!.btnBookingProfile.visibility = View.GONE
                     //  viewModel.tvAllowBooking.set(false)
                     premiumAccount()
-                    viewEditLook()
+                  //  viewEditLook()
 
 
                     /*  viewModel.backgroundColor.observe(viewLifecycleOwner) {
@@ -888,7 +888,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
             if (p_Id != "" && p_Id != null && loginUserId != "" && loginUserId != null) {
 
-                if (loginUserId.equals("63b69f871545b79696c25166")) {
+           //     if (loginUserId.equals("63b69f871545b79696c25166")) {
                     Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
 
                     getPostprofile(
@@ -897,7 +897,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         pref.retvieLatlong("longi").toDouble()
                     )
 
-                }
+              //  }
 
             }
 

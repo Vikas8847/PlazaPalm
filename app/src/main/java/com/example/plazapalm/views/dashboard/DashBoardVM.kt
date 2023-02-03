@@ -19,6 +19,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -258,6 +259,9 @@ class DashBoardVM @Inject constructor(
             }
             R.id.ivDashBoardFilter -> {
                 view.navigateWithId(R.id.action_dashBoardFragment_to_filterFragment)
+            }
+            R.id.ivDashBackBtn->{
+                view.findNavController().navigateUp()
             }
         }
     }
