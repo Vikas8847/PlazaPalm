@@ -70,12 +70,14 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
     ): View? {
         binding = PicturesFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
+
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
+        viewModel.photosAvailable.set(false)
         setPicturesAdapter()
         initUI()
         viewModel.fetchAllGalleryPhotoMethod()

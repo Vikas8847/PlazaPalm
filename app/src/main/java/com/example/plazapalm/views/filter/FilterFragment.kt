@@ -82,7 +82,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
         if (pref.retvieMiles()!=null && (pref.retvieMiles()!=0)){
 
             var miles = pref.retvieMiles()
-            binding.tvFilterMilesValue.text=miles.toString() + " "+Constants.MILES_TEXT
+            binding.tvFilterMilesValue.text=miles.toString() + " Miles"
             binding.sliderFilter.value =miles.toFloat()
           //  binding.sliderFilter.value = 1.0f
 
@@ -123,6 +123,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
                         }
                 "minus_click"->{
+                    viewModel.swipeEnable.set(true)
                     //for minus click
                   //  viewModel.swipeEnable.set(true)
                    // viewModel.filterAdapter.get

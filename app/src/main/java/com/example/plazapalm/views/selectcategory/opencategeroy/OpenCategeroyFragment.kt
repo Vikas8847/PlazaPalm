@@ -192,5 +192,4 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         super.onResume()
         CommonMethods.statusBar(false)
     }
-
 }

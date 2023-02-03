@@ -6,6 +6,9 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.example.plazapalm.views.filter.FilterFragmentVM" />
+        <variable
             name="model"
             type="com.example.plazapalm.models.SelectedDataModelList" />
 

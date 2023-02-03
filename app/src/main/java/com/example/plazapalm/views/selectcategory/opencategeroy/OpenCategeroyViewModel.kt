@@ -2,6 +2,8 @@ package com.example.plazapalm.views.selectcategory.opencategeroy
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
@@ -21,6 +23,7 @@ import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
+import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.navigateWithId
 import com.example.plazapalm.views.selectcategory.adapters.SelectCateAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,6 +41,10 @@ class OpenCategeroyViewModel @Inject constructor(
     var repository: Repository
     ) : ViewModel() {
 
+    private var clickItem1: clickItem?=null
+    private var requireActivity1: FragmentActivity?=null
+    private var rvCategoryLocation1: RecyclerView?=null
+    private var categoryList: List<CategoriesData>?=null
     var position: Int = -1
     var isChecked = ObservableBoolean(false)
     var token = ObservableField("")
@@ -65,7 +72,10 @@ class OpenCategeroyViewModel @Inject constructor(
                 view.navigateWithId(R.id.action_openCategeroyFragment_to_addCitiesFragment)
 
             }
-        }
+            R.id.clMainCategory->{
+                //For Hide Keyboard
+                CommonMethods.context.hideKeyboard()
+            }}
 
     }
 
@@ -74,6 +84,9 @@ class OpenCategeroyViewModel @Inject constructor(
         requireActivity: FragmentActivity,
         clickItem: clickItem
     ) = viewModelScope.launch {
+        rvCategoryLocation1=rvCategoryLocation
+        requireActivity1=requireActivity
+        clickItem1=clickItem
         val body = JSONObject()
         body.put(Constants.AUTHORIZATION, token.get())
         // body.put("lat", "30.8987")
@@ -82,7 +95,8 @@ class OpenCategeroyViewModel @Inject constructor(
         // body.put("long", "76.7179")
         body.put("offset", page.get()!!)
         body.put("limit", 100)
-        body.put("search=", searchText.get())
+        //body.put("search=", searchText.get())
+        body.put("search=","")
 
         Log.e(
             "dsadas",
@@ -103,7 +117,8 @@ class OpenCategeroyViewModel @Inject constructor(
                         Long = longitude.get()!!.toDouble(),
                         OffSet = page.get()!!,
                         Limit = 100,
-                        Search = searchText.get().toString()
+                        Search =""
+                        //Search = searchText.get().toString()
                     )
                 }
 
@@ -112,24 +127,40 @@ class OpenCategeroyViewModel @Inject constructor(
 
                     if (res.isSuccessful && res.body() != null) {
                         if (res.body()!!.status == 200) {
-                            showCategories(
+                            categoryList=res.body()?.data!!
+
+                          /*  showCategories(
                                 res.body()?.data!!,
                                 rvCategoryLocation,
                                 requireActivity,
                                 clickItem
+                            )*/
+
+                            var tempSearchList=ArrayList<CategoriesData>()
+                            tempSearchList.clear()
+
+                            for(idx in 0 until categoryList!!.size)
+                            {
+                                if(categoryList!![idx].category_name.toLowerCase().contains(searchText.get().toString().toLowerCase()))
+                                {
+                                    tempSearchList.add(categoryList!![idx])
+                                }
+                            }
+                            showCategories(
+                                tempSearchList!!,
+                                rvCategoryLocation1!!,
+                                requireActivity1!!,
+                                clickItem1!!
                             )
 
                         } else {
                             CommonMethods.showToast(requireActivity, res.body()!!.message!!)
-
                         }
-
                     } else {
                         CommonMethods.showToast(requireActivity, res.message())
 
                     }
                 }
-
             })
     }
 
@@ -147,4 +178,41 @@ class OpenCategeroyViewModel @Inject constructor(
 
     }
 
+    fun onTextChange(editable: Editable) {
+
+        var tempSearchList=ArrayList<CategoriesData>()
+        tempSearchList.clear()
+
+        if (editable.toString().length > 0) {
+            Handler().postDelayed({
+               // getProfileByCategory(editable.toString(), false, "")
+                for(idx in 0 until categoryList!!.size)
+                {
+                    if(categoryList!![idx].category_name.toLowerCase().contains(editable.toString().toLowerCase()))
+                        {
+                            tempSearchList.add(categoryList!![idx])
+                        }
+                }
+                showCategories(
+                    tempSearchList!!,
+                    rvCategoryLocation1!!,
+                    requireActivity1!!,
+                    clickItem1!!
+                )
+
+            }, 1000)
+        } else {
+            Handler().postDelayed({
+                showCategories(
+                    categoryList!!,
+                    rvCategoryLocation1!!,
+                    requireActivity1!!,
+                    clickItem1!!
+                )
+              //  getProfileByCategory("", false, "")
+            }, 1000)
+        }
+
+        Log.e("QQWQWQw", editable.toString())
+    }
 }
