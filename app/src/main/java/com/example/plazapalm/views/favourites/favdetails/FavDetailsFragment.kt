@@ -215,8 +215,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                     val data = requireArguments().getSerializable("ResBody") as ArrayList<FavData>
                     val pos = requireArguments().getInt("pos")
-                    val image: ArrayList<String> =
-                        data.get(pos).postProfile_picture as ArrayList<String>
+                    val image: ArrayList<String> = data.get(pos).postProfile_picture as ArrayList<String>
                     setFavdata(pos, data, image)
 
                     Log.e("kgvnsngsgggg===", loginUserPId.toString())
@@ -339,10 +338,9 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         viewModel.tvFavDetailsAddress.set(data.get(pos).address)
         viewModel.tvFavCityAddress.set(data.get(pos).location_text)
-//        viewModel.fav_title.set(data.get(pos).user_name)
+//      viewModel.fav_title.set(data.get(pos).user_name)
         viewModel.username.set(data.get(pos).user_name)
         viewModel.p_id.set(data.get(pos).p_id)
-
         viewModel.userId.set(data.get(pos)._id)
 
         checkForMiles(data.get(pos)._id.toString())

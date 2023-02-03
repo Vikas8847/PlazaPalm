@@ -205,7 +205,9 @@ class FavDetailsVM @Inject constructor(
                     view.navigateWithId(R.id.messagesFragment)
                 } else {
                     //Go to the Single Message screen
-                    view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment)
+                    val bundle =Bundle()
+//                    bundle.putString("user_Id",)
+                    view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment,bundle)
                 }
             }
 

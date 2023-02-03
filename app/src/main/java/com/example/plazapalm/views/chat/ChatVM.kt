@@ -210,7 +210,8 @@ class ChatVM @Inject constructor(
 
         message["message"] = messageText.get().toString()
         message["messageType"] = "1"
-        message["timestamp"] = currentTime
+        message["messageTime"] = currentTime
+        message["readStatus"] = false
 //        message["senderuid"] = user!!.uid
 //        message["reciveruid"] = intent.extras!!.get("Uid").toString()
 

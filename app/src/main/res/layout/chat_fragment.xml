@@ -124,7 +124,7 @@
                     android:id="@+id/sendMessage_tv"
                     style="@style/MyEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:background="@drawable/chat_send_bg"
                     android:drawableEnd="@drawable/ic_chat_send_icon"
                     android:drawablePadding="@dimen/_5sdp"
