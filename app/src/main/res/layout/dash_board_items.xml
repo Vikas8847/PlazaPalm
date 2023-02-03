@@ -16,9 +16,9 @@
         <!-- <variable
              name="model"
              type="com.example.plazapalm.models.DashBoardModel" />-->
-<variable
-    name="mContext"
-    type="android.content.Context" />
+        <variable
+            name="mContext"
+            type="android.content.Context" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -41,13 +41,13 @@
                 setImage="@{model.postProfile_picture[0]}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
-                android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:alpha="1"
-                app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/placeholder" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:layout_width="match_parent"
@@ -70,13 +70,13 @@
                 android:id="@+id/tvDashBoardItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_medium"
+                android:layout_margin="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/inter_medium"
                 android:gravity="center_horizontal"
                 android:text="@{model.first_name }"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                android:layout_margin="@dimen/_5sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tool:text="Natalie" />
@@ -85,14 +85,14 @@
                 android:id="@+id/tvDashBoardItemLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center_horizontal"
                 android:text="@{model.last_name}"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintTop_toBottomOf="@+id/tvDashBoardItemName"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDashBoardItemName"
                 tool:text="Portman" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -100,19 +100,19 @@
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:src="@{model.isFavourite() ? @drawable/ic_heart_filled_icon : @drawable/ic_heart_icon}"
                 android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`dashItemClick_fav`)}"
+                android:src="@{model.isFavourite() ? @drawable/ic_heart_filled_icon : @drawable/ic_heart_icon}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvDashBoardItemName" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDashBoardItemDescription"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:maxLines="2"
                 android:singleLine="true"
@@ -143,27 +143,29 @@
                   android:text="@{vm.distance}"
         -->
 
+<!--
             <TextView
                 android:id="@+id/tvDashBoardItemDistance"
+                calculateDistance="@{model.location_text}"
+                calculateLatLngToMiles="@{model.distance}"
+                currentLat="@{vm.lati}"
+                currentLong="@{vm.longi}"
+                destinationLat="@{model.location.coordinates[1]}"
+                destinationLong="@{model.location.coordinates[0]}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+
                 android:fontFamily="@font/inter_medium"
                 android:gravity="end"
-                calculateLatLngToMiles="@{model.distance}"
-                calculateDistance="@{model.location_text}"
-                destinationLat="@{model.location.coordinates[1]}"
-                destinationLong="@{model.location.coordinates[0]}"
-                currentLat="@{vm.lati}"
-                currentLong="@{vm.longi}"
-
                 android:singleLine="true"
-                android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

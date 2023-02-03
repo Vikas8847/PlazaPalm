@@ -21,7 +21,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
     @Nullable
     private final android.view.View.OnClickListener mCallback23;
     @Nullable
-    private final android.view.View.OnClickListener mCallback24;
+    private final android.view.View.OnClickListener mCallback21;
     @Nullable
     private final android.view.View.OnClickListener mCallback22;
     // values
@@ -51,9 +51,9 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
         this.tvClBookingUserTime.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback23 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
-        mCallback24 = new com.example.plazapalm.generated.callback.OnClickListener(this, 3);
-        mCallback22 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback23 = new com.example.plazapalm.generated.callback.OnClickListener(this, 3);
+        mCallback21 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback22 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
         invalidateAll();
     }
 
@@ -148,9 +148,9 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.ivCalendarDelete.setOnClickListener(mCallback23);
-            this.ivCalenderChat.setOnClickListener(mCallback24);
-            this.mailLayout.setOnClickListener(mCallback22);
+            this.ivCalendarDelete.setOnClickListener(mCallback22);
+            this.ivCalenderChat.setOnClickListener(mCallback23);
+            this.mailLayout.setOnClickListener(mCallback21);
         }
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
@@ -166,42 +166,6 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
     // callback impls
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         switch(sourceId) {
-            case 2: {
-                // localize variables for thread safety
-                // model
-                com.example.plazapalm.models.CalenderData model = mModel;
-                // model.adapterPosition
-                int modelAdapterPosition = 0;
-                // model.onItemClick
-                com.example.plazapalm.recycleradapter.RecyclerAdapter.OnItemClick modelOnItemClick = null;
-                // model != null
-                boolean modelJavaLangObjectNull = false;
-                // model.onItemClick != null
-                boolean modelOnItemClickJavaLangObjectNull = false;
-
-
-
-                modelJavaLangObjectNull = (model) != (null);
-                if (modelJavaLangObjectNull) {
-
-
-                    modelOnItemClick = model.getOnItemClick();
-
-                    modelOnItemClickJavaLangObjectNull = (modelOnItemClick) != (null);
-                    if (modelOnItemClickJavaLangObjectNull) {
-
-
-
-
-
-                        modelAdapterPosition = model.getAdapterPosition();
-
-
-                        modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "deleteConfirmBooking");
-                    }
-                }
-                break;
-            }
             case 3: {
                 // localize variables for thread safety
                 // model
@@ -270,6 +234,42 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
 
 
                         modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "calendarBookingDetails");
+                    }
+                }
+                break;
+            }
+            case 2: {
+                // localize variables for thread safety
+                // model
+                com.example.plazapalm.models.CalenderData model = mModel;
+                // model.adapterPosition
+                int modelAdapterPosition = 0;
+                // model.onItemClick
+                com.example.plazapalm.recycleradapter.RecyclerAdapter.OnItemClick modelOnItemClick = null;
+                // model != null
+                boolean modelJavaLangObjectNull = false;
+                // model.onItemClick != null
+                boolean modelOnItemClickJavaLangObjectNull = false;
+
+
+
+                modelJavaLangObjectNull = (model) != (null);
+                if (modelJavaLangObjectNull) {
+
+
+                    modelOnItemClick = model.getOnItemClick();
+
+                    modelOnItemClickJavaLangObjectNull = (modelOnItemClick) != (null);
+                    if (modelOnItemClickJavaLangObjectNull) {
+
+
+
+
+
+                        modelAdapterPosition = model.getAdapterPosition();
+
+
+                        modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "deleteConfirmBooking");
                     }
                 }
                 break;

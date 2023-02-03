@@ -61,8 +61,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!--Added Current Location Button -->
             <androidx.appcompat.widget.AppCompatImageView
@@ -79,14 +77,11 @@
             <include
                 android:id="@+id/bSheetAdvanceMap"
                 layout="@layout/advance_map_bottom_sheet"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

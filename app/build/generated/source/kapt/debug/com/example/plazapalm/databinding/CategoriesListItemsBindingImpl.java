@@ -19,7 +19,7 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback19;
+    private final android.view.View.OnClickListener mCallback18;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -37,7 +37,7 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
         this.tvSelectCategory.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback19 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback18 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -199,7 +199,7 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.clCategoriesList.setOnClickListener(mCallback19);
+            this.clCategoriesList.setOnClickListener(mCallback18);
         }
         if ((dirtyFlags & 0x9L) != 0) {
             // api target 1
@@ -235,29 +235,3 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
             if (modelOnItemClickJavaLangObjectNull) {
 
 
-
-
-
-                modelAdapterPosition = model.getAdapterPosition();
-
-
-                modelOnItemClick.onClick(callbackArg_0, modelAdapterPosition, "PostProfile");
-            }
-        }
-    }
-    // dirty flag
-    private  long mDirtyFlags = 0xffffffffffffffffL;
-    /* flag mapping
-        flag 0 (0x1L): model
-        flag 1 (0x2L): vm
-        flag 2 (0x3L): categoryName
-        flag 3 (0x4L): null
-        flag 4 (0x5L): androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) == true ? @android:drawable/ic_checkbox_tick_icon : @android:drawable/ic_checkbox_unselect_tick_icon
-        flag 5 (0x6L): androidx.databinding.ViewDataBinding.safeUnbox(model.isCheck()) == true ? @android:drawable/ic_checkbox_tick_icon : @android:drawable/ic_checkbox_unselect_tick_icon
-        flag 6 (0x7L): model.count == null ? "" : model.count
-        flag 7 (0x8L): model.count == null ? "" : model.count
-        flag 8 (0x9L): model.category_name == null ? "" : model.category_name
-        flag 9 (0xaL): model.category_name == null ? "" : model.category_name
-    flag mapping end*/
-    //end
-}

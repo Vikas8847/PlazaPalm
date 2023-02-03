@@ -54,7 +54,6 @@ class FavouritesVM @Inject constructor(
     init {
 
         getFavdata()
-
         favAdapter.setOnItemClick { view, position, type ->
             when (type) {
                 "favDetailsItem" -> {
