@@ -1,6 +1,5 @@
 package com.example.plazapalm.views.advancesettings.pictures
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,14 +15,16 @@ import com.example.plazapalm.databinding.ShowPictureVideoFragmentBinding
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.example.plazapalm.utils.CommonMethods
 import dagger.hilt.android.AndroidEntryPoint
+
 @AndroidEntryPoint
 class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) {
-    private var media_type: String?=""
-    private var mediaUrl: String?=""
+    private var media_type: String? = ""
+    private var mediaUrl: String? = ""
     lateinit var videoView: VideoView
     lateinit var mediaController: MediaController
-    val position: Int?=0
-    var videoUrl = "https://media.geeksforgeeks.org/wp-content/uploads/20201217192146/Screenrecorder-2020-12-17-19-17-36-828.mp4?_=1"
+    val position: Int? = 0
+    var videoUrl =
+        "https://media.geeksforgeeks.org/wp-content/uploads/20201217192146/Screenrecorder-2020-12-17-19-17-36-828.mp4?_=1"
     private var binding: ShowPictureVideoFragmentBinding? = null
     private val viewModel: ShowPictureVideoVM by viewModels()
     override fun onCreateView(
@@ -34,16 +35,14 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         videoView = VideoView(requireContext())
         mediaController = MediaController(requireContext())
 
-       mediaUrl= requireArguments().getString("media")
-        media_type=  requireArguments().getString("media_type")
+        mediaUrl = requireArguments().getString("media")
+        media_type = requireArguments().getString("media_type")
 
         viewModel.mediaType.set(media_type!!.toInt())
-        if(media_type=="2")
-        {
-            setUpVideoPlayer(IMAGE_LOAD_URL+mediaUrl)
-        }else
-        {
-         //   showPhotoMethod(IMAGE_LOAD_URL+mediaUrl)
+        if (media_type == "2") {
+            setUpVideoPlayer(IMAGE_LOAD_URL + mediaUrl)
+        } else {
+            //   showPhotoMethod(IMAGE_LOAD_URL+mediaUrl)
             viewModel.mediaValue.set(mediaUrl)
         }
 
@@ -51,8 +50,7 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         return binding?.root
     }
 
-   fun showPhotoMethod(mediaUrl:String)
-    {
+    fun showPhotoMethod(mediaUrl: String) {
         Glide.with(requireActivity())
             .load(mediaUrl)
             .error(R.drawable.ic_place_holder)
@@ -64,10 +62,10 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         binding?.vm = viewModel
     }
 
-    private fun setUpVideoPlayer(videoUrl:String) {
+    private fun setUpVideoPlayer(videoUrl: String) {
         videoView = binding?.vPlayer!!
-       /* val uri: Uri = Uri.parse(videoUrl)
-        videoView.setVideoURI(uri)*/
+        /* val uri: Uri = Uri.parse(videoUrl)
+         videoView.setVideoURI(uri)*/
         videoView.setVideoPath(videoUrl)
         mediaController.setAnchorView(videoView)
         mediaController.setMediaPlayer(videoView)
@@ -76,16 +74,15 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         videoView.setOnPreparedListener { mp ->
 
             videoView.seekTo(position!!)
-            mp.setVolume(0f,0f)
-            if (position==0){
+            mp.setVolume(0f, 0f)
+            if (position == 0) {
                 videoView.start()
-            }
-            else{
+            } else {
                 videoView.pause()
             }
 
             mp.isLooping = true
-           // CommonMethods.showToast(requireContext(), "Video is Preparing")
+            // CommonMethods.showToast(requireContext(), "Video is Preparing")
             Log.d("VideoPreparing", "video is preparing " + videoView.duration)
         }
         videoView.setOnErrorListener { mediaPlayer, _, _ ->
@@ -96,8 +93,8 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
         }
 
         videoView.setOnCompletionListener { mp ->
-           // videoView.start()
-            if (mp.duration==videoView.duration){
+            // videoView.start()
+            if (mp.duration == videoView.duration) {
                 CommonMethods.showToast(requireContext(), "Video is Completed ..")
             }
         }
@@ -111,9 +108,7 @@ class ShowPictureVideoFragment : Fragment(R.layout.show_picture_video_fragment) 
             if (viewModel.isPlayClicked.get()) {
                 viewModel.isPlayClicked.set(false)
                 videoView.start()
-            }
-            else
-            {
+            } else {
                 viewModel.isPlayClicked.set(true)
                 videoView.pause()
             }

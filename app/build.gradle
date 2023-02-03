@@ -219,4 +219,8 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:28.4.1")
     implementation 'com.google.firebase:firebase-auth-ktx'
 
+    //Dimensions
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
 }

@@ -46,7 +46,8 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback, LocationSource.OnLocationChangedListener {
+class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCallback,
+    LocationSource.OnLocationChangedListener {
 
     private var loginUserPId: String? = ""
     private var loginUserId: String? = ""
@@ -304,9 +305,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 //                    val userPostProfileId = requireArguments().get("userPostProfileId").toString()
                     viewModel.p_id.set(requireArguments().get("userPostProfileId").toString())
 
-                    Log.e("ASDASQWEQWe", viewModel.p_id.get().toString() + "xdfdf   " +
-                            pref.retvieLatlong("lati").toDouble() + " sdfsdf  " +
-                            pref.retvieLatlong("longi").toDouble().toString().toString())
+                    Log.e(
+                        "ASDASQWEQWe", viewModel.p_id.get().toString() + "xdfdf   " +
+                                pref.retvieLatlong("lati").toDouble() + " sdfsdf  " +
+                                pref.retvieLatlong("longi").toDouble().toString().toString()
+                    )
 
                     getPostprofile(
                         viewModel.p_id.get().toString(),
@@ -413,11 +416,13 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         Log.e("fkqwfrkwqkfqwff===", data.get(pos)._id.toString())
 
-        calculateDistance(binding!!.tvFavDetailsDistance,
+        calculateDistance(
+            binding!!.tvFavDetailsDistance,
             data.get(pos).lat!!,
             data.get(pos).long!!,
             Constants.TEMP_LATVALUE!!,
-            Constants.TEMP_LONGVALUE!!)
+            Constants.TEMP_LONGVALUE!!
+        )
 
     }
 
@@ -476,9 +481,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             binding!!.videoViewDetail.visibility = View.VISIBLE
             binding!!.ivVideoIconDetails.visibility = View.VISIBLE
             var activity = requireActivity() as Activity
-            activity.setVideoPlayMethod(binding!!.videoViewDetail,
+            activity.setVideoPlayMethod(
+                binding!!.videoViewDetail,
                 IMAGE_LOAD_URL + imageValue,
-                binding!!.ivVideoIconDetails)
+                binding!!.ivVideoIconDetails
+            )
         }
     }
 
@@ -524,8 +531,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         )
 
                         //for current lat long
-                        pref.storeLatlong("lati",location.latitude.toFloat())
-                        pref.storeLatlong("longi",location.longitude.toFloat())
+                        pref.storeLatlong("lati", location.latitude.toFloat())
+                        pref.storeLatlong("longi", location.longitude.toFloat())
 
                         /* mMap.addMarker(MarkerOptions().position(latLng)
                                  .title("Your Destination is Here ")
@@ -577,7 +584,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
     private fun getPostprofile(p_id: String, lati: Double, longi: Double) {
 
-        Log.e("KKKKAAALLLL", p_id + " PID " + pref.retvieLatlong("lati").toFloat() + " LAT  " + pref.retvieLatlong("longi").toFloat() + " LONG ")
+        Log.e(
+            "KKKKAAALLLL",
+            p_id + " PID " + pref.retvieLatlong("lati")
+                .toFloat() + " LAT  " + pref.retvieLatlong("longi").toFloat() + " LONG "
+        )
 
         repository.makeCall(
             ApiEnums.GET_POST_PROFILE,
@@ -647,8 +658,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                                 }
 
-                                Log.e("mfkwefmfewfwfwwfwef====",
-                                    viewModel.checkFavouriteShow.get().toString())
+                                Log.e(
+                                    "mfkwefmfewfwfwwfwef====",
+                                    viewModel.checkFavouriteShow.get().toString()
+                                )
 
                                 dataList =
                                     res.body()!!.data.postProfile_picture as ArrayList<String> /* = java.util.ArrayList<kotlin.String> */
@@ -688,14 +701,18 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
 
 
-                                setFirstMediaMethod(res.body()!!.data.postProfile_picture!!.get(0)
-                                    .toString())
+                                setFirstMediaMethod(
+                                    res.body()!!.data.postProfile_picture!!.get(0)
+                                        .toString()
+                                )
 
-                                calculateDistance(binding!!.tvFavDetailsDistance,
+                                calculateDistance(
+                                    binding!!.tvFavDetailsDistance,
                                     res.body()!!.data.lat!!,
                                     res.body()!!.data.long!!,
                                     Constants.TEMP_LATVALUE!!,
-                                    Constants.TEMP_LONGVALUE!!)
+                                    Constants.TEMP_LONGVALUE!!
+                                )
 
 
                                 /*   if (res.body()!!.data.postProfile_picture != null && !(res.body()!!.data.postProfile_picture!!.isEmpty())) {

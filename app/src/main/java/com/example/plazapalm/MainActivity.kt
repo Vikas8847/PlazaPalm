@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.plazapalm.databinding.ActivityMainBinding
 import com.example.plazapalm.pref.PreferenceFile
-import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.CommonMethods.dialog
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.onNavDestinationSelected
 import com.example.plazapalm.views.MainVM
@@ -86,30 +86,37 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun setUpNav() {
         navController = findNavController(R.id.fragmentMain)
-       // navController!!.setGraph(navController!!.graph,Bundle())
+        // navController!!.setGraph(navController!!.graph,Bundle())
         binding?.bottNavMain?.setOnNavigationItemSelectedListener(this)
-     //   navController?.navigate(R.id.dashBoardFragment)
-        navController?.addOnDestinationChangedListener {
-                _, destination, _ ->
+        //   navController?.navigate(R.id.dashBoardFragment)
         navController?.addOnDestinationChangedListener { _, destination, _ ->
+            navController?.addOnDestinationChangedListener { _, destination, _ ->
 
-            if (destination.id == R.id.dashBoardFragment || destination.id == R.id.myProfileFragment ||
-                destination.id == R.id.messagesFragment || destination.id == R.id.openCategeroyFragment ||
-                destination.id == R.id.advanceMapFragment || destination.id == R.id.picturesFragment ||
-                destination.id == R.id.bookingDetailsFragment) {
+                if (destination.id == R.id.dashBoardFragment || destination.id == R.id.myProfileFragment ||
+                    destination.id == R.id.messagesFragment || destination.id == R.id.openCategeroyFragment ||
+                    destination.id == R.id.advanceMapFragment || destination.id == R.id.picturesFragment ||
+                    destination.id == R.id.bookingDetailsFragment
+                ) {
 
-                binding?.bottNavMain?.selectedItemId = destination.id
-                binding?.bottNavMain?.isVisible = true
-                Log.e("gmslgsgsgs11====", "wgwgqwgewg")
-            } else {
-                binding?.bottNavMain?.isVisible = false
-                Log.e("gmslgsgsgs22====", "wgwgqwgewg")
+                    binding?.bottNavMain?.selectedItemId = destination.id
+                    binding?.bottNavMain?.isVisible = true
+                    Log.e("gmslgsgsgs11====", "wgwgqwgewg")
+                } else {
+                    binding?.bottNavMain?.isVisible = false
+                    Log.e("gmslgsgsgs22====", "wgwgqwgewg")
+                }
             }
         }
+
+
+        var dialog: Dialog? = null
+
+
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        if (item.itemId!= navController?.currentDestination!!.id){
+        if (item.itemId != navController?.currentDestination!!.id) {
             when (item.itemId) {
                 R.id.dashBoard -> {
                     if (binding!!.bottNavMain.menu.getItem(0).isChecked) {
@@ -120,7 +127,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         binding!!.bottNavMain.isClickable = true
                         hideKeyboard()
                         Log.e("gmslgsgsgs====", "wgwgqwgewg")
-                        binding?.bottNavMain?.onNavDestinationSelected(item.itemId, navController!!)
+                        binding?.bottNavMain?.onNavDestinationSelected(
+                            item.itemId,
+                            navController!!
+                        )
                         navController?.navigate(R.id.dashBoardFragment)
                     }
                 }
@@ -133,7 +143,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         binding!!.bottNavMain.isEnabled = true
                         binding!!.bottNavMain.isClickable = true
                         hideKeyboard()
-                        binding?.bottNavMain?.onNavDestinationSelected(item.itemId, navController!!)
+                        binding?.bottNavMain?.onNavDestinationSelected(
+                            item.itemId,
+                            navController!!
+                        )
                         val bundle = Bundle()
                         bundle.putString("comingFrom", "main")
                         navController?.navigate(R.id.openCategeroyFragment, bundle)
@@ -150,7 +163,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         binding!!.bottNavMain.isClickable = true
                         binding!!.bottNavMain.isEnabled = true
                         hideKeyboard()
-                        binding?.bottNavMain?.onNavDestinationSelected(item.itemId, navController!!)
+                        binding?.bottNavMain?.onNavDestinationSelected(
+                            item.itemId,
+                            navController!!
+                        )
                         navController?.navigate(R.id.messagesFragment)
                     }
 
@@ -165,7 +181,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         binding!!.bottNavMain.isClickable = true
                         binding!!.bottNavMain.isEnabled = true
                         hideKeyboard()
-                        binding?.bottNavMain?.onNavDestinationSelected(item.itemId, navController!!)
+                        binding?.bottNavMain?.onNavDestinationSelected(
+                            item.itemId,
+                            navController!!
+                        )
                         navController?.navigate(R.id.myProfileFragment)
                     }
 
@@ -176,21 +195,71 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
 
         /*  if (item.itemId != navController!!.currentDestination!!.id) {
-          }
-          return true*/
+      }
+      return true*/
         return true
 
     }
 
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount == 1) {
-            showExitDialog()
-        } else {
-            super.onBackPressed()
-        }
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Branch.sessionBuilder(this).withCallback { referringParams, error ->
+            if (error != null) {
+                Log.e("BranchSDK_Tester", error.message)
+            } else if (referringParams != null) {
+                Log.e("BranchSDK_Tester", referringParams.toString())
+            } else {
+
+            }
+        }.reInit()
     }
 
-    var dialog: Dialog? = null
+
+    override fun onStart() {
+        super.onStart()
+        context = WeakReference(this)
+        activity = Activity()
+        Branch.sessionBuilder(this)
+            .withCallback { branchUniversalObject, linkProperties, error ->
+                if (error != null) {
+                    Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.message)
+                } else {
+                    Log.e("BranchSDK_Tester", "branch init complete!")
+                    if (branchUniversalObject != null) {
+                        Log.e("BranchSDK_Tester", "title " + branchUniversalObject.title)
+                        Log.e(
+                            "BranchSDK_Tester",
+                            "CanonicalIdentifier " + branchUniversalObject.canonicalIdentifier
+                        )
+                        Log.e(
+                            "BranchSDK_Tester",
+                            "metadata " + branchUniversalObject.contentMetadata.convertToJson()
+                        )
+
+                        var dataObject = branchUniversalObject.contentMetadata.convertToJson()
+                        var deeplink_path = dataObject.getString("deeplink_path")
+                        //Toast.makeText(this,deeplink_path,Toast.LENGTH_LONG).show()
+                    }
+                    if (linkProperties != null) {
+                        Log.e("BranchSDK_Tester", "Channel " + linkProperties.channel)
+                        Log.e(
+                            "BranchSDK_Tester",
+                            "control params " + linkProperties.controlParams
+                        )
+                    } else {
+
+                    }
+                }
+            }.withData(this.intent.data).init()
+    }
+
+    private fun setTypeHeretoCategoryFragment() {
+        val intent = Intent(this, CategoriesListFragment::class.java)
+        val bundle = Bundle()
+        bundle.putString("comingFrom", "mainActivity")
+        activity.startActivity(intent, bundle)
+    }
+
     private fun showExitDialog() {
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
@@ -215,55 +284,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         dialog?.show()
     }
 
-    private fun setTypeHeretoCategoryFragment() {
-        val intent = Intent(this, CategoriesListFragment::class.java)
-        val bundle = Bundle()
-        bundle.putString("comingFrom", "mainActivity")
-        activity.startActivity(intent, bundle)
-    }
-    override fun onStart() {
-        super.onStart()
-        context = WeakReference(this)
-        activity = Activity()
-        Branch.sessionBuilder(this).withCallback { branchUniversalObject, linkProperties, error ->
-            if (error != null) {
-                Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.message)
-            } else {
-                Log.e("BranchSDK_Tester", "branch init complete!")
-                if (branchUniversalObject != null) {
-                    Log.e("BranchSDK_Tester", "title " + branchUniversalObject.title)
-                    Log.e(
-                        "BranchSDK_Tester",
-                        "CanonicalIdentifier " + branchUniversalObject.canonicalIdentifier
-                    )
-                    Log.e(
-                        "BranchSDK_Tester",
-                        "metadata " + branchUniversalObject.contentMetadata.convertToJson()
-                    )
-
-                    var dataObject = branchUniversalObject.contentMetadata.convertToJson()
-                    var deeplink_path = dataObject.getString("deeplink_path")
-                    //Toast.makeText(this,deeplink_path,Toast.LENGTH_LONG).show()
-                }
-                if (linkProperties != null) {
-                    Log.e("BranchSDK_Tester", "Channel " + linkProperties.channel)
-                    Log.e("BranchSDK_Tester", "control params " + linkProperties.controlParams)
-                } else {
-
-                }
-            }
-        }.withData(this.intent.data).init()
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finishAffinity()
+            // showExitDialog()
+        } else {
+            super.onBackPressed()
+        }
     }
 
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        Branch.sessionBuilder(this).withCallback { referringParams, error ->
-            if (error != null) {
-                Log.e("BranchSDK_Tester", error.message)
-            } else if (referringParams != null) {
-                Log.e("BranchSDK_Tester", referringParams.toString())
-            }
-        }.reInit()
-    }
 }

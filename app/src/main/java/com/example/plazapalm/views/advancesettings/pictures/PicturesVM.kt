@@ -63,13 +63,13 @@ class PicturesVM @Inject constructor() : ViewModel() {
                 "deleteImageVideo" -> {
                     //Delete Api Call Here..
                    var list1= picturesAdapter.getAllItems() as ArrayList<PicturesModel>
-                    deleteGalleryPhotoMethod(list1[position].image.toString(),position)
+                    deleteGalleryPhotoMethod(list1[position].image,position)
                 }
                 "picturesItemClick" -> {
                     //Navigate to show image or video on new  screen.
                     var list1= picturesAdapter.getAllItems() as ArrayList<PicturesModel>
                     var bundle= Bundle()
-                    bundle.putString("media",list1[position].image.toString())
+                    bundle.putString("media", list1[position].image)
                     bundle.putString("media_type",list1[position].type.toString())
                       view.navigateWithId(R.id.action_picturesFragment_to_showPictureVideoFragment,bundle)
                 }
@@ -121,13 +121,11 @@ class PicturesVM @Inject constructor() : ViewModel() {
         var tempList=ArrayList<String>()
         tempList.add(filePath)
         var surveyImagesParts: Array<MultipartBody.Part?>? = null
-        if (tempList!!.size > 0) {
+        if (tempList.size > 0) {
             Log.e("cXXZZZ", tempList.toString() + "VVVV")
 
             surveyImagesParts = arrayOfNulls<MultipartBody.Part>(tempList?.size!!)
-
             for (index in 0 until tempList!!.size) {
-
                 var mediaType=""
                 if(type==2)
                 {
@@ -139,9 +137,7 @@ class PicturesVM @Inject constructor() : ViewModel() {
                     mediaType="image/*"
                 }
 
-                val file = File(
-                    tempList!!
-                        .get(index)
+                val file = File(tempList!!.get(index)
                         .toString()
                 )
                 Log.e("SDDDOOPPPP", file.toString())
@@ -300,7 +296,7 @@ class PicturesVM @Inject constructor() : ViewModel() {
 
 
     //For Delete single photo
-    fun deleteGalleryPhotoMethod(photoName:String, selectedPosition:Int)
+    private fun deleteGalleryPhotoMethod(photoName:String, selectedPosition:Int)
     {
         var photoList1=ArrayList<String>()
         photoList1.add(photoName)

@@ -484,21 +484,11 @@ class FavDetailsVM @Inject constructor(
                 }
             */
 
-
                 setDataaa(p_id.get().toString())
-
-
-
-
-
-
-
-
             }
 
             /**RePort Button Click**/
             reportText = dialog?.findViewById<AppCompatTextView>(R.id.tvChooseOptFavDetailsReport)
-
             reportText?.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("p_id", p_id.get())
@@ -514,7 +504,6 @@ class FavDetailsVM @Inject constructor(
                 ?.setOnClickListener {
                     dialog?.dismiss()
                 }
-
             /*** User cant report of owen account make change in this check */
 
             if ((u_ID.get().equals(userId.get()))) {
@@ -523,7 +512,6 @@ class FavDetailsVM @Inject constructor(
                 reportText?.visibility = View.VISIBLE
             }
         }
-
         dialog?.show()
 
     }

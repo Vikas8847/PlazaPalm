@@ -54,9 +54,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
     private fun getBusinessStatus() {
         if (pref.retrieveBoolKey(business_profile_status) != null) {
             val businessStatus = pref.retrieveBoolKey(business_profile_status)
-
             if (businessStatus!!.equals(true)) {
-
                 binding?.tvUpgrade?.visibility = View.VISIBLE
                 binding?.viewUpgrade?.visibility = View.VISIBLE
 
@@ -80,12 +78,8 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
     }
 
     private fun getstatus() {
-
-
         Log.e("SDSDSDSDSDS", pref.retrieveBoolKey(Constants.POSTSTATUS).toString())
-
         if (pref.retrieveBoolKey(Constants.POSTSTATUS)!!.equals(true)) {
-
             viewModel.status.set("View Profile")
             viewModel.changestatus.set(true)
             Log.e("TRUE", pref.retrieveBoolKey(Constants.POSTSTATUS).toString())

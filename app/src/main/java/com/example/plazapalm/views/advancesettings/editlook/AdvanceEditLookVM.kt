@@ -56,7 +56,6 @@ import com.example.plazapalm.utils.Constants.FONT_COLOR
 import com.example.plazapalm.utils.Constants.FONT_OPACITY
 import com.example.plazapalm.utils.Constants.FONT_SIZE
 import com.example.plazapalm.utils.hideKeyboard
-import com.google.android.gms.common.internal.service.Common
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.Slider
@@ -67,7 +66,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 @SuppressLint("StaticFieldLeak")
@@ -79,7 +77,7 @@ class AdvanceEditLookVM @Inject constructor(
     private var repository: Repository
 
 ) : ViewModel(), clickItem {
-      var fontsFilteredList=java.util.ArrayList<FontsListModelResponse>()
+    var fontsFilteredList = java.util.ArrayList<FontsListModelResponse>()
     var advanceEditLookFontsNameList = ArrayList<FontsListModelResponse>()
     var appCompatTxtFont: AppCompatTextView? = null
 
@@ -190,16 +188,14 @@ class AdvanceEditLookVM @Inject constructor(
             R.id.btnAdvanceEditLookAttach -> {
                 postColorsAPI()
             }
-
         }
-
     }
-
 
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     private fun showBottomSheetDialogOne() {
         fontsFilteredList.clear()
-        fontBottomSheet = BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
+        fontBottomSheet =
+            BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
         fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         scheduleBinding =
             AdvanceEditlookFontlistBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
@@ -317,7 +313,6 @@ class AdvanceEditLookVM @Inject constructor(
         val BebasRegular =
             Typeface.createFromAsset(CommonMethods.context.assets, CommonMethods.bebasRegular)
         appCompatTxtFont?.typeface = BebasRegular
-
 
 
         //C
@@ -773,27 +768,87 @@ class AdvanceEditLookVM @Inject constructor(
                 CommonMethods.abrilFatFaceFontName
             )
         )
-        advanceEditLookFontsNameList.add(FontsListModelResponse(alexBrushRegular, CommonMethods.alexBrushFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(allerBD, CommonMethods.allerBDFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(allerBDLT, CommonMethods.allerBDItFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(allerIt, CommonMethods.allerItFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(allerDisplay, CommonMethods.AllerDisplayFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(allerRG, CommonMethods.AllerRGFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(antinoBold, CommonMethods.AntonioBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(antonioLight, CommonMethods.AntonioLightFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(antonioRegular, CommonMethods.AntonioRegularFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                alexBrushRegular,
+                CommonMethods.alexBrushFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                allerBD,
+                CommonMethods.allerBDFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                allerBDLT,
+                CommonMethods.allerBDItFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                allerIt,
+                CommonMethods.allerItFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                allerDisplay,
+                CommonMethods.AllerDisplayFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                allerRG,
+                CommonMethods.AllerRGFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                antinoBold,
+                CommonMethods.AntonioBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                antonioLight,
+                CommonMethods.AntonioLightFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                antonioRegular,
+                CommonMethods.AntonioRegularFontName
+            )
+        )
         //B
-        advanceEditLookFontsNameList.add(FontsListModelResponse(BebasRegular, CommonMethods.bebasRegularFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                BebasRegular,
+                CommonMethods.bebasRegularFontName
+            )
+        )
         //ontsNameList.add(FontsListModelResponse(blackJack, "Black Jack"))
         //C
-        advanceEditLookFontsNameList.add(FontsListModelResponse(caviarDreams, CommonMethods.caviarDreamsFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                caviarDreams,
+                CommonMethods.caviarDreamsFontName
+            )
+        )
         advanceEditLookFontsNameList.add(
             FontsListModelResponse(
                 caviarDreamsItalic,
                 CommonMethods.caviarDreamsItalicFontName
             )
         )
-        advanceEditLookFontsNameList.add(FontsListModelResponse(chunkFivePrint, CommonMethods.chunkFivePrintFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                chunkFivePrint,
+                CommonMethods.chunkFivePrintFontName
+            )
+        )
         advanceEditLookFontsNameList.add(
             FontsListModelResponse(
                 chunkFiveRegular,
@@ -815,15 +870,30 @@ class AdvanceEditLookVM @Inject constructor(
         )
         //F
         advanceEditLookFontsNameList.add(FontsListModelResponse(fTus, CommonMethods.ftusFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(firaSansBold, CommonMethods.firaSansBoldFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                firaSansBold,
+                CommonMethods.firaSansBoldFontName
+            )
+        )
         advanceEditLookFontsNameList.add(
             FontsListModelResponse(
                 firaSansBoldItalic,
                 CommonMethods.firaSansBoldItalicFontName
             )
         )
-        advanceEditLookFontsNameList.add(FontsListModelResponse(firaSansBook, CommonMethods.firaSansBookFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(firaSansEight, CommonMethods.firaSansEightFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                firaSansBook,
+                CommonMethods.firaSansBookFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                firaSansEight,
+                CommonMethods.firaSansEightFontName
+            )
+        )
         //G
         advanceEditLookFontsNameList.add(
             FontsListModelResponse(
@@ -831,97 +901,452 @@ class AdvanceEditLookVM @Inject constructor(
                 CommonMethods.greatVibesRegularFontName
             )
         )
-        advanceEditLookFontsNameList.add(FontsListModelResponse(helloValentina, CommonMethods.helloValentinaFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(interBlack, CommonMethods.interBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(interBold, CommonMethods.interBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(interBoldItalic, CommonMethods.interBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(interExtraBold, CommonMethods.interExtraBoldFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                helloValentina,
+                CommonMethods.helloValentinaFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                interBlack,
+                CommonMethods.interBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                interBold,
+                CommonMethods.interBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                interBoldItalic,
+                CommonMethods.interBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                interExtraBold,
+                CommonMethods.interExtraBoldFontName
+            )
+        )
 
         //J
-        advanceEditLookFontsNameList.add(FontsListModelResponse(josefinBold, CommonMethods.josefinBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(josefinBoldItalic, CommonMethods.josefinBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(josefinLight, CommonMethods.josefinLightFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(josefinRegular, CommonMethods.josefinRegularFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                josefinBold,
+                CommonMethods.josefinBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                josefinBoldItalic,
+                CommonMethods.josefinBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                josefinLight,
+                CommonMethods.josefinLightFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                josefinRegular,
+                CommonMethods.josefinRegularFontName
+            )
+        )
         //L
-        advanceEditLookFontsNameList.add(FontsListModelResponse(latoBlack, CommonMethods.latoBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(latoBlackItalic, CommonMethods.latoBlackItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(latoBold, CommonMethods.latoBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(latoBoldItalic, CommonMethods.latoBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(latoHairLIneItalic, CommonMethods.latoHairItalicFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                latoBlack,
+                CommonMethods.latoBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                latoBlackItalic,
+                CommonMethods.latoBlackItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                latoBold,
+                CommonMethods.latoBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                latoBoldItalic,
+                CommonMethods.latoBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                latoHairLIneItalic,
+                CommonMethods.latoHairItalicFontName
+            )
+        )
 
         //M
-        advanceEditLookFontsNameList.add(FontsListModelResponse(montSerratAlternatesBlack, CommonMethods.montSerratAlternatesBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(montSerratAlternatesBlackItalic, CommonMethods.montSerratAlternatesBlackItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(montSerratAlternatesBold, CommonMethods.montSerratAlternatesBoldFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                montSerratAlternatesBlack,
+                CommonMethods.montSerratAlternatesBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                montSerratAlternatesBlackItalic,
+                CommonMethods.montSerratAlternatesBlackItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                montSerratAlternatesBold,
+                CommonMethods.montSerratAlternatesBoldFontName
+            )
+        )
 
         //O
-        advanceEditLookFontsNameList.add(FontsListModelResponse(openSansBold, CommonMethods.openSansBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(openSansBoldItalic, CommonMethods.openSansBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(openSansExtraBoldItalic,CommonMethods.openSansExtraBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(openSansItalic, CommonMethods.openSansItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(openSansLight, CommonMethods.openSansLightFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(openSansRegular, CommonMethods.openSansRegularFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(openSansSemiBold, CommonMethods.openSansSemiBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(openSansSemiBoldItalic, CommonMethods.openSansSemiBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(ostrichRegular, CommonMethods.ostrichRegularFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(ostrichSansBlack, CommonMethods.ostrichSansBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(ostrichSansBold, CommonMethods.ostrichSansBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(ostrichSansHeavy, CommonMethods.ostrichSansHeavyFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(ostrichSansLight, CommonMethods.ostrichSansLightFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(ostrichSansMedium, CommonMethods.ostrichSansMediumFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(ostrichSansRoundedMedium, CommonMethods.ostrichSansRoundedFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(osWaldBold, CommonMethods.oswaldBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(osWaldBoldItalic, CommonMethods.oswaldBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(osWaldSemiBoldItalic, CommonMethods.oswaldSemiBoldItalicFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                openSansBold,
+                CommonMethods.openSansBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                openSansBoldItalic,
+                CommonMethods.openSansBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                openSansExtraBoldItalic,
+                CommonMethods.openSansExtraBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                openSansItalic,
+                CommonMethods.openSansItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                openSansLight,
+                CommonMethods.openSansLightFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                openSansRegular,
+                CommonMethods.openSansRegularFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                openSansSemiBold,
+                CommonMethods.openSansSemiBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                openSansSemiBoldItalic,
+                CommonMethods.openSansSemiBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                ostrichRegular,
+                CommonMethods.ostrichRegularFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansBlack,
+                CommonMethods.ostrichSansBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansBold,
+                CommonMethods.ostrichSansBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansHeavy,
+                CommonMethods.ostrichSansHeavyFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansLight,
+                CommonMethods.ostrichSansLightFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansMedium,
+                CommonMethods.ostrichSansMediumFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                ostrichSansRoundedMedium,
+                CommonMethods.ostrichSansRoundedFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                osWaldBold,
+                CommonMethods.oswaldBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                osWaldBoldItalic,
+                CommonMethods.oswaldBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                osWaldSemiBoldItalic,
+                CommonMethods.oswaldSemiBoldItalicFontName
+            )
+        )
 
         //P
-        advanceEditLookFontsNameList.add(FontsListModelResponse(playfairDisplayBlack, CommonMethods.playFairDisplayBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(playfairDisplayBlackItalic, CommonMethods.playFairDisplayBlackItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(playfairDisplayBold, CommonMethods.playFairDisplayBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(poppinBlackItalic, CommonMethods.poppinBlackItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(poppinBlack, CommonMethods.poppinBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(poppinBold, CommonMethods.poppinBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(poppinBoldItalic, CommonMethods.poppinBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(poppinExtraBold, CommonMethods.poppinExtraBoldFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                playfairDisplayBlack,
+                CommonMethods.playFairDisplayBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                playfairDisplayBlackItalic,
+                CommonMethods.playFairDisplayBlackItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                playfairDisplayBold,
+                CommonMethods.playFairDisplayBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                poppinBlackItalic,
+                CommonMethods.poppinBlackItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                poppinBlack,
+                CommonMethods.poppinBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                poppinBold,
+                CommonMethods.poppinBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                poppinBoldItalic,
+                CommonMethods.poppinBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                poppinExtraBold,
+                CommonMethods.poppinExtraBoldFontName
+            )
+        )
         advanceEditLookFontsNameList.add(FontsListModelResponse(ptc55, CommonMethods.ptc55FontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(ptc75F, CommonMethods.ptc75FontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                ptc75F,
+                CommonMethods.ptc75FontName
+            )
+        )
 
         //Q
-        advanceEditLookFontsNameList.add(FontsListModelResponse(quicksAndBold, CommonMethods.quicksAndBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(quicksAndBoldItalic, CommonMethods.quicksAndBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(quicksDash, CommonMethods.quicksDashFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(quicksAndItalic, CommonMethods.quickAndItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(quicksAndLight, CommonMethods.quickAndLightFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                quicksAndBold,
+                CommonMethods.quicksAndBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                quicksAndBoldItalic,
+                CommonMethods.quicksAndBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                quicksDash,
+                CommonMethods.quicksDashFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                quicksAndItalic,
+                CommonMethods.quickAndItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                quicksAndLight,
+                CommonMethods.quickAndLightFontName
+            )
+        )
         //R
-        advanceEditLookFontsNameList.add(FontsListModelResponse(raleWayBlack, CommonMethods.raleWayBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(raleWayBlackItalic, CommonMethods.raleWayBlackItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(raleWayBold, CommonMethods.raleWayBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(raleWayBoldItalic, CommonMethods.raleWayBoldItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(raleWayItalic, CommonMethods.raleWayItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(raleWayMedium, CommonMethods.raleWayMediumFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                raleWayBlack,
+                CommonMethods.raleWayBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                raleWayBlackItalic,
+                CommonMethods.raleWayBlackItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                raleWayBold,
+                CommonMethods.raleWayBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                raleWayBoldItalic,
+                CommonMethods.raleWayBoldItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                raleWayItalic,
+                CommonMethods.raleWayItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                raleWayMedium,
+                CommonMethods.raleWayMediumFontName
+            )
+        )
 
         //S
-        advanceEditLookFontsNameList.add(FontsListModelResponse(seasRn, CommonMethods.seasRnFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(sofiaRegular, CommonMethods.sofiaRegularFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(sourceSansProBlackIt, CommonMethods.sourceSansProBlackItFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(sourceSansProBold, CommonMethods.sourceSansProBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(sourceSansProExtraLight, CommonMethods.sourceSansProExtraLightFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(sourceSansProBlack, CommonMethods.sourceSansProBlackFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                seasRn,
+                CommonMethods.seasRnFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                sofiaRegular,
+                CommonMethods.sofiaRegularFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                sourceSansProBlackIt,
+                CommonMethods.sourceSansProBlackItFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                sourceSansProBold,
+                CommonMethods.sourceSansProBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                sourceSansProExtraLight,
+                CommonMethods.sourceSansProExtraLightFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                sourceSansProBlack,
+                CommonMethods.sourceSansProBlackFontName
+            )
+        )
 
 
         //T
-        advanceEditLookFontsNameList.add(FontsListModelResponse(titiliumLight, CommonMethods.titiliumLightFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(titiliumRegular,CommonMethods.titiliumRegularFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(titiliumRegularItalic, CommonMethods.titiliumRegularItalicFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(titiliumSemiBold, CommonMethods.titiliumSemiBoldFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                titiliumLight,
+                CommonMethods.titiliumLightFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                titiliumRegular,
+                CommonMethods.titiliumRegularFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                titiliumRegularItalic,
+                CommonMethods.titiliumRegularItalicFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                titiliumSemiBold,
+                CommonMethods.titiliumSemiBoldFontName
+            )
+        )
 
         //W
-        advanceEditLookFontsNameList.add(FontsListModelResponse(windSong, CommonMethods.windSongFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(walkwayBlack, CommonMethods.walkWayBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(walkwayBold, CommonMethods.walkWayBoldFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(walkwayOblique, CommonMethods.walkWayObliqueFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(walkwayObliqueBlack, CommonMethods.walkWayObliqueBlackFontName))
-        advanceEditLookFontsNameList.add(FontsListModelResponse(walkwayObliqueBold, CommonMethods.walkWayObliqueBoldFontName))
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                windSong,
+                CommonMethods.windSongFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                walkwayBlack,
+                CommonMethods.walkWayBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                walkwayBold,
+                CommonMethods.walkWayBoldFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                walkwayOblique,
+                CommonMethods.walkWayObliqueFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                walkwayObliqueBlack,
+                CommonMethods.walkWayObliqueBlackFontName
+            )
+        )
+        advanceEditLookFontsNameList.add(
+            FontsListModelResponse(
+                walkwayObliqueBold,
+                CommonMethods.walkWayObliqueBoldFontName
+            )
+        )
         advanceFontListAdapter.addItems(advanceEditLookFontsNameList)
         updateRecyclerView()
     }
@@ -943,7 +1368,7 @@ class AdvanceEditLookVM @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun search(text: String?) {
-         fontsFilteredList = ArrayList()
+        fontsFilteredList = ArrayList()
         fontsFilteredList.clear()
         text.let {
             advanceEditLookFontsNameList.forEach { fontsName ->
@@ -1010,12 +1435,13 @@ class AdvanceEditLookVM @Inject constructor(
                         if (res.body() != null) {
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                             dataStoreUtil.saveObject(EDIT_COLORS_LOOK, res.body()!!.data)
-                            preferenceFile.storeFontName(Constants.ADVANCE_EDIT_LOOK_FONTS_NAME,res.body()?.data?.font_name!!)
-                            Log.d("AdvanceFontGet"," "+res.body()?.data!!.font_name)
+                            preferenceFile.storeFontName(
+                                Constants.ADVANCE_EDIT_LOOK_FONTS_NAME,
+                                res.body()?.data?.font_name!!
+                            )
+                            Log.d("AdvanceFontGet", " " + res.body()?.data!!.font_name)
                             Log.e("5554455---G", res.body()!!.data.toString() + "RESS")
-                        }
-                        else
-                        {
+                        } else {
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                         }
                     } else {
@@ -1024,6 +1450,7 @@ class AdvanceEditLookVM @Inject constructor(
                 }
             })
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("NotifyDataSetChanged", "ResourceAsColor", "CutPasteId")
     private fun showColorDialog(From: String) {
@@ -1072,29 +1499,28 @@ class AdvanceEditLookVM @Inject constructor(
             //for border ..
             "BORDER" -> {
                 val layout = dialog!!.findViewById<CardView>(R.id.show_color_id)
-                setBorderBackground(layout, 12f, R.color.gray)
+                setBorderBackground(layout, 12f, R.color.red)
+                //   val column=dialog?.findViewById<ConstraintLayout>(R.id.Show_back)
+                //  column?.setBackgroundColor(selectedbackgrouncolor)
+
                 /** Slider for SIZE */
                 slider_size?.addOnChangeListener { slider, value, fromUser ->
                     changeColor?.textSize = value
                     borderWidth.set(value)
                     preferenceFile.storeosize(BORDER_WIDTH, value)
-
                     setBorderBackground(layout, value, selectedbackgrouncolor)
-
-                    Log.e(
-                        "WOrking", "---" + value.toString()
-                    )
+                    Log.e("WOrking", "---$value")
                 }
 
                 /** Slider for Opacity */
 
-                sliderOpacitty?.addOnChangeListener { slider, value, fromUser ->
+                sliderOpacitty?.addOnChangeListener { _, value, _ ->
                     val alpha = value / 100
                     borderOpacity.set(alpha)
                     preferenceFile.storeopacity(BORDER_OPACITY, alpha)
                     dialog!!.findViewById<CardView>(R.id.show_color_id)?.alpha = alpha
 
-                    Log.e("WOrking11222", "---" + value.toString())
+                    Log.e("WOrking11222", "---$value")
 
                 }
 
@@ -1104,7 +1530,8 @@ class AdvanceEditLookVM @Inject constructor(
 
             //for font color...
             "FONTCOLOR" -> {
-                dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).setBackgroundColor(CommonMethods.context.getColor(R.color.gray))
+                dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
+                    .setBackgroundColor(CommonMethods.context.getColor(R.color.gray))
                 title?.text = "Font Color"
                 changeColor?.text = "Font Sample"
                 SelectedDialog.set("Font Color")
@@ -1209,20 +1636,18 @@ class AdvanceEditLookVM @Inject constructor(
                 selectedbackgrouncolor = colorCode
 //                preferenceFile.storecolor(BACKGROUND_COLOR,colorCode)
                 Log.e("ASFDf", colorCode.toString())
-
             }
 
             "COLUMN" -> {
 //                dialog!!.findViewById<TextView>(R.id.change_back_id).setBackgroundColor(CommonMethods.context.getColor(color!!))
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(CommonMethods.context.getColor(color!!))
-
                 val cd =
                     dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).background as ColorDrawable
                 val colorCode = cd.color
-
                 selectedbackgrouncolor = colorCode
                 columnColorLiveData = colorCode
+                layoutColrs?.setBackgroundColor(columnColorLiveData)
 
                 val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and color)
                 preferenceFile.storecolorString(COLUMN_COLOR, hexColor)
@@ -1232,7 +1657,6 @@ class AdvanceEditLookVM @Inject constructor(
             }
 
             "BORDER" -> {
-
                 borderColorLiveData = color!!
                 selectedbackgrouncolor = color
                 setBorderBackground(cardLayoutColrs!!, borderSlideValue, selectedbackgrouncolor)
@@ -1313,6 +1737,7 @@ class AdvanceEditLookVM @Inject constructor(
                     selectedbackgrouncolor = envelope.color
                     columnColorLiveData = envelope.color
 
+
                     val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and envelope.color)
                     /** Store locally */
                     /** Store locally */
@@ -1359,9 +1784,7 @@ class AdvanceEditLookVM @Inject constructor(
     }
 
 
-
-
-   /// preferenceFile.storeFontName(Constants.ADVANCE_EDIT_LOOK_FONTS_NAME,fontsName.get().toString())
+    /// preferenceFile.storeFontName(Constants.ADVANCE_EDIT_LOOK_FONTS_NAME,fontsName.get().toString())
 
     /***Get Edit Looks Api ..*/
     fun getEditLookColor() {
@@ -1393,7 +1816,10 @@ class AdvanceEditLookVM @Inject constructor(
                                 fontsName.set(data.font_name.toString())
 
                                 //store background color in shared pref
-                                preferenceFile.storecolorString(BACKGROUND_COLOR, data.background_color!!)
+                                preferenceFile.storecolorString(
+                                    BACKGROUND_COLOR,
+                                    data.background_color!!
+                                )
                                 //store font color in share pref
                                 preferenceFile.storecolorString(FONT_COLOR, data.font_color)
                                 //store border color in shared pref

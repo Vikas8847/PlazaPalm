@@ -63,7 +63,6 @@ class AdvanceMapVM @Inject constructor(
             R.id.ivAdvanceMapBackBtn -> {
                 view.findNavController().navigateUp()
             }
-
           /*  R.layout.advance_map_bottom_sheet.apply {R.id.switchAdvanceMap}->
             {
                 isDarkModeClicked.set(true)
@@ -71,7 +70,6 @@ class AdvanceMapVM @Inject constructor(
             }*/
         }
     }
-
     fun CheckGpsStatus() {
         locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 

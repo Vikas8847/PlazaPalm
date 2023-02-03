@@ -3,33 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-
         <variable
             name="vm"
             type="com.example.plazapalm.views.advancesettings.map.AdvanceMapVM" />
-
     </data>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbarStyle="insideInset"
-        android:scrollbars="vertical"
-        app:behavior_peekHeight="@dimen/_15sdp">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:behavior_hideable="false"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fillViewport="true"
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
@@ -61,9 +47,8 @@
                         android:id="@+id/switchAdvanceMap"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/_10sdp"
                         android:checked="false"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:fontFamily="@font/inter_medium"
                         android:textSize="14sp"
                         android:thumb="@drawable/custom_thumb"
@@ -98,11 +83,10 @@
                         android:id="@+id/switchMapLocationOnOff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/_10sdp"
                         android:checked="true"
                         android:fontFamily="@font/inter_medium"
                         android:textSize="14sp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:thumb="@drawable/custom_thumb"
                         app:layout_constraintBottom_toBottomOf="@id/tvMapLocationOnOff"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -135,11 +119,10 @@
                         android:id="@+id/switchMapFollow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/_10sdp"
                         android:checked="true"
                         android:fontFamily="@font/inter_medium"
                         android:textSize="14sp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:thumb="@drawable/custom_thumb"
                         app:layout_constraintBottom_toBottomOf="@id/tvAdvanceMapFollow"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -185,8 +168,11 @@
                         app:layout_constraintTop_toTopOf="@id/tvAdvanceMapDummy"
                         app:track="@drawable/custom_track" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.core.widget.NestedScrollView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+
 
 </layout>
