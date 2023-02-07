@@ -49,6 +49,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         CommonMethods.statusBar(true)
         binding?.vm = viewModel
         setbackground()
+
         viewModel.typfaceObserverLiveData.observe(requireActivity()) {
             val data = it as Boolean
             if (data) {
@@ -136,7 +137,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         viewModel.backgroundColorLiveData.observe(viewLifecycleOwner) {
             Log.e("sadsdaaaaaaaaa", it.toString())
             when (viewModel.SelectedDialog.get().toString()) {
-                "Background Color" -> {
+                //Background color view click
+                Constants.Background_color -> {
                     if (it != null && it != "") {
                         if (it is String) {
                             val data = it
@@ -146,16 +148,20 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                             binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
                         }
                         val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
+
                         val colorCode = cd.color
                         val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+
                         viewModel.backgroundColor.set(hexColor)
+
                         preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
                         Log.e("asdasdasBackground", hexColor.toString())
 
                     }
                 }
 
-                "Column Color" -> {
+                //Column color view click
+                Constants.Column_color -> {
                     //  var  data=it as Int
                     if (it is Int) {
                         val data = it
@@ -176,8 +182,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                 }
 
 
-
-                "Border Color" -> {
+//Border Color view Click..
+                Constants.Border_Color -> {
                     if (it is Int) {
                         val data = it
                         binding?.viewBoxBorderColor?.setBackgroundColor(MainActivity.context.get()!!.getColor(data))
@@ -200,8 +206,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                 }
 
 
-
-                "Font Color" -> {
+//Font view Color click..
+                Constants.Font_Color -> {
                     if (it is Int) {
                         val data = it
                         binding?.viewBoxEditFonts?.setBackgroundColor(data)
@@ -217,38 +223,42 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                     viewModel.fontColor.set(hexColor)
                     Log.e("asdasdasFONTS", viewModel.fontColor.get().toString())
                 }
-
             }
-
-
         }
 
+
+        //Here set column Color from api or select ..
         viewModel.columnColorLD.observe(viewLifecycleOwner) {
             Log.e("COLOR---", it.toString())
             if (it != null && !(it.equals(""))) {
                 if (it is Int) {
-                    var data = it
+                    val data = it
                     binding?.viewBoxColumnBGColor?.setBackgroundColor(data)
                 } else {
-                    var data = it as String
+                    val data = it as String
                     binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
                 }
             }
         }
+
+
+
+     //   Here set border Color from api or select ..
         viewModel.borderColorLD.observe(viewLifecycleOwner) {
             Log.e("borderColorLD---", it.toString())
-
             if (it != null && !(it.equals(""))) {
                 if (it is Int) {
-                    var data = it
+                    val data = it
                     binding?.viewBoxBorderColor?.setBackgroundColor(data)
                 } else {
-                    var data = it as String
+                    val data = it as String
                     binding?.viewBoxBorderColor?.setBackgroundColor(Color.parseColor(data.toString()))
                 }
             }
         }
 
+
+        //Here set font  Color from api or select ..
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
             Log.e("fontColorLD---", it.toString())
             if (it != null && !(it.equals(""))) {
