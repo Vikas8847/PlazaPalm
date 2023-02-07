@@ -123,7 +123,17 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
                         }
                 "minus_click"->{
-                    viewModel.swipeEnable.set(true)
+                    Log.e("Selected_Position===",position.toString())
+                    //viewModel.swipeEnable.set(true)
+
+                    for(idx in 0 until viewModel.filterAdapter.getAllItems().size)
+                    {
+                        viewModel.filterAdapter.getAllItems()[idx].checkSlider=false
+                    }
+
+                    viewModel.filterAdapter.getAllItems()[position].checkSlider=true
+                    viewModel.filterAdapter.notifyDataSetChanged()
+
                     //for minus click
                   //  viewModel.swipeEnable.set(true)
                    // viewModel.filterAdapter.get

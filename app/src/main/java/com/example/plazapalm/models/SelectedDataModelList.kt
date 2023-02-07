@@ -8,5 +8,6 @@ data class SelectedDataModelList(
     var cate_ID: String?="",
     var adapterPos: Int?=0,
     var istrue: Boolean?=false,
-    var count: String =""
+    var count: String ="",
+    var checkSlider:Boolean?=false
     ) : Serializable , AbstractModel()
