@@ -126,6 +126,7 @@ object Constants {
     const val Border_Color="Border Color"
     const val Background_color="Background Color"
     const val Column_color="Column Color"
+    const val Font_Color="Font Color"
 
 
 
