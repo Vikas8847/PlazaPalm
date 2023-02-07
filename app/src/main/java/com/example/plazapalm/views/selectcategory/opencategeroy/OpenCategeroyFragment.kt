@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.FragmentOpenCategeroyBinding
 import com.example.plazapalm.interfaces.clickItem
@@ -63,6 +64,7 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         {
             getLastLocation()
         }
+        (activity as MainActivity?)!!.setTabMethod(2)
     }
 
     private fun getdata() {
@@ -75,7 +77,7 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         /** Get Data from Add cities screen **/
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("bundle")
-            ?.observe(viewLifecycleOwner) { data ->
+            ?.observe(this@OpenCategeroyFragment) { data ->
 
                 val datafromLocation = data
                 // Split will return an array

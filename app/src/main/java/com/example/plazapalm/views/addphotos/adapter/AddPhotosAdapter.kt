@@ -153,7 +153,7 @@ class AddPhotosAdapter(
 
       //  ConstraintLayout.LayoutParams()
      var height=  activity.resources.getDimension(com.intuit.sdp.R.dimen._90sdp).toInt()
-       var finalWidth=screenWidth/3-activity.resources.getDimension(com.intuit.sdp.R.dimen._7sdp).toInt()
+       var finalWidth=screenWidth/3-activity.resources.getDimension(com.intuit.sdp.R.dimen._10sdp).toInt()
         val params = ConstraintLayout.LayoutParams(
             finalWidth,
             height

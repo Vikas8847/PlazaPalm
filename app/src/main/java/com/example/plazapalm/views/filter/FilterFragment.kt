@@ -93,7 +93,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
 
         }else{
-            binding.tvFilterMilesValue.text= 25.toString() + " "+Constants.MILES_TEXT
+            binding.tvFilterMilesValue.text= 25.toString() + " Miles"
             binding.sliderFilter.value =25.toFloat()
         }
 
@@ -123,7 +123,17 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
                         }
                 "minus_click"->{
-                    viewModel.swipeEnable.set(true)
+                    Log.e("Selected_Position===",position.toString())
+                    //viewModel.swipeEnable.set(true)
+
+                    for(idx in 0 until viewModel.filterAdapter.getAllItems().size)
+                    {
+                        viewModel.filterAdapter.getAllItems()[idx].checkSlider=false
+                    }
+
+                    viewModel.filterAdapter.getAllItems()[position].checkSlider=true
+                    viewModel.filterAdapter.notifyDataSetChanged()
+
                     //for minus click
                   //  viewModel.swipeEnable.set(true)
                    // viewModel.filterAdapter.get
@@ -211,7 +221,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
             viewModel.miles.set(value.toInt().toString())
 
-            binding.tvFilterMilesValue.text = "${value.toInt()} "+Constants.MILES_TEXT
+            binding.tvFilterMilesValue.text = "${value.toInt()} Miles"
             Log.e("SSSSSSSS----",value.toInt().toString())
 
             pref.storeMiles(value.toInt())

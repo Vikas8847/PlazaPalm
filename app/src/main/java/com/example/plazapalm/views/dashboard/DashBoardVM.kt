@@ -76,11 +76,11 @@ class DashBoardVM @Inject constructor(
     var lati = ObservableDouble()
     var longi = ObservableDouble()
     var userMiles = ObservableField("")
-    var title = ObservableField(" Deserts and Drinks ")
+    var title = ObservableField("")
     var isDataVisible = ObservableBoolean(false)
     var isFav = ObservableBoolean(false)
     var isNodatafound = ObservableBoolean(false)
-    var isNodatafoundqw = ObservableField("Khem")
+    var isNodatafoundqw = ObservableField("")
     var distanceCal = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
     val distance = ObservableField("")
@@ -320,7 +320,7 @@ class DashBoardVM @Inject constructor(
 
             idList.clear()
             for (idx in 0 until newList.size) {
-                idList.addAll(listOf(newList[idx].toString()))
+                idList.add(newList[idx].toString())
             }
         }
 
@@ -430,7 +430,6 @@ class DashBoardVM @Inject constructor(
                                         profileResponse.value = true
                                     }
 
-
                                     Log.d("viaksdistance", distance.get().toString().split(".")[0])
                                     adapter.setOnItemClick { view, position, type ->
 
@@ -477,9 +476,8 @@ class DashBoardVM @Inject constructor(
                                     isNodatafound.set(false)
                                     Log.e("ASDASQKHE", "NO Data Found ")
 
+                                    //title.set()
                                 }
-
-
                             } else {
                                 Log.d("DashBoardResponse->", res.body()?.message.toString())
 
