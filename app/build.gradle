@@ -90,7 +90,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.9.0'
 
 
     //Kotlin CoRoutines
@@ -213,20 +213,32 @@ dependencies {
     implementation 'androidx.browser:browser:1.4.0'
 
 
-// firestore & firebase
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.3.1'
-    implementation 'com.google.firebase:firebase-storage-ktx:20.0.2'
-    implementation 'com.google.android.gms:play-services-gcm:9.8.0'
+//// firestore & firebase
+//    implementation 'com.google.firebase:firebase-firestore-ktx:24.3.1'
+//    implementation 'com.google.firebase:firebase-storage-ktx:20.0.2'
+//    implementation 'com.google.android.gms:play-services-gcm:9.8.0'
+//    implementation 'com.google.android.gms:play-services-location:21.0.1'
+//    implementation 'com.google.firebase:firebase-messaging:23.1.1'
+//    implementation 'com.google.firebase:firebase-core:21.1.1'
+//    implementation platform("com.google.firebase:firebase-bom:28.4.1")
+//    implementation 'com.google.firebase:firebase-auth-ktx'
+
+    //Dimensions
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+
+    // firestore & firebase
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.firebase:firebase-messaging:23.1.1'
     implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation platform("com.google.firebase:firebase-bom:28.4.1")
     implementation 'com.google.firebase:firebase-auth-ktx'
 
-    //Dimensions
-    implementation 'com.intuit.sdp:sdp-android:1.0.6'
-    implementation 'com.intuit.ssp:ssp-android:1.0.6'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.3.1'
-    implementation 'com.google.firebase:firebase-storage-ktx:20.0.2'
 
 }

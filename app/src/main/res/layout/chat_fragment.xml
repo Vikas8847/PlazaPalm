@@ -124,7 +124,7 @@
                     android:id="@+id/sendMessage_tv"
                     style="@style/MyEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:background="@drawable/chat_send_bg"
                     android:drawableEnd="@drawable/ic_chat_send_icon"
                     android:drawablePadding="@dimen/_5sdp"
@@ -137,7 +137,7 @@
                     android:textColor="@color/black"
                     android:textCursorDrawable="@drawable/color_cursor_black"
                     android:textSize="14sp"
-                    android:text="@{vm.messageText}"
+                    android:text="@={vm.messageText}"
                     android:onClick="@{vm::onClicks}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
