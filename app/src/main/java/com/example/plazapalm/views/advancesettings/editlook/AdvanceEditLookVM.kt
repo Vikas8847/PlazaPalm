@@ -79,9 +79,9 @@ class AdvanceEditLookVM @Inject constructor(
 
     private var dataStoreUtil: DataStoreUtil,
     private var preferenceFile: PreferenceFile,
-    private var repository: Repository
+    private var repository: Repository,
 
-) : ViewModel(), clickItem {
+    ) : ViewModel(), clickItem {
       var hexColor: String?=null
     var fontsFilteredList = ArrayList<FontsListModelResponse>()
     var advanceEditLookFontsNameList = ArrayList<FontsListModelResponse>()
@@ -172,6 +172,7 @@ class AdvanceEditLookVM @Inject constructor(
             }
 //Colmn
             R.id.viewBoxColumnBGColor -> {
+
                 checkColor.set(CommonMethods.COLUMN)
                 showColorDialog(CommonMethods.COLUMN)
             }
@@ -1469,7 +1470,7 @@ class AdvanceEditLookVM @Inject constructor(
         when (checkColor.get()) {
             //for background ..
             Constants.BACKGROUND -> {
-                if (preferenceFile.retviecolorString("BACKGROUND_COLOR") != null) {
+                if (preferenceFile.retviecolorString("BACKGROUND_COLOR") != null && preferenceFile.retviecolorString("BACKGROUND_COLOR") !="") {
                     val setStoredBackgroundColor =
                         preferenceFile.retviecolorString("BACKGROUND_COLOR")
                     layoutColrs?.setBackgroundColor(Color.parseColor(setStoredBackgroundColor.toString()))
@@ -1490,6 +1491,7 @@ class AdvanceEditLookVM @Inject constructor(
                     slider_size?.visibility = View.GONE
                     size_tv?.visibility = View.GONE
                     SelectedDialog.set(Column_color)
+                  //  Log.e("Data_Colum111===",colorValue.toString())
                     layoutColrs?.setBackgroundColor(Color.parseColor(preferenceFile.retviecolorString("COLUMN_COLOR")))
 
                     /** Slider for Opacity */
@@ -1714,9 +1716,13 @@ class AdvanceEditLookVM @Inject constructor(
                 columnColorLiveData = colorCode
                 selectedbackgrouncolor = colorCode
                 layoutColrs?.setBackgroundColor(selectedbackgrouncolor)
-                 hexColor = java.lang.String.format("#%06X", 0xFFFFFF and color)
+                 hexColor = java.lang.String.format("#%06X", 0xFFFFFF and selectedbackgrouncolor)
+
+                //hexColor = Integer.toHexString(selectedbackgrouncolor)
                 preferenceFile.storecolorString(COLUMN_COLOR, hexColor!!)
                 Log.e("ASFDf", colorCode.toString())
+
+                Log.e("Data_Colum222===",hexColor.toString())
             }
 
             Constants.BORDER ->
