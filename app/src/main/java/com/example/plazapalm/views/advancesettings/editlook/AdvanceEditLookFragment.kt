@@ -147,6 +147,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                             val data = it as Int
                             binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
                         }
+
                         val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
 
                         val colorCode = cd.color

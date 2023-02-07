@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.DashBoardFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
@@ -83,6 +84,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
             getLastLocation()
             Log.e("ASDASWWERWR00ss", "DONE DSD GOOOD -- ")
         }
+
         return binding?.root
         }
 
@@ -102,6 +104,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         true,
                         viewModel.selectedCatId.get().toString())
                 } else {
+                    (activity as MainActivity?)!!.setTabMethod(1)
                     viewModel.getProfileByCategory("", true, "")
                 }
             }

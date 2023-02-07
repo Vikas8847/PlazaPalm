@@ -13,8 +13,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.ChatFragmentBinding
+import com.example.plazapalm.datastore.DataStoreUtil
+import com.example.plazapalm.datastore.LOGIN_DATA
+import com.example.plazapalm.models.LoginDataModel
+import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.pref.preferenceName
 import com.example.plazapalm.utils.CommonMethods
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 /**
@@ -26,14 +32,20 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ChatFragment : Fragment(R.layout.chat_fragment) {
     private var binding: ChatFragmentBinding? = null
-
     val viewModel: ChatVM by viewModels()
+    @Inject
+    lateinit var dataStore : DataStoreUtil
+
+    @Inject
+    lateinit var pref : PreferenceFile
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = ChatFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
+
         return binding?.root
     }
 
@@ -42,14 +54,31 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         // Initialize Firebase Auth
 
         binding?.vm=viewModel
+        getLocal()
        // openUserBlockButton()
         setAdapter()
         sendClicks()
     }
 
+    private fun getLocal() {
+
+         viewModel.reciverUserID.set(arguments?.get("user_Id").toString())
+        Log.e("reciver_usderIID--->> ",  arguments?.get("user_Id").toString())
+
+        dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
+
+            //PROFILE_DATA
+
+            viewModel.senderUserID.set(it?.data?.user_id.toString())
+
+            Log.e("  sender_usderIID-->> ",viewModel.senderUserID.get().toString())
+
+        }
+
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private fun sendClicks() {
-
 
         binding?.sendMessageTv?.setOnTouchListener(OnTouchListener { v, event ->
             val DRAWABLE_RIGHT = 2
@@ -58,13 +87,26 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
                         .get(DRAWABLE_RIGHT).getBounds().width()
                 ) {
                     Log.e("ADACHASHA" , "WORKINGFINEE")
-//                    viewModel.sendChatMessage()
+
+                        if (viewModel.chatAdapter.dataList.size ==0){
+                            viewModel.startChatMethod()
+                            Log.e("ADACHASHA" , " 0 ")
+
+                        }else
+                        {
+                            viewModel.sendChatMessage()
+                            Log.e("ADACHASHA" , " 1 ")
+
+                        }
+
+
                     return@OnTouchListener true
                 }
             }
             false
         })
     }
+
 
 
     /** Here Set Chat Adapter in on Created method **/
@@ -87,5 +129,4 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         }
 
     }
-
 }

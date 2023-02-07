@@ -164,11 +164,10 @@ class EditProfileFragment : Fragment(R.layout.edit_profile_fragment) {
             //  val bitmap=MediaStore.Images.Media.getBitmap(context?.contentResolver,ur)
             if (uri != "") {
                 Glide.with(this)
-                    .load(IMAGE_LOAD_URL+uri).into(binding?.ivEditProfile!!)
+                    .load(IMAGE_LOAD_URL+uri).error(R.drawable.placeholder).placeholder(R.drawable.placeholder).into(binding?.ivEditProfile!!)
             } else {
+                binding?.ivEditProfile!!.setImageResource(R.drawable.placeholder)
             }
         }
     }
-
-
 }

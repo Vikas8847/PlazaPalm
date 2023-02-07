@@ -291,27 +291,19 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
-    fun setTabMethod(tabValue:Int)
-    {
-if(tabValue==1)
-{
-    binding?.bottNavMain?.selectedItemId =R.id.dashBoardFragment
-
-}else
-    if(tabValue==2)
-    {
-        binding?.bottNavMain?.selectedItemId = R.id.openCategeroyFragment
-
-    }else
-        if(tabValue==3)
-        {
-            binding?.bottNavMain?.selectedItemId = R.id.messagesFragment
-
-        }else
-            if(tabValue==4)
-            {
-                binding?.bottNavMain?.selectedItemId = R.id.myProfileFragment
-            }
-
+    fun setTabMethod(tabValue: Int) {
+        if (tabValue == 1) {
+            binding?.bottNavMain?.selectedItemId = R.id.dashBoard
+        } else
+            if (tabValue == 2) {
+                binding?.bottNavMain?.selectedItemId = R.id.categories
+            } else
+                if (tabValue == 3) {
+                    binding?.bottNavMain?.selectedItemId = R.id.messages
+                } else
+                    if (tabValue == 4) {
+                        binding?.bottNavMain?.selectedItemId = R.id.myProfile
+                        binding?.bottNavMain?.isVisible = true
+                    }
     }
 }

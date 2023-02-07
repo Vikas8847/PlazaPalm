@@ -13,12 +13,12 @@ class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val receiver = 0
     private val sender = 1
+    private var senderId = ""
     var dataList = ArrayList<ChatData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layInflater = LayoutInflater.from(parent.context)
         var viewHolder: RecyclerView.ViewHolder? = null
-
 
 
         when (viewType) {
@@ -32,30 +32,57 @@ class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         return viewHolder!!
     }
+
     inner class SenderVH(val binding: ChatSenderBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SimpleDateFormat")
         fun setData() {
+
+            binding.tvSender.text = dataList[position].message
+            binding.tvSenderTime.text = dataList[position].messageTime!!
             binding.executePendingBindings()
+
         }
     }
 
-    inner class ReceiverVH(val binding: ChatReceiverBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ReceiverVH(val binding: ChatReceiverBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SimpleDateFormat")
         fun setData() {
+
+            binding.tvReceiver.text = dataList[position].message
+            binding.reciverTime.text = dataList[position].messageTime!!
             binding.executePendingBindings()
         }
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun addItems(items: ArrayList<ChatData>) {
+
+    @SuppressLint("SimpleDateFormat", "NotifyDataSetChanged")
+//    private fun setTime(position: Int): String {
+//
+//        val fDate = dataList[position].messageTime!!
+//
+//        Log.e("aWORRK12sds", fDate)
+//
+////        val separated = fDate.split(":").toTypedArray()
+////        val actualTime = separated[0] + " : " + separated[1]
+////        Log.e("aWORRK12sds", actualTime)
+//
+//        return fDate
+//
+//    }
+
+    fun addItems(items: ArrayList<ChatData>, userType: String) {
         this.dataList.clear()
         this.dataList.addAll(items)
+        senderId = userType
         notifyDataSetChanged()
-        Log.e("dataList" ,items.toString() )
+        Log.e("dataList", items.toString())
     }
 
     override fun getItemViewType(position: Int): Int {
-        return dataList.size
+        return if (dataList.get(position).senderuid.equals(senderId)) sender else receiver
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
