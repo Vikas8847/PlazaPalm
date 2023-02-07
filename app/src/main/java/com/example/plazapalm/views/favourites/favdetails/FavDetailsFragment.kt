@@ -246,12 +246,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 "isDashBoard" -> {
 
                     viewModel.CommingFrom.set("isDashBoard")
-
                     p_id = arguments?.getString("DashBoardPostId").toString()
                     lati = arguments?.getDouble("DashBoardPostLatitude")
                     longi = arguments?.getDouble("DashBoardPostLongitude")
                     viewModel.p_id.set(p_id)
-
                     getPostprofile(p_id!!, lati!!, longi!!)
 
                 }
@@ -342,6 +340,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         viewModel.username.set(data.get(pos).user_name)
         viewModel.p_id.set(data.get(pos).p_id)
         viewModel.userId.set(data.get(pos)._id)
+        viewModel.userIdForChat.set(data.get(pos)._id.toString())
 
         checkForMiles(data.get(pos)._id.toString())
         val imageList = ArrayList<AddPhoto>()
@@ -618,6 +617,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 Log.e("QWQAAAZZZ", res.body().toString())
 
                                 viewModel.userdata.set(res.body()!!.data)
+                                viewModel.userIdForChat.set(res.body()?.data?.user_id.toString())
                                 viewModel.isFav.set(res.body()!!.data.isFavourite!!)
                                 viewModel.isLike.set(res.body()!!.data.isLiked!!)
                                 viewModel.isDisLike.set(res.body()!!.data.isDisliked!!)
@@ -626,9 +626,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvFavCityAddress.set(res.body()!!.data.location_text)
                                 viewModel.tvFavouriteCountValue.set(res.body()!!.data.favouriteCount.toString())
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
+                                viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
 
                                 Log.e("userIddddd====", loginUserPId.toString())
-                                Log.e("userIddddd111====", res.body()!!.data._id.toString())
+                                Log.e("userIddddd111====", viewModel.userIdForChat.get().toString())
 
                                 if (!(loginUserPId.toString().equals(res.body()!!.data._id))) {
                                     viewModel.checkFavouriteShow.set(0)
@@ -732,8 +733,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
 
                                 checkForMiles(res.body()!!.data.user_id!!)
-
-
 
                                 Log.e(
                                     "ASDASDASdasd",

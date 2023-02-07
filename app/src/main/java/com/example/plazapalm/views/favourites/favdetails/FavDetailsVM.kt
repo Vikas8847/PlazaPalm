@@ -66,6 +66,7 @@ class FavDetailsVM @Inject constructor(
     var loginUserPId = ObservableField("")
 
     var userId = ObservableField("")
+    var userIdForChat = ObservableField("")
     var firstName = ObservableField("")
     var lastName = ObservableField("")
     var DisLikesCount = ObservableField("")
@@ -206,7 +207,8 @@ class FavDetailsVM @Inject constructor(
                 } else {
                     //Go to the Single Message screen
                     val bundle =Bundle()
-//                    bundle.putString("user_Id",)
+//                    bundle.putString("user_Id",userdata.get()?.user_id.toString())
+                    bundle.putString("user_Id",userIdForChat.get().toString())
                     view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment,bundle)
                 }
             }

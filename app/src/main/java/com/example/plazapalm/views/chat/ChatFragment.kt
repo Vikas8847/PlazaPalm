@@ -61,13 +61,17 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
     }
 
     private fun getLocal() {
+
+         viewModel.reciverUserID.set(arguments?.get("user_Id").toString())
+        Log.e("reciver_usderIID--->> ",  arguments?.get("user_Id").toString())
+
         dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
 
             //PROFILE_DATA
 
-            val user_id = it?.data?.user_id.toString()
+            viewModel.senderUserID.set(it?.data?.user_id.toString())
 
-            Log.e("getLocalUSerName--->> ", it?.data?.user_name + "  getLocal--UserID-->> " + user_id)
+            Log.e("  sender_usderIID-->> ",viewModel.senderUserID.get().toString())
 
         }
 
@@ -83,13 +87,26 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
                         .get(DRAWABLE_RIGHT).getBounds().width()
                 ) {
                     Log.e("ADACHASHA" , "WORKINGFINEE")
-                    viewModel.sendChatMessage()
+
+                        if (viewModel.chatAdapter.dataList.size ==0){
+                            viewModel.startChatMethod()
+                            Log.e("ADACHASHA" , " 0 ")
+
+                        }else
+                        {
+                            viewModel.sendChatMessage()
+                            Log.e("ADACHASHA" , " 1 ")
+
+                        }
+
+
                     return@OnTouchListener true
                 }
             }
             false
         })
     }
+
 
 
     /** Here Set Chat Adapter in on Created method **/
@@ -112,5 +129,4 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         }
 
     }
-
 }
