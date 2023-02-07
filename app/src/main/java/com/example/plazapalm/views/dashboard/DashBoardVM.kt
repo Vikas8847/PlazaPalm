@@ -320,7 +320,7 @@ class DashBoardVM @Inject constructor(
 
             idList.clear()
             for (idx in 0 until newList.size) {
-                idList.addAll(listOf(newList[idx].toString()))
+                idList.add(newList[idx].toString())
             }
         }
 
