@@ -14,6 +14,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceEditLookFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
@@ -89,9 +90,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
     private fun getLocalData() {
 
         /**Back ground color ...**/
-        if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(
-                Constants.BACKGROUND_COLOR
-            ).equals(""))
+        if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR).equals(""))
         ) {
             val backgroundColor = preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR)
             viewModel.SelectedDialog.set("Background Color")
@@ -138,7 +137,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
             Log.e("sadsdaaaaaaaaa", it.toString())
             when (viewModel.SelectedDialog.get().toString()) {
                 "Background Color" -> {
-                    if (it != null && !(it.equals(""))) {
+                    if (it != null && it != "") {
                         if (it is String) {
                             val data = it
                             binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
@@ -146,9 +145,11 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                             val data = it as Int
                             binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
                         }
+
                         val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
                         val colorCode = cd.color
                         val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+
                         viewModel.backgroundColor.set(hexColor)
                         preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
                         Log.e("asdasdasBackground", hexColor.toString())
@@ -176,20 +177,19 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                     Log.e("asdasdasColumn", viewModel.columnColor.get().toString())
                 }
 
-                "Border Color" -> {
 
+
+                "Border Color" -> {
                     if (it is Int) {
-                        var data = it
-                        binding?.viewBoxBorderColor?.setBackgroundColor(
-                            CommonMethods.context.getColor(
-                                data
-                            )
-                        )
-                    } else {
+                        val data = it
+                        binding?.viewBoxBorderColor?.setBackgroundColor(MainActivity.context.get()!!.getColor(data))
+                    }
+                    else
+
+                    {
                         val data = it as String
                         binding?.viewBoxBorderColor?.setBackgroundColor(Color.parseColor(data.toString()))
                     }
-
                     //  binding?.viewBoxBorderColor?.setBackgroundColor(CommonMethods.context.getColor(it))
                     val cd = binding?.viewBoxBorderColor?.background as ColorDrawable
                     val colorCode = cd.color
@@ -197,7 +197,11 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                     viewModel.borderColor.set(hexColor)
                     Log.e("asdasdasBorder", viewModel.borderColor.get().toString())
 
+
+
                 }
+
+
 
                 "Font Color" -> {
                     if (it is Int) {

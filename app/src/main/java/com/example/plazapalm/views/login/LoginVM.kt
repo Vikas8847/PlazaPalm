@@ -20,8 +20,6 @@ import com.example.plazapalm.utils.*
 import com.example.plazapalm.validation.ValidatorUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -42,13 +40,9 @@ class LoginVM @Inject constructor(
 
     var sendTypeLogin = ObservableField("Login")
     var sendFirebaseLoginToken = ObservableField("")
-    val firestore = FirebaseFirestore.getInstance()
+    // val firestore = FirebaseFirestore.getInstance()
 
-    private var auth: FirebaseAuth
-
-    init {
-        auth = Firebase.auth
-    }
+      private var auth: FirebaseAuth = Firebase.auth
 
     fun clicks(view: View) {
         when (view.id) {
@@ -158,23 +152,23 @@ class LoginVM @Inject constructor(
 
                             FireStorechatVM().firestoreLogin(preferences)
 
-                          /*  val users = HashMap<String, Any>()
+                            /*  val users = HashMap<String, Any>()
 
-                            users["fcmToken"] = sendFirebaseLoginToken.get().toString()
-                            users["osType"] = "1"
-                            users["notificationStatus"] = ""
+                              users["fcmToken"] = sendFirebaseLoginToken.get().toString()
+                              users["osType"] = "1"
+                              users["notificationStatus"] = ""
 
-                            //SetOptions.merge()
+                              //SetOptions.merge()
 
-                            firestore.collection("Users").document()
-                                .set(users, SetOptions.merge())
-                                .addOnSuccessListener {
-                                    Log.e("TAG--US", "sucess")
-                                }
-                                .addOnFailureListener {
-                                    Log.e("TAG--US", "faild")
+                              firestore.collection("Users").document()
+                                  .set(users, SetOptions.merge())
+                                  .addOnSuccessListener {
+                                      Log.e("TAG--US", "sucess")
+                                  }
+                                  .addOnFailureListener {
+                                      Log.e("TAG--US", "faild")
 
-                                }*/
+                                  }*/
 
                         } else {
                             val bundle = Bundle()
@@ -222,7 +216,6 @@ class LoginVM @Inject constructor(
     }
 
     /** Here  signInAnonymously user sucess or failed **/
-
     fun anonymousUser() {
         auth.signInAnonymously()
             .addOnCompleteListener(CommonMethods.context) { task ->

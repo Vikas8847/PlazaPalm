@@ -31,7 +31,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
     }
     private DashBoardItemsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 0
+        super(bindingComponent, root, 2
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
             , (androidx.cardview.widget.CardView) bindings[0]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
@@ -59,7 +59,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x8L;
+                mDirtyFlags = 0x20L;
         }
         requestRebind();
     }
@@ -95,13 +95,18 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     public void setModel(@Nullable com.example.plazapalm.models.ProfileCateData Model) {
         this.mModel = Model;
         synchronized(this) {
-            mDirtyFlags |= 0x1L;
+            mDirtyFlags |= 0x4L;
         }
         notifyPropertyChanged(BR.model);
         super.requestRebind();
     }
     public void setVm(@Nullable com.example.plazapalm.views.dashboard.DashBoardVM Vm) {
         this.mVm = Vm;
+        synchronized(this) {
+            mDirtyFlags |= 0x8L;
+        }
+        notifyPropertyChanged(BR.vm);
+        super.requestRebind();
     }
     public void setMContext(@Nullable android.content.Context MContext) {
         this.mMContext = MContext;
@@ -110,6 +115,28 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
+            case 0 :
+                return onChangeVmLati((androidx.databinding.ObservableDouble) object, fieldId);
+            case 1 :
+                return onChangeVmLongi((androidx.databinding.ObservableDouble) object, fieldId);
+        }
+        return false;
+    }
+    private boolean onChangeVmLati(androidx.databinding.ObservableDouble VmLati, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x1L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeVmLongi(androidx.databinding.ObservableDouble VmLongi, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x2L;
+            }
+            return true;
         }
         return false;
     }
@@ -122,15 +149,20 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
             mDirtyFlags = 0;
         }
         com.example.plazapalm.models.ProfileCateData model = mModel;
+        androidx.databinding.ObservableDouble vmLati = null;
         java.lang.String modelUserNameTrim = null;
         java.lang.String modelUserName = null;
         java.lang.String modelAddress = null;
         double androidxDatabindingViewDataBindingSafeUnboxModelLocationCoordinates1 = 0.0;
         java.lang.String modelLastName = null;
+        com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
         java.lang.Double modelLocationCoordinates1 = null;
         boolean androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite = false;
         java.lang.String modelFirstName = null;
+        double vmLatiGet = 0.0;
         android.graphics.drawable.Drawable modelIsFavouriteMboundView4AndroidDrawableIcHeartFilledIconMboundView4AndroidDrawableIcHeartIcon = null;
+        double vmLongiGet = 0.0;
+        androidx.databinding.ObservableDouble vmLongi = null;
         java.lang.String modelPostProfilePicture0 = null;
         com.example.plazapalm.models.DashLocation modelLocation = null;
         java.lang.Boolean modelIsFavourite = null;
@@ -141,53 +173,80 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         java.util.List<java.lang.String> modelPostProfilePicture = null;
         java.lang.String modelLocationText = null;
 
-        if ((dirtyFlags & 0x9L) != 0) {
+        if ((dirtyFlags & 0x2fL) != 0) {
 
 
+            if ((dirtyFlags & 0x24L) != 0) {
+
+                    if (model != null) {
+                        // read model.user_name
+                        modelUserName = model.getUser_name();
+                        // read model.address
+                        modelAddress = model.getAddress();
+                        // read model.last_name
+                        modelLastName = model.getLast_name();
+                        // read model.first_name
+                        modelFirstName = model.getFirst_name();
+                        // read model.isFavourite()
+                        modelIsFavourite = model.isFavourite();
+                        // read model.distance
+                        modelDistance = model.getDistance();
+                        // read model.postProfile_picture
+                        modelPostProfilePicture = model.getPostProfile_picture();
+                    }
+
+
+                    if (modelUserName != null) {
+                        // read model.user_name.trim()
+                        modelUserNameTrim = modelUserName.trim();
+                    }
+                    // read androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite())
+                    androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite = androidx.databinding.ViewDataBinding.safeUnbox(modelIsFavourite);
+                if((dirtyFlags & 0x24L) != 0) {
+                    if(androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite) {
+                            dirtyFlags |= 0x80L;
+                    }
+                    else {
+                            dirtyFlags |= 0x40L;
+                    }
+                }
+                    if (modelPostProfilePicture != null) {
+                        // read model.postProfile_picture[0]
+                        modelPostProfilePicture0 = getFromList(modelPostProfilePicture, 0);
+                    }
+
+
+                    // read androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
+                    modelIsFavouriteMboundView4AndroidDrawableIcHeartFilledIconMboundView4AndroidDrawableIcHeartIcon = ((androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite) ? (androidx.appcompat.content.res.AppCompatResources.getDrawable(mboundView4.getContext(), R.drawable.ic_heart_filled_icon)) : (androidx.appcompat.content.res.AppCompatResources.getDrawable(mboundView4.getContext(), R.drawable.ic_heart_icon)));
+            }
 
                 if (model != null) {
-                    // read model.user_name
-                    modelUserName = model.getUser_name();
-                    // read model.address
-                    modelAddress = model.getAddress();
-                    // read model.last_name
-                    modelLastName = model.getLast_name();
-                    // read model.first_name
-                    modelFirstName = model.getFirst_name();
                     // read model.location
                     modelLocation = model.getLocation();
-                    // read model.isFavourite()
-                    modelIsFavourite = model.isFavourite();
-                    // read model.distance
-                    modelDistance = model.getDistance();
-                    // read model.postProfile_picture
-                    modelPostProfilePicture = model.getPostProfile_picture();
                     // read model.location_text
                     modelLocationText = model.getLocation_text();
                 }
-
-
-                if (modelUserName != null) {
-                    // read model.user_name.trim()
-                    modelUserNameTrim = modelUserName.trim();
+                if (vm != null) {
+                    // read vm.lati
+                    vmLati = vm.getLati();
+                    // read vm.longi
+                    vmLongi = vm.getLongi();
                 }
+                updateRegistration(0, vmLati);
+                updateRegistration(1, vmLongi);
+
+
                 if (modelLocation != null) {
                     // read model.location.coordinates
                     modelLocationCoordinates = modelLocation.getCoordinates();
                 }
-                // read androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite())
-                androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite = androidx.databinding.ViewDataBinding.safeUnbox(modelIsFavourite);
-            if((dirtyFlags & 0x9L) != 0) {
-                if(androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite) {
-                        dirtyFlags |= 0x20L;
+                if (vmLati != null) {
+                    // read vm.lati.get()
+                    vmLatiGet = vmLati.get();
                 }
-                else {
-                        dirtyFlags |= 0x10L;
-                }
-            }
-                if (modelPostProfilePicture != null) {
-                    // read model.postProfile_picture[0]
-                    modelPostProfilePicture0 = getFromList(modelPostProfilePicture, 0);
+                if (vmLongi != null) {
+                    // read vm.longi.get()
+                    vmLongiGet = vmLongi.get();
                 }
 
 
@@ -197,8 +256,6 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
                     // read model.location.coordinates[0]
                     modelLocationCoordinates0 = getFromList(modelLocationCoordinates, 0);
                 }
-                // read androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
-                modelIsFavouriteMboundView4AndroidDrawableIcHeartFilledIconMboundView4AndroidDrawableIcHeartIcon = ((androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite) ? (androidx.appcompat.content.res.AppCompatResources.getDrawable(mboundView4.getContext(), R.drawable.ic_heart_filled_icon)) : (androidx.appcompat.content.res.AppCompatResources.getDrawable(mboundView4.getContext(), R.drawable.ic_heart_icon)));
 
 
                 // read androidx.databinding.ViewDataBinding.safeUnbox(model.location.coordinates[1])
@@ -207,23 +264,27 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
                 androidxDatabindingViewDataBindingSafeUnboxModelLocationCoordinates0 = androidx.databinding.ViewDataBinding.safeUnbox(modelLocationCoordinates0);
         }
         // batch finished
-        if ((dirtyFlags & 0x9L) != 0) {
+        if ((dirtyFlags & 0x24L) != 0) {
             // api target 1
 
             com.example.plazapalm.utils.BindingAdapters.setImage(this.ivDashBoardCat, modelPostProfilePicture0);
             androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable(this.mboundView4, modelIsFavouriteMboundView4AndroidDrawableIcHeartFilledIconMboundView4AndroidDrawableIcHeartIcon);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDescription, modelUserNameTrim);
             com.example.plazapalm.utils.BindingAdapters.calculateLatLngToMiles(this.tvDashBoardItemDistance, modelDistance);
-            com.example.plazapalm.utils.BindingAdapters.calculateDistance(this.tvDashBoardItemDistance, modelLocationText, androidxDatabindingViewDataBindingSafeUnboxModelLocationCoordinates1, androidxDatabindingViewDataBindingSafeUnboxModelLocationCoordinates0);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLastName, modelLastName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLocation, modelAddress);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemName, modelFirstName);
         }
-        if ((dirtyFlags & 0x8L) != 0) {
+        if ((dirtyFlags & 0x20L) != 0) {
             // api target 1
 
             this.mboundView4.setOnClickListener(mCallback14);
             this.playerLayout.setOnClickListener(mCallback13);
+        }
+        if ((dirtyFlags & 0x2fL) != 0) {
+            // api target 1
+
+            com.example.plazapalm.utils.BindingAdapters.calculateDistance(this.tvDashBoardItemDistance, modelLocationText, androidxDatabindingViewDataBindingSafeUnboxModelLocationCoordinates1, androidxDatabindingViewDataBindingSafeUnboxModelLocationCoordinates0, vmLatiGet, vmLongiGet);
         }
     }
     // Listener Stub Implementations
@@ -307,12 +368,14 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): model
-        flag 1 (0x2L): vm
-        flag 2 (0x3L): mContext
-        flag 3 (0x4L): null
-        flag 4 (0x5L): androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
-        flag 5 (0x6L): androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
+        flag 0 (0x1L): vm.lati
+        flag 1 (0x2L): vm.longi
+        flag 2 (0x3L): model
+        flag 3 (0x4L): vm
+        flag 4 (0x5L): mContext
+        flag 5 (0x6L): null
+        flag 6 (0x7L): androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
+        flag 7 (0x8L): androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
     flag mapping end*/
     //end
 }

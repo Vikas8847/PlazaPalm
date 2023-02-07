@@ -20,7 +20,7 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback25;
+    private final android.view.View.OnClickListener mCallback26;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -67,7 +67,7 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
         this.layoutCons.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback25 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback26 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -156,7 +156,7 @@ public class FragmentReportChooseOptionItemsBindingImpl extends FragmentReportCh
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.checkBox, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, checkBoxandroidTextAttrChanged);
-            this.constraintsClick.setOnClickListener(mCallback25);
+            this.constraintsClick.setOnClickListener(mCallback26);
         }
     }
     // Listener Stub Implementations

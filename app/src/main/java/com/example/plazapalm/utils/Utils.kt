@@ -130,8 +130,7 @@ fun getMonthName(int: Int): String {
 fun Context.setStatusBarColor(color: Int) {
     try {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            (this as Activity).window.statusBarColor =
-                getResources().getColor(color, this.getTheme())
+            (this as Activity).window.statusBarColor = getResources().getColor(color, this.getTheme())
         }
     } catch (e: Exception) {
         e.printStackTrace()
