@@ -25,27 +25,26 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = CalendarFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(false)
+        calenarLabelSize()
         getBundleData()
         return binding?.root
-
     }
-
+    private fun calenarLabelSize() {
+        binding!!.clCalendar.setSelectionBackground(R.drawable.calendar_white_bg)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         calendarClick()
         binding?.vm = viewModel
     }
-
     private fun getBundleData() {
         if (arguments != null) {
             when (arguments?.getString("comingFromm")) {
                 Constants.Calendar -> {
                     viewModel.p_Id.set(arguments?.get("p_id").toString())
-                    val currentDate =
-                        SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+                    val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
                     val calandar = Calendar.getInstance()
                     val split = currentDate.split("-")
                     val day = split[0].toInt()
@@ -63,7 +62,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
             }
         }
     }
-
       @SuppressLint("ResourceType")
       private fun calendarClick() {
           binding?.clCalendar?.setOnPreviousPageChangeListener(object : OnCalendarPageChangeListener {
@@ -84,7 +82,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
               }
           })
       }
-
     private fun montYear(month: Int, year: Int) {
         viewModel.month.set(month)
         viewModel.year.set(year)

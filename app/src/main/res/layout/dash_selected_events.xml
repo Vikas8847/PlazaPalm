@@ -24,7 +24,7 @@
             android:fontFamily="@font/inter_medium"
             android:padding="@dimen/_3sdp"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

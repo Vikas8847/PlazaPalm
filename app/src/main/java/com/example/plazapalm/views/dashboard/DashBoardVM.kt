@@ -76,11 +76,11 @@ class DashBoardVM @Inject constructor(
     var lati = ObservableDouble()
     var longi = ObservableDouble()
     var userMiles = ObservableField("")
-    var title = ObservableField(" Deserts and Drinks ")
+    var title = ObservableField("")
     var isDataVisible = ObservableBoolean(false)
     var isFav = ObservableBoolean(false)
     var isNodatafound = ObservableBoolean(false)
-    var isNodatafoundqw = ObservableField("Khem")
+    var isNodatafoundqw = ObservableField("")
     var distanceCal = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
     val distance = ObservableField("")
@@ -94,10 +94,11 @@ class DashBoardVM @Inject constructor(
     val list_Name by lazy { stringPreferencesKey("idsList") }
     val list_CateName by lazy { stringPreferencesKey("CateNameList") }
     var dialog: Dialog? = null
-    var rvView:RecyclerView?=null
+    var rvView: RecyclerView? = null
 
-    var selectedCatId=ObservableField("")
-    var isRVScroll=ObservableBoolean(false)
+    var selectedCatId = ObservableField("")
+    var isRVScroll = ObservableBoolean(false)
+
     init {
 
         /*** 03-01-23
@@ -136,12 +137,12 @@ class DashBoardVM @Inject constructor(
         /*** 03-01-23
          *  Set Miles and send API.. */
 
-        if (pref.retvieMiles()!=null && !(pref.retvieMiles().equals(""))){
+        if (pref.retvieMiles() != null && !(pref.retvieMiles().equals(""))) {
 
             var miles = pref.retvieMiles()
             userMiles.set(miles.toString())
 
-        }else{
+        } else {
             userMiles.set("25")
         }
 
@@ -207,29 +208,25 @@ class DashBoardVM @Inject constructor(
         Log.e("QQWQWQw", editable.toString())
     }
 
-    fun scrollListener(rvView:RecyclerView)
-    {
+    fun scrollListener(rvView: RecyclerView) {
         rvView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             var ydy = 0
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val offset = dy - ydy
                 ydy = dy
-              var  manager=(rvView.layoutManager) as GridLayoutManager
+                var manager = (rvView.layoutManager) as GridLayoutManager
 
 
                 val currentFirstVisible: Int = manager.findFirstVisibleItemPosition()
 
-             //   if (currentFirstVisible > firstVisibleInListview) Log.i("RecyclerView scrolled: ", "scroll up!") else Log.i("RecyclerView scrolled: ", "scroll down!")
+                //   if (currentFirstVisible > firstVisibleInListview) Log.i("RecyclerView scrolled: ", "scroll up!") else Log.i("RecyclerView scrolled: ", "scroll down!")
 
-               var firstVisibleInListview = currentFirstVisible
+                var firstVisibleInListview = currentFirstVisible
 
 
-             //   title.set(adapter.getAllItems().get(firstVisibleInListview).category_name.toString())
+                //   title.set(adapter.getAllItems().get(firstVisibleInListview).category_name.toString())
 
                 // swipeRefreshLayout.setRefreshing(false)
             }
@@ -249,7 +246,9 @@ class DashBoardVM @Inject constructor(
                 isClicked.set(true)
                 if (isClicked.get()) {
 
-                    showSelectedCatAlert()
+                    if(selectedCategoriesList.size>0) {
+                        showSelectedCatAlert()
+                    }
                     isClicked.set(false)
                 } else {
                     isClicked.set(true)
@@ -260,7 +259,7 @@ class DashBoardVM @Inject constructor(
             R.id.ivDashBoardFilter -> {
                 view.navigateWithId(R.id.action_dashBoardFragment_to_filterFragment)
             }
-            R.id.ivDashBackBtn->{
+            R.id.ivDashBackBtn -> {
                 view.findNavController().navigateUp()
             }
         }
@@ -272,6 +271,9 @@ class DashBoardVM @Inject constructor(
 
         dialog = Dialog(context)
         val window = dialog!!.window
+        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+
+
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.window!!.attributes.gravity = Gravity.LEFT or Gravity.TOP
         window!!.setLayout(
@@ -320,7 +322,7 @@ class DashBoardVM @Inject constructor(
 
             idList.clear()
             for (idx in 0 until newList.size) {
-                idList.addAll(listOf(newList[idx].toString()))
+                idList.add(newList[idx].toString())
             }
         }
 
@@ -379,34 +381,32 @@ class DashBoardVM @Inject constructor(
                                 // longi.set(pref.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble())
 
 
-                                if (res.body()!!.data.size > 0 || adapter.getAllItems().size>0) {
+                                if (res.body()!!.data.size > 0 || adapter.getAllItems().size > 0) {
 
                                     isNodatafound.set(true)
 
+                                    for (idx in 0 until adapter.getAllItems().size) {
 
-                                    for(idx in 0 until adapter.getAllItems().size)
-                                    {
-
-                                        Log.e("Dashboard_itemsss===",adapter.getAllItems()[idx].category_name)
+                                        Log.e("Dashboard_itemsss===",
+                                            adapter.getAllItems()[idx].category_name)
                                     }
 
                                     var profileList = ArrayList<ProfileCateData>()
                                     profileList.clear()
-                                   /* if(adapter!=null && adapter.getAllItems()!=null && adapter.getAllItems().size>0)
-                                    {
-                                        profileList.addAll(adapter.getAllItems());
-                                    }*/
+                                    /* if(adapter!=null && adapter.getAllItems()!=null && adapter.getAllItems().size>0)
+                                     {
+                                         profileList.addAll(adapter.getAllItems());
+                                     }*/
 
                                     for (idx in 0 until res.body()?.data!!.size) {
-                                        res.body()?.data!![idx].lngValue =
-                                            res.body()?.data!![idx].long
-                                        profileList.add(res.body()?.data!![idx])
+                                        if (res.body()?.data!![idx].postProfile_picture != null && res.body()?.data!![idx].postProfile_picture.size > 0) {
+                                            res.body()?.data!![idx].lngValue =
+                                                res.body()?.data!![idx].long
+                                            profileList.add(res.body()?.data!![idx])
+                                        }
                                     }
                                     adapter.addItems(profileList)
                                     adapter.notifyDataSetChanged()
-
-
-
 
                                     Log.d("DashBoardResponse->", res.body()!!.data.toString())
 
@@ -424,12 +424,12 @@ class DashBoardVM @Inject constructor(
                                     calculateLatLngToMiles()
                                     // distanceCal.set(distance.get().toString().split(".")[0])
 
-                                    if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey("link_share_pid")
+                                    if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey(
+                                            "link_share_pid")
                                             .equals(""))
                                     ) {
                                         profileResponse.value = true
                                     }
-
 
                                     Log.d("viaksdistance", distance.get().toString().split(".")[0])
                                     adapter.setOnItemClick { view, position, type ->
@@ -477,9 +477,17 @@ class DashBoardVM @Inject constructor(
                                     isNodatafound.set(false)
                                     Log.e("ASDASQKHE", "NO Data Found ")
 
+
+                                    val myType =
+                                        object : TypeToken<ArrayList<SelCategory>>() {}.type
+                                    val newList: ArrayList<SelCategory> =
+                                        Gson().fromJson<ArrayList<SelCategory>>(pref.retrieveFilterResponse(),
+                                            myType)
+
+                                    if (newList.size > 0) {
+                                        title.set(newList[0].cateName.toString())
+                                    }
                                 }
-
-
                             } else {
                                 Log.d("DashBoardResponse->", res.body()?.message.toString())
 
@@ -567,48 +575,46 @@ class DashBoardVM @Inject constructor(
         Log.e("SDFSDFSdf", categoryName)
         selectedCatId.set(_id!!)
         isRVScroll.set(true)
-        selectSpecificCategory(_id!!)
+        selectSpecificCategory(_id)
         //getProfileByCategory("", true,_id!!)
     }
 
-    fun selectSpecificCategory(_id:String)
-    {
+    fun selectSpecificCategory(_id: String) {
 
-       // var manager = (binding!!.rvDashBoard.layoutManager) as GridLayoutManager
+        // var manager = (binding!!.rvDashBoard.layoutManager) as GridLayoutManager
 
 
         //val currentFirstVisible: Int = manager.findFirstVisibleItemPosition()
 
         //   if (currentFirstVisible > firstVisibleInListview) Log.i("RecyclerView scrolled: ", "scroll up!") else Log.i("RecyclerView scrolled: ", "scroll down!")
 
- //       var firstVisibleInListview = (adapter.layoutId).
-       // Log.e("gdsmgksgsgsg===",firstVisibleInListview.toString())
-    /*    if (adapter.getAllItems().size > 0) {
-            title.set(adapter.getAllItems()
-                .get(firstVisibleInListview).category_name.toString())
-        }*/
+        //       var firstVisibleInListview = (adapter.layoutId).
+        // Log.e("gdsmgksgsgsg===",firstVisibleInListview.toString())
+        /*    if (adapter.getAllItems().size > 0) {
+                title.set(adapter.getAllItems()
+                    .get(firstVisibleInListview).category_name.toString())
+            }*/
 
-        var selectedPosition=-1
-        for(idx in 0 until adapter.getAllItems().size)
-        {
-            if(adapter.getAllItems()[idx].c_id==_id)
-            {
-                selectedPosition=idx
+        var selectedPosition = -1
+        for (idx in 0 until adapter.getAllItems().size) {
+            if (adapter.getAllItems()[idx].c_id == _id) {
+                selectedPosition = idx
                 break
             }
         }
-        Log.e("Selected_Position===",selectedPosition.toString())
-        if(selectedPosition!=-1){
-        (rvView!!.getLayoutManager() as GridLayoutManager).scrollToPositionWithOffset(
-            selectedPosition,
-            0)
+        Log.e("Selected_Position===", selectedPosition.toString())
+        if (selectedPosition != -1) {
+            (rvView!!.layoutManager as GridLayoutManager).scrollToPositionWithOffset(
+                selectedPosition,
+                0)
 
-    /*    if (adapter.getAllItems().size > 0) {
-            title.set(adapter.getAllItems()
-                .get(selectedPosition).category_name.toString())
-        }*/
+            /*    if (adapter.getAllItems().size > 0) {
+                    title.set(adapter.getAllItems()
+                        .get(selectedPosition).category_name.toString())
+                }*/
+        }
     }
-    }
+
     var profileResponse = MutableLiveData<Boolean>()
 
     /**call Get Profile Api..**/
@@ -657,11 +663,11 @@ class DashBoardVM @Inject constructor(
 //                    setpostStatus()
                     // myProfileData()
 
-                 /*   if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey("link_share_pid")
-                            .equals(""))
-                    ) {
-                        profileResponse.value = true
-                    }*/
+                    /*   if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey("link_share_pid")
+                               .equals(""))
+                       ) {
+                           profileResponse.value = true
+                       }*/
                 }
 
                 override fun onError(message: String) {
@@ -702,7 +708,8 @@ class DashBoardVM @Inject constructor(
                             dialog?.dismiss()
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                             context.runOnUiThread {
-                             var  catDataList= adapter.getAllItems() as ArrayList<ProfileCateData>
+                                var catDataList =
+                                    adapter.getAllItems() as ArrayList<ProfileCateData>
                                 if (isfav) {
                                     adapter.getAllItems()[position].isFavourite = true
 //                                    tvRemoveFav?.text="Remove from Favourites"
@@ -760,11 +767,11 @@ class DashBoardVM @Inject constructor(
                     if (res.isSuccessful || res != null) {
                         if (res.body()!!.status == 200) {
 
-                            Log.e("ASDSADWW", res.body()?.message.toString() )
+                            Log.e("ASDSADWW", res.body()?.message.toString())
 
 
                         } else {
-                            Log.e("ASDSADWW", res.body()?.message.toString() )
+                            Log.e("ASDSADWW", res.body()?.message.toString())
                         }
                     }
 

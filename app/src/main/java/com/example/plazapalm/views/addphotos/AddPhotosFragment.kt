@@ -27,6 +27,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
@@ -71,6 +72,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListener {
+    private var selectedPosition: Int?=0
     private var VideoPhotodialog: Dialog?=null
     private var checkForCamera: String?=""
 
@@ -134,36 +136,14 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
 
     private fun click() {
         binding!!.btnAddPhotos.setOnClickListener {
-
-
-//            bundle?.putParcelableArrayList("Images",photoList)
-
-
-//             var dataList=  photoList.filter { it.Image!="" } as ArrayList<AddPhoto>
-
-            UploadMedia(requireView())
-
-            /*  var arraylist=ArrayList<AddPhoto>()
-
-              for(idx in 0 until photoList.size)
-              {
-                  if(photoList[idx].Image!="")
-                  {
-                      arraylist.add(photoList[idx])
-                  }
-              }
-
-              Log.e("ASA",bundle!!.getString("khem").toString() + "VVVV")
-
-
-              var gsonValue=Gson().toJson(arraylist)
-
-              findNavController().previousBackStackEntry?.savedStateHandle?.set("photos",gsonValue)
-              findNavController().popBackStack()
-
-            //  bundle.putParcelableArrayList("photoList",dataList)
-            //  requireActivity().supportFragmentManager.popBackStack()
-  //            view!!.findNavController().navigate(R.id.action_addPhotosFragment_to_postProfileFragment,bundle)*/
+            var tempList2 =
+                newPhotoList!!.filter { it.isValid == false && it.Image != "" } as ArrayList<AddPhoto>
+            if(tempList2.size>0) {
+                UploadMedia(requireView())
+            }else
+            {
+                findNavController().navigateUp()
+            }
         }
     }
 
@@ -178,7 +158,6 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
 
         binding?.rvAddPhotos?.layoutManager =
             GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
-
 
         var numOfPhotos = 6
         var pendingPhoto = 0
@@ -243,11 +222,13 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
     }
 
     override fun onClick(view: View, type: String, position: Int) {
-        pos = position
+
         when (type) {
             CommonMethods.context.getString(R.string.add_photo_type) -> {
-             showVideoPhotoDialog()
-           //  showChooseOptionAccountDialog()
+           //  showVideoPhotoDialog()
+                pos = position
+               // selectedPosition=position
+              showChooseOptionAccountDialog()
             }
         }
     }
@@ -347,7 +328,6 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
          /*   newPhotoList.add(pos!!, AddPhoto(File(selectedImagePath)!!.absolutePath, false,2))
             addPhotosAdapter.updateList(newPhotoList, pos!!)*/
 
-
             val file = File(
                 Environment.getExternalStorageDirectory()
                     .absolutePath)
@@ -396,7 +376,7 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
             //dialog!!.dismiss()
             Log.e("sfms,fnmqefqfwfwfwf===",path.toString())
             hideProgress()
-
+            newPhotoList.removeAt(pos!!)
             newPhotoList.add(pos!!, AddPhoto(File(path)!!.absolutePath, false,2))
             addPhotosAdapter.updateList(newPhotoList, pos!!)
 
@@ -460,7 +440,6 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
         var tempList =
             newPhotoList!!.filter { it.isValid == false && it.Image != "" } as ArrayList<AddPhoto>
 
-
         if (tempList!!.size > 0) {
             Log.e("cXXZZZ", tempList.toString() + "VVVV")
 
@@ -478,7 +457,6 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
                     //For Photo
                     mediaType="image/*"
                 }
-
 
                 val file = File(
                     tempList!!
@@ -522,18 +500,31 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
                                         newList.add(previousSelectedPhotos[idx].Image.toString())
                                     }
                                 }
+                               var freshList=res.body()!!.data
 
-                                if (res.body()!!.data.size > 0) {
-                                    for (idx in 0 until res.body()!!.data.size) {
-                                        newList.add(res.body()!!.data[idx].toString())
+                                for(idx in 0 until newPhotoList.size)
+                                {
+                                    if(newPhotoList[idx].isValid==false && newPhotoList[idx].Image!="") {
+                                     //   for (jdx in 0 until freshList.size) {
+                                            newPhotoList[idx].Image=freshList[0]
+                                            freshList.removeAt(0)
+                                           // break
+                                      //  }
                                     }
                                 }
 
+
+                             /*   if (res.body()!!.data.size > 0) {
+                                    for (idx in 0 until res.body()!!.data.size) {
+                                        newList.add(res.body()!!.data[idx].toString())
+                                    }
+                                }*/
+
                                 var arraylist = ArrayList<AddPhoto>()
 
-                                for (idx in 0 until newList.size) {
-                                    if (newList[idx].toString() != "") {
-                                        arraylist.add(AddPhoto(newList[idx],true))
+                                for (idx in 0 until newPhotoList.size) {
+                                    if (newPhotoList[idx].Image != "") {
+                                        arraylist.add(AddPhoto(newPhotoList[idx].Image,true))
                                     }
                                 }
 

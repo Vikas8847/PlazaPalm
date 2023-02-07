@@ -17,6 +17,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.apachat.swipereveallayout.core.SwipeLayout
 import com.bumptech.glide.Glide
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
@@ -174,6 +175,9 @@ object BindingAdapters {
                 .load(IMAGE_LOAD_URL + imageUrl)
                 .error(R.drawable.placeholder)
                 .into(circleImage)
+        }else
+        {
+            circleImage.setImageResource(R.drawable.placeholder)
         }
     }
 
@@ -358,8 +362,7 @@ Log.e("Video_ErrorCode===",code1.toString())
             videoView.setOnCompletionListener { mp ->
                 // videoView.start()
                /* if (mp.duration == videoView.duration) {
-                    CommonMethods.showToast(MainActivity.context.get()!!, "Video is Completed ..")
-                }*/
+\                }*/
             }
             videoView.requestFocus()
             videoView.start()
@@ -535,14 +538,22 @@ Log.e("Video_ErrorCode===",code1.toString())
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter(value = ["setBlockText"], requireAll = false)
+    @BindingAdapter(value = ["setSwipeMode"], requireAll = false)
     @JvmStatic
-    fun setBlockText(
-        textView: AppCompatTextView,
-        value : String,
+    fun setSwipeMode(
+        swipeLayout: SwipeLayout,
+        value: Boolean,
     ) {
-        Log.e("AASEE",value)
-        textView.text = value
+      if(value)
+      {
+          Log.e("Value_Check===","true")
+          swipeLayout.layoutMode=SwipeLayout.MODE_SAME_LEVEL
+          swipeLayout.open(true)
+      }else
+      {
+          Log.e("Value_Check===","false")
+          swipeLayout.close(true)
+          swipeLayout.layoutMode=SwipeLayout.MODE_NORMAL
+      }
     }
 }

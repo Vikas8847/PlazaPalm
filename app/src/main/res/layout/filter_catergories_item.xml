@@ -12,6 +12,9 @@
             name="model"
             type="com.example.plazapalm.models.SelectedDataModelList" />
 
+        <variable
+            name="swipeFirst"
+            type="com.apachat.swipereveallayout.core.SwipeLayout" />
     </data>
 
     <com.apachat.swipereveallayout.core.SwipeLayout
@@ -19,7 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:dragEdge="right"
-        app:mode="same_level">
+        app:mode="same_level"
+        setSwipeMode="@{model.checkSlider}">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="100dp"
@@ -38,8 +42,8 @@
                 android:id="@+id/ivNotificationItemsDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="@dimen/_2sdp"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_delete_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,10 +61,9 @@
                 android:id="@+id/ivFilterMinus"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:src="@drawable/minus_button"
                 android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`minus_click`)}"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -69,7 +72,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvNotification"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -84,7 +87,23 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivFilterMinus"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivDragDrop"
                 tool:text="Plumber" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDragDrop"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="gone"
+                android:src="@drawable/minus_button"
+                android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`minus_click`)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.appcompat.widget.AppCompatImageView>
 
             <View
                 android:id="@+id/viewSettingPushNotification"

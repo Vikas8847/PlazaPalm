@@ -27,8 +27,10 @@ import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.views.chat.adapter.ChatAdapter
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
@@ -191,6 +193,10 @@ class ChatVM @Inject constructor(
                     }
                 }
 
+                override fun onError(message: String) {
+                    super.onError(message)
+                    CommonMethods.showToast(CommonMethods.context, message)
+                }
             })
     }
 

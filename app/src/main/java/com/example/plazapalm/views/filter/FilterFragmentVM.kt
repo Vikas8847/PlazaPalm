@@ -19,29 +19,30 @@ import com.example.plazapalm.utils.navigateWithId
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import com.apachat.swipereveallayout.core.SwipeLayout
+
 @SuppressLint("NotifyDataSetChanged")
 @HiltViewModel
 class FilterFragmentVM @Inject constructor(
     private var dataStoreUtil: DataStoreUtil,
-    private var pref: PreferenceFile
+    private var pref: PreferenceFile,
 ) : ViewModel() {
     var miles = ObservableField("")
     var location = ObservableField("")
     var long = ObservableField("")
     var lat = ObservableField("")
 
-    var swipeEnable=ObservableBoolean()
+    var swipeEnable = ObservableBoolean()
     var filterDataList = ArrayList<SelectedDataModelList>()
-    var newfilterList =  ObservableField(ArrayList<String>())
+    var newfilterList = ObservableField(ArrayList<String>())
+    var categoryVisibilty=ObservableBoolean(false)
     val filterAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.filter_catergories_item) }
 
     init {
 
-       /* if (pref.retrieveLocation()!=null){
-            location.set(pref.retrieveLocation())
-            Log.e("SSSSSWWWQQQ0", location.get().toString())
-        }*/
+        /* if (pref.retrieveLocation()!=null){
+             location.set(pref.retrieveLocation())
+             Log.e("SSSSSWWWQQQ0", location.get().toString())
+         }*/
 
 //        filterAdapter.addItems(filterDataList)
 //        filterAdapter.notifyDataSetChanged()
@@ -60,25 +61,23 @@ class FilterFragmentVM @Inject constructor(
                 val bundle = Bundle()
                 bundle.putString("comingFrom", "isFilter")
 
-                var dataList=filterAdapter.getAllItems()
-                var senderList=ArrayList<String>()
+                var dataList = filterAdapter.getAllItems()
+                var senderList = ArrayList<String>()
                 senderList.clear()
-                for(idx in 0 until dataList.size)
-                {
+                for (idx in 0 until dataList.size) {
                     senderList.add(dataList[idx].cateName.toString())
                 }
                 bundle.putSerializable("SelecatedCategory", senderList)
-                if(pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble()!=0.0) {
-                    Log.e("gsgswgswg==",pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString())
+                if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble() != 0.0) {
+                    Log.e("gsgswgswg==", pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString())
                     bundle.putString("lat_value",
                         pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toString())
                     bundle.putString("lng_value",
                         pref.retvieLatlong(Constants.FILTER_SCREEN_LONG).toString())
 
                     bundle.putString("location_value", pref.retrieveFilterLocation())
-                }else
-                {
-                    Log.e("gsgswgswg==","ffff")
+                } else {
+                    Log.e("gsgswgswg==", "ffff")
                     bundle.putString("lat_value", "0.0")
                     bundle.putString("lng_value", "0.0")
                     bundle.putString("location_value", "")
@@ -87,17 +86,17 @@ class FilterFragmentVM @Inject constructor(
                 view.navigateWithId(R.id.action_filterFragment_to_categoriesListFragment, bundle)
             }
             R.id.tvFilterLocationDescription -> {
-               var bundle=Bundle()
+                var bundle = Bundle()
                 bundle.putString("PostProfile", "filter_screen")
 
-                if(location.get().toString()!=null && !(location.get().toString().equals("null")))
-                {
-                    bundle.putString("location_txt",location.get().toString())
-                }else
-                {
-                    bundle.putString("location_txt","")
+                if (location.get().toString() != null && !(location.get().toString()
+                        .equals("null"))
+                ) {
+                    bundle.putString("location_txt", location.get().toString())
+                } else {
+                    bundle.putString("location_txt", "")
                 }
-                view.navigateWithId(R.id.addCitiesFragment,bundle)
+                view.navigateWithId(R.id.addCitiesFragment, bundle)
             }
 
             R.id.btnReportSubmit -> {
@@ -107,18 +106,26 @@ class FilterFragmentVM @Inject constructor(
                 var selCateList = ArrayList<SelCategory>()
                 selCateList.clear()
 
-                for(idx in 0 until filterAdapter.getAllItems().size){
-                    selCateList.add(SelCategory(filterAdapter.getAllItems()[idx].cateName,filterAdapter.getAllItems()[idx].cate_ID,
-                        filterAdapter.getAllItems()[idx].adapterPos,filterAdapter.getAllItems()[idx].istrue , filterAdapter.getAllItems()[idx].count))
+                var catIdList = ArrayList<String>()
+                catIdList.clear()
+                for (idx in 0 until filterAdapter.getAllItems().size) {
+                    catIdList.add(filterAdapter.getAllItems()[idx].cate_ID.toString())
+                    selCateList.add(SelCategory(filterAdapter.getAllItems()[idx].cateName,
+                        filterAdapter.getAllItems()[idx].cate_ID,
+                        filterAdapter.getAllItems()[idx].adapterPos,
+                        filterAdapter.getAllItems()[idx].istrue,
+                        filterAdapter.getAllItems()[idx].count))
                 }
 
                 var gsonValue = Gson().toJson(selCateList)
                 pref.storeFilterResponse(gsonValue)
-//                dataStoreUtil.saveData(Constants.CategoryList, gsonValue)
-                view.navigateWithId(R.id.dashBoardFragment, bundle)
-                Log.e("Sender_List_Data===",filterAdapter.getAllItems().toString())
-                Log.e("afj;asdioas===",selCateList.toString())
 
+                val SelectedidList = Gson().toJson(catIdList)
+                pref.saveCateIdList(SelectedidList)
+
+                view.navigateWithId(R.id.dashBoardFragment, bundle)
+                Log.e("Sender_List_Data===", filterAdapter.getAllItems().toString())
+                Log.e("afj;asdioas===", selCateList.toString())
             }
         }
     }
