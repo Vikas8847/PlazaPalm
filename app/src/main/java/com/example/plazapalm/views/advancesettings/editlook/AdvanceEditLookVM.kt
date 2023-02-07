@@ -168,7 +168,7 @@ class AdvanceEditLookVM @Inject constructor(
                 checkColor.set(CommonMethods.BACKGROUND)
                 showColorDialog(CommonMethods.BACKGROUND)
             }
-
+//Colmn
             R.id.viewBoxColumnBGColor -> {
                 checkColor.set(CommonMethods.COLUMN)
                 showColorDialog(CommonMethods.COLUMN)
@@ -1722,6 +1722,7 @@ class AdvanceEditLookVM @Inject constructor(
         }
         dialog.show()
     }
+
 
     /***Get Edit Looks Api ..*/
     fun getEditLookColor() {

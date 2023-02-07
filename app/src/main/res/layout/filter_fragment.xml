@@ -9,6 +9,9 @@
             name="vm"
             type="com.example.plazapalm.views.filter.FilterFragmentVM" />
 
+        <variable
+            name="mView"
+            type="android.view.View" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -248,6 +251,18 @@
                         app:layout_constraintTop_toBottomOf="@id/tvFilterCategories"
                         tools:itemCount="6"
                         tools:listitem="@layout/filter_catergories_item" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        app:layout_constraintTop_toTopOf="@+id/tvFilterCategories"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="No Data Found "
+                        android:textSize="@dimen/_16sdp"
+                        android:visibility="@{vm.categoryVisibilty?mView.VISIBLE:mView.GONE}"
+                        android:id="@+id/tvNoDataDashboard"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="wrap_content"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>

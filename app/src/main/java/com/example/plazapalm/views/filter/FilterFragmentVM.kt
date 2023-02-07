@@ -34,6 +34,7 @@ class FilterFragmentVM @Inject constructor(
     var swipeEnable = ObservableBoolean()
     var filterDataList = ArrayList<SelectedDataModelList>()
     var newfilterList = ObservableField(ArrayList<String>())
+    var categoryVisibilty=ObservableBoolean(false)
     val filterAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.filter_catergories_item) }
 
     init {

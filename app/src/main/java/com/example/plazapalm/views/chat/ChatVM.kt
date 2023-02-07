@@ -26,8 +26,10 @@ import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.views.chat.adapter.ChatAdapter
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
@@ -236,6 +238,16 @@ class ChatVM @Inject constructor(
 //        firestore.collection("Chats").document("chatId").set(chatId!!).addOnSuccessListener {
 //
 //        }
+
+        var hashmap=HashMap<String,JSONObject>()
+        var jsonObject=JSONObject()
+        jsonObject.put("id","1")
+        jsonObject.put("name","Sample")
+        jsonObject.put("image","")
+
+        hashmap.put(senderUserID.toString(),jsonObject)
+        firestore!!.collection("Chats").document(bothID.toString()).set(hashmap)
+
         sendChatMessage()
     }
 

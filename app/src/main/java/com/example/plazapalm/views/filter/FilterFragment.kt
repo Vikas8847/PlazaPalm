@@ -121,6 +121,13 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
                             viewModel.filterAdapter.getAllItems().removeAt(position)
                             viewModel.filterAdapter.notifyDataSetChanged()
 
+                            if(viewModel.filterAdapter.getAllItems().size==0)
+                            {
+                                viewModel.categoryVisibilty.set(true)
+                            }else
+                            {
+                                viewModel.categoryVisibilty.set(false)
+                            }
                         }
                 "minus_click"->{
                     Log.e("Selected_Position===",position.toString())
@@ -143,6 +150,14 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
 
             var gsonValue = Gson().toJson(categoryList)
 
+
+            if(categoryList.size==0)
+            {
+                viewModel.categoryVisibilty.set(true)
+            }else
+            {
+                viewModel.categoryVisibilty.set(false)
+            }
             viewModel.filterAdapter.addItems(categoryList)
            viewModel.filterAdapter.notifyDataSetChanged()
 
@@ -198,6 +213,14 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
                  viewModel.newfilterList.set(tempList)
                  viewModel.filterAdapter.addItems(categoryList)
                  viewModel.filterAdapter.notifyDataSetChanged()
+
+                if( viewModel.filterAdapter.getAllItems().size==0)
+                {
+                    viewModel.categoryVisibilty.set(true)
+                }else
+                {
+                    viewModel.categoryVisibilty.set(false)
+                }
 
 //                var gsonValue = Gson().toJson(categoryList)
 //                dataStoreUtil.saveData(CategoryList, gsonValue)
