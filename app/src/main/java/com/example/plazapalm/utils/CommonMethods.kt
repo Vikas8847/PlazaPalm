@@ -62,8 +62,6 @@ object CommonMethods {
     }
 
 
-
-
     var context = (MainActivity.context.get() as Activity)
     private fun getColoredSpanned(text: String, color: String): String? {
         return "<font color=$color>$text</font>"
@@ -233,6 +231,7 @@ object CommonMethods {
             Looper.myLooper()
         )
     }
+
     lateinit var currentLocation: LatLng
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
@@ -240,8 +239,15 @@ object CommonMethods {
             currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
         }
     }
+
     fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
         }
@@ -250,7 +256,14 @@ object CommonMethods {
 
     // Request permissions if not granted before
     fun requestPermissions() {
-        ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), pERMISSION_ID)
+        ActivityCompat.requestPermissions(
+            context,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            pERMISSION_ID
+        )
     }
 
     /*Check camera permission */
@@ -318,6 +331,7 @@ object CommonMethods {
             Log.e(javaClass.simpleName, "Error writing bitmap", e)
         }
     }
+
     var deviceToken = ObservableField("test55")
     var email = VerifyData().email.toString()
 
@@ -462,125 +476,120 @@ object CommonMethods {
     const val windSong = "fonts/windsong.ttf"
 
     //fonts adapter click.
-    const val fontsItemClick="fontsItemClick"
+    const val fontsItemClick = "fontsItemClick"
 
     /**Fonts Names **/
-    const val acadeMyLetFontName="Academy Engraved LET "
-    const val abrilFatFaceFontName ="Abril FatFace"
-    const val alexBrushFontName="Alex Brush"
-    const val allerBDFontName="Aller BD"
-    const val allerBDItFontName="Aller BD IT"
-    const val allerItFontName="Aller IT"
-    const val AllerDisplayFontName="Aller Display"
-    const val AllerRGFontName="Aller RG "
-    const val AntonioBoldFontName="Antoino Bold "
-    const val AntonioLightFontName="Antonio Light "
-    const val AntonioRegularFontName="Antonio Regular"
-    const val amaticBoldFontName="Amatic Bold"
-    const val amaticSCRegularFontName="Amatic Regular"
+    const val acadeMyLetFontName = "Academy Engraved LET "
+    const val abrilFatFaceFontName = "Abril FatFace"
+    const val alexBrushFontName = "Alex Brush"
+    const val allerBDFontName = "Aller BD"
+    const val allerBDItFontName = "Aller BD IT"
+    const val allerItFontName = "Aller IT"
+    const val AllerDisplayFontName = "Aller Display"
+    const val AllerRGFontName = "Aller RG "
+    const val AntonioBoldFontName = "Antoino Bold "
+    const val AntonioLightFontName = "Antonio Light "
+    const val AntonioRegularFontName = "Antonio Regular"
+    const val amaticBoldFontName = "Amatic Bold"
+    const val amaticSCRegularFontName = "Amatic Regular"
 
     //B..
-    const val bebasRegularFontName="Bebas Regular"
+    const val bebasRegularFontName = "Bebas Regular"
 
     //C..
-    const val caviarDreamsFontName="Caviar Dreams"
-    const val caviarDreamsItalicFontName="Caviar Dreams Italic"
-    const val chunkFivePrintFontName ="ChunkFive Print"
-    const val chunkFiveRegularFontName ="Chunk Five Regular"
-    const val cooperHewittBoldFontName ="Cooper HewittBold"
-    const  val cooperHewittBoldItalicFontName="Copper Hewitt Bold Italic"
-    const val cooperHewittHeavyFontName="Copper Hewitt Heavy"
-    const val dancingRegularFontName ="Dancing Regular"
-    const val ftusFontName ="FTus"
-    const val firaSansBoldFontName ="Firs Sans Bold"
-    const val firaSansBoldItalicFontName ="Fira Sans Bold Italic"
-    const val firaSansBookFontName ="Fira Sans Book"
-    const val firaSansEightFontName ="Fira Sans Eight"
-    const val greatVibesRegularFontName ="Great Vibes Regular"
-    const val helloValentinaFontName ="Hello Valentina"
-    const val interBlackFontName ="Inter Black"
-    const val interBoldFontName ="interBold"
-    const val interBoldItalicFontName ="inter Bold Italic"
-    const val interExtraBoldFontName ="interExtraBold"
-    const val inter_Extra_Bold_FontName ="Inter Extra Bold"
-    const val josefinBoldFontName ="Josefin Bold"
-    const val josefinBoldItalicFontName ="Josefin Bold Italic"
-    const val josefinLightFontName ="Josefin Light"
-    const val josefinRegularFontName ="Josefin Regular"
-    const val latoBlackFontName ="Lato Black"
-       const val latoBlackItalicFontName ="Lato Black Italic"
-       const val latoBoldFontName ="Lato Bold"
-       const val latoBoldItalicFontName ="Lato Bold Italic"
-       const val latoHairItalicFontName ="Lato Hair Italic"
-       const val montSerratAlternatesBlackFontName ="Mont Serrat Alternates Black"
-       const val montSerratAlternatesBlackItalicFontName ="Mont Serrat Alternates Black Italic"
-       const val montSerratAlternatesBoldFontName ="Mont Serrat Alternates Bold"
-       const val openSansBoldFontName ="Open Sans Bold"
-       const val openSansBoldItalicFontName ="Open Sans Bold Italic"
-       const val openSansExtraBoldItalicFontName ="Open Sans Extra Bold Italic"
-       const val openSansItalicFontName ="Open Sans Italic"
-       const val openSansLightFontName ="Open Sans Light"
-       const val openSansRegularFontName ="Open Sans Regular"
-       const val openSansSemiBoldFontName ="Open Sans Semi Bold"
-       const val openSansSemiBoldItalicFontName ="Open Sans Semi Bold Italic"
-       const val ostrichRegularFontName ="Ostrich Regular"
-       const val ostrichSansBlackFontName ="Ostrich Sans Black"
-       const val ostrichSansBoldFontName ="Ostrich Sans Bold"
-       const val ostrichSansHeavyFontName ="Ostrich Sans Heavy"
-       const val ostrichSansLightFontName ="Ostrich Sans Light"
-       const val ostrichSansMediumFontName ="Ostrich Sans Medium"
-       const val ostrichSansRoundedFontName ="Ostrich Sans Rounded Medium"
-       const val oswaldBoldFontName ="OsWald Bold"
-       const val oswaldBoldItalicFontName ="OsWald Bold Italic"
-       const val oswaldSemiBoldItalicFontName ="OsWald Semi Bold Italic"
-       const val playFairDisplayBlackFontName ="Play Fair Display Black"
-       const val playFairDisplayBlackItalicFontName ="Play Fair Display Black Italic"
-       const val playFairDisplayBoldFontName ="Play Fair Display Bold"
-       const val poppinBlackItalicFontName ="Poppin Black Italic"
-       const val poppinBlackFontName ="Poppin Black"
-       const val poppinBoldFontName ="Poppin Bold"
-       const val poppinBoldItalicFontName ="Poppin Bold Italic"
-       const val poppinExtraBoldFontName ="Poppin Extra Bold"
-       const val ptc55FontName ="PTC 55"
-       const val ptc75FontName ="PTC 75F"
-       const val quicksAndBoldFontName ="Quicks And Bold"
-       const val quicksAndBoldItalicFontName ="Quicks And Bold Italic"
-       const val quicksDashFontName ="Quicks Dash"
-       const val quickAndItalicFontName ="Quicks And Italic"
-       const val quickAndLightFontName ="Quicks And Light"
-       const val raleWayBlackFontName ="RaleWay Black"
-       const val raleWayBlackItalicFontName ="RaleWay Black Italic"
-       const val raleWayBoldFontName ="RaleWay Bold"
-       const val raleWayBoldItalicFontName ="RaleWay Bold Italic"
-       const val raleWayItalicFontName ="RaleWayItalic"
-       const val raleWayMediumFontName ="RaleWay Medium"
-       const val seasRnFontName ="SeasRn"
-       const val sofiaRegularFontName ="Sofia Regular"
-       const val sourceSansProBlackItFontName ="SourceSans ProBlackIt"
-       const val sourceSansProBoldFontName ="SourceSans ProBold"
-       const val sourceSansProExtraLightFontName ="SourceSans ProExtra Light"
-       const val sourceSansProBlackFontName ="SourceSans ProBlack"
-       const val titiliumLightFontName ="Titilium Light"
-       const val titiliumRegularFontName ="Titilium Regular"
-       const val titiliumRegularItalicFontName ="Titilium RegularItalic"
-       const val titiliumSemiBoldFontName ="Titilium SemiBold"
-       const val windSongFontName ="WindSong"
-       const val walkWayBlackFontName ="walkway Black"
-       const val walkWayBoldFontName ="walkway Bold"
-       const val walkWayObliqueFontName ="walkway Oblique"
-       const val walkWayObliqueBlackFontName ="walkway Oblique Black"
-       const val walkWayObliqueBoldFontName ="walkway Oblique Bold"
-
-    const val walkwayObliqueSemiBoldFontName= "walkway Oblique Semi Bold"
-
-
+    const val caviarDreamsFontName = "Caviar Dreams"
+    const val caviarDreamsItalicFontName = "Caviar Dreams Italic"
+    const val chunkFivePrintFontName = "ChunkFive Print"
+    const val chunkFiveRegularFontName = "Chunk Five Regular"
+    const val cooperHewittBoldFontName = "Cooper HewittBold"
+    const val cooperHewittBoldItalicFontName = "Copper Hewitt Bold Italic"
+    const val cooperHewittHeavyFontName = "Copper Hewitt Heavy"
+    const val dancingRegularFontName = "Dancing Regular"
+    const val ftusFontName = "FTus"
+    const val firaSansBoldFontName = "Firs Sans Bold"
+    const val firaSansBoldItalicFontName = "Fira Sans Bold Italic"
+    const val firaSansBookFontName = "Fira Sans Book"
+    const val firaSansEightFontName = "Fira Sans Eight"
+    const val greatVibesRegularFontName = "Great Vibes Regular"
+    const val helloValentinaFontName = "Hello Valentina"
+    const val interBlackFontName = "Inter Black"
+    const val interBoldFontName = "interBold"
+    const val interBoldItalicFontName = "inter Bold Italic"
+    const val interExtraBoldFontName = "interExtraBold"
+    const val inter_Extra_Bold_FontName = "Inter Extra Bold"
+    const val josefinBoldFontName = "Josefin Bold"
+    const val josefinBoldItalicFontName = "Josefin Bold Italic"
+    const val josefinLightFontName = "Josefin Light"
+    const val josefinRegularFontName = "Josefin Regular"
+    const val latoBlackFontName = "Lato Black"
+    const val latoBlackItalicFontName = "Lato Black Italic"
+    const val latoBoldFontName = "Lato Bold"
+    const val latoBoldItalicFontName = "Lato Bold Italic"
+    const val latoHairItalicFontName = "Lato Hair Italic"
+    const val montSerratAlternatesBlackFontName = "Mont Serrat Alternates Black"
+    const val montSerratAlternatesBlackItalicFontName = "Mont Serrat Alternates Black Italic"
+    const val montSerratAlternatesBoldFontName = "Mont Serrat Alternates Bold"
+    const val openSansBoldFontName = "Open Sans Bold"
+    const val openSansBoldItalicFontName = "Open Sans Bold Italic"
+    const val openSansExtraBoldItalicFontName = "Open Sans Extra Bold Italic"
+    const val openSansItalicFontName = "Open Sans Italic"
+    const val openSansLightFontName = "Open Sans Light"
+    const val openSansRegularFontName = "Open Sans Regular"
+    const val openSansSemiBoldFontName = "Open Sans Semi Bold"
+    const val openSansSemiBoldItalicFontName = "Open Sans Semi Bold Italic"
+    const val ostrichRegularFontName = "Ostrich Regular"
+    const val ostrichSansBlackFontName = "Ostrich Sans Black"
+    const val ostrichSansBoldFontName = "Ostrich Sans Bold"
+    const val ostrichSansHeavyFontName = "Ostrich Sans Heavy"
+    const val ostrichSansLightFontName = "Ostrich Sans Light"
+    const val ostrichSansMediumFontName = "Ostrich Sans Medium"
+    const val ostrichSansRoundedFontName = "Ostrich Sans Rounded Medium"
+    const val oswaldBoldFontName = "OsWald Bold"
+    const val oswaldBoldItalicFontName = "OsWald Bold Italic"
+    const val oswaldSemiBoldItalicFontName = "OsWald Semi Bold Italic"
+    const val playFairDisplayBlackFontName = "Play Fair Display Black"
+    const val playFairDisplayBlackItalicFontName = "Play Fair Display Black Italic"
+    const val playFairDisplayBoldFontName = "Play Fair Display Bold"
+    const val poppinBlackItalicFontName = "Poppin Black Italic"
+    const val poppinBlackFontName = "Poppin Black"
+    const val poppinBoldFontName = "Poppin Bold"
+    const val poppinBoldItalicFontName = "Poppin Bold Italic"
+    const val poppinExtraBoldFontName = "Poppin Extra Bold"
+    const val ptc55FontName = "PTC 55"
+    const val ptc75FontName = "PTC 75F"
+    const val quicksAndBoldFontName = "Quicks And Bold"
+    const val quicksAndBoldItalicFontName = "Quicks And Bold Italic"
+    const val quicksDashFontName = "Quicks Dash"
+    const val quickAndItalicFontName = "Quicks And Italic"
+    const val quickAndLightFontName = "Quicks And Light"
+    const val raleWayBlackFontName = "RaleWay Black"
+    const val raleWayBlackItalicFontName = "RaleWay Black Italic"
+    const val raleWayBoldFontName = "RaleWay Bold"
+    const val raleWayBoldItalicFontName = "RaleWay Bold Italic"
+    const val raleWayItalicFontName = "RaleWayItalic"
+    const val raleWayMediumFontName = "RaleWay Medium"
+    const val seasRnFontName = "SeasRn"
+    const val sofiaRegularFontName = "Sofia Regular"
+    const val sourceSansProBlackItFontName = "SourceSans ProBlackIt"
+    const val sourceSansProBoldFontName = "SourceSans ProBold"
+    const val sourceSansProExtraLightFontName = "SourceSans ProExtra Light"
+    const val sourceSansProBlackFontName = "SourceSans ProBlack"
+    const val titiliumLightFontName = "Titilium Light"
+    const val titiliumRegularFontName = "Titilium Regular"
+    const val titiliumRegularItalicFontName = "Titilium RegularItalic"
+    const val titiliumSemiBoldFontName = "Titilium SemiBold"
+    const val windSongFontName = "WindSong"
+    const val walkWayBlackFontName = "walkway Black"
+    const val walkWayBoldFontName = "walkway Bold"
+    const val walkWayObliqueFontName = "walkway Oblique"
+    const val walkWayObliqueBlackFontName = "walkway Oblique Black"
+    const val walkWayObliqueBoldFontName = "walkway Oblique Bold"
+    const val walkwayObliqueSemiBoldFontName = "walkway Oblique Semi Bold"
     /**Background fonts,Column  names**/
-    const val BACKGROUND="BACKGROUND"
-     const val COLUMN="COLUMN"
-     const val BORDER="BORDER"
-     const val FONTCOLOR="FONTCOLOR"
-
-
+    const val BACKGROUND = "BACKGROUND"
+    const val COLUMN = "COLUMN"
+    const val BORDER = "BORDER"
+    const val FONTCOLOR = "FONTCOLOR"
 
 
 }

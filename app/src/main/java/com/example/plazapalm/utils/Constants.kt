@@ -114,8 +114,22 @@ object Constants {
     const val addFav = "addFav"
     //Colors Strings
 
-    const val FONTCOLOR = "FONTCOLOR"
+    const val calendarBookingToChat="calendarBookingToChat"
+    const val calendarBookingDetails="calendarBookingDetails"
 
+    const val BACKGROUND="BACKGROUND"
+    const val COLUMN="COLUMN"
+    const val BORDER="BORDER"
+    const val FONTCOLOR="FONTCOLOR"
+    const val Font_Color_Name="Font Color"
+    const val Font_Sample="Font Sample"
+    const val Border_Color="Border Color"
+    const val Background_color="Background Color"
+    const val Column_color="Column Color"
+
+
+
+    const val Calendar  = "Calendar"
 
     /** dataStore key */
     val CategoryList by lazy { stringPreferencesKey("CategoryList") }
