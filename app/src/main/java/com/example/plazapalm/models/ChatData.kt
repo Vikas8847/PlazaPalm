@@ -6,6 +6,7 @@ data class ChatData(
     val messageType:String?="",
     val senderuid:String?="",
     val reciveruid: String?="",
-    val readStatus:String?=""
+    val readStatus:String?="",
+    val milisecondTime:String?=""
     )
 

@@ -213,12 +213,13 @@ class ChatVM @Inject constructor(
                             data.get("messageType").toString(),
                             data.get("senderuid").toString(),
                             data.get("reciveruid").toString(),
-                            data.get("readStatus").toString()
+                            data.get("readStatus").toString(),
+                            data.get("milisecondTime").toString()
                         )
                     )
 
                     dataList.sortBy {
-                        it.messageTime
+                        it.milisecondTime
                     }
 
                 }

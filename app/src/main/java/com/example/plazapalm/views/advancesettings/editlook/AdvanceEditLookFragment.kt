@@ -145,9 +145,11 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                             val data = it as Int
                             binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
                         }
+
                         val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
                         val colorCode = cd.color
                         val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+
                         viewModel.backgroundColor.set(hexColor)
                         preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
                         Log.e("asdasdasBackground", hexColor.toString())
