@@ -55,7 +55,6 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
     }
 
 
-
     private fun getBusinessStatus() {
         if (pref.retrieveBoolKey(business_profile_status) != null) {
             val businessStatus = pref.retrieveBoolKey(business_profile_status)
@@ -118,14 +117,14 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
             //        if (viewModel.premium == 1) {
             //old id
             //63b69f871545b79696c25166
-          /*  if (user_id == "63bd1578c4f44108db54e886") {
-                //63bd052fc4f44108db54e5eb
-                //if (user_id.equals("63b69bc11545b79696c25120")) {
+            /*  if (user_id == "63bd1578c4f44108db54e886") {
+                  //63bd052fc4f44108db54e5eb
+                  //if (user_id.equals("63b69bc11545b79696c25120")) {
 
 
-            }*/
+              }*/
 
-            if (user_id == "63ce2311a67c70857439f543") {
+            if (user_id == "63ce507ba67c70857439f892") {
 
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE
@@ -139,21 +138,14 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
                 binding?.tvUpgrade?.visibility = View.GONE
                 binding?.viewUpgrade?.visibility = View.GONE
 
-            }
-            else {
-
+            } else {
                 /* binding?.tvAdvanceSetting?.visibility = View.GONE
              binding?.viewAdvanceSettings?.visibility = View.GONE
-
              binding?.tvUpgrade?.visibility = View.VISIBLE
              binding?.viewUpgrade?.visibility = View.VISIBLE*/
 
-                Log.e("SAAHAEED", "WORKINGGGGGG")
-
             }
-
         }
-
     }
 
     override fun onResume() {

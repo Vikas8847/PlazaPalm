@@ -179,7 +179,6 @@ class SignupVM @Inject constructor(
                         businessStatus.get()
                     )
                 }
-
                 override fun onResponse(res: Response<SignupResponseModel>) {
                     /**Save Register Data...**/
                     if (res.isSuccessful) {
@@ -224,10 +223,7 @@ class SignupVM @Inject constructor(
                                     }*/
 
                                     } else {
-                                    CommonMethods.showToast(
-                                        CommonMethods.context,
-                                        res.body()?.message.toString()
-                                    )
+                                    CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
                                     view.navigateWithId(R.id.action_signUpFragment_to_loginFragment)
 
                                 }
