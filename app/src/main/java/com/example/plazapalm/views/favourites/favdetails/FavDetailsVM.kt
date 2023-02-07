@@ -107,52 +107,10 @@ class FavDetailsVM @Inject constructor(
 
                 setdislike(isLike.get(), isDisLike.get(), 2)
 
-                /*  var count = 5
-                  val imageLik = view as ImageView
-
-                  if (isDisLike.get().equals(true)) {
-                      count=count++
-                  } else {
-                      count=count--
-
-                  }
-
-                  Log.e("AUTOINCRIMENT", count.toString())
-
-                  if (isLike.get().equals(false) || isDisLike.get().equals(false)) {
-                      isDisLike.set(true)
-                      isLike.set(false)
-                  } else {
-                      var dislikeValue = isDisLike.get()
-                      var likeValue = isLike.get()
-                      isDisLike.set(likeValue)
-                      isLike.set(dislikeValue)
-
-                  }
-
-                  Log.e("CHECHK", isDisLike.get().toString() + "VV----  " + isLike.get())
-
-                  likeApi(isLike.get(), isDisLike.get(), "disLike", imageLik)*/
-
             }
 
             R.id.ivFavDetailsLike -> {
                 setdislike(isLike.get(), isDisLike.get(), 1)
-                /*  val imageDis = view as ImageView
-
-                  if (isLike.get().equals(false) || isDisLike.get().equals(false)) {
-                      isLike.set(true)
-                      isDisLike.set(false)
-
-                  } else {
-                      var dislikeValue = isDisLike.get()
-                      var likeValue = isLike.get()
-                      isDisLike.set(likeValue)
-                      isLike.set(dislikeValue)
-
-                  }
-
-                  likeApi(isLike.get(), isLikeDislike.get(), "like", imageDis)*/
 
             }
             R.id.ivFavDetailsBackBtn -> {
@@ -209,6 +167,12 @@ class FavDetailsVM @Inject constructor(
                     val bundle =Bundle()
 //                    bundle.putString("user_Id",userdata.get()?.user_id.toString())
                     bundle.putString("user_Id",userIdForChat.get().toString())
+                    bundle.putString("user_name", userdata.get()?.user_name)
+                    bundle.putString("userImage", userdata.get()?.postProfile_picture!![0].toString())
+
+                    Log.e("asfasfaa",userdata.get()?.user_name.toString())
+                    Log.e("LASDKKE-- ", userdata.get()?.postProfile_picture!![0].toString())
+
                     view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment,bundle)
                 }
             }

@@ -535,5 +535,14 @@ Log.e("Video_ErrorCode===",code1.toString())
     }
 
 
-
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter(value = ["setBlockText"], requireAll = false)
+    @JvmStatic
+    fun setBlockText(
+        textView: AppCompatTextView,
+        value : String,
+    ) {
+        Log.e("AASEE",value)
+        textView.text = value
+    }
 }

@@ -17,6 +17,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.BlockUserResponse
 import com.example.plazapalm.models.ChatData
+import com.example.plazapalm.models.StoreUserFireStore
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
 import com.example.plazapalm.networkcalls.Repository
@@ -32,7 +33,6 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashMap
 
 @HiltViewModel
 class ChatVM @Inject constructor(
@@ -46,7 +46,12 @@ class ChatVM @Inject constructor(
     var dataList = ArrayList<ChatData>()
     var messageText = ObservableField("")
     var reciverUserID = ObservableField("")
+    var isUserBlocked = ObservableBoolean(true)
+    var reciverUserImage = ObservableField("")
+    var reciverUserName = ObservableField("")
+    var blockUserName = ObservableField("")
     var senderUserID = ObservableField("")
+    var senderUserName = ObservableField("")
     var userTypeId = ObservableField("")
     val firestore = FirebaseFirestore.getInstance()
     var bothID: String? = ""
@@ -54,7 +59,7 @@ class ChatVM @Inject constructor(
     var userType = false
 
     init {
-        var bothID1 = senderUserID.get().toString() + "_" + reciverUserID.get().toString()
+        val bothID1 = senderUserID.get().toString() + "_" + reciverUserID.get().toString()
 
         getChatuid(bothID1)
 
@@ -79,14 +84,15 @@ class ChatVM @Inject constructor(
                 isClicked.set(false)
                 showChooseOptionAccountDialog()
             }
-            R.id.sendMessage_tv -> {
-//           sendChatMessage()
-            }
+
 
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showChooseOptionAccountDialog() {
+
+
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
         } else {
@@ -96,17 +102,43 @@ class ChatVM @Inject constructor(
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
             dialog?.setCancelable(false)
-            /**choose options click(Button) **/
-            dialog?.findViewById<AppCompatTextView>(R.id.tvBlockProfile)?.setOnClickListener {
+            val blockUser = dialog?.findViewById<AppCompatTextView>(R.id.tvBlockProfile)
+            val blockUserText = dialog?.findViewById<AppCompatTextView>(R.id.tvDeleteDescription)
 
-                blockUser()
+            /**choose options click(Button) **/
+            if (isUserBlocked.get()) {
+                blockUser?.text = "Block"
+
+            } else {
+                blockUser?.text = "Unblock"
+            }
+
+            blockUserName.set(" Block " + reciverUserName.get().toString() + " ?")
+
+            blockUserText?.text = blockUserName.get().toString()
+
+            blockUser?.setOnClickListener {
+
+                if (isUserBlocked.get()) {
+                    isUserBlocked.set(false)
+                    Log.e("ADADASRTRTR456", isUserBlocked.get().toString())
+
+                } else {
+                    isUserBlocked.set(true)
+                    Log.e("ADADASRTRTR67", isUserBlocked.get().toString())
+
+                }
+
+//                blockUser()
                 dialog?.dismiss()
 
             }
+
             /**Edit Profile Click (Button)**/
             dialog?.findViewById<AppCompatTextView>(R.id.tvBlockCancelBtn)?.setOnClickListener {
 
                 dialog?.dismiss()
+
             }
 
             dialog?.show()
@@ -114,6 +146,8 @@ class ChatVM @Inject constructor(
     }
 
     private fun blockUser() = viewModelScope.launch {
+        Log.e("ADADASRTRTR123", isUserBlocked.get().toString())
+
         repository.makeCall(ApiEnums.BLOCK_USER, loader = true,
             saveInCache = false,
             getFromCache = false,
@@ -123,7 +157,7 @@ class ChatVM @Inject constructor(
                     return retrofitApi.addToBlocklist(
                         pref.retrieveKey("token").toString(),
                         reciverUserID.get().toString(),
-                        true
+                        isUserBlocked.get()
                     )
                 }
 
@@ -131,8 +165,21 @@ class ChatVM @Inject constructor(
 
                     if (res.isSuccessful && res.code() == 200) {
 
+                        Log.e("ADADASRTRTR", res.body()!!.toString())
+
                         if (res.body() != null) {
-                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                            if (isUserBlocked.get()) {
+                                isUserBlocked.set(false)
+
+                                Log.e("ADADASRTRTR456", isUserBlocked.get().toString())
+
+                            } else {
+                                isUserBlocked.set(true)
+                                Log.e("ADADASRTRTR67", isUserBlocked.get().toString())
+
+                            }
+
+//                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
 
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
@@ -144,10 +191,6 @@ class ChatVM @Inject constructor(
                     }
                 }
 
-                override fun onError(message: String) {
-                    super.onError(message)
-                    CommonMethods.showToast(CommonMethods.context, message)
-                }
             })
     }
 
@@ -163,12 +206,14 @@ class ChatVM @Inject constructor(
                     if (checkId == false) {
                         Log.e("ADASQQq123====", bothID.toString())
 
-                        val bothID2 = reciverUserID.get().toString() + "_" + senderUserID.get().toString()
+                        val bothID2 =
+                            reciverUserID.get().toString() + "_" + senderUserID.get().toString()
                         getChatuid(bothID2!!)
                         checkId = true
                     } else {
                         Log.e("ADASQQq12311====", bothID.toString())
-                        bothID = senderUserID.get().toString() + "_" + reciverUserID.get().toString()
+                        bothID =
+                            senderUserID.get().toString() + "_" + reciverUserID.get().toString()
                     }
 
                 } else {
@@ -231,23 +276,33 @@ class ChatVM @Inject constructor(
     }
 
     fun startChatMethod() {
-//        val chatId = HashMap<String, Any>()
-//        chatId["chatId"] = bothID.toString()
-//        firestore.collection("Chats").document("chatId").set(chatId!!).addOnSuccessListener {
-//
-//        }
+        sendUserDetails()
+    }
+
+    private fun sendUserDetails() {
+        /** new code */
+
+        val userDeatils = HashMap<String, StoreUserFireStore>()
+var dataStore=StoreUserFireStore(reciverUserID.get().toString(),reciverUserName.get().toString(),reciverUserImage.get().toString())
+    /*    userDeatils.put("uId", reciverUserID.get().toString())
+        userDeatils.put("name", reciverUserName.get().toString())
+        userDeatils.put("image", reciverUserImage.get().toString())*/
+        userDeatils.put(reciverUserID.get().toString(),dataStore)
+        firestore.collection("Chats").document(bothID.toString()).set(userDeatils)
+
+//        val hashmap = HashMap<String, String>()
+//        hashmap.put("ChatID", bothID.toString())
+//        firestore!!.collection("Chats").document(bothID.toString()).set(hashmap)
+
+
         sendChatMessage()
+
+
     }
 
     fun sendChatMessage() {
 
         val message = HashMap<String, Any>()
-
-
-//        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-//        val currentTime = sdf.format(Date())
-//        System.out.println(" C DATE is  "+currentTime)
-
         val time = setTime()
 
         Log.e("ASAAAQQZ", bothID.toString() + "TIME --->> " + time.toString())
@@ -258,7 +313,7 @@ class ChatVM @Inject constructor(
         message["readStatus"] = false
         message["senderuid"] = senderUserID.get().toString()
         message["reciveruid"] = reciverUserID.get().toString()
-        message["milisecondTime"] =System.currentTimeMillis()
+        message["milisecondTime"] = System.currentTimeMillis()
 
         //SetOptions.merge()
 
@@ -274,29 +329,36 @@ class ChatVM @Inject constructor(
             }
 
 
-        var jsonObject1 = HashMap<String, Any>()
-        var arrayList = ArrayList<String>()
+        val jsonObject1 = HashMap<String, Any>()
+        val arrayList = ArrayList<String>()
 
         arrayList.clear()
         arrayList.add(senderUserID.get().toString())
         arrayList.add(reciverUserID.get().toString())
 
+        /** for some */
+
         jsonObject1.put("members", arrayList)
 
-        firestore!!.collection("Chats").document(bothID.toString()).set(jsonObject1)
+        firestore.collection("Chats").document(bothID.toString()).set(jsonObject1)
 
-        var hashmap=HashMap<String,String>()
-        hashmap.put("ChatID",bothID.toString())
-        firestore!!.collection("Chats").document(bothID.toString()).set(hashmap)
+        val hashmap = HashMap<String, String>()
+        hashmap.put("ChatID", bothID.toString())
+        firestore.collection("Chats").document(bothID.toString()).set(hashmap)
 
 
-       /* firestore.collection("Chats").document(bothID.toString()).collection("Members")
-            .add(jsonObject1*//* SetOptions.merge()*//*)
+        /** new code */
 
-        val bothid = HashMap<String, Any>()
-        bothid.put("ChatID", bothID.toString())
-        firestore.collection("Chats").document(bothID.toString()).collection("ChatID")
-            .add(bothid *//*SetOptions.merge()*//*)*/
+        /*
+             firestore.collection("Chats").document(bothID.toString()).collection("Members")
+                 .add(jsonObject1)
+
+            val bothid = HashMap<String, Any>()
+            bothid.put("ChatID", bothID.toString())
+
+            firestore.collection("Chats").document(bothID.toString()).collection("ChatID")
+                .add(bothid)
+    */
 
     }
 

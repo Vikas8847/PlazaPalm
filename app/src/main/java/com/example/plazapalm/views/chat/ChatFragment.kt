@@ -63,13 +63,17 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
     private fun getLocal() {
 
          viewModel.reciverUserID.set(arguments?.get("user_Id").toString())
-        Log.e("reciver_usderIID--->> ",  arguments?.get("user_Id").toString())
+         viewModel.reciverUserName.set(arguments?.get("user_name").toString())
+         viewModel.reciverUserImage.set(arguments?.get("userImage").toString())
+
+        Log.e("reciver_usderIID--->> ",  arguments?.get("user_Id").toString() + "USERNAMEEE---.."+ arguments?.get("user_name").toString())
 
         dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
 
             //PROFILE_DATA
 
             viewModel.senderUserID.set(it?.data?.user_id.toString())
+            viewModel.senderUserName.set(it?.data?.user_name.toString())
 
             Log.e("  sender_usderIID-->> ",viewModel.senderUserID.get().toString())
 
