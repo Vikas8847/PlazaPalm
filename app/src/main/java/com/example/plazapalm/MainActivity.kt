@@ -151,7 +151,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         bundle.putString("comingFrom", "main")
                         navController?.navigate(R.id.openCategeroyFragment, bundle)
                     }
-
                 }
 
                 R.id.messages -> {
@@ -279,7 +278,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 finishAffinity()
                 dialog?.dismiss()
             }
-
         }
         dialog?.show()
     }
@@ -293,5 +291,27 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
+    fun setTabMethod(tabValue:Int)
+    {
+if(tabValue==1)
+{
+    binding?.bottNavMain?.selectedItemId =R.id.dashBoardFragment
 
+}else
+    if(tabValue==2)
+    {
+        binding?.bottNavMain?.selectedItemId = R.id.openCategeroyFragment
+
+    }else
+        if(tabValue==3)
+        {
+            binding?.bottNavMain?.selectedItemId = R.id.messagesFragment
+
+        }else
+            if(tabValue==4)
+            {
+                binding?.bottNavMain?.selectedItemId = R.id.myProfileFragment
+            }
+
+    }
 }

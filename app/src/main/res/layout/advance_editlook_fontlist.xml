@@ -54,11 +54,11 @@
             android:id="@+id/etAdvanceEditLookChooseFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:background="@drawable/dashboard_bg"
             android:clickable="true"
-            android:layout_marginEnd="@dimen/_5sdp"
             android:elevation="@dimen/_1sdp"
             android:paddingStart="@dimen/_4sdp"
             android:textColor="@color/gray"
@@ -72,8 +72,8 @@
             android:id="@+id/myview"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:background="@color/gray"
             android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@+id/etAdvanceEditLookChooseFont" />
@@ -88,7 +88,7 @@
             android:text="Recents"
             android:textColor="@color/light_gray"
             android:textSize="14sp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/myview" />
 
@@ -102,7 +102,6 @@
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/tvChooseFontsRecent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAdvanceChooseFonts"
             setRecyclerAdapter="@{model.advanceFontListAdapter}"
@@ -114,9 +113,8 @@
             android:nestedScrollingEnabled="true"
             android:paddingTop="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/rvAdvanceEditFontChooseRecent"
+            app:layout_constraintTop_toBottomOf="@id/myview"
             tools:layout_editor_absoluteX="6dp"
             tools:listitem="@layout/advance_editlook_fonts_list_item" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

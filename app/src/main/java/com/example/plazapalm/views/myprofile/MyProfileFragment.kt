@@ -9,6 +9,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.MyProifleFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
@@ -47,9 +48,12 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
         CommonMethods.statusBar(false)
 
         Log.e("ekmfkemfefefefefe=e==", pref.retrieveKey("token").toString())
+
+
         return binding?.root
 
     }
+
 
     private fun getBusinessStatus() {
         if (pref.retrieveBoolKey(business_profile_status) != null) {
@@ -113,14 +117,14 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
             //        if (viewModel.premium == 1) {
             //old id
             //63b69f871545b79696c25166
-          /*  if (user_id == "63bd1578c4f44108db54e886") {
-                //63bd052fc4f44108db54e5eb
-                //if (user_id.equals("63b69bc11545b79696c25120")) {
+            /*  if (user_id == "63bd1578c4f44108db54e886") {
+                  //63bd052fc4f44108db54e5eb
+                  //if (user_id.equals("63b69bc11545b79696c25120")) {
 
 
-            }*/
+              }*/
 
-            if (user_id == "63ce2311a67c70857439f543") {
+            if (user_id == "63ce507ba67c70857439f892") {
 
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE
@@ -134,25 +138,19 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
                 binding?.tvUpgrade?.visibility = View.GONE
                 binding?.viewUpgrade?.visibility = View.GONE
 
-            }
-            else {
-
+            } else {
                 /* binding?.tvAdvanceSetting?.visibility = View.GONE
              binding?.viewAdvanceSettings?.visibility = View.GONE
-
              binding?.tvUpgrade?.visibility = View.VISIBLE
              binding?.viewUpgrade?.visibility = View.VISIBLE*/
 
-                Log.e("SAAHAEED", "WORKINGGGGGG")
-
             }
-
         }
-
     }
 
     override fun onResume() {
         super.onResume()
+        (activity as MainActivity?)!!.setTabMethod(4)
         getstatus()
     }
 

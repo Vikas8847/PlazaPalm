@@ -75,8 +75,7 @@ class ColorsAdapter(
                 }
 
             }*/
-
-            bindining.changeClick.setOnClickListener {
+            bindining.changeClick.setOnClickListener{
                 Log.e("DFSDSf",position.toString() +  "VVVVV---- "+ photos[position].color)
                 clickItem.click("",position,"","",photos[position].color)
             }
