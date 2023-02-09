@@ -1499,6 +1499,7 @@ class AdvanceEditLookVM @Inject constructor(
                     }
                 }
             }
+
             //for border ..
             Constants.BORDER -> {
                 val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
@@ -1508,6 +1509,7 @@ class AdvanceEditLookVM @Inject constructor(
                     if(preferenceFile.retviecolorString("COLUMN_COLOR") != null && preferenceFile.retviecolorString("COLUMN_COLOR") != "") {
                         layoutColrs?.setBackgroundColor(Color.parseColor(preferenceFile.retviecolorString("COLUMN_COLOR")))
                     }
+
                     slider_size?.addOnChangeListener { _, value, _ ->
                         changeColor?.textSize = value
                         borderWidth.set(value)
@@ -1515,6 +1517,7 @@ class AdvanceEditLookVM @Inject constructor(
                         //here set cardView background on slider change ...
                         setBorderBackground(borderView, value, selectedbackgrouncolor)
                     }
+
                     sliderOpacitty?.addOnChangeListener { _, value, _ ->
                         val alpha = value / 100
                         borderOpacity.set(alpha)
@@ -1522,12 +1525,14 @@ class AdvanceEditLookVM @Inject constructor(
                         dialog!!.findViewById<CardView>(R.id.show_color_id)?.alpha = alpha
                         Log.e("WOrking11222", "---$value")
                     }
+
                     //   title?.text = "Border Color"
                     //  SelectedDialog.set("Border Color")
 
                     title?.text = Border_Color
                     SelectedDialog.set(Border_Color)
                     size_tv?.visibility = View.GONE
+
                 } else {
                     // val layout = dialog!!.findViewById<CardView>(R.id.show_color_id)
                     setBorderBackground(borderView, 12f, R.color.gray)

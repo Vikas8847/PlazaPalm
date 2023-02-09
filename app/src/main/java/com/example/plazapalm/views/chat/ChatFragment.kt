@@ -15,9 +15,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.databinding.ChatFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.datastore.LOGIN_DATA
-import com.example.plazapalm.datastore.POST_PROFILE_DATA
-import com.example.plazapalm.models.LoginDataModel
-import com.example.plazapalm.models.SavePostProfileResponse
+import com.example.plazapalm.models.GetProfileResponseModel
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import dagger.hilt.android.AndroidEntryPoint
@@ -146,23 +144,44 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
 
 
-        dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
+        dataStore.readObject(LOGIN_DATA, GetProfileResponseModel::class.java) {
 
             /** Sender Data */
 
-            viewModel.senderUserID.set(it?.data?.user_id.toString())
-            viewModel.senderUserName.set(it?.data?.user_name.toString())
+            if (it != null) {
+                viewModel.senderUserID.set(it?.data?.user_id.toString())
+                viewModel.senderUserName.set(it?.data?.user_name.toString())
+                viewModel.senderUserImage.set(it?.data?.profile_picture.toString())
+            } else {
+                viewModel.senderUserImage.set(R.drawable.placeholder.toString())
+            }
+
 //            viewModel.senderbusiness_profile_status.set(it?.data?.business_profile_status)
 
             Log.e("  sender_usderIID-->> ", it.toString())
 
         }
 
-        dataStore.readObject(POST_PROFILE_DATA, SavePostProfileResponse::class.java) {
-            val SenderImage = it?.data?.postProfile_picture!![0]
-            viewModel.senderUserImage.set(SenderImage)
-            Log.e("oiIMAHEE", it.toString())
-        }
+
+        // old code ...
+
+//        dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
+//
+//            /** Sender Data */
+//
+//            viewModel.senderUserID.set(it?.data?.user_id.toString())
+//            viewModel.senderUserName.set(it?.data?.user_name.toString())
+////            viewModel.senderbusiness_profile_status.set(it?.data?.business_profile_status)
+//
+//            Log.e("  sender_usderIID-->> ", it.toString())
+//
+//        }
+//
+//        dataStore.readObject(POST_PROFILE_DATA, SavePostProfileResponse::class.java) {
+//            val SenderImage = it?.data?.postProfile_picture!![0]
+//            viewModel.senderUserImage.set(SenderImage)
+//            Log.e("oiIMAHEE", it.toString())
+//        }
 
     }
 
