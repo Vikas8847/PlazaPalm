@@ -107,19 +107,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 }
             }
         }
-
-
         var dialog: Dialog? = null
-
-
     }
-
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if (item.itemId != navController?.currentDestination!!.id) {
             when (item.itemId) {
                 R.id.dashBoard -> {
-                    if (binding!!.bottNavMain.menu.getItem(0).isChecked) {
+                    if (binding!!.bottNavMain.menu.getItem(0).isChecked){
                         binding!!.bottNavMain.isEnabled = false
                         binding!!.bottNavMain.isClickable = false
                     } else {
@@ -134,7 +128,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         navController?.navigate(R.id.dashBoardFragment)
                     }
                 }
-
                 R.id.categories -> {
                     if (binding!!.bottNavMain.menu.getItem(1).isChecked) {
                         binding!!.bottNavMain.isEnabled = false
@@ -152,7 +145,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         navController?.navigate(R.id.openCategeroyFragment, bundle)
                     }
                 }
-
                 R.id.messages -> {
                     if (binding!!.bottNavMain.menu.getItem(2).isChecked) {
 
@@ -168,11 +160,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         )
                         navController?.navigate(R.id.messagesFragment)
                     }
-
-
                 }
                 R.id.myProfile -> {
-
                     if (binding!!.bottNavMain.menu.getItem(3).isChecked) {
                         binding!!.bottNavMain.isClickable = false
                         binding!!.bottNavMain.isEnabled = false
@@ -186,7 +175,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                         )
                         navController?.navigate(R.id.myProfileFragment)
                     }
-
                 }
                 else -> {
                 }
@@ -197,9 +185,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       }
       return true*/
         return true
-
     }
-
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         Branch.sessionBuilder(this).withCallback { referringParams, error ->

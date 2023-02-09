@@ -268,12 +268,9 @@ class DashBoardVM @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showSelectedCatAlert() {
-
         dialog = Dialog(context)
         val window = dialog!!.window
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-
-
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.window!!.attributes.gravity = Gravity.LEFT or Gravity.TOP
         window!!.setLayout(

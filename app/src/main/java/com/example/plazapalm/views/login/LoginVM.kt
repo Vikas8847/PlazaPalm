@@ -110,7 +110,7 @@ class LoginVM @Inject constructor(
                     )
                 }
 
-                override fun onResponse(res: Response<LoginDataModel>) {
+                override fun onResponse(res: Response<LoginDataModel>){
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body()?.status == 200) {
                             // dataStore.saveObject(PROFILE_DATA, GetProfileData::class.java)
