@@ -1503,8 +1503,7 @@ class AdvanceEditLookVM @Inject constructor(
                         Log.e("WOrking11222", "---$value")
                     }
                 }
-                else
-                {
+                else {
                     /**Coloumn color..**/
                     title?.text = "Column Color"
                     slider_size?.visibility = View.GONE
@@ -1539,7 +1538,6 @@ class AdvanceEditLookVM @Inject constructor(
                         //here set cardView background on slider change ...
                         setBorderBackground(cardViewBackground, value, selectedbackgrouncolor)
                     }
-
                     /** Slider for Opacity */
                     sliderOpacitty?.addOnChangeListener { _, value, _ ->
                         val alpha = value / 100

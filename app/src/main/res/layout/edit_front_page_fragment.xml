@@ -94,7 +94,7 @@
                         android:onClick="@{vm::onClicks}"
                         android:paddingHorizontal="@dimen/_15sdp"
                         android:paddingVertical="@dimen/_1sdp"
-                        android:text="Top Text"
+                        android:text="@string/top_text"
                         android:textColor="@color/tool_bar_black_color"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"

@@ -601,6 +601,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         p_id,
                         pref.retvieLatlong("lati").toFloat(),
                         pref.retvieLatlong("longi").toFloat()
+
                     )
                 }
 
@@ -627,9 +628,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvFavouriteCountValue.set(res.body()!!.data.favouriteCount.toString())
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
+                                viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
 
                                 Log.e("userIddddd====", loginUserPId.toString())
-                                Log.e("userIddddd111====", viewModel.userIdForChat.get().toString())
+                                Log.e("userIddddd111====", viewModel.userdata.get()?.postProfile_picture!![0].toString())
 
                                 if (!(loginUserPId.toString().equals(res.body()!!.data._id))) {
                                     viewModel.checkFavouriteShow.set(0)

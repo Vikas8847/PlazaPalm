@@ -184,7 +184,9 @@ class SignupVM @Inject constructor(
                     if (res.isSuccessful) {
                         if (res.code() == 200) {
                             if (res.body()?.status == 200) {
+
                                 dataStore.saveObject(LOGIN_DATA, res.body())
+
                                 val bundle = Bundle()
                                 bundle.putString("comingFrom", "signup")
                                 bundle.putString("email", email.get())
@@ -201,26 +203,6 @@ class SignupVM @Inject constructor(
                                 /** Add user on firestore **/
                                 FireStorechatVM().firestoreLogin(pref)
 
-
-                               /* val users = HashMap<String, Any>()
-
-                                var currentTime = System.currentTimeMillis()
-
-                                users["fcmToken"] = sendFirebaseSignUpToken.get().toString()
-                                users["osType"] = "1"
-                                users["notificationStatus"] = ""
-
-                                //SetOptions.merge()
-
-                                firestore.collection("Users").document()
-                                    .set(users, SetOptions.merge())
-                                    .addOnSuccessListener {
-                                        Log.e("TAG--US", "sucess")
-                                    }
-                                    .addOnFailureListener {
-                                        Log.e("TAG--US", "faild")
-
-                                    }*/
 
                                     } else {
                                     CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())

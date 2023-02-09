@@ -373,6 +373,16 @@ interface RetrofitApi {
         @Field("isBlocked") isBlocked: Boolean
     ): Response<BlockUserResponse>
 
+//    /** AddToBlocklist Api */
+//    @FormUrlEncoded
+//    @POST(ADDTO_BLOCKLIST)
+//    suspend fun addToBlocklist(
+//        @Header("Authorization") Authorization: String,
+//        @Body jsonObject: JSONObject
+//    ): Response<BlockUserResponse>
+
+
+
     /** GetBookingDetailsForCustomer Api */
     @GET(GET_BOOKING_DETAILSFOR_CUSTOMER)
     suspend fun getBookingDetailsForCustomer(

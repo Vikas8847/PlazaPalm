@@ -4,9 +4,12 @@
 
     <data>
 
+<!--        <variable-->
+<!--            name="vm"-->
+<!--            type="com.example.plazapalm.views.settings.SettingsVM" />-->
         <variable
             name="vm"
-            type="com.example.plazapalm.views.settings.SettingsVM" />
+            type="com.example.plazapalm.views.chat.ChatVM" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -35,6 +38,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!--      android:text="@{vm.blockUserName}"
+                setBlockText="@{vm.blockUserName}"-->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDeleteDescription"
                 android:layout_width="wrap_content"
@@ -43,7 +48,6 @@
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/_25sdp"
-                android:text="Block Vikas Panchal Add ? "
                 android:textColor="@color/gray"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +63,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvDeleteDescription" />
 
+            <!--                android:text="@{vm.isUserBlocked ? @string/block_user : @string/unblock_user }"
+-->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvBlockProfile"
                 android:layout_width="0dp"
@@ -66,9 +72,7 @@
                 android:layout_margin="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center"
-                android:onClick="@{vm::onClicks}"
                 android:paddingVertical="@dimen/_10sdp"
-                android:text="Block"
                 android:textColor="@color/red"
                 android:textSize="16sp"
                 android:textStyle="bold"

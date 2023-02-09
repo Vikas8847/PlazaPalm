@@ -170,6 +170,7 @@ object BindingAdapters {
         imageUrl: String?,
     ) {
         Log.e("VVVVV", IMAGE_LOAD_URL + imageUrl)
+
         if (imageUrl != null && imageUrl != "null" && imageUrl != "") {
             Glide.with(MainActivity.context.get()!!)
                 .load(IMAGE_LOAD_URL + imageUrl)
@@ -184,7 +185,7 @@ object BindingAdapters {
     @BindingAdapter(value = ["setDrawable"], requireAll = false)
     @JvmStatic
     fun setDrawable(
-        imageView: ImageView,
+        imageView: CircleImageView,
         drawable: Int,
     ) {
         imageView.setImageResource(drawable)
