@@ -8,12 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.plazapalm.R
+import com.example.plazapalm.databinding.AdvanceShowViewProfileBinding
 import com.example.plazapalm.databinding.EditFrontPageFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.pref.PreferenceFile
@@ -27,6 +29,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     private var binding: EditFrontPageFragmentBinding? = null
+    private var  advanceBinding:AdvanceShowViewProfileBinding?=null
 
     @Inject
     lateinit var dataStoreUtil: DataStoreUtil
@@ -36,12 +39,10 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     private val viewModel: EditFrontPageVM by viewModels()
     private var checkApi = ObservableBoolean(false)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getFontsApi()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,20 +53,19 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         // setCheckBoxData()
         return binding?.root
     }
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
         // backPressedData()
         setbackground()
+        advanceBinding?.videoViewCl?.clipToOutline=true
+        advanceBinding?.videVAdvanceShowProfile?.outlineProvider= ViewOutlineProvider.BACKGROUND
+        advanceBinding?.videVAdvanceShowProfile?.clipToOutline=true
         //getLocalData()
-
         binding!!.clCoordinateEditCoverPage.setOnClickListener {
             CommonMethods.context.hideKeyboard()
         }
-
-
         viewModel.typfaceObserverLiveData.observe(requireActivity()) {
             val data = it as Boolean
             if (data) {
@@ -73,8 +73,6 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
             }
         }
     }
-
-
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setbackground() {
         viewModel.backgroundColorLiveData.observe(viewLifecycleOwner) {
@@ -121,11 +119,7 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
                 "Border Color" -> {
                     if (it is Int) {
                         var data = it
-                        binding?.viewBoxLookingBGColor?.setBackgroundColor(
-                            CommonMethods.context.getColor(
-                                data
-                            )
-                        )
+                        binding?.viewBoxLookingBGColor?.setBackgroundColor(CommonMethods.context.getColor(data))
                     } else {
                         var data = it as String
                         binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))

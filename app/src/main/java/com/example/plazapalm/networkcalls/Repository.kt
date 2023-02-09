@@ -72,7 +72,7 @@ class Repository @Inject constructor(
                 // activity.showProgress()
                 hideProgress()
                 //activity.showNegativeAlerter(exception.message ?: "")
-                showErrorDialog()
+                //showErrorDialog()
             }.collect {
                     response ->
                 Log.d("resCodeIs", "====${response?.code()}")
