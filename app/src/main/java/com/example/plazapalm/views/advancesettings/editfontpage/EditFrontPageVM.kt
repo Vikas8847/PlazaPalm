@@ -141,18 +141,14 @@ class EditFrontPageVM @Inject constructor(
                 getProfileApi()
             }
             R.id.viewBoxLookingBGColor -> {
-
                 checkColor.set(Constants.FONTCOLOR)
                 showColorDialog(Constants.FONT_COLOR)
             }
-
             R.id.tvAdvanceEditFrontPageFontValue -> {
                 showBottomSheetDialogOne()
             }
         }
     }
-
-
     private fun getProfileApi() {
         lati = preferenceFile.retvieLatlong("lati").toDouble()
         longi = preferenceFile.retvieLatlong("longi").toDouble()
@@ -184,7 +180,6 @@ class EditFrontPageVM @Inject constructor(
                 tvProfileUserName.setTextColor(Color.parseColor(fontColor.get()))
                 tvProfileUserAddress.setTextColor(Color.parseColor(fontColor.get()))
                 tvProfileUserDescription.setTextColor(Color.parseColor(fontColor.get()))
-
                 /**Set font size for view **/
                 tvProfileUserName.textSize = fontSize.get()
                 tvProfileUserAddress.textSize = fontSize.get()
