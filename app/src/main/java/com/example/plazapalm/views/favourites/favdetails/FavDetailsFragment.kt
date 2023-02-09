@@ -601,6 +601,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         p_id,
                         pref.retvieLatlong("lati").toFloat(),
                         pref.retvieLatlong("longi").toFloat()
+
                     )
                 }
 

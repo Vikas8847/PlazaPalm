@@ -424,19 +424,18 @@ class DashBoardVM @Inject constructor(
                                     calculateLatLngToMiles()
                                     // distanceCal.set(distance.get().toString().split(".")[0])
 
-                                    if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey(
-                                            "link_share_pid")
+                                    if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey("link_share_pid")
                                             .equals(""))
                                     ) {
                                         profileResponse.value = true
                                     }
 
-                                    Log.d("viaksdistance", distance.get().toString().split(".")[0])
+                                    Log.d("viaksdance", distance.get().toString().split(".")[0])
                                     adapter.setOnItemClick { view, position, type ->
 
                                         when (type) {
                                             "dashItemClick" -> {
-                                                Log.e("dvsvwsdvsdvs_after_Going===",
+                                                Log.e("dvsvwsdvsr=",
                                                     idList.toString())
                                                 val isDashBoard = Bundle()
                                                 isDashBoard.putString("comingFrom", "isDashBoard")
@@ -745,7 +744,7 @@ class DashBoardVM @Inject constructor(
 
     fun updateDeviceToken() {
 
-        Log.e("SADFd--dKJEMD==", pref.retrieveFirebaseToken().toString())
+        Log.e("SADFd--dKJEMD==", pref.retrieveFirebaseToken().toString() +  "USER-TOKEN - " +   pref.retrieveKey("token").toString())
 
         repository.makeCall(
             apiKey = ApiEnums.ADD_TO_FAV,

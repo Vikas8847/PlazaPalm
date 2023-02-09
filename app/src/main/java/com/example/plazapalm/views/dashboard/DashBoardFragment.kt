@@ -111,6 +111,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
             getlocalData()
             viewModel.getProfile()
+            viewModel.updateDeviceToken()
 
             viewModel.profileResponse.observe(requireActivity(), androidx.lifecycle.Observer {
                 var data = it as Boolean

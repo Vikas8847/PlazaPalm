@@ -15,9 +15,10 @@ import com.example.plazapalm.R
 import com.example.plazapalm.databinding.ChatFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.datastore.LOGIN_DATA
+import com.example.plazapalm.datastore.POST_PROFILE_DATA
 import com.example.plazapalm.models.LoginDataModel
+import com.example.plazapalm.models.SavePostProfileResponse
 import com.example.plazapalm.pref.PreferenceFile
-import com.example.plazapalm.pref.preferenceName
 import com.example.plazapalm.utils.CommonMethods
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,11 +34,12 @@ import javax.inject.Inject
 class ChatFragment : Fragment(R.layout.chat_fragment) {
     private var binding: ChatFragmentBinding? = null
     val viewModel: ChatVM by viewModels()
-    @Inject
-    lateinit var dataStore : DataStoreUtil
 
     @Inject
-    lateinit var pref : PreferenceFile
+    lateinit var dataStore: DataStoreUtil
+
+    @Inject
+    lateinit var pref: PreferenceFile
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,30 +55,113 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         super.onViewCreated(view, savedInstanceState)
         // Initialize Firebase Auth
 
-        binding?.vm=viewModel
+        binding?.vm = viewModel
         getLocal()
-       // openUserBlockButton()
+        // openUserBlockButton()
         setAdapter()
         sendClicks()
+        viewModel.getPostImages()
     }
 
     private fun getLocal() {
 
-         viewModel.reciverUserID.set(arguments?.get("user_Id").toString())
-         viewModel.reciverUserName.set(arguments?.get("user_name").toString())
-         viewModel.reciverUserImage.set(arguments?.get("userImage").toString())
+/*
+        if (arguments != null) {
+            */
+        /** Commimg From Message Screen *//*
 
-        Log.e("reciver_usderIID--->> ",  arguments?.get("user_Id").toString() + "USERNAMEEE---.."+ arguments?.get("user_name").toString())
+
+            when (arguments?.get("comingFrom")) {
+                "MessageScreen" -> {
+
+                    viewModel.reciverUserID.set(arguments?.getString("UserID").toString())
+                    viewModel.reciverUserName.set(arguments?.getString("UserName").toString())
+                    viewModel.reciverUserImage.set(arguments?.getString("userImage").toString())
+                    viewModel.bothID = arguments?.get("chatID").toString()
+
+                    Log.e(
+                        "ASDFASDFa", arguments?.getString("UserName").toString() + " -- "
+                                + arguments?.getString("chatID").toString() + " -- "
+                                + arguments?.getString("UserID").toString() + " -- "
+                                + arguments?.getString("userImage").toString()
+                    )
+
+                }
+
+                "FavDetailsScreen" -> {
+                    */
+        /** Commimg From FavDeatils  Screen *//*
+
+
+                    viewModel.reciverUserID.set(arguments?.get("user_Id").toString())
+                    viewModel.reciverUserName.set(arguments?.get("user_name").toString())
+                    viewModel.reciverUserImage.set(arguments?.get("userImage").toString())
+
+                    Log.e(
+                        "reciver_usderIID--->> ",
+                        arguments?.get("user_Id")
+                            .toString() + "USERNAMEEE---.." + arguments?.get("user_name").toString()
+                    )
+
+                }
+            }
+        }
+
+*/
+
+        if (arguments != null) {
+            when (arguments?.get("CommingFrom")) {
+
+                "MessageScreen" -> {
+                    Log.e("WOFMCKS", "MEsssage SCreen ")
+                    viewModel.reciverUserID.set(arguments?.getString("UserID").toString())
+                    viewModel.reciverUserName.set(arguments?.getString("UserName").toString())
+                    viewModel.reciverUserImage.set(arguments?.getString("userImage").toString())
+                    viewModel.bothID = arguments?.get("chatID").toString()
+
+                    Log.e(
+                        "ASDFASDFa", arguments?.getString("UserName").toString() + " -- "
+                                + arguments?.getString("chatID").toString() + " -- "
+                                + arguments?.getString("UserID").toString() + " -- "
+                                + arguments?.getString("userImage").toString()
+                    )
+                }
+
+                "FavDetailsScreen" -> {
+                    /** Commimg From FavDeatils  Screen */
+                    Log.e("WOFMCKS", "FAVdetals  SCreen ")
+                    viewModel.reciverUserID.set(arguments?.get("user_Id").toString())
+                    viewModel.reciverUserName.set(arguments?.get("user_name").toString())
+                    viewModel.reciverUserImage.set(arguments?.get("userImage").toString())
+
+                    Log.e(
+                        "reciver_usderIID--->> ",
+                        arguments?.get("user_Id")
+                            .toString() + "USERNAMEEE---.." + arguments?.get("user_name").toString()
+                    )
+
+                }
+            }
+        }
+
+
 
         dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
 
-            //PROFILE_DATA
+            /** Sender Data */
 
             viewModel.senderUserID.set(it?.data?.user_id.toString())
             viewModel.senderUserName.set(it?.data?.user_name.toString())
+//            viewModel.senderbusiness_profile_status.set(it?.data?.business_profile_status)
 
-            Log.e("  sender_usderIID-->> ",viewModel.senderUserID.get().toString())
+            Log.e("  sender_usderIID-->> ", it.toString())
 
+        }
+
+        dataStore.readObject(POST_PROFILE_DATA, SavePostProfileResponse::class.java) {
+            val SenderImage = it?.data?.postProfile_picture!![0]
+            viewModel.senderUserImage.set(SenderImage)
+            Log.e("oiIMAHEE", it.toString())
         }
 
     }
@@ -90,18 +175,17 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
                 if (event.rawX >= binding?.sendMessageTv!!.getRight() - binding?.sendMessageTv!!.getCompoundDrawables()
                         .get(DRAWABLE_RIGHT).getBounds().width()
                 ) {
-                    Log.e("ADACHASHA" , "WORKINGFINEE")
+                    Log.e("ADACHASHA", "WORKINGFINEE")
 
-                        if (viewModel.chatAdapter.dataList.size ==0){
-                            viewModel.startChatMethod()
-                            Log.e("ADACHASHA" , " 0 ")
+                    if (viewModel.chatAdapter.dataList.size == 0) {
+                        viewModel.startChatMethod()
+                        Log.e("ADACHASHA", " 0 ")
 
-                        }else
-                        {
-                            viewModel.sendChatMessage()
-                            Log.e("ADACHASHA" , " 1 ")
+                    } else {
+                        viewModel.sendChatMessage()
+                        Log.e("ADACHASHA", " 1 ")
 
-                        }
+                    }
 
 
                     return@OnTouchListener true
@@ -112,23 +196,19 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
     }
 
 
-
     /** Here Set Chat Adapter in on Created method **/
     @SuppressLint("NotifyDataSetChanged")
-    private fun setAdapter(){
-        binding?.rvChats?.layoutManager=LinearLayoutManager(requireContext())
-        binding?.rvChats?.adapter=viewModel.chatAdapter
+    private fun setAdapter() {
+        binding?.rvChats?.layoutManager = LinearLayoutManager(requireContext())
+        binding?.rvChats?.adapter = viewModel.chatAdapter
         binding?.rvChats?.adapter?.notifyDataSetChanged()
     }
 
-    private fun openUserBlockButton(){
-        if (viewModel.isClicked.get())
-        {
-            binding?.tvBlockUserBtn?.visibility=View.VISIBLE
-        }
-        else
-        {
-            binding?.tvBlockUserBtn?.visibility=View.GONE
+    private fun openUserBlockButton() {
+        if (viewModel.isClicked.get()) {
+            binding?.tvBlockUserBtn?.visibility = View.VISIBLE
+        } else {
+            binding?.tvBlockUserBtn?.visibility = View.GONE
 
         }
 

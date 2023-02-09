@@ -17,6 +17,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.BlockUserResponse
 import com.example.plazapalm.models.ChatData
+import com.example.plazapalm.models.MessageData
 import com.example.plazapalm.models.StoreUserFireStore
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
@@ -27,10 +28,9 @@ import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.views.chat.adapter.ChatAdapter
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.JsonObject
+import com.google.firebase.firestore.SetOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,10 +50,12 @@ class ChatVM @Inject constructor(
     var reciverUserID = ObservableField("")
     var isUserBlocked = ObservableBoolean(true)
     var reciverUserImage = ObservableField("")
+    var senderUserImage = ObservableField("")
     var reciverUserName = ObservableField("")
     var blockUserName = ObservableField("")
     var senderUserID = ObservableField("")
     var senderUserName = ObservableField("")
+    var senderbusiness_profile_status = ObservableBoolean(false)
     var userTypeId = ObservableField("")
     val firestore = FirebaseFirestore.getInstance()
     var bothID: String? = ""
@@ -61,8 +63,8 @@ class ChatVM @Inject constructor(
     var userType = false
 
     init {
-        val bothID1 = senderUserID.get().toString() + "_" + reciverUserID.get().toString()
 
+        val bothID1 = senderUserID.get().toString() + "_" + reciverUserID.get().toString()
         getChatuid(bothID1)
 
     }
@@ -289,20 +291,41 @@ class ChatVM @Inject constructor(
         /** new code */
 
         val userDeatils = HashMap<String, StoreUserFireStore>()
-var dataStore=StoreUserFireStore(reciverUserID.get().toString(),reciverUserName.get().toString(),reciverUserImage.get().toString())
-    /*    userDeatils.put("uId", reciverUserID.get().toString())
-        userDeatils.put("name", reciverUserName.get().toString())
-        userDeatils.put("image", reciverUserImage.get().toString())*/
-        userDeatils.put(reciverUserID.get().toString(),dataStore)
-        firestore.collection("Chats").document(bothID.toString()).set(userDeatils)
+        val senderDeatils = HashMap<String, StoreUserFireStore>()
 
-//        val hashmap = HashMap<String, String>()
-//        hashmap.put("ChatID", bothID.toString())
-//        firestore!!.collection("Chats").document(bothID.toString()).set(hashmap)
+        val dataStore = StoreUserFireStore(
+            reciverUserID.get().toString(),
+            reciverUserName.get().toString(),
+            reciverUserImage.get().toString()
+        )
+
+        Log.e(
+            "aEMPTYY- ",
+            senderUserImage.get().toString() + " - " + senderUserID.get()
+                .toString() + " - " + senderUserName.get().toString()
+        )
+
+        val senderdataStore = StoreUserFireStore(
+            senderUserID.get().toString(),
+            senderUserName.get().toString(),
+            senderUserImage.get().toString()
+        )
+
+
+        /*    userDeatils.put("uId", reciverUserID.get().toString())
+            userDeatils.put("name", reciverUserName.get().toString())
+            userDeatils.put("image", reciverUserImage.get().toString())*/
+
+        userDeatils.put(reciverUserID.get().toString(), dataStore)
+        senderDeatils.put(senderUserID.get().toString(), senderdataStore)
+
+        firestore.collection("Chats").document(bothID.toString())
+        .set(userDeatils, SetOptions.merge())
+        firestore.collection("Chats").document(bothID.toString())
+            .set(senderDeatils, SetOptions.merge())
 
 
         sendChatMessage()
-
 
     }
 
@@ -313,6 +336,12 @@ var dataStore=StoreUserFireStore(reciverUserID.get().toString(),reciverUserName.
 
         Log.e("ASAAAQQZ", bothID.toString() + "TIME --->> " + time.toString())
 
+//       val messageData = MessageData(messageText.get().toString(),"1",time,false,senderUserID.get().toString(),
+//           reciverUserID.get().toString(),System.currentTimeMillis())
+//
+//        message.put("Message",messageData)
+
+
         message["message"] = messageText.get().toString()
         message["messageType"] = "1"
         message["messageTime"] = time
@@ -320,8 +349,6 @@ var dataStore=StoreUserFireStore(reciverUserID.get().toString(),reciverUserName.
         message["senderuid"] = senderUserID.get().toString()
         message["reciveruid"] = reciverUserID.get().toString()
         message["milisecondTime"] = System.currentTimeMillis()
-
-        //SetOptions.merge()
 
         firestore.collection("Chats").document(bothID.toString()).collection("Message")
             .add(message)
@@ -333,6 +360,17 @@ var dataStore=StoreUserFireStore(reciverUserID.get().toString(),reciverUserName.
 
                 CommonMethods.showToast(CommonMethods.context, " failed.")
             }
+
+        val lastSeenData = HashMap<String, MessageData>()
+        val lastSeen = MessageData(
+            messageText.get().toString(), "1", time, false, senderUserID.get().toString(),
+            reciverUserID.get().toString(), System.currentTimeMillis()
+        )
+
+        lastSeenData.put("LastSeen", lastSeen)
+
+        firestore.collection("Chats").document(bothID.toString())
+            .set(lastSeenData, SetOptions.merge())
 
 
         val jsonObject1 = HashMap<String, Any>()
@@ -346,11 +384,14 @@ var dataStore=StoreUserFireStore(reciverUserID.get().toString(),reciverUserName.
 
         jsonObject1.put("members", arrayList)
 
-        firestore.collection("Chats").document(bothID.toString()).set(jsonObject1)
+        firestore.collection("Chats").document(bothID.toString())
+            .set(jsonObject1, SetOptions.merge())
+
 
         val hashmap = HashMap<String, String>()
         hashmap.put("ChatID", bothID.toString())
-        firestore.collection("Chats").document(bothID.toString()).set(hashmap)
+
+        firestore.collection("Chats").document(bothID.toString()).set(hashmap, SetOptions.merge())
 
 
         /** new code */
@@ -371,11 +412,6 @@ var dataStore=StoreUserFireStore(reciverUserID.get().toString(),reciverUserName.
     @SuppressLint("SimpleDateFormat")
     private fun setTime(): String {
 
-//        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-//        val currentTime = sdf.format(Date())
-//        System.out.println(" C DATE is  "+currentTime)
-
-
         val sfd = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
         val currentTime = sfd.format(Date())
 
@@ -389,6 +425,10 @@ var dataStore=StoreUserFireStore(reciverUserID.get().toString(),reciverUserName.
         Log.e("AAAAQ@@!@!1", separated1[0] + " : " + separated1[1])
 
         return actualTime
+
+    }
+
+    fun getPostImages() {
 
     }
 }

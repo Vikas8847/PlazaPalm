@@ -165,13 +165,11 @@ class FavDetailsVM @Inject constructor(
                 } else {
                     //Go to the Single Message screen
                     val bundle =Bundle()
-//                    bundle.putString("user_Id",userdata.get()?.user_id.toString())
+                    bundle.putString("CommingFrom","FavDetailsScreen")
                     bundle.putString("user_Id",userIdForChat.get().toString())
                     bundle.putString("user_name", userdata.get()?.user_name)
                     bundle.putString("userImage", userdata.get()?.postProfile_picture!![0].toString())
-
                     Log.e("asfasfaa",userdata.get()?.user_name.toString())
-                    Log.e("LASDKKE-- ", userdata.get()?.postProfile_picture!![0].toString())
 
                     view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment,bundle)
                 }
