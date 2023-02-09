@@ -64,7 +64,6 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         preferenceFile.cleardata(Constants.BORDER_COLOR)
         preferenceFile.cleardata(Constants.COLUMN_COLOR)
         preferenceFile.cleardata(Constants.BACKGROUND_COLOR)
@@ -86,7 +85,6 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getLocalData() {
-
         /**Back ground color ...**/
         if (preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR) != null && !(preferenceFile.retviecolorString(Constants.BACKGROUND_COLOR).equals(""))
         ) {
@@ -178,11 +176,9 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                //Border Color view Click..
                 Constants.Border_Color -> {
                     if (it is Int) {
-
          /*
                         MainActivity.context.get()!!.getColor(data)
 */
-
                         try {
                             val data = it
                             binding?.viewBoxBorderColor?.setBackgroundColor(MainActivity.context.get()?.parseColor(data)!!)
@@ -204,12 +200,14 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                     Log.e("asdasdasBorder", viewModel.borderColor.get().toString())
                 }
 
-                "Font Color" -> {
+                "Font Color" ->{
                     if (it is Int) {
-                        var data = it
+                        val data = it
                         binding?.viewBoxEditFonts?.setBackgroundColor(data)
-                    } else {
-                        var data = it as String
+                    }
+                    else
+                    {
+                        val data = it as String
                         binding?.viewBoxEditFonts?.setBackgroundColor(Color.parseColor(data.toString()))
                     }
                     Log.e("dfsdfsdf", "working")
@@ -239,8 +237,6 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
             }
         }
 
-
-
      //   Here set border Color from api or select ..
         viewModel.borderColorLD.observe(viewLifecycleOwner) {
             Log.e("borderColorLD---", it.toString())
@@ -254,10 +250,6 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                 }
             }
         }
-
-
-
-
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
             Log.e("fontColorLD---", it.toString())
             if (it != null && !(it.equals(""))) {
@@ -270,8 +262,6 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                 }
             }
         }
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
