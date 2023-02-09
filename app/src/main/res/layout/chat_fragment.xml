@@ -18,7 +18,6 @@
         android:layout_height="match_parent"
         tools:context=".views.chat.ChatFragment">
 
-
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -45,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Cooper Kristin"
+                    android:text="@{vm.reciverUserName}"
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -90,10 +89,10 @@
                 android:paddingHorizontal="@dimen/_30sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_5sdp"
-                android:text="Block User"
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:visibility="@{vm.isClicked ? View.VISIBLE : View.GONE}"
+                android:text="@{vm.isUserBlocked ? @string/block_user : @string/unblock_user }"
                 app:fontFamily="@font/inter_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -138,6 +137,7 @@
                     android:textCursorDrawable="@drawable/color_cursor_black"
                     android:textSize="14sp"
                     android:text="@={vm.messageText}"
+                    android:visibility="@{vm.isUserBlocked ? View.VISIBLE : View.GONE}"
                     android:onClick="@{vm::onClicks}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

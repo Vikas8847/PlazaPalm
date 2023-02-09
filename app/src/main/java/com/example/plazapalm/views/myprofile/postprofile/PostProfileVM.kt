@@ -72,13 +72,12 @@ class PostProfileVM @Inject constructor(
     var datePicker: DatePickerHelper? = null
     var userdata = ObservableParcelable<postData>()
     var photoList: ArrayList<AddPhoto>? = null
-
     var imagesList = ArrayList<AddPhoto>()
     var location = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
-
     var allowBooking=ObservableBoolean(false)
     var titleScreenProfile = ObservableField("")
+
     init {
         token.set(pref.retrieveKey("token"))
     }
@@ -495,12 +494,10 @@ class PostProfileVM @Inject constructor(
                                     CommonMethods.context,
                                     res.body()?.message.toString()
                                 )
+
                                 pref.storeBoolKey(Constants.POSTSTATUS, true)
                                 dataStoreUtil.saveObject(POST_PROFILE_DATA, res.body())
                                 view.navigateBack()
-
-
-
 
 
                             } else {
@@ -665,4 +662,5 @@ class PostProfileVM @Inject constructor(
             }
         })
     }
+
 }

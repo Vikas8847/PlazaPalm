@@ -31,10 +31,8 @@ import javax.inject.Inject
 class PostProfileFragment : Fragment(R.layout.post_profile_fragment), ItemClickListener {
     @Inject
     lateinit var pref: PreferenceFile
-
     @Inject
     lateinit var repository: Repository
-
     private var binding: PostProfileFragmentBinding? = null
     private val viewModel: PostProfileVM by viewModels()
    private lateinit var ImageList: ArrayList<AddPhoto>
