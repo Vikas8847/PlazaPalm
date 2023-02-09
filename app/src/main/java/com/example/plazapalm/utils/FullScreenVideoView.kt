@@ -16,5 +16,6 @@ class FullScreenVideoView : VideoView {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec)
+
     }
 }

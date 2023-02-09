@@ -1,4 +1,5 @@
 package com.example.plazapalm.views.advancesettings.editfontpage
+
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
@@ -54,6 +55,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
+
 @HiltViewModel
 class EditFrontPageVM @Inject constructor(
     private var preferenceFile: PreferenceFile,
@@ -149,6 +151,7 @@ class EditFrontPageVM @Inject constructor(
             }
         }
     }
+
     private fun getProfileApi() {
         lati = preferenceFile.retvieLatlong("lati").toDouble()
         longi = preferenceFile.retvieLatlong("longi").toDouble()
@@ -164,7 +167,7 @@ class EditFrontPageVM @Inject constructor(
             dialog?.dismiss()
         } else {
             dialog = Dialog(context, R.style.Style_Dialog_Rounded_Corner)
-          //  dialog!!.window!!.setBackgroundDrawableResource(R.drawable.round_cornerback)
+            //  dialog!!.window!!.setBackgroundDrawableResource(R.drawable.round_cornerback)
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog?.window?.setDimAmount(0f)
@@ -204,14 +207,17 @@ class EditFrontPageVM @Inject constructor(
         dialog!!.window?.attributes?.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog?.show()
     }
+
     private fun showImageAndVideo(response: GetPostProfileResponse) {
         /** For play and show image ***/
         if (response.data.postProfile_picture?.get(0).toString()
                 .contains(".png") && response.data.postProfile_picture?.get(0).toString()
                 .contains(".jpeg") && response.data.postProfile_picture?.get(0).toString()
-                .contains(".jpg")
-        ) {
+                .contains(".jpg"))
+        {
             profileBinding!!.ivDashBoardCat.visibility = View.VISIBLE
+            profileBinding!!.playerLayout.clipToOutline=true
+            profileBinding!!.videoViewCl.clipToOutline=true
             profileBinding!!.ivVideoIconDetails.visibility = View.GONE
             profileBinding!!.videVAdvanceShowProfile.visibility = View.GONE
             val imagePath = response.data.postProfile_picture?.get(0)
@@ -219,18 +225,15 @@ class EditFrontPageVM @Inject constructor(
                 .into(profileBinding?.ivDashBoardCat!!)
         } else {
             //set video path for play
+            profileBinding?.videVAdvanceShowProfile?.outlineProvider= ViewOutlineProvider.BACKGROUND
+            profileBinding?.videVAdvanceShowProfile?.clipToOutline=true
             profileBinding!!.ivDashBoardCat.visibility = View.GONE
             profileBinding!!.ivVideoIconDetails.visibility = View.GONE
             profileBinding!!.videVAdvanceShowProfile.visibility = View.VISIBLE
             val videoPath = response.data.postProfile_picture?.get(0)
-            MainActivity.activity.setVideoPlayMethod(
-                profileBinding!!.videVAdvanceShowProfile,
-                IMAGE_LOAD_URL + videoPath,
-                profileBinding!!.ivVideoIconDetails
-            )
+            MainActivity.activity.setVideoPlayMethod(profileBinding!!.videVAdvanceShowProfile, IMAGE_LOAD_URL + videoPath, profileBinding!!.ivVideoIconDetails)
         }
     }
-
     private fun topTextSelectedTypeFaces() {
         profileBinding?.apply {
             when {
@@ -316,8 +319,6 @@ class EditFrontPageVM @Inject constructor(
                         Typeface.createFromAsset(context.assets, CommonMethods.caviarDreams)
                     tvProfileUserName.typeface = caviarDreams
                 }
-
-
                 fontsName.get() == CommonMethods.caviarDreamsItalicFontName -> {
                     val caviarDreamsItalic =
                         Typeface.createFromAsset(context.assets, CommonMethods.caviarDreamsItalic)
@@ -875,7 +876,6 @@ class EditFrontPageVM @Inject constructor(
                     tvProfileUserName.typeface = windSong
                 }
 
-
                 fontsName.get() == CommonMethods.walkWayBlackFontName -> {
                     val walkwayBlack = Typeface.createFromAsset(
                         context.assets,
@@ -883,7 +883,6 @@ class EditFrontPageVM @Inject constructor(
                     )
                     tvProfileUserName.typeface = walkwayBlack
                 }
-
 
                 fontsName.get() == CommonMethods.walkWayObliqueFontName -> {
                     val walkwayOblique = Typeface.createFromAsset(
@@ -2002,8 +2001,7 @@ class EditFrontPageVM @Inject constructor(
         appCompatTxtFont?.typeface = firaSansBold
 
 
-        val firaSansBoldItalic =
-            Typeface.createFromAsset(
+        val firaSansBoldItalic = Typeface.createFromAsset(
                 MainActivity.context.get()!!.assets,
                 CommonMethods.firaSansBoldItalic
             )
@@ -3166,10 +3164,8 @@ class EditFrontPageVM @Inject constructor(
             CommonMethods.BACKGROUND -> {
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(MainActivity.context.get()!!.getColor(color!!))
-                val cd =
-                    dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).background as ColorDrawable
+                val cd = dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).background as ColorDrawable
                 val colorCode = cd.color
-
                 selectedbackgrouncolor = colorCode
                 Log.e("ASFDf", colorCode.toString())
 
@@ -3202,22 +3198,16 @@ class EditFrontPageVM @Inject constructor(
             }
             CommonMethods.FONTCOLOR -> {
                 /** Slider for size */
-                slider_size?.addOnChangeListener { _, value, _ ->
-                    changeColor?.textSize = value
-                    Log.e(
-                        "WOrking", "---$value"
-                    )
+                slider_size?.addOnChangeListener { _, value, _ -> changeColor?.textSize = value
+                    Log.e("WOrking", "---$value")
                 }
 
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(context.getColor(R.color.gray))
                 title?.text = "Font Color"
                 changeColor?.text = "Font Sample"
-                dialog!!.findViewById<TextView>(R.id.change_back_id)
-                    .setTextColor(MainActivity.context.get()!!.getColor(color!!))
-                val colorCode =
-                    dialog!!.findViewById<TextView>(R.id.change_back_id).currentTextColor
-
+                dialog!!.findViewById<TextView>(R.id.change_back_id).setTextColor(MainActivity.context.get()!!.getColor(color!!))
+                val colorCode = dialog!!.findViewById<TextView>(R.id.change_back_id).currentTextColor
                 selectedbackgrouncolor = colorCode
                 fontColorLiveData = colorCode
                 val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and colorCode)
@@ -3237,7 +3227,6 @@ class EditFrontPageVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetFontResponse> {
                     return retrofitApi.getFonts(preferenceFile.retrieveKey("token").toString())
                 }
-
                 override fun onResponse(res: Response<GetFontResponse>) {
                     Log.e("AQQAAA", res.body().toString())
                     if (res.body() != null) {
@@ -3274,7 +3263,6 @@ class EditFrontPageVM @Inject constructor(
                         showToast(MainActivity.context.get()!!, res.body()!!.message)
                     }
                 }
-
                 override fun onError(message: String) {
                     super.onError(message)
                     Log.e("zxczxczxc", message)

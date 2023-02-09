@@ -106,10 +106,9 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
     private fun premiumAccount() {
         dataStoreUtil.readObject(LOGIN_DATA, LoginDataModel::class.java) {
             val user_id = it?.data?.user_id.toString()
-
             Log.e("SDSFSDf", it?.data?.user_name + "DFDFDDg   " + user_id.toString())
-
-            if (user_id == "63e4c2309671c75c328852bf") {
+            //63ce507ba67c70857439f892
+            if (user_id =="63ce507ba67c70857439f892") {
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE
 

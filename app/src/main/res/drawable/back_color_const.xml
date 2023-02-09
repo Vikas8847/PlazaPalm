@@ -9,7 +9,9 @@
 
 
 
-    <solid
-        android:color="@color/zxing_transparent"/>
+
+    <stroke
+        android:width="@dimen/_1sdp"
+        android:color="@color/white"/>
 
 </shape>
