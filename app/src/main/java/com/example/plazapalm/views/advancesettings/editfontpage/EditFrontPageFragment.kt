@@ -64,6 +64,8 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         binding!!.clCoordinateEditCoverPage.setOnClickListener {
             CommonMethods.context.hideKeyboard()
         }
+
+
         viewModel.typfaceObserverLiveData.observe(requireActivity()) {
             val data = it as Boolean
             if (data) {
@@ -128,8 +130,6 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
                         var data = it as String
                         binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
                     }
-
-                    //  binding?.viewBoxBorderColor?.setBackgroundColor(CommonMethods.context.getColor(it))
                     val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
                     val colorCode = cd.color
                     val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)

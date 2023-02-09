@@ -104,28 +104,12 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
     }
 
     private fun premiumAccount() {
-
         dataStoreUtil.readObject(LOGIN_DATA, LoginDataModel::class.java) {
-
-//            binding?.tvMyProfileName?.text = it?.data?.first_name + " " + it?.data?.last_name
-//            username.set(it?.data?.user_name)
             val user_id = it?.data?.user_id.toString()
 
             Log.e("SDSFSDf", it?.data?.user_name + "DFDFDDg   " + user_id.toString())
 
-            /*** Get  premium */
-            //        if (viewModel.premium == 1) {
-            //old id
-            //63b69f871545b79696c25166
-            /*  if (user_id == "63bd1578c4f44108db54e886") {
-                  //63bd052fc4f44108db54e5eb
-                  //if (user_id.equals("63b69bc11545b79696c25120")) {
-
-
-            }*/
-
-            if (user_id == "63ce2311a67c70857439f543") {
-
+            if (user_id == "63ce507ba67c70857439f892") {
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE
 

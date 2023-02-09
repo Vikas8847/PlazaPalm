@@ -18,6 +18,7 @@ import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.example.plazapalm.R
+import com.example.plazapalm.databinding.AdvanceShowViewProfileBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -103,29 +104,30 @@ fun BottomNavigationView.onNavDestinationSelected(
     }
 
 }
-
-
+var profileBinding:AdvanceShowViewProfileBinding?=null
 fun Activity.setVideoPlayMethod(
     videoView: VideoView, imageUrl: String?, ivVideoIcon: ImageView
 ) {
-    var position = 0
+    val position = 0
     if (imageUrl != null) {
         videoView.setVideoPath(imageUrl)
         videoView.setOnPreparedListener { mp ->
+            profileBinding?.ivVideoIconDetails?.visibility=View.GONE
             mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
             mp.setVolume(0f, 0f)
             videoView.seekTo(position)
             ivVideoIcon.visibility = View.GONE
             if (position == 0) {
                 videoView.start()
-            } else {
+            } else
+            {
                 videoView.pause()
             }
-
             mp.isLooping = true
             // CommonMethods.showToast(requireContext(), "Video is Preparing")
             Log.d("VideoPreparing", "video is preparing " + videoView.duration)
         }
+
         videoView.setOnErrorListener { mediaPlayer, _, _ ->
 
            /* Log.d("VideoError", "$mediaPlayer")

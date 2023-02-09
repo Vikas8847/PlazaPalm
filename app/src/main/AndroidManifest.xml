@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -63,8 +64,8 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="uiMode"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -72,26 +73,44 @@
             <!-- Branch App Links - Live App -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="rhjou.app.link" />
+
+                <data
+                    android:host="rhjou.app.link"
+                    android:scheme="https" />
                 <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
-                <data android:scheme="https" android:host="rhjou-alternate.app.link" />
+                <data
+                    android:host="rhjou-alternate.app.link"
+                    android:scheme="https" />
             </intent-filter>
             <!-- Branch App Links - Test App -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="rhjou.app.link" />
+
+                <data
+                    android:host="rhjou.app.link"
+                    android:scheme="https" />
                 <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
-                <data android:scheme="https" android:host="rhjou-alternate.app.link" />
+                <data
+                    android:host="rhjou-alternate.app.link"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 
-        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_hk8WXNKhWTQDd55HippK7ldkxEe9hszY" />
-        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_live_hk8WXNKhWTQDd55HippK7ldkxEe9hszY" />
-        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />     <!-- Set to true to use Branch_Test_Key (useful when simulating installs and/or switching between debug and production flavors) -->
+        <meta-data
+            android:name="io.branch.sdk.BranchKey"
+            android:value="key_live_hk8WXNKhWTQDd55HippK7ldkxEe9hszY" />
+        <meta-data
+            android:name="io.branch.sdk.BranchKey.test"
+            android:value="key_live_hk8WXNKhWTQDd55HippK7ldkxEe9hszY" />
+        <meta-data
+            android:name="io.branch.sdk.TestMode"
+            android:value="false" />     <!-- Set to true to use Branch_Test_Key (useful when simulating installs and/or switching between debug and production flavors) -->
 
         <service
             android:name=".fcm.FirebaseService"

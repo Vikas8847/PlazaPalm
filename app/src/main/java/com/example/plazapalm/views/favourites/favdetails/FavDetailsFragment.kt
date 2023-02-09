@@ -103,7 +103,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     }
 
     private fun setbackground() {
-
         viewModel.backgroundColor.observe(viewLifecycleOwner) {
             if (!(it.equals("")) && it != null) {
 
@@ -114,21 +113,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 }
             }
         }
-
         viewModel.textColor.observe(viewLifecycleOwner) {
             if (!(it.equals("")) && it != null) {
-
                 if (it is String) {
-
                     val data = it
-
                     viewModel.fontViewColor.set(data)
-
-//                    binding!!.tvFavDetails.setTextColor(Color.parseColor(data.toString()))
-//                    binding!!.tvFavDetailsDistance.setTextColor(Color.parseColor(data.toString()))
-//                    binding!!.tvFavCityAddress.setTextColor(Color.parseColor(data.toString()))
-//                    binding!!.tvFavDetailsAddress.setTextColor(Color.parseColor(data.toString()))
-
                     binding?.tvFavCityAddress?.setTextColor(Color.parseColor(data.toString()))
                     binding?.tvFavDetailsAddress?.setTextColor(Color.parseColor(data.toString()))
                     binding?.tvFavDetailsDistance?.setTextColor(Color.parseColor(data.toString()))
@@ -144,7 +133,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(data.toString()))
                     binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(data.toString()))
                 }
-
             }
         }
 
@@ -169,7 +157,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
     private fun getSharedata() {
         val data: Uri? = CommonMethods.context.intent?.data
-
         if (data != null) {
             val param: List<String> = data.pathSegments
             val shareData = param[param.size - 1]
@@ -215,12 +202,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                     val data = requireArguments().getSerializable("ResBody") as ArrayList<FavData>
                     val pos = requireArguments().getInt("pos")
-                    val image: ArrayList<String> = data.get(pos).postProfile_picture as ArrayList<String>
+                    val image: ArrayList<String> = data[pos].postProfile_picture as ArrayList<String>
                     setFavdata(pos, data, image)
 
                     Log.e("kgvnsngsgggg===", loginUserPId.toString())
                     Log.e("kgvnsngsgggg11===", data[pos].p_id.toString())
-                    if (!(loginUserPId.toString().equals(data[pos].p_id))) {
+                    if (loginUserPId.toString() != data[pos].p_id) {
                         if (data[pos].booking_status!!) {
                             binding!!.btnBookingProfile.visibility = View.VISIBLE
                             Log.e("kgvnsngsgggg22===", viewModel.u_ID.get().toString())
@@ -232,19 +219,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         Log.e("kgvnsngsgggg44===", viewModel.u_ID.get().toString())
                         binding!!.btnBookingProfile.visibility = View.GONE
                     }
-
-                    getPostprofile(data.get(pos).p_id!!, data.get(pos).lat!!, data.get(pos).long!!)
-
-
-                    Log.e(
-                        "VVBBBB",
-                        image.toString() + "  ---pos---  " + pos.toString() + data.toString() + "  ---pos---  "
-                    )
+                    getPostprofile(data[pos].p_id!!, data[pos].lat!!, data[pos].long!!)
+                    Log.e("VVBBBB", "$image  ---pos---  $pos$data  ---pos---  ")
 
                 }
 
                 "isDashBoard" -> {
-
                     viewModel.CommingFrom.set("isDashBoard")
                     p_id = arguments?.getString("DashBoardPostId").toString()
                     lati = arguments?.getDouble("DashBoardPostLatitude")
@@ -255,58 +235,31 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 }
 
                 "isViewProfile" -> {
-
-//                    val _p_id = arguments?.getString("P_ID")
                     viewModel.p_id.set(arguments?.getString("P_ID"))
                     viewModel.CommingFrom.set("isViewProfile")
                     binding!!.btnBookingProfile.visibility = View.GONE
                     //  viewModel.tvAllowBooking.set(false)
-                    getPostprofile(
-                        viewModel.p_id.get().toString(),
+                    getPostprofile(viewModel.p_id.get().toString(),
                         pref.retvieLatlong("lati").toDouble(),
-                        pref.retvieLatlong("longi").toDouble()
-                    )
+                        pref.retvieLatlong("longi").toDouble())
 
-//                    getViewProfileData()
 
                 }
                 "isEditLook" -> {
                     /** isEditLook and isViewProfile is same no difference... */
-
                     viewModel.CommingFrom.set("isViewProfile")
                     binding!!.btnBookingProfile.visibility = View.GONE
-                    //  viewModel.tvAllowBooking.set(false)
                     premiumAccount()
-                  //  viewEditLook()
-
-
-                    /*  viewModel.backgroundColor.observe(viewLifecycleOwner) {
-                          if (!(it.equals("")) && it != null) {
-
-                              if (it is String){
-                                  val data = it as String
-                                  binding!!.mainConslayout.setBackgroundColor(Color.parseColor(data.toString()))
-                                  binding!!.mainToolBar.setBackgroundColor(Color.parseColor(data.toString()))
-                              }
-
-                          }
-                      }*/
-
                 }
                 "isBookingDetailsFragment" -> {
                     /** isBookingDetailsFragment and isViewProfile is same no difference... */
                     Log.e("ZCZXCZXCZXCZXC", requireArguments().get("userPostProfileId").toString())
                     viewModel.CommingFrom.set("isViewProfile")
-
-
-//                    val userPostProfileId = requireArguments().get("userPostProfileId").toString()
                     viewModel.p_id.set(requireArguments().get("userPostProfileId").toString())
 
-                    Log.e(
-                        "ASDASQWEQWe", viewModel.p_id.get().toString() + "xdfdf   " +
+                    Log.e("ASDASQWEQWe", viewModel.p_id.get().toString() + "xdfdf   " +
                                 pref.retvieLatlong("lati").toDouble() + " sdfsdf  " +
-                                pref.retvieLatlong("longi").toDouble().toString().toString()
-                    )
+                                pref.retvieLatlong("longi").toDouble().toString().toString())
 
                     getPostprofile(
                         viewModel.p_id.get().toString(),
@@ -330,84 +283,64 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         binding?.mainConslayout?.visibility = View.VISIBLE
 
         val dscList = ArrayList<String>()
-        dscList.add(data.get(pos).description_1.toString())
-        dscList.add(data.get(pos).description_2.toString())
-        dscList.add(data.get(pos).description_3.toString())
+        dscList.add(data[pos].description_1.toString())
+        dscList.add(data[pos].description_2.toString())
+        dscList.add(data[pos].description_3.toString())
 
-        viewModel.tvFavDetailsAddress.set(data.get(pos).address)
-        viewModel.tvFavCityAddress.set(data.get(pos).location_text)
+        viewModel.tvFavDetailsAddress.set(data[pos].address)
+        viewModel.tvFavCityAddress.set(data[pos].location_text)
 //      viewModel.fav_title.set(data.get(pos).user_name)
-        viewModel.username.set(data.get(pos).user_name)
-        viewModel.p_id.set(data.get(pos).p_id)
-        viewModel.userId.set(data.get(pos)._id)
-        viewModel.userIdForChat.set(data.get(pos)._id.toString())
+        viewModel.username.set(data[pos].user_name)
+        viewModel.p_id.set(data[pos].p_id)
+        viewModel.userId.set(data[pos]._id)
+        viewModel.userIdForChat.set(data[pos]._id.toString())
 
-        checkForMiles(data.get(pos)._id.toString())
+        checkForMiles(data[pos]._id.toString())
         val imageList = ArrayList<AddPhoto>()
 
         for (idx in 0 until image.size) {
-            imageList.add(AddPhoto(image[idx].toString(), true))
+            imageList.add(AddPhoto(image[idx], true))
         }
 
         Log.e("KJHEMMDADDAS", imageList.toString())
         viewModel.data_list = imageList
-
-        var postData = postData(
-            data.get(pos).p_id,
-            data.get(pos).address,
-            data.get(pos).booking_status,
-            data.get(pos).c_id,
-            data.get(pos).category_name,
+        val postData = postData(
+            data[pos].p_id,
+            data[pos].address,
+            data[pos].booking_status,
+            data[pos].c_id,
+            data[pos].category_name,
             dark_theme = false,
-            data.get(pos).description_1,
-            data.get(pos).description_2,
-            data.get(pos).description_3, 0,
-            data.get(pos).distance,
-            data.get(pos).expiry_date,
-            data.get(pos).favouriteCount,
-            data.get(pos).first_name,
+            data[pos].description_1,
+            data[pos].description_2,
+            data[pos].description_3, 0,
+            data[pos].distance,
+            data[pos].expiry_date,
+            data[pos].favouriteCount,
+            data[pos].first_name,
             false,
             0,
-            false,
-            false,
+            isAddedToProfile = false,
+            isDisliked = false,
             isFavourite = false,
             isLiked = false,
-            data.get(pos).isPremium,
-            data.get(pos).last_name,
-            data.get(pos).lat,
-            data.get(pos).favouriteCount,
-            null, false,
-            data.get(pos).location_text,
-            data.get(pos).long,
-            data.get(pos).postProfile_picture,
-            data.get(pos).profile_title,
-            data.get(pos).tags,
-            data.get(pos)._id,
-            data.get(pos).user_name
+            isPremium = data[pos].isPremium,
+            last_name = data[pos].last_name,
+            lat = data[pos].lat,
+            likeCount = data[pos].favouriteCount,
+            location = null, location_OnOff = false,
+            location_text = data[pos].location_text,
+            long = data[pos].long,
+            postProfile_picture = data[pos].postProfile_picture,
+            profile_title = data[pos].profile_title,
+            tags = data[pos].tags,
+            user_id = data[pos]._id,
+            user_name = data[pos].user_name
         )
+
         viewModel.userdata.set(postData)
 
-        /* if(image.get(0).contains(".png")
-             || image.get(0).contains(".jpg")
-             || image.get(0).contains(".jpeg")
-         ) {
-             Glide.with(requireActivity()).load(IMAGE_LOAD_URL + image.get(0))
-                 .into(binding!!.ivFavDetails)
-             binding!!.ivFavDetails.visibility=View.VISIBLE
-         }else{
-
-             binding!!.ivFavDetails.visibility=View.VISIBLE
-         }*/
-
-        /* viewModel.tvFavouriteCountValue.set(data.get(pos).favouriteCount.toString())
-         if(!(viewModel.u_ID.get().toString().equals(data.get(pos)._id))){
-             viewModel.checkFavouriteShow.set(0)
-         }else
-         {
-             viewModel.checkFavouriteShow.set(1)
-         }*/
-
-        setFirstMediaMethod(image.get(0))
+        setFirstMediaMethod(image[0])
 
         setAdapter(image, dscList)
 
@@ -447,25 +380,23 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         Log.e("ABCDDDDDDD==", locationA.toString())
         Log.e("ABCDDDDDDD1111==", locationB.toString())
-        var distance = locationA.distanceTo(locationB).toDouble().toString()
+        val distance = locationA.distanceTo(locationB).toDouble().toString()
 
-        var milesValues = BindingAdapters.metersToMiles(distance.toDouble())
+        val milesValues = BindingAdapters.metersToMiles(distance.toDouble())
         var finalMilesDiatance = ""
-        if (milesValues.toString().contains(".")) {
-            finalMilesDiatance = milesValues.toString().split(".")[0] + " miles"
-        } else {
-            finalMilesDiatance = milesValues.toString() + " miles"
+        when {
+            milesValues.toString().contains(".") -> {
+                finalMilesDiatance = milesValues.toString().split(".")[0] + " miles"
+            }
+            else -> {
+                finalMilesDiatance = "$milesValues miles"
+            }
         }
-        Log.e("ABCDDDDDDD444==", finalMilesDiatance.toString())
+        Log.e("ABCDDDDDDD444==", finalMilesDiatance)
         viewModel.distanceValue.set(finalMilesDiatance)
     }
-
-
     fun setFirstMediaMethod(imageValue: String) {
-        if (imageValue.contains(".png")
-            || imageValue.contains(".jpg")
-            || imageValue.contains(".jpeg")
-        ) {
+        if (imageValue.contains(".png") || imageValue.contains(".jpg") || imageValue.contains(".jpeg")) {
             Glide.with(requireActivity()).load(IMAGE_LOAD_URL + imageValue).
                 //  apply(RequestOptions().override(1200,1200)).placeholder(R.drawable.dash_board_items_bg).error(R.drawable.dash_board_items_bg)
             placeholder(R.drawable.dash_board_items_bg).error(R.drawable.dash_board_items_bg)
@@ -478,11 +409,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             binding!!.videoViewDetail.visibility = View.VISIBLE
             binding!!.ivVideoIconDetails.visibility = View.VISIBLE
             var activity = requireActivity() as Activity
-            activity.setVideoPlayMethod(
-                binding!!.videoViewDetail,
-                IMAGE_LOAD_URL + imageValue,
-                binding!!.ivVideoIconDetails
-            )
+            activity.setVideoPlayMethod(binding!!.videoViewDetail, IMAGE_LOAD_URL + imageValue, binding!!.ivVideoIconDetails)
         }
     }
 

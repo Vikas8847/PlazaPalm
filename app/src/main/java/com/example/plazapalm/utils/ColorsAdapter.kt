@@ -48,33 +48,14 @@ class ColorsAdapter(
         fun setDAta(
             context: Context,
             photos: ArrayList<ChooseColor>,
-            position: Int,  ) {
+            position: Int  ) {
 
-           /* when(position){
-                0 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.goldYellow))
-                1 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.gold))
-                2 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.paleRed))
-                3 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.brickRed))
-                4 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.plumLight))
-                5 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.purple))
-                6 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.coolBlue))
-                7 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.turfGreen))
-                8 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.blueGray))
-                9 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.sky))
-                10 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.green))
-                11 -> bindining.changeColors.setBackgroundColor(requireActivity.getColor(R.color.orange))
-            }*/
 
             Log.e("SDFFFFF",photos[position].color.toString())
             bindining.changeColors.setBackgroundColor(requireActivity.getColor(photos[position].color!!))
-           /* for (idx in 0 until photos.size){
-                val color = photos[position].color
 
-                if (color != null) {
-                    bindining.changeColors.setBackgroundColor(color)
-                }
 
-            }*/
+
             bindining.changeClick.setOnClickListener{
                 Log.e("DFSDSf",position.toString() +  "VVVVV---- "+ photos[position].color)
                 clickItem.click("",position,"","",photos[position].color)

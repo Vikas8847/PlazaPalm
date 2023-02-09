@@ -55,7 +55,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    app:cardElevation="0dp"
                     android:layout_marginEnd="@dimen/_12sdp"
+                    app:contentPadding="@dimen/_2sdp"
+                    app:cardPreventCornerOverlap="false"
                     android:background="@drawable/back_color_choose"
                     app:cardCornerRadius="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -66,9 +69,9 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/Show_back"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_margin="@dimen/_5sdp"
-                        android:background="@drawable/back_color_const">
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_height="@dimen/_41sdp"
+                      >
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/change_back_id"
                             android:layout_width="wrap_content"
