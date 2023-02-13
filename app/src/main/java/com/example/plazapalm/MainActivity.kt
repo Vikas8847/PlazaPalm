@@ -32,7 +32,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import io.branch.referral.Branch
 import java.lang.ref.WeakReference
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint

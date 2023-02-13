@@ -3,8 +3,10 @@ package com.example.plazapalm.views.confirmbookthankyou
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -41,6 +43,7 @@ class ConfirmBookingVM @Inject constructor(
 
     var p_id = ObservableField("")
     var user_Name = ObservableField("")
+    var userIdForChat = ObservableField("")
     var commingFrom = ObservableField("")
     var user_location = ObservableField("")
     var user_miles = ObservableField("25 Miles")
@@ -54,6 +57,8 @@ class ConfirmBookingVM @Inject constructor(
     var title = ObservableField("Confirm Booking")
     var addtoCalendar = ObservableField("Book")
     var questionAnswer = ArrayList<QuestionAnswer>()
+    var isConfiirm = ObservableBoolean(false)
+
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -64,7 +69,16 @@ class ConfirmBookingVM @Inject constructor(
                 view.findNavController().navigateUp()
             }
             R.id.ivBookingDetailsChat -> {
-                view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment)
+
+                    val chatData = Bundle()
+                chatData.putString("CommingFrom","ConfirmBooking")
+                chatData.putString("user_Id",userIdForChat.get().toString())
+                chatData.putString("user_name", user_Name.get().toString())
+                chatData.putString("userImage", user_image.get().toString())
+
+                    Log.e("asfasfaa",userIdForChat.get().toString() + "VCVX" + user_Name.get().toString() + " VVC " + user_image + "ZXZz ")
+
+                view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment,chatData)
             }
             R.id.etConfirmBookDate -> {
                 //open calendar picker alert..
@@ -81,9 +95,11 @@ class ConfirmBookingVM @Inject constructor(
                 } else {
                     if (validateFields()) {
                         if (commingFrom.get().equals("confirmBook")) {
+                            isConfiirm.set(true)
                             confirmBooking(view)
                         } else if (commingFrom.get().equals("addToCalander")) {
                             addToCalendar(view)
+                            isConfiirm.set(false)
                         }
                     }
                 }
@@ -96,7 +112,7 @@ class ConfirmBookingVM @Inject constructor(
         Log.e(
 
             "CONFIRMBOOKING",
-               preferenceFile.retrieveKey("token").toString() + " --V--" +
+            preferenceFile.retrieveKey("token").toString() + " --V--" +
                     p_id.get().toString() + " --V--" +
                     chooseDate.get().toString() + " --V--" +
                     chooseTime.get().toString() + " --V--" +
@@ -192,7 +208,7 @@ class ConfirmBookingVM @Inject constructor(
             calender.get(Calendar.YEAR), calender.get(Calendar.MONTH),
             calender.get(Calendar.DAY_OF_MONTH)
         )
-        datePicker .getDatePicker().setMinDate(System.currentTimeMillis() - 1000)
+        datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000)
 
 
         //datePicker.datePicker.maxDate = System.currentTimeMillis()
@@ -242,7 +258,7 @@ class ConfirmBookingVM @Inject constructor(
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<AddToCalendarResponseModel>> {
-                override suspend fun sendRequest(retrofitApi : RetrofitApi) : Response<AddToCalendarResponseModel> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<AddToCalendarResponseModel> {
                     return retrofitApi.addToCalendarBooking(
                         Authorization = preferenceFile.retrieveKey("token")!!,
                         Category_Name = categoryName.get()!!,

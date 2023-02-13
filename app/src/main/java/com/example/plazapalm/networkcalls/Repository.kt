@@ -191,38 +191,4 @@ class Repository @Inject constructor(
 
     }
 
-    private fun showErrorDialog() {
-
-        /*   if (aD == null) {
-               aD = AlertDialog.Builder(MainActivity.context.get())
-               aD?.setTitle("Oops! Something went wrong. Please try again later.")
-               aD?.setCancelable(false)
-               aD?.setPositiveButton("Ok") { dialogInterface, _ ->
-                   dialogInterface.cancel()
-                   dialogInterface.dismiss()
-               }
-               aD?.create()
-
-               aD?.show()
-
-           }*/
-
-        if (dialog != null && dialog?.isShowing!!) {
-            dialog?.dismiss()
-        } else {
-            dialog = Dialog(CommonMethods.context, android.R.style.Theme_Dialog)
-            dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog?.setContentView(R.layout.repository_alert)
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
-            dialog?.setCancelable(false)
-            dialog?.findViewById<AppCompatTextView>(R.id.tvErrorOk)?.setOnClickListener {
-                dialog?.dismiss()
-            }
-            dialog?.show()
-
-        }
-
-    }
-
 }

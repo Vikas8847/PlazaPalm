@@ -83,11 +83,10 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                     }
 
                     viewModel.userFName.set(userdata.get(postion).postProfile_first_name)
+                    viewModel.userIdForChat.set(userdata.get(postion).post_profile_user_id)
                     viewModel.usercustomerId.set(userdata.get(postion).customer_id)
                     viewModel.userLName.set(userdata.get(postion as Int).postProfile_last_name)
-
                     viewModel.userPostProfileId.set(userdata.get(postion as Int).post_profile_id)
-
                     viewModel.userType.set(userdata.get(postion as Int).userType)
                     viewModel.date.set(before.toString())
                     viewModel.description.set(userdata.get(postion as Int).description)

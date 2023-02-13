@@ -76,6 +76,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
     @SuppressLint("NotifyDataSetChanged")
     private fun getLocal() {
 
+/*
         viewModel.reciverUserID.set(arguments?.get("user_Id").toString())
         viewModel.reciverUserName.set(arguments?.get("user_name").toString())
         viewModel.reciverUserImage.set(arguments?.get("userImage").toString())
@@ -85,6 +86,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
             arguments?.get("user_Id").toString() + "USERNAMEEE---.." + arguments?.get("user_name")
                 .toString()
         )
+*/
 
         dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
 
@@ -148,82 +150,81 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                                 )
 
                                 Log.e("dasdasdasdww  ", LastMesageList.toString())
-                            }
-                        }
-                    }
-
-                    viewModel.messageUserAdapter.addItems(LastMesageList)
-                    viewModel.messageUserAdapter.notifyDataSetChanged()
-
-                    viewModel.messageUserAdapter.setOnItemClick { view, position, type ->
-                        when (type) {
-                            "userChatDetails" -> {
-
-                                Log.e("daaa", chatID)
-
-                                bundle.putString("CommingFrom", "MessageScreen")
-                                bundle.putString(
-                                    "UserName",
-                                    viewModel.messageUserAdapter.getAllItems()[position].name
-                                )
-                                bundle.putString(
-                                    "UserID",
-                                    viewModel.messageUserAdapter.getAllItems()[position].userId
-                                )
-                                bundle.putString(
-                                    "chatID",
-                                    viewModel.messageUserAdapter.getAllItems()[position].chatId
-                                )
-                                bundle.putString(
-                                    "userImage",
-                                    viewModel.messageUserAdapter.getAllItems()[position].userImage
-                                )
-
-                                Log.e(
-                                    "USERDETALS  ",
-                                    viewModel.messageUserAdapter.getAllItems()[position].name + " - " +
-                                            viewModel.messageUserAdapter.getAllItems()[position].milisecondTime + " - " + " - " +
-                                            viewModel.messageUserAdapter.getAllItems()[position].userImage + " - " +
-                                            viewModel.messageUserAdapter.getAllItems()[position].userId + " - " +
-                                            viewModel.messageUserAdapter.getAllItems()[position].chatId + " - " +
-                                            viewModel.messageUserAdapter.getAllItems()[position].message
-                                )
-
-                                view.navigateWithId(
-                                    R.id.action_messagesFragment_to_chatFragment,
-                                    bundle
-                                )
 
                             }
                         }
+
+                        viewModel.messageUserAdapter.addItems(LastMesageList)
+                        viewModel.messageUserAdapter.notifyDataSetChanged()
+
+                        viewModel.messageUserAdapter.setOnItemClick { view, position, type ->
+                            when (type) {
+                                "userChatDetails" -> {
+
+                                    Log.e("daaa", chatID)
+
+                                    bundle.putString("CommingFrom", "MessageScreen")
+                                    bundle.putString(
+                                        "UserName",
+                                        viewModel.messageUserAdapter.getAllItems()[position].name
+                                    )
+                                    bundle.putString(
+                                        "UserID",
+                                        viewModel.messageUserAdapter.getAllItems()[position].userId
+                                    )
+                                    bundle.putString(
+                                        "chatID",
+                                        viewModel.messageUserAdapter.getAllItems()[position].chatId
+                                    )
+                                    bundle.putString(
+                                        "userImage",
+                                        viewModel.messageUserAdapter.getAllItems()[position].userImage
+                                    )
+
+                                    Log.e(
+                                        "USERDETALS  ",
+                                        viewModel.messageUserAdapter.getAllItems()[position].name + " - " +
+                                                viewModel.messageUserAdapter.getAllItems()[position].milisecondTime + " - " + " - " +
+                                                viewModel.messageUserAdapter.getAllItems()[position].userImage + " - " +
+                                                viewModel.messageUserAdapter.getAllItems()[position].userId + " - " +
+                                                viewModel.messageUserAdapter.getAllItems()[position].chatId + " - " +
+                                                viewModel.messageUserAdapter.getAllItems()[position].message
+                                    )
+
+                                    view.navigateWithId(
+                                        R.id.action_messagesFragment_to_chatFragment,
+                                        bundle
+                                    )
+
+                                }
+                            }
+                        }
+
                     }
 
                 }
 
-        }
+            dataStore.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
+
+                /** Sender Data */
+
+                if (it != null) {
+                    Log.e("  sender_usderIID-->> ", it.data?.profile_picture.toString())
+
+                    viewModel.senderUserImage.set(IMAGE_LOAD_URL + it?.data?.profile_picture)
+
+                } else {
+                    viewModel.senderUserImage.set(R.drawable.placeholder.toString())
+                }
+
+                //viewModel.senderUserID.set(it?.data?.user_id.toString())
+                //viewModel.senderUserName.set(it?.data?.user_name.toString())
+                //viewModel.senderbusiness_profile_status.set(it?.data?.business_profile_status)
 
 
-        dataStore.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
-
-            /** Sender Data */
-
-            if (it!=null){
-                Log.e("  sender_usderIID-->> ", it.data?.profile_picture.toString())
-
-                viewModel.senderUserImage.set(IMAGE_LOAD_URL + it?.data?.profile_picture)
-
-            }else{
-                viewModel.senderUserImage.set(R.drawable.placeholder.toString())
             }
 
-            //viewModel.senderUserID.set(it?.data?.user_id.toString())
-            //viewModel.senderUserName.set(it?.data?.user_name.toString())
-           //viewModel.senderbusiness_profile_status.set(it?.data?.business_profile_status)
-
-
-        }
-
-        /// old code...
+            /// old code...
 
 /*
         dataStore.readObject(POST_PROFILE_DATA, SavePostProfileResponse::class.java) {
@@ -235,6 +236,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
         }
 */
 
-    }
+        }
 
+    }
 }
