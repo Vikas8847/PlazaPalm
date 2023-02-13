@@ -10,10 +10,7 @@ import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.BookingDetailsResponse
 import com.example.plazapalm.models.BookingStatusInputResponse
-import com.example.plazapalm.networkcalls.ApiEnums
-import com.example.plazapalm.networkcalls.ApiProcessor
-import com.example.plazapalm.networkcalls.Repository
-import com.example.plazapalm.networkcalls.RetrofitApi
+import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.navigateBack
@@ -31,6 +28,7 @@ class BookingDetailsVM @Inject constructor(
 
     ) : ViewModel() {
     var userFName = ObservableField("")
+    var userIdForChat = ObservableField("")
     var userFLName = ObservableField("")
     var usercustomerId = ObservableField("")
     var userLName = ObservableField("")
@@ -47,54 +45,6 @@ class BookingDetailsVM @Inject constructor(
     var btnText = ObservableField("")
 
 
-    fun getCustomerDetails() = viewModelScope.launch {
-
-        Log.e(
-            "SCCXXWQQ",
-            preferenceFile.retrieveKey("token").toString() + " ----- " + booking_id.get().toString()
-        )
-
-        repository.makeCall(
-            apiKey = ApiEnums.GETPROFILE_BYCATE,
-            loader = true,
-            saveInCache = false,
-            getFromCache = false,
-            requestProcessor = object : ApiProcessor<Response<BookingDetailsResponse>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<BookingDetailsResponse> {
-                    return retrofitApi.getBookingDetailsForCustomer(
-                        preferenceFile.retrieveKey("token").toString(), booking_id.get().toString()
-                    )
-                }
-
-                override fun onResponse(res: Response<BookingDetailsResponse>) {
-                    if (res.isSuccessful && res.code() == 200) {
-                        if (res.body()!!.data != null) {
-
-                            Log.e("QQPPPOOAAA", res.body().toString())
-                            res.body()!!.message?.let {
-                                CommonMethods.showToast(
-                                    CommonMethods.context,
-                                    it
-                                )
-                            }
-
-                        } else {
-                            CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)
-
-                        }
-                    } else {
-                        CommonMethods.showToast(CommonMethods.context, res.message())
-                    }
-                }
-
-                override fun onError(message: String) {
-                    super.onError(message)
-                    CommonMethods.showToast(CommonMethods.context, message)
-
-                }
-            })
-
-    }
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -125,7 +75,29 @@ class BookingDetailsVM @Inject constructor(
             R.id.ivFavDetailsOptions -> {
                 //Here Navigate to Chat Screen...
 
-                view.navigateWithId(R.id.action_bookingDetailsFragment_to_chatFragment)
+                Log.e(
+                    "asfasfaa",
+                    userIdForChat.get().toString() + "VCVX" +
+                            userFLName.get().toString() +
+                            imageUrl.get().toString() + " VVC "
+                )
+
+                var userImage = ""
+                if (!imageUrl.get().toString().isNullOrEmpty()) {
+                    userImage =imageUrl.get().toString()
+                }else{
+                    userImage = IMAGE_LOAD_URL + R.drawable.placeholder
+                }
+
+                val chatData = Bundle()
+                chatData.putString("CommingFrom", "CalendarScreen")
+                chatData.putString("user_Id",userIdForChat.get().toString())
+                chatData.putString("user_name",userFLName.get().toString())
+                chatData.putString("userImage", userImage)
+
+
+                view.navigateWithId(R.id.action_bookingDetailsFragment_to_chatFragment,chatData)
+
             }
 
             R.id.tvBookingDetailViewProfile -> {

@@ -98,8 +98,6 @@ class FavDetailsVM @Inject constructor(
     val backgroundColor = MutableLiveData<Any>()
     val textColor = MutableLiveData<Any>()
 
-    init {
-    }
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -176,12 +174,14 @@ class FavDetailsVM @Inject constructor(
             }
 
             R.id.btnBookingProfile -> {
+
                 val booking_pro = Bundle()
                 booking_pro.putString("bookClick", "confirmBook")
-                booking_pro.putString("userName", username.get())
                 booking_pro.putString("p_id", p_id.get())
                 booking_pro.putString("userLocation", tvFavCityAddress.get().toString())
+                booking_pro.putString("userName", username.get())
                 booking_pro.putString("proImageg", data_list!!.get(0).Image)
+                booking_pro.putString("user_Id",userIdForChat.get().toString())
                 booking_pro.putString("miles", distanceValue.get().toString())
 
                 view.navigateWithId(R.id.confirmBookingFragment, booking_pro)

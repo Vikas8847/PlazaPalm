@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
+import com.example.plazapalm.datastore.POST_PROFILE_DATA
 import com.example.plazapalm.datastore.PROFILE_DATA
 import com.example.plazapalm.datastore.PROFILE_IMAGE
 import com.example.plazapalm.interfaces.clickItem
@@ -95,7 +96,6 @@ class DashBoardVM @Inject constructor(
     val list_CateName by lazy { stringPreferencesKey("CateNameList") }
     var dialog: Dialog? = null
     var rvView: RecyclerView? = null
-
     var selectedCatId = ObservableField("")
     var isRVScroll = ObservableBoolean(false)
 
@@ -630,7 +630,9 @@ class DashBoardVM @Inject constructor(
 
                 override fun onResponse(res: Response<GetProfileResponseModel>) {
 
-                    val responseData = res.body()
+                    val responseData = res.body().toString()
+                    Log.e("PIDDd", res.body().toString())
+
 
 //                    user_id.set(res.body()!!.data.user_id)
 
@@ -644,7 +646,6 @@ class DashBoardVM @Inject constructor(
 
 //                    p_id.set(res.body()?.data?.p_id)
 
-                    Log.e("QWQWQWQW", responseData.toString())
 
                     if (res.body()?.data?.p_id.isNullOrEmpty()) {
                         status.set("Post a Profile ")
@@ -664,6 +665,8 @@ class DashBoardVM @Inject constructor(
                        ) {
                            profileResponse.value = true
                        }*/
+
+//                    getPostprofile(res.body()!!.data.p_id.toString())
                 }
 
                 override fun onError(message: String) {
@@ -776,6 +779,55 @@ class DashBoardVM @Inject constructor(
             }
         )
     }
+
+     fun getPostprofile(p_Id: String) {
+
+        Log.e(
+            "POSSSDDD", p_Id + " PID " + pref.retvieLatlong("lati").toFloat() + " LAT  " + pref.retvieLatlong("longi").toFloat() + " LONG "
+        )
+
+        repository.makeCall(
+            ApiEnums.GET_POST_PROFILE,
+            loader = false,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<GetPostProfileResponse>> {
+
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetPostProfileResponse> {
+                    return retrofitApi.getPostProfile(
+
+                        pref.retrieveKey("token").toString(),
+                        p_Id,
+                        pref.retvieLatlong("lati").toFloat(),
+                        pref.retvieLatlong("longi").toFloat()
+
+                    )
+                }
+
+                override fun onResponse(res: Response<GetPostProfileResponse>) {
+                    Log.e("AQQAAARESPONEEES", res.body().toString())
+
+                    if (res.isSuccessful){
+                        if (res.body()!=null && res.body()!!.status==200){
+
+                            Log.e("QOWWWSQ",res.body().toString())
+                            dataStoreUtil.saveObject(POST_PROFILE_DATA, res.body())
+
+                        }
+                    }
+                }
+
+                override fun onError(message: String) {
+                    super.onError(message)
+                    Log.e("zxczxczxc", message)
+
+                }
+
+            }
+
+        )
+    }
+
 }
 
 

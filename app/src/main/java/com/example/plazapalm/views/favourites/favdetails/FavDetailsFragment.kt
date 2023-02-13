@@ -54,8 +54,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     private var longi: Double? = null
     private var lati: Double? = null
     private var p_id: String? = null
-
-    private lateinit var marker: MarkerOptions
     lateinit var mMap: GoogleMap
     lateinit var mapFragment: SupportMapFragment
 
@@ -557,7 +555,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
 
-                                Log.e("userIddddd====", loginUserPId.toString())
+                                Log.e("userIddddd====", viewModel.userdata.get().toString())
                                 Log.e("userIddddd111====", viewModel.userdata.get()?.postProfile_picture!![0].toString())
 
                                 if (!(loginUserPId.toString().equals(res.body()!!.data._id))) {

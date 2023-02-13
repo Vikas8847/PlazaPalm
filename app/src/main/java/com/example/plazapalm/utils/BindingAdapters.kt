@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,6 @@ import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
-import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods.context
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -137,19 +137,28 @@ object BindingAdapters {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter(value = ["setTextVisibilty"], requireAll = false)
+    @BindingAdapter(value = ["setUserName"], requireAll = false)
     @JvmStatic
-    fun setTextVisibilty(
+    fun setUserName(
         textView: TextView,
         value: String,
     ) {
+        textView.text = value
+        Log.e("QOWIEWww", value)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter(value = ["setTextVisibilty"], requireAll = false)
+    @JvmStatic
+    fun setTextVisibilty(
+        layout : ConstraintLayout,
+        value: Boolean,
+    ) {
 
         if (value.equals(true)) {
-            textView.text = " "
-            textView.visibility = View.VISIBLE
+            layout.visibility = View.GONE
         } else {
-            textView.text = "No Data Found"
-            textView.visibility = View.VISIBLE
+            layout.visibility = View.VISIBLE
         }
 
     }
@@ -176,8 +185,7 @@ object BindingAdapters {
                 .load(IMAGE_LOAD_URL + imageUrl)
                 .error(R.drawable.placeholder)
                 .into(circleImage)
-        }else
-        {
+        } else {
             circleImage.setImageResource(R.drawable.placeholder)
         }
     }
@@ -256,24 +264,22 @@ object BindingAdapters {
     }
 
 
+    /*   @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
+       @JvmStatic
+       fun setEditCoverImage(
+           appCompatImageView: AppCompatImageView,
+           imageUrl: String?
+       ) {
+           if (imageUrl != null) {
+               Glide.with(context)
+                   .load(IMAGE_LOAD_URL + imageUrl)
+   //                .apply( RequestOptions().override(700, 400))
+                   .into(appCompatImageView)
 
-
- /*   @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
-    @JvmStatic
-    fun setEditCoverImage(
-        appCompatImageView: AppCompatImageView,
-        imageUrl: String?
-    ) {
-        if (imageUrl != null) {
-            Glide.with(context)
-                .load(IMAGE_LOAD_URL + imageUrl)
-//                .apply( RequestOptions().override(700, 400))
-                .into(appCompatImageView)
-
-        } else {
-            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
-        }
-    }*/
+           } else {
+               //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+           }
+       }*/
 
     @BindingAdapter(value = ["setHeartImage"], requireAll = false)
     @JvmStatic
@@ -298,6 +304,7 @@ object BindingAdapters {
     fun metersToMiles(meters: Double): Double {
         return meters / METERS_IN_MILE
     }
+
     fun milesToMeters(miles: Double): Double {
         return miles * METERS_IN_MILE
     }
@@ -355,15 +362,15 @@ object BindingAdapters {
                 Log.d("VideoPreparing", "video is preparing " + videoView.duration)
             }
             videoView.setOnErrorListener { _, code1, _ ->
-Log.e("Video_ErrorCode===",code1.toString())
-              //  Log.d("VideoError", "$mediaPlayer")
-              //  CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
+                Log.e("Video_ErrorCode===", code1.toString())
+                //  Log.d("VideoError", "$mediaPlayer")
+                //  CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
                 true
             }
             videoView.setOnCompletionListener { mp ->
                 // videoView.start()
-               /* if (mp.duration == videoView.duration) {
-\                }*/
+                /* if (mp.duration == videoView.duration) {
+ \                }*/
             }
             videoView.requestFocus()
             videoView.start()
@@ -466,28 +473,28 @@ Log.e("Video_ErrorCode===",code1.toString())
     }
 
 
-
     @BindingAdapter(value = ["calculateLatLngToMiles"], requireAll = false)
     @JvmStatic
     fun calculateLatLngToMiles(
         destinationTV: TextView, distacneValue: Double,
     ) {
-        destinationTV.text=distacneValue.toString().split(".")[0]+" "+Constants.MILES_TEXT
-        Log.e("dmfledmfdf===",distacneValue.toString())
+        destinationTV.text = distacneValue.toString().split(".")[0] + " " + Constants.MILES_TEXT
+        Log.e("dmfledmfdf===", distacneValue.toString())
     }
 
 
-
-    @BindingAdapter(value = ["calculateDistance","destinationLat","destinationLong",
-        "currentLat","currentLong"], requireAll = false)
+    @BindingAdapter(
+        value = ["calculateDistance", "destinationLat", "destinationLong",
+            "currentLat", "currentLong"], requireAll = false
+    )
     @JvmStatic
     fun calculateDistance(
         destinationTV: TextView,
         preferenceFile11: String,
         destinationLat: Double,
         destinationLong: Double,
-        currentLat:Double,
-        currentLong:Double
+        currentLat: Double,
+        currentLong: Double
     ) {
 
         /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
@@ -499,9 +506,10 @@ Log.e("Video_ErrorCode===",code1.toString())
 
         //var currentLat="30.7046".toDouble()
         //var currentLong="76.7179".toDouble()
-        Log.e("egmhamgasg===",Constants.TEMP_LATVALUE!!.toString())
-        Log.e("egmhamgasg111===",Constants.TEMP_LONGVALUE!!.toString())
-        val latLngA = LatLng(Constants.TEMP_LATVALUE!!.toDouble(), Constants.TEMP_LONGVALUE!!.toDouble())
+        Log.e("egmhamgasg===", Constants.TEMP_LATVALUE!!.toString())
+        Log.e("egmhamgasg111===", Constants.TEMP_LONGVALUE!!.toString())
+        val latLngA =
+            LatLng(Constants.TEMP_LATVALUE!!.toDouble(), Constants.TEMP_LONGVALUE!!.toDouble())
         // val latLngB = LatLng(destLat, destLong)
         val latLngB = LatLng(destinationLat, destinationLong)
         val locationA = Location("Point A")
@@ -512,20 +520,18 @@ Log.e("Video_ErrorCode===",code1.toString())
         locationB.latitude = latLngB.latitude
         locationB.longitude = latLngB.longitude
 
-        Log.e("ABCDDDDDDD==",locationA.toString())
-        Log.e("ABCDDDDDDD1111==",locationB.toString())
+        Log.e("ABCDDDDDDD==", locationA.toString())
+        Log.e("ABCDDDDDDD1111==", locationB.toString())
         var distance = locationA.distanceTo(locationB).toDouble().toString()
 
-        var milesValues= metersToMiles(distance.toDouble())
-        if(milesValues.toString().contains("."))
-        {
-            destinationTV.text=milesValues.toString().split(".")[0]+" "+Constants.MILES_TEXT
-        }else
-        {
-            destinationTV.text=milesValues.toString()+" "+Constants.MILES_TEXT
+        var milesValues = metersToMiles(distance.toDouble())
+        if (milesValues.toString().contains(".")) {
+            destinationTV.text = milesValues.toString().split(".")[0] + " " + Constants.MILES_TEXT
+        } else {
+            destinationTV.text = milesValues.toString() + " " + Constants.MILES_TEXT
         }
 
-        Log.e("ABCDDDDDDD2222==",milesValues.toString())
+        Log.e("ABCDDDDDDD2222==", milesValues.toString())
     }
 
 
@@ -535,7 +541,7 @@ Log.e("Video_ErrorCode===",code1.toString())
         textView: AppCompatTextView,
         value: String,
     ) {
-        textView.text = value.split(".")[0] + " "+Constants.MILES_TEXT
+        textView.text = value.split(".")[0] + " " + Constants.MILES_TEXT
     }
 
 
@@ -545,16 +551,14 @@ Log.e("Video_ErrorCode===",code1.toString())
         swipeLayout: SwipeLayout,
         value: Boolean,
     ) {
-      if(value)
-      {
-          Log.e("Value_Check===","true")
-          swipeLayout.layoutMode=SwipeLayout.MODE_SAME_LEVEL
-          swipeLayout.open(true)
-      }else
-      {
-          Log.e("Value_Check===","false")
-          swipeLayout.close(true)
-          swipeLayout.layoutMode=SwipeLayout.MODE_NORMAL
-      }
+        if (value) {
+            Log.e("Value_Check===", "true")
+            swipeLayout.layoutMode = SwipeLayout.MODE_SAME_LEVEL
+            swipeLayout.open(true)
+        } else {
+            Log.e("Value_Check===", "false")
+            swipeLayout.close(true)
+            swipeLayout.layoutMode = SwipeLayout.MODE_NORMAL
+        }
     }
 }

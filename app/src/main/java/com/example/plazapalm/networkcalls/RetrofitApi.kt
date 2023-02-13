@@ -2,6 +2,7 @@ package com.example.plazapalm.networkcalls
 
 import com.example.plazapalm.models.*
 import com.example.plazapalm.views.dashboard.DashBoardPostData
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Response
@@ -370,18 +371,17 @@ interface RetrofitApi {
     suspend fun addToBlocklist(
         @Header("Authorization") Authorization: String,
         @Field("u_id") u_id: String,
-        @Field("isBlocked") isBlocked: Boolean
+        @Field("isBlocked") isBlocked : Boolean
+
     ): Response<BlockUserResponse>
 
-//    /** AddToBlocklist Api */
-//    @FormUrlEncoded
-//    @POST(ADDTO_BLOCKLIST)
-//    suspend fun addToBlocklist(
-//        @Header("Authorization") Authorization: String,
-//        @Body jsonObject: JSONObject
-//    ): Response<BlockUserResponse>
+    /** AddToBlocklist Api */
 
-
+    @POST(ADDTO_BLOCKLIST)
+    suspend fun addToBlocklists(
+        @Header("Authorization") Authorization: String,
+        @Body jsonObject: JsonObject
+    ): Response<BlockUserResponse>
 
     /** GetBookingDetailsForCustomer Api */
     @GET(GET_BOOKING_DETAILSFOR_CUSTOMER)

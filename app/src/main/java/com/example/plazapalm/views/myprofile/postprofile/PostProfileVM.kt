@@ -497,8 +497,8 @@ class PostProfileVM @Inject constructor(
 
                                 pref.storeBoolKey(Constants.POSTSTATUS, true)
                                 dataStoreUtil.saveObject(POST_PROFILE_DATA, res.body())
-                                view.navigateBack()
 
+                                view.navigateBack()
 
                             } else {
                                 Log.e("sdsdsd1", res.message())

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
+import com.example.plazapalm.datastore.IS_BLOCK
 import com.example.plazapalm.models.BlockUserResponse
 import com.example.plazapalm.models.ChatData
 import com.example.plazapalm.models.MessageData
@@ -25,10 +26,12 @@ import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.views.chat.adapter.ChatAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -77,6 +80,17 @@ class ChatVM @Inject constructor(
 //                view.findNavController().navigateUp()
                 view.navigateBack()
             }
+            R.id.cLChatMain -> {
+                isClicked.set(false)
+                Log.e("ADADASRTRTR123", "asdaskjdaskljd")
+
+            }
+            R.id.rvChats -> {
+                isClicked.set(false)
+                Log.e("ADADASRTRTR123", "asdaskjdaskljd")
+
+            }
+
             R.id.ivChatOpenBlock -> {
                 if (isClicked.get()) {
                     isClicked.set(false)
@@ -89,13 +103,11 @@ class ChatVM @Inject constructor(
                 showChooseOptionAccountDialog()
             }
 
-
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun showChooseOptionAccountDialog() {
-
 
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
@@ -109,7 +121,8 @@ class ChatVM @Inject constructor(
             val blockUser = dialog?.findViewById<AppCompatTextView>(R.id.tvBlockProfile)
             val blockUserText = dialog?.findViewById<AppCompatTextView>(R.id.tvDeleteDescription)
 
-            /**choose options click(Button) **/
+            /***choose options click(Button) */
+
             if (isUserBlocked.get()) {
                 blockUser?.text = "Block"
 
@@ -123,17 +136,7 @@ class ChatVM @Inject constructor(
 
             blockUser?.setOnClickListener {
 
-                if (isUserBlocked.get()) {
-                    isUserBlocked.set(false)
-                    Log.e("ADADASRTRTR456", isUserBlocked.get().toString())
-
-                } else {
-                    isUserBlocked.set(true)
-                    Log.e("ADADASRTRTR67", isUserBlocked.get().toString())
-
-                }
-
-//                blockUser()
+                blockUser()
                 dialog?.dismiss()
 
             }
@@ -151,17 +154,22 @@ class ChatVM @Inject constructor(
 
     private fun blockUser() = viewModelScope.launch {
         Log.e("ADADASRTRTR123", isUserBlocked.get().toString())
+        Log.e("LKCMZz", reciverUserID.get().toString())
 
-        repository.makeCall(ApiEnums.BLOCK_USER, loader = true,
+        val body = JsonObject()
+        body.addProperty("u_id", reciverUserID.get().toString())
+        body.addProperty("isBlocked", isUserBlocked.get())
+
+        repository.makeCall(
+            ApiEnums.BLOCK_USER,
+            loader = true,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<BlockUserResponse>> {
 
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<BlockUserResponse> {
-                    return retrofitApi.addToBlocklist(
-                        pref.retrieveKey("token").toString(),
-                        reciverUserID.get().toString(),
-                        isUserBlocked.get()
+                    return retrofitApi.addToBlocklists(
+                        pref.retrieveKey("token").toString(), body
                     )
                 }
 
@@ -172,13 +180,15 @@ class ChatVM @Inject constructor(
                         Log.e("ADADASRTRTR", res.body()!!.toString())
 
                         if (res.body() != null) {
+
+
                             if (isUserBlocked.get()) {
                                 isUserBlocked.set(false)
-
                                 Log.e("ADADASRTRTR456", isUserBlocked.get().toString())
-
+                                pref.saveISblock(IS_BLOCK, isUserBlocked.get())
                             } else {
                                 isUserBlocked.set(true)
+                                pref.saveISblock(IS_BLOCK, isUserBlocked.get())
                                 Log.e("ADADASRTRTR67", isUserBlocked.get().toString())
 
                             }
@@ -198,6 +208,7 @@ class ChatVM @Inject constructor(
                 override fun onError(message: String) {
                     super.onError(message)
                     CommonMethods.showToast(CommonMethods.context, message)
+                    Log.e("MESSAGE", message)
                 }
             })
     }
@@ -320,7 +331,7 @@ class ChatVM @Inject constructor(
         senderDeatils.put(senderUserID.get().toString(), senderdataStore)
 
         firestore.collection("Chats").document(bothID.toString())
-        .set(userDeatils, SetOptions.merge())
+            .set(userDeatils, SetOptions.merge())
         firestore.collection("Chats").document(bothID.toString())
             .set(senderDeatils, SetOptions.merge())
 
@@ -341,62 +352,69 @@ class ChatVM @Inject constructor(
 //
 //        message.put("Message",messageData)
 
-
-        message["message"] = messageText.get().toString()
-        message["messageType"] = "1"
-        message["messageTime"] = time
-        message["readStatus"] = false
-        message["senderuid"] = senderUserID.get().toString()
-        message["reciveruid"] = reciverUserID.get().toString()
-        message["milisecondTime"] = System.currentTimeMillis()
-
-        firestore.collection("Chats").document(bothID.toString()).collection("Message")
-            .add(message)
-            .addOnSuccessListener {
-                messageText.set("")
-            }
-            .addOnFailureListener {
-                messageText.set("")
-
-                CommonMethods.showToast(CommonMethods.context, " failed.")
-            }
-
-        val lastSeenData = HashMap<String, MessageData>()
-        val lastSeen = MessageData(
-            messageText.get().toString(), "1", time, false, senderUserID.get().toString(),
-            reciverUserID.get().toString(), System.currentTimeMillis()
-        )
-
-        lastSeenData.put("LastSeen", lastSeen)
-
-        firestore.collection("Chats").document(bothID.toString())
-            .set(lastSeenData, SetOptions.merge())
+        if (messageText.get().toString().trim().isNullOrEmpty()) {
+            CommonMethods.showToast(CommonMethods.context, Constants.MessageNameCantEmpty)
+        } else {
+            message["message"] = messageText.get().toString()
+            message["messageType"] = "1"
+            message["messageTime"] = time
+            message["readStatus"] = false
+            message["senderuid"] = senderUserID.get().toString()
+            message["reciveruid"] = reciverUserID.get().toString()
+            message["milisecondTime"] = System.currentTimeMillis()
 
 
-        val jsonObject1 = HashMap<String, Any>()
-        val arrayList = ArrayList<String>()
-
-        arrayList.clear()
-        arrayList.add(senderUserID.get().toString())
-        arrayList.add(reciverUserID.get().toString())
-
-        /** for some */
-
-        jsonObject1.put("members", arrayList)
-
-        firestore.collection("Chats").document(bothID.toString())
-            .set(jsonObject1, SetOptions.merge())
 
 
-        val hashmap = HashMap<String, String>()
-        hashmap.put("ChatID", bothID.toString())
 
-        firestore.collection("Chats").document(bothID.toString()).set(hashmap, SetOptions.merge())
+            firestore.collection("Chats").document(bothID.toString()).collection("Message")
+                .add(message)
+                .addOnSuccessListener {
+                    messageText.set("")
+                }
+                .addOnFailureListener {
+
+                    CommonMethods.showToast(CommonMethods.context, " failed.")
+
+                }
+
+            val lastSeenData = HashMap<String, MessageData>()
+            val lastSeen = MessageData(
+                messageText.get().toString(), "1", time, false, senderUserID.get().toString(),
+                reciverUserID.get().toString(), System.currentTimeMillis()
+            )
+
+            lastSeenData.put("LastSeen", lastSeen)
+
+            firestore.collection("Chats").document(bothID.toString())
+                .set(lastSeenData, SetOptions.merge())
 
 
-        /** new code */
+            val jsonObject1 = HashMap<String, Any>()
+            val arrayList = ArrayList<String>()
 
-        /*
+            arrayList.clear()
+            arrayList.add(senderUserID.get().toString())
+            arrayList.add(reciverUserID.get().toString())
+
+            /** for some */
+
+            jsonObject1.put("members", arrayList)
+
+            firestore.collection("Chats").document(bothID.toString())
+                .set(jsonObject1, SetOptions.merge())
+
+
+            val hashmap = HashMap<String, String>()
+            hashmap.put("ChatID", bothID.toString())
+
+            firestore.collection("Chats").document(bothID.toString())
+                .set(hashmap, SetOptions.merge())
+
+
+            /** new code */
+
+            /*
              firestore.collection("Chats").document(bothID.toString()).collection("Members")
                  .add(jsonObject1)
 
@@ -407,6 +425,7 @@ class ChatVM @Inject constructor(
                 .add(bothid)
     */
 
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -414,7 +433,6 @@ class ChatVM @Inject constructor(
 
         val sfd = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
         val currentTime = sfd.format(Date())
-
 
         val separated = currentTime.split(" ").toTypedArray()
         val time = separated[1]
@@ -428,7 +446,4 @@ class ChatVM @Inject constructor(
 
     }
 
-    fun getPostImages() {
-
-    }
 }
