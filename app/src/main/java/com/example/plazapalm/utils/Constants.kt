@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 object Constants {
     /** Validation Strings for Signup Page **/
     const val FirstNameCantEmpty = "First Name can't be empty"
+    const val MessageNameCantEmpty = "Message can't be empty"
     const val ImageCantEmpty = "Minimum 3 images required "
     const val LastNameCantEmpty = "Last Name can't be empty"
     const val EmailCantEmpty = "Email can't be empty"

@@ -22,10 +22,17 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = ConfirmBookingFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(false)
         getBundleData()
+        click()
         return binding?.root
+
+    }
+
+    private fun click() {
+        binding
     }
 
     private fun getBundleData() {
@@ -34,9 +41,8 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                 /** comming From Add to Calendar popup */
 
                 arguments?.getString("ispopUpAddCal") != null && arguments?.containsKey("ispopUpAddCal")!! -> {
-
+                    binding?.ivBookingDetailsChat?.visibility = View.GONE
                     viewModel.commingFrom.set(arguments?.getString("ispopUpAddCal")!!)
-
                     viewModel.user_Name.set(arguments?.getString("user_name")!!)
                     viewModel.user_location.set(arguments?.getString("user_location").toString())
                     viewModel.user_image.set(arguments?.getString("pro_imageg")!!)
@@ -47,16 +53,22 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
 
                 }
 
-                /** comming From Add to Booking screen */
+
+
+                    /** comming From Add to Booking screen */
                 arguments?.getString("bookClick") != null -> {
 
-                    viewModel.commingFrom.set(arguments?.getString("bookClick")!!)
-                    viewModel.user_Name.set(arguments?.getString("userName")!!)
-                    viewModel.user_location.set(arguments?.getString("userLocation"))
+                    binding?.ivBookingDetailsChat?.visibility = View.VISIBLE
                     viewModel.user_image.set(arguments?.getString("proImageg")!!)
+                    viewModel.userIdForChat.set(arguments?.getString("user_Id")!!)
+                    viewModel.user_Name.set(arguments?.getString("userName")!!)
+                    viewModel.commingFrom.set(arguments?.getString("bookClick")!!)
+                    viewModel.user_location.set(arguments?.getString("userLocation"))
                     viewModel.p_id.set(arguments?.getString("p_id")!!)
                     viewModel.addtoCalendar.set("Book")
                     viewModel.user_miles.set(arguments?.getString("miles")!!)
+
+
                     Log.e(
                         "FROMBOOK", viewModel.user_Name.get().toString() + " ------" +
                                 "- " + viewModel.user_location.get()
@@ -64,7 +76,8 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                     )
                 }
 
-              /*  *//** comming From Add to Calendar popup *//*
+                /*  */
+                /** comming From Add to Calendar popup *//*
 
                 arguments?.getString("calendarScreen") != null -> {
                     Log.e(

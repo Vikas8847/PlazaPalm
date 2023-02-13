@@ -58,6 +58,15 @@ class PreferenceFile @Inject constructor(
         return sharedPreferences.getBoolean(key, false)
     }
 
+    fun saveISblock(key: String, value: Boolean) {
+        editor.putBoolean(key, value)
+        editor.apply()
+    }
+
+    fun retrieISblock(key: String): Boolean? {
+        return sharedPreferences.getBoolean(key, false)
+    }
+
 
     fun storeFilterResponse(body: String) {
         editor.putString("FilterList", body)

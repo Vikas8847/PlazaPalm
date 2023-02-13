@@ -14,8 +14,10 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/full_Screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:onClick="@{vm::onClicks}"
         tools:context=".views.chat.ChatFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -69,6 +71,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_for_dismiss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            setTextVisibilty="@{vm.isClicked}"
+            android:onClick="@{vm::onClicks}"
+            android:background="@color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cLChatMain"
@@ -95,7 +107,8 @@
                 android:text="@{vm.isUserBlocked ? @string/block_user : @string/unblock_user }"
                 app:fontFamily="@font/inter_medium"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvChats"
@@ -103,6 +116,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/_5sdp"
                 android:overScrollMode="never"
+                android:onClick="@{vm::onClicks}"
                 app:layout_constraintBottom_toTopOf="@id/clChatSendMessage"
                 app:layout_constraintTop_toBottomOf="@+id/tvBlockUserBtn"
                 tools:listitem="@layout/chat_receiver">
