@@ -328,32 +328,15 @@ class QuestionariesVM @Inject constructor(
                                     questionsAdapter.notifyDataSetChanged()
                                 } else {
 
-                                    questionDataList.add(
-                                        QueData(
-                                            data?.__v,
-                                            data?._id,
-                                            data?.p_id,
-                                            data?.question_text,
-                                            questions.get(),
-                                        )
-                                    )
-
-
+                                    questionDataList.add(QueData(data?.__v, data?._id, data?.p_id, data?.question_text, questions.get(),))
                                     setAdapter(questionDataList)
                                 }
 
-                                CommonMethods.showToast(
-                                    CommonMethods.context,
-                                    res.body()?.message!!
-                                )
+                                CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)
 
                             } else {
 
-                                CommonMethods.showToast(
-                                    CommonMethods.context,
-                                    res.body()?.message!!
-
-                                )
+                                CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)
 
                             }
 
@@ -400,9 +383,7 @@ class QuestionariesVM @Inject constructor(
     }
 
     private fun deleteQuestionAPI(q_id: String, pos: Int) = viewModelScope.launch {
-
         Log.e("Delete_Questions====", pos.toString())
-
         repository.makeCall(
             apiKey = ApiEnums.ADD_QUESTIONS,
             loader = true,
@@ -411,48 +392,31 @@ class QuestionariesVM @Inject constructor(
             requestProcessor = object : ApiProcessor<Response<DeleteQuestionsResponse>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<DeleteQuestionsResponse> {
                     return retrofitApi.deleteQuestion(
-                        pref.retrieveKey("token").toString(),
-                        q_id
-                    )
-                }
+                        pref.retrieveKey("token").toString(), q_id) }
 
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(res: Response<DeleteQuestionsResponse>) {
                     Log.e("Delete-QUS-REEE", res.body().toString())
 
                     if (res.isSuccessful || res.body() != null) {
-
                         if (res.code() == 200) {
-
                             questionsAdapter.getAllItems().removeAt(pos)
                             questionsAdapter.notifyDataSetChanged()
-
                             num = pos+1
                             q_no.set(num)
                             questions.set("Question ${q_no.get()}")
 
                             if (questionsAdapter.getAllItems()!=null){
                                 if (questionsAdapter.getAllItems().size == 0) {
-                                    Log.e(
-                                        "SAAasds","WORGKL"
-                                    )
+                                    Log.e("SAAasds","WORGKL")
                                     noData.set(true)
                                 }
                             }
 
-                            CommonMethods.showToast(
-                                CommonMethods.context,
-                                res.body()?.message!!
-
-                            )
+                            CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)
 
                         } else {
-
-                            CommonMethods.showToast(
-                                CommonMethods.context,
-                                res.body()?.message!!
-
-                            )
+                            CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)
 
                         }
 

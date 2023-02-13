@@ -50,7 +50,6 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     ): View? {
         binding = EditFrontPageFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
-        // setCheckBoxData()
         return binding?.root
     }
     @RequiresApi(Build.VERSION_CODES.M)
@@ -78,60 +77,6 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         viewModel.backgroundColorLiveData.observe(viewLifecycleOwner) {
             Log.e("sadsdaaaaaaaaa", it.toString())
             when (viewModel.SelectedDialog.get().toString()) {
-                "Background Color" -> {
-                    if (it != null && !(it.equals(""))) {
-                        if (it is String) {
-                            val data = it
-                            binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                        } else {
-                            val data = it as Int
-                            binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
-                        }
-                        val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
-                        val colorCode = cd.color
-                        val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
-                        viewModel.backgroundColor.set(hexColor)
-                        preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
-                        Log.e("asdasdasBackground", hexColor.toString())
-
-                    }
-                }
-
-                "Column Color" -> {
-                    //  var  data=it as Int
-                    if (it is Int) {
-                        var data = it
-                        binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
-                    } else {
-                        var data = it as String
-                        binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                    }
-
-
-                    val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
-                    val colorCode = cd.color
-                    val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
-                    viewModel.columnColor.set(hexColor)
-
-                    Log.e("asdasdasColumn", viewModel.columnColor.get().toString())
-                }
-
-                "Border Color" -> {
-                    if (it is Int) {
-                        var data = it
-                        binding?.viewBoxLookingBGColor?.setBackgroundColor(CommonMethods.context.getColor(data))
-                    } else {
-                        var data = it as String
-                        binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                    }
-                    val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
-                    val colorCode = cd.color
-                    val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
-                    viewModel.borderColor.set(hexColor)
-                    Log.e("asdasdasBorder", viewModel.borderColor.get().toString())
-
-                }
-
                 "Font Color" -> {
                     if (it is Int) {
                         var data = it
@@ -148,10 +93,7 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
                     viewModel.fontColor.set(hexColor)
                     Log.e("asdasdasFONTS", viewModel.fontColor.get().toString())
                 }
-
             }
-
-
         }
         //font Color live data ..
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
@@ -168,13 +110,7 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun onResume() {
-        super.onResume()
-        if (!checkApi.get()) {
-            //  getLocalData()
-        }
-    }
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getLocalData() {
