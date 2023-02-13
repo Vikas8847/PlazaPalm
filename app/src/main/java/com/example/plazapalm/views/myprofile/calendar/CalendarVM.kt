@@ -53,14 +53,14 @@ class CalendarVM @Inject constructor(
         adapterCalendar.addItems(calendarBookingList)
         adapterCalendar.notifyDataSetChanged()
 
+/*
         adapterCalendar.setOnItemClick { view, _, type ->
             when (type) {
-                Constants.calendarBookingToChat -> {
+                "calendarBookingToChat"->{
                     //navigate to Booking Details Fragment...
                     view.navigateWithId(R.id.action_calendarFragment_to_chatFragment)
                 }
-
-                Constants.calendarBookingDetails -> {
+                 "calendarBookingDetails"-> {
                     //navigate to Booking Details Fragment...
                     view.navigateWithId(R.id.action_calendarFragment_to_bookingDetailsFragment)
 
@@ -68,6 +68,7 @@ class CalendarVM @Inject constructor(
 
             }
         }
+*/
     }
 
     fun deleteBooking() = viewModelScope.launch {
@@ -128,10 +129,8 @@ class CalendarVM @Inject constructor(
                                 val year = split[0]
                                 val month = split[1].toInt() - 1
                                 val daY = split[2]
-
                                 val split2 = daY.split("T")
                                 val fDay = split2[0]
-
                                 calendars4!!.set(year.toInt(), month, fDay.toInt())
 
                                 Log.e("FQWQWQQQ1", "$year C ")
@@ -150,12 +149,10 @@ class CalendarVM @Inject constructor(
                                 booking_id.set(res.body()!!.data[0]?._id.toString())
                             }
                             adapterCalendar.setOnItemClick { view, postion, type ->
-
                                 when (type) {
                                     "calendarBookingToChat" -> {
                                         view.navigateWithId(R.id.action_calendarFragment_to_chatFragment)
                                     }
-
                                     "calendarBookingDetails" -> {
                                         //navigate to Booking Details Fragment...
                                         val bundle = Bundle()
@@ -163,10 +160,7 @@ class CalendarVM @Inject constructor(
                                         bundle.putSerializable("userData", calendarBookingList)
                                         bundle.putInt("position", postion)
 
-                                        view.navigateWithId(
-                                            R.id.action_calendarFragment_to_bookingDetailsFragment,
-                                            bundle
-                                        )
+                                        view.navigateWithId(R.id.action_calendarFragment_to_bookingDetailsFragment, bundle)
 
                                     }
 

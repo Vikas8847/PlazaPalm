@@ -210,10 +210,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         )
                     )
                     viewModel.selectedCategoriesList.add(
-                        SelectedDataModelList(
-                            newList[idx].cateName,
-                            newList[idx].cate_ID,
-                            newList[idx].adapterPos,
+                        SelectedDataModelList(newList[idx].cateName, newList[idx].cate_ID, newList[idx].adapterPos,
                             newList[idx].istrue,
                             newList[idx].count
                         )

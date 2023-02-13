@@ -67,7 +67,6 @@ class QuestionariesFragment : Fragment(R.layout.questionaries_fragment) {
             if (p_Id != "" && p_Id != null) {
                 Log.e("XVCCCXXXX" ,p_Id)
                 viewModel.p_id.set(p_Id)
-
                 viewModel.getQuestionsListAPI(p_Id)
             } else {
 
