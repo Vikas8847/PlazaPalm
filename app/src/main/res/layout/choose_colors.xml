@@ -52,27 +52,29 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/show_color_id"
                     android:layout_width="@dimen/_230sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    app:cardElevation="0dp"
-                    android:layout_marginEnd="@dimen/_12sdp"
-                    app:cardPreventCornerOverlap="false"
-                    android:background="@drawable/back_color_choose"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvDeleteTitle">
                     <!--                    android:background="@{ContextCompat.getColor(context, model.color)}"
                     -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/Show_back"
                         android:layout_width="match_parent"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_height="@dimen/_35sdp"
-                      >
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:clipToOutline="true">
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/change_back_id"
                             android:layout_width="wrap_content"
@@ -87,7 +89,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                 </androidx.cardview.widget.CardView>
+
                 <View
                     android:id="@+id/vDesc"
                     android:layout_width="match_parent"
@@ -96,6 +101,7 @@
                     android:background="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/show_color_id" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/color_id"
                     android:layout_width="0dp"
@@ -113,6 +119,7 @@
                     app:layout_constraintEnd_toEndOf="@id/vMid"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/vDesc" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/reset_all"
                     android:layout_width="0dp"
@@ -168,7 +175,7 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:theme="@style/ThemeOverlay.Slider"
-                    android:value="100"
+                    android:value="10"
                     android:valueFrom="0"
                     android:valueTo="100"
                     app:haloColor="@color/blue"
@@ -207,9 +214,9 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:theme="@style/ThemeOverlay.Slider"
-                    android:value="16"
-                    android:valueFrom="14"
-                    android:valueTo="22"
+                    android:value="5"
+                    android:valueFrom="0"
+                    android:valueTo="30"
                     app:haloColor="@color/blue"
                     app:haloRadius="@dimen/_1sdp"
                     app:labelBehavior="gone"

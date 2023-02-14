@@ -110,7 +110,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                     var otherUserId = ""
                     var loginUserId = ""
                     var userImage = ""
-                    var isBlock =false
+                    if(snapshot!!.documents!!.size>0){
                     for (dataSnapshot in snapshot!!.documents) {
 
                         val lastSeenMap = dataSnapshot["LastSeen"] as HashMap<String, Any>?
@@ -119,11 +119,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                             val message = lastSeenMap?.get("message")
                             val milisecondTime = lastSeenMap?.get("milisecondTime")
 
-//                            if(!(dataSnapshot["IsBlock"] as Boolean == false)){
-//                               isBlock = dataSnapshot["IsBlock"] as Boolean
-//                            }
-
-                            if (!(dataSnapshot["ChatID"] as String).isEmpty()) {
+                            if (dataSnapshot["ChatID"]!=null && !(dataSnapshot["ChatID"] as String).isNullOrEmpty()) {
                                 chatID = (dataSnapshot["ChatID"] as String)
 
                                 val splitData = chatID.split("_")
@@ -150,14 +146,17 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                                         userImage,
                                         milisecondTime,
                                         chatID,
-                                        otherUserId,
-                                        isBlock
+                                        otherUserId
                                     )
                                 )
 
                                 Log.e("dasdasdasdww  ", LastMesageList.toString())
 
                             }
+                        }
+
+                        LastMesageList.sortByDescending {
+                            it.milisecondTime.toString()
                         }
 
                         viewModel.messageUserAdapter.addItems(LastMesageList)
@@ -182,8 +181,10 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                                         "chatID",
                                         viewModel.messageUserAdapter.getAllItems()[position].chatId
                                     )
-                                    bundle.putString("userImage", viewModel.messageUserAdapter.getAllItems()[position].userImage)
-                                    bundle.putBoolean("userISBlock", viewModel.messageUserAdapter.getAllItems()[position].isBlock)
+                                    bundle.putString(
+                                        "userImage",
+                                        viewModel.messageUserAdapter.getAllItems()[position].userImage
+                                    )
 
                                     Log.e(
                                         "USERDETALS  ",
@@ -205,6 +206,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                         }
 
                     }
+                }
 
                 }
 

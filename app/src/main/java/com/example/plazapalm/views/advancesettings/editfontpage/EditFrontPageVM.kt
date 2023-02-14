@@ -3232,31 +3232,21 @@ class EditFrontPageVM @Inject constructor(
                     if (res.body() != null) {
                         if (res.isSuccessful && res.code() == 200) {
                             val data = res.body()!!.data
-                            // fontColorLD.value = data.frontpage_font_color!!
                             /** Set Colors... */
                             SelectedDialog.set("Font Color")
                             //preferenceFile.storecolorString(Constants.FONT_COLOR, data.frontpage_font_color.toString())
                             //STORE FONT COLOR
                             fontColorLD.value = data.frontpage_font_color!!
-
-                            preferenceFile.storeBoolKey(
-                                Constants.isTopTextSelected,
-                                data.is_top_selected!!
-                            )
+                            preferenceFile.storeBoolKey(Constants.isTopTextSelected, data.is_top_selected!!)
                             isBottomText.set(data.is_bottom_selected!!)
                             isTopText.set(data.is_top_selected)
-
                             fontsName.set(data.frontpage_top_text)
                             fontsName.set(data.frontpage_bottom_text)
                             fontColor.set(data.frontpage_font_color)
-
-                            preferenceFile.storeBoolKey(
-                                Constants.isBottomTextSelected,
-                                data.is_bottom_selected
-                            )
-
-
-                        } else {
+                            preferenceFile.storeBoolKey(Constants.isBottomTextSelected, data.is_bottom_selected)
+                        }
+                        else
+                        {
                             showToast(MainActivity.context.get()!!, res.body()!!.message)
                         }
                     } else {

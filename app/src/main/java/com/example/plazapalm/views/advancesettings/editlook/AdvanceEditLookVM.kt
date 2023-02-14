@@ -58,6 +58,7 @@ import com.example.plazapalm.utils.Constants.COLUMN_OPACITY
 import com.example.plazapalm.utils.Constants.Column_color
 import com.example.plazapalm.utils.Constants.FONTCOLOR
 import com.example.plazapalm.utils.Constants.FONT_COLOR
+import com.example.plazapalm.utils.Constants.FONT_OPACITY
 import com.example.plazapalm.utils.hideKeyboard
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -101,7 +102,7 @@ class AdvanceEditLookVM @Inject constructor(
     var backgroundType = ObservableField("color")
     var columnColor = ObservableField("")
     var columnOpacity = ObservableFloat()
-    var borderOpacity = ObservableFloat()
+    var borderOpacity = ObservableFloat(0f)
     var borderWidth = ObservableFloat()
     var borderColor = ObservableField("")
     var fontName = ObservableField("mdgdfg")
@@ -113,6 +114,8 @@ class AdvanceEditLookVM @Inject constructor(
     var columnColorLiveData = 0
     var fontColorLiveData = 0
     val backgroundColorLiveData = MutableLiveData<Any?>()
+
+    var backgroundCLiveData = MutableLiveData<Any>()//for api response
     val columnColorLD = MutableLiveData<Any>()
     val fontColorLD = MutableLiveData<Any>()
     val borderColorLD = MutableLiveData<Any>()
@@ -141,7 +144,6 @@ class AdvanceEditLookVM @Inject constructor(
         colorList.add(ChooseColor(R.color.orange))
         setFontsInAdapterList()
         setAdapter()
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -152,17 +154,13 @@ class AdvanceEditLookVM @Inject constructor(
                 preferenceFile.cleardata(COLUMN_COLOR)
                 preferenceFile.cleardata(BACKGROUND_COLOR)
                 preferenceFile.cleardata(FONT_COLOR)
-
                 view.findNavController().navigateUp()
-
             }
             R.id.btnAdvanceEditLookView -> {
-                //CommonMethods.showToast(MainActivity.context.get()!!,"Crash is Coming.. FavDetailsFragment.")
                 val bundle = Bundle()
                 bundle.putString("comingFrom", "isEditLook")
                 view.findNavController().navigate(R.id.favDetailsFragment, bundle)
             }
-
             R.id.viewBoxLookingBGColor -> {
                 checkColor.set(CommonMethods.BACKGROUND)
                 showColorDialog(CommonMethods.BACKGROUND)
@@ -1467,13 +1465,15 @@ class AdvanceEditLookVM @Inject constructor(
             }
             //for column ...
             COLUMN -> {
-                if (preferenceFile.retviecolorString("COLUMN_COLOR") != null && preferenceFile.retviecolorString(
-                        "COLUMN_COLOR"
-                    )!! != ""
+                if (preferenceFile.retviecolorString("COLUMN_COLOR") != null
+                    && preferenceFile.retviecolorString("COLUMN_COLOR")!! != ""
+                    && preferenceFile.retvieopacity(COLUMN_OPACITY) != null
+                    && !preferenceFile.retvieopacity(COLUMN_OPACITY)!!.equals("")
                 ) {
                     title?.text = "Column Color"
                     slider_size?.visibility = View.GONE
                     size_tv?.visibility = View.GONE
+                    sliderOpacitty?.visibility = View.VISIBLE
                     SelectedDialog.set(Column_color)
                     layoutColrs?.setBackgroundColor(
                         Color.parseColor(
@@ -1482,6 +1482,12 @@ class AdvanceEditLookVM @Inject constructor(
                             )
                         )
                     )
+                    try {
+                        columnOpacity.set(preferenceFile.retvieopacity(COLUMN_OPACITY)!!)
+                        sliderOpacitty?.value = columnOpacity.get()
+                    } catch (e: Exception) {
+                        Log.d("ExceptionColumnOpacity", e.message.toString())
+                    }
                     /** Slider for Opacity */
                     sliderOpacitty?.addOnChangeListener { _, value, _ ->
                         val alpha = value / 100
@@ -1510,17 +1516,18 @@ class AdvanceEditLookVM @Inject constructor(
             //for border ..
             Constants.BORDER -> {
                 val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
-                if (preferenceFile.retviecolorString("BORDER_COLOR") != null && preferenceFile.retviecolorString(
-                        "BORDER_COLOR"
-                    ) != "" && preferenceFile.retviecolorString("COLUMN_COLOR") != null && preferenceFile.retviecolorString(
-                        "COLUMN_COLOR"
-                    ) != ""
+                if (preferenceFile.retviecolorString("BORDER_COLOR") != null
+                    && preferenceFile.retviecolorString("BORDER_COLOR") != ""
+                    && preferenceFile.retviecolorString("COLUMN_COLOR") != null
+                    && preferenceFile.retviecolorString("COLUMN_COLOR") != ""
+                    && preferenceFile.retvieopacity(BORDER_OPACITY) != null
+                    && !preferenceFile.retvieopacity(BORDER_OPACITY)?.equals("")!!
+                    && preferenceFile.retviesize(BORDER_WIDTH) != null
+                    && !preferenceFile.retviesize(BORDER_WIDTH)?.equals("")!!
+                    && preferenceFile.retvieopacity(FONT_OPACITY) != null
+                    && !preferenceFile.retvieopacity(FONT_OPACITY)!!.equals("")
                 ) {
-                    setBorderBackground(
-                        borderView,
-                        borderSlideValue,
-                        Color.parseColor(preferenceFile.retviecolorString("BORDER_COLOR"))
-                    )
+                    setBorderBackground(borderView, borderSlideValue, selectedbackgrouncolor)
                     layoutColrs?.setBackgroundColor(
                         Color.parseColor(
                             preferenceFile.retviecolorString(
@@ -1529,20 +1536,28 @@ class AdvanceEditLookVM @Inject constructor(
                         )
                     )
                     /*Store border width value */
-                    if (preferenceFile.retviesize(BORDER_WIDTH) != null && !preferenceFile.retviesize(BORDER_WIDTH)?.equals("")!! && preferenceFile.retvieopacity(BORDER_OPACITY) != null && !preferenceFile.retvieopacity(BORDER_OPACITY)!!.equals("")
-                    ) {
-                        try {
-                            slider_size?.value = preferenceFile.retviesize(BORDER_WIDTH)!!.toFloat()
-                            // slider_size?.background?.alpha = preferenceFile.retvieopacity(BORDER_OPACITY)!!.toInt()
-                            setBorderBackground(borderView, preferenceFile.retviesize(BORDER_WIDTH)!!.toFloat(), selectedbackgrouncolor)
-                        }
-                        catch (e:Exception){
-                           Log.d("advadnceEditException->", "${e.message.toString()}")
-
-                        }
-
+                    try {
+                        slider_size?.value = preferenceFile.retviesize(BORDER_WIDTH)!!.toFloat()
+                        setBorderBackground(
+                            borderView,
+                            preferenceFile.retviesize(BORDER_WIDTH)!!.toFloat(),
+                            selectedbackgrouncolor
+                        )
+                    } catch (e: Exception) {
+                        Log.d("advadnceEditException->", "${e.message.toString()}")
                     }
-
+                    try {
+                        borderOpacity.set(preferenceFile.retvieopacity(BORDER_OPACITY)!!)
+                        sliderOpacitty!!.value = borderOpacity.get()
+                        layoutColrs?.background?.alpha = columnOpacity.get().toInt()
+                        setBorderBackground(
+                            cardLayoutColrs!!,
+                            borderOpacity.get(),
+                            Color.parseColor(preferenceFile.retviecolorString("BORDER_COLOR"))
+                        )
+                    } catch (e: Exception) {
+                        Log.d("sliderBorderOpacityEp->", "${e.message.toString()}")
+                    }
                     slider_size?.addOnChangeListener { _, value, _ ->
                         changeColor?.textSize = value
                         borderWidth.set(value)
@@ -1560,10 +1575,10 @@ class AdvanceEditLookVM @Inject constructor(
                     title?.text = Border_Color
                     SelectedDialog.set(Border_Color)
                     size_tv?.visibility = View.VISIBLE
-
+                    sliderOpacitty?.visibility = View.VISIBLE
                 } else {
                     // val layout = dialog!!.findViewById<CardView>(R.id.show_color_id)
-                    setBorderBackground(borderView, 12f, R.color.gray)
+                    setBorderBackground(borderView, 16f, R.color.gray)
                     /** Slider for SIZE */
                     slider_size?.addOnChangeListener { _, value, _ ->
                         changeColor?.textSize = value
@@ -1583,21 +1598,36 @@ class AdvanceEditLookVM @Inject constructor(
                     title?.text = "Border Color"
                     SelectedDialog.set("Border Color")
                 }
-
-
             }
             //for font color...
             "FONTCOLOR" -> {
-                if (preferenceFile.retviecolorString("FONT_COLOR") != null && preferenceFile.retviecolorString("FONT_COLOR") != "" && preferenceFile.retviecolorString("BORDER_COLOR") != null && preferenceFile.retviecolorString("BORDER_COLOR") != "" && preferenceFile.retviecolorString("COLUMN_COLOR") != null && preferenceFile.retviecolorString("COLUMN_COLOR") != "" && preferenceFile.retviesize(BORDER_WIDTH)!=null && !preferenceFile.retviesize(BORDER_WIDTH)!!.equals(""))
-                {
+                if (preferenceFile.retviecolorString("FONT_COLOR") != null
+                    && preferenceFile.retviecolorString("FONT_COLOR") != ""
+                    && preferenceFile.retviecolorString("BORDER_COLOR") != null
+                    && preferenceFile.retviecolorString("BORDER_COLOR") != ""
+                    && preferenceFile.retviecolorString("COLUMN_COLOR") != null
+                    && preferenceFile.retviecolorString("COLUMN_COLOR") != ""
+                    && preferenceFile.retviesize(BORDER_WIDTH) != null
+                    && !preferenceFile.retviesize(BORDER_WIDTH)!!.equals("")
+                    && preferenceFile.retvieopacity(FONT_OPACITY) != null
+                    && !preferenceFile.retvieopacity(FONT_OPACITY)!!.equals("")
+                ) {
                     title?.text = "Font Color"
                     changeColor?.text = "Font Sample"
                     size_tv?.visibility = View.VISIBLE
+                    sliderOpacitty?.visibility = View.VISIBLE
+                    cardLayoutColrs?.visibility = View.VISIBLE
+
+                    //set font color from shared preference data ...
                     val fontColorForSetText = preferenceFile.retviecolorString("FONT_COLOR")
                     changeColor?.setTextColor(Color.parseColor(fontColorForSetText.toString()))
 
                     val borderColorSetFont = preferenceFile.retviecolorString("BORDER_COLOR")
-                    setBorderBackground(cardLayoutColrs!!, borderSlideValue, Color.parseColor(borderColorSetFont.toString()))
+                    setBorderBackground(
+                        cardLayoutColrs!!,
+                        borderSlideValue,
+                        Color.parseColor(borderColorSetFont.toString())
+                    )
 
 
                     val layoutBgColor = preferenceFile.retviecolorString("COLUMN_COLOR")
@@ -1606,17 +1636,23 @@ class AdvanceEditLookVM @Inject constructor(
                     //set border width ...
                     try {
                         val borderWidth = preferenceFile.retviesize(BORDER_WIDTH)!!.toFloat()
-                        slider_size?.value=borderWidth
-
-                        setBorderBackground(cardLayoutColrs!!,borderWidth,Color.parseColor(borderColorSetFont.toString()))
+                        slider_size?.value = borderWidth
+                        setBorderBackground(
+                            cardLayoutColrs!!,
+                            borderWidth,
+                            Color.parseColor(borderColorSetFont.toString())
+                        )
+                    } catch (e: Exception) {
+                        Log.d("", "${e.message.toString()}")
                     }
-                    catch (e:Exception){
-                        Log.d("","${e.message.toString()}")
-                    }
-
                     //set font opacity here..
-                   // val fontOpacity=
-
+                    try {
+                        fontOpacity.set(preferenceFile.retvieopacity(FONT_OPACITY)!!)
+                        changeColor?.background?.alpha = fontOpacity.get().toFloat().toInt()
+                        //sliderOpacitty?.alpha = fontOpacity.get()
+                    } catch (e: Exception) {
+                        Log.d("ExceptionFontOpacity", e.message.toString())
+                    }
                     SelectedDialog.set("Font Color")
                     Log.e("SDFFFSDFFF", SelectedDialog.get().toString())
                     /** Slider for SIZE */
@@ -1631,7 +1667,7 @@ class AdvanceEditLookVM @Inject constructor(
                         val alpha = value / 100
                         changeColor?.alpha = alpha
                         fontOpacity.set(alpha)
-                        preferenceFile.storeopacity(Constants.FONT_OPACITY, alpha)
+                        preferenceFile.storeopacity(FONT_OPACITY, alpha)
                         Log.e("WOrking11222", "---$value")
                     }
                 } else {
@@ -1654,7 +1690,7 @@ class AdvanceEditLookVM @Inject constructor(
                         val alpha = value / 100
                         changeColor?.alpha = alpha
                         fontOpacity.set(alpha)
-                        preferenceFile.storeopacity(Constants.FONT_OPACITY, alpha)
+                        preferenceFile.storeopacity(FONT_OPACITY, alpha)
                         Log.e("WOrking11222", "---$value")
                     }
                 }
@@ -1700,7 +1736,6 @@ class AdvanceEditLookVM @Inject constructor(
             dialog?.show()
         }
     }
-
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setBorderBackground(layout: CardView, value: Float, color: Int) {
         try {
@@ -1708,8 +1743,26 @@ class AdvanceEditLookVM @Inject constructor(
             val shape = GradientDrawable()
             shape.shape = GradientDrawable.RECTANGLE
             shape.cornerRadii = floatArrayOf(20f, 20f, 20f, 20f, 20f, 20f, 20f, 20f)
-            shape.setStroke(value.toInt(), MainActivity.context.get()?.getColor(color)!!)
-            //shape.setStroke(value.toInt(), color)
+            shape.setStroke(value.toInt(), CommonMethods.context.getColor(color))
+            //  shape.setStroke(value.toInt(),                                                            )
+            layout.background = shape
+        }
+        catch (e: Exception)
+        {
+            Log.d("AdvanceEditBorderBGEx->", "${e.message.toString()}")
+        }
+    }
+
+
+    private fun setConstLayoutBorderBackground(layout: ConstraintLayout) {
+        try {
+            //borderSlideValue = value
+            val shape = GradientDrawable()
+            shape.shape = GradientDrawable.RECTANGLE
+            shape.cornerRadii = floatArrayOf(20f, 20f, 20f, 20f, 20f, 20f, 20f, 20f)
+
+//            shape.setStroke(5, R.color.white,)
+            //  shape.setStroke(value.toInt(),                                                            )
             layout.background = shape
         } catch (e: Exception) {
             Log.d("AdvanceEditBorderBGEx->", "${e.message.toString()}")
@@ -1746,6 +1799,7 @@ class AdvanceEditLookVM @Inject constructor(
                 Log.e("ASFDf", colorCode.toString())
                 Log.e("Data_Colum222===", hexColor.toString())
             }
+
             Constants.BORDER -> {
                 selectedbackgrouncolor = color!!
                 // cardLayoutColrs?.setCardBackgroundColor(selectedbackgrouncolor)
@@ -1755,8 +1809,8 @@ class AdvanceEditLookVM @Inject constructor(
                 preferenceFile.storecolorString(BORDER_COLOR, hexColor!!)
                 Log.e("ASFDaaaf==", selectedbackgrouncolor.toString())
             }
-
             CommonMethods.FONTCOLOR -> {
+                slider_size?.visibility = View.VISIBLE
                 /** Slider for size */
                 slider_size?.addOnChangeListener { _, value, _ ->
                     changeColor?.textSize = value
@@ -1776,7 +1830,6 @@ class AdvanceEditLookVM @Inject constructor(
             }
         }
     }
-
     /*This is not for set Color for now*/
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceType")
@@ -1824,6 +1877,7 @@ class AdvanceEditLookVM @Inject constructor(
                     changeColor?.setTextColor(envelope.color)
                     selectedbackgrouncolor = envelope.color
                     fontColorLiveData = envelope.color
+
                     val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and envelope.color)
                     /** Store locally */
                     preferenceFile.storecolorString(FONT_COLOR, hexColor)
@@ -1860,17 +1914,31 @@ class AdvanceEditLookVM @Inject constructor(
 //                                CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                                 dataStoreUtil.saveObject(GET_COLORS_EDIT_LOOK, res.body()!!.data!!)
                                 /** Set Colors... */
-                                SelectedDialog.set("Background Color")
                                 val data = res.body()!!.data
-                                backgroundColorLiveData.value = data!!.background_color!!
+                                SelectedDialog.set("Background Color")
+                                SelectedDialog.set("Font Color")
+                                SelectedDialog.set(Column_color)
+                                SelectedDialog.set(Border_Color)
+
+                                //this live data use for api response ..
+                                backgroundCLiveData.value = data?.background_color!!
                                 columnColorLD.value = data.column_color!!
-                                borderColorLD.value = data.border_color!!
                                 fontColorLD.value = data.font_color!!
+                                borderColorLD.value = data.border_color!!
+                                fontColor.set(data.font_color)
+                                borderColor.set(data.border_color)
+                                columnColor.set(data.column_color.toString())
+                                backgroundColor.set(data.background_color)
                                 fontsName.set(data.font_name.toString())
+                                borderOpacity.set(data.border_opacity?.toFloat()!!)
+                                fontOpacity.set(data.font_opacity?.toFloat()!!)
+                                columnOpacity.set(data.column_opacity?.toFloat()!!)
+
+
                                 //store background color in shared pref
                                 preferenceFile.storecolorString(
                                     BACKGROUND_COLOR,
-                                    data.background_color!!
+                                    data.background_color
                                 )
                                 //store font color in share pref
                                 preferenceFile.storecolorString(FONT_COLOR, data.font_color)
@@ -1881,7 +1949,25 @@ class AdvanceEditLookVM @Inject constructor(
                                     COLUMN_COLOR,
                                     data.column_color as String
                                 )
-                                Log.e("VVVVVVSS", res.body().toString())
+                                //here store slider opacity and value
+                                preferenceFile.storeosize(
+                                    BORDER_WIDTH,
+                                    data.border_width?.toFloat()!!
+                                )
+                                // here store opacity ..
+                                preferenceFile.storeopacity(
+                                    BORDER_OPACITY,
+                                    data.border_opacity.toFloat()
+                                )
+                                preferenceFile.storeopacity(
+                                    COLUMN_OPACITY,
+                                    data.column_opacity.toFloat()
+                                )
+                                preferenceFile.storeopacity(
+                                    FONT_OPACITY,
+                                    data.font_opacity.toFloat()
+                                )
+
                             } else {
                                 CommonMethods.showToast(
                                     CommonMethods.context,
