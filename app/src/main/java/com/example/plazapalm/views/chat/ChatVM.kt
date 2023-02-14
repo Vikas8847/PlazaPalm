@@ -124,10 +124,10 @@ class ChatVM @Inject constructor(
             /***choose options click(Button) */
 
             if (isUserBlocked.get()) {
-                blockUser?.text = "Block"
+                blockUser?.text = "Unblock"
 
             } else {
-                blockUser?.text = "Unblock"
+                blockUser?.text = "Block"
             }
 
             blockUserName.set(" Block " + reciverUserName.get().toString() + " ?")
@@ -158,7 +158,7 @@ class ChatVM @Inject constructor(
 
         val body = JsonObject()
         body.addProperty("u_id", reciverUserID.get().toString())
-        body.addProperty("isBlocked", isUserBlocked.get())
+        body.addProperty("isBlocked", !(isUserBlocked.get()))
 
         repository.makeCall(
             ApiEnums.BLOCK_USER,
@@ -181,16 +181,17 @@ class ChatVM @Inject constructor(
 
                         if (res.body() != null) {
 
-
                             if (isUserBlocked.get()) {
                                 isUserBlocked.set(false)
                                 Log.e("ADADASRTRTR456", isUserBlocked.get().toString())
                                 pref.saveISblock(IS_BLOCK, isUserBlocked.get())
+
+                                isBlock(false)
                             } else {
                                 isUserBlocked.set(true)
                                 pref.saveISblock(IS_BLOCK, isUserBlocked.get())
                                 Log.e("ADADASRTRTR67", isUserBlocked.get().toString())
-
+                                isBlock(true)
                             }
 
 //                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
@@ -199,6 +200,7 @@ class ChatVM @Inject constructor(
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
 
                         }
+
                     } else {
                         CommonMethods.showToast(CommonMethods.context, res.message())
 
@@ -243,6 +245,7 @@ class ChatVM @Inject constructor(
 
                 if (!(bothID.equals(""))) {
                     fetchdata(bothID!!)
+                    fetchUserDataMethod(bothID!!)
                 }
 
                 Log.e("Chat_Id===", bothID.toString())
@@ -363,19 +366,13 @@ class ChatVM @Inject constructor(
             message["reciveruid"] = reciverUserID.get().toString()
             message["milisecondTime"] = System.currentTimeMillis()
 
-
-
-
-
             firestore.collection("Chats").document(bothID.toString()).collection("Message")
                 .add(message)
                 .addOnSuccessListener {
                     messageText.set("")
                 }
                 .addOnFailureListener {
-
                     CommonMethods.showToast(CommonMethods.context, " failed.")
-
                 }
 
             val lastSeenData = HashMap<String, MessageData>()
@@ -411,6 +408,11 @@ class ChatVM @Inject constructor(
             firestore.collection("Chats").document(bothID.toString())
                 .set(hashmap, SetOptions.merge())
 
+            val timeHashMap = HashMap<String, Long>()
+            timeHashMap.put("milisecondTime", lastSeen.milisecondTime!!)
+
+            firestore.collection("Chats").document(bothID.toString())
+                .set(timeHashMap, SetOptions.merge())
 
             /** new code */
 
@@ -443,6 +445,44 @@ class ChatVM @Inject constructor(
         Log.e("AAAAQ@@!@!1", separated1[0] + " : " + separated1[1])
 
         return actualTime
+
+    }
+
+
+    fun fetchUserDataMethod(bothID1:String) {
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("Chats").document(bothID1.toString())
+            .get()
+            .addOnSuccessListener {
+
+                if(it.data!=null) {
+                    Log.e("rgmksgmrgsg===",it.data!!.get("IsBlock").toString())
+                    if (it.data!!.get("IsBlock") != null) {
+                        isUserBlocked.set(it.data!!.get("IsBlock") as Boolean)
+                    } else {
+                        isUserBlocked.set(false)
+                    }
+                }else
+                {
+                    isUserBlocked.set(false)
+                }
+              //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
+
+            }
+    }
+
+    private fun isBlock(value : Boolean) {
+
+        Log.e("LASKDASKD",value.toString())
+
+        val hashmap = HashMap<String, Boolean>()
+        hashmap.put("IsBlock", value)
+
+        firestore.collection("Chats").document(bothID.toString())
+            .set(hashmap, SetOptions.merge()).addOnSuccessListener {
+                Log.e("ZZXX" , it.toString() + "XCX ")
+            }
 
     }
 

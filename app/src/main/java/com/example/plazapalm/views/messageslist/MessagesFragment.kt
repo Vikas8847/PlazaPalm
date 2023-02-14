@@ -110,6 +110,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                     var otherUserId = ""
                     var loginUserId = ""
                     var userImage = ""
+                    if(snapshot!!.documents!!.size>0){
                     for (dataSnapshot in snapshot!!.documents) {
 
                         val lastSeenMap = dataSnapshot["LastSeen"] as HashMap<String, Any>?
@@ -118,7 +119,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                             val message = lastSeenMap?.get("message")
                             val milisecondTime = lastSeenMap?.get("milisecondTime")
 
-                            if (!(dataSnapshot["ChatID"] as String).isNullOrEmpty()) {
+                            if (dataSnapshot["ChatID"]!=null && !(dataSnapshot["ChatID"] as String).isNullOrEmpty()) {
                                 chatID = (dataSnapshot["ChatID"] as String)
 
                                 val splitData = chatID.split("_")
@@ -152,6 +153,10 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                                 Log.e("dasdasdasdww  ", LastMesageList.toString())
 
                             }
+                        }
+
+                        LastMesageList.sortByDescending {
+                            it.milisecondTime.toString()
                         }
 
                         viewModel.messageUserAdapter.addItems(LastMesageList)
@@ -201,6 +206,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                         }
 
                     }
+                }
 
                 }
 
