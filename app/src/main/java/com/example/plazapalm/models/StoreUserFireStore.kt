@@ -25,6 +25,7 @@ data class LastSeenData(
     val milisecondTime :Any?=0,
     val chatId :String?="",
     val userId :String?="",
+    val isBlock :Boolean
 ):AbstractModel()
 
 

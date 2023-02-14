@@ -395,8 +395,8 @@ interface RetrofitApi {
     @POST(BOOKINGSTATUS_INPUT)
     suspend fun bookingStatusInput(
         @Header("Authorization") Authorization: String,
-        @Query("booking_id") booking_id: String,
-        @Query("booking_status") booking_status: String
+        @Field("booking_id") booking_id: String,
+        @Field("booking_status") booking_status: String
     ): Response<BookingStatusInputResponse>
 
     /** Delete Booking Api */

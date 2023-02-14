@@ -45,7 +45,10 @@ class CalendarVM @Inject constructor(
     val click = ObservableBoolean(false)
     val SeletedDate = MutableLiveData<List<String?>?>()
     var calendarList = ArrayList<Calendar>()
-    val isBookingStatus = ObservableBoolean(false)
+    var isBookingStatus = ObservableBoolean()
+
+    val isBookStatus = MutableLiveData<Boolean>()
+
 
     init {
 
@@ -167,11 +170,28 @@ class CalendarVM @Inject constructor(
                 override fun onResponse(res: Response<GetCalanderResponseModel>) {
                     Log.e("CHECKQASWEA", res.body().toString())
                     if (res.isSuccessful && res.code() == 200) {
+
                         if (res.body()?.data != null) {
+
                             for (i in 0 until res.body()!!.data.size) {
                                 SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
+
+
+                                if (res.body()!!.data[i]!!.booking_status.equals("cancelled")){
+//                                    isBookStatus.value = res.body()!!.data[i]!!.booking_status as Boolean
+
+                                    isBookingStatus.set(true)
+
+                                    Log.e("CXCSS" , res.body()!!.data[i]!!.booking_status.toString())
+                                    Log.e("CXCSSLLZZz" ,isBookingStatus.get().toString() )
+
+                                }
+
                             }
+
                             for (i in 0 until res.body()!!.data.size) {
+
+
                                 calendars4 = Calendar.getInstance()
                                 // SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
                                 val day = res.body()!!.data[i]?.choose_date
@@ -190,10 +210,10 @@ class CalendarVM @Inject constructor(
                                 Log.e("FQWQWQQQ3", "$fDay  B ")
                                 calendarList.add(calendars4!!)
                             }
+
                             calendarMutableResponse.value = calendarList
 
-                            calendarBookingList =
-                                res.body()!!.data as ArrayList<CalenderData> /* = java.util.ArrayList<com.example.plazapalm.models.CalenderData> */
+                            calendarBookingList = res.body()!!.data as ArrayList<CalenderData> /* = java.util.ArrayList<com.example.plazapalm.models.CalenderData> */
                             adapterCalendar.addItems(calendarBookingList)
                             adapterCalendar.notifyDataSetChanged()
 

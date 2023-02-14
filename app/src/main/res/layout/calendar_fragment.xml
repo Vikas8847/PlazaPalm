@@ -127,6 +127,7 @@
                 app:todayLabelColor="@color/red"
                 app:selectionColor="@color/white"
                 app:type="many_days_picker" />
+
             <androidx.recyclerview.widget.RecyclerView
                 setRecyclerAdapter="@{vm.adapterCalendar}"
                 android:layout_width="match_parent"

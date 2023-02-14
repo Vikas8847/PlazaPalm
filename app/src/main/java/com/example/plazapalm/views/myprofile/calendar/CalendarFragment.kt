@@ -31,14 +31,24 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         getBundleData()
         return binding?.root
     }
+
     private fun calenarLabelSize() {
         binding!!.clCalendar.setSelectionBackground(R.drawable.calendar_white_bg)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         calendarClick()
-        binding?.vm = viewModel
+        deleteVisible()
+       binding?.vm = viewModel
     }
+
+    private fun deleteVisible() {
+        viewModel.isBookStatus.observe(requireActivity(), androidx.lifecycle.Observer {
+
+        } )
+    }
+
+
     private fun getBundleData() {
         if (arguments != null) {
             when (arguments?.getString("comingFromm")) {

@@ -95,7 +95,6 @@ class BookingDetailsVM @Inject constructor(
                 chatData.putString("user_name",userFLName.get().toString())
                 chatData.putString("userImage", userImage)
 
-
                 view.navigateWithId(R.id.action_bookingDetailsFragment_to_chatFragment,chatData)
 
             }
@@ -139,7 +138,7 @@ class BookingDetailsVM @Inject constructor(
                         preferenceFile.retrieveKey("token").toString(),
                         booking_id.get().toString(),
                         /*bookingStatus.get().toString()*/
-                    "cancelle"
+                    "cancelled"
                     )
                 }
 
@@ -147,17 +146,18 @@ class BookingDetailsVM @Inject constructor(
                     Log.e("RESEER", res.body().toString())
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
-                            CommonMethods.showToast(CommonMethods.context, res.message())
+
+//                            bookingStatus.set("Booking Status : " + res.body())
+
+//                            CommonMethods.showToast(CommonMethods.context, res.message())
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.message())
-
                         }
 
                     } else {
                         CommonMethods.showToast(CommonMethods.context, res.message())
                     }
                 }
-
 
             })
 

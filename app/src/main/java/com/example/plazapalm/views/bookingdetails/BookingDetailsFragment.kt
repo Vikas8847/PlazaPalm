@@ -38,6 +38,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     private fun getBundleData() {
         if (arguments != null) {
             when {
+
                 /** comming From Calendar Screen */
 
                 arguments?.getString("calendarScreen") != null -> {
@@ -59,21 +60,26 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         Log.e("WWWSSSS", "WPRKINGG++++FINEE")
                     }
 
-                    if (!(userdata.get(postion).booking_status.toString().isNullOrEmpty()) &&
+                    if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
                         userdata.get(postion).booking_status.toString().equals("pending")){
                         Log.e("DasQWK","Work1")
                         viewModel.btnText.set("Cancel Booking")
                         viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
 
-                    }else if(!(userdata.get(postion).booking_status.toString().isNullOrEmpty()) &&
+                    }else if(!(userdata.get(postion).booking_status.toString().isEmpty()) &&
                         userdata.get(postion).booking_status.toString().equals("reminderBooking")){
                         Log.e("DasQWK","Work2")
                         viewModel.btnText.set("Delete Reminder")
                         viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
-                    }else{
+                    } else if(!(userdata.get(postion).booking_status.toString().isEmpty()) && userdata.get(postion).booking_status.toString().equals("cancelled")){
+                        binding!!.btnBookingDetailsCancel.visibility =View.GONE
+                        viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
+
+                    } else {
                         Log.e("DasQWK","Work3")
                         viewModel.bookingStatus.set("Category : " + "Shops")
                     }
+
                     if (userdata.get(postion).postProfile_picture==null || userdata.get(postion).postProfile_picture.isEmpty()){
                         Log.e("DasQWK","Work4")
                         viewModel.imageUrl.set("https://i.picsum.photos/id/65/200/300.jpg?hmac=o9HaDBPcrCPi8zfB6MoTe6MNNVPsEN4orpzsHhCPlbU")
@@ -105,8 +111,9 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view , savedInstanceState)
         binding?.vm = viewModel
+
     }
 
 
