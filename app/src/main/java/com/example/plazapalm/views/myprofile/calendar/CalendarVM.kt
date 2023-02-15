@@ -182,7 +182,7 @@ class CalendarVM @Inject constructor(
 
     fun getCalanderDataMonthWise(month: Int, year: Int) {
 
-        Log.e("PFDXCXs",  pref.retrieveKey("token").toString() +" v " + p_Id.get().toString())
+        Log.e("PFDXCXs",  pref.retrieveKey("token").toString() +" v " + p_Id.get().toString()+"  -- " +month+"  -  "+year )
 
         repository.makeCall(ApiEnums.GET_PREMIUM_STATUS, loader = true,
             saveInCache = false,
@@ -203,7 +203,6 @@ class CalendarVM @Inject constructor(
 
                             for (i in 0 until res.body()!!.data.size) {
                                 SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
-
 
                                 if (res.body()!!.data[i]!!.booking_status.equals("cancelled")){
 //                                    isBookStatus.value = res.body()!!.data[i]!!.booking_status as Boolean
