@@ -73,4 +73,6 @@
     <string name="block_user">Block User</string>
     <string name="unblock_user">UnBlock User</string>
     <string name="top_text">Top Text</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
 </resources>

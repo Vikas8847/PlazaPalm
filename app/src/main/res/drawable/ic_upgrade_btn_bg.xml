@@ -1,4 +1,19 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+  <solid android:color="#FF1E2A78"/>
+  <gradient
+      android:type="linear"
+      android:angle="0"
+      android:startColor="#FF49BBF5"
+      android:endColor="#FF1E2A78" />
+  <corners
+      android:radius="@dimen/_17sdp"
+      />
+</shape>
+
+
+
+<!--<vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="300dp"
     android:height="53dp"
@@ -19,4 +34,4 @@
       </gradient>
     </aapt:attr>
   </path>
-</vector>
+</vector>-->

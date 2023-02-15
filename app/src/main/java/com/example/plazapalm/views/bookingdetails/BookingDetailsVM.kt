@@ -8,13 +8,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
-import com.example.plazapalm.models.BookingDetailsResponse
+import com.example.plazapalm.models.AddToCalendarResponseModel
 import com.example.plazapalm.models.BookingStatusInputResponse
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.utils.navigateWithId
+import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -41,12 +42,13 @@ class BookingDetailsVM @Inject constructor(
     var location = ObservableField("")
     var date = ObservableField("")
     var bookingStatus = ObservableField("")
+    var bookingStatusCan = ObservableField("")
     var booking_id = ObservableField("")
     var btnText = ObservableField("")
 
 
 
-    fun onClicks(view: View) {
+    fun onClicks(view : View) {
         when (view.id) {
 
             R.id.ivBookingDetailsBack -> {
@@ -58,18 +60,19 @@ class BookingDetailsVM @Inject constructor(
                 Log.e("ASCCZZ", "WORKINGg9")
 
                 if (btnText.get()?.trim().equals("Cancel Booking")) {
-                    getBookingStatus()
-                    Log.e("ASCCZZ", "WORKINGg10")
+                    getBookingStatus("cancelled")
 
                 } else if (btnText.get()?.trim().equals("Delete Reminder")) {
-                    Log.e("ASCCZZ", "WORKINGg11")
-                } else if (btnText.get()?.trim().equals("cancelled")) {
-                    Log.e("ASCCZZ", "WORKINGg22")
-
+                    removeFromCalendar(view)
                 }
-                //Here Cancel Api will hit and navigate back to details page...
+            }
+            R.id.btnBookingDetailsAccept -> {
 
-//                view.navigateWithId(R.id.thankYouFragment)
+                getBookingStatus("accepted")
+            }
+
+            R.id.btnBookingDetailsDecline -> {
+                getBookingStatus("declined")
             }
 
             R.id.ivFavDetailsOptions -> {
@@ -95,7 +98,6 @@ class BookingDetailsVM @Inject constructor(
                 chatData.putString("user_name",userFLName.get().toString())
                 chatData.putString("userImage", userImage)
 
-
                 view.navigateWithId(R.id.action_bookingDetailsFragment_to_chatFragment,chatData)
 
             }
@@ -118,13 +120,13 @@ class BookingDetailsVM @Inject constructor(
         }
     }
 
-    private fun getBookingStatus() = viewModelScope.launch {
+    private fun getBookingStatus(BookingStatus :String) = viewModelScope.launch {
 
         Log.e(
             "FSDFSDFQ",
             preferenceFile.retrieveKey("token").toString() + "---iii---" +
                     booking_id.get().toString() + "---iii---" +
-                    bookingStatus.get().toString()
+                    BookingStatus
         )
 
         repository.makeCall(
@@ -138,8 +140,7 @@ class BookingDetailsVM @Inject constructor(
                     return retrofitApi.bookingStatusInput(
                         preferenceFile.retrieveKey("token").toString(),
                         booking_id.get().toString(),
-                        /*bookingStatus.get().toString()*/
-                    "cancelle"
+                        BookingStatus
                     )
                 }
 
@@ -147,10 +148,11 @@ class BookingDetailsVM @Inject constructor(
                     Log.e("RESEER", res.body().toString())
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
-                            CommonMethods.showToast(CommonMethods.context, res.message())
+                            bookingStatus.set("Booking Status : " + "cancelled")
+                            bookingStatusCan.set("cancelled")
+
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.message())
-
                         }
 
                     } else {
@@ -158,8 +160,47 @@ class BookingDetailsVM @Inject constructor(
                     }
                 }
 
-
             })
 
     }
+    fun removeFromCalendar(view: View) = viewModelScope.launch {
+
+        Log.e("ASDSDZXZSWw",booking_id.get().toString())
+
+        val body = JsonObject()
+        body.addProperty("booking_id", booking_id.get().toString())
+
+        repository.makeCall(
+            ApiEnums.REMOVE_FROM_CALENDAR,
+            true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<AddToCalendarResponseModel>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<AddToCalendarResponseModel> {
+                    return retrofitApi.deleteFromCalendar(
+                        Authorization = preferenceFile.retrieveKey("token")!!,
+                        body
+                    )
+                }
+
+                override fun onResponse(res: Response<AddToCalendarResponseModel>) {
+                    if (res.isSuccessful && res.code() == 200) {
+                        if (res.body()?.status == 200) {
+
+                            Log.e("DAAZFErf",res.body().toString())
+
+                            view.navigateBack()
+
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                res.body()!!.message.toString()
+
+                            )
+                        }
+                    }
+                }
+            }
+        )
+    }
+
 }

@@ -335,10 +335,11 @@ interface RetrofitApi {
     ): Response<AddToCalendarResponseModel>
 
     /**Delete Account api.. */
-    @DELETE(REMOVE_FROM_CALENDAR)
+//    @DELETE(REMOVE_FROM_CALENDAR)
+    @HTTP(method = "DELETE", path = "removeFromCalender", hasBody = true)
     suspend fun deleteFromCalendar(
         @Header("Authorization") Authorization: String,
-        @Field("booking_id") Booking_Id: String
+        @Body josn : JsonObject
     ): Response<AddToCalendarResponseModel>
 
     /** Confirm Booking Api**/
@@ -395,16 +396,17 @@ interface RetrofitApi {
     @POST(BOOKINGSTATUS_INPUT)
     suspend fun bookingStatusInput(
         @Header("Authorization") Authorization: String,
-        @Query("booking_id") booking_id: String,
-        @Query("booking_status") booking_status: String
+        @Field("booking_id") booking_id: String,
+        @Field("booking_status") booking_status: String
     ): Response<BookingStatusInputResponse>
 
     /** Delete Booking Api */
-    @FormUrlEncoded
-    @DELETE(DELETE_BOOKING)
+
+//    @DELETE(DELETE_BOOKING)
+    @HTTP(method = "DELETE", path = "deleteBooking", hasBody = true)
     suspend fun deleteBooking(
         @Header("Authorization") Authorization: String,
-        @Field("booking_id") booking_id: String
+        @Body jsonObject: JsonObject
     ): Response<DeleteBookingResponse>
 
     @GET("listQuestion/{p_id}")

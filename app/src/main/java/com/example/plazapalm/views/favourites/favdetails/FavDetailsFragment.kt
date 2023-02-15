@@ -83,9 +83,9 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         CommonMethods.statusBar(true)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            mapFeatureGet()
+//            mapFeatureGet()
         }
-
+        getlocalData()
         binding?.mainConslayout?.visibility = View.VISIBLE
 //        premiumAccount()
         dataList = ArrayList()
@@ -96,7 +96,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
-        getlocalData()
+//        getlocalData()
         Log.e("application_token===", pref.retrieveKey("token").toString())
     }
 
@@ -144,12 +144,16 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             viewModel.loginUserPId.set(loginUserPId)
             Log.e("SDASDASDASDASdas", it.toString())
 
-
             fetchApiKey()
             getSharedata()
             getFavoriteData()
-            viewModel.getEditLookColor()
             setbackground()
+
+            if (loginUserPId != null && !loginUserPId.equals("")) {
+                viewModel.getEditLookColor()
+                mapFeatureGet()
+                Log.e("SDASDASDASDASdas", loginUserId.toString())
+            }
         }
     }
 
@@ -163,7 +167,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         }
 
     }
-
 
     private fun fetchApiKey() {
         /**Fetching API_KEY which we wrapped**/
@@ -200,7 +203,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                     val data = requireArguments().getSerializable("ResBody") as ArrayList<FavData>
                     val pos = requireArguments().getInt("pos")
-                    val image: ArrayList<String> = data[pos].postProfile_picture as ArrayList<String>
+                    val image: ArrayList<String> =
+                        data[pos].postProfile_picture as ArrayList<String>
                     setFavdata(pos, data, image)
 
                     Log.e("kgvnsngsgggg===", loginUserPId.toString())
@@ -237,9 +241,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     viewModel.CommingFrom.set("isViewProfile")
                     binding!!.btnBookingProfile.visibility = View.GONE
                     //  viewModel.tvAllowBooking.set(false)
-                    getPostprofile(viewModel.p_id.get().toString(),
+                    getPostprofile(
+                        viewModel.p_id.get().toString(),
                         pref.retvieLatlong("lati").toDouble(),
-                        pref.retvieLatlong("longi").toDouble())
+                        pref.retvieLatlong("longi").toDouble()
+                    )
 
 
                 }
@@ -255,9 +261,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     viewModel.CommingFrom.set("isViewProfile")
                     viewModel.p_id.set(requireArguments().get("userPostProfileId").toString())
 
-                    Log.e("ASDASQWEQWe", viewModel.p_id.get().toString() + "xdfdf   " +
+                    Log.e(
+                        "ASDASQWEQWe", viewModel.p_id.get().toString() + "xdfdf   " +
                                 pref.retvieLatlong("lati").toDouble() + " sdfsdf  " +
-                                pref.retvieLatlong("longi").toDouble().toString().toString())
+                                pref.retvieLatlong("longi").toDouble().toString().toString()
+                    )
 
                     getPostprofile(
                         viewModel.p_id.get().toString(),
@@ -393,6 +401,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         Log.e("ABCDDDDDDD444==", finalMilesDiatance)
         viewModel.distanceValue.set(finalMilesDiatance)
     }
+
     fun setFirstMediaMethod(imageValue: String) {
         if (imageValue.contains(".png") || imageValue.contains(".jpg") || imageValue.contains(".jpeg")) {
             Glide.with(requireActivity()).load(IMAGE_LOAD_URL + imageValue).
@@ -407,7 +416,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             binding!!.videoViewDetail.visibility = View.VISIBLE
             binding!!.ivVideoIconDetails.visibility = View.VISIBLE
             var activity = requireActivity() as Activity
-            activity.setVideoPlayMethod(binding!!.videoViewDetail, IMAGE_LOAD_URL + imageValue, binding!!.ivVideoIconDetails)
+            activity.setVideoPlayMethod(
+                binding!!.videoViewDetail,
+                IMAGE_LOAD_URL + imageValue,
+                binding!!.ivVideoIconDetails
+            )
         }
     }
 
@@ -556,7 +569,21 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
 
                                 Log.e("userIddddd====", viewModel.userdata.get().toString())
-                                Log.e("userIddddd111====", viewModel.userdata.get()?.postProfile_picture!![0].toString())
+                                Log.e(
+                                    "userIddddd111====",
+                                    viewModel.userdata.get()?.postProfile_picture!![0].toString()
+                                )
+
+                                /** p_id not null */
+                                if (res.body()!!.data.p_id != null && !res.body()!!.data.p_id.equals("")) {
+                                    viewModel.getEditLookColor()
+                                    mapFeatureGet()
+                                    Log.e("ZCXCX" , "WORKING1")
+                                }else{
+                                    Log.e("ZCXCX" , "WORKING2")
+
+                                }
+
 
                                 if (!(loginUserPId.toString().equals(res.body()!!.data._id))) {
                                     viewModel.checkFavouriteShow.set(0)
@@ -671,6 +698,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 binding!!.ivFavDetails
 
 //                                }
+
 
                             } else {
                                 binding?.displayBack?.visibility = View.GONE
@@ -814,16 +842,16 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
             if (p_Id != "" && p_Id != null && loginUserId != "" && loginUserId != null) {
 
-           //     if (loginUserId.equals("63b69f871545b79696c25166")) {
-                    Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
+                //     if (loginUserId.equals("63b69f871545b79696c25166")) {
+                Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
 
-                    getPostprofile(
-                        p_Id,
-                        pref.retvieLatlong("lati").toDouble(),
-                        pref.retvieLatlong("longi").toDouble()
-                    )
+                getPostprofile(
+                    p_Id,
+                    pref.retvieLatlong("lati").toDouble(),
+                    pref.retvieLatlong("longi").toDouble()
+                )
 
-              //  }
+                //  }
 
             }
 

@@ -10,11 +10,13 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -131,7 +133,7 @@ object BindingAdapters {
         value: String,
     ) {
         val split = value.split("T")
-        val date = split?.get(0)
+        val date = split.get(0)
         textView.text = date
         Log.e("QOWIEWww", date.toString())
     }
@@ -151,7 +153,7 @@ object BindingAdapters {
     @BindingAdapter(value = ["setTextVisibilty"], requireAll = false)
     @JvmStatic
     fun setTextVisibilty(
-        layout : ConstraintLayout,
+        layout: ConstraintLayout,
         value: Boolean,
     ) {
 
@@ -162,6 +164,55 @@ object BindingAdapters {
         }
 
     }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter("btnVisi")
+    @JvmStatic
+    fun btnVisi(
+        imageView: AppCompatButton,
+        value: String
+    ) {
+
+        Log.e("ZSDZXC", value.toString())
+
+        if (value.equals("cancelled")) {
+             imageView.visibility = View.GONE
+            Log.e("lkds", value.toString())
+
+        } else {
+            imageView.visibility = View.VISIBLE
+            Log.e("sdsdk", value.toString())
+
+        }
+
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter("setImageVisibilty")
+    @JvmStatic
+    fun setImageVisibilty(
+        imageView: ImageView,
+        value: String
+    ) {
+
+        Log.e("ZSDZXC", value.toString())
+        imageView.setImageDrawable(ContextCompat.getDrawable(context,android.R.color.transparent))
+
+        if (value.equals("cancelled")) {
+//            imageView.visibility = View.VISIBLE
+            imageView.setImageResource(R.drawable.ic_delete_icon)
+            Log.e("lkds", value.toString())
+
+        } else {
+
+            imageView.setImageDrawable(ContextCompat.getDrawable(context,android.R.color.transparent))
+            Log.e("sdsdk", value.toString())
+
+        }
+
+    }
+
 
     @BindingAdapter(value = ["onCheckChange"], requireAll = false)
     @JvmStatic
@@ -207,9 +258,9 @@ object BindingAdapters {
         view: androidx.constraintlayout.widget.ConstraintLayout,
         bookingStatus: String,
     ) {
-        if (bookingStatus.equals("pending")) {
+        if (bookingStatus.equals("pending") || bookingStatus.equals("cancelled")) {
             Log.e("SDSD", "sdwwwwwwa")
-//            view.background = ContextCompat.getDrawable(view.context.resources.getDrawable(R.drawable.placeholder))
+
             view.background =
                 (ContextCompat.getDrawable(
                     MainActivity.context.get()!!,

@@ -9,6 +9,14 @@
             name="model"
             type="com.example.plazapalm.models.CalenderData" />
 
+        <variable
+            name="vm"
+            type="com.example.plazapalm.views.myprofile.calendar.CalendarVM" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +40,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/inter_medium"
-            setText="@{model.postProfile_first_name +' '+ model.postProfile_last_name}"
+            setUserName="@{model.postProfile_first_name +' '+ model.postProfile_last_name}"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +76,6 @@
             app:layout_constraintTop_toTopOf="@id/tvClBookingUserDate"
             />
 
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCalendarDelete"
             android:layout_width="35dp"
@@ -77,24 +84,50 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`deleteConfirmBooking`)}"
-            android:src="@drawable/ic_delete_icon"
-            android:visibility="invisible"
+            setImageVisibilty="@{model.booking_status}"
             app:layout_constraintBottom_toTopOf="@+id/ivCalenderChat"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCalenderChat"
             android:layout_width="30dp"
             android:layout_height="25dp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`calendarBookingToChat`)}"
             android:src="@drawable/ic_chat_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivCalendarDelete" />
 
-        //            android:text="@{model.location_text}"
+     <!--   <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCalendarDelete"
+            android:layout_width="35dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`deleteConfirmBooking`)}"
+            android:src="@drawable/ic_delete_icon"
+            app:layout_constraintBottom_toTopOf="@+id/ivCalenderChat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCalenderChat"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`calendarBookingToChat`)}"
+            android:src="@drawable/ic_chat_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCalendarDelete" />-->
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvClBookLocationName"
