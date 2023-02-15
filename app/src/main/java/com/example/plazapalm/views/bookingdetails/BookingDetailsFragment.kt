@@ -11,7 +11,6 @@ import com.example.plazapalm.R
 import com.example.plazapalm.databinding.BookingDetailsFragmentBinding
 import com.example.plazapalm.models.CalenderData
 import com.example.plazapalm.pref.PreferenceFile
-import com.example.plazapalm.pref.preferenceName
 import com.example.plazapalm.utils.CommonMethods
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,8 +20,9 @@ import javax.inject.Inject
 class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     private var binding: BookingDetailsFragmentBinding? = null
     private val viewModel: BookingDetailsVM by viewModels()
+
     @Inject
-    lateinit var pref :PreferenceFile
+    lateinit var pref: PreferenceFile
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,49 +45,132 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
 
                     val userdata: ArrayList<CalenderData> =
                         arguments?.getSerializable("userData") as ArrayList<CalenderData> /* = java.util.ArrayList<com.example.plazapalm.models.CalenderData> */
-                    val postion = arguments?.get("position") as Int
 
+                    Log.e("WWWSSSS", userdata.toString())
+
+                    val postion = arguments?.get("position") as Int
                     val date = userdata.get(postion as Int).choose_date
                     val split = date?.split("T")
                     val before = split?.get(0).toString()
 
-                    if (viewModel.userType.get().equals("customer")) {
+                    if (userdata.get(postion as Int).userType.equals("customer")) {
+
+                        /*** For customer */
+
                         viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
+
+                        if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("pending")) {
+
+                            binding!!.btnBookingDetailsAccept.visibility = View.GONE
+                            binding!!.btnBookingDetailsDecline.visibility = View.GONE
+                            viewModel.btnText.set("Cancel Booking")
+                            viewModel.bookingStatusCan.set("pending")
+                            viewModel.bookingStatus.set("Booking Status : " + "PENDING")
+
+                        } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString()
+                                .equals("reminderBooking")) {
+                            viewModel.bookingStatusCan.set("reminderBooking")
+                            viewModel.btnText.set("Delete Reminder")
+                            viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
+
+                        } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("cancelled")
+                        ) {
+                            viewModel.bookingStatusCan.set("cancelled")
+                            viewModel.bookingStatus.set("Booking Status : " + "CANCELLED")
+
+                        } else {
+                            Log.e("DasQWK", "Work3")
+                            viewModel.bookingStatus.set("Category : " + "Shops")
+                        }
+
 //                        viewModel.getCustomerDetails()
-                    } else  {
+                    } else if (userdata.get(postion as Int).userType.equals("provider")) {
 //                        viewModel.getCustomerDetails()
+
+                        /*** For Provider */
+
                         viewModel.bookingStatus.set("Category : " + userdata.get(postion).category_name)
-                        Log.e("WWWSSSS", "WPRKINGG++++FINEE")
+                        if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("pending")) {
+
+                            binding!!.btnBookingDetailsCancel.visibility = View.GONE
+                            binding!!.btnBookingDetailsAccept.visibility = View.VISIBLE
+                            binding!!.btnBookingDetailsDecline.visibility = View.VISIBLE
+
+                            viewModel.btnText.set("Cancel Booking")
+                            viewModel.bookingStatusCan.set("pending")
+                            viewModel.bookingStatus.set("Booking Status : " + "PENDING")
+
+                        } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("reminderBooking")) {
+
+                            viewModel.btnText.set("Delete Reminder")
+                            viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
+
+                        } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("cancelled")) {
+
+                            viewModel.bookingStatusCan.set("cancelled")
+                            viewModel.bookingStatus.set("Booking Status : " + "CANCELLED")
+
+
+                        } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("accepted")) {
+
+                            binding!!.btnBookingDetailsAccept.visibility = View.VISIBLE
+                            binding!!.btnBookingDetailsCancel.visibility = View.VISIBLE
+//                            binding!!.btnBookingDetailsCancel.text="Cancel Booking"
+                            viewModel.bookingStatusCan.set("accepted")
+                            viewModel.btnText.set("Cancel Booking")
+                            viewModel.bookingStatus.set("Booking Status : " + "ACCEPTED")
+                        } else {
+                            Log.e("DasQWK", "Work3")
+                            viewModel.bookingStatus.set("Category : " + "Shops")
+                        }
                     }
 
-                    if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                        userdata.get(postion).booking_status.toString().equals("pending")){
-                        Log.e("DasQWK","Work1")
-                        viewModel.btnText.set("Cancel Booking")
-                        viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
 
-                    }else if(!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                        userdata.get(postion).booking_status.toString().equals("reminderBooking")){
-                        Log.e("DasQWK","Work2")
-                        viewModel.btnText.set("Delete Reminder")
-                        viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
-                    } else if(!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                        userdata.get(postion).booking_status.toString().equals("cancelled")){
+                    // old code
 
-//                        binding!!.btnBookingDetailsCancel.visibility =View.GONE
-                        viewModel.bookingStatusCan.set("cancelled")
-                        viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
+                    /*  if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                          userdata.get(postion).booking_status.toString().equals("pending")
+                      ) {
 
-                    } else {
-                        Log.e("DasQWK","Work3")
-                        viewModel.bookingStatus.set("Category : " + "Shops")
-                    }
+                          binding!!.btnBookingDetailsAccept.visibility = View.VISIBLE
+                          binding!!.btnBookingDetailsDecline.visibility = View.VISIBLE
 
-                    if (userdata.get(postion).postProfile_picture==null || userdata.get(postion).postProfile_picture.isEmpty()){
-                        Log.e("DasQWK","Work4")
+                          viewModel.btnText.set("Cancel Booking")
+                          viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
+
+                      } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                          userdata.get(postion).booking_status.toString().equals("reminderBooking")
+                      ) {
+
+                          viewModel.btnText.set("Delete Reminder")
+                          viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
+
+                      } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                          userdata.get(postion).booking_status.toString().equals("cancelled")
+                      ) {
+
+                          viewModel.bookingStatusCan.set("cancelled")
+                          viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
+
+                      } else {
+                          Log.e("DasQWK", "Work3")
+                          viewModel.bookingStatus.set("Category : " + "Shops")
+                      }
+  */
+
+
+                    if (userdata.get(postion).postProfile_picture == null || userdata.get(postion).postProfile_picture.isEmpty()) {
+                        Log.e("DasQWK", "Work4")
                         viewModel.imageUrl.set("https://i.picsum.photos/id/65/200/300.jpg?hmac=o9HaDBPcrCPi8zfB6MoTe6MNNVPsEN4orpzsHhCPlbU")
-                    }else{
-                        Log.e("DasQWK","Work5")
+                    } else {
+                        Log.e("DasQWK", "Work5")
                         viewModel.imageUrl.set(userdata.get(postion as Int).postProfile_picture[0].toString())
                     }
 
@@ -114,7 +197,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view , savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
 
     }

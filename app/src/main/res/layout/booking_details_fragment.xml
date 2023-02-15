@@ -298,6 +298,7 @@
                     android:paddingBottom="@dimen/_1sdp"
                     android:text="@{vm.btnText}"
                     btnVisi="@{vm.bookingStatusCan}"
+                    userType="@{vm.userType}"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/tvBookDetailsDescriptionValue" />
@@ -314,9 +315,11 @@
                     android:onClick="@{vm::onClicks}"
                     android:paddingHorizontal="@dimen/_5sdp"
                     android:paddingVertical="@dimen/_9sdp"
+                    android:visibility="gone"
+                    accpeted="@{vm.bookingStatusCan}"
+                    userTypeA="@{vm.userType}"
                     android:paddingBottom="@dimen/_1sdp"
                     android:text="@string/accept"
-                    btnVisi="@{vm.bookingStatusCan}"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/btnBookingDetailsCancel" />
@@ -332,14 +335,13 @@
                     android:gravity="center_horizontal"
                     android:onClick="@{vm::onClicks}"
                     android:paddingHorizontal="@dimen/_5sdp"
+                    android:visibility="gone"
                     android:paddingVertical="@dimen/_9sdp"
                     android:paddingBottom="@dimen/_1sdp"
                     android:text="@string/decline"
-                    btnVisi="@{vm.bookingStatusCan}"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/btnBookingDetailsAccept" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
