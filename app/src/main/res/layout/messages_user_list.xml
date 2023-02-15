@@ -6,7 +6,6 @@
     <data>
             <import type="android.view.View"/>
 
-
         <variable
             name="vm"
             type="com.example.plazapalm.views.messageslist.MessagesVM" />
@@ -15,7 +14,6 @@
         <variable
             name="model"
             type="com.example.plazapalm.models.LastSeenData" />
-
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
