@@ -155,7 +155,7 @@ class LoginVM @Inject constructor(
                                 res.body()?.message.toString()
                             )
 
-                            FireStorechatVM().firestoreLogin(preferences)
+                            FireStorechatVM().firestoreLogin(preferences,res.body()!!.data!!.user_id!!)
 
                             /*  val users = HashMap<String, Any>()
 

@@ -10,7 +10,7 @@ class FireStorechatVM() : ViewModel() {
     val users = HashMap<String, Any>()
     val firestore = FirebaseFirestore.getInstance()
 
-    fun firestoreLogin(pref:PreferenceFile){
+    fun firestoreLogin(pref:PreferenceFile,userId:String){
 
         users["fcmToken"] = pref.retrieveFirebaseToken().toString()
         users["osType"] = "1"
@@ -18,7 +18,7 @@ class FireStorechatVM() : ViewModel() {
 
         //SetOptions.merge()
 
-        firestore.collection("Users").document()
+        firestore.collection("Users").document(userId)
             .set(users, SetOptions.merge())
             .addOnSuccessListener {
                 Log.e("TAG--US", "sucess")

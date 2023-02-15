@@ -117,7 +117,7 @@ class ViewPostProfileAdapter(
                     bindining.ivFavOfDesc1.visibility = View.GONE
                     Log.e("gkdegmgeggswg====",
                         IMAGE_LOAD_URL + photos.get(position).Image.toString())
-                    /*try {
+              /*      try {
                     setVideoPlayerMethod(bindining.videoViewDetail,
                         IMAGE_LOAD_URL + photos.get(position).Image,
                         bindining.ivVideoIcon,
@@ -196,16 +196,16 @@ class ViewPostProfileAdapter(
                 }
                 videoView.setOnErrorListener { mediaPlayer, _, _ ->
 
-                 //   Log.d("VideoError", "$mediaPlayer")
-                   // CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
-                    true
+                    Log.d("VideoError", "$mediaPlayer")
+                    CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")
+                    false
                 }
 
                 videoView.setOnCompletionListener { mp ->
                     // videoView.start()
-                 /*   if (mp.duration == videoView.duration) {
+                    if (mp.duration == videoView.duration) {
                         CommonMethods.showToast(CommonMethods.context, "Video is Completed ..")
-                    }*/
+                    }
                 }
                 videoView.requestFocus()
                 videoView.start()
@@ -217,5 +217,4 @@ class ViewPostProfileAdapter(
         }
 
     }
-
 }

@@ -423,6 +423,7 @@ class DashBoardVM @Inject constructor(
                                             .equals(""))
                                     ) {
                                         profileResponse.value = true
+                                        Log.e("efefefefefefe====","efefefefefefef")
                                     }
 
                                     Log.d("viaksdance", distance.get().toString().split(".")[0])

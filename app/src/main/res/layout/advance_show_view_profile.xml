@@ -12,26 +12,15 @@
             type="com.example.plazapalm.views.advancesettings.editfontpage.EditFrontPageVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/player_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <!-- <androidx.cardview.widget.CardView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:orientation="vertical"
-             android:visibility="visible"
-             app:cardCornerRadius="@dimen/_15sdp"
-             app:cardElevation="@dimen/_10sdp"
-             app:layout_constraintBottom_toBottomOf="parent"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toTopOf="parent">-->
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_5sdp"
+        android:layout_height="wrap_content">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/_170sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_250sdp"
             android:id="@+id/videoViewCl"
             android:background="@drawable/back_color_const"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -68,13 +57,12 @@
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-
             <com.example.plazapalm.utils.FullScreenVideoView
                 android:id="@+id/videVAdvanceShowProfile"
                 android:layout_width="@dimen/_170sdp"
                 android:layout_height="@dimen/_250sdp"
                 android:clipToOutline="true"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,6 +162,5 @@
                 tool:text="25 mi" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

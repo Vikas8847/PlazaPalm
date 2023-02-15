@@ -33,6 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvReceiverDay"
             android:background="@drawable/ic_receiver"
+            android:padding="@dimen/_5sdp"
             android:layout_height="wrap_content">
 
             <TextView
@@ -40,14 +41,18 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_2sdp"
                 android:maxWidth="@dimen/_350sdp"
-                android:paddingHorizontal="@dimen/_5sdp"
-                android:layout_margin="@dimen/_5sdp"
+
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Neque porro quisquam est\nqui dolorem"
+                android:text="ddd"
                 android:textColor="@color/black"
                 android:id="@+id/tvReceiver"
-                android:textSize="14sp"
+                android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -57,11 +62,11 @@
                 android:padding="@dimen/_2sdp"
                 android:text="1:30 pm"
                 android:layout_marginBottom="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+
                 android:textColor="@color/chat_time_text_color"
-                app:layout_constraintStart_toEndOf="@id/tvReceiver"
                 android:fontFamily="@font/inter_medium"
-                android:textSize="14sp"
+                android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvReceiver"
                 app:layout_constraintBottom_toBottomOf="parent"

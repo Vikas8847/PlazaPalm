@@ -201,7 +201,7 @@ class SignupVM @Inject constructor(
                                 Log.e("RESSPONSEE", res.body().toString())
 
                                 /** Add user on firestore **/
-                                FireStorechatVM().firestoreLogin(pref)
+                                FireStorechatVM().firestoreLogin(pref,res.body()!!.data!!.userId!!)
 
 
                                     } else {

@@ -89,6 +89,30 @@
             android:onClick="@{vm::onClicks}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChats"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_5sdp"
+                android:overScrollMode="never"
+                android:onClick="@{vm::onClicks}"
+                app:layout_constraintBottom_toTopOf="@id/clChatSendMessage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/chat_receiver">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/emtpryMessages"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:visibility="@{vm.emptyMessageList?View.VISIBLE:View.GONE}"
+                android:text="No Chat history found"
+                android:textSize="@dimen/_12sdp"
+                android:layout_height="match_parent"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvBlockUserBtn"
                 android:layout_width="wrap_content"
@@ -109,20 +133,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvChats"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/_5sdp"
-                android:overScrollMode="never"
-                android:onClick="@{vm::onClicks}"
-                app:layout_constraintBottom_toTopOf="@id/clChatSendMessage"
-                app:layout_constraintTop_toBottomOf="@+id/tvBlockUserBtn"
-                tools:listitem="@layout/chat_receiver">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clChatSendMessage"
                 android:layout_width="match_parent"
