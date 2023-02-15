@@ -362,7 +362,7 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String,
         @Query("month") month: Int,
         @Query("year") year: Int,
-        @Query("post_profile_id ") post_profile_id: String
+        @Query("post_profile_id") post_profile_id: String
 
     ): Response<GetCalanderResponseModel>
 
