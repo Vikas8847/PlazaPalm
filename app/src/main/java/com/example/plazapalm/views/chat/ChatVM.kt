@@ -2,8 +2,10 @@ package com.example.plazapalm.views.chat
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.AsyncTask
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import android.view.Window
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plazapalm.R
@@ -29,12 +32,20 @@ import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.views.chat.adapter.ChatAdapter
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestore.*
 import com.google.firebase.firestore.SetOptions
 import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Response
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -43,7 +54,7 @@ import javax.inject.Inject
 class ChatVM @Inject constructor(
     private var repository: Repository,
     private var dataStoreUtil: DataStoreUtil,
-    private var pref: PreferenceFile
+    private var pref: PreferenceFile,
 ) : ViewModel() {
 
     var dialog: Dialog? = null
@@ -60,10 +71,14 @@ class ChatVM @Inject constructor(
     var senderUserName = ObservableField("")
     var senderbusiness_profile_status = ObservableBoolean(false)
     var userTypeId = ObservableField("")
-    val firestore = FirebaseFirestore.getInstance()
+    val firestore = getInstance()
     var bothID: String? = ""
     var checkId = false
     var userType = false
+    var fcmToken = ObservableField("")
+    val FCM_MESSAGE_URL: String = "https://fcm.googleapis.com/fcm/send"
+
+    var emptyMessageList=ObservableBoolean(false)
 
     init {
 
@@ -102,7 +117,6 @@ class ChatVM @Inject constructor(
                 isClicked.set(false)
                 showChooseOptionAccountDialog()
             }
-
         }
     }
 
@@ -130,7 +144,16 @@ class ChatVM @Inject constructor(
                 blockUser?.text = "Block"
             }
 
-            blockUserName.set(" Block " + reciverUserName.get().toString() + " ?")
+            var textValue = ""
+            if (isUserBlocked.get()) {
+                textValue =
+                    "Are you sure you want to Unblock " + reciverUserName.get().toString() + " ?"
+            } else {
+                textValue =
+                    "Are you sure you want to Block " + reciverUserName.get().toString() + " ?"
+            }
+            //   blockUserName.set(" Block " + reciverUserName.get().toString() + " ?")
+            blockUserName.set(textValue)
 
             blockUserText?.text = blockUserName.get().toString()
 
@@ -217,7 +240,7 @@ class ChatVM @Inject constructor(
 
     fun getChatuid(bothID1: String) {
 
-        val db = FirebaseFirestore.getInstance()
+        val db = getInstance()
 
         db.collection("Chats").whereEqualTo("ChatID", bothID1.toString())
             .get()
@@ -229,7 +252,7 @@ class ChatVM @Inject constructor(
 
                         val bothID2 =
                             reciverUserID.get().toString() + "_" + senderUserID.get().toString()
-                        getChatuid(bothID2!!)
+                        getChatuid(bothID2)
                         checkId = true
                     } else {
                         Log.e("ADASQQq12311====", bothID.toString())
@@ -255,7 +278,7 @@ class ChatVM @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun fetchdata(bothID: String) {
-        var db = FirebaseFirestore.getInstance()
+        var db = getInstance()
         db.collection("Chats").document(bothID).collection("Message").orderBy("milisecondTime")
             .addSnapshotListener { value, error ->
                 dataList.clear()
@@ -293,8 +316,20 @@ class ChatVM @Inject constructor(
 
                 chatAdapter.addItems(dataList, userTypeId.get().toString())
                 chatAdapter.notifyDataSetChanged()
+                scrollToBottomMethod()
+                if(dataList.size==0)
+                {
+                    emptyMessageList.set(true)
+                }else
+                {
+                    emptyMessageList.set(false)
+                }
             }
+    }
 
+    var scrollToBottomData = MutableLiveData<Boolean>()
+    fun scrollToBottomMethod() {
+        scrollToBottomData.value = true
     }
 
     fun startChatMethod() {
@@ -369,7 +404,16 @@ class ChatVM @Inject constructor(
             firestore.collection("Chats").document(bothID.toString()).collection("Message")
                 .add(message)
                 .addOnSuccessListener {
+
+                    if (!(fcmToken.get().toString().equals(""))) {
+                        sendNotificationMethod(messageText.get().toString(),
+                            reciverUserName.get().toString(),
+                            senderUserID.get().toString(),
+                            reciverUserID.get().toString(),
+                            bothID.toString())
+                    }
                     messageText.set("")
+
                 }
                 .addOnFailureListener {
                     CommonMethods.showToast(CommonMethods.context, " failed.")
@@ -430,6 +474,7 @@ class ChatVM @Inject constructor(
         }
     }
 
+
     @SuppressLint("SimpleDateFormat")
     private fun setTime(): String {
 
@@ -449,41 +494,181 @@ class ChatVM @Inject constructor(
     }
 
 
-    fun fetchUserDataMethod(bothID1:String) {
-        val db = FirebaseFirestore.getInstance()
+    fun fetchUserDataMethod(bothID1: String) {
+        val db = getInstance()
 
         db.collection("Chats").document(bothID1.toString())
             .get()
             .addOnSuccessListener {
 
-                if(it.data!=null) {
-                    Log.e("rgmksgmrgsg===",it.data!!.get("IsBlock").toString())
+                if (it.data != null) {
+                    Log.e("rgmksgmrgsg===", it.data!!.get("IsBlock").toString())
                     if (it.data!!.get("IsBlock") != null) {
                         isUserBlocked.set(it.data!!.get("IsBlock") as Boolean)
                     } else {
                         isUserBlocked.set(false)
                     }
-                }else
-                {
+                } else {
                     isUserBlocked.set(false)
                 }
-              //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
+                //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
 
             }
     }
 
-    private fun isBlock(value : Boolean) {
+    private fun isBlock(value: Boolean) {
 
-        Log.e("LASKDASKD",value.toString())
+        Log.e("LASKDASKD", value.toString())
 
         val hashmap = HashMap<String, Boolean>()
         hashmap.put("IsBlock", value)
 
         firestore.collection("Chats").document(bothID.toString())
             .set(hashmap, SetOptions.merge()).addOnSuccessListener {
-                Log.e("ZZXX" , it.toString() + "XCX ")
+                Log.e("ZZXX", it.toString() + "XCX ")
+            }
+    }
+
+
+    fun fetchNotificationToken() {
+        var db = getInstance()
+        db.collection("Users").document(reciverUserID.get().toString()).get()
+            .addOnSuccessListener { document ->
+
+                var fcmToken2 = document.get("fcmToken")
+                Log.e("Firebase_Token===", fcmToken2.toString())
+                fcmToken.set(fcmToken2.toString())
+            }
+    }
+
+
+    private fun sendNotificationMethod(
+        message: String, reciverUserName: String,
+        senderId: String, receiverId: String, bothID: String,
+    ) {
+
+        val jsonArray = JSONArray()
+        jsonArray.put(fcmToken.get().toString())
+        Log.e("felfwefwefwef===", fcmToken.get().toString())
+        sendNotification(jsonArray,
+            senderId,
+            receiverId,
+            message,
+            reciverUserName,
+            "",
+            bothID,
+            "",
+            "")
+    }
+
+
+    //for send message into notification
+    fun sendNotification(
+        recipients: JSONArray?,
+        senderId: String,
+        receiverId: String,
+        message: String,
+        username: String,
+        userImage: String,
+        chatId: String,
+        otherUserOSType: String, newMessageType: String,
+    ) {
+        object : AsyncTask<String?, String?, String?>() {
+            override fun onPostExecute(result: String?) {
+                try {
+                    val resultJson = JSONObject(result)
+                    val success: Int
+                    val failure: Int
+                    success = resultJson.getInt("success")
+                    failure = resultJson.getInt("failure")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
 
+            @SuppressLint("StaticFieldLeak")
+            override fun doInBackground(vararg p0: String?): String? {
+                try {
+                    var name = ""
+                    val root = JSONObject()
+                    val notification = JSONObject()
+
+                    var messageNewText = ""
+                    if (message.equals("Image")) {
+                        messageNewText = "$username sent an image to you"
+                    } else
+                        if (message.equals("Audio")) {
+                            messageNewText = "$username sent an audio message to you"
+                        } else
+                            if (message.equals("Missed Voice Call") || message.equals("Missed Video Call")) {
+                                messageNewText = message
+                            } else {
+                                messageNewText = "$username sent a message to you"
+                            }
+
+                    notification.put("body", message)
+                    notification.put("title", messageNewText)
+                    notification.put("subtitle", name)
+                    notification.put(
+                        "icon",
+                        BitmapFactory.decodeResource(CommonMethods.context.resources,
+                            R.mipmap.ic_launcher)
+                    )
+                    val data = JSONObject()
+                    val jsonObject = JSONObject()
+                    jsonObject.put("receiverID", receiverId)
+                    jsonObject.put("senderID", senderId)
+                    jsonObject.put("chatID", chatId)
+                    jsonObject.put("title", "Arabia!")
+                    jsonObject.put("body", message)
+                    jsonObject.put("message", message)
+                    jsonObject.put("userName", username)
+                    jsonObject.put("userImage", userImage)
+                    jsonObject.put("type", "chat")
+
+                    //new message Type added
+                    jsonObject.put("message_type", newMessageType)
+
+                    data.put("data", jsonObject)
+                    notification.put("data", jsonObject)
+                    data.put("event", "message")
+                    //  root.put("notification", data)
+
+                    if (otherUserOSType.equals("1")) {
+                        root.put("notification", notification)
+                    }
+
+                    root.put("data", data)
+                    root.put("registration_ids", recipients)
+                    root
+                    return postToFCM(root.toString())
+                } catch (ex: java.lang.Exception) {
+                    ex.printStackTrace()
+                }
+                return null
+            }
+        }.execute()
     }
+
+    @Throws(IOException::class)
+    fun postToFCM(bodyString: String?): String {
+        val mClient = OkHttpClient()
+        var JSON = "application/json; charset=utf-8".toMediaTypeOrNull()
+        // var JSON = MediaType.parse("application/json; charset=utf-8")
+        val body = bodyString!!.toRequestBody(JSON)
+        val request: Request = Request.Builder()
+            .url(FCM_MESSAGE_URL)
+            .post(body) //  .addHeader("Authorization", "key=AAAAtokBNio:APA91bGY_YVNObDLtXnWjiB6uXjmZzmak2Ay-fM-LgBz2Tl0j1AI8vO9WevGjopPthtLHOJusUSw6hGtyMFvMX4NJZLFDDB42IBygsavNtar77AKWWaJx261gisPCwZHUhoaE6hNa983")
+            .addHeader(
+                "Authorization",
+//                "key=AAAAgsELOpI:APA91bEvfyhdfyaF2aBAlihnh_FzmSom65Y5ciA3AdyaheN7Vy3W0ysm4gJQAOQBf-8uzokVQhBn8YN0rlRxjJaOuHNmUoLgZzTMPFAQXjVZs544ad7Jdo7xmMG53j8KA54kSfP6PBro"
+                "key=AAAAWPHUnGU:APA91bEzJoOwDpH9U76gTKV1urrOSJTTWa-RTZkcXLGUWMi8-pVaPoY7FjvWQ9ygJU3yTPmbnvCXD7COm72pSEJcIewa5MJyBZpiRXB2v3T2Y8KHzY1bJ9RD6YVZF28PN19L057XSHD6"
+            )
+            .build()
+        val response = mClient.newCall(request).execute()
+        Log.e("Response_Notificat===", response.body!!.string())
+        return response.body!!.string()
+    }
+
 
 }

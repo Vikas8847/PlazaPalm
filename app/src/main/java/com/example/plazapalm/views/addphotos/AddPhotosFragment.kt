@@ -225,10 +225,11 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
 
         when (type) {
             CommonMethods.context.getString(R.string.add_photo_type) -> {
-           //  showVideoPhotoDialog()
+
                 pos = position
                // selectedPosition=position
-              showChooseOptionAccountDialog()
+                  showVideoPhotoDialog()
+              //showChooseOptionAccountDialog()
             }
         }
     }

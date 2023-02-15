@@ -10,6 +10,7 @@ import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.ChatFragmentBinding
@@ -46,8 +47,15 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
     ): View? {
         binding = ChatFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
-
+        addObserverToBottom()
         return binding?.root
+    }
+
+    fun addObserverToBottom()
+    {
+        viewModel.scrollToBottomData.observe(requireActivity(), Observer {
+            binding?.rvChats?.scrollToPosition(viewModel.chatAdapter.dataList.size-1)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -152,7 +160,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 //            viewModel.senderbusiness_profile_status.set(it?.data?.business_profile_status)
 
             Log.e("  sender_usderIID-->> ", it.toString())
-
+            viewModel.fetchNotificationToken()
         }
 
 
@@ -234,4 +242,8 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         }
 
     }
+
+
+
+
 }

@@ -29,7 +29,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
+            android:padding="@dimen/_5sdp"
             android:background="@drawable/ic_sender"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSenderDay">
@@ -38,15 +38,15 @@
                 android:id="@+id/tvSender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Neque porro quisquam est qui dol\norem ipsum quia dolor sit amet,\nconsectetur, quia dolor."
-                android:textSize="14sp"
+                android:text="fedfef."
+                android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
@@ -56,15 +56,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
+
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:maxWidth="@dimen/_350sdp"
                 android:padding="@dimen/_3sdp"
-                android:paddingHorizontal="@dimen/_5sdp"
+
                 android:text="01:30 pm"
                 android:textColor="#A4A3A3"
-                android:textSize="10sp"
+                android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvSender" />
 

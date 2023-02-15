@@ -4,10 +4,14 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.databinding.ChatReceiverBinding
 import com.example.plazapalm.databinding.ChatSenderBinding
 import com.example.plazapalm.models.ChatData
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -38,7 +42,9 @@ class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun setData() {
 
             binding.tvSender.text = dataList[position].message
-            binding.tvSenderTime.text = dataList[position].messageTime!!
+           // binding.tvSenderTime.text = dataList[position].messageTime!!
+            setTimeMethod(binding.tvSenderTime, dataList[position].milisecondTime!!.toLong())
+
             binding.executePendingBindings()
 
         }
@@ -51,10 +57,10 @@ class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun setData() {
 
             binding.tvReceiver.text = dataList[position].message
-            binding.reciverTime.text = dataList[position].messageTime!!
+            //binding.reciverTime.text = dataList[position].messageTime!!
+            setTimeMethod(binding.reciverTime, dataList[position].milisecondTime!!.toLong())
             binding.executePendingBindings()
         }
-
     }
 
 
@@ -93,4 +99,12 @@ class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int = dataList.size
+
+    fun setTimeMethod(textView:TextView,milisecondtime:Long)
+    {
+        var formatter =  SimpleDateFormat("hh:mm a");
+    //    var newTime=milisecondtime as Long
+        var dateString = formatter.format(Date(milisecondtime))
+        textView.text = dateString
+    }
 }

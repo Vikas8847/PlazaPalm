@@ -6,7 +6,6 @@
     <data>
             <import type="android.view.View"/>
 
-
         <variable
             name="vm"
             type="com.example.plazapalm.views.messageslist.MessagesVM" />
@@ -15,7 +14,6 @@
         <variable
             name="model"
             type="com.example.plazapalm.models.LastSeenData" />
-
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,10 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            android:fontFamily="@font/inter_medium"
+            android:fontFamily="@font/inter_bold"
             android:text="@{model.name}"
             android:textSize="14sp"
-            android:textColor="@{@color/light_black}"
+            android:textColor="@{@color/black}"
             app:layout_constraintStart_toEndOf="@id/ivUsersImage"
             app:layout_constraintTop_toTopOf="@id/ivUsersImage"
             tool:text="Nguyen Shane" />
@@ -53,7 +51,7 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:fontFamily="@font/inter_medium"
             android:text="@{model.message}"
-            android:textColor="@{@color/white_gray}"
+            android:textColor="@{@color/light_black}"
             android:textSize="12sp"
             android:maxLines="2"
             android:layout_marginEnd="10dp"
@@ -68,8 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
             android:fontFamily="@font/inter_medium"
-            android:textColor="@color/white_gray"
+            android:textColor="@{@color/light_black}"
             android:textSize="12sp"
+            setTime="@{model.milisecondTime}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvChatUserName"
             tool:text="02:30 PM" />

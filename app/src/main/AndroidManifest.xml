@@ -114,10 +114,12 @@
 
         <service
             android:name=".fcm.FirebaseService"
-            android:exported="false"
-            android:stopWithTask="false">
+            android:exported="false">
             <intent-filter>
+                <!-- send only data part for android not notification part-->
+                <category android:name="android.intent.category.DEFAULT" />
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 

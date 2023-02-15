@@ -29,6 +29,8 @@ import com.example.plazapalm.utils.Constants.DeviceType
 import com.example.plazapalm.utils.Constants.SOMETHING_WRONG
 import com.example.plazapalm.utils.isNetworkAvailable
 import com.example.plazapalm.utils.navigateWithId
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -48,6 +50,7 @@ class SettingsVM @Inject constructor(
         token.set(pref.retrieveKey("token"))
     }
 
+    var senderUserID=ObservableField("")
     fun onClicks(view: View) {
         when (view.id) {
             R.id.ivSettingBackBtn -> {
@@ -191,6 +194,8 @@ class SettingsVM @Inject constructor(
 
                 override fun onResponse(res: Response<UserLogoutModel>) {
 
+                    firestoreLogin(senderUserID.get().toString())
+
                     dataStoreUtil.clearDataStore { clear -> }
 //                    pref.clearPreference()
                     pref.cleardata("token")
@@ -210,5 +215,18 @@ class SettingsVM @Inject constructor(
 
             })
 
+    }
+
+    val firestore = FirebaseFirestore.getInstance()
+    fun firestoreLogin(userId:String){
+
+        firestore.collection("Users").document(userId)
+            .update("fcmToken","")
+            .addOnSuccessListener {
+                Log.e("TAG--US", "sucess")
+            }
+            .addOnFailureListener {
+                Log.e("TAG--US", "faild")
+            }
     }
 }

@@ -211,18 +211,15 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     Log.e("BranchSDK_Tester", "branch init complete!")
                     if (branchUniversalObject != null) {
                         Log.e("BranchSDK_Tester", "title " + branchUniversalObject.title)
-                        Log.e(
-                            "BranchSDK_Tester",
-                            "CanonicalIdentifier " + branchUniversalObject.canonicalIdentifier
-                        )
-                        Log.e(
-                            "BranchSDK_Tester",
-                            "metadata " + branchUniversalObject.contentMetadata.convertToJson()
-                        )
+                        Log.e("BranchSDK_Tester", "CanonicalIdentifier " + branchUniversalObject.canonicalIdentifier)
+                        Log.e("BranchSDK_Tester", "metadata " + branchUniversalObject.contentMetadata.convertToJson())
 
-                        var dataObject = branchUniversalObject.contentMetadata.convertToJson()
-                        var deeplink_path = dataObject.getString("deeplink_path")
+                        var dataObject=branchUniversalObject.contentMetadata.convertToJson()
+                        var deeplink_path= dataObject.getString("deeplink_path")
                         //Toast.makeText(this,deeplink_path,Toast.LENGTH_LONG).show()
+
+                        pref.storeKey("link_share_pid",deeplink_path)
+                        // setUpNav()
                     }
                     if (linkProperties != null) {
                         Log.e("BranchSDK_Tester", "Channel " + linkProperties.channel)

@@ -159,6 +159,7 @@ class EditFrontPageVM @Inject constructor(
         getPostProfileApi(p_id!!, lati!!, longi!!)
     }
 
+
     //vikas
     @SuppressLint("UseCompatLoadingForDrawables", "CheckResult")
     private fun showViewProfileDialog(response: GetPostProfileResponse) {
@@ -166,11 +167,12 @@ class EditFrontPageVM @Inject constructor(
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
         } else {
-            dialog = Dialog(context, R.style.Style_Dialog_Rounded_Corner)
+           // dialog = Dialog(context, R.style.Style_Dialog_Rounded_Corner)
+            dialog = Dialog(context)
             //  dialog!!.window!!.setBackgroundDrawableResource(R.drawable.round_cornerback)
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog?.window?.setDimAmount(0f)
+           // dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog?.window?.setDimAmount(80f)
             profileBinding = AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
             dialog?.setContentView(profileBinding?.root!!)
             /**Set advance  profile edit cover page data **/
@@ -192,35 +194,41 @@ class EditFrontPageVM @Inject constructor(
                     tvProfileUserName.typeface = fontTypeface
                     //call here toptext selected font-typfaces...
                     topTextSelectedTypeFaces()
+                }else{
+                    tvProfileUserName.setTextColor(Color.parseColor("#000000"))
                 }
                 if (this@EditFrontPageVM.isBottomText.get()) {
                     tvProfileUserAddress.typeface = fontTypeface
                     tvProfileUserDescription.typeface = fontTypeface
                     bottomTextSelectedTypeFaces()
+                }else
+                {
+                    tvProfileUserAddress.setTextColor(Color.parseColor("#000000"))
+                    tvProfileUserDescription.setTextColor(Color.parseColor("#000000"))
                 }
                 /**Set here video and image at zero position..***/
                 showImageAndVideo(response)
             }
         }
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
+        dialog?.window?.attributes?.width = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog!!.window?.attributes?.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog?.show()
     }
 
     private fun showImageAndVideo(response: GetPostProfileResponse) {
         /** For play and show image ***/
-        if (response.data.postProfile_picture?.get(0).toString()
-                .contains(".png") && response.data.postProfile_picture?.get(0).toString()
-                .contains(".jpeg") && response.data.postProfile_picture?.get(0).toString()
+        if (response.data.postProfile_picture?.get(0).toString().contains(".png") || response.data.postProfile_picture?.get(0).toString()
+                .contains(".jpeg") || response.data.postProfile_picture?.get(0).toString()
                 .contains(".jpg"))
         {
             profileBinding!!.ivDashBoardCat.visibility = View.VISIBLE
-            profileBinding!!.playerLayout.clipToOutline=true
+          //  profileBinding!!.playerLayout.clipToOutline=true
             profileBinding!!.videoViewCl.clipToOutline=true
             profileBinding!!.ivVideoIconDetails.visibility = View.GONE
             profileBinding!!.videVAdvanceShowProfile.visibility = View.GONE
             val imagePath = response.data.postProfile_picture?.get(0)
+            Log.e("Photo_Data_Showss11==",IMAGE_LOAD_URL + imagePath)
             Glide.with(MainActivity.context.get()!!).load(IMAGE_LOAD_URL + imagePath)
                 .into(profileBinding?.ivDashBoardCat!!)
         } else {
@@ -231,6 +239,7 @@ class EditFrontPageVM @Inject constructor(
             profileBinding!!.ivVideoIconDetails.visibility = View.GONE
             profileBinding!!.videVAdvanceShowProfile.visibility = View.VISIBLE
             val videoPath = response.data.postProfile_picture?.get(0)
+            Log.e("Photo_Data_Showss==",IMAGE_LOAD_URL + videoPath)
             MainActivity.activity.setVideoPlayMethod(profileBinding!!.videVAdvanceShowProfile, IMAGE_LOAD_URL + videoPath, profileBinding!!.ivVideoIconDetails)
         }
     }
@@ -3303,7 +3312,7 @@ class EditFrontPageVM @Inject constructor(
         val e = Log.e("KKKKAAALLLL", "$p_id PID $lati LAT  $longi LONG ")
         repository.makeCall(
             ApiEnums.GET_POST_PROFILE,
-            loader = true,
+            loader = false,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<GetPostProfileResponse>> {

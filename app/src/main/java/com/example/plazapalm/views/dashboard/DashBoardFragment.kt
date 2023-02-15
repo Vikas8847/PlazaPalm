@@ -131,17 +131,14 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                         if (pref.retrieveKey("link_share_pid") != null && !(pref.retrieveKey("link_share_pid")
                                 .equals(""))
                         ) {
-                            Log.e("Profile_API_HIT===", "1111")
+                            Log.e("Share_PID1111===", "1111")
                             openDirectProfileDetail(
                                 pref.retrieveKey("link_share_pid")!!,
                                 0.0,
                                 0.0
                             )
                         } else {
-                            Log.e(
-                                "Share_PID=====",
-                                pref.retrieveKey("link_share_pid").toString()
-                            )
+                            Log.e("Share_PID1111=====", pref.retrieveKey("link_share_pid").toString())
                         }
                     }
                 }

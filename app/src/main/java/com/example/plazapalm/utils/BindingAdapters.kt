@@ -31,6 +31,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import me.relex.circleindicator.CircleIndicator
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /** Binding Adapters */
@@ -722,5 +724,16 @@ object BindingAdapters {
             swipeLayout.close(true)
             swipeLayout.layoutMode = SwipeLayout.MODE_NORMAL
         }
+    }
+
+    @BindingAdapter(value = ["setTime"], requireAll = false)
+    @JvmStatic
+    fun setTime(textView:TextView,milisecondtime:Any)
+    {
+        //02:30 PM
+        var formatter =  SimpleDateFormat("hh:mm a");
+        var newTime=milisecondtime as Long
+        var dateString = formatter.format(Date(newTime))
+        textView.text = dateString
     }
 }
