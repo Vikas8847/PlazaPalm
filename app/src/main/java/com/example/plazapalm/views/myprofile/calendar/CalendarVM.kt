@@ -22,9 +22,12 @@ import com.example.plazapalm.recycleradapter.RecyclerAdapter
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants.calendarBookingDetails
 import com.example.plazapalm.utils.Constants.calendarBookingToChat
+import com.example.plazapalm.utils.Constants.deleteConfirmBooking
 import com.example.plazapalm.utils.navigateWithId
+import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
@@ -114,13 +117,23 @@ class CalendarVM @Inject constructor(
                     )
 
                 }
-
+                deleteConfirmBooking ->{
+                    deleteBooking(position)
+                }
 
             }
         }
     }
 
-    fun deleteBooking() = viewModelScope.launch {
+    fun deleteBooking(position: Int) = viewModelScope.launch {
+
+        Log.e(
+            "CXVDD",
+            pref.retrieveKey("token").toString() + "XXXZXZ " + booking_id.get().toString()
+        )
+        val jsonobject = JsonObject()
+        jsonobject.addProperty("booking_id",booking_id.get().toString())
+
         repository.makeCall(ApiEnums.GETPROFILE_BYCATE,
             loader = true,
             saveInCache = false,
@@ -129,18 +142,27 @@ class CalendarVM @Inject constructor(
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<DeleteBookingResponse> {
                     return retrofitApi.deleteBooking(
                         pref.retrieveKey("token").toString(),
-                        booking_id = booking_id.get().toString()
+                        jsonobject
                     )
                 }
 
+                @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(res: Response<DeleteBookingResponse>) {
                     Log.e("ZSSSS", res.body().toString())
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
                             Log.e("RESSS=====Done", res.body().toString())
+
+                            adapterCalendar.getAllItems().removeAt(position)
+                            adapterCalendar.notifyDataSetChanged()
+
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+
                         } else {
+
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                         }
+
                     } else {
                         CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                     }
@@ -148,14 +170,20 @@ class CalendarVM @Inject constructor(
 
                 override fun onError(message: String) {
                     super.onError(message)
-                    CommonMethods.showToast(CommonMethods.context, message)
+                    Log.e("SZXCXC",message)
+
+//                    CommonMethods.showToast(CommonMethods.context, message)
                 }
             })
     }
 
     var calendarMutableResponse = MutableLiveData<ArrayList<Calendar>>()
 
+
     fun getCalanderDataMonthWise(month: Int, year: Int) {
+
+        Log.e("PFDXCXs",  pref.retrieveKey("token").toString() +" v " + p_Id.get().toString())
+
         repository.makeCall(ApiEnums.GET_PREMIUM_STATUS, loader = true,
             saveInCache = false,
             getFromCache = false,
@@ -222,38 +250,6 @@ class CalendarVM @Inject constructor(
                             } else {
                                 booking_id.set(res.body()!!.data[0]?._id.toString())
                             }
-
-
-//                            adapterCalendar.setOnItemClick { view, postion, type ->
-//
-//                                when (type) {
-//                                    "calendarBookingToChat" -> {
-//
-//                                        view.navigateWithId(R.id.action_calendarFragment_to_chatFragment)
-//                                    }
-//
-//                                    "calendarBookingDetails" -> {
-//                                        //navigate to Booking Details Fragment...
-//                                        val bundle = Bundle()
-//                                        bundle.putString("calendarScreen", "CalendarFrag")
-//                                        bundle.putSerializable("userData", calendarBookingList)
-//                                        bundle.putInt("position", postion)
-//
-//                                        view.navigateWithId(
-//                                            R.id.action_calendarFragment_to_bookingDetailsFragment,
-//                                            bundle
-//                                        )
-//
-//                                    }
-//
-//                                    "deleteConfirmBooking" -> {
-//                                        /** Delete Booking */
-//
-//                                        deleteBooking()
-//                                    }
-//                                }
-//                            }
-//
 
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.message())

@@ -35,6 +35,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
     private fun calenarLabelSize() {
         binding!!.clCalendar.setSelectionBackground(R.drawable.calendar_white_bg)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         calendarClick()
@@ -53,6 +54,9 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         if (arguments != null) {
             when (arguments?.getString("comingFromm")) {
                 Constants.Calendar -> {
+
+                    Log.e("FSDSDAA" , arguments?.get("p_id").toString())
+
                     viewModel.p_Id.set(arguments?.get("p_id").toString())
                     val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
                     val calandar = Calendar.getInstance()
@@ -61,6 +65,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
                     val month = split[1].toInt()
                     val year = split[2].toInt()
                     viewModel.getCalanderDataMonthWise(month, year)
+
                     viewModel.calendarMutableResponse.observe(requireActivity()) {
                         val dataList = it as ArrayList<Calendar>
                         dataList.add(calandar)
@@ -72,6 +77,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
             }
         }
     }
+
       @SuppressLint("ResourceType")
       private fun calendarClick() {
           binding?.clCalendar?.setOnPreviousPageChangeListener(object : OnCalendarPageChangeListener {

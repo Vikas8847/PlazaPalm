@@ -117,6 +117,7 @@ object Constants {
 
     const val calendarBookingToChat="calendarBookingToChat"
     const val calendarBookingDetails="calendarBookingDetails"
+    const val deleteConfirmBooking="deleteConfirmBooking"
 
     const val BACKGROUND="BACKGROUND"
     const val COLUMN="COLUMN"

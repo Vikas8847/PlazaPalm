@@ -294,33 +294,4 @@ class ConfirmBookingVM @Inject constructor(
             })
     }
 
-    private fun removeFromCalendar(view: View) = viewModelScope.launch {
-        val body = JSONObject()
-        body.put("booking_id", bookingId.get())
-        repository.makeCall(
-            ApiEnums.REMOVE_FROM_CALENDAR,
-            true,
-            saveInCache = false,
-            getFromCache = false,
-            requestProcessor = object : ApiProcessor<Response<AddToCalendarResponseModel>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<AddToCalendarResponseModel> {
-                    return retrofitApi.deleteFromCalendar(
-                        Authorization = preferenceFile.retrieveKey("token")!!,
-                        bookingId.get().toString()
-                    )
-                }
-
-                override fun onResponse(res: Response<AddToCalendarResponseModel>) {
-                    if (res.isSuccessful && res.code() == 200) {
-                        if (res.body()?.status == 200) {
-                            CommonMethods.showToast(
-                                CommonMethods.context,
-                                res.body()!!.message.toString()
-                            )
-                        }
-                    }
-                }
-            }
-        )
-    }
 }

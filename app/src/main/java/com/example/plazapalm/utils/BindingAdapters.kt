@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -164,9 +165,31 @@ object BindingAdapters {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter("btnVisi")
+    @JvmStatic
+    fun btnVisi(
+        imageView: AppCompatButton,
+        value: String
+    ) {
+
+        Log.e("ZSDZXC", value.toString())
+
+        if (value.equals("cancelled")) {
+             imageView.visibility = View.GONE
+            Log.e("lkds", value.toString())
+
+        } else {
+            imageView.visibility = View.VISIBLE
+            Log.e("sdsdk", value.toString())
+
+        }
+
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter("setImageVisibilty" , requireAll = false)
+    @BindingAdapter("setImageVisibilty")
     @JvmStatic
     fun setImageVisibilty(
         imageView: ImageView,
@@ -174,18 +197,22 @@ object BindingAdapters {
     ) {
 
         Log.e("ZSDZXC", value.toString())
+        imageView.setImageDrawable(ContextCompat.getDrawable(context,android.R.color.transparent))
 
-        if (value.contains("cancelled")) {
-            imageView.visibility = View.VISIBLE
-            Log.e("asdsdas", value.toString())
+        if (value.equals("cancelled")) {
+//            imageView.visibility = View.VISIBLE
+            imageView.setImageResource(R.drawable.ic_delete_icon)
+            Log.e("lkds", value.toString())
 
         } else {
-            imageView.visibility = View.GONE
-            Log.e("rwrxc", value.toString())
+
+            imageView.setImageDrawable(ContextCompat.getDrawable(context,android.R.color.transparent))
+            Log.e("sdsdk", value.toString())
 
         }
 
     }
+
 
     @BindingAdapter(value = ["onCheckChange"], requireAll = false)
     @JvmStatic

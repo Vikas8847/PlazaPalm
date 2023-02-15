@@ -297,9 +297,48 @@
                     android:paddingVertical="@dimen/_9sdp"
                     android:paddingBottom="@dimen/_1sdp"
                     android:text="@{vm.btnText}"
+                    btnVisi="@{vm.bookingStatusCan}"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/tvBookDetailsDescriptionValue" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBookingDetailsAccept"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@drawable/accepet_back"
+                    android:gravity="center_horizontal"
+                    android:onClick="@{vm::onClicks}"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:paddingVertical="@dimen/_9sdp"
+                    android:paddingBottom="@dimen/_1sdp"
+                    android:text="@string/accept"
+                    btnVisi="@{vm.bookingStatusCan}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/btnBookingDetailsCancel" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBookingDetailsDecline"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@drawable/decline_back"
+                    android:gravity="center_horizontal"
+                    android:onClick="@{vm::onClicks}"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:paddingVertical="@dimen/_9sdp"
+                    android:paddingBottom="@dimen/_1sdp"
+                    android:text="@string/decline"
+                    btnVisi="@{vm.bookingStatusCan}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/btnBookingDetailsAccept" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

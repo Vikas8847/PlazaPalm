@@ -41,7 +41,9 @@ data class postData(
     val profile_title: String?="",
     val tags: String?="",
     val user_id: String?="",
-    val user_name: String?=""
+    val user_name: String?="",
+    val p_id: String?="",
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -112,6 +114,7 @@ data class postData(
         parcel.writeString(tags)
         parcel.writeString(user_id)
         parcel.writeString(user_name)
+        parcel.writeString(p_id)
     }
 
     override fun describeContents(): Int {

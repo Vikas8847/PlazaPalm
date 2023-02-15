@@ -71,8 +71,11 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         Log.e("DasQWK","Work2")
                         viewModel.btnText.set("Delete Reminder")
                         viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
-                    } else if(!(userdata.get(postion).booking_status.toString().isEmpty()) && userdata.get(postion).booking_status.toString().equals("cancelled")){
-                        binding!!.btnBookingDetailsCancel.visibility =View.GONE
+                    } else if(!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                        userdata.get(postion).booking_status.toString().equals("cancelled")){
+
+//                        binding!!.btnBookingDetailsCancel.visibility =View.GONE
+                        viewModel.bookingStatusCan.set("cancelled")
                         viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
 
                     } else {

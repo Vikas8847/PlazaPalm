@@ -687,12 +687,6 @@ class FavDetailsVM @Inject constructor(
         dialog?.show()
     }
 
-
-    private fun setAdapter(rvImages: RecyclerView) {
-        rvImages.adapter
-
-    }
-
     fun getEditLookColor() {
         repository.makeCall(
             ApiEnums.GET_EDITCOLORS,

@@ -89,8 +89,10 @@ class MyProfileVM @Inject constructor(
                 val bundle = Bundle()
                 bundle.putString("comingFromm", "Calendar")
                 bundle.putString("p_id", p_id.get())
+                Log.e("FSDFsd",p_id.get().toString())
                 view.navigateWithId(R.id.action_myProfileFragment_to_calendarFragment, bundle)
             }
+
             R.id.tvFavourite -> {
                 view.navigateWithId(R.id.action_myProfileFragment_to_favouritesFragment)
             }
@@ -143,6 +145,7 @@ class MyProfileVM @Inject constructor(
                     storedImageUrl.set(res.body()?.data?.profile_picture)
 
                     p_id.set(res.body()?.data?.p_id)
+                    Log.e("FSDFsd","ujj"+ res.body()?.data?.p_id.toString())
 
                     Log.e("QWQWQWQW", responseData.toString())
 

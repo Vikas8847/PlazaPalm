@@ -76,8 +76,33 @@
             app:layout_constraintTop_toTopOf="@id/tvClBookingUserDate"
             />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCalendarDelete"
+            android:layout_width="35dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`deleteConfirmBooking`)}"
+            setImageVisibilty="@{model.booking_status}"
+            app:layout_constraintBottom_toTopOf="@+id/ivCalenderChat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCalenderChat"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`calendarBookingToChat`)}"
+            android:src="@drawable/ic_chat_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCalendarDelete" />
+
+     <!--   <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCalendarDelete"
             android:layout_width="35dp"
             android:layout_height="25dp"
@@ -102,7 +127,7 @@
             android:src="@drawable/ic_chat_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCalendarDelete" />
+            app:layout_constraintTop_toBottomOf="@id/ivCalendarDelete" />-->
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvClBookLocationName"
