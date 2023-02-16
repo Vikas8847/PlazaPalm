@@ -19,7 +19,7 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback19;
+    private final android.view.View.OnClickListener mCallback20;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -37,7 +37,7 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
         this.tvSelectCategory.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback19 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback20 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -199,7 +199,7 @@ public class CategoriesListItemsBindingImpl extends CategoriesListItemsBinding i
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.clCategoriesList.setOnClickListener(mCallback19);
+            this.clCategoriesList.setOnClickListener(mCallback20);
         }
         if ((dirtyFlags & 0x9L) != 0) {
             // api target 1

@@ -69,17 +69,28 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             viewModel.bookingStatus.set("Booking Status : " + "PENDING")
 
                         } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString()
-                                .equals("reminderBooking")) {
+                            userdata.get(postion).booking_status.toString().equals("reminderBooking")) {
+
                             viewModel.bookingStatusCan.set("reminderBooking")
                             viewModel.btnText.set("Delete Reminder")
                             viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
 
                         } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("cancelled")
-                        ) {
+                            userdata.get(postion).booking_status.toString().equals("cancelled")) {
+
                             viewModel.bookingStatusCan.set("cancelled")
                             viewModel.bookingStatus.set("Booking Status : " + "CANCELLED")
+
+                        }else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("declined")) {
+                            viewModel.bookingStatusCan.set("declined")
+                            viewModel.bookingStatus.set("Booking Status : " + "DECLINED")
+
+                        }else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("accepted")) {
+                            viewModel.bookingStatusCan.set("accepted")
+                            viewModel.btnText.set("Cancel Booking")
+                            viewModel.bookingStatus.set("Booking Status : " + "ACCEPTED")
 
                         } else {
                             Log.e("DasQWK", "Work3")
@@ -126,12 +137,17 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             viewModel.bookingStatusCan.set("accepted")
                             viewModel.btnText.set("Cancel Booking")
                             viewModel.bookingStatus.set("Booking Status : " + "ACCEPTED")
+                        } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("declined")) {
+
+                            viewModel.bookingStatus.set("Booking Status : " + "DECLINED")
+                            viewModel.bookingStatusCan.set("declined")
+
                         } else {
                             Log.e("DasQWK", "Work3")
-                            viewModel.bookingStatus.set("Category : " + "Shops")
+                            viewModel.bookingStatus.set("Booking Status : " + "Shops")
                         }
                     }
-
 
                     // old code
 

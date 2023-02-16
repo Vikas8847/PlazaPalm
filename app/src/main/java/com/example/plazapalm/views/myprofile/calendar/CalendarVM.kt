@@ -118,6 +118,7 @@ class CalendarVM @Inject constructor(
 
                 }
                 deleteConfirmBooking ->{
+
                     deleteBooking(position)
                 }
 
@@ -129,10 +130,14 @@ class CalendarVM @Inject constructor(
 
         Log.e(
             "CXVDD",
-            pref.retrieveKey("token").toString() + "XXXZXZ " + booking_id.get().toString()
+            pref.retrieveKey("token").toString() + "XXXZXZ " +
+
+                   adapterCalendar.getAllItems()[position]._id
         )
+        val bookingID = adapterCalendar.getAllItems()[position]._id
+
         val jsonobject = JsonObject()
-        jsonobject.addProperty("booking_id",booking_id.get().toString())
+        jsonobject.addProperty("booking_id",bookingID)
 
         repository.makeCall(ApiEnums.GETPROFILE_BYCATE,
             loader = true,
@@ -179,7 +184,6 @@ class CalendarVM @Inject constructor(
 
     var calendarMutableResponse = MutableLiveData<ArrayList<Calendar>>()
 
-
     fun getCalanderDataMonthWise(month: Int, year: Int) {
 
         Log.e("PFDXCXs",  pref.retrieveKey("token").toString() +" v " + p_Id.get().toString()+"  -- " +month+"  -  "+year )
@@ -204,16 +208,6 @@ class CalendarVM @Inject constructor(
                             for (i in 0 until res.body()!!.data.size) {
                                 SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
 
-                                if (res.body()!!.data[i]!!.booking_status.equals("cancelled")){
-//                                    isBookStatus.value = res.body()!!.data[i]!!.booking_status as Boolean
-
-                                    isBookingStatus.set(true)
-
-                                    Log.e("CXCSS" , res.body()!!.data[i]!!.booking_status.toString())
-                                    Log.e("CXCSSLLZZz" ,isBookingStatus.get().toString() )
-
-                                }
-
                             }
 
                             for (i in 0 until res.body()!!.data.size) {
@@ -236,6 +230,9 @@ class CalendarVM @Inject constructor(
                                 Log.e("FQWQWQQQ2", "$month  F ")
                                 Log.e("FQWQWQQQ3", "$fDay  B ")
                                 calendarList.add(calendars4!!)
+
+
+                                Log.e("bookinggIDD -- ",res.body()!!.data[i]?._id.toString())
                             }
 
                             calendarMutableResponse.value = calendarList
@@ -244,11 +241,11 @@ class CalendarVM @Inject constructor(
                             adapterCalendar.addItems(calendarBookingList)
                             adapterCalendar.notifyDataSetChanged()
 
-                            if (res.body()!!.data.isEmpty()) {
-                                booking_id.set("")
-                            } else {
-                                booking_id.set(res.body()!!.data[0]?._id.toString())
-                            }
+//                            if (res.body()!!.data.isEmpty()) {
+//                                booking_id.set("")
+//                            } else {
+//                                booking_id.set(res.body()!!.data[0]?._id.toString())
+//                            }
 
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.message())
