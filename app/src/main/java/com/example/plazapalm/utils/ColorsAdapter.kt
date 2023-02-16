@@ -50,11 +50,8 @@ class ColorsAdapter(
             photos: ArrayList<ChooseColor>,
             position: Int  ) {
 
-
             Log.e("SDFFFFF",photos[position].color.toString())
             bindining.changeColors.setBackgroundColor(requireActivity.getColor(photos[position].color!!))
-
-
 
             bindining.changeClick.setOnClickListener{
                 Log.e("DFSDSf",position.toString() +  "VVVVV---- "+ photos[position].color)
