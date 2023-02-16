@@ -47,8 +47,7 @@ class BookingDetailsVM @Inject constructor(
     var btnText = ObservableField("")
 
 
-
-    fun onClicks(view : View) {
+    fun onClicks(view: View) {
         when (view.id) {
 
             R.id.ivBookingDetailsBack -> {
@@ -57,7 +56,6 @@ class BookingDetailsVM @Inject constructor(
 
             R.id.btnBookingDetailsCancel -> {
 
-                Log.e("ASCCZZ", "WORKINGg9")
 
                 if (btnText.get()?.trim().equals("Cancel Booking")) {
                     getBookingStatus("cancelled")
@@ -87,18 +85,18 @@ class BookingDetailsVM @Inject constructor(
 
                 var userImage = ""
                 if (!imageUrl.get().toString().isNullOrEmpty()) {
-                    userImage =imageUrl.get().toString()
-                }else{
+                    userImage = imageUrl.get().toString()
+                } else {
                     userImage = IMAGE_LOAD_URL + R.drawable.placeholder
                 }
 
                 val chatData = Bundle()
                 chatData.putString("CommingFrom", "CalendarScreen")
-                chatData.putString("user_Id",userIdForChat.get().toString())
-                chatData.putString("user_name",userFLName.get().toString())
+                chatData.putString("user_Id", userIdForChat.get().toString())
+                chatData.putString("user_name", userFLName.get().toString())
                 chatData.putString("userImage", userImage)
 
-                view.navigateWithId(R.id.action_bookingDetailsFragment_to_chatFragment,chatData)
+                view.navigateWithId(R.id.action_bookingDetailsFragment_to_chatFragment, chatData)
 
             }
 
@@ -113,14 +111,17 @@ class BookingDetailsVM @Inject constructor(
                     R.id.action_bookingDetailsFragment_to_favDetailsFragment,
                     bundle
                 )
-                Log.e("SAASAqqwqwq",userPostProfileId.get().toString())
-                view.navigateWithId(R.id.action_bookingDetailsFragment_to_favDetailsFragment,bundle)
+                Log.e("SAASAqqwqwq", userPostProfileId.get().toString())
+                view.navigateWithId(
+                    R.id.action_bookingDetailsFragment_to_favDetailsFragment,
+                    bundle
+                )
             }
 
         }
     }
 
-    private fun getBookingStatus(BookingStatus :String) = viewModelScope.launch {
+    private fun getBookingStatus(BookingStatus: String) = viewModelScope.launch {
 
         Log.e(
             "FSDFSDFQ",
@@ -145,11 +146,37 @@ class BookingDetailsVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<BookingStatusInputResponse>) {
-                    Log.e("RESEER", res.body().toString())
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
-                            bookingStatus.set("Booking Status : " + "cancelled")
-                            bookingStatusCan.set("cancelled")
+
+                            Log.e("RESEER", res.body().toString())
+
+                            if (userType.get().toString().equals("provider")) {
+
+                                if (res.body()!!.message.equals("accepted")) {
+
+                                    bookingStatus.set("Booking Status : " + "ACCEPTED")
+                                    bookingStatusCan.set("accepted")
+                                } else if (res.body()!!.message.equals("cancelled")) {
+                                    bookingStatus.set("Booking Status : " + "CANCELLED")
+                                    bookingStatusCan.set("cancelled")
+                                } else if (res.body()!!.message.equals("declined")) {
+                                    bookingStatus.set("Booking Status : " + "DECLINED")
+                                    bookingStatusCan.set("declined")
+                                }
+                            } else if (userType.get().toString().equals("customer")) {
+
+                                if (res.body()!!.message.equals("accepted")) {
+                                    bookingStatus.set("Booking Status : " + "ACCEPTED")
+                                    bookingStatusCan.set("accepted")
+                                } else if (res.body()!!.message.equals("cancelled")) {
+                                    bookingStatus.set("Booking Status : " + "CANCELLED")
+                                    bookingStatusCan.set("cancelled")
+                                } else if (res.body()!!.message.equals("declined")) {
+                                    bookingStatus.set("Booking Status : " + "DECLINED")
+                                    bookingStatusCan.set("declined")
+                                }
+                            }
 
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.message())
@@ -163,9 +190,10 @@ class BookingDetailsVM @Inject constructor(
             })
 
     }
+
     fun removeFromCalendar(view: View) = viewModelScope.launch {
 
-        Log.e("ASDSDZXZSWw",booking_id.get().toString())
+        Log.e("ASDSDZXZSWw", booking_id.get().toString())
 
         val body = JsonObject()
         body.addProperty("booking_id", booking_id.get().toString())
@@ -187,7 +215,7 @@ class BookingDetailsVM @Inject constructor(
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body()?.status == 200) {
 
-                            Log.e("DAAZFErf",res.body().toString())
+                            Log.e("DAAZFErf", res.body().toString())
 
                             view.navigateBack()
 
@@ -203,7 +231,7 @@ class BookingDetailsVM @Inject constructor(
         )
     }
 
-     fun getDataofCustomer(BookingStatus :String) = viewModelScope.launch {
+    fun getDataofCustomer(BookingStatus: String) = viewModelScope.launch {
 
         Log.e(
             "FSDFSDFQ",

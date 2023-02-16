@@ -140,14 +140,24 @@ object BindingAdapters {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter(value = ["setUserName"], requireAll = false)
+    @BindingAdapter(
+        value = ["setPostPsrofileName", "setCustomerName", "userType"],
+        requireAll = false
+    )
     @JvmStatic
-    fun setUserName(
+    fun setPostPsrofileName(
         textView: TextView,
-        value: String,
+        porviderName: String,
+        CustomerName: String,
+        userType: String,
     ) {
-        textView.text = value
-        Log.e("QOWIEWww", value)
+        if (userType.equals("customer")) {
+            textView.text = porviderName
+            Log.e("QOWIEWww", porviderName)
+        } else if (userType.equals("provider")) {
+            textView.text = CustomerName
+            Log.e("QOWIEWww", porviderName)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -166,17 +176,22 @@ object BindingAdapters {
 
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter("btnVisi","userType")
+    @BindingAdapter("btnVisi", "userType")
     @JvmStatic
     fun btnVisi(imageView: AppCompatButton, value: String, userType: String) {
 
         if (userType.equals("customer")) {
-            Log.e("ZSDZXC", userType.toString()+"1")
+            Log.e("ZSDZXC", userType.toString() + "1")
 
             if (value.equals("reminderBooking")) {
                 imageView.visibility = View.VISIBLE
                 Log.e("lkds", value.toString())
+
+            } else if (value.equals("declined")) {
+                imageView.visibility = View.GONE
+                Log.e("lkds1", value.toString())
 
             } else if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
@@ -187,17 +202,17 @@ object BindingAdapters {
                 imageView.visibility = View.VISIBLE
                 Log.e("lkds", value.toString())
 
-            } /*else if (value.equals("accepted")) {
-            imageView.visibility = View.VISIBLE
-            imageView.text = "Cancel Booking"
-            Log.e("lkds", value.toString())
+            } else if (value.equals("accepted")) {
+                imageView.visibility = View.VISIBLE
+                imageView.text = "Cancel Booking"
+                Log.e("lkds", value.toString())
 
-        }*/ else {
+            } else {
                 imageView.visibility = View.VISIBLE
             }
 
-        } else if(userType.equals("provider")){
-            Log.e("ZSDZXC", userType.toString() +"2")
+        } else if (userType.equals("provider")) {
+            Log.e("ZSDZXC", userType.toString() + "2")
 
             if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
@@ -209,27 +224,30 @@ object BindingAdapters {
                 Log.e("lkds2", value.toString())
 
             } else if (value.equals("accepted")) {
-            imageView.visibility = View.VISIBLE
-            imageView.text = "Cancel Booking"
-            Log.e("lkds3", value.toString())
+                imageView.visibility = View.VISIBLE
+                imageView.text = "Cancel Booking"
+                Log.e("lkds3", value.toString())
 
-        } else {
+            } else {
                 imageView.visibility = View.VISIBLE
             }
         }
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter("accpeted","userTypeA")
+    @BindingAdapter("accpeted", "userTypeA")
     @JvmStatic
     fun accpeted(imageView: AppCompatButton, value: String, userTypeA: String) {
 
         Log.e("ZSDZXC", value.toString())
 
         if (userTypeA.equals("customer")) {
-            if (value.equals("cancelled")) {
+//            declined
+            if (value.equals("declined")) {
+                imageView.visibility = View.GONE
+                Log.e("lkds1", value.toString())
+
+            } else if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
                 Log.e("lkds1", value.toString())
 
@@ -273,18 +291,79 @@ object BindingAdapters {
 
     }
 
+
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter("setImageVisibilty")
+    @BindingAdapter("Decline", "userTypeDec")
+    @JvmStatic
+    fun Decline(imageView: AppCompatButton, value: String, userTypeDec: String) {
+
+        Log.e("ZSDZXC", value.toString())
+
+        if (userTypeDec.equals("customer")) {
+//            declined
+            if (value.equals("declined")) {
+                imageView.visibility = View.GONE
+                Log.e("lkds1", value.toString())
+
+            } else if (value.equals("cancelled")) {
+                imageView.visibility = View.GONE
+                Log.e("lkds1", value.toString())
+
+            } else if (value.equals("pending")) {
+//            imageView.text= "Accepted"
+                imageView.visibility = View.GONE
+                Log.e("lkds2", value.toString())
+
+            } else if (value.equals("reminderBooking")) {
+                imageView.visibility = View.GONE
+                Log.e("lkds3", value.toString())
+
+            } else if (value.equals("accepted")) {
+                imageView.text = "Accepted"
+                Log.e("lkds3", value.toString())
+
+            } else {
+                Log.e("lkds4", value.toString())
+                imageView.visibility = View.VISIBLE
+            }
+        } else {
+            if (value.equals("cancelled")) {
+                imageView.visibility = View.GONE
+                Log.e("lkds1", value.toString())
+
+            } else if (value.equals("pending")) {
+//            imageView.text= "Accepted"
+                imageView.visibility = View.VISIBLE
+                Log.e("lkds2", value.toString())
+
+            } else if (value.equals("accepted")) {
+                imageView.text = "Accepted"
+                Log.e("lkds3", value.toString())
+
+            } else if (value.equals("declined")) {
+                imageView.visibility = View.VISIBLE
+                Log.e("lkds1", value.toString())
+
+            } else {
+                Log.e("lkds4", value.toString())
+                imageView.visibility = View.VISIBLE
+            }
+        }
+
+
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter("setImageVisibilty" )
     @JvmStatic
     fun setImageVisibilty(
         imageView: ImageView,
-        value: String
+        value: String,
     ) {
-
-        Log.e("ZSDZXC", value.toString())
         imageView.setImageDrawable(ContextCompat.getDrawable(context, android.R.color.transparent))
 
-        if (value.equals("cancelled")) {
+        if (value.equals("cancelled") || value.equals("declined")) {
 //            imageView.visibility = View.VISIBLE
             imageView.setImageResource(R.drawable.ic_delete_icon)
             Log.e("lkds", value.toString())
@@ -297,6 +376,7 @@ object BindingAdapters {
                     android.R.color.transparent
                 )
             )
+
             Log.e("sdsdk", value.toString())
 
         }
@@ -350,9 +430,8 @@ object BindingAdapters {
         setCalndarUserType: String
     ) {
         if (setCalndarUserType.equals("provider")) {
-            if (bookingStatus.equals("pending") || bookingStatus.equals("cancelled") || bookingStatus.equals(
-                    "accepted"
-                )
+            if (bookingStatus.equals("pending") || bookingStatus.equals("cancelled") ||
+                bookingStatus.equals("accepted") || bookingStatus.equals("declined")
             ) {
                 Log.e("SDSD", "sdwwwwwwa")
 
@@ -369,7 +448,10 @@ object BindingAdapters {
             }
 
         } else if (setCalndarUserType.equals("customer")) {
-            if (bookingStatus.equals("pending") || bookingStatus.equals("cancelled")) {
+            if (bookingStatus.equals("pending") || bookingStatus.equals("cancelled") ||
+                bookingStatus.equals("accepted") || bookingStatus.equals("declined")
+            ) {
+
                 Log.e("SDSD", "sdwwwwwwa")
 
                 view.background =
@@ -378,12 +460,12 @@ object BindingAdapters {
                         R.drawable.booking_caalnar_back
                     ))
 
-            } else {
+            } else if (bookingStatus.equals("reminderBooking")) {
+
                 view.background = (ContextCompat.getDrawable(
                     MainActivity.context.get()!!,
                     R.drawable.add_calander_back
                 ))
-//            view.background = ContextCompat.getDrawable(view.context, )
                 Log.e("SDSD", "1231321324563")
 
             }
@@ -728,11 +810,10 @@ object BindingAdapters {
 
     @BindingAdapter(value = ["setTime"], requireAll = false)
     @JvmStatic
-    fun setTime(textView:TextView,milisecondtime:Any)
-    {
+    fun setTime(textView: TextView, milisecondtime: Any) {
         //02:30 PM
-        var formatter =  SimpleDateFormat("hh:mm a");
-        var newTime=milisecondtime as Long
+        var formatter = SimpleDateFormat("hh:mm a");
+        var newTime = milisecondtime as Long
         var dateString = formatter.format(Date(newTime))
         textView.text = dateString
     }

@@ -337,6 +337,8 @@
                     android:paddingHorizontal="@dimen/_5sdp"
                     android:visibility="gone"
                     android:paddingVertical="@dimen/_9sdp"
+                    Decline="@{vm.bookingStatusCan}"
+                    userTypeDec="@{vm.userType}"
                     android:paddingBottom="@dimen/_1sdp"
                     android:text="@string/decline"
                     android:textAllCaps="false"

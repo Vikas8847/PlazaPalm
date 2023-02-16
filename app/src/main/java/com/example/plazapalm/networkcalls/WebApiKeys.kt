@@ -57,7 +57,6 @@ const val GALLERYPOST  = "galleryPost"
 const val GALLERYGET  = "galleryGet"
 const val DELETE_MEDIA  = "deleteMedia"
 
-
 const val GET_FONTS  = "frontPageGet"
 const val POST_FONTS="frontPage"
 
