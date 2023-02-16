@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.Constants
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONObject
@@ -23,7 +24,7 @@ import javax.inject.Inject
 class FirebaseService @Inject constructor(
 //    val pref: PreferenceFile,
 //    val dataStore: DataStoreUtil
- ) : FirebaseMessagingService() {
+) : FirebaseMessagingService() {
 
     private lateinit var mNotificationManager: NotificationManager
 
@@ -37,30 +38,39 @@ class FirebaseService @Inject constructor(
         super.onMessageReceived(message)
         Log.e("NEW___TOKKEN == ", message.toString())
         val dataObject = JSONObject(message.data["data"])
-        var otherUserId = dataObject.getString("senderID")
-        var loginId = dataObject.getString("receiverID")
-        showNotification(dataObject)
+      /*  var otherUserId = dataObject.getString("senderID")
+        var loginId = dataObject.getString("receiverID")*/
+
+        if (dataObject.has("type") && dataObject.getString("type").equals("chat")) {
+            var chatID = dataObject.getString("chatID")
+            if (Constants.CURRENTCHATID != chatID) {
+                showNotification(dataObject)
+                Log.e("Show_Notification===", "Yes")
+            } else {
+                Log.e("Show_Notification===", "No")
+            }
+        }
     }
 
     private fun showNotification(data: JSONObject) {
         val random = Random()
         val generatedPassword = String.format("%06d", random.nextInt(10000))
 
-     /*   var checkData = MyUtils.getString(applicationContext, "app_kill")
-        var intent: Intent? = null
-        Log.e("egmwgawgeagegeg===", checkData.toString())
-        if (checkData.equals("start")) {
-            intent = Intent(this, ChatActivity::class.java)
-        } else {
-            intent = Intent(this, HomeActivity::class.java)
-            intent.putExtra("chat_open_screen", "Noti")
-        }
+        /*   var checkData = MyUtils.getString(applicationContext, "app_kill")
+           var intent: Intent? = null
+           Log.e("egmwgawgeagegeg===", checkData.toString())
+           if (checkData.equals("start")) {
+               intent = Intent(this, ChatActivity::class.java)
+           } else {
+               intent = Intent(this, HomeActivity::class.java)
+               intent.putExtra("chat_open_screen", "Noti")
+           }
 
-        intent.putExtra(MyConstants.OTHER_USER_ID, data.getString("senderID"))
-        intent.putExtra(MyConstants.CHAT_SCREEN_TYPE, "1")
-        intent.putExtra(MyConstants.OTHER_USER_DETAIL, data.getString("userName"))
-        intent.putExtra(MyConstants.SNOOZE_STATUS, "0")
-        intent.putExtra(MyConstants.SUPERLIKE_STATUS, false)*/
+           intent.putExtra(MyConstants.OTHER_USER_ID, data.getString("senderID"))
+           intent.putExtra(MyConstants.CHAT_SCREEN_TYPE, "1")
+           intent.putExtra(MyConstants.OTHER_USER_DETAIL, data.getString("userName"))
+           intent.putExtra(MyConstants.SNOOZE_STATUS, "0")
+           intent.putExtra(MyConstants.SUPERLIKE_STATUS, false)*/
 
 
         //  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -92,14 +102,14 @@ class FirebaseService @Inject constructor(
             userName = data.getString("userName")
         }
 
-        Log.e("fefkewfkewfwefewf====",data.toString())
-                if (mesageType.lowercase(Locale.getDefault()).equals("text")) {
-                    title = "$userName sent a message to you"
-                    message = data.getString("message")
-                } else {
-                    title = userName
-                    message = data.getString("message")
-                }
+        Log.e("fefkewfkewfwefewf====", data.toString())
+        if (mesageType.lowercase(Locale.getDefault()).equals("text")) {
+            title = "$userName sent a message to you"
+            message = data.getString("message")
+        } else {
+            title = userName
+            message = data.getString("message")
+        }
 
         /*
         Add new parameter in Data object("message_type")

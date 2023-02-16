@@ -159,6 +159,7 @@ var CURRENT_LOCATION_LONG:String="current_location_long"
 
     var MILES_TEXT:String="mi"
 
+    var CURRENTCHATID:String?=""
 
 
 }
