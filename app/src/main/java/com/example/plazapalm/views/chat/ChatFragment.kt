@@ -20,6 +20,7 @@ import com.example.plazapalm.datastore.LOGIN_DATA
 import com.example.plazapalm.models.GetProfileResponseModel
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -43,7 +44,7 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = ChatFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
@@ -51,10 +52,9 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         return binding?.root
     }
 
-    fun addObserverToBottom()
-    {
+    fun addObserverToBottom() {
         viewModel.scrollToBottomData.observe(requireActivity(), Observer {
-            binding?.rvChats?.scrollToPosition(viewModel.chatAdapter.dataList.size-1)
+            binding?.rvChats?.scrollToPosition(viewModel.chatAdapter.dataList.size - 1)
         })
     }
 
@@ -70,9 +70,9 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     private fun getLocal() {
 
-        if (pref.retrieISblock(IS_BLOCK)!=null){
+        if (pref.retrieISblock(IS_BLOCK) != null) {
             viewModel.isUserBlocked.set(pref.retrieISblock(IS_BLOCK)!!)
-            Log.e("khkws" , pref.retrieISblock(IS_BLOCK).toString())
+            Log.e("khkws", pref.retrieISblock(IS_BLOCK).toString())
         }
 
         if (arguments != null) {
@@ -150,9 +150,9 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
             /** Sender Data */
 
             if (it != null) {
-                viewModel.senderUserID.set(it?.data?.user_id.toString())
-                viewModel.senderUserName.set(it?.data?.user_name.toString())
-                viewModel.senderUserImage.set(it?.data?.profile_picture.toString())
+                viewModel.senderUserID.set(it.data?.user_id.toString())
+                viewModel.senderUserName.set(it.data?.user_name.toString())
+                viewModel.senderUserImage.set(it.data?.profile_picture.toString())
             } else {
                 viewModel.senderUserImage.set(R.drawable.placeholder.toString())
             }
@@ -192,8 +192,8 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
         binding?.sendMessageTv?.setOnTouchListener(OnTouchListener { v, event ->
             val DRAWABLE_RIGHT = 2
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= binding?.sendMessageTv!!.getRight() - binding?.sendMessageTv!!.getCompoundDrawables()
-                        .get(DRAWABLE_RIGHT).getBounds().width()
+                if (event.rawX >= binding?.sendMessageTv!!.right - binding?.sendMessageTv!!.compoundDrawables
+                        .get(DRAWABLE_RIGHT).bounds.width()
                 ) {
                     Log.e("ADACHASHA", "WORKINGFINEE")
 
@@ -217,11 +217,11 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
 
         binding!!.rvChats.setOnClickListener {
-            Log.e("ASDDs","WORKING")
+            Log.e("ASDDs", "WORKING")
         }
 
         binding!!.fullScreen.setOnClickListener {
-            Log.e("ASDDs","WORKING")
+            Log.e("ASDDs", "WORKING")
         }
 
     }
@@ -243,7 +243,8 @@ class ChatFragment : Fragment(R.layout.chat_fragment) {
 
     }
 
-
-
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Constants.CURRENTCHATID = ""
+    }
 }

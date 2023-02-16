@@ -239,7 +239,7 @@ class ChatVM @Inject constructor(
     }
 
     fun getChatuid(bothID1: String) {
-
+        Constants.CURRENTCHATID = ""
         val db = getInstance()
 
         db.collection("Chats").whereEqualTo("ChatID", bothID1.toString())
@@ -267,6 +267,7 @@ class ChatVM @Inject constructor(
                 }
 
                 if (!(bothID.equals(""))) {
+                    Constants.CURRENTCHATID=bothID
                     fetchdata(bothID!!)
                     fetchUserDataMethod(bothID!!)
                 }
@@ -407,7 +408,7 @@ class ChatVM @Inject constructor(
 
                     if (!(fcmToken.get().toString().equals(""))) {
                         sendNotificationMethod(messageText.get().toString(),
-                            reciverUserName.get().toString(),
+                            senderUserName.get().toString(),
                             senderUserID.get().toString(),
                             reciverUserID.get().toString(),
                             bothID.toString())
@@ -543,7 +544,7 @@ class ChatVM @Inject constructor(
 
 
     private fun sendNotificationMethod(
-        message: String, reciverUserName: String,
+        message: String, senderUserName: String,
         senderId: String, receiverId: String, bothID: String,
     ) {
 
@@ -554,7 +555,7 @@ class ChatVM @Inject constructor(
             senderId,
             receiverId,
             message,
-            reciverUserName,
+            senderUserName,
             "",
             bothID,
             "",
@@ -634,10 +635,10 @@ class ChatVM @Inject constructor(
                     data.put("event", "message")
                     //  root.put("notification", data)
 
-                    if (otherUserOSType.equals("1")) {
+                    /*if (otherUserOSType.equals("1")) {
                         root.put("notification", notification)
                     }
-
+*/
                     root.put("data", data)
                     root.put("registration_ids", recipients)
                     root

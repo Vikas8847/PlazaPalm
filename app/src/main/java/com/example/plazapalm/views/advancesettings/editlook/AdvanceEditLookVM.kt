@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -17,6 +18,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.toColorInt
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.lifecycle.MutableLiveData
@@ -101,10 +103,21 @@ class AdvanceEditLookVM @Inject constructor(
     var backgroundColor = ObservableField("")
     var backgroundType = ObservableField("color")
     var columnColor = ObservableField("")
+    var tempColumnColor = ObservableField("")
+
+
+
     var columnOpacity = ObservableFloat()
     var borderOpacity = ObservableFloat(0f)
+    var tempBorderOpacity = ObservableFloat(0f)
+
+
     var borderWidth = ObservableFloat()
+    var tempBorderWidth = ObservableFloat()
     var borderColor = ObservableField("")
+    var borderTempColor = ObservableField("")
+
+
     var fontName = ObservableField("mdgdfg")
     var fontColor = ObservableField("")
     var fontSize = ObservableFloat()
@@ -1428,6 +1441,97 @@ class AdvanceEditLookVM @Inject constructor(
             })
     }
 
+    fun setAllColors(layoutColrs:ConstraintLayout,textView: TextView,type:Int,borderView:CardView)
+    {
+        var setColumnColor=0
+        if(columnColor.get().toString().equals(""))
+        {
+            setColumnColor="#00000000".toColorInt()
+        }else
+        {
+            setColumnColor=columnColor.get().toString().toColorInt()
+        }
+
+        var setBorderColor=0
+        if(borderColor.get().toString().equals(""))
+        {
+            setBorderColor="#00000000".toColorInt()
+        }else
+        {
+            setBorderColor=borderColor.get().toString().toColorInt()
+        }
+
+
+        var setBorderWidth=0
+        if(borderWidth.get().toString()=="" || borderWidth.get().toString()=="0" || borderWidth.get().toString()=="0.0")
+        {
+            setBorderWidth=5
+        }else
+        {
+            setBorderWidth=borderWidth.get().toString().toInt()
+        }
+
+
+
+        borderView.alpha=borderOpacity.get()
+
+        val drawable2 = GradientDrawable()
+        drawable2.shape = GradientDrawable.RECTANGLE
+        drawable2.setStroke(setBorderWidth, setBorderColor)
+
+        drawable2.cornerRadius = 20f
+       // drawable2.setColor(setColumnColor)
+       // drawable2.alpha=columnOpacity.get().toInt()
+        borderView!!.setBackgroundDrawable(drawable2)
+        borderView.alpha=borderOpacity.get()
+
+
+
+
+        val drawable = GradientDrawable()
+        drawable.shape = GradientDrawable.RECTANGLE
+        drawable.setStroke(setBorderWidth, setBorderColor)
+
+        drawable.cornerRadius = 20f
+        drawable.setColor(setColumnColor)
+        drawable.alpha=columnOpacity.get().toInt()
+        layoutColrs!!.setBackgroundDrawable(drawable)
+
+        if(type!=0) {
+            textView.visibility=View.VISIBLE
+            if (fontColor.get().toString().equals("")) {
+                textView.setTextColor(Color.BLACK)
+            } else {
+                textView.setTextColor(fontColor.get().toString().toColorInt())
+            }
+        }else
+        {
+            textView.visibility=View.GONE
+        }
+    }
+
+//Only For Background color
+    private fun setFirstBackgroundColor(layoutColrs:ConstraintLayout)
+    {
+        var setBackgroundColor=0
+        if(backgroundColor.get()
+                .toString()=="")
+        {
+            setBackgroundColor="#00000000".toColorInt()
+        }else
+        {
+            setBackgroundColor=backgroundColor.get().toString().toColorInt()
+        }
+
+        val drawable = GradientDrawable()
+        drawable.shape = GradientDrawable.RECTANGLE
+        drawable.setStroke(0, "#00000000".toColorInt())
+
+        drawable.cornerRadius = 20f
+        drawable.setColor(setBackgroundColor)
+        layoutColrs!!.setBackgroundDrawable(drawable)
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("NotifyDataSetChanged", "ResourceAsColor", "CutPasteId", "ResourceType")
     private fun showColorDialog(From: String) {
@@ -1461,27 +1565,36 @@ class AdvanceEditLookVM @Inject constructor(
                 opacity_tv?.visibility = View.GONE
                 size_tv?.visibility = View.GONE
                 SelectedDialog.set(Background_color)
+
+                setFirstBackgroundColor(layoutColrs!!)
+
+               /* if(!(backgroundColor.get().toString().equals(""))) {
+                    layoutColrs?.setBackgroundColor(Color.parseColor(backgroundColor.get()
+                        .toString()))
+                }*/
                 Log.e("SDAFSDFF", titlename.get().toString())
             }
             //for column ...
             COLUMN -> {
+                val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
+                tempColumnColor=columnColor
                 if (preferenceFile.retviecolorString("COLUMN_COLOR") != null
-                    && preferenceFile.retviecolorString("COLUMN_COLOR")!! != ""
-                    && preferenceFile.retvieopacity(COLUMN_OPACITY) != null
-                    && !preferenceFile.retvieopacity(COLUMN_OPACITY)!!.equals("")
+                    || preferenceFile.retviecolorString("COLUMN_COLOR")!! != ""
+                    || preferenceFile.retvieopacity(COLUMN_OPACITY) != null
+                    || !preferenceFile.retvieopacity(COLUMN_OPACITY)!!.equals("")
                 ) {
                     title?.text = "Column Color"
                     slider_size?.visibility = View.GONE
                     size_tv?.visibility = View.GONE
                     sliderOpacitty?.visibility = View.VISIBLE
                     SelectedDialog.set(Column_color)
-                    layoutColrs?.setBackgroundColor(
+                  /*  layoutColrs?.setBackgroundColor(
                         Color.parseColor(
                             preferenceFile.retviecolorString(
                                 "COLUMN_COLOR"
                             )
                         )
-                    )
+                    )*/
                     try {
                         columnOpacity.set(preferenceFile.retvieopacity(COLUMN_OPACITY)!!)
                         sliderOpacitty?.value = columnOpacity.get()
@@ -1496,6 +1609,13 @@ class AdvanceEditLookVM @Inject constructor(
                         preferenceFile.storeopacity(COLUMN_OPACITY, alpha)
                         Log.e("WOrking11222", "---$value")
                     }
+
+                   /* if(!(columnColor.get().toString().equals(""))) {
+                        layoutColrs?.setBackgroundColor(Color.parseColor(columnColor.get()
+                            .toString()))
+                    }*/
+                //    setAllColors(layoutColrs!!,changeColor!!,0)
+                    setAllColors(layoutColrs!!,changeColor!!,0,borderView)
                 } else {
                     /**Coloumn color..**/
                     title?.text = "Column Color"
@@ -1510,31 +1630,33 @@ class AdvanceEditLookVM @Inject constructor(
                         preferenceFile.storeopacity(COLUMN_OPACITY, alpha)
                         Log.e("WOrking11222", "---$value")
                     }
+                   // setAllColors(layoutColrs!!,changeColor!!,0)
+                    setAllColors(layoutColrs!!,changeColor!!,0,borderView)
                 }
+
+
             }
             //working
             //for border ..
             Constants.BORDER -> {
                 val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
                 if (preferenceFile.retviecolorString("BORDER_COLOR") != null
-                    && preferenceFile.retviecolorString("BORDER_COLOR") != ""
-                    && preferenceFile.retviecolorString("COLUMN_COLOR") != null
-                    && preferenceFile.retviecolorString("COLUMN_COLOR") != ""
-                    && preferenceFile.retvieopacity(BORDER_OPACITY) != null
-                    && !preferenceFile.retvieopacity(BORDER_OPACITY)?.equals("")!!
-                    && preferenceFile.retviesize(BORDER_WIDTH) != null
-                    && !preferenceFile.retviesize(BORDER_WIDTH)?.equals("")!!
-                    && preferenceFile.retvieopacity(FONT_OPACITY) != null
-                    && !preferenceFile.retvieopacity(FONT_OPACITY)!!.equals("")
+                    || preferenceFile.retviecolorString("BORDER_COLOR") != ""
+                    || preferenceFile.retviecolorString("COLUMN_COLOR") != null
+                    || preferenceFile.retviecolorString("COLUMN_COLOR") != ""
+                    || preferenceFile.retvieopacity(BORDER_OPACITY) != null
+                    || !preferenceFile.retvieopacity(BORDER_OPACITY)?.equals("")!!
+                    || preferenceFile.retviesize(BORDER_WIDTH) != null
+                    || !preferenceFile.retviesize(BORDER_WIDTH)?.equals("")!!
+                    || preferenceFile.retvieopacity(FONT_OPACITY) != null
+                    || !preferenceFile.retvieopacity(FONT_OPACITY)!!.equals("")
                 ) {
+                    tempBorderOpacity=borderOpacity
+                    borderTempColor=borderColor
+                    tempBorderWidth=borderWidth
                     setBorderBackground(borderView, borderSlideValue, selectedbackgrouncolor)
-                    layoutColrs?.setBackgroundColor(
-                        Color.parseColor(
-                            preferenceFile.retviecolorString(
-                                "COLUMN_COLOR"
-                            )
-                        )
-                    )
+                   // layoutColrs?.setBackgroundColor(Color.parseColor(preferenceFile.retviecolorString("COLUMN_COLOR")))
+                   // layoutColrs?.setBackgroundColor(borderColor.get())
                     /*Store border width value */
                     try {
                         slider_size?.value = preferenceFile.retviesize(BORDER_WIDTH)!!.toFloat()
@@ -1555,27 +1677,37 @@ class AdvanceEditLookVM @Inject constructor(
                             borderOpacity.get(),
                             Color.parseColor(preferenceFile.retviecolorString("BORDER_COLOR"))
                         )
+                        setAllColors(layoutColrs!!,changeColor!!,0,borderView)
                     } catch (e: Exception) {
                         Log.d("sliderBorderOpacityEp->", "${e.message.toString()}")
                     }
                     slider_size?.addOnChangeListener { _, value, _ ->
                         changeColor?.textSize = value
-                        borderWidth.set(value)
+                      //  borderWidth.set(value)
+                        tempBorderWidth.set(value)
                         preferenceFile.storeosize(BORDER_WIDTH, value)
                         //here set cardView background on slider change ...
-                        setBorderBackground(borderView, value, selectedbackgrouncolor)
+                        //setBorderBackground(borderView, value, selectedbackgrouncolor)
+                        setForTempAllColors(layoutColrs!!,changeColor!!,0,borderView)
                     }
                     sliderOpacitty?.addOnChangeListener { _, value, _ ->
                         val alpha = value / 100
-                        borderOpacity.set(alpha)
+                        tempBorderOpacity.set(alpha)
+
                         preferenceFile.storeopacity(BORDER_OPACITY, alpha)
                         dialog!!.findViewById<CardView>(R.id.show_color_id)?.alpha = alpha
+                        setForTempAllColors(layoutColrs!!,changeColor!!,0,borderView)
                         Log.e("WOrking11222", "---$value")
                     }
+
+
                     title?.text = Border_Color
                     SelectedDialog.set(Border_Color)
                     size_tv?.visibility = View.VISIBLE
                     sliderOpacitty?.visibility = View.VISIBLE
+
+
+                    setAllColors(layoutColrs!!,changeColor!!,0,borderView)
                 } else {
                     // val layout = dialog!!.findViewById<CardView>(R.id.show_color_id)
                     setBorderBackground(borderView, 16f, R.color.gray)
@@ -1597,10 +1729,13 @@ class AdvanceEditLookVM @Inject constructor(
                     }
                     title?.text = "Border Color"
                     SelectedDialog.set("Border Color")
+                 //   setAllColors(layoutColrs!!,changeColor!!,0)
+                    setAllColors(layoutColrs!!,changeColor!!,0,borderView)
                 }
             }
             //for font color...
             "FONTCOLOR" -> {
+                val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
                 if (preferenceFile.retviecolorString("FONT_COLOR") != null
                     && preferenceFile.retviecolorString("FONT_COLOR") != ""
                     && preferenceFile.retviecolorString("BORDER_COLOR") != null
@@ -1670,6 +1805,8 @@ class AdvanceEditLookVM @Inject constructor(
                         preferenceFile.storeopacity(FONT_OPACITY, alpha)
                         Log.e("WOrking11222", "---$value")
                     }
+                 //   setAllColors(layoutColrs!!,changeColor!!,1)
+                    setAllColors(layoutColrs!!,changeColor!!,1,borderView)
                 } else {
                     dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                         .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.gray))
@@ -1693,6 +1830,8 @@ class AdvanceEditLookVM @Inject constructor(
                         preferenceFile.storeopacity(FONT_OPACITY, alpha)
                         Log.e("WOrking11222", "---$value")
                     }
+                    //setAllColors(layoutColrs!!,changeColor!!,1)
+                    setAllColors(layoutColrs!!,changeColor!!,1,borderView)
                 }
             }
         }
@@ -1730,12 +1869,34 @@ class AdvanceEditLookVM @Inject constructor(
         /**Save Button **/
         dialog?.findViewById<TextView>(R.id.tvSaveSwipeBtn)?.setOnClickListener {
             backgroundColorLiveData.value = selectedbackgrouncolor
+            if(!(tempColumnColor.get().toString().equals("")))
+            {
+                columnColor.set(tempColumnColor.get())
+            }
+
+            if(!(tempBorderWidth.get().toString().equals("")))
+            {
+                borderWidth.set(tempBorderWidth.get())
+            }
+
+            if(!(tempBorderOpacity.get().toString().equals("")))
+            {
+                borderOpacity.set(tempBorderOpacity.get())
+            }
+
+            if(!(borderTempColor.get().toString().equals("")))
+            {
+                borderColor.set(borderTempColor.get())
+            }
+
+            Log.e("Save_DAAAATTTTAAA===","Yes")
             dialog?.dismiss()
         }
         if (!CommonMethods.context.isFinishing) {
             dialog?.show()
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setBorderBackground(layout: CardView, value: Float, color: Int) {
         try {
@@ -1775,6 +1936,7 @@ class AdvanceEditLookVM @Inject constructor(
     override fun click(categoryName: String, position: Int, _id: String?, s: String, color: Int?) {
         when (checkColor.get()) {
             Constants.BACKGROUND -> {
+                layoutColrs= dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(CommonMethods.context.getColor(color!!))
                 val cd =
@@ -1784,23 +1946,42 @@ class AdvanceEditLookVM @Inject constructor(
                 hexColor = java.lang.String.format("#%06X", 0xFFFFFF and selectedbackgrouncolor)
                 preferenceFile.storecolorString(BACKGROUND_COLOR, hexColor!!)
                 Log.e("ASFDf", colorCode.toString())
+
+                backgroundColor.set(hexColor!!)
+
+                setFirstBackgroundColor(layoutColrs!!)
             }
             COLUMN -> {
+                changeColor = dialog?.findViewById(R.id.change_back_id)
+                val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
+                layoutColrs = dialog?.findViewById(R.id.Show_back)
+                Log.e("sdwdwdwdwdwsd===",color.toString())
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(CommonMethods.context.getColor(color!!))
                 val cd =
                     dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).background as ColorDrawable
-                val colorCode = cd.color
+              val colorCode = cd.color
+                //val colorCode = color!!
                 columnColorLiveData = colorCode
                 selectedbackgrouncolor = colorCode
-                layoutColrs?.setBackgroundColor(selectedbackgrouncolor)
+               // layoutColrs?.setBackgroundColor(selectedbackgrouncolor)
                 hexColor = java.lang.String.format("#%06X", 0xFFFFFF and selectedbackgrouncolor)
                 preferenceFile.storecolorString(COLUMN_COLOR, hexColor!!)
                 Log.e("ASFDf", colorCode.toString())
                 Log.e("Data_Colum222===", hexColor.toString())
+                //columnColor.set(hexColor!!)
+                tempColumnColor.set(hexColor!!)
+
+
+             //   setForTempAllColors(layoutColrs!!,changeColor!!,0,borderView)
             }
 
             Constants.BORDER -> {
+
+                changeColor = dialog?.findViewById(R.id.change_back_id)
+                val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
+                layoutColrs = dialog?.findViewById(R.id.Show_back)
+
                 selectedbackgrouncolor = color!!
                 // cardLayoutColrs?.setCardBackgroundColor(selectedbackgrouncolor)
                 setBorderBackground(cardLayoutColrs!!, borderSlideValue, selectedbackgrouncolor)
@@ -1808,8 +1989,16 @@ class AdvanceEditLookVM @Inject constructor(
                 hexColor = java.lang.String.format("#%06X", 0xFFFFFF and selectedbackgrouncolor)
                 preferenceFile.storecolorString(BORDER_COLOR, hexColor!!)
                 Log.e("ASFDaaaf==", selectedbackgrouncolor.toString())
+
+                borderTempColor.set(hexColor)
+                setForTempAllColors(layoutColrs!!,changeColor!!,0,borderView)
             }
             CommonMethods.FONTCOLOR -> {
+
+                changeColor = dialog?.findViewById(R.id.change_back_id)
+                val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
+                layoutColrs = dialog?.findViewById(R.id.Show_back)
+
                 slider_size?.visibility = View.VISIBLE
                 /** Slider for size */
                 slider_size?.addOnChangeListener { _, value, _ ->
@@ -1827,6 +2016,7 @@ class AdvanceEditLookVM @Inject constructor(
                 fontColorLiveData = colorCode
                 val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and colorCode)
                 preferenceFile.storecolorString(FONT_COLOR, hexColor)
+                setAllColors(layoutColrs!!,changeColor!!,1,borderView)
             }
         }
     }
@@ -1925,14 +2115,19 @@ class AdvanceEditLookVM @Inject constructor(
                                 columnColorLD.value = data.column_color!!
                                 fontColorLD.value = data.font_color!!
                                 borderColorLD.value = data.border_color!!
-                                fontColor.set(data.font_color)
-                                borderColor.set(data.border_color)
-                                columnColor.set(data.column_color.toString())
-                                backgroundColor.set(data.background_color)
+
+
                                 fontsName.set(data.font_name.toString())
                                 borderOpacity.set(data.border_opacity?.toFloat()!!)
                                 fontOpacity.set(data.font_opacity?.toFloat()!!)
                                 columnOpacity.set(data.column_opacity?.toFloat()!!)
+
+
+
+                                backgroundColor.set(data.background_color)
+                                columnColor.set(data.column_color.toString())
+                                borderColor.set(data.border_color)
+                                fontColor.set(data.font_color)
 
 
                                 //store background color in shared pref
@@ -1990,5 +2185,75 @@ class AdvanceEditLookVM @Inject constructor(
             }
         )
 
+    }
+
+
+    fun setForTempAllColors(layoutColrs:ConstraintLayout,textView: TextView,type:Int,borderView:CardView)
+    {
+        var setColumnColor=0
+        if(tempColumnColor.get().toString().equals(""))
+        {
+            setColumnColor="#00000000".toColorInt()
+        }else
+        {
+            setColumnColor=tempColumnColor.get().toString().toColorInt()
+        }
+
+        var setBorderColor=0
+        if(borderTempColor.get().toString().equals(""))
+        {
+            setBorderColor="#00000000".toColorInt()
+        }else
+        {
+            setBorderColor=borderTempColor.get().toString().toColorInt()
+        }
+
+        Log.e("jgewjgwgwg====",borderTempColor.get().toString())
+
+        var setBorderWidth=0.0
+        if(tempBorderWidth.get().toString()=="" || tempBorderWidth.get().toString()=="0" || tempBorderWidth.get().toString()=="0.0")
+        {
+            setBorderWidth=1.0
+        }else
+        {
+            setBorderWidth=tempBorderWidth.get().toString().toDouble()
+        }
+
+        borderView.alpha=tempBorderOpacity.get()
+
+        val drawable2 = GradientDrawable()
+        drawable2.shape = GradientDrawable.RECTANGLE
+        var finalWidth=setBorderWidth.toFloat()*0.30
+
+        drawable2.setStroke(finalWidth.toInt(), setBorderColor)
+
+        drawable2.cornerRadius = 20f
+        // drawable2.setColor(setColumnColor)
+        // drawable2.alpha=columnOpacity.get().toInt()
+        borderView!!.setBackgroundDrawable(drawable2)
+        borderView.alpha=tempBorderOpacity.get()
+
+        val drawable = GradientDrawable()
+        drawable.shape = GradientDrawable.RECTANGLE
+        var finalWidth2=setBorderWidth.toFloat()*0.30
+
+        drawable.setStroke(finalWidth2.toInt(), setBorderColor)
+
+        drawable.cornerRadius = 20f
+        drawable.setColor(setColumnColor)
+        drawable.alpha=columnOpacity.get().toInt()
+        layoutColrs!!.setBackgroundDrawable(drawable)
+
+        if(type!=0) {
+            textView.visibility=View.VISIBLE
+            if (fontColor.get().toString().equals("")) {
+                textView.setTextColor(Color.BLACK)
+            } else {
+                textView.setTextColor(fontColor.get().toString().toColorInt())
+            }
+        }else
+        {
+            textView.visibility=View.GONE
+        }
     }
 }
