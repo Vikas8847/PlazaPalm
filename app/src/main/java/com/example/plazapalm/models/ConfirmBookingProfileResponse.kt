@@ -22,8 +22,8 @@ package com.example.plazapalm.models
      )
 
     data class QuestionAnswer(
-    val _id: String,
-    val answer_text: String,
-    val q_id: String,
-    val question_text: String
+     val _id: String,
+     val answer_text: String?,
+     val q_id: String?,
+     val question_text: String?
 )

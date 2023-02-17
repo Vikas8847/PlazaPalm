@@ -212,7 +212,6 @@ class CalendarVM @Inject constructor(
 
                             for (i in 0 until res.body()!!.data.size) {
 
-
                                 calendars4 = Calendar.getInstance()
                                 // SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
                                 val day = res.body()!!.data[i]?.choose_date

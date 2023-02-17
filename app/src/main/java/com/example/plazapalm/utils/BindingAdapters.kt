@@ -228,7 +228,12 @@ object BindingAdapters {
                 imageView.text = "Cancel Booking"
                 Log.e("lkds3", value.toString())
 
-            } else {
+            }  else if (value.equals("declined")) {
+                imageView.visibility = View.GONE
+                Log.e("lkds1", value.toString())
+
+
+            }else {
                 imageView.visibility = View.VISIBLE
             }
         }
@@ -269,7 +274,11 @@ object BindingAdapters {
                 imageView.visibility = View.VISIBLE
             }
         } else {
-            if (value.equals("cancelled")) {
+            if (value.equals("declined")) {
+                imageView.visibility = View.GONE
+                Log.e("lkds1", value.toString())
+
+            }else if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
                 Log.e("lkds1", value.toString())
 
@@ -298,6 +307,7 @@ object BindingAdapters {
     fun Decline(imageView: AppCompatButton, value: String, userTypeDec: String) {
 
         Log.e("ZSDZXC", value.toString())
+        Log.e("ZSDZXC-- >> ", userTypeDec.toString())
 
         if (userTypeDec.equals("customer")) {
 //            declined
@@ -310,7 +320,7 @@ object BindingAdapters {
                 Log.e("lkds1", value.toString())
 
             } else if (value.equals("pending")) {
-//            imageView.text= "Accepted"
+            imageView.text= "Accepted"
                 imageView.visibility = View.GONE
                 Log.e("lkds2", value.toString())
 
@@ -319,7 +329,7 @@ object BindingAdapters {
                 Log.e("lkds3", value.toString())
 
             } else if (value.equals("accepted")) {
-                imageView.text = "Accepted"
+//                imageView.text = "Accepted"
                 Log.e("lkds3", value.toString())
 
             } else {
@@ -337,7 +347,7 @@ object BindingAdapters {
                 Log.e("lkds2", value.toString())
 
             } else if (value.equals("accepted")) {
-                imageView.text = "Accepted"
+                imageView.visibility=View.GONE
                 Log.e("lkds3", value.toString())
 
             } else if (value.equals("declined")) {
@@ -349,7 +359,6 @@ object BindingAdapters {
                 imageView.visibility = View.VISIBLE
             }
         }
-
 
     }
 
