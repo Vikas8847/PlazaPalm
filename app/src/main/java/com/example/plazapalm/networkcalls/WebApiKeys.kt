@@ -5,7 +5,7 @@ package com.example.plazapalm.networkcalls
 const val BASE_URL = "http://192.168.1.87:3000/auth/" /* Local URL..*/
 const val IMAGE_LOAD_URL = "https://d17am3tdlggecz.cloudfront.net/"
 
-/***************************************************************/
+/*************************************************************/
 
 const val SIGN_UP = "sign-up"
 const val VERIFY_OTP = "verifyOtp"
@@ -56,9 +56,9 @@ const val UPDATE_LATLONG  = "updateLatLong"
 const val GALLERYPOST  = "galleryPost"
 const val GALLERYGET  = "galleryGet"
 const val DELETE_MEDIA  = "deleteMedia"
-
 const val GET_FONTS  = "frontPageGet"
 const val POST_FONTS="frontPage"
+const val REQUIRE_DATA_FOR_BOOKING="requiredDataForBookProfileForm"
 
 
 

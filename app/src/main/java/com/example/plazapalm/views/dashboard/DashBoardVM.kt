@@ -282,8 +282,7 @@ class DashBoardVM @Inject constructor(
 
         recyclerSelectedEvents = dialog!!.findViewById(R.id.rvDashBoardSelectedEvents)
         recyclerSelectedEvents?.layoutManager = LinearLayoutManager(context)
-        recyclerSelectedEvents?.adapter =
-            DashboardItemsAdapter(context, selectedCategoriesList, this)
+        recyclerSelectedEvents?.adapter = DashboardItemsAdapter(context, selectedCategoriesList, this)
 
 
 //        dashSelectedAdapter.addItems(selectedCategoriesList as ArrayList<SelectedDataModel>)

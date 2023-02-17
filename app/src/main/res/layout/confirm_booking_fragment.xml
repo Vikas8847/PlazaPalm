@@ -21,7 +21,8 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/app_bar_light">
+                android:background="@color/app_bar_light"
+                >
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivConfirmDetailsBackBtn"
@@ -256,59 +257,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvConfirmBookDescription" />
 
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvConfirmBookQuestionOne"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="Question 1"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/etConfirmBookDescription" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvConfirmBookQuestionHair"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="How can i straight my hairs?"
-                    android:textColor="@color/light_white_opacity"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvConfirmBookQuestionOne" />
-
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/etConfirmBookQuestionAns"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reqire_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_60sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@drawable/confirm_book_description_bg"
-                    android:fontFamily="@font/inter_medium"
-                    android:gravity="top"
-                    android:hint="Type your Answer"
-                    android:inputType="text"
-                    android:padding="@dimen/_10sdp"
-                    android:scrollbarStyle="insideInset"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textCursorDrawable="@drawable/color_cursor"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvConfirmBookQuestionHair" />
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    tools:itemCount="5"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/etConfirmBookDescription"
+                    tools:listitem="@layout/require_data_list" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnConfirmBook"
@@ -328,7 +286,9 @@
                     android:textColor="@color/light_black"
                     android:textStyle="normal"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/etConfirmBookQuestionAns" />
+                    app:layout_constraintTop_toBottomOf="@id/reqire_rv" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

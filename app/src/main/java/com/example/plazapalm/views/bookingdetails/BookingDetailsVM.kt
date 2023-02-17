@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.AddToCalendarResponseModel
+import com.example.plazapalm.models.BookingDataForCustomer
 import com.example.plazapalm.models.BookingStatusInputResponse
+import com.example.plazapalm.models.QuestionAnswerForBook
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
@@ -56,7 +58,6 @@ class BookingDetailsVM @Inject constructor(
 
             R.id.btnBookingDetailsCancel -> {
 
-
                 if (btnText.get()?.trim().equals("Cancel Booking")) {
                     getBookingStatus("cancelled")
 
@@ -64,13 +65,17 @@ class BookingDetailsVM @Inject constructor(
                     removeFromCalendar(view)
                 }
             }
-            R.id.btnBookingDetailsAccept -> {
 
-                getBookingStatus("accepted")
+            R.id.btnBookingDetailsAccept -> {
+                if (!(bookingStatusCan.get().equals("accepted"))) {
+                    getBookingStatus("accepted")
+                }
             }
 
             R.id.btnBookingDetailsDecline -> {
-                getBookingStatus("declined")
+                if (!(bookingStatusCan.get().equals("declined"))) {
+                    getBookingStatus("declined")
+                }
             }
 
             R.id.ivFavDetailsOptions -> {
@@ -157,6 +162,7 @@ class BookingDetailsVM @Inject constructor(
 
                                     bookingStatus.set("Booking Status : " + "ACCEPTED")
                                     bookingStatusCan.set("accepted")
+
                                 } else if (res.body()!!.message.equals("cancelled")) {
                                     bookingStatus.set("Booking Status : " + "CANCELLED")
                                     bookingStatusCan.set("cancelled")
@@ -167,8 +173,10 @@ class BookingDetailsVM @Inject constructor(
                             } else if (userType.get().toString().equals("customer")) {
 
                                 if (res.body()!!.message.equals("accepted")) {
+
                                     bookingStatus.set("Booking Status : " + "ACCEPTED")
                                     bookingStatusCan.set("accepted")
+
                                 } else if (res.body()!!.message.equals("cancelled")) {
                                     bookingStatus.set("Booking Status : " + "CANCELLED")
                                     bookingStatusCan.set("cancelled")
@@ -190,6 +198,7 @@ class BookingDetailsVM @Inject constructor(
             })
 
     }
+
 
     fun removeFromCalendar(view: View) = viewModelScope.launch {
 

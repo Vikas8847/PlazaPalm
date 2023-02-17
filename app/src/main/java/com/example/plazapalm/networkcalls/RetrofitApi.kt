@@ -194,12 +194,12 @@ interface RetrofitApi {
         @Header("Content-Type") contentType: String,
         @Body body: DashBoardPostData,
         // @Field("c_id") c_id: String,
-       /* @Field("offset") offset: Int,
-        @Field("limit") limit: Int,
-        @Field("lat") lat: Double,
-        @Field("long") long: Double,
-        @Field("search") search: String,
-        @Field("miles") miles: String*/
+        /* @Field("offset") offset: Int,
+         @Field("limit") limit: Int,
+         @Field("lat") lat: Double,
+         @Field("long") long: Double,
+         @Field("search") search: String,
+         @Field("miles") miles: String*/
     ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded
@@ -287,6 +287,7 @@ interface RetrofitApi {
         @Field("favType") favType: Boolean?
     ): Response<AddFavPostProfileResponse>
 
+
     @GET(GET_FAVOURITES)
     suspend fun getFavDetals(
         @Header("Authorization") Authorization: String?,
@@ -339,20 +340,21 @@ interface RetrofitApi {
     @HTTP(method = "DELETE", path = "removeFromCalender", hasBody = true)
     suspend fun deleteFromCalendar(
         @Header("Authorization") Authorization: String,
-        @Body josn : JsonObject
+        @Body josn: JsonObject
     ): Response<AddToCalendarResponseModel>
 
     /** Confirm Booking Api**/
-    @FormUrlEncoded
+   // @FormUrlEncoded
     @POST(CONFIRM_BOOKING)
     suspend fun conBookProfileSave(
         @Header("Authorization") Authorization: String,
-        @Field("post_profile_id") post_profile_id: String,
+        @Body requestData:RequestBookProfile
+       /* @Field("post_profile_id") post_profile_id: String,
         @Field("choose_date") choose_date: String,
         @Field("choose_time") choose_time: String,
         @Field("description") description: String,
         @Field("category_name") category_name: String,
-        @Field("question_answer") question_answer: ArrayList<QuestionAnswer>
+        @Field("question_answer") question_answer: ArrayList<QuestionAnswerForBook>*/
 
     ): Response<ConfirmBookingProfileResponse>
 
@@ -372,7 +374,7 @@ interface RetrofitApi {
     suspend fun addToBlocklist(
         @Header("Authorization") Authorization: String,
         @Field("u_id") u_id: String,
-        @Field("isBlocked") isBlocked : Boolean
+        @Field("isBlocked") isBlocked: Boolean
 
     ): Response<BlockUserResponse>
 
@@ -389,7 +391,7 @@ interface RetrofitApi {
     suspend fun getBookingDetailsForCustomer(
         @Header("Authorization") Authorization: String,
         @Query("booking_id") booking_id: String
-    ): Response<BookingDetailsResponse>
+    ): Response<BookingDataForCustomer>
 
     /** Booking StatusInput Api */
     @FormUrlEncoded
@@ -475,11 +477,10 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String,
         @Field("user_lat") user_lat: Double,
         @Field("user_long") user_long: Double
-    ):Response<UpdateLatlngResponse>
+    ): Response<UpdateLatlngResponse>
 
 
-
-  //  @POST(GALLERYPOST)
+    //  @POST(GALLERYPOST)
     @HTTP(method = "POST", path = GALLERYPOST, hasBody = true)
     suspend fun uploadSinglePhotoUrl(
         @Header("Authorization") Authorization: String,
@@ -526,4 +527,20 @@ interface RetrofitApi {
         @Field("device_type") DeviceType: String?
     ): Response<DeviceTokenUpdateResponse>
 
+
+    @GET("requiredDataForBookProfileForm/{p_id}")
+    suspend fun requiredDataForBookProfileForm(
+        @Header("Authorization") Authorization: String,
+        @Path ("p_id") p_id :String,
+        @Query("lat") lat : Double,
+        @Query("long") long :Double
+    ): Response<GetDataForBookingResponse>
+
+
+/*
+    @DELETE("postProfileDelete/{name}")
+    suspend fun deleteProfilePost(
+        @Header("Authorization") Authorization: String,
+        @Path("name") name: String
+    ): Response<DeletePostProfileResponse>*/
 }

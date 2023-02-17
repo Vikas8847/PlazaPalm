@@ -7,12 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.BookingDetailsFragmentBinding
+import com.example.plazapalm.models.BookingDataForCustomer
 import com.example.plazapalm.models.CalenderData
+import com.example.plazapalm.models.Joined
+import com.example.plazapalm.models.QuestionAnswerForBook
+import com.example.plazapalm.networkcalls.ApiEnums
+import com.example.plazapalm.networkcalls.ApiProcessor
+import com.example.plazapalm.networkcalls.Repository
+import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.RequireDataBookAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -20,9 +30,15 @@ import javax.inject.Inject
 class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     private var binding: BookingDetailsFragmentBinding? = null
     private val viewModel: BookingDetailsVM by viewModels()
+    lateinit var adapter: RequireDataBookAdapter
 
     @Inject
     lateinit var pref: PreferenceFile
+
+
+    @Inject
+    lateinit var repository: Repository
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,8 +47,20 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
         binding = BookingDetailsFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
         getBundleData()
+        customerORProvider()
         return binding?.root
 
+    }
+
+    private fun customerORProvider() {
+        if (viewModel.userType.get().toString().equals("customer")) {
+          getBookingDataForCustomer()
+            Log.e("SDDSasdas", viewModel.userType.get().toString() + " Vxv ")
+
+        } else if (viewModel.userType.get().toString().equals("provider")) {
+//            viewModel.getBookingDataForCustomer()
+            Log.e("SDDSasdas", viewModel.userType.get().toString() + "  Vdfgdf ")
+        }
     }
 
     private fun getBundleData() {
@@ -60,7 +88,8 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
 
                         if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("pending")) {
+                            userdata.get(postion).booking_status.toString().equals("pending")
+                        ) {
 
                             binding!!.btnBookingDetailsAccept.visibility = View.GONE
                             binding!!.btnBookingDetailsDecline.visibility = View.GONE
@@ -69,25 +98,30 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             viewModel.bookingStatus.set("Booking Status : " + "PENDING")
 
                         } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("reminderBooking")) {
+                            userdata.get(postion).booking_status.toString()
+                                .equals("reminderBooking")
+                        ) {
 
                             viewModel.bookingStatusCan.set("reminderBooking")
                             viewModel.btnText.set("Delete Reminder")
                             viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
 
                         } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("cancelled")) {
+                            userdata.get(postion).booking_status.toString().equals("cancelled")
+                        ) {
 
                             viewModel.bookingStatusCan.set("cancelled")
                             viewModel.bookingStatus.set("Booking Status : " + "CANCELLED")
 
-                        }else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("declined")) {
+                        } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("declined")
+                        ) {
                             viewModel.bookingStatusCan.set("declined")
                             viewModel.bookingStatus.set("Booking Status : " + "DECLINED")
 
-                        }else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("accepted")) {
+                        } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
+                            userdata.get(postion).booking_status.toString().equals("accepted")
+                        ) {
                             viewModel.bookingStatusCan.set("accepted")
                             viewModel.btnText.set("Cancel Booking")
                             viewModel.bookingStatus.set("Booking Status : " + "ACCEPTED")
@@ -105,7 +139,8 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
 
                         viewModel.bookingStatus.set("Category : " + userdata.get(postion).category_name)
                         if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("pending")) {
+                            userdata.get(postion).booking_status.toString().equals("pending")
+                        ) {
 
                             binding!!.btnBookingDetailsCancel.visibility = View.GONE
                             binding!!.btnBookingDetailsAccept.visibility = View.VISIBLE
@@ -116,20 +151,24 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             viewModel.bookingStatus.set("Booking Status : " + "PENDING")
 
                         } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("reminderBooking")) {
+                            userdata.get(postion).booking_status.toString()
+                                .equals("reminderBooking")
+                        ) {
 
                             viewModel.btnText.set("Delete Reminder")
                             viewModel.bookingStatus.set("Category : " + userdata.get(postion as Int).category_name)
 
                         } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("cancelled")) {
+                            userdata.get(postion).booking_status.toString().equals("cancelled")
+                        ) {
 
                             viewModel.bookingStatusCan.set("cancelled")
                             viewModel.bookingStatus.set("Booking Status : " + "CANCELLED")
 
 
                         } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("accepted")) {
+                            userdata.get(postion).booking_status.toString().equals("accepted")
+                        ) {
 
                             binding!!.btnBookingDetailsAccept.visibility = View.VISIBLE
                             binding!!.btnBookingDetailsCancel.visibility = View.VISIBLE
@@ -138,7 +177,8 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             viewModel.btnText.set("Cancel Booking")
                             viewModel.bookingStatus.set("Booking Status : " + "ACCEPTED")
                         } else if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
-                            userdata.get(postion).booking_status.toString().equals("declined")) {
+                            userdata.get(postion).booking_status.toString().equals("declined")
+                        ) {
 
                             viewModel.bookingStatus.set("Booking Status : " + "DECLINED")
                             viewModel.bookingStatusCan.set("declined")
@@ -218,5 +258,70 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
 
     }
 
+    private fun setAdapter(dataList: ArrayList<Joined>) {
+
+        binding!!.reqireRv.layoutManager = LinearLayoutManager(requireActivity())
+        adapter = RequireDataBookAdapter(requireActivity(), dataList, 2)
+        binding!!.reqireRv.adapter = adapter
+
+    }
+
+    fun getBookingDataForCustomer() {
+
+        Log.e(
+            "FSDFSDFQdasda",
+            pref.retrieveKey("token").toString() + "---iii---" +
+                    viewModel.booking_id.get().toString()
+        )
+
+        repository.makeCall(
+            ApiEnums.BOOKINGDATA_FORCUSTOMER,
+            loader = true,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<BookingDataForCustomer>> {
+
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<BookingDataForCustomer> {
+                    return retrofitApi.getBookingDetailsForCustomer(
+                        pref.retrieveKey("token").toString(),
+                        viewModel.booking_id.get().toString()
+                    )
+                }
+
+                override fun onResponse(res: Response<BookingDataForCustomer>) {
+                    if (res.isSuccessful && res.code() == 200) {
+                        if (res.body() != null) {
+
+                            val arrayList = ArrayList<Joined>()
+                            arrayList.clear()
+                            Log.e("RESEER", res.body().toString())
+                            for (idx in 0 until res.body()!!.data.size) {
+
+                                for (i in 0 until res.body()!!.data[idx].question_answer.size) {
+                                    arrayList.add(
+                                        Joined(
+                                            res.body()!!.data[idx].question_answer[i]._id,
+                                            res.body()!!.data[idx].question_answer[i].question_text,
+                                            res.body()!!.data[idx].question_answer[i].answer_text,
+                                            ""
+                                        )
+                                    )
+                                }
+                            }
+
+                            setAdapter(arrayList)
+
+                        } else {
+                            CommonMethods.showToast(CommonMethods.context, res.message())
+                        }
+
+                    } else {
+                        CommonMethods.showToast(CommonMethods.context, res.message())
+                    }
+                }
+
+            })
+
+    }
 
 }
