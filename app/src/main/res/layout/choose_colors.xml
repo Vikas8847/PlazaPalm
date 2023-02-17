@@ -59,6 +59,8 @@
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"
+                    android:background="@color/white"
+                    app:cardBackgroundColor="@color/brickRed"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvDeleteTitle">
@@ -68,11 +70,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/Show_back"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_4sdp"
-                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_height="@dimen/_40sdp"
                         android:clipToOutline="true">
 
                         <androidx.appcompat.widget.AppCompatTextView
