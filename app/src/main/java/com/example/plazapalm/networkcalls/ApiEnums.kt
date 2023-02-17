@@ -39,6 +39,8 @@ enum class ApiEnums {
     FETCH_GALLERY_PHOTO,
     REMOVE_FAV,
     GET_STATUS_INPUT,
+    BOOKINGDATA_FORCUSTOMER,
     GET_FRONT_FONT_PAGE,
-    POST_EDIT_COVER_PAGE
+    POST_EDIT_COVER_PAGE,
+    requiredDataForBookProfileForm
 }

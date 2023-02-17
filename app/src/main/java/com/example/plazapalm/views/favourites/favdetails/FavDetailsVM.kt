@@ -19,11 +19,13 @@ import androidx.databinding.ObservableInt
 import androidx.databinding.ObservableParcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.BuildConfig
 import com.example.plazapalm.MainActivity.Companion.activity
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
+import com.example.plazapalm.datastore.SAVE_MAP_FEATURE
 import com.example.plazapalm.models.*
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
@@ -38,6 +40,7 @@ import com.example.plazapalm.utils.navigateWithId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.LinkProperties
+import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -187,11 +190,50 @@ class FavDetailsVM @Inject constructor(
 
                 Log.e("ASDASDASqq",p_id.get().toString() + "  --SD--  ")
 
+//                getrequiredDataForBookProfileForm()
+
                 view.navigateWithId(R.id.confirmBookingFragment, booking_pro)
 
             }
         }
     }
+
+//    private fun getrequiredDataForBookProfileForm()  =viewModelScope.launch{
+//
+//
+//            repository.makeCall(
+//                apiKey = ApiEnums.requiredDataForBookProfileForm,
+//                loader = true,
+//                saveInCache = false,
+//                getFromCache = false,
+//                requestProcessor = object :ApiProcessor<Response<GetDataForBookingResponse>>{
+//                    override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetDataForBookingResponse> {
+//                        return retrofitApi.requiredDataForBookProfileForm( pref.retrieveKey("token").toString(),
+//                            "63cfa3755cabe261416961ec",30.704649.toLong(),76.71787.toLong())
+//                    }
+//
+//                    override fun onResponse(res: Response<GetDataForBookingResponse>) {
+//                        Log.e("khemsingh ",res.body().toString())
+//
+//                        if (res.isSuccessful && res.code()==200){
+//                            if (res.body()!!.data!=null){
+//
+//                                Log.e("SDASDASWQ123",res.body()!!.data.toString()+"3")
+//
+//                            }else{
+//                                Log.e("SDASDASWQ123",res.body()!!.data.toString()+"2")
+//                            }
+//
+//                        }else{
+//                            Log.e("SDASDASWQ123",res.body()!!.data.toString()+"1")
+//                        }
+//                    }
+//
+//                }
+//            )
+//
+//
+//    }
 
     private fun setdislike(likeButton: Boolean, dislikeButton: Boolean, buttonType: Int) {
 

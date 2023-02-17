@@ -14,6 +14,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_15sdp"
         tools:context=".views.bookingdetails.BookingDetailsFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -25,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white">
-
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivBookingDetailsBack"
@@ -282,11 +282,24 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvBookingDetailsDescription" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reqire_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    tools:itemCount="6"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBookDetailsDescriptionValue"
+                    tools:listitem="@layout/require_data_list" />
+
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnBookingDetailsCancel"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginEnd="@dimen/_12sdp"
@@ -301,7 +314,7 @@
                     userType="@{vm.userType}"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@id/tvBookDetailsDescriptionValue" />
+                    app:layout_constraintTop_toBottomOf="@id/reqire_rv" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnBookingDetailsAccept"

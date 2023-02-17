@@ -318,6 +318,7 @@ class ChatVM @Inject constructor(
                 chatAdapter.addItems(dataList, userTypeId.get().toString())
                 chatAdapter.notifyDataSetChanged()
                 scrollToBottomMethod()
+
                 if(dataList.size==0)
                 {
                     emptyMessageList.set(true)
