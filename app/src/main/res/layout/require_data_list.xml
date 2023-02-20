@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -16,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/inter_medium"
             android:text="@string/question_1"
             android:textColor="@color/white"
