@@ -1,5 +1,6 @@
 package com.example.plazapalm.views.advancesettings.pictures
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,6 +24,7 @@ import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
 
+@SuppressLint("NotifyDataSetChanged")
 @HiltViewModel
 class PicturesVM @Inject constructor() : ViewModel() {
     var picturesDataList = ArrayList<PicturesModel>()
@@ -139,7 +141,7 @@ class PicturesVM @Inject constructor() : ViewModel() {
                 surveyImagesParts[index] =
                     MultipartBody.Part.createFormData("profile_picture", file.name, surveyBody)
             }
-
+            Log.e("Picture_Screeennn===","3333")
             repository.makeCall(
                 apiKey = ApiEnums.UPLOAD_IMAGES,
                 loader = true,
