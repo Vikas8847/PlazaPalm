@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.myprofile.calendar
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
+import com.example.plazapalm.chat.ChatActivity
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.CalenderData
 import com.example.plazapalm.models.DeleteBookingResponse
@@ -84,21 +86,19 @@ class CalendarVM @Inject constructor(
                         userImage = IMAGE_LOAD_URL+ R.drawable.placeholder
                     }
 
-                    val chatData = Bundle()
-                    chatData.putString("CommingFrom", "CalendarScreen")
-                    chatData.putString(
-                        "user_Id",
-                        adapterCalendar.getAllItems().get(position).post_profile_user_id.toString()
-                    )
-                    chatData.putString(
-                        "user_name",
-                        adapterCalendar.getAllItems()
-                            .get(position).postProfile_first_name.toString() + " " + adapterCalendar.getAllItems()
-                            .get(position).postProfile_last_name.toString()
-                    )
+                    var intent = Intent(CommonMethods.context, ChatActivity::class.java)
+                    intent.putExtra("CommingFrom", "CalendarScreen")
+                    intent.putExtra("user_Id", adapterCalendar.getAllItems().get(position).post_profile_user_id.toString())
+                    intent.putExtra("user_name", adapterCalendar.getAllItems().get(position).postProfile_first_name.toString() + " " + adapterCalendar.getAllItems().get(position).postProfile_last_name.toString())
+                    intent.putExtra("userImage", userImage)
+                    CommonMethods.context.startActivity(intent)
 
+                   /* val chatData = Bundle()
+                    chatData.putString("CommingFrom", "CalendarScreen")
+                    chatData.putString("user_Id", adapterCalendar.getAllItems().get(position).post_profile_user_id.toString())
+                    chatData.putString("user_name", adapterCalendar.getAllItems().get(position).postProfile_first_name.toString() + " " + adapterCalendar.getAllItems().get(position).postProfile_last_name.toString())
                     chatData.putString("userImage", userImage)
-                    view.navigateWithId(R.id.action_calendarFragment_to_chatFragment, chatData)
+                    view.navigateWithId(R.id.action_calendarFragment_to_chatFragment, chatData)*/
 
                 }
 
@@ -116,8 +116,8 @@ class CalendarVM @Inject constructor(
                     )
 
                 }
-
                 deleteConfirmBooking ->{
+
                     deleteBooking(position)
                 }
 
@@ -230,7 +230,6 @@ class CalendarVM @Inject constructor(
                                 calendarList.add(calendars4!!)
 
                                 Log.e("bookinggIDD -- ",res.body()!!.data[i]?._id.toString())
-
                             }
 
                             calendarMutableResponse.value = calendarList

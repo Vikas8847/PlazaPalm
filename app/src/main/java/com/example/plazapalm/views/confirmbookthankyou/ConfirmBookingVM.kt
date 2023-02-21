@@ -3,6 +3,7 @@ package com.example.plazapalm.views.confirmbookthankyou
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
+import com.example.plazapalm.chat.ChatActivity
 import com.example.plazapalm.datastore.CONFIRM_BOOKING_PROFILE
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.*
@@ -51,7 +53,9 @@ class ConfirmBookingVM @Inject constructor(
     var user_location = ObservableField("")
     var user_miles = ObservableField("25 Miles")
     var user_image = ObservableField("")
+    var bookingId = ObservableField("")
     var postProfileId = ObservableField("")
+
     var chooseDate = ObservableField("")
     var chooseTime = ObservableField("")
     var description = ObservableField("")
@@ -73,19 +77,23 @@ class ConfirmBookingVM @Inject constructor(
             }
             R.id.ivBookingDetailsChat -> {
 
-                val chatData = Bundle()
-                chatData.putString("CommingFrom", "ConfirmBooking")
-                chatData.putString("user_Id", userIdForChat.get().toString())
+                var intent = Intent(CommonMethods.context, ChatActivity::class.java)
+                intent.putExtra("CommingFrom","ConfirmBooking")
+                intent.putExtra("user_Id",userIdForChat.get().toString())
+                intent.putExtra("user_name", user_Name.get().toString())
+                intent.putExtra("userImage", user_image.get().toString())
+                CommonMethods.context.startActivity(intent)
+
+                //For Fragment
+                /*val chatData = Bundle()
+                chatData.putString("CommingFrom","ConfirmBooking")
+                chatData.putString("user_Id",userIdForChat.get().toString())
                 chatData.putString("user_name", user_Name.get().toString())
                 chatData.putString("userImage", user_image.get().toString())
+                view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment,chatData)*/
 
-                Log.e(
-                    "asfasfaa",
-                    userIdForChat.get().toString() + "VCVX" + user_Name.get()
-                        .toString() + " VVC " + user_image + "ZXZz "
-                )
+                Log.e("asfasfaa",userIdForChat.get().toString() + "VCVX" + user_Name.get().toString() + " VVC " + user_image + "ZXZz ")
 
-                view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment, chatData)
             }
 
             R.id.etConfirmBookDate -> {

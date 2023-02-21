@@ -34,13 +34,14 @@ data class ProfileCateData(
     val likes: List<Any>,
     val location: DashLocation,
     val location_text: String,
-    val long: Double,
+    var long: Double?=0.0,
     val postProfile_picture: List<String>,
     val profile_title: String,
     val tags: String,
     val u_id: String,
     val user_name: String,
-    var lngValue:Double?
+    var lngValue:Double?,
+    var mediaType:Int
 ): AbstractModel()
 
 data class DashLocation(

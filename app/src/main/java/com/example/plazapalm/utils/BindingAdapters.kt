@@ -1,6 +1,7 @@
 package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Typeface
 import android.location.Location
 import android.media.MediaPlayer
@@ -511,7 +512,6 @@ object BindingAdapters {
                 .load(IMAGE_LOAD_URL + imageUrl)
 //                .apply( RequestOptions().override(700, 400))
                 .into(shapeableImageView)
-
         } else {
             //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
         }
@@ -584,9 +584,9 @@ object BindingAdapters {
 
 
     @JvmStatic
-    @BindingAdapter("setVideoImage", requireAll = false)
+    @BindingAdapter("setVideoImage", "contextValue",requireAll = false)
     fun setVideoImage(
-        videoView: VideoView, imageUrl: String?,
+        videoView: VideoView, imageUrl: String?,contextValue:Context
     ) {
         var position = 0
         if (imageUrl != null) {
@@ -599,12 +599,17 @@ object BindingAdapters {
             //  mediaController.setAnchorView(videoView)
             //   mediaController.setMediaPlayer(videoView)
             // videoView.setMediaController(mediaController)
+          /*  var imageIcon=ImageView(contextValue)
+            imageIcon.layoutParams.height=20
+            imageIcon.layoutParams.width=20
+            imageIcon.setImageResource(R.drawable.ic_play_icon)
+            imageIcon.visibility=View.VISIBLE*/
 
             videoView.setOnPreparedListener { mp ->
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
                 mp.setVolume(0f, 0f)
                 videoView.seekTo(position)
-
+               // imageIcon.visibility=View.GONE
                 if (position == 0) {
                     videoView.start()
                 } else {
@@ -733,6 +738,7 @@ object BindingAdapters {
         destinationTV: TextView,
         distacneValue: Double,
     ) {
+        destinationTV.text = ""
         destinationTV.text = distacneValue.toString().split(".")[0] + " " + Constants.MILES_TEXT
         Log.e("dmfledmfdf===", distacneValue.toString())
     }

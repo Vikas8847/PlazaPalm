@@ -23,7 +23,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDashBoardSelectedEvents"
-            android:layout_width="@dimen/_175sdp"
+            android:layout_width="@dimen/_235sdp"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="false"
             android:scrollbars="vertical"

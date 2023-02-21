@@ -19,6 +19,10 @@
         <variable
             name="mContext"
             type="android.content.Context" />
+
+        <variable
+            name="mView"
+            type="android.view.View" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -45,8 +49,32 @@
                 android:alpha="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder"
+                android:visibility="@{model.mediaType==1?mView.VISIBLE:mView.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+           <!-- <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivVideoIcon"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/ic_play_icon"
+                android:visibility="@{model.mediaType==2?mView.GONE:mView.GONE}"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>-->
+
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                setVideoImage="@{model.postProfile_picture[0]}"
+                contextValue="@{mContext}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="@{model.mediaType==2?mView.VISIBLE:mView.GONE}"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
@@ -150,13 +178,13 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="end"
-                calculateLatLngToMiles="@{model.distance}"
+
                 calculateDistance="@{model.location_text}"
-                destinationLat="@{model.location.coordinates[1]}"
-                destinationLong="@{model.location.coordinates[0]}"
+                destinationLat="@{model.lat}"
+                destinationLong="@{model.lngValue}"
                 currentLat="@{vm.lati}"
                 currentLong="@{vm.longi}"
-                android:singleLine="true"
+                android:singleLine="false"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"

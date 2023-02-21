@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.BuildConfig
 import com.example.plazapalm.MainActivity.Companion.activity
 import com.example.plazapalm.R
+import com.example.plazapalm.chat.ChatActivity
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.datastore.SAVE_MAP_FEATURE
 import com.example.plazapalm.models.*
@@ -37,6 +38,7 @@ import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.utils.navigateWithId
+import com.google.android.gms.common.internal.service.Common
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.LinkProperties
@@ -165,14 +167,21 @@ class FavDetailsVM @Inject constructor(
                     view.navigateWithId(R.id.messagesFragment)
                 } else {
                     //Go to the Single Message screen
-                    val bundle =Bundle()
+
+                    var intent = Intent(CommonMethods.context, ChatActivity::class.java)
+                    intent.putExtra("CommingFrom","FavDetailsScreen")
+                    intent.putExtra("user_Id",userIdForChat.get().toString())
+                    intent.putExtra("user_name", userdata.get()?.user_name)
+                    intent.putExtra("userImage", userdata.get()?.postProfile_picture!![0].toString())
+                    CommonMethods.context.startActivity(intent)
+                 /*   val bundle =Bundle()
                     bundle.putString("CommingFrom","FavDetailsScreen")
                     bundle.putString("user_Id",userIdForChat.get().toString())
                     bundle.putString("user_name", userdata.get()?.user_name)
                     bundle.putString("userImage", userdata.get()?.postProfile_picture!![0].toString())
                     Log.e("asfasfaa",userdata.get()?.user_name.toString())
 
-                    view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment,bundle)
+                    view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment,bundle)*/
                 }
             }
 

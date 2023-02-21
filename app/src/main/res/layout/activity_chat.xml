@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.example.plazapalm.views.chat.ChatVM" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/full_Screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{vm::onClicks}"
+        tools:context=".chat.ChatActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentInsetStart="0dp"
+                app:contentInsetEnd="0dp"
+                android:background="@color/white">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivChat"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="start"
+                    android:onClick="@{vm::onClicks}"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:src="@drawable/ic_back_arrow_button"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMessages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="@{vm.reciverUserName}"
+                    android:textColor="@color/tool_bar_black_color"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivChatOpenBlock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:onClick="@{vm::onClicks}"
+                    android:src="@drawable/ic_profile_view_dots_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvMyProfile"
+
+                    />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_for_dismiss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            setTextVisibilty="@{vm.isClicked}"
+            android:onClick="@{vm::onClicks}"
+            android:background="@color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cLChatMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{vm::onClicks}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChats"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_5sdp"
+                android:overScrollMode="never"
+                android:onClick="@{vm::onClicks}"
+                app:layout_constraintBottom_toTopOf="@id/clChatSendMessage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/chat_receiver">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/emtpryMessages"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:visibility="@{vm.emptyMessageList?View.VISIBLE:View.GONE}"
+                android:text="No Chat history found"
+                android:textSize="@dimen/_12sdp"
+                android:layout_height="match_parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvBlockUserBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:background="@drawable/chat_block_user_bg"
+                android:gravity="center_horizontal"
+                android:onClick="@{vm::onClicks}"
+                android:paddingHorizontal="@dimen/_30sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:visibility="@{vm.isClicked ? View.VISIBLE : View.GONE}"
+                android:text="@{vm.isUserBlocked ? @string/unblock_user : @string/block_user }"
+                app:fontFamily="@font/inter_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clChatSendMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/chat_send_bg"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/sendMessage_tv"
+                    style="@style/MyEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/chat_send_bg"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/inter_medium"
+android:imeOptions="normal"
+                    android:hint="@string/type_here"
+                    android:inputType="text"
+                    android:maxLines="5"
+                    android:singleLine="false"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@drawable/color_cursor_black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/sendNewMessage"
+                    android:text="@={vm.messageText}"
+                    android:ellipsize="end"
+                    android:visibility="@{vm.isUserBlocked ? View.GONE : View.VISIBLE}"
+                    android:onClick="@{vm::onClicks}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/sendNewMessage"
+                    android:src="@drawable/ic_chat_send_icon"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/sendMessage_tv"
+                    android:layout_height="@dimen/_20sdp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--
+                        android:visibility="@={vm.isClicked()? View.VISIBLE : View.GONE}"
+            -->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+
+<!--
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".chat.ChatActivity">
+
+</androidx.constraintlayout.widget.ConstraintLayout>-->

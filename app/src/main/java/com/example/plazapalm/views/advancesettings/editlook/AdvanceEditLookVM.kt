@@ -18,6 +18,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.toColorInt
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
@@ -72,6 +73,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 
 @SuppressLint("StaticFieldLeak")
@@ -2522,12 +2524,15 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
             var finalWidth = setBorderWidth * 0.30
 
-          /*  var newData=setBorderColor.toString().replace("#","")
-            Log.e("rgklrmgrgrgrg===",tempBorderOpacity.get().toInt().toString())
+            var newData=borderTempColor.get().toString().replace("#","")
+            Log.e("rgklrmgrgrgrg===",(tempBorderOpacity.get()*100).toString())
             Log.e("rgklrmgrgrgrg1111===",newData.toString())
-           var newData1="#"+ tempBorderOpacity.get().toInt().toString()+newData*/
+          var newData1="#"+ tempBorderOpacity.get()*100+newData
 
-            drawable2.setStroke(finalWidth.toInt(), setBorderColor)
+            val generatedColor = generateTransparentColor(borderTempColor.get()!!.toColorInt(), tempBorderOpacity.get().toDouble())
+
+            Log.e("rgklrmgrgrgrg2222===",generatedColor.toString())
+            drawable2.setStroke(finalWidth.toInt(), generatedColor)
 
 
             drawable2.cornerRadius = 20f
@@ -2583,5 +2588,11 @@ Log.e("FFFFFFFFFFd===","Yessss")
         } else {
             textView.visibility = View.GONE
         }
+    }
+
+    fun generateTransparentColor(color: Int, alpha: Double?): Int {
+        val defaultAlpha = 255 // (0 - Invisible / 255 - Max visibility)
+        val colorAlpha = alpha?.times(defaultAlpha)?.roundToInt() ?: defaultAlpha
+        return ColorUtils.setAlphaComponent(color, colorAlpha)
     }
 }
