@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.verifyemailsecond
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
@@ -49,23 +50,25 @@ class EmailVerifyVM @Inject constructor(
                         //call verifyOtp api here..
                         if (CommonMethods.context.isNetworkAvailable()) {
                             if (validation()) {
-                                callVerifyOtpApi(view)
+                                callVerifyOtpApi(view, "Login")
                             }
                         } else {
                             CommonMethods.showToast(CommonMethods.context, Constants.CHECK_INTERNET)
                         }
                     }
-                    "updateEmail" -> {
-                            //call update email verify api here..
-                            if (CommonMethods.context.isNetworkAvailable()) {
-                                if (validation()) {
-                                    validateOtpForEmailUpdate()
-                                } else {
-                                    CommonMethods.showToast(
-                                        CommonMethods.context,
-                                        Constants.CHECK_INTERNET
-                                    )
-                                }
+                    "emailUpdateType" -> {
+                        //call update email verify api here..
+                        if (CommonMethods.context.isNetworkAvailable()) {
+                            if (validation()) {
+//                                    validateOtpForEmailUpdate()
+                                Log.e("sdasld +3",  email.get().toString())
+                                callVerifyOtpApi(view, "emailUpdateType")
+                            } else {
+                                CommonMethods.showToast(
+                                    CommonMethods.context,
+                                    Constants.CHECK_INTERNET
+                                )
+                            }
 
                         }
                     }
@@ -119,10 +122,14 @@ class EmailVerifyVM @Inject constructor(
             })
     }
 
-    private fun callVerifyOtpApi(view: View) = viewModelScope.launch {
+    private fun callVerifyOtpApi(view: View, otpType: String) = viewModelScope.launch {
+
+        Log.e("sdasld +4",  email.get()?.trim().toString()+ "   " +  otp.get()?.trim()!!)
+
         val body = JSONObject()
         body.put(Constants.EMAIL, email.get())
         body.put(Constants.OTP, otp.get())
+
         repository.makeCall(
             apiKey = ApiEnums.VERIFY_OTP,
             loader = true,
@@ -137,12 +144,27 @@ class EmailVerifyVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<VerifyOtpData>) {
-                    CommonMethods.context.hideKeyboard()
-                    val bundle = Bundle()
-                    bundle.putString("comingFrom", getLoginType.get())
-                    bundle.putString("email", email.get())
-                    view.navigateWithId(R.id.changePasswordFragment, bundle)
-                    CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
+
+                    if (otpType.equals("Login")) {
+                        CommonMethods.context.hideKeyboard()
+                        val bundle = Bundle()
+                        bundle.putString("comingFrom", getLoginType.get())
+                        bundle.putString("email", email.get())
+                        view.navigateWithId(R.id.changePasswordFragment, bundle)
+                        CommonMethods.showToast(
+                            CommonMethods.context,
+                            res.body()?.message.toString()
+                        )
+                    } else if (otpType.equals("emailUpdateType")) {
+
+                        Log.e("jashdjklsahd   --1 ", res.body().toString())
+
+                        CommonMethods.showToast(
+                            CommonMethods.context,
+                            res.body()?.message.toString()
+                        )
+                        view.navigateWithId(R.id.dashBoardFragment)
+                    }
                 }
             }
         )
@@ -150,16 +172,23 @@ class EmailVerifyVM @Inject constructor(
 
     /** call Update email verify api **/
     private fun validateOtpForEmailUpdate() = viewModelScope.launch {
+
+
+        Log.e("jashdjklsahd", auth.get() + " VCX " + "  " + email.get() + " v  " + otp.get())
         val body = JSONObject()
         body.put(Constants.AUTHORIZATION, auth.get())
         body.put(Constants.EMAIL, email.get())
         body.put("Otp", otp.get())
+
+
         repository.makeCall(
             apiKey = ApiEnums.VALIDATE_OTP_UPDATE_EMAIL,
             loader = true,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<VerifyOtpData>> {
+
+
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<VerifyOtpData> {
                     return retrofitApi.validateOtpUpdateEmail(
                         Authorization = auth.get()?.trim().toString(),
@@ -169,6 +198,9 @@ class EmailVerifyVM @Inject constructor(
                 }
 
                 override fun onResponse(res: Response<VerifyOtpData>) {
+
+                    Log.e("jashdjklsahd   --1 ", res.body().toString())
+
                     CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
                 }
             }

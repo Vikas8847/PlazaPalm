@@ -1433,6 +1433,7 @@ class AdvanceEditLookVM @Inject constructor(
 
                 override fun onResponse(res: Response<EditLookColorsResponse>) {
                     Log.e("CONFIRMBOOKING", res.body().toString() + "RESS")
+
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)

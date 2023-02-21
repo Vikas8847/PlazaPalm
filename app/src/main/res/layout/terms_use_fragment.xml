@@ -46,6 +46,15 @@
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp" />
+
+<!--
         <ScrollView
 
             android:layout_width="match_parent"
@@ -85,6 +94,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
+-->
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

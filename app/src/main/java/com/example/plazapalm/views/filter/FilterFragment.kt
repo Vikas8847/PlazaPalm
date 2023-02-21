@@ -121,20 +121,18 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
                             viewModel.filterAdapter.getAllItems().removeAt(position)
                             viewModel.filterAdapter.notifyDataSetChanged()
 
-                            if(viewModel.filterAdapter.getAllItems().size==0)
-                            {
+                            if(viewModel.filterAdapter.getAllItems().size==0) {
                                 viewModel.categoryVisibilty.set(true)
-                            }else
-                            {
+                            }else {
                                 viewModel.categoryVisibilty.set(false)
                             }
                         }
+
                 "minus_click"->{
                     Log.e("Selected_Position===",position.toString())
                     //viewModel.swipeEnable.set(true)
 
-                    for(idx in 0 until viewModel.filterAdapter.getAllItems().size)
-                    {
+                    for(idx in 0 until viewModel.filterAdapter.getAllItems().size) {
                         viewModel.filterAdapter.getAllItems()[idx].checkSlider=false
                     }
 
@@ -149,7 +147,6 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
             }
 
             var gsonValue = Gson().toJson(categoryList)
-
 
             if(categoryList.size==0)
             {

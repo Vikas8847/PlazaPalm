@@ -39,14 +39,6 @@ class FilterFragmentVM @Inject constructor(
 
     init {
 
-        /* if (pref.retrieveLocation()!=null){
-             location.set(pref.retrieveLocation())
-             Log.e("SSSSSWWWQQQ0", location.get().toString())
-         }*/
-
-//        filterAdapter.addItems(filterDataList)
-//        filterAdapter.notifyDataSetChanged()
-
         Log.e("SSSSSWWWQQQ0", filterDataList.toString())
 
     }
@@ -108,6 +100,7 @@ class FilterFragmentVM @Inject constructor(
 
                 var catIdList = ArrayList<String>()
                 catIdList.clear()
+
                 for (idx in 0 until filterAdapter.getAllItems().size) {
                     catIdList.add(filterAdapter.getAllItems()[idx].cate_ID.toString())
                     selCateList.add(SelCategory(filterAdapter.getAllItems()[idx].cateName,
