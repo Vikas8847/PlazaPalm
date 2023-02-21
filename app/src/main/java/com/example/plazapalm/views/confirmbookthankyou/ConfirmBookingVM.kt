@@ -55,7 +55,7 @@ class ConfirmBookingVM @Inject constructor(
     var user_image = ObservableField("")
     var bookingId = ObservableField("")
     var postProfileId = ObservableField("")
-    var postProfileId = ObservableField("")
+
     var chooseDate = ObservableField("")
     var chooseTime = ObservableField("")
     var description = ObservableField("")

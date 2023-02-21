@@ -599,17 +599,17 @@ object BindingAdapters {
             //  mediaController.setAnchorView(videoView)
             //   mediaController.setMediaPlayer(videoView)
             // videoView.setMediaController(mediaController)
-            var imageIcon=ImageView(contextValue)
+          /*  var imageIcon=ImageView(contextValue)
             imageIcon.layoutParams.height=20
             imageIcon.layoutParams.width=20
             imageIcon.setImageResource(R.drawable.ic_play_icon)
-            imageIcon.visibility=View.VISIBLE
+            imageIcon.visibility=View.VISIBLE*/
 
             videoView.setOnPreparedListener { mp ->
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
                 mp.setVolume(0f, 0f)
                 videoView.seekTo(position)
-                imageIcon.visibility=View.GONE
+               // imageIcon.visibility=View.GONE
                 if (position == 0) {
                     videoView.start()
                 } else {
