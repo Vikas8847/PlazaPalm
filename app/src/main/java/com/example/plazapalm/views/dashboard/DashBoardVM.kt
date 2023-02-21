@@ -97,6 +97,7 @@ class DashBoardVM @Inject constructor(
     var dialog: Dialog? = null
     var rvView: RecyclerView? = null
     var selectedCatId = ObservableField("")
+    var searchValue = ObservableField("")
     var isRVScroll = ObservableBoolean(false)
 
     init {
@@ -195,9 +196,11 @@ class DashBoardVM @Inject constructor(
     fun onTextChange(editable: Editable) {
         if (editable.toString().length > 0) {
             Handler().postDelayed({
+                searchValue.set(editable.toString())
                 getProfileByCategory(editable.toString(), false, "")
             }, 1000)
         } else {
+            searchValue.set("")
             Handler().postDelayed({
                 getProfileByCategory("", false, "")
             }, 1000)
@@ -329,10 +332,10 @@ class DashBoardVM @Inject constructor(
         if (!(c_id.equals(""))) {
             singleList.add(c_id)
             dataObject = DashBoardPostData(singleList, lati.get().toString(),
-                "500", longi.get().toString(), userMiles.get().toString(), "1", search)
+                "500", longi.get().toString(), userMiles.get().toString(), "1", searchValue.get().toString())
         } else {
             dataObject = DashBoardPostData(dataArray, lati.get().toString(),
-                "500", longi.get().toString(), userMiles.get().toString(), "1", search)
+                "500", longi.get().toString(), userMiles.get().toString(), "1",  searchValue.get().toString())
         }
 
         Log.e("Dash_Board_Input===", dataObject.toString())
@@ -340,7 +343,7 @@ class DashBoardVM @Inject constructor(
             userMiles.get().toString() + " LATI " + lati.get().toString()
                     + " LONG " + longi.get()
                 .toString() + " CATEIDDD - " + idList.toString() + "search --- " + search)
-
+Log.e("Token_Dataaaa===",pref.retrieveKey("token").toString())
         repository.makeCall(
             ApiEnums.GETPROFILE_BYCATE,
             loader = showLoader,
@@ -394,9 +397,21 @@ class DashBoardVM @Inject constructor(
 
                                     for (idx in 0 until res.body()?.data!!.size) {
                                         if (res.body()?.data!![idx].postProfile_picture != null && res.body()?.data!![idx].postProfile_picture.size > 0) {
-                                            res.body()?.data!![idx].lngValue =
-                                                res.body()?.data!![idx].long
-                                            profileList.add(res.body()?.data!![idx])
+                                          var data=res.body()?.data!![idx]
+                                            data.lngValue=data.long
+
+                                            if(data.postProfile_picture[0].contains(".png") ||
+                                                data.postProfile_picture[0].contains(".jpg") || data.postProfile_picture[0].contains(".jpeg"))
+                                            {
+                                                data.mediaType=1
+                                            }else
+                                            {
+                                                data.mediaType=2
+                                                Log.e("rererererer===",data.postProfile_picture[0])
+                                            }
+                                            /*res.body()?.data!![idx].lngValue =
+                                                res.body()?.data!![idx].long*/
+                                            profileList.add(data)
                                         }
                                     }
                                     adapter.addItems(profileList)

@@ -22,6 +22,7 @@ import androidx.navigation.findNavController
 import com.example.plazapalm.databinding.ActivityMainBinding
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods.dialog
+import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.hideKeyboard
 import com.example.plazapalm.utils.onNavDestinationSelected
 import com.example.plazapalm.views.MainVM
@@ -35,7 +36,7 @@ import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private val mainVM: MainVM? = null
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var isMyProfileClicked = ObservableBoolean(false)
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        Constants.APP_STATE="start"
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         binding?.model = mainVM
         activity = MainActivity()

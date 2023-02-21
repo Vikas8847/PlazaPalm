@@ -23,8 +23,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivUsersImage"
             setCircleImage="@{model.userImage}"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_8sdp"
             android:elevation="@dimen/_2sdp"
             android:scaleType="centerCrop"
@@ -35,20 +35,23 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvChatUserName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/inter_bold"
             android:text="@{model.name}"
             android:textSize="14sp"
             android:textColor="@{@color/black}"
+            app:layout_constraintEnd_toStartOf="@+id/tvChatUserTime"
             app:layout_constraintStart_toEndOf="@id/ivUsersImage"
             app:layout_constraintTop_toTopOf="@id/ivUsersImage"
             tool:text="Nguyen Shane" />
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_2sdp"
             android:fontFamily="@font/inter_medium"
             android:text="@{model.message}"
             android:textColor="@{@color/light_black}"
