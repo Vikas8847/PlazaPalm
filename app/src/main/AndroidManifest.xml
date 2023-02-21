@@ -49,6 +49,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_places_api" />
+
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="barcode">
@@ -61,11 +62,13 @@
             android:configChanges="uiMode"
             android:exported="true"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <!-- Branch App Links - Live App -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -96,6 +99,7 @@
                     android:host="rhjou-alternate.app.link"
                     android:scheme="https" />
             </intent-filter>
+
         </activity>
 
         <meta-data

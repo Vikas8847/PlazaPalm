@@ -102,6 +102,7 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                                 "- " + viewModel.user_location.get()
                             .toString() + " --- " + viewModel.user_image + "  CVCVC   " + viewModel.p_id.toString()
                     )
+
                 }
 
                 /*  */

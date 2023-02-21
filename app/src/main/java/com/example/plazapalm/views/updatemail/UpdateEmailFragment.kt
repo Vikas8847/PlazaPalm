@@ -23,6 +23,7 @@ class UpdateEmailFragment : Fragment(R.layout.update_email_fragment) {
         currentEmail()
         return binding?.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel

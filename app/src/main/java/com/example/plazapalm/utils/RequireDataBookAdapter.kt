@@ -95,10 +95,9 @@ class RequireDataBookAdapter(
 
                 bindining.etConfirmBookQuestionAns.setBackgroundResource(R.drawable.ans_bck)
 
-                bindining.tvConfirmBookQuestionOne.setTextColor(R.color.light_gray)
-                bindining.tvConfirmBookQuestionHair.setTextColor(R.color.light_gray)
-                bindining.etConfirmBookQuestionAns.setTextColor(R.color.light_gray)
-
+                bindining.tvConfirmBookQuestionOne.setTextColor(R.color.black)
+                bindining.tvConfirmBookQuestionHair.setTextColor(R.color.black_light)
+                bindining.etConfirmBookQuestionAns.setTextColor(R.color.gray)
 
                 bindining.etConfirmBookQuestionAns.isClickable = false
                 bindining.etConfirmBookQuestionAns.isEnabled = false

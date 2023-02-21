@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
-import com.example.plazapalm.chat.ChatActivity
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.CalenderData
 import com.example.plazapalm.models.DeleteBookingResponse
@@ -76,6 +75,7 @@ class CalendarVM @Inject constructor(
                                     .get(position).postProfile_last_name.toString() + " VVC "
                     )
                     var userImage = ""
+
                     if (!adapterCalendar.getAllItems()
                             .get(position).postProfile_picture.isNullOrEmpty()
                     ) {
@@ -228,7 +228,6 @@ class CalendarVM @Inject constructor(
                                 Log.e("FQWQWQQQ3", "$fDay  B ")
                                 calendarList.add(calendars4!!)
 
-
                                 Log.e("bookinggIDD -- ",res.body()!!.data[i]?._id.toString())
                             }
 
@@ -237,12 +236,6 @@ class CalendarVM @Inject constructor(
                             calendarBookingList = res.body()!!.data as ArrayList<CalenderData> /* = java.util.ArrayList<com.example.plazapalm.models.CalenderData> */
                             adapterCalendar.addItems(calendarBookingList)
                             adapterCalendar.notifyDataSetChanged()
-
-//                            if (res.body()!!.data.isEmpty()) {
-//                                booking_id.set("")
-//                            } else {
-//                                booking_id.set(res.body()!!.data[0]?._id.toString())
-//                            }
 
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.message())
@@ -254,7 +247,8 @@ class CalendarVM @Inject constructor(
 
                 override fun onError(message: String) {
                     super.onError(message)
-                    CommonMethods.showToast(CommonMethods.context, message)
+                    Log.e("ZXCdiouqwe",message)
+//                    CommonMethods.showToast(CommonMethods.context, message)
                 }
             })
     }
@@ -266,6 +260,5 @@ class CalendarVM @Inject constructor(
             }
         }
     }
-
 
 }
