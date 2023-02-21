@@ -74,6 +74,7 @@ class CalendarVM @Inject constructor(
                                     .get(position).postProfile_last_name.toString() + " VVC "
                     )
                     var userImage = ""
+
                     if (!adapterCalendar.getAllItems()
                             .get(position).postProfile_picture.isNullOrEmpty()
                     ) {
@@ -89,7 +90,6 @@ class CalendarVM @Inject constructor(
                         "user_Id",
                         adapterCalendar.getAllItems().get(position).post_profile_user_id.toString()
                     )
-
                     chatData.putString(
                         "user_name",
                         adapterCalendar.getAllItems()
@@ -98,7 +98,6 @@ class CalendarVM @Inject constructor(
                     )
 
                     chatData.putString("userImage", userImage)
-
                     view.navigateWithId(R.id.action_calendarFragment_to_chatFragment, chatData)
 
                 }
@@ -117,8 +116,8 @@ class CalendarVM @Inject constructor(
                     )
 
                 }
-                deleteConfirmBooking ->{
 
+                deleteConfirmBooking ->{
                     deleteBooking(position)
                 }
 
@@ -230,8 +229,8 @@ class CalendarVM @Inject constructor(
                                 Log.e("FQWQWQQQ3", "$fDay  B ")
                                 calendarList.add(calendars4!!)
 
-
                                 Log.e("bookinggIDD -- ",res.body()!!.data[i]?._id.toString())
+
                             }
 
                             calendarMutableResponse.value = calendarList
@@ -239,12 +238,6 @@ class CalendarVM @Inject constructor(
                             calendarBookingList = res.body()!!.data as ArrayList<CalenderData> /* = java.util.ArrayList<com.example.plazapalm.models.CalenderData> */
                             adapterCalendar.addItems(calendarBookingList)
                             adapterCalendar.notifyDataSetChanged()
-
-//                            if (res.body()!!.data.isEmpty()) {
-//                                booking_id.set("")
-//                            } else {
-//                                booking_id.set(res.body()!!.data[0]?._id.toString())
-//                            }
 
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.message())
@@ -256,7 +249,8 @@ class CalendarVM @Inject constructor(
 
                 override fun onError(message: String) {
                     super.onError(message)
-                    CommonMethods.showToast(CommonMethods.context, message)
+                    Log.e("ZXCdiouqwe",message)
+//                    CommonMethods.showToast(CommonMethods.context, message)
                 }
             })
     }
@@ -268,6 +262,5 @@ class CalendarVM @Inject constructor(
             }
         }
     }
-
 
 }

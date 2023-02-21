@@ -72,6 +72,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
                             binding?.clCalendar?.setHighlightedDays(dataList)
                            binding?.clCalendar?.selectedDates = dataList
                     }
+
                     Log.e("ASAW", currentDate)
                 }
             }
@@ -88,6 +89,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
                   Log.e("DATAEE", month.toString())
               }
           })
+
           binding?.clCalendar?.setOnForwardPageChangeListener(object :
               OnCalendarPageChangeListener {
               override fun onChange() {
@@ -98,6 +100,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
               }
           })
       }
+
     private fun montYear(month: Int, year: Int) {
         viewModel.month.set(month)
         viewModel.year.set(year)

@@ -27,7 +27,6 @@ import org.json.JSONObject
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @HiltViewModel
 class ConfirmBookingVM @Inject constructor(
@@ -35,8 +34,7 @@ class ConfirmBookingVM @Inject constructor(
     var preferenceFile: PreferenceFile,
     var dataStoreUtil: DataStoreUtil,
 
-) : ViewModel() {
-
+    ) : ViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     private var timePicker: TimePickerDialog? = null
@@ -44,7 +42,7 @@ class ConfirmBookingVM @Inject constructor(
 //    @Inject
 //    lateinit var adapter: RequireDataBookAdapter
 
-   var adapter:RequireDataBookAdapter?=null
+    var adapter: RequireDataBookAdapter? = null
 
     var p_id = ObservableField("")
     var user_Name = ObservableField("")
@@ -53,8 +51,7 @@ class ConfirmBookingVM @Inject constructor(
     var user_location = ObservableField("")
     var user_miles = ObservableField("25 Miles")
     var user_image = ObservableField("")
-    var bookingId = ObservableField("")
-    var postProfileId = ObservableField("6226fde44442aea32a70d4d8")
+    var postProfileId = ObservableField("")
     var chooseDate = ObservableField("")
     var chooseTime = ObservableField("")
     var description = ObservableField("")
@@ -77,14 +74,18 @@ class ConfirmBookingVM @Inject constructor(
             R.id.ivBookingDetailsChat -> {
 
                 val chatData = Bundle()
-                chatData.putString("CommingFrom","ConfirmBooking")
-                chatData.putString("user_Id",userIdForChat.get().toString())
+                chatData.putString("CommingFrom", "ConfirmBooking")
+                chatData.putString("user_Id", userIdForChat.get().toString())
                 chatData.putString("user_name", user_Name.get().toString())
                 chatData.putString("userImage", user_image.get().toString())
 
-                    Log.e("asfasfaa",userIdForChat.get().toString() + "VCVX" + user_Name.get().toString() + " VVC " + user_image + "ZXZz ")
+                Log.e(
+                    "asfasfaa",
+                    userIdForChat.get().toString() + "VCVX" + user_Name.get()
+                        .toString() + " VVC " + user_image + "ZXZz "
+                )
 
-                view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment,chatData)
+                view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment, chatData)
             }
 
             R.id.etConfirmBookDate -> {
@@ -130,21 +131,28 @@ class ConfirmBookingVM @Inject constructor(
         )
 
 
-
-
-
-
-
-        var questionListarray=ArrayList<QuestionAnswer11>()
+        var questionListarray = ArrayList<QuestionAnswer11>()
         questionListarray.clear()
-        for(idx in 0 until adapter!!.dataList.size) {
-            questionListarray.add(QuestionAnswer11(adapter!!.dataList[idx].save_ans!!,adapter!!.dataList[idx]._id!!,adapter!!.dataList[idx].question_text!!))
+        for (idx in 0 until adapter!!.dataList.size) {
+            questionListarray.add(
+                QuestionAnswer11(
+                    adapter!!.dataList[idx].save_ans!!,
+                    adapter!!.dataList[idx]._id!!,
+                    adapter!!.dataList[idx].question_text!!
+                )
+            )
         }
 
-        var request=RequestBookProfile(categoryName.get().toString(),chooseDate.get().toString(),chooseTime.get().toString(),description.get().toString() ,
-            p_id.get().toString(),questionListarray)
+        var request = RequestBookProfile(
+            categoryName.get().toString(),
+            chooseDate.get().toString(),
+            chooseTime.get().toString(),
+            description.get().toString(),
+            p_id.get().toString(),
+            questionListarray
+        )
 
-        Log.e("SDSAXZXz" , questionListarray.toString())
+        Log.e("SDSAXZXz", questionListarray.toString())
 
         repository.makeCall(ApiEnums.CONFIRM_BOOKING,
             loader = true, saveInCache = false, getFromCache = false,
@@ -154,12 +162,12 @@ class ConfirmBookingVM @Inject constructor(
                         preferenceFile.retrieveKey("token").toString(),
                         request
 
-                    /*    post_profile_id = p_id.get().toString(),
-                        chooseDate.get().toString(),
-                        chooseTime.get().toString(),
-                        description.get().toString(),
-                        categoryName.get().toString(),
-                        newQuestionList*/
+                        /*    post_profile_id = p_id.get().toString(),
+                            chooseDate.get().toString(),
+                            chooseTime.get().toString(),
+                            description.get().toString(),
+                            categoryName.get().toString(),
+                            newQuestionList*/
                     )
                 }
 
@@ -186,7 +194,7 @@ class ConfirmBookingVM @Inject constructor(
                 override fun onError(message: String) {
                     super.onError(message)
                     CommonMethods.showToast(CommonMethods.context, message)
-
+                    Log.e("DFSFSD", message)
                 }
 
             })
@@ -243,15 +251,22 @@ class ConfirmBookingVM @Inject constructor(
     }
 
     private fun validateFields(): Boolean {
-        counter=0
-        var textValue=""
-        for (i in 0 until adapter!!.dataList.size){
-            if(adapter!!.dataList[i].save_ans!="") {
-                counter++
-                textValue=textValue+",  "+adapter!!.dataList[i].save_ans
+        counter = 0
+        var textValue = ""
+        if ((adapter?.dataList?.isNotEmpty() == true)) {
+            Log.e("SASASww2", adapter!!.dataList.toString())
+            if (adapter!!.dataList.size > 0) {
+                for (i in 0 until adapter!!.dataList.size) {
+                    if (adapter!!.dataList[i].save_ans != "") {
+                        counter++
+                        textValue = textValue + ",  " + adapter!!.dataList[i].save_ans
+                    }
+                }
             }
-        }
 
+        } else {
+            adapter?.dataList?.toString()?.let { Log.e("SASASww1", it) }
+        }
 
         when {
             chooseDate.get()?.trim().isNullOrEmpty() -> {
@@ -268,8 +283,13 @@ class ConfirmBookingVM @Inject constructor(
                 CommonMethods.showToast(CommonMethods.context, "Please enter description")
                 return false
             }
-            adapter!!.dataList.size!=counter -> {
-                CommonMethods.showToast(CommonMethods.context, "Please enter questions")
+
+            adapter?.dataList?.size != counter -> {
+                if (commingFrom.get().equals("confirmBook")) {
+                    CommonMethods.showToast(CommonMethods.context, "Please enter questions")
+                } else if (commingFrom.get().equals("addToCalander")) {
+                    return true
+                }
                 return false
             }
 
@@ -279,6 +299,46 @@ class ConfirmBookingVM @Inject constructor(
         }
 
     }
+
+
+//    private fun validateFields(): Boolean {
+//        counter=0
+//        var textValue=""
+//
+//        for (i in 0 until adapter!!.dataList.size){
+//            if(adapter!!.dataList[i].save_ans!="") {
+//                counter++
+//                textValue=textValue+",  "+adapter!!.dataList[i].save_ans
+//            }
+//        }
+//
+//
+//        when {
+//            chooseDate.get()?.trim().isNullOrEmpty() -> {
+//                CommonMethods.showToast(CommonMethods.context, "Please select date")
+//                return false
+//            }
+//
+//            chooseTime.get()?.trim().isNullOrEmpty() -> {
+//                CommonMethods.showToast(CommonMethods.context, "Please choose time")
+//                return false
+//            }
+//
+//            description.get()?.trim().isNullOrEmpty() -> {
+//                CommonMethods.showToast(CommonMethods.context, "Please enter description")
+//                return false
+//            }
+//            adapter!!.dataList.size!=counter -> {
+//                CommonMethods.showToast(CommonMethods.context, "Please enter questions")
+//                return false
+//            }
+//
+//            else -> {
+//                return true
+//            }
+//        }
+//
+//    }
 
     /*Add to Calendar Api ...*/
     private fun addToCalendar(view: View) = viewModelScope.launch {
@@ -320,8 +380,6 @@ class ConfirmBookingVM @Inject constructor(
 
                             view.navigateBack()
 
-//                            view.navigateWithId(R.id.bookingDetailsFragment)
-
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                         }
@@ -332,77 +390,6 @@ class ConfirmBookingVM @Inject constructor(
                     }
                 }
             })
-    }
-     fun getrequiredDataForBookProfileForm() {
-
-        Log.e(
-            "LOCTIOMN", preferenceFile.retrieveKey("token").toString() + "  - - " +
-                    "" + preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
-                .toString() + "  -- " +
-                    preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG)
-                        .toDouble() + " -- " +
-                    p_id.get().toString()
-        )
-
-        repository.makeCall(
-            apiKey = ApiEnums.requiredDataForBookProfileForm,
-            loader = true,
-            saveInCache = false,
-            getFromCache = false,
-            requestProcessor = object : ApiProcessor<Response<GetDataForBookingResponse>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetDataForBookingResponse> {
-                    return retrofitApi.requiredDataForBookProfileForm(
-                        preferenceFile.retrieveKey("token").toString(),
-                        p_id.get().toString(),
-                        preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble(),
-                        preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()
-                    )
-                }
-
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(res: Response<GetDataForBookingResponse>) {
-                    Log.e("khemsingh ", res.body()!!.data.toString())
-//                    viewModel.postProfileId.set(res.body()!!.data[])
-                    if (res.isSuccessful && res.code() == 200) {
-                        if (res.body()!!.data != null) {
-
-                            var dataList = ArrayList<Joined>()
-
-                            for (idx in 0 until res.body()!!.data.size) {
-
-                                for (i in 0 until res.body()!!.data[idx].joined.size) {
-                                    dataList.add(
-                                        Joined(
-                                            res.body()!!.data[idx].joined[i]._id,
-                                            res.body()!!.data[idx].joined[i].question_text
-                                        )
-                                    )
-                                    Log.e("kbnnmn",  res.body()!!.data[idx].joined[i].question_text + "3")
-
-                                }
-
-                                Log.e("mnbmm", dataList.toString() + "3")
-
-                            }
-
-//                            requireDataBookAdapter.addItems(dataList,1)
-//                            requireDataBookAdapter.notifyDataSetChanged()
-
-//                            setAdapter(dataList)
-
-                        } else {
-                            Log.e("SDASDASWQ123", res.body()!!.data.toString() + "2")
-                        }
-
-                    } else {
-                        Log.e("SDASDASWQ123", res.body()!!.data.toString() + "1")
-                    }
-                }
-
-            }
-        )
-
-
     }
 
 }

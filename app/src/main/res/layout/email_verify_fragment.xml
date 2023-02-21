@@ -8,6 +8,7 @@
         <variable
             name="vm"
             type="com.example.plazapalm.views.verifyemailsecond.EmailVerifyVM" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,7 +136,7 @@
                     android:background="@drawable/ic_bluemix_button_bg"
                     android:fontFamily="@font/inter_semibold"
                     android:onClick="@{vm::onClicks}"
-                    android:text="Verify"
+                    android:text="@string/verify"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="14sp"

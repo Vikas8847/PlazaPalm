@@ -6,6 +6,7 @@ import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.AddToCalendarResponseModel
@@ -53,7 +54,9 @@ class BookingDetailsVM @Inject constructor(
         when (view.id) {
 
             R.id.ivBookingDetailsBack -> {
-                view.navigateBack()
+//                view.navigateBack()
+                view.findNavController().navigateUp()
+
             }
 
             R.id.btnBookingDetailsCancel -> {
@@ -79,7 +82,7 @@ class BookingDetailsVM @Inject constructor(
             }
 
             R.id.ivFavDetailsOptions -> {
-                //Here Navigate to Chat Screen...
+                /** Here Navigate to Chat Screen...*/
 
                 Log.e(
                     "asfasfaa",
@@ -106,7 +109,7 @@ class BookingDetailsVM @Inject constructor(
             }
 
             R.id.tvBookingDetailViewProfile -> {
-                //Here Navigate View profile Screen....
+                /** Here Navigate View profile Screen....*/
                 val bundle = Bundle()
                 bundle.putString("comingFrom", "isBookingDetailsFragment")
                 bundle.putString("userPostProfileId", userPostProfileId.get())
@@ -199,7 +202,6 @@ class BookingDetailsVM @Inject constructor(
 
     }
 
-
     fun removeFromCalendar(view: View) = viewModelScope.launch {
 
         Log.e("ASDSDZXZSWw", booking_id.get().toString())
@@ -209,7 +211,7 @@ class BookingDetailsVM @Inject constructor(
 
         repository.makeCall(
             ApiEnums.REMOVE_FROM_CALENDAR,
-            true,
+            loader =true,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<AddToCalendarResponseModel>> {
@@ -238,50 +240,6 @@ class BookingDetailsVM @Inject constructor(
                 }
             }
         )
-    }
-
-    fun getDataofCustomer(BookingStatus: String) = viewModelScope.launch {
-
-        Log.e(
-            "FSDFSDFQ",
-            preferenceFile.retrieveKey("token").toString() + "---iii---" +
-                    booking_id.get().toString() + "---iii---" +
-                    BookingStatus
-        )
-
-        repository.makeCall(
-            ApiEnums.GET_STATUS_INPUT,
-            loader = true,
-            saveInCache = false,
-            getFromCache = false,
-            requestProcessor = object : ApiProcessor<Response<BookingStatusInputResponse>> {
-
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<BookingStatusInputResponse> {
-                    return retrofitApi.bookingStatusInput(
-                        preferenceFile.retrieveKey("token").toString(),
-                        booking_id.get().toString(),
-                        BookingStatus
-                    )
-                }
-
-                override fun onResponse(res: Response<BookingStatusInputResponse>) {
-                    Log.e("RESEER", res.body().toString())
-                    if (res.isSuccessful && res.code() == 200) {
-                        if (res.body() != null) {
-                            bookingStatus.set("Booking Status : " + "cancelled")
-                            bookingStatusCan.set("cancelled")
-
-                        } else {
-                            CommonMethods.showToast(CommonMethods.context, res.message())
-                        }
-
-                    } else {
-                        CommonMethods.showToast(CommonMethods.context, res.message())
-                    }
-                }
-
-            })
-
     }
 
 }

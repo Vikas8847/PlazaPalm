@@ -286,20 +286,17 @@
                     android:id="@+id/reqire_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     tools:itemCount="6"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/tvBookDetailsDescriptionValue"
                     tools:listitem="@layout/require_data_list" />
 
-
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnBookingDetailsCancel"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginEnd="@dimen/_12sdp"

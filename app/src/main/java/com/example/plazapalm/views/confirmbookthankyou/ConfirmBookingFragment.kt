@@ -73,7 +73,6 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                     viewModel.p_id.set(arguments?.getString("p_id")!!)
                     viewModel.postProfileId.set(arguments?.getString("p_id")!!)
 
-
                     // new code
 
                     binding!!.reqireRv.visibility = View.GONE
@@ -103,6 +102,7 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                                 "- " + viewModel.user_location.get()
                             .toString() + " --- " + viewModel.user_image + "  CVCVC   " + viewModel.p_id.toString()
                     )
+
                 }
 
                 /*  */
