@@ -55,7 +55,7 @@
     <string name="dd_mm_yy">dd/mm/yy</string>
     <string name="deserts_and_drinks">Deserts and Drinks</string>
 
-//10-01-2023 Changes
+    //10-01-2023 Changes
     <string name="upload_image">Upload Image</string>
     <string name="upload_video">Upload Video</string>
 
@@ -76,8 +76,63 @@
     <string name="decline">Decline</string>
     <string name="question_1">Question 1</string>
     <string name="verify">Verify</string>
-    <string name="terms_conditions_title">When you use our services, you’re trusting us with your information. We understand that this is a big responsibility and we work hard to protect your information and put you in control.</string>
-    <string name="privacy_title">Verify</string>
-    <string name="terms_conditions">Verify</string>
-    <string name="privacy_policy">gdff</string>
+    <string name="privacy_title">When you use our services, you’re trusting us with your information. We understand that this is a big responsibility and we work hard to protect your information and put you in control.</string>
+    <string name="terms_conditions_title">What’s covered in these terms
+    We know it’s tempting to skip these Terms of Service, but it’s important to establish what you can expect from us as you use Google services, and what we expect from you.</string>
+    <string name="terms_conditions">These Terms of Service reflect the way that Google’s business works, the laws that apply to our company, and certain things that we’ve always believed to be true. As a result, these Terms of Service help define Google’s relationship with you as you interact with our services. For example, these terms include the following topic headings:
+
+What you can expect from us, which describes how we provide and develop our services
+What we expect from you, which establishes certain rules for using our services
+Content in Google services, which describes the intellectual property rights to the content that you find in our services – whether that content belongs to you, Google or others
+In case of problems or disagreements, which describes other legal rights that you have, and what to expect in case someone violates these terms.
+Understanding these terms is important because, by using our services, you’re agreeing to these terms.
+
+Besides these terms, we also publish a Privacy Policy. Although it’s not part of these terms, we encourage you to read it to better understand how you can update, manage, export and delete your information.
+
+Terms
+Service provider
+Google services are provided by, and you’re contracting with:
+
+Google LLC
+organised under the laws of the State of Delaware, USA, and operating under the laws of the USA
+
+1600 Amphitheatre Parkway
+Mountain View, California 94043
+USA
+
+Age requirements
+If you’re under the age required to manage your own Google Account, you must have your parent or legal guardian’s permission to use a Google Account. Please ask your parent or legal guardian to read these terms with you.
+
+If you’re a parent or legal guardian, and you allow your child to use the services, then these terms apply to you and you’re responsible for your child’s activity on the services.
+
+Some Google services have additional age requirements as described in their service-specific additional terms and policies.
+
+</string>
+    <string name="privacy_policy">This Privacy Policy is meant to help you understand what information we collect, why we collect it and how you can update, manage, export and delete your information.
+
+
+Privacy Check-Up
+
+Looking to change your privacy settings?
+
+Take the Privacy Check-Up
+       /n We build a range of services that help millions of people daily to explore and interact with the world in new ways. Our services include:
+
+Google apps, sites and devices, such as Search, YouTube and Google Home
+Platforms such as the Chrome browser and Android operating system
+Products that are integrated into third-party apps and sites, like ads, analytics and embedded Google Maps
+        /n You can use our services in a variety of ways to manage your privacy. For example, you can sign up for a Google Account if you want to create and manage content like emails and photos, or see more relevant search results. And you can use many Google services when you’re signed out or without creating an account at all, like searching on Google or watching YouTube videos. You can also choose to browse the web in a private mode, like Chrome Incognito mode. And across our services, you can adjust your privacy settings to control what we collect and how your information is used.
+
+To help explain things as clearly as possible, we’ve added examples, explanatory videos and definitions for key terms. And if you have any questions about this Privacy Policy, you can contact us.
+        /n We want you to understand the types of information we collect as you use our services
+
+We collect information to provide better services to all our users – from figuring out basic stuff such as which language you speak, to more complex things like which ads you’ll find most useful, the people who matter most to you online or which YouTube videos you might like. The information Google collects, and how that information is used, depends on how you use our services and how you manage your privacy controls.
+
+When you’re not signed in to a Google Account, we store the information that we collect with unique identifiers tied to the browser, application or device that you’re using. This allows us to do things like maintain your preferences across browsing sessions, such as your preferred language or whether to show you more relevant search results or ads based on your activity.
+
+When you’re signed in, we also collect information that we store with your Google Account, which we treat as personal information.
+
+
+    </string>
+
 </resources>
