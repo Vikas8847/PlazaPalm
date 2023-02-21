@@ -103,7 +103,6 @@ class FavDetailsVM @Inject constructor(
     val backgroundColor = MutableLiveData<Any>()
     val textColor = MutableLiveData<Any>()
 
-
     fun onClicks(view: View) {
         when (view.id) {
             R.id.ivFavDetailsDislike -> {

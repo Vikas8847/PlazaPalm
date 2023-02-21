@@ -446,14 +446,14 @@ interface RetrofitApi {
         @Field("backgroundColor") backgroundColor: String,
         @Field("backgroundType") backgroundType: String,
         @Field("columnColor") columnColor: String,
-        @Field("columnOpacity") columnOpacity: Double,
-        @Field("borderOpacity") borderOpacity: Double,
-        @Field("borderWidth") borderWidth: Float,
+        @Field("columnOpacity") columnOpacity: Int,
+        @Field("borderOpacity") borderOpacity: Int,
+        @Field("borderWidth") borderWidth: Int,
         @Field("borderColor") borderColor: String,
         @Field("fontName") fontName: String,
         @Field("fontColor") fontColor: String,
         @Field("fontSize") fontSize: Int,
-        @Field("fontOpacity") fontOpacity: Double
+        @Field("fontOpacity") fontOpacity: Int
     ): Response<EditLookColorsResponse>
 
     @GET(GET_COLORS)

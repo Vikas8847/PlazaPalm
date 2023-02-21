@@ -1411,6 +1411,11 @@ class AdvanceEditLookVM @Inject constructor(
 
     /** Post api for color back ground ..**/
     private fun postColorsAPI() = viewModelScope.launch {
+       var columnOpacityValue=(columnOpacity.get().toDouble()*100).toInt()
+       var borderOpacityValue=(borderOpacity.get().toDouble()*100).toInt()
+       var fontOpacityValue=(fontOpacity.get().toDouble()*100).toInt()
+
+
         repository.makeCall(ApiEnums.COLOR_LOOK,
             loader = true, saveInCache = false, getFromCache = false,
             object : ApiProcessor<Response<EditLookColorsResponse>> {
@@ -1420,14 +1425,14 @@ class AdvanceEditLookVM @Inject constructor(
                         backgroundColor = backgroundColor.get().toString(),
                         backgroundType = backgroundType.get().toString(),
                         columnColor = columnColor.get().toString(),
-                        columnOpacity = columnOpacity.get().toDouble(),
-                        borderOpacity = borderOpacity.get().toDouble(),
-                        borderWidth = borderWidth.get(),
+                        columnOpacity = columnOpacityValue.toInt(),
+                        borderOpacity = borderOpacityValue.toInt(),
+                        borderWidth = borderWidth.get().toInt(),
                         borderColor = borderColor.get().toString(),
                         fontName = fontsName.get().toString(),
                         fontColor = fontColor.get().toString(),
                         fontSize = fontSize.get().toInt(),
-                        fontOpacity = fontOpacity.get().toDouble()
+                        fontOpacity = fontOpacityValue.toInt()
                     )
                 }
 
@@ -2368,9 +2373,10 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
 
                                 fontsName.set(data.font_name.toString())
-                                borderOpacity.set(data.border_opacity?.toFloat()!!)
-                                fontOpacity.set(data.font_opacity?.toFloat()!!)
-                                columnOpacity.set(data.column_opacity?.toFloat()!!)
+
+                                borderOpacity.set((data.border_opacity?.toFloat()!!)/100)
+                                fontOpacity.set((data.font_opacity?.toFloat()!!)/100)
+                                columnOpacity.set((data.column_opacity?.toFloat()!!)/100)
 
 
 
@@ -2527,12 +2533,12 @@ Log.e("FFFFFFFFFFd===","Yessss")
             var newData=borderTempColor.get().toString().replace("#","")
             Log.e("rgklrmgrgrgrg===",(tempBorderOpacity.get()*100).toString())
             Log.e("rgklrmgrgrgrg1111===",newData.toString())
-          var newData1="#"+ tempBorderOpacity.get()*100+newData
+          //var newData1="#"+ tempBorderOpacity.get()*100+newData
 
-            val generatedColor = generateTransparentColor(borderTempColor.get()!!.toColorInt(), tempBorderOpacity.get().toDouble())
+           // val generatedColor = generateTransparentColor(borderTempColor.get()!!.toColorInt(), tempBorderOpacity.get().toDouble())
 
-            Log.e("rgklrmgrgrgrg2222===",generatedColor.toString())
-            drawable2.setStroke(finalWidth.toInt(), generatedColor)
+           // Log.e("rgklrmgrgrgrg2222===",generatedColor.toString())
+            drawable2.setStroke(finalWidth.toInt(),setBorderColor)
 
 
             drawable2.cornerRadius = 20f

@@ -12,6 +12,8 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,7 +27,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.plazapalm.BuildConfig
-import com.example.plazapalm.MainActivity.Companion.activity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.PicturesFragmentBinding
 import com.example.plazapalm.networkcalls.Repository
@@ -69,9 +70,20 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         savedInstanceState: Bundle?,
     ): View? {
         binding = PicturesFragmentBinding.inflate(layoutInflater)
-        CommonMethods.statusBar(true)
-
+       // CommonMethods.statusBar(true)
+        val old = StrictMode.getThreadPolicy()
+        StrictMode.setThreadPolicy(ThreadPolicy.Builder(old)
+            .permitDiskWrites()
+            .build())
+     //  doCorrectStuffThatWritesToDisk()
+        StrictMode.setThreadPolicy(old)
         return binding?.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e("Picture_Screeennn===","1111")
+        CommonMethods.statusBar(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -179,6 +191,7 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
             if (photoFile != null) {
                 //    Glide.with(this).load(photoFile).into(ivPhoto!!)
 //                    var photoFileData=Uri.fromFile(photoFile) as Uri
+                Log.e("Picture_Screeennn===","2222")
                 var photoFileData = photoFile
                 viewModel.UploadMediaMethod(photoFile!!.absolutePath,1)
          /*       newPhotoList.removeAt(pos!!)
