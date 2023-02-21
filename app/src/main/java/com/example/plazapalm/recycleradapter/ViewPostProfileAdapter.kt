@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentActivity
@@ -127,6 +128,7 @@ class ViewPostProfileAdapter(
                 {
 
                 }*/
+                    setVideoImage(bindining.videoViewDetail,IMAGE_LOAD_URL + photos.get(position).Image,bindining.ivVideoIcon)
                 }
             }else
             {
@@ -143,8 +145,6 @@ class ViewPostProfileAdapter(
                 bindining.clVEditProDescription.visibility = View.GONE
             }
         }
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -216,5 +216,54 @@ class ViewPostProfileAdapter(
             Log.d("ErrorInViewPostProfile","Error coming in player ${e.message.toString()}")
         }
 
+    }
+
+
+    fun setVideoImage(
+        videoView: VideoView, imageUrl: String?,videoIcon:ImageView
+    ) {
+        var position = 0
+        if (imageUrl != null) {
+
+            /*   Glide.with(CommonMethods.context)
+                   .load(IMAGE_LOAD_URL + imageUrl)
+                   .override(100,100)
+                   .into(videoView)*/
+            videoView.setVideoPath(imageUrl)
+            //  mediaController.setAnchorView(videoView)
+            //   mediaController.setMediaPlayer(videoView)
+            // videoView.setMediaController(mediaController)
+
+            videoView.setOnPreparedListener { mp ->
+                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+                mp.setVolume(0f, 0f)
+                videoView.seekTo(position)
+                videoIcon.visibility=View.GONE
+                if (position == 0) {
+                    videoView.start()
+                } else {
+                    videoView.pause()
+                }
+
+                mp.isLooping = true
+                // CommonMethods.showToast(requireContext(), "Video is Preparing")
+                Log.d("VideoPreparing", "video is preparing " + videoView.duration)
+            }
+            videoView.setOnErrorListener { _, code1, _ ->
+                Log.e("Video_ErrorCode===", code1.toString())
+                //  Log.d("VideoError", "$mediaPlayer")
+                //  CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
+                true
+            }
+            videoView.setOnCompletionListener { mp ->
+                // videoView.start()
+                /* if (mp.duration == videoView.duration) {
+ \                }*/
+            }
+            videoView.requestFocus()
+            videoView.start()
+        } else {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
     }
 }

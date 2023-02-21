@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.chat
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -80,6 +81,7 @@ class ChatVM @Inject constructor(
 
     var emptyMessageList=ObservableBoolean(false)
 
+    var activity:Activity?=null
     init {
 
         val bothID1 = senderUserID.get().toString() + "_" + reciverUserID.get().toString()
@@ -93,7 +95,8 @@ class ChatVM @Inject constructor(
         when (view.id) {
             R.id.ivChat -> {
 //                view.findNavController().navigateUp()
-                view.navigateBack()
+                //view.navigateBack()
+                activity!!.finish()
             }
             R.id.cLChatMain -> {
                 isClicked.set(false)
@@ -117,6 +120,12 @@ class ChatVM @Inject constructor(
                 isClicked.set(false)
                 showChooseOptionAccountDialog()
             }
+            R.id.layout_for_dismiss->{
+                isClicked.set(true)
+               /* if (dialog != null && dialog?.isShowing!!) {
+                    dialog?.dismiss()
+                }*/
+            }
         }
     }
 
@@ -126,7 +135,7 @@ class ChatVM @Inject constructor(
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
         } else {
-            dialog = Dialog(CommonMethods.context, android.R.style.Theme_Dialog)
+            dialog = Dialog(activity!!, android.R.style.Theme_Dialog)
             dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog?.setContentView(R.layout.block_user_profile)
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -270,11 +279,11 @@ class ChatVM @Inject constructor(
                     Constants.CURRENTCHATID=bothID
                     fetchdata(bothID!!)
                     fetchUserDataMethod(bothID!!)
+                    Constants.CURRENTCHATID =bothID
                 }
 
                 Log.e("Chat_Id===", bothID.toString())
             }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -387,11 +396,6 @@ class ChatVM @Inject constructor(
 
         Log.e("ASAAAQQZ", bothID.toString() + "TIME --->> " + time.toString())
 
-//       val messageData = MessageData(messageText.get().toString(),"1",time,false,senderUserID.get().toString(),
-//           reciverUserID.get().toString(),System.currentTimeMillis())
-//
-//        message.put("Message",messageData)
-
         if (messageText.get().toString().trim().isNullOrEmpty()) {
             CommonMethods.showToast(CommonMethods.context, Constants.MessageNameCantEmpty)
         } else {
@@ -418,7 +422,7 @@ class ChatVM @Inject constructor(
 
                 }
                 .addOnFailureListener {
-                    CommonMethods.showToast(CommonMethods.context, " failed.")
+                   // CommonMethods.showToast(CommonMethods.context, " failed.")
                 }
 
             val lastSeenData = HashMap<String, MessageData>()
@@ -431,7 +435,6 @@ class ChatVM @Inject constructor(
 
             firestore.collection("Chats").document(bothID.toString())
                 .set(lastSeenData, SetOptions.merge())
-
 
             val jsonObject1 = HashMap<String, Any>()
             val arrayList = ArrayList<String>()
@@ -446,7 +449,6 @@ class ChatVM @Inject constructor(
 
             firestore.collection("Chats").document(bothID.toString())
                 .set(jsonObject1, SetOptions.merge())
-
 
             val hashmap = HashMap<String, String>()
             hashmap.put("ChatID", bothID.toString())
@@ -671,6 +673,4 @@ class ChatVM @Inject constructor(
         Log.e("Response_Notificat===", response.body!!.string())
         return response.body!!.string()
     }
-
-
 }

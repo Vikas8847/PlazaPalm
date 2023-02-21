@@ -107,6 +107,7 @@ class UpdateEmailVM @Inject constructor(
                     /*From here we will send type for update email and get it in EmailVerify Fragment using Bundle */
                     val bundle = Bundle()
                     bundle.putString("comingFrom", emailUpdateType.get())
+
                     view.navigateWithId(R.id.emailVerifyFragment, bundle)
                     CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
                     CommonMethods.context.hideKeyboard()

@@ -13,6 +13,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
+import com.example.plazapalm.chat.ChatActivity
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -56,38 +57,37 @@ class FirebaseService @Inject constructor(
         val random = Random()
         val generatedPassword = String.format("%06d", random.nextInt(10000))
 
-        /*   var checkData = MyUtils.getString(applicationContext, "app_kill")
-           var intent: Intent? = null
-           Log.e("egmwgawgeagegeg===", checkData.toString())
-           if (checkData.equals("start")) {
-               intent = Intent(this, ChatActivity::class.java)
+           var checkData = Constants.APP_STATE
+           var intent1: Intent? = null
+        //   Log.e("egmwgawgeagegeg===", checkData.toString())
+           if (checkData!=null && checkData.equals("start")) {
+               intent1 = Intent(this, ChatActivity::class.java)
            } else {
-               intent = Intent(this, HomeActivity::class.java)
-               intent.putExtra("chat_open_screen", "Noti")
+               intent1 = Intent(this, MainActivity::class.java)
+               intent1.putExtra("chat_open_screen", "Noti")
            }
 
-           intent.putExtra(MyConstants.OTHER_USER_ID, data.getString("senderID"))
-           intent.putExtra(MyConstants.CHAT_SCREEN_TYPE, "1")
-           intent.putExtra(MyConstants.OTHER_USER_DETAIL, data.getString("userName"))
-           intent.putExtra(MyConstants.SNOOZE_STATUS, "0")
-           intent.putExtra(MyConstants.SUPERLIKE_STATUS, false)*/
-
+        intent1.putExtra("user_Id", data.getString("senderID"))
+        intent1.putExtra("chat_screen_type", "1")
+        intent1.putExtra("user_name", data.getString("userName"))
+        intent1.putExtra("userImage", data.getString("userImage"))
+        intent1.putExtra("CommingFrom", "notification")
 
         //  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-        var intent: Intent? = null
-        intent = Intent(this, MainActivity::class.java)
+       /* var intent: Intent? = null
+        intent = Intent(this, MainActivity::class.java)*/
         var pendingIntent: PendingIntent? = null
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             //  pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_MUTABLE)
             pendingIntent = PendingIntent.getActivity(this,
                 Integer.parseInt(generatedPassword),
-                intent,
+                intent1,
                 PendingIntent.FLAG_IMMUTABLE)
         } else {
             //pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT)
             pendingIntent = PendingIntent.getActivity(this,
                 Integer.parseInt(generatedPassword),
-                intent,
+                intent1,
                 PendingIntent.FLAG_ONE_SHOT)
         }
 

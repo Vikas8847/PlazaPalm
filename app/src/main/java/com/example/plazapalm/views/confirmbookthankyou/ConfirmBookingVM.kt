@@ -3,6 +3,7 @@ package com.example.plazapalm.views.confirmbookthankyou
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
+import com.example.plazapalm.chat.ChatActivity
 import com.example.plazapalm.datastore.CONFIRM_BOOKING_PROFILE
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.*
@@ -54,7 +56,7 @@ class ConfirmBookingVM @Inject constructor(
     var user_miles = ObservableField("25 Miles")
     var user_image = ObservableField("")
     var bookingId = ObservableField("")
-    var postProfileId = ObservableField("6226fde44442aea32a70d4d8")
+    var postProfileId = ObservableField("")
     var chooseDate = ObservableField("")
     var chooseTime = ObservableField("")
     var description = ObservableField("")
@@ -76,15 +78,23 @@ class ConfirmBookingVM @Inject constructor(
             }
             R.id.ivBookingDetailsChat -> {
 
-                val chatData = Bundle()
+                var intent = Intent(CommonMethods.context, ChatActivity::class.java)
+                intent.putExtra("CommingFrom","ConfirmBooking")
+                intent.putExtra("user_Id",userIdForChat.get().toString())
+                intent.putExtra("user_name", user_Name.get().toString())
+                intent.putExtra("userImage", user_image.get().toString())
+                CommonMethods.context.startActivity(intent)
+
+                //For Fragment
+                /*val chatData = Bundle()
                 chatData.putString("CommingFrom","ConfirmBooking")
                 chatData.putString("user_Id",userIdForChat.get().toString())
                 chatData.putString("user_name", user_Name.get().toString())
                 chatData.putString("userImage", user_image.get().toString())
+                view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment,chatData)*/
 
-                    Log.e("asfasfaa",userIdForChat.get().toString() + "VCVX" + user_Name.get().toString() + " VVC " + user_image + "ZXZz ")
+                Log.e("asfasfaa",userIdForChat.get().toString() + "VCVX" + user_Name.get().toString() + " VVC " + user_image + "ZXZz ")
 
-                view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment,chatData)
             }
 
             R.id.etConfirmBookDate -> {
@@ -243,15 +253,22 @@ class ConfirmBookingVM @Inject constructor(
     }
 
     private fun validateFields(): Boolean {
-        counter=0
-        var textValue=""
-        for (i in 0 until adapter!!.dataList.size){
-            if(adapter!!.dataList[i].save_ans!="") {
-                counter++
-                textValue=textValue+",  "+adapter!!.dataList[i].save_ans
+        counter = 0
+        var textValue = ""
+        if ((adapter?.dataList?.isNotEmpty() == true)) {
+            Log.e("SASASww2", adapter!!.dataList.toString())
+            if (adapter!!.dataList.size > 0) {
+                for (i in 0 until adapter!!.dataList.size) {
+                    if (adapter!!.dataList[i].save_ans != "") {
+                        counter++
+                        textValue = textValue + ",  " + adapter!!.dataList[i].save_ans
+                    }
+                }
             }
-        }
+        } else {
+            adapter?.dataList?.toString()?.let { Log.e("SASASww1", it) }
 
+        }
 
         when {
             chooseDate.get()?.trim().isNullOrEmpty() -> {
@@ -268,8 +285,12 @@ class ConfirmBookingVM @Inject constructor(
                 CommonMethods.showToast(CommonMethods.context, "Please enter description")
                 return false
             }
-            adapter!!.dataList.size!=counter -> {
-                CommonMethods.showToast(CommonMethods.context, "Please enter questions")
+            adapter?.dataList?.size != counter -> {
+                if (commingFrom.get().equals("confirmBook")) {
+                    CommonMethods.showToast(CommonMethods.context, "Please enter questions")
+                }else if (commingFrom.get().equals("addToCalander")){
+                    return true
+                }
                 return false
             }
 
@@ -279,6 +300,45 @@ class ConfirmBookingVM @Inject constructor(
         }
 
     }
+
+
+//    private fun validateFields(): Boolean {
+//        counter=0
+//        var textValue=""
+//        for (i in 0 until adapter!!.dataList.size){
+//            if(adapter!!.dataList[i].save_ans!="") {
+//                counter++
+//                textValue=textValue+",  "+adapter!!.dataList[i].save_ans
+//            }
+//        }
+//
+//
+//        when {
+//            chooseDate.get()?.trim().isNullOrEmpty() -> {
+//                CommonMethods.showToast(CommonMethods.context, "Please select date")
+//                return false
+//            }
+//
+//            chooseTime.get()?.trim().isNullOrEmpty() -> {
+//                CommonMethods.showToast(CommonMethods.context, "Please choose time")
+//                return false
+//            }
+//
+//            description.get()?.trim().isNullOrEmpty() -> {
+//                CommonMethods.showToast(CommonMethods.context, "Please enter description")
+//                return false
+//            }
+//            adapter!!.dataList.size!=counter -> {
+//                CommonMethods.showToast(CommonMethods.context, "Please enter questions")
+//                return false
+//            }
+//
+//            else -> {
+//                return true
+//            }
+//        }
+//
+//    }
 
     /*Add to Calendar Api ...*/
     private fun addToCalendar(view: View) = viewModelScope.launch {
