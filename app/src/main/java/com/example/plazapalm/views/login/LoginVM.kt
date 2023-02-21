@@ -112,6 +112,7 @@ class LoginVM @Inject constructor(
 
                 override fun onResponse(res: Response<LoginDataModel>){
                     if (res.isSuccessful && res.code() == 200) {
+
                         Log.e(
                             "===LOGINDATA===",
                             res.body()?.data.toString()

@@ -393,6 +393,15 @@ interface RetrofitApi {
         @Query("booking_id") booking_id: String
     ): Response<BookingDataForCustomer>
 
+
+    /** GetBookingDetailsForCustomer Api */
+    @GET(GET_BOOKING_DETAILSFOR_CUSTOMER)
+    suspend fun getBookingDetailsForProvider(
+        @Header("Authorization") Authorization: String,
+        @Query("booking_id") booking_id: String
+    ): Response<DataForProviderResponse>
+
+
     /** Booking StatusInput Api */
     @FormUrlEncoded
     @POST(BOOKINGSTATUS_INPUT)

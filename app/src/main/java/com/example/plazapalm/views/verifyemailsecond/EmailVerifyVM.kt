@@ -56,7 +56,6 @@ class EmailVerifyVM @Inject constructor(
                         }
                     }
                     "updateEmail" -> {
-                        if (argsData.get() == "updateEmail") {
                             //call update email verify api here..
                             if (CommonMethods.context.isNetworkAvailable()) {
                                 if (validation()) {
@@ -67,8 +66,6 @@ class EmailVerifyVM @Inject constructor(
                                         Constants.CHECK_INTERNET
                                     )
                                 }
-                            }
-                        } else {
 
                         }
                     }

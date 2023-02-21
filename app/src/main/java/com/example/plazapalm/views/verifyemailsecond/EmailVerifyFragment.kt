@@ -42,9 +42,11 @@ class EmailVerifyFragment : Fragment(R.layout.email_verify_fragment) {
                 viewModel.email.set(emailFromForgotScreen)
                 viewModel.getLoginType.set(viewModel.argsData.get())
             }
-            "emailUpdate"->{
+            "emailUpdateType"->{
                 //call Verify Email Update Api here..
+
                 viewModel.validateUpdateEmail.set(viewModel.argsData.get())
+
             }
           else->
           {

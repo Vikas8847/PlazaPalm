@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.updatemail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
@@ -90,6 +91,7 @@ class UpdateEmailVM @Inject constructor(
     private fun callUpdateEmail(view: View) = viewModelScope.launch {
         val body = JSONObject()
         body.put(Constants.EMAIL, newEmail)
+
         repository.makeCall(
             apiKey = ApiEnums.UPDATE_EMAIL,
             loader = true,
@@ -106,11 +108,14 @@ class UpdateEmailVM @Inject constructor(
                 override fun onResponse(res: Response<VerifyOtpData>) {
                     /*From here we will send type for update email and get it in EmailVerify Fragment using Bundle */
                     val bundle = Bundle()
-                    bundle.putString("comingFrom", emailUpdateType.get())
+
+                    bundle.putString("comingFrom", "emailUpdateType")
+
                     view.navigateWithId(R.id.emailVerifyFragment, bundle)
+
                     CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
                     CommonMethods.context.hideKeyboard()
-                    view.navigateBack()
+//                    view.navigateBack()
                 }
 
                 override fun onError(message: String) {

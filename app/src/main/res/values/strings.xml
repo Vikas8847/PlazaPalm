@@ -65,7 +65,6 @@
     <string name="_25_miles">25 Miles</string>
     <string name="view_profile">View Profile</string>
     <string name="nodata_found">No Data Found</string>
-
     <string name="booking_txt">Book</string>
     <string name="calendar">Calendar</string>
     <string name="testing_nprofile">Testing\nProfile</string>
@@ -76,4 +75,9 @@
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
     <string name="question_1">Question 1</string>
+    <string name="verify">Verify</string>
+    <string name="terms_conditions_title">When you use our services, you’re trusting us with your information. We understand that this is a big responsibility and we work hard to protect your information and put you in control.</string>
+    <string name="privacy_title">Verify</string>
+    <string name="terms_conditions">Verify</string>
+    <string name="privacy_policy">gdff</string>
 </resources>
