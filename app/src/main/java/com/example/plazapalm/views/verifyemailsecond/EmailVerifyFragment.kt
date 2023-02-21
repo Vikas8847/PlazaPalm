@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.verifyemailsecond
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,32 +33,38 @@ class EmailVerifyFragment : Fragment(R.layout.email_verify_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
     }
+
     private fun getData() {
 
-        viewModel.argsData.set( arguments?.getString("comingFrom"))
+        viewModel.argsData.set(arguments?.getString("comingFrom"))
         val emailFromForgotScreen = arguments?.getString("email")
+
+        Log.e("sdasld +2", arguments?.getString("email").toString() + "  " + emailFromForgotScreen.toString())
+
         //for get email from previous screen..
-        when(arguments?.getString("comingFrom")){
-            "Login"->{
+        when (arguments?.getString("comingFrom")) {
+            "Login" -> {
                 viewModel.email.set(emailFromForgotScreen)
                 viewModel.getLoginType.set(viewModel.argsData.get())
             }
-            "emailUpdateType"->{
+            "emailUpdateType" -> {
                 //call Verify Email Update Api here..
 
-                viewModel.validateUpdateEmail.set(viewModel.argsData.get())
+//                viewModel.validateUpdateEmail.set(viewModel.argsData.get())
+                viewModel.argsData.set("emailUpdateType")
+                viewModel.email.set(emailFromForgotScreen)
+                Log.e("sdasld +1", emailFromForgotScreen.toString())
+            }
+            else -> {
+
+                viewModel.email.set(emailFromForgotScreen)
 
             }
-          else->
-          {
-              viewModel.email.set(emailFromForgotScreen)
-
-          }
 
         }
-       /* if (emailFromForgotScreen!=null)
-        {
-            viewModel.email.set(emailFromForgotScreen)
-        }*/
+        /* if (emailFromForgotScreen!=null)
+         {
+             viewModel.email.set(emailFromForgotScreen)
+         }*/
     }
 }

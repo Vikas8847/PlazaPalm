@@ -83,11 +83,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         CommonMethods.statusBar(true)
 
         viewLifecycleOwner.lifecycleScope.launch {
-//            mapFeatureGet()
+            mapFeatureGet()
         }
+
         getlocalData()
         binding?.mainConslayout?.visibility = View.VISIBLE
-//        premiumAccount()
+        premiumAccount1()
         dataList = ArrayList()
         return binding?.root
 
@@ -111,6 +112,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 }
             }
         }
+
         viewModel.textColor.observe(viewLifecycleOwner) {
             if (!(it.equals("")) && it != null) {
                 if (it is String) {
@@ -830,6 +832,80 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     }
 
     private fun premiumAccount() {
+
+        dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
+
+            val p_Id = it?.data?.p_id
+            loginUserId = it?.data?.user_id
+
+            viewModel.p_id.set(p_Id)
+
+            Log.e("asdasdasdasdasdas", p_Id + "VVVC=== USERIDD=--" + loginUserId)
+
+            if (p_Id != "" && p_Id != null && loginUserId != "" && loginUserId != null) {
+
+                //     if (loginUserId.equals("63b69f871545b79696c25166")) {
+                Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
+
+                getPostprofile(
+                    p_Id,
+                    pref.retvieLatlong("lati").toDouble(),
+                    pref.retvieLatlong("longi").toDouble()
+                )
+
+                //  }
+
+            }
+
+        }
+
+
+//        dataStoreUtil.readObject(LOGIN_DATA, LoginDataModel::class.java) {
+//
+//
+//
+////            binding?.tvMyProfileName?.text = it?.data?.first_name + " " + it?.data?.last_name
+////            username.set(it?.data?.user_name)
+////            var  user_id = it?.data?.user_id.toString()
+////            var  p_id = it?.data?.
+////
+////            Log.e("SDSFSDf",it?.data?.user_name + "DFDFDDg   " + user_id.toString())
+////
+////            /*** Get  premium */
+////            //        if (viewModel.premium == 1) {
+////
+////            if (user_id.equals("637b5f650f380e10b6ec0ff0")) {
+/////*
+////
+////                binding?.tvAdvanceSetting?.visibility = View.VISIBLE
+////                binding?.viewAdvanceSettings?.visibility = View.VISIBLE
+////
+////                binding?.tvQRCode?.visibility = View.VISIBLE
+////                binding?.viewQRCode?.visibility = View.VISIBLE
+////
+////                binding?.tvViewMyProfile?.visibility = View.VISIBLE
+////                binding?.viewProfile?.visibility = View.VISIBLE
+////
+////                binding?.tvUpgrade?.visibility = View.GONE
+////                binding?.viewUpgrade?.visibility = View.GONE
+////*/
+////
+////            } else {
+////
+////                /* binding?.tvAdvanceSetting?.visibility = View.GONE
+////                 binding?.viewAdvanceSettings?.visibility = View.GONE
+////
+////                 binding?.tvUpgrade?.visibility = View.VISIBLE
+////                 binding?.viewUpgrade?.visibility = View.VISIBLE*/
+////
+////                Log.e("SAAHAEED","WORKINGGGGGG")
+////
+////            }
+//
+//        }
+
+    }
+    private fun premiumAccount1() {
 
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
 

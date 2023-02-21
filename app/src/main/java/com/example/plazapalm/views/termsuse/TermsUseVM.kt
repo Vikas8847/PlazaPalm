@@ -16,9 +16,9 @@ class TermsUseVM @Inject constructor():ViewModel() {
             R.id.ivTermsUseBackBtn->{
                 view.findNavController().navigateUp()
             }
-            R.id.constTermsUse->{
-                CommonMethods.context.hideKeyboard()
-            }
+//            R.id.constTermsUse->{
+//                CommonMethods.context.hideKeyboard()
+//            }
         }
 
     }

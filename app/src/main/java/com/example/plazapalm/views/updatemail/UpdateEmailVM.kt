@@ -88,7 +88,11 @@ class UpdateEmailVM @Inject constructor(
     }
 
     /**call Update Email Api..**/
+
     private fun callUpdateEmail(view: View) = viewModelScope.launch {
+
+        Log.e("Dasdieo" , newEmail.get()?.trim().toString() )
+
         val body = JSONObject()
         body.put(Constants.EMAIL, newEmail)
 
@@ -110,6 +114,7 @@ class UpdateEmailVM @Inject constructor(
                     val bundle = Bundle()
 
                     bundle.putString("comingFrom", "emailUpdateType")
+                    bundle.putString("email", newEmail.get())
 
                     view.navigateWithId(R.id.emailVerifyFragment, bundle)
 
