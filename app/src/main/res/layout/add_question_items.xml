@@ -26,7 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:dragEdge="right"
-        app:mode="same_level">
+        app:mode="same_level"
+        setSwipeMode="@{model.checkSlider}">
 
         <!-- android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`onSwipeItemClick`)}" -->
 

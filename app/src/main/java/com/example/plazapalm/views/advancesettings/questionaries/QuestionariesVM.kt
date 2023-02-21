@@ -322,7 +322,7 @@ class QuestionariesVM @Inject constructor(
                                             data?._id,
                                             data?.p_id,
                                             data?.question_text,
-                                            questions.get(),
+                                            questions.get(),false
                                         )
                                     )
                                     questionsAdapter.notifyDataSetChanged()
@@ -412,6 +412,15 @@ class QuestionariesVM @Inject constructor(
                                     noData.set(true)
                                 }
                             }
+
+                            if (questionsAdapter.getAllItems()!=null){
+                                if (questionsAdapter.getAllItems().size> 0) {
+                                    for(idx in 0 until questionsAdapter.getAllItems().size) {
+                                        questionsAdapter.getAllItems()[idx].checkSlider=false
+                                    }
+                                }
+                                }
+                            questionsAdapter.notifyDataSetChanged()
 
                             CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)
 
