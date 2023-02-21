@@ -14,6 +14,7 @@ data class AddQuestionResponseModel(
     val _id: String?="",
     val p_id: String?="",
     val question_text: String?="",
-    val question_no: String?=""
+    val question_no: String?="",
+    var checkSlider: Boolean?=false
 
    ):AbstractModel()
