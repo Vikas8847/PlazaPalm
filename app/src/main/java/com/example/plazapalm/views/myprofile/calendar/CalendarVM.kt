@@ -46,6 +46,7 @@ class CalendarVM @Inject constructor(
     val p_Id = ObservableField("")
     val booking_id = ObservableField("")
     val month = ObservableInt()
+    val selectMonth = ObservableInt()
     val year = ObservableInt()
     val click = ObservableBoolean(false)
     val SeletedDate = MutableLiveData<List<String?>?>()
@@ -185,7 +186,7 @@ class CalendarVM @Inject constructor(
 
     fun getCalanderDataMonthWise(month: Int, year: Int) {
 
-        Log.e("PFDXCXs",  pref.retrieveKey("token").toString() +" v " + p_Id.get().toString()+"  -- " +month+"  -  "+year )
+        Log.e("PFDXCXs",  pref.retrieveKey("token").toString() +" v " + p_Id.get().toString()+"  -- " +selectMonth.get()!!.toString()+ "  -  "+year.toString())
 
         repository.makeCall(ApiEnums.GET_PREMIUM_STATUS, loader = true,
             saveInCache = false,
@@ -193,7 +194,7 @@ class CalendarVM @Inject constructor(
             requestProcessor = object : ApiProcessor<Response<GetCalanderResponseModel>> {
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetCalanderResponseModel> {
                     return retrofitApi.getCalendarBookingDateMonthWiseForBoth(
-                        pref.retrieveKey("token").toString(), month, year, p_Id.get().toString()
+                        pref.retrieveKey("token").toString(), selectMonth.get()!!.toInt(), year, p_Id.get().toString()
                     )
                 }
 

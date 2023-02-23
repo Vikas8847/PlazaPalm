@@ -301,7 +301,7 @@
                     android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginEnd="@dimen/_12sdp"
                     android:background="@drawable/ic_red_button_bg"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:onClick="@{vm::onClicks}"
                     android:paddingHorizontal="@dimen/_5sdp"
                     android:paddingVertical="@dimen/_9sdp"

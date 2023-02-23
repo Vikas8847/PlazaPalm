@@ -72,8 +72,10 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                     viewModel.user_miles.set(arguments?.getString("miles")!!)
                     viewModel.p_id.set(arguments?.getString("p_id")!!)
                     viewModel.postProfileId.set(arguments?.getString("p_id")!!)
+                    viewModel.categoryName.set(arguments?.getString("categeory_name")!!)
 
                     // new code
+
 
                     binding!!.reqireRv.visibility = View.GONE
 
@@ -94,6 +96,7 @@ class ConfirmBookingFragment : Fragment(R.layout.confirm_booking_fragment) {
                     viewModel.p_id.set(arguments?.getString("p_id")!!)
                     viewModel.addtoCalendar.set("Book")
                     viewModel.user_miles.set(arguments?.getString("miles")!!)
+                    viewModel.categoryName.set(arguments?.getString("categeory_name")!!)
 
                     getrequiredDataForBookProfileForm()
 

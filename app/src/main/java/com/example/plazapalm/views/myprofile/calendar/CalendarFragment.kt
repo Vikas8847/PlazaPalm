@@ -20,6 +20,8 @@ import java.util.*
 class CalendarFragment : Fragment(R.layout.calendar_fragment) {
     private var binding: CalendarFragmentBinding? = null
     private val viewModel: CalendarVM by viewModels()
+    private var checkMonth:Boolean?=false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +30,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         binding = CalendarFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(false)
         calenarLabelSize()
-        getBundleData()
+//        getBundleData()
         return binding?.root
     }
 
@@ -40,9 +42,15 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         super.onViewCreated(view, savedInstanceState)
         calendarClick()
         deleteVisible()
+        getBundleData()
        binding?.vm = viewModel
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+    }
     private fun deleteVisible() {
         viewModel.isBookStatus.observe(requireActivity(), androidx.lifecycle.Observer {
 
@@ -64,6 +72,12 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
                     val day = split[0].toInt()
                     val month = split[1].toInt()
                     val year = split[2].toInt()
+
+                    if(checkMonth==false) {
+                        viewModel.selectMonth.set(month)
+                    }
+                    checkMonth=true
+
                     viewModel.getCalanderDataMonthWise(month, year)
 
                     viewModel.calendarMutableResponse.observe(requireActivity()) {
@@ -74,6 +88,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
                     }
 
                     Log.e("ASAW", currentDate)
+
                 }
             }
         }
@@ -86,6 +101,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
                   val month = binding?.clCalendar?.currentPageDate!!.get(Calendar.MONTH) + 1
                   val year = binding?.clCalendar?.currentPageDate!!.get(Calendar.YEAR)
                   montYear(month, year)
+
                   Log.e("DATAEE", month.toString())
               }
           })
@@ -105,6 +121,8 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         viewModel.month.set(month)
         viewModel.year.set(year)
         viewModel.click.set(true)
+        viewModel.selectMonth.set(month)
+
         viewModel.getCalanderDataMonthWise(month, year)
         Log.e("$month == ", year.toString())
     }

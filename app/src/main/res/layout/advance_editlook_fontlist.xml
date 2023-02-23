@@ -102,11 +102,12 @@
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/tvChooseFontsRecent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAdvanceChooseFonts"
             setRecyclerAdapter="@{model.advanceFontListAdapter}"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/_350sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
@@ -116,5 +117,6 @@
             app:layout_constraintTop_toBottomOf="@id/myview"
             tools:layout_editor_absoluteX="6dp"
             tools:listitem="@layout/advance_editlook_fonts_list_item" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

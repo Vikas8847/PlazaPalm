@@ -216,14 +216,13 @@ class AdvanceEditLookVM @Inject constructor(
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     private fun showBottomSheetDialogOne() {
         fontsFilteredList.clear()
-        fontBottomSheet =
-            BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
+        fontBottomSheet = BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
         fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-        scheduleBinding =
-            AdvanceEditlookFontlistBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
+        scheduleBinding = AdvanceEditlookFontlistBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         fontBottomSheet?.setCancelable(true)
         scheduleBinding?.model = this
         scheduleBinding?.apply {
+
             tvAdvanceEditLookChooseFontCancel.setOnClickListener {
                 fontBottomSheet?.dismiss()
                 CommonMethods.context.hideKeyboard()
