@@ -36,7 +36,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.MultipartBody.Part.Companion.createFormData
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.create
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
@@ -50,7 +51,8 @@ import javax.inject.Inject
 class PostProfileVM @Inject constructor(
     private var repository: Repository,
     var dataStoreUtil: DataStoreUtil,
-    var pref: PreferenceFile) : ViewModel() {
+    var pref: PreferenceFile,
+) : ViewModel() {
 
     var firstName = ObservableField("")
     var lastName = ObservableField("")
@@ -75,7 +77,7 @@ class PostProfileVM @Inject constructor(
     var imagesList = ArrayList<AddPhoto>()
     var location = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
-    var allowBooking=ObservableBoolean(false)
+    var allowBooking = ObservableBoolean(false)
     var titleScreenProfile = ObservableField("")
 
     init {
@@ -165,7 +167,7 @@ class PostProfileVM @Inject constructor(
                 if (photoList == null) {
                     photoList = ArrayList<AddPhoto>()
                 }
-                Log.e("Photo_Data_Method===",photoList.toString())
+                Log.e("Photo_Data_Method===", photoList.toString())
                 var bundle = Bundle()
                 bundle.putParcelableArrayList("imageList", photoList)
                 view.navigateWithId(R.id.action_viewProfileFragment_to_addPhotosFragment, bundle)
@@ -186,9 +188,9 @@ class PostProfileVM @Inject constructor(
             }
             R.id.etVEditProTags -> {
                 val bundle = Bundle()
-                bundle.putString("long",long.get().toString())
-                bundle.putString("lat",lat.get().toString())
-                bundle.putString("location_txt",location.get().toString())
+                bundle.putString("long", long.get().toString())
+                bundle.putString("lat", lat.get().toString())
+                bundle.putString("location_txt", location.get().toString())
                 bundle.putString("PostProfile", "postProfile")
                 view.navigateWithId(R.id.action_viewProfileFragment_to_addCitiesFragment, bundle)
             }
@@ -197,16 +199,16 @@ class PostProfileVM @Inject constructor(
                 if (CommonMethods.context.isNetworkAvailable()) {
                     if (validation()) {
 
-                        var newList=ArrayList<String>()
+                        var newList = ArrayList<String>()
                         newList.clear()
-                        if(photoList!!.size>0) {
-                            for(idx in 0 until photoList!!.size)
-                            {
-                                if(photoList!![idx].Image!=""){
-                                newList.add(photoList!![idx].Image.toString())
-                            }}
+                        if (photoList!!.size > 0) {
+                            for (idx in 0 until photoList!!.size) {
+                                if (photoList!![idx].Image != "") {
+                                    newList.add(photoList!![idx].Image.toString())
+                                }
+                            }
                         }
-                        Log.e("ASSSSSSSSSSSSSSSS" , newList.toString())
+                        Log.e("ASSSSSSSSSSSSSSSS", newList.toString())
 
                         if (postdata.get().toString().equals("Post")) {
                             SavePostProfileAPI(view, newList)
@@ -224,21 +226,19 @@ class PostProfileVM @Inject constructor(
             R.id.etVEditProExpiryDate -> {
                 showDatePickerDialog()
             }
-            R.id.switchAllowBooking->{
+            R.id.switchAllowBooking -> {
                 //For Allow Booking
-             if(allowBooking.get())
-             {
-                 allowBooking.set(false)
-             }else
-             {
-                 allowBooking.set(true)
-             }
+                if (allowBooking.get()) {
+                    allowBooking.set(false)
+                } else {
+                    allowBooking.set(true)
+                }
             }
         }
     }
 
     private fun editProfileAPI(view: View, data: ArrayList<String>) {
-        Log.e("gkeggewswgw===",allowBooking.get().toString())
+        Log.e("gkeggewswgw===", allowBooking.get().toString())
         repository.makeCall(
             ApiEnums.UPDATE_POST_PROFILE,
             loader = true,
@@ -254,7 +254,7 @@ class PostProfileVM @Inject constructor(
                         expireDate.get(),
                         address.get(),
                         location.get(),
-                        data!!,
+                        data,
                         userName.get()!!,
                         "jkj",
                         description2.get(),
@@ -297,23 +297,24 @@ class PostProfileVM @Inject constructor(
         var surveyImagesParts: Array<MultipartBody.Part?>? = null
 
 
-        var tempList = photoList!!.filter { it.isValid==false } as ArrayList<AddPhoto>
+        var tempList = photoList!!.filter { it.isValid == false } as ArrayList<AddPhoto>
 
 
-        if (tempList!!.size > 0) {
+        if (tempList.size > 0) {
 
-            surveyImagesParts = arrayOfNulls<MultipartBody.Part>(tempList?.size!!)
+            surveyImagesParts = arrayOfNulls<MultipartBody.Part>(tempList.size)
 
-            for (index in 0 until tempList!!.size) {
+            for (index in 0 until tempList.size) {
                 val file = File(
-                    tempList!!
+                    tempList
                         .get(index)
 //                        .toString()
-                      .Image!!
+                        .Image!!
                 )
 
 
-                val surveyBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                val surveyBody: RequestBody =
+                    file.asRequestBody("image/*".toMediaTypeOrNull())
                 surveyImagesParts[index] = createFormData("profile_picture", file.name, surveyBody)
                 Log.e("SDDDSS-----SSSS", tempList.toString())
 
@@ -321,53 +322,51 @@ class PostProfileVM @Inject constructor(
 
 
             repository.makeCall(
-            apiKey = ApiEnums.UPLOAD_IMAGES,
-            loader = true,
-            saveInCache = false,
-            getFromCache = false,
-            requestProcessor = object : ApiProcessor<Response<UploadMediaResponse>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<UploadMediaResponse> {
-                    return retrofitApi.uploadMediaPostProfile(
-                        Authorization = token.get(), surveyImagesParts!!
-                    )
-                }
+                apiKey = ApiEnums.UPLOAD_IMAGES,
+                loader = true,
+                saveInCache = false,
+                getFromCache = false,
+                requestProcessor = object : ApiProcessor<Response<UploadMediaResponse>> {
+                    override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<UploadMediaResponse> {
+                        return retrofitApi.uploadMediaPostProfile(
+                            Authorization = token.get(), surveyImagesParts
+                        )
+                    }
 
-                override fun onResponse(res: Response<UploadMediaResponse>) {
-                    Log.e("HEADERR", res.body().toString())
+                    override fun onResponse(res: Response<UploadMediaResponse>) {
+                        Log.e("HEADERR", res.body().toString())
 
-                   var previousSelectedPhotos = photoList!!.filter { it.isValid==true } as ArrayList<AddPhoto>
-                    var newList=ArrayList<String>()
-                    newList.clear()
-                    if(previousSelectedPhotos.size>0) {
-                        for(idx in 0 until previousSelectedPhotos.size)
-                        {
-                            newList.add(previousSelectedPhotos[idx].Image.toString())
+                        var previousSelectedPhotos =
+                            photoList!!.filter { it.isValid == true } as ArrayList<AddPhoto>
+                        var newList = ArrayList<String>()
+                        newList.clear()
+                        if (previousSelectedPhotos.size > 0) {
+                            for (idx in 0 until previousSelectedPhotos.size) {
+                                newList.add(previousSelectedPhotos[idx].Image.toString())
+                            }
+                        }
+
+                        if (res.body()!!.data.size > 0) {
+                            for (idx in 0 until res.body()!!.data.size) {
+                                newList.add(res.body()!!.data[idx].toString())
+                            }
+                        }
+                        if (postdata.get().toString().equals("Post")) {
+                            SavePostProfileAPI(view, newList)
+                        } else if (postdata.get().toString().equals("Update")) {
+                            editProfileAPI(view, newList)
                         }
                     }
+                })
 
-                    if(res.body()!!.data.size>0)
-                     {
-                        for(idx in 0 until res.body()!!.data.size)
-                        {
-                            newList.add(res.body()!!.data[idx].toString())
-                        }
-                    }
-                    if (postdata.get().toString().equals("Post")) {
-                        SavePostProfileAPI(view, newList)
-                    } else if (postdata.get().toString().equals("Update")) {
-                        editProfileAPI(view, newList)
-                    }
-                }
-            })
+        } else {
 
-    } else {
-
-           val data_list = ArrayList<String>()
-            for (idx in 0 until photoList!!.size){
+            val data_list = ArrayList<String>()
+            for (idx in 0 until photoList!!.size) {
                 data_list.add(photoList!!.get(idx).Image.toString())
             }
 
-            Log.e("DSFSFSFSFSFSF",data_list.toString())
+            Log.e("DSFSFSFSFSFSF", data_list.toString())
 
             if (postdata.get().toString().equals("Post")) {
                 SavePostProfileAPI(view, data_list)
@@ -396,7 +395,7 @@ class PostProfileVM @Inject constructor(
         body.put(Constants.PROFILE_TITLE, profileTitle.get())
         body.put(Constants.C_ID, c_id.get())
 
-        Log.e("WORKINNGG",data.toString())
+        Log.e("WORKINNGG", data.toString())
         val logintoken = token.set(pref.retrieveKey("token"))
         var firatname: RequestBody? = null
         var lastname: RequestBody? = null
@@ -433,21 +432,22 @@ class PostProfileVM @Inject constructor(
 
         try {
 
-            firatname = create("text/plain".toMediaTypeOrNull(), firstName.get().toString())
-            lastname = create("text/plain".toMediaTypeOrNull(), lastName.get().toString())
-            longi = create("text/plain".toMediaTypeOrNull(), long.get()!!.toString())
-            lati = create("text/plain".toMediaTypeOrNull(), lat.get()!!.toString())
-            addresss = create("text/plain".toMediaTypeOrNull(), address.get().toString())
-            locationn = create("text/plain".toMediaTypeOrNull(), location.get().toString())
-            expiredate = create("text/plain".toMediaTypeOrNull(), expireDate.get().toString())
-            username = create("text/plain".toMediaTypeOrNull(), userName.get().toString())
-            profiletitle = create("text/plain".toMediaTypeOrNull(), profileTitle.get().toString())
-            desc1 = create("text/plain".toMediaTypeOrNull(), description1.get().toString())
-            desc2 = create("text/plain".toMediaTypeOrNull(), description2.get().toString())
-            desc3 = create("text/plain".toMediaTypeOrNull(), description3.get().toString())
-            tokennn = create("text/plain".toMediaTypeOrNull(), token.get().toString())
-            tags = create("text/plain".toMediaTypeOrNull(), "kk")
-            c_idd = create("text/plain".toMediaTypeOrNull(), c_id.get().toString())
+            firatname = firstName.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            lastname = lastName.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            longi = long.get()!!.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            lati = lat.get()!!.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            addresss = address.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            locationn = location.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            expiredate = expireDate.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            username = userName.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            profiletitle =
+                profileTitle.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            desc1 = description1.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            desc2 = description2.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            desc3 = description3.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            tokennn = token.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            tags = "kk".toRequestBody("text/plain".toMediaTypeOrNull())
+            c_idd = c_id.get().toString().toRequestBody("text/plain".toMediaTypeOrNull())
 
             Log.e("sssssaaa", tokennn.toString())
 
@@ -470,7 +470,7 @@ class PostProfileVM @Inject constructor(
                         expireDate.get().toString(),
                         address.get().toString(),
                         location.get().toString(),
-                        data!! /*url*/,
+                        data /*url*/,
                         userName.get().toString(),
                         "tags",
                         description1.get().toString(),
@@ -509,7 +509,7 @@ class PostProfileVM @Inject constructor(
                                 )
                             }
 
-                        }else {
+                        } else {
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message)
                         }
 
@@ -608,31 +608,31 @@ class PostProfileVM @Inject constructor(
             /** 03-01-23
              * Comment Description Validation */
 
-           /* description1.get()?.trim().toString().isEmpty() -> {
-                CommonMethods.showToast(CommonMethods.context, Constants.Description1CantEmpty)
-                return false
-            }
-            description1.get()!!.length < 20 -> {
-                CommonMethods.showToast(CommonMethods.context, Constants.Description3minimum)
-                return false
-            }
-            description2.get()?.trim().toString().isEmpty() -> {
-                CommonMethods.showToast(CommonMethods.context, Constants.Description2CantEmpty)
-                return false
-            }
-            description2.get()!!.length < 20 -> {
-                CommonMethods.showToast(CommonMethods.context, Constants.Description3minimum)
-                return false
-            }
+            /* description1.get()?.trim().toString().isEmpty() -> {
+                 CommonMethods.showToast(CommonMethods.context, Constants.Description1CantEmpty)
+                 return false
+             }
+             description1.get()!!.length < 20 -> {
+                 CommonMethods.showToast(CommonMethods.context, Constants.Description3minimum)
+                 return false
+             }
+             description2.get()?.trim().toString().isEmpty() -> {
+                 CommonMethods.showToast(CommonMethods.context, Constants.Description2CantEmpty)
+                 return false
+             }
+             description2.get()!!.length < 20 -> {
+                 CommonMethods.showToast(CommonMethods.context, Constants.Description3minimum)
+                 return false
+             }
 
-            description3.get()?.trim().toString().isEmpty() -> {
-                CommonMethods.showToast(CommonMethods.context, Constants.Description3CantEmpty)
-                return false
-            }
-            description3.get()!!.length < 20 -> {
-                CommonMethods.showToast(CommonMethods.context, Constants.Description3minimum)
-                return false
-            }*/
+             description3.get()?.trim().toString().isEmpty() -> {
+                 CommonMethods.showToast(CommonMethods.context, Constants.Description3CantEmpty)
+                 return false
+             }
+             description3.get()!!.length < 20 -> {
+                 CommonMethods.showToast(CommonMethods.context, Constants.Description3minimum)
+                 return false
+             }*/
             expireDate.get()?.trim().toString().isEmpty() -> {
                 CommonMethods.showToast(CommonMethods.context, Constants.ExpireDateCantEmpty)
                 return false
@@ -648,9 +648,22 @@ class PostProfileVM @Inject constructor(
     private fun showDatePickerDialog() {
         datePicker = DatePickerHelper(CommonMethods.context, true)
         val cal = Calendar.getInstance()
-        val d = cal.get(Calendar.DAY_OF_MONTH)
-        val m = cal.get(Calendar.MONTH)
-        val y = cal.get(Calendar.YEAR)
+
+        var d = 0
+        var m = 0
+        var y = 0
+       // expireDate.set("")
+        if (expireDate.get().toString() == "") {
+            y = cal.get(Calendar.YEAR)
+            m = cal.get(Calendar.MONTH)
+            d = cal.get(Calendar.DAY_OF_MONTH)
+        } else {
+            var splitDate = expireDate.get().toString().split("-")
+            y = splitDate[0].toInt()
+            m = splitDate[1].toInt() - 1
+            d = splitDate[2].toInt()
+        }
+
         datePicker!!.showDialog(d, m, y, object : DatePickerHelper.Callback {
             override fun onDateSelected(dayofMonth: Int, month: Int, year: Int) {
                 val dayStr = if (dayofMonth < 10) "0${dayofMonth}" else "${dayofMonth}"
@@ -662,5 +675,4 @@ class PostProfileVM @Inject constructor(
             }
         })
     }
-
 }
