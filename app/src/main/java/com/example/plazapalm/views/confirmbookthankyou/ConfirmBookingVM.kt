@@ -126,8 +126,7 @@ class ConfirmBookingVM @Inject constructor(
     private fun confirmBooking(view: View) = viewModelScope.launch {
 
         Log.e(
-
-            "CONFIRMBOOKING",
+            "allData -> + 1 ",
             preferenceFile.retrieveKey("token").toString() + " --V--" +
                     p_id.get().toString() + " --V--" +
                     chooseDate.get().toString() + " --V--" +
@@ -226,15 +225,22 @@ class ConfirmBookingVM @Inject constructor(
                 }
                 mcurrentTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 mcurrentTime.set(Calendar.MINUTE, minute + 1)
+
+
                 if (minute < 10) {
                     chooseTime.set("$hour:0$minute $AM_PM")
                 } else {
                     chooseTime.set("$hour:$minute $AM_PM")
                 }
+                Log.e("time =+1",  chooseTime.get().toString())
+
             }, hour, minute, false
         ) //Yes 12 hour time
+
+
         mTimePicker.setTitle("Select Time")
         mTimePicker.show()
+
     }
 
     private fun selectDate(observableField: ObservableField<String>) {
@@ -243,19 +249,40 @@ class ConfirmBookingVM @Inject constructor(
         val datePicker = DatePickerDialog(
             CommonMethods.context,
             R.style.DatePickerDialogTheme, { view, year, month, dayOfMonth ->
-                calender.set(Calendar.YEAR, year)
-                calender.set(Calendar.MONTH, month)
-                calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                observableField.set("$year-${month + 1}-$dayOfMonth")
+
+                var monthofYear=0
+                if (month < 10) {
+                    monthofYear=month+1
+                    calender.set(Calendar.YEAR, year)
+                    calender.set(Calendar.MONTH, monthofYear)
+                    calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    observableField.set("$year-${"0"+monthofYear}-$dayOfMonth")
+
+                } else {
+                    monthofYear=month+1
+                    calender.set(Calendar.YEAR, year)
+                    calender.set(Calendar.MONTH, monthofYear)
+                    calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    observableField.set("$year-${monthofYear}-$dayOfMonth")
+
+                }
+
+//                calender.set(Calendar.YEAR, year)
+//                calender.set(Calendar.MONTH, monthofYear)
+//                calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+//                observableField.set("$year-${monthofYear + 1}-$dayOfMonth")
+
             },
             calender.get(Calendar.YEAR), calender.get(Calendar.MONTH),
             calender.get(Calendar.DAY_OF_MONTH)
-        )
-        datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000)
 
+        )
+       Log.e("apoiqw",observableField.get().toString())
+        datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000)
 
         //datePicker.datePicker.maxDate = System.currentTimeMillis()
         datePicker.show()
+
     }
 
     private fun validateFields(): Boolean {
@@ -309,45 +336,6 @@ class ConfirmBookingVM @Inject constructor(
     }
 
 
-//    private fun validateFields(): Boolean {
-//        counter=0
-//        var textValue=""
-//
-//        for (i in 0 until adapter!!.dataList.size){
-//            if(adapter!!.dataList[i].save_ans!="") {
-//                counter++
-//                textValue=textValue+",  "+adapter!!.dataList[i].save_ans
-//            }
-//        }
-//
-//
-//        when {
-//            chooseDate.get()?.trim().isNullOrEmpty() -> {
-//                CommonMethods.showToast(CommonMethods.context, "Please select date")
-//                return false
-//            }
-//
-//            chooseTime.get()?.trim().isNullOrEmpty() -> {
-//                CommonMethods.showToast(CommonMethods.context, "Please choose time")
-//                return false
-//            }
-//
-//            description.get()?.trim().isNullOrEmpty() -> {
-//                CommonMethods.showToast(CommonMethods.context, "Please enter description")
-//                return false
-//            }
-//            adapter!!.dataList.size!=counter -> {
-//                CommonMethods.showToast(CommonMethods.context, "Please enter questions")
-//                return false
-//            }
-//
-//            else -> {
-//                return true
-//            }
-//        }
-//
-//    }
-
     /*Add to Calendar Api ...*/
     private fun addToCalendar(view: View) = viewModelScope.launch {
 
@@ -359,7 +347,16 @@ class ConfirmBookingVM @Inject constructor(
         body.put("description", description.get())
         body.put("question_answer", questionAnswer)
 
-        Log.e("CHOOSE-- ", chooseDate.get().toString())
+        Log.e("CHOOSE-- ",
+            chooseDate.get().toString() +
+                categoryName.get() +" " +
+                chooseDate.get() + " " +
+                postProfileId.get() + " " +
+                chooseTime.get() + " " +
+                description.get() + " " +
+                description.get() + " " +
+                questionAnswer
+        )
 
         repository.makeCall(ApiEnums.ADD_TO_CALENDAR,
             true,

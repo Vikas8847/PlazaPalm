@@ -81,7 +81,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCalendarDelete"
-            android:layout_width="35dp"
+            android:layout_width="30dp"
             android:layout_height="25dp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
@@ -142,7 +142,7 @@
             android:fontFamily="@font/inter_medium"
             android:paddingBottom="@dimen/_5sdp"
             android:textColor="@color/white"
-            android:text="Mohali PB "
+            android:text="@{model.category_name}"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvClBookingUserDate" />

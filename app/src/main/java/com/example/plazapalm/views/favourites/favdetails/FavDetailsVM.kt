@@ -98,6 +98,7 @@ class FavDetailsVM @Inject constructor(
     var tvAllowBooking = ObservableBoolean(false)
     var checkFavouriteShow = ObservableInt()
     var distanceValue = ObservableField("")
+    var categoryName = ObservableField("")
 
     /** Advance setting */
     val backgroundColor = MutableLiveData<Any>()
@@ -152,6 +153,7 @@ class FavDetailsVM @Inject constructor(
                 } else if (CommingFrom.get().equals("isViewProfile")) {
                     showViewProfileDialog(view)
                 }*/
+
                 if (loginUserPId.get().toString().equals(p_id.get().toString())) {
                     showViewProfileDialog(view)
                 }else
@@ -195,6 +197,7 @@ class FavDetailsVM @Inject constructor(
                 booking_pro.putString("proImageg", data_list!!.get(0).Image)
                 booking_pro.putString("user_Id",userIdForChat.get().toString())
                 booking_pro.putString("miles", distanceValue.get().toString())
+                booking_pro.putString("categeory_name",  categoryName.get().toString())
 
                 Log.e("ASDASDASqq",p_id.get().toString() + "  --SD--  ")
 
@@ -474,6 +477,9 @@ class FavDetailsVM @Inject constructor(
                     ispopUpAddCal.putString("user_location", tvFavCityAddress.get().toString())
                     ispopUpAddCal.putString("pro_imageg", data_list!!.get(0).Image)
                     ispopUpAddCal.putString("miles",  distanceValue.get().toString())
+                    ispopUpAddCal.putString("miles",  distanceValue.get().toString())
+                    ispopUpAddCal.putString("categeory_name",  categoryName.get().toString())
+
                     Log.e("SSSSSSs", userdata.get()!!.location_text.toString())
                     view.navigateWithId(R.id.confirmBookingFragment, ispopUpAddCal)
                     dialog?.dismiss()
@@ -761,11 +767,15 @@ class FavDetailsVM @Inject constructor(
                         if (res.body() != null) {
                             if (res.code() == 200) {
                                 Log.e("VVVVVVSS", res.body().toString())
-                                backgroundColor.value = res.body()!!.data!!.background_color!!
-                                textColor.value = res.body()!!.data!!.font_color!!
-                                fontViewColor.set(res.body()!!.data!!.font_color!!)
-                                columnViewColor.set(res.body()!!.data!!.column_color!!.toString())
-                                borderViewColor.set(res.body()!!.data!!.border_color!!)
+
+                                if (res.body()!!.data!!.user_id.equals("63ec7742793d8dd0d5cc3761")){
+                                    backgroundColor.value = res.body()!!.data!!.background_color!!
+                                    textColor.value = res.body()!!.data!!.font_color!!
+                                    fontViewColor.set(res.body()!!.data!!.font_color!!)
+                                    columnViewColor.set(res.body()!!.data!!.column_color!!.toString())
+                                    borderViewColor.set(res.body()!!.data!!.border_color!!)
+
+                                }
 
 
                             } else {

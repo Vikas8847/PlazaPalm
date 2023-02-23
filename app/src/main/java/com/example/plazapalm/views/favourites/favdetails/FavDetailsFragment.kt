@@ -81,18 +81,46 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         viewModel.isFavourites.set(true)
         CommonMethods.isAdvanceMap = true
         CommonMethods.statusBar(true)
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            mapFeatureGet()
-        }
-
-        getlocalData()
         binding?.mainConslayout?.visibility = View.VISIBLE
-        premiumAccount1()
+        getlocalData()
         dataList = ArrayList()
         return binding?.root
 
     }
+
+//    private fun premiumAccount(pId: String?, userId: String?) {
+//
+//        Log.e("test  =+ 2 ", pId + "VVVC =+ 2=--" + userId)
+//
+//        if (userId.equals("63ec7742793d8dd0d5cc3761")){
+//            Log.e("XVCCCXXXX", pId + "VVVC=== USERIDD=--" + loginUserId)
+//            viewModel.getEditLookColor()
+//            mapFeatureGet()
+//
+//            //getPostprofile(pId!!, pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
+//
+//        }
+//
+///*
+//        dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
+//
+//            val p_Id = it?.data?.p_id
+//            loginUserId = it?.data?.user_id
+//            viewModel.p_id.set(p_Id)
+//
+//            Log.e("test  =+ 1 ", p_Id + "VVVC+ 1=--" + loginUserId)
+//
+//            if (userId.equals("63ec7742793d8dd0d5cc3761")){
+//                Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
+//                getPostprofile(p_Id!!, pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
+//                viewModel.getEditLookColor()
+//                mapFeatureGet()
+//            }
+//
+//        }
+//*/
+//
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -140,8 +168,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
     private fun getlocalData() {
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
-            viewModel.u_ID.set(it?.data?.user_id)
 
+            viewModel.u_ID.set(it?.data?.user_id)
             loginUserPId = it?.data?.p_id
             viewModel.loginUserPId.set(loginUserPId)
             Log.e("SDASDASDASDASdas", it.toString())
@@ -151,11 +179,14 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             getFavoriteData()
             setbackground()
 
-            if (loginUserPId != null && !loginUserPId.equals("")) {
-                viewModel.getEditLookColor()
-                mapFeatureGet()
-                Log.e("SDASDASDASDASdas", loginUserId.toString())
-            }
+//            premiumAccount(it?.data?.p_id,it?.data?.user_id)
+
+
+//            if (loginUserPId != null && !loginUserPId.equals("")) {
+//                viewModel.getEditLookColor()
+//                mapFeatureGet()
+//                Log.e("SDASDASDASDASdas", loginUserId.toString())
+//            }
         }
     }
 
@@ -249,13 +280,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                         pref.retvieLatlong("longi").toDouble()
                     )
 
-
                 }
                 "isEditLook" -> {
                     /** isEditLook and isViewProfile is same no difference... */
                     viewModel.CommingFrom.set("isViewProfile")
                     binding!!.btnBookingProfile.visibility = View.GONE
-                    premiumAccount()
+                    colorLookView()
                 }
                 "isBookingDetailsFragment" -> {
                     /** isBookingDetailsFragment and isViewProfile is same no difference... */
@@ -546,7 +576,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 }
 
                 override fun onResponse(res: Response<GetPostProfileResponse>) {
-                    Log.e("AQQAAARESPONEEES", res.body().toString())
+                    Log.e("getPosofileRes + 1 ", res.body().toString())
 
                     if (res.isSuccessful) {
                         binding?.mainConslayout?.visibility = View.VISIBLE
@@ -569,6 +599,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
+                                viewModel.categoryName.set(res.body()!!.data.category_name!!)
 
                                 Log.e("userIddddd====", viewModel.userdata.get().toString())
                                 Log.e(
@@ -577,7 +608,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 )
 
                                 /** p_id not null */
-                                if (res.body()!!.data.p_id != null && !res.body()!!.data.p_id.equals("")) {
+
+                                if (res.body()!!.data.user_id.equals("63ec7742793d8dd0d5cc3761")) {
                                     viewModel.getEditLookColor()
                                     mapFeatureGet()
                                     Log.e("ZCXCX" , "WORKING1")
@@ -819,20 +851,14 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         super.onResume()
 //        binding?.mainConslayout?.visibility =View.VISIBLE
         Log.e("asdasdasdasdasdas", "WORKINGGFINE--1111")
-
-//        getFavoriteData()
     }
 
     override fun onStart() {
         super.onStart()
-//        binding?.mainConslayout?.visibility =View.VISIBLE
         Log.e("asdasdasdasdasdas", "WORKINGGFINE--")
-
-//        getFavoriteData()
     }
 
-    private fun premiumAccount() {
-
+    private fun colorLookView() {
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
 
             val p_Id = it?.data?.p_id
@@ -844,67 +870,21 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
             if (p_Id != "" && p_Id != null && loginUserId != "" && loginUserId != null) {
 
-                //     if (loginUserId.equals("63b69f871545b79696c25166")) {
                 Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
 
                 getPostprofile(
-                    p_Id,
+                    p_Id!!,
                     pref.retvieLatlong("lati").toDouble(),
                     pref.retvieLatlong("longi").toDouble()
                 )
-
-                //  }
 
             }
 
         }
 
-
-//        dataStoreUtil.readObject(LOGIN_DATA, LoginDataModel::class.java) {
-//
-//
-//
-////            binding?.tvMyProfileName?.text = it?.data?.first_name + " " + it?.data?.last_name
-////            username.set(it?.data?.user_name)
-////            var  user_id = it?.data?.user_id.toString()
-////            var  p_id = it?.data?.
-////
-////            Log.e("SDSFSDf",it?.data?.user_name + "DFDFDDg   " + user_id.toString())
-////
-////            /*** Get  premium */
-////            //        if (viewModel.premium == 1) {
-////
-////            if (user_id.equals("637b5f650f380e10b6ec0ff0")) {
-/////*
-////
-////                binding?.tvAdvanceSetting?.visibility = View.VISIBLE
-////                binding?.viewAdvanceSettings?.visibility = View.VISIBLE
-////
-////                binding?.tvQRCode?.visibility = View.VISIBLE
-////                binding?.viewQRCode?.visibility = View.VISIBLE
-////
-////                binding?.tvViewMyProfile?.visibility = View.VISIBLE
-////                binding?.viewProfile?.visibility = View.VISIBLE
-////
-////                binding?.tvUpgrade?.visibility = View.GONE
-////                binding?.viewUpgrade?.visibility = View.GONE
-////*/
-////
-////            } else {
-////
-////                /* binding?.tvAdvanceSetting?.visibility = View.GONE
-////                 binding?.viewAdvanceSettings?.visibility = View.GONE
-////
-////                 binding?.tvUpgrade?.visibility = View.VISIBLE
-////                 binding?.viewUpgrade?.visibility = View.VISIBLE*/
-////
-////                Log.e("SAAHAEED","WORKINGGGGGG")
-////
-////            }
-//
-//        }
-
     }
+
+/*
     private fun premiumAccount1() {
 
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
@@ -918,67 +898,19 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
             if (p_Id != "" && p_Id != null && loginUserId != "" && loginUserId != null) {
 
-                //     if (loginUserId.equals("63b69f871545b79696c25166")) {
-                Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
+                if (loginUserId.equals("63ec7742793d8dd0d5cc3761")){
+                    Log.e("XVCCCXXXX", p_Id + "VVVC=== USERIDD=--" + loginUserId)
 
-                getPostprofile(
-                    p_Id,
-                    pref.retvieLatlong("lati").toDouble(),
-                    pref.retvieLatlong("longi").toDouble()
-                )
+                    getPostprofile(p_Id, pref.retvieLatlong("lati").toDouble(), pref.retvieLatlong("longi").toDouble())
 
-                //  }
+                }
 
             }
 
         }
 
-
-//        dataStoreUtil.readObject(LOGIN_DATA, LoginDataModel::class.java) {
-//
-//
-//
-////            binding?.tvMyProfileName?.text = it?.data?.first_name + " " + it?.data?.last_name
-////            username.set(it?.data?.user_name)
-////            var  user_id = it?.data?.user_id.toString()
-////            var  p_id = it?.data?.
-////
-////            Log.e("SDSFSDf",it?.data?.user_name + "DFDFDDg   " + user_id.toString())
-////
-////            /*** Get  premium */
-////            //        if (viewModel.premium == 1) {
-////
-////            if (user_id.equals("637b5f650f380e10b6ec0ff0")) {
-/////*
-////
-////                binding?.tvAdvanceSetting?.visibility = View.VISIBLE
-////                binding?.viewAdvanceSettings?.visibility = View.VISIBLE
-////
-////                binding?.tvQRCode?.visibility = View.VISIBLE
-////                binding?.viewQRCode?.visibility = View.VISIBLE
-////
-////                binding?.tvViewMyProfile?.visibility = View.VISIBLE
-////                binding?.viewProfile?.visibility = View.VISIBLE
-////
-////                binding?.tvUpgrade?.visibility = View.GONE
-////                binding?.viewUpgrade?.visibility = View.GONE
-////*/
-////
-////            } else {
-////
-////                /* binding?.tvAdvanceSetting?.visibility = View.GONE
-////                 binding?.viewAdvanceSettings?.visibility = View.GONE
-////
-////                 binding?.tvUpgrade?.visibility = View.VISIBLE
-////                 binding?.viewUpgrade?.visibility = View.VISIBLE*/
-////
-////                Log.e("SAAHAEED","WORKINGGGGGG")
-////
-////            }
-//
-//        }
-
     }
+*/
 
     /** View Edit Look Data **/
 

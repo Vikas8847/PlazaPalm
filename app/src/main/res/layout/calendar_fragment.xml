@@ -63,7 +63,7 @@
                 android:id="@+id/ivCalendarBackBtn"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:backgroundTint="@color/white"
                 android:onClick="@{vm::onClicks}"
@@ -126,7 +126,8 @@
                 app:selectionLabelColor="@color/red"
                 app:todayLabelColor="@color/red"
                 app:selectionColor="@color/white"
-                app:type="many_days_picker" />
+                app:type="many_days_picker"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 setRecyclerAdapter="@{vm.adapterCalendar}"
