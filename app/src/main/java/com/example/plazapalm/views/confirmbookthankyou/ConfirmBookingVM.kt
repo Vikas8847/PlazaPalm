@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
@@ -78,8 +77,8 @@ class ConfirmBookingVM @Inject constructor(
             R.id.ivBookingDetailsChat -> {
 
                 var intent = Intent(CommonMethods.context, ChatActivity::class.java)
-                intent.putExtra("CommingFrom","ConfirmBooking")
-                intent.putExtra("user_Id",userIdForChat.get().toString())
+                intent.putExtra("CommingFrom", "ConfirmBooking")
+                intent.putExtra("user_Id", userIdForChat.get().toString())
                 intent.putExtra("user_name", user_Name.get().toString())
                 intent.putExtra("userImage", user_image.get().toString())
                 CommonMethods.context.startActivity(intent)
@@ -92,11 +91,14 @@ class ConfirmBookingVM @Inject constructor(
                 chatData.putString("userImage", user_image.get().toString())
                 view.navigateWithId(R.id.action_confirmBookingFragment_to_chatFragment,chatData)*/
 
-                Log.e("asfasfaa",userIdForChat.get().toString() + "VCVX" + user_Name.get().toString() + " VVC " + user_image + "ZXZz ")
+                Log.e("asfasfaa",
+                    userIdForChat.get().toString() + "VCVX" + user_Name.get()
+                        .toString() + " VVC " + user_image + "ZXZz ")
 
             }
 
             R.id.etConfirmBookDate -> {
+
                 //open calendar picker alert..
                 selectDate(chooseDate)
             }
@@ -210,8 +212,23 @@ class ConfirmBookingVM @Inject constructor(
 
     private fun openTimePicker() {
         val mcurrentTime = Calendar.getInstance()
-        val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
-        val minute = mcurrentTime[Calendar.MINUTE]
+        var hour = 0
+        var minute = 0
+        if (chooseTime.get().toString() == "") {
+            hour = mcurrentTime[Calendar.HOUR_OF_DAY]
+            minute = mcurrentTime[Calendar.MINUTE]
+        } else {
+            var afterSplitSpace = chooseTime.get().toString().split(" ")
+            if (afterSplitSpace[1].toString() == "AM" || afterSplitSpace[1].toString() == "am") {
+                hour = afterSplitSpace[0].toString().split(":")[0].toInt()
+                minute = afterSplitSpace[0].toString().split(":")[1].toInt()
+            } else {
+                hour = afterSplitSpace[0].toString().split(":")[0].toInt()
+                hour += 12
+                minute = afterSplitSpace[0].toString().split(":")[1].toInt()
+            }
+        }
+
         val mTimePicker = TimePickerDialog(
             CommonMethods.context,
             R.style.TimePickerTheme, { _, hourOfDay, minute ->
@@ -226,13 +243,12 @@ class ConfirmBookingVM @Inject constructor(
                 mcurrentTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 mcurrentTime.set(Calendar.MINUTE, minute + 1)
 
-
                 if (minute < 10) {
                     chooseTime.set("$hour:0$minute $AM_PM")
                 } else {
                     chooseTime.set("$hour:$minute $AM_PM")
                 }
-                Log.e("time =+1",  chooseTime.get().toString())
+                Log.e("time =+1", chooseTime.get().toString())
 
             }, hour, minute, false
         ) //Yes 12 hour time
@@ -246,24 +262,39 @@ class ConfirmBookingVM @Inject constructor(
     private fun selectDate(observableField: ObservableField<String>) {
         val calender: Calendar = Calendar.getInstance()
 
+        var year = 0
+        var month = 0
+        var day = 0
+        if (observableField.get().toString() == "") {
+            year = calender.get(Calendar.YEAR)
+            month = calender.get(Calendar.MONTH)
+            day = calender.get(Calendar.DAY_OF_MONTH)
+        } else {
+            var splitArray = observableField.get().toString().split("-")
+            year = splitArray[0].toInt()
+            month = splitArray[1].toInt() - 1
+            day = splitArray[2].toInt()
+        }
+
         val datePicker = DatePickerDialog(
             CommonMethods.context,
             R.style.DatePickerDialogTheme, { view, year, month, dayOfMonth ->
 
-                var monthofYear=0
+                var monthofYear = 0
                 if (month < 10) {
-                    monthofYear=month+1
+                    monthofYear = month + 1
                     calender.set(Calendar.YEAR, year)
                     calender.set(Calendar.MONTH, monthofYear)
                     calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    observableField.set("$year-${"0"+monthofYear}-$dayOfMonth")
-
+                    observableField.set("$year-${"0" + monthofYear}-$dayOfMonth")
+                    chooseDate.set("$year-${"0" + monthofYear}-$dayOfMonth")
                 } else {
-                    monthofYear=month+1
+                    monthofYear = month + 1
                     calender.set(Calendar.YEAR, year)
                     calender.set(Calendar.MONTH, monthofYear)
                     calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                     observableField.set("$year-${monthofYear}-$dayOfMonth")
+                    chooseDate.set("$year-${monthofYear}-$dayOfMonth")
 
                 }
 
@@ -273,12 +304,15 @@ class ConfirmBookingVM @Inject constructor(
 //                observableField.set("$year-${monthofYear + 1}-$dayOfMonth")
 
             },
-            calender.get(Calendar.YEAR), calender.get(Calendar.MONTH),
-            calender.get(Calendar.DAY_OF_MONTH)
+            year, month, day
 
         )
-       Log.e("apoiqw",observableField.get().toString())
-        datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000)
+        Log.e("apoiqw", observableField.get().toString())
+
+
+
+
+        datePicker.datePicker.minDate = System.currentTimeMillis() - 1000
 
         //datePicker.datePicker.maxDate = System.currentTimeMillis()
         datePicker.show()
@@ -349,13 +383,13 @@ class ConfirmBookingVM @Inject constructor(
 
         Log.e("CHOOSE-- ",
             chooseDate.get().toString() +
-                categoryName.get() +" " +
-                chooseDate.get() + " " +
-                postProfileId.get() + " " +
-                chooseTime.get() + " " +
-                description.get() + " " +
-                description.get() + " " +
-                questionAnswer
+                    categoryName.get() + " " +
+                    chooseDate.get() + " " +
+                    postProfileId.get() + " " +
+                    chooseTime.get() + " " +
+                    description.get() + " " +
+                    description.get() + " " +
+                    questionAnswer
         )
 
         repository.makeCall(ApiEnums.ADD_TO_CALENDAR,
