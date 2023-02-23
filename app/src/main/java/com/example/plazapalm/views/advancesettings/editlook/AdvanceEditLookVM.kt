@@ -20,6 +20,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.toColorInt
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.lifecycle.MutableLiveData
@@ -90,7 +91,6 @@ class AdvanceEditLookVM @Inject constructor(
     var fontsFilteredList = ArrayList<FontsListModelResponse>()
     var advanceEditLookFontsNameList = ArrayList<FontsListModelResponse>()
     var appCompatTxtFont: AppCompatTextView? = null
-
     var fontsName = ObservableField("Optima-Regular")
     var fontBottomSheet: BottomSheetDialog? = null
     var scheduleBinding: AdvanceEditlookFontlistBinding? = null
@@ -101,22 +101,19 @@ class AdvanceEditLookVM @Inject constructor(
     var recyclerChoosecolor: RecyclerView? = null
     var dialog: Dialog? = null
     var titlename = ObservableField("")
+    var noData = ObservableBoolean()
+
     var SelectedDialog = ObservableField("")
     var checkColor = ObservableField("")
     var backgroundColor = ObservableField("")
     var tempBackgroundColor = ObservableField("")
-
-
     var backgroundType = ObservableField("color")
     var columnColor = ObservableField("")
     var tempColumnColor = ObservableField("")
-
-
     var columnOpacity = ObservableFloat()
     var tempColumnOpacity = ObservableFloat()
     var borderOpacity = ObservableFloat(0f)
     var tempBorderOpacity = ObservableFloat(0f)
-
 
     var borderWidth = ObservableFloat()
     var tempBorderWidth = ObservableFloat()
@@ -153,6 +150,7 @@ class AdvanceEditLookVM @Inject constructor(
     var changeColor: TextView? = null
     var layoutColrs: ConstraintLayout? = null
     var cardLayoutColrs: CardView? = null
+
 
     init {
         colorList.add(ChooseColor(R.color.goldYellow))
@@ -234,11 +232,14 @@ class AdvanceEditLookVM @Inject constructor(
             rvAdvanceChooseFonts.setOnClickListener {
                 CommonMethods.context.hideKeyboard()
             }
+
             searchFunctionality()
+
         }
         fontBottomSheet?.setContentView(scheduleBinding?.root!!)
         fontBottomSheet?.show()
         typfaceObserverLiveData.postValue(false)
+
         advanceFontListAdapter.setOnItemClick { view, position, type ->
             when (type) {
                 CommonMethods.fontsItemClick -> {
@@ -260,8 +261,8 @@ class AdvanceEditLookVM @Inject constructor(
         advanceEditLookFontsNameList.map {
             false
         }
-        scheduleBinding?.rvAdvanceChooseFonts?.layoutManager =
-            LinearLayoutManager(MainActivity.activity)
+
+        scheduleBinding?.rvAdvanceChooseFonts?.layoutManager = LinearLayoutManager(MainActivity.activity)
         scheduleBinding?.rvAdvanceChooseFonts?.adapter = advanceFontListAdapter
         updateRecyclerView()
     }
@@ -1365,8 +1366,12 @@ class AdvanceEditLookVM @Inject constructor(
                 CommonMethods.walkWayObliqueBoldFontName
             )
         )
-        advanceFontListAdapter.addItems(advanceEditLookFontsNameList)
-        updateRecyclerView()
+        if(advanceEditLookFontsNameList.size>0){
+            advanceFontListAdapter.addItems(advanceEditLookFontsNameList)
+            updateRecyclerView()
+        }else{
+            noData.set(true)
+        }
     }
 
     private fun searchFunctionality() {
@@ -1397,8 +1402,16 @@ class AdvanceEditLookVM @Inject constructor(
                     fontsFilteredList.add(fontsName)
                 }
             }
-            advanceFontListAdapter.addItems(fontsFilteredList)
-            updateRecyclerView()
+
+            if(advanceEditLookFontsNameList.size>0){
+                advanceFontListAdapter.addItems(advanceEditLookFontsNameList)
+                updateRecyclerView()
+            }else{
+                noData.set(true)
+            }
+
+//            advanceFontListAdapter.addItems(fontsFilteredList)
+//            updateRecyclerView()
         }
     }
 
