@@ -38,6 +38,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditProfileFragment : Fragment(R.layout.edit_profile_fragment) {
+    private var loginUserId: String?=""
+
     @Inject
     lateinit var dataStoreUtil: DataStoreUtil
     private var binding: EditProfileFragmentBinding? = null
@@ -157,10 +159,11 @@ class EditProfileFragment : Fragment(R.layout.edit_profile_fragment) {
         }
     }
 
-
     private fun setProfileImage() {
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
             val uri = it?.data?.profile_picture
+            loginUserId=it?.data?.user_id
+            viewModel.loginUserId.set(loginUserId)
             //  val bitmap=MediaStore.Images.Media.getBitmap(context?.contentResolver,ur)
             if (uri != "") {
                 Glide.with(this)
