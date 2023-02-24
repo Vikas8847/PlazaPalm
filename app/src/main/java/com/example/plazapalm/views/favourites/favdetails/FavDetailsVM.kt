@@ -768,7 +768,7 @@ class FavDetailsVM @Inject constructor(
                             if (res.code() == 200) {
                                 Log.e("VVVVVVSS", res.body().toString())
 
-                                if (res.body()!!.data!!.user_id.equals("63ec7742793d8dd0d5cc3761")){
+                                if (res.body()!!.data!!.post_profile_id.equals(loginUserPId.get().toString())){
                                     backgroundColor.value = res.body()!!.data!!.background_color!!
                                     textColor.value = res.body()!!.data!!.font_color!!
                                     fontViewColor.set(res.body()!!.data!!.font_color!!)
