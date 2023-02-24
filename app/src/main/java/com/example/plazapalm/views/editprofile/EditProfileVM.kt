@@ -14,6 +14,7 @@ import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.datastore.PROFILE_DATA
 import com.example.plazapalm.datastore.PROFILE_IMAGE
 import com.example.plazapalm.models.GetProfileResponseModel
+import com.example.plazapalm.models.StoreUserFireStore
 import com.example.plazapalm.models.UploadMediaResponse
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
@@ -22,6 +23,8 @@ import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.*
 import com.example.plazapalm.utils.CommonMethods.context
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -31,6 +34,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.File
+import java.util.HashMap
 import javax.inject.Inject
 
 
@@ -53,7 +57,9 @@ class EditProfileVM @Inject constructor(
     var notification = ObservableBoolean(false)
     var token = ObservableField("")
     var profile_pic = ObservableField("")
+var loginUserId=ObservableField("")
 
+    val firestore = FirebaseFirestore.getInstance()
     init {
         token.set(pref.retrieveKey("token"))
         var token = ObservableField("")
@@ -123,10 +129,44 @@ class EditProfileVM @Inject constructor(
 
                 override fun onResponse(res: Response<UploadMediaResponse>) {
                     profile_pic.set(res.body()?.data?.get(0)!!)
-                    Log.e("SDFSDFSDFsdf",res.body()?.data?.get(0)!!)
 
+                    updateUserDetailMethod(loginUserId.get().toString(),firstName.get().toString()+lastName.get().toString().trim(),
+                        res.body()?.data?.get(0)!!
+                       )
+
+                    Log.e("SDFSDFSDFsdf",res.body()?.data?.get(0)!!)
                 }
             })
+    }
+
+    fun updateUserDetailMethod(userId:String,name:String,profileImage:String)
+    {
+        firestore.collection("Chats")
+            .whereArrayContains("members", userId).get().addOnSuccessListener { querySnapshot->
+               if(querySnapshot!=null)
+               {
+                   for(dataSnapshot in querySnapshot)
+                   {
+                       val senderDeatils = HashMap<String, StoreUserFireStore>()
+                       val dataStore = StoreUserFireStore(
+                           userId,
+                           name,
+                           profileImage
+                       )
+                       senderDeatils.put(userId, dataStore)
+
+                       if (dataSnapshot["ChatID"] != null && !(dataSnapshot["ChatID"] as String).isNullOrEmpty()) {
+                        var   chatID = (dataSnapshot["ChatID"] as String)
+                           firestore.collection("Chats").document(chatID.toString())
+                               .set(senderDeatils, SetOptions.merge()).addOnSuccessListener {
+                                   Log.e("Check_Photo_Status===","Success")
+                               }.addOnFailureListener {
+                                   Log.e("Check_Photo_Status===","Error")
+                               }
+                       }
+                   }
+               }
+            }
     }
 
     /***call Update Profile Api */
