@@ -13,7 +13,6 @@ import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.CalendarFragmentBinding
-import com.example.plazapalm.models.AddPhoto
 import com.example.plazapalm.models.CalenderData
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
@@ -128,7 +127,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
     /** Latest Code 24/02/2022**/
     @SuppressLint("ResourceType")
-   private fun calendarClick() {
+    private fun calendarClick() {
         binding?.clCalendar?.setOnPreviousPageChangeListener(object :
             OnCalendarPageChangeListener {
             override fun onChange() {
@@ -156,20 +155,24 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
                 val month = eventDay.calendar.get(MONTH)
                 val year = eventDay.calendar.get(YEAR)
 
-                search(date, month + 1, year)
+                filterList(date, month + 1, year)
                 Log.e("CCCSDScxcx", date.toString())
-               // CommonMethods.showToast(requireActivity(), "working fine")
+                // CommonMethods.showToast(requireActivity(), "working fine")
             }
         })
 
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun search(day: Int?, month: Int, year: Int) {
+    private fun filterList(day: Int?, month: Int, year: Int) {
         val dateMontList = ArrayList<CalenderData>()
         dateMontList.clear()
-        var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.month == month && 28==day }as  ArrayList<CalenderData>
+      //  var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.month == month && 28 == day } as ArrayList<CalenderData>
+//        var tempList = viewModel.adapterCalendar.getAllItems()!!.filter {   it.month?.equals(true)!! || it.year?.equals(true)!! || it.choose_date} as ArrayList<CalenderData>
+//        var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.year?.equals(true)!! } as ArrayList<CalenderData>
+//        var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.month?.equals(true)!! } as ArrayList<CalenderData>
 
+//        Log.e("SDSDXiuys", tempList.toString())
 
 //        day.let {
 //            viewModel.adapterCalendar.getAllItems().forEach { monthofDay ->
@@ -178,8 +181,8 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 //                }
 //            }
 
-            viewModel.adapterCalendar.addItems(tempList)
-            viewModel.adapterCalendar.notifyDataSetChanged()
+//        viewModel.adapterCalendar.addItems(tempList)
+//        viewModel.adapterCalendar.notifyDataSetChanged()
 
     }
 
