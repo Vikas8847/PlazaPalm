@@ -8,6 +8,15 @@
         <variable
             name="vm"
             type="com.example.plazapalm.views.myprofile.calendar.CalendarVM" />
+
+        <variable
+            name="model"
+            type="com.example.plazapalm.models.CalenderData" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -109,6 +118,7 @@
                 android:focusable="false"
                 android:switchTextAppearance="@dimen/small_thumb"
                 android:textSize="12sp"
+                android:theme="@style/ThemeOverlay.MaterialComponents.MaterialCalendar"
                 android:visibility="visible"
                 app:abbreviationsBarColor="@color/light_sky_blue"
                 app:abbreviationsLabelsColor="@color/white"
@@ -121,13 +131,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivCalendarBackBtn"
                 app:pagesColor="@color/light_sky_blue"
-                android:theme="@style/ThemeOverlay.MaterialComponents.MaterialCalendar"
+                app:selectionColor="@color/light_blue"
                 app:selectionDisabled="true"
-                app:selectionLabelColor="@color/red"
+                app:selectionLabelColor="@color/white"
                 app:todayLabelColor="@color/red"
-                app:selectionColor="@color/white"
-                app:type="many_days_picker"
-                />
+                app:type="many_days_picker" />
+
+            <!--                app:selectionColor="@color/light_blue"
+                            SetSelectionColor="@{model.booking_status}"
+
+-->
 
             <androidx.recyclerview.widget.RecyclerView
                 setRecyclerAdapter="@{vm.adapterCalendar}"

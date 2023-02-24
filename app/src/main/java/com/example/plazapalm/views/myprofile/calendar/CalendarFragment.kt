@@ -89,6 +89,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
                     viewModel.calendarMutableResponse.observe(requireActivity()) {
                         val dataList = it as ArrayList<Calendar>
+
                         dataList.add(calandar)
                         binding?.clCalendar?.setHighlightedDays(dataList)
                         binding?.clCalendar?.selectedDates = dataList
@@ -100,30 +101,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
             }
         }
     }
-
-//    @SuppressLint("ResourceType")
-//    private fun calendarClick() {
-//        binding?.clCalendar?.setOnPreviousPageChangeListener(object : OnCalendarPageChangeListener {
-//            override fun onChange() {
-//                val month = binding?.clCalendar?.currentPageDate!!.get(Calendar.MONTH) + 1
-//                val year = binding?.clCalendar?.currentPageDate!!.get(Calendar.YEAR)
-//                montYear(month, year)
-//
-//                Log.e("DATAEE", month.toString())
-//            }
-//        })
-//
-//        binding?.clCalendar?.setOnForwardPageChangeListener(object :
-//            OnCalendarPageChangeListener {
-//            override fun onChange() {
-//                val month = binding?.clCalendar?.currentPageDate!!.get(Calendar.MONTH) + 1
-//                val year = binding?.clCalendar?.currentPageDate!!.get(Calendar.YEAR)
-//                montYear(month, year)
-//                Log.e("DATAEE", month.toString())
-//            }
-//        })
-//
-//    }
 
     /** Latest Code 24/02/2022**/
     @SuppressLint("ResourceType")
@@ -165,23 +142,27 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun filterList(day: Int?, month: Int, year: Int) {
-        val dateMontList = ArrayList<CalenderData>()
+
+        var dateMontList = ArrayList<CalenderData>()
         dateMontList.clear()
-       // var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.choose_date == month && 28 == day } as ArrayList<CalenderData>
 
-        val tempList= viewModel.adapterCalendar.getAllItems()
-         tempList.filter { it.choose_date?.equals(true)!! }
-        Log.d("date","$tempList")
-       // Log.e("SDSDXiuys", tempList.toString())
+        var clickDate = ""
+        if (month < 10) {
+            clickDate = year.toString() + "-" + "0" + month.toString() + "-" + day
 
-//        day.let {
-//            viewModel.adapterCalendar.getAllItems().forEach { monthofDay ->
-//                if (monthofDay.month.toString().contains(day)) {
-//                    dateMontList.add(monthofDay)
-//                }
-//            }
+        } else {
+            clickDate = year.toString() + "-" + month.toString() + "-" + day
 
-        viewModel.adapterCalendar.addItems(tempList)
+        }
+
+        Log.e("Fkjfl;k", clickDate.toString())
+        val tempList = viewModel.calendarBookingList
+        dateMontList = tempList.filter {
+            it.choose_date?.split("T")!!.contains(clickDate)
+        } as ArrayList<CalenderData>
+
+        Log.d("filterList-date -> ", "$dateMontList")
+        viewModel.adapterCalendar.addItems(dateMontList)
         viewModel.adapterCalendar.notifyDataSetChanged()
 
     }

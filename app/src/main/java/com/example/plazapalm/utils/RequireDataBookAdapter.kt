@@ -91,19 +91,18 @@ class RequireDataBookAdapter(
 
                 bindining.tvConfirmBookQuestionOne.text = (" " + position + 1).toString()
                 bindining.tvConfirmBookQuestionHair.text = list.get(position).question_text
-                bindining.etConfirmBookQuestionAns.setText(list.get(position)._id)
+                bindining.etConfirmBookQuestionAns.setText(list.get(position).save_ans)
 
                 bindining.etConfirmBookQuestionAns.setBackgroundResource(R.drawable.ans_bck)
 
                 bindining.tvConfirmBookQuestionOne.setTextColor(R.color.black)
-                bindining.tvConfirmBookQuestionHair.setTextColor(R.color.black_light)
-                bindining.etConfirmBookQuestionAns.setTextColor(R.color.gray)
+                bindining.tvConfirmBookQuestionHair.setTextColor(R.color.black)
+                bindining.etConfirmBookQuestionAns.setTextColor(R.color.black)
 
                 bindining.etConfirmBookQuestionAns.isClickable = false
                 bindining.etConfirmBookQuestionAns.isEnabled = false
 
             }
-
             Log.e("iouqwioeu", list.get(position).question_text.toString())
         }
     }

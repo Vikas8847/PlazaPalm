@@ -51,7 +51,7 @@ class CalendarVM @Inject constructor(
     val click = ObservableBoolean(false)
     val SeletedDate = MutableLiveData<List<String?>?>()
     var calendarList = ArrayList<Calendar>()
-    var isBookingStatus = ObservableBoolean()
+    var colorStatus = ObservableBoolean()
     val isBookStatus = MutableLiveData<Boolean>()
 
     init {
@@ -225,7 +225,6 @@ class CalendarVM @Inject constructor(
                                 Log.e("FQWQWQQQ2", "$month  F ")
                                 Log.e("FQWQWQQQ3", "$fDay  B ")
                                 calendarList.add(calendars4!!)
-
                                 Log.e("bookinggIDD -- ",res.body()!!.data[i]?._id.toString())
                             }
 

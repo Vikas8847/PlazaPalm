@@ -32,7 +32,6 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     @Inject
     lateinit var pref: PreferenceFile
 
-
     @Inject
     lateinit var repository: Repository
 
@@ -55,7 +54,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
             Log.e("SDDSasdas", viewModel.userType.get().toString() + " Vxv ")
 
         } else if (viewModel.userType.get().toString().equals("provider")) {
-            getBookingDataForProvider()
+//            getBookingDataForProvider()
             Log.e("SDDSasdas", viewModel.userType.get().toString() + "  Vdfgdf ")
         }
     }
