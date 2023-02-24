@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:onClick="@{vm::onClicks}"
+        android:background="@color/white"
         tools:context=".chat.ChatActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -117,6 +118,7 @@
                 android:visibility="@{vm.emptyMessageList?View.VISIBLE:View.GONE}"
                 android:text="@{vm.notFoundMessgae}"
                 android:textSize="@dimen/_12sdp"
+                android:textColor="@color/black"
                 android:layout_height="match_parent"/>
 
             <androidx.appcompat.widget.AppCompatTextView
