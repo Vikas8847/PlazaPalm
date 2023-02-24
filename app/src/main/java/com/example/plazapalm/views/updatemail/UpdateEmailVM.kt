@@ -55,9 +55,7 @@ class UpdateEmailVM @Inject constructor(
                         //call update email api here..
                         callUpdateEmail(view)
                     }
-                }
-                else
-                {
+                } else {
                     CommonMethods.showToast(CommonMethods.context, Constants.CHECK_INTERNET)
                 }
                 //view.findNavController().navigateUp()
@@ -91,7 +89,7 @@ class UpdateEmailVM @Inject constructor(
 
     private fun callUpdateEmail(view: View) = viewModelScope.launch {
 
-        Log.e("Dasdieo" , newEmail.get()?.trim().toString() )
+        Log.e("Dasdieo", newEmail.get()?.trim().toString())
 
         val body = JSONObject()
         body.put(Constants.EMAIL, newEmail)
@@ -111,15 +109,28 @@ class UpdateEmailVM @Inject constructor(
 
                 override fun onResponse(res: Response<VerifyOtpData>) {
                     /*From here we will send type for update email and get it in EmailVerify Fragment using Bundle */
-                    val bundle = Bundle()
+                    Log.e("Dasdieo", res.body()!!.data.toString())
 
-                    bundle.putString("comingFrom", "emailUpdateType")
-                    bundle.putString("email", newEmail.get())
+                    if (res.isSuccessful && res.code() == 200 && res.message().equals("")) {
+                        if (res.body()?.data != null ) {
+                            val bundle = Bundle()
+                            bundle.putString("comingFrom", "emailUpdateType")
+                            bundle.putString("email", newEmail.get())
+                            view.navigateWithId(R.id.emailVerifyFragment, bundle)
 
-                    view.navigateWithId(R.id.emailVerifyFragment, bundle)
+                            CommonMethods.showToast(
+                                CommonMethods.context,
+                                res.body()?.message.toString()
+                            )
+                            CommonMethods.context.hideKeyboard()
+                        }
+                    } else {
+                        CommonMethods.showToast(
+                            CommonMethods.context,
+                            res.body()?.message.toString()
+                        )
+                    }
 
-                    CommonMethods.showToast(CommonMethods.context, res.body()?.message.toString())
-                    CommonMethods.context.hideKeyboard()
 //                    view.navigateBack()
                 }
 

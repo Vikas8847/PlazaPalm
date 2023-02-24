@@ -19,7 +19,7 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback21;
+    private final android.view.View.OnClickListener mCallback22;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -41,7 +41,7 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
         this.tvQuestionValue.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback21 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback22 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -111,6 +111,8 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
             mDirtyFlags = 0;
         }
         com.example.plazapalm.models.QueData model = mModel;
+        java.lang.Boolean modelCheckSlider = null;
+        boolean androidxDatabindingViewDataBindingSafeUnboxModelCheckSlider = false;
         java.lang.String modelQuestionText = null;
         java.lang.String modelQuestionNo = null;
 
@@ -119,21 +121,28 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
 
 
                 if (model != null) {
+                    // read model.checkSlider
+                    modelCheckSlider = model.getCheckSlider();
                     // read model.question_text
                     modelQuestionText = model.getQuestion_text();
                     // read model.question_no
                     modelQuestionNo = model.getQuestion_no();
                 }
+
+
+                // read androidx.databinding.ViewDataBinding.safeUnbox(model.checkSlider)
+                androidxDatabindingViewDataBindingSafeUnboxModelCheckSlider = androidx.databinding.ViewDataBinding.safeUnbox(modelCheckSlider);
         }
         // batch finished
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.deletereturn.setOnClickListener(mCallback21);
+            this.deletereturn.setOnClickListener(mCallback22);
         }
         if ((dirtyFlags & 0x9L) != 0) {
             // api target 1
 
+            com.example.plazapalm.utils.BindingAdapters.setSwipeMode(this.slDeleteQuestions, androidxDatabindingViewDataBindingSafeUnboxModelCheckSlider);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvQuestionCounts, modelQuestionNo);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvQuestionValue, modelQuestionText);
         }

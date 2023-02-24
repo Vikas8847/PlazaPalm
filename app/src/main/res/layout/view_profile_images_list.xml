@@ -86,8 +86,10 @@
 
             <com.example.plazapalm.utils.FullScreenVideoView
                 android:id="@+id/videoViewDetail"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="match_parent" />
 

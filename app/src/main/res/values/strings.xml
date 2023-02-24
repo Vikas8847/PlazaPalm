@@ -134,5 +134,6 @@ When you’re signed in, we also collect information that we store with your Goo
 
 
     </string>
+    <string name="resend_code">Resend Code</string>
 
 </resources>

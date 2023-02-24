@@ -60,6 +60,7 @@
             android:id="@+id/clPrivacyPolicyMain"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent">
+
             <WebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"

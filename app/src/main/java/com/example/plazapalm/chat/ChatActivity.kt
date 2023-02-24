@@ -58,10 +58,23 @@ class ChatActivity : AppCompatActivity() {
         getLocal()
         setAdapter()
         sendClicks()
+        sendClicks()
+        fetchBlockObserver()
+    }
+
+    fun fetchBlockObserver()
+    {
+        viewModel.enableBlockMutableData.observe(this, Observer {
+            var data=it as Boolean
+            if(data)
+            {
+                viewModel.fetchBlockMethod(viewModel.bothID!!.toString())
+            }
+        })
+
     }
 
     private fun getLocal() {
-
         if (pref.retrieISblock(IS_BLOCK) != null) {
             viewModel.isUserBlocked.set(pref.retrieISblock(IS_BLOCK)!!)
             Log.e("khkws", pref.retrieISblock(IS_BLOCK).toString())
@@ -100,28 +113,7 @@ class ChatActivity : AppCompatActivity() {
             viewModel.fetchNotificationToken()
         }
 
-
-        // old code ...
-
-//        dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
-//
-//            /** Sender Data */
-//
-//            viewModel.senderUserID.set(it?.data?.user_id.toString())
-//            viewModel.senderUserName.set(it?.data?.user_name.toString())
-////            viewModel.senderbusiness_profile_status.set(it?.data?.business_profile_status)
-//
-//            Log.e("  sender_usderIID-->> ", it.toString())
-//
-//        }
-//
-//        dataStore.readObject(POST_PROFILE_DATA, SavePostProfileResponse::class.java) {
-//            val SenderImage = it?.data?.postProfile_picture!![0]
-//            viewModel.senderUserImage.set(SenderImage)
-//            Log.e("oiIMAHEE", it.toString())
-//        }
-
-    }
+   }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun sendClicks() {

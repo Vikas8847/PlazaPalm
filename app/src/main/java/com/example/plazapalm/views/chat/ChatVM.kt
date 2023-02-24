@@ -31,7 +31,6 @@ import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
-import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.views.chat.adapter.ChatAdapter
 import com.google.firebase.firestore.FirebaseFirestore.*
 import com.google.firebase.firestore.SetOptions
@@ -41,7 +40,6 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
@@ -64,6 +62,10 @@ class ChatVM @Inject constructor(
     var messageText = ObservableField("")
     var reciverUserID = ObservableField("")
     var isUserBlocked = ObservableBoolean(true)
+    var whoBlocked = ObservableBoolean(false)
+    var checkBlocked = ObservableBoolean(false)
+
+
     var reciverUserImage = ObservableField("")
     var senderUserImage = ObservableField("")
     var reciverUserName = ObservableField("")
@@ -79,9 +81,10 @@ class ChatVM @Inject constructor(
     var fcmToken = ObservableField("")
     val FCM_MESSAGE_URL: String = "https://fcm.googleapis.com/fcm/send"
 
-    var emptyMessageList=ObservableBoolean(false)
+    var emptyMessageList = ObservableBoolean(false)
 
-    var activity:Activity?=null
+    var activity: Activity? = null
+var notFoundMessgae=ObservableField("")
     init {
 
         val bothID1 = senderUserID.get().toString() + "_" + reciverUserID.get().toString()
@@ -116,15 +119,16 @@ class ChatVM @Inject constructor(
                     isClicked.set(true)
                 }
             }
+
             R.id.tvBlockUserBtn -> {
                 isClicked.set(false)
                 showChooseOptionAccountDialog()
             }
-            R.id.layout_for_dismiss->{
+            R.id.layout_for_dismiss -> {
                 isClicked.set(true)
-               /* if (dialog != null && dialog?.isShowing!!) {
-                    dialog?.dismiss()
-                }*/
+                /* if (dialog != null && dialog?.isShowing!!) {
+                     dialog?.dismiss()
+                 }*/
             }
         }
     }
@@ -218,19 +222,16 @@ class ChatVM @Inject constructor(
                                 Log.e("ADADASRTRTR456", isUserBlocked.get().toString())
                                 pref.saveISblock(IS_BLOCK, isUserBlocked.get())
 
-                                isBlock(false)
+                                isBlock(false,"")
                             } else {
                                 isUserBlocked.set(true)
                                 pref.saveISblock(IS_BLOCK, isUserBlocked.get())
                                 Log.e("ADADASRTRTR67", isUserBlocked.get().toString())
-                                isBlock(true)
+                                isBlock(true,reciverUserID.get().toString())
                             }
-
-//                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
 
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
-
                         }
 
                     } else {
@@ -276,16 +277,19 @@ class ChatVM @Inject constructor(
                 }
 
                 if (!(bothID.equals(""))) {
-                    Constants.CURRENTCHATID=bothID
+                    Constants.CURRENTCHATID = bothID
                     fetchdata(bothID!!)
                     fetchUserDataMethod(bothID!!)
-                    Constants.CURRENTCHATID =bothID
+                    Constants.CURRENTCHATID = bothID
+
+                    enableBlockMutableData.value=true
                 }
 
                 Log.e("Chat_Id===", bothID.toString())
             }
     }
 
+    var enableBlockMutableData=MutableLiveData<Boolean>()
     @SuppressLint("NotifyDataSetChanged")
     private fun fetchdata(bothID: String) {
         var db = getInstance()
@@ -328,12 +332,16 @@ class ChatVM @Inject constructor(
                 chatAdapter.notifyDataSetChanged()
                 scrollToBottomMethod()
 
-                if(dataList.size==0)
-                {
+                if (dataList.size == 0) {
                     emptyMessageList.set(true)
-                }else
-                {
+                    if(checkBlocked.get()==false) {
+                        notFoundMessgae.set("No Chat history found")
+                    }
+                } else {
                     emptyMessageList.set(false)
+                    if(checkBlocked.get()==false) {
+                        //notFoundMessgae.set("")
+                    }
                 }
             }
     }
@@ -384,7 +392,6 @@ class ChatVM @Inject constructor(
         firestore.collection("Chats").document(bothID.toString())
             .set(senderDeatils, SetOptions.merge())
 
-
         sendChatMessage()
 
     }
@@ -397,7 +404,9 @@ class ChatVM @Inject constructor(
         Log.e("ASAAAQQZ", bothID.toString() + "TIME --->> " + time.toString())
 
         if (messageText.get().toString().trim().isNullOrEmpty()) {
+
             CommonMethods.showToast(CommonMethods.context, Constants.MessageNameCantEmpty)
+
         } else {
             message["message"] = messageText.get().toString()
             message["messageType"] = "1"
@@ -412,17 +421,19 @@ class ChatVM @Inject constructor(
                 .addOnSuccessListener {
 
                     if (!(fcmToken.get().toString().equals(""))) {
-                        sendNotificationMethod(messageText.get().toString(),
+                        sendNotificationMethod(
+                            messageText.get().toString(),
                             senderUserName.get().toString(),
                             senderUserID.get().toString(),
                             reciverUserID.get().toString(),
-                            bothID.toString())
+                            bothID.toString()
+                        )
                     }
                     messageText.set("")
 
                 }
                 .addOnFailureListener {
-                   // CommonMethods.showToast(CommonMethods.context, " failed.")
+                    // CommonMethods.showToast(CommonMethods.context, " failed.")
                 }
 
             val lastSeenData = HashMap<String, MessageData>()
@@ -505,34 +516,38 @@ class ChatVM @Inject constructor(
             .get()
             .addOnSuccessListener {
 
-                if (it.data != null) {
-                    Log.e("rgmksgmrgsg===", it.data!!.get("IsBlock").toString())
-                    if (it.data!!.get("IsBlock") != null) {
-                        isUserBlocked.set(it.data!!.get("IsBlock") as Boolean)
+                if (it!!.data != null) {
+                    if (it.data!!.get("whoBlock") != null) {
+                        var whoBlock=it.data!!.get("whoBlock") as String
+                        checkBlockMethod(whoBlock)
                     } else {
-                        isUserBlocked.set(false)
+                        whoBlocked.set(false)
                     }
                 } else {
-                    isUserBlocked.set(false)
+                    whoBlocked.set(false)
                 }
                 //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
-
             }
     }
 
-    private fun isBlock(value: Boolean) {
+    private fun isBlock(value: Boolean,otherUserId:String) {
 
         Log.e("LASKDASKD", value.toString())
 
-        val hashmap = HashMap<String, Boolean>()
+        /*val hashmap = HashMap<String, Boolean>()
         hashmap.put("IsBlock", value)
-
         firestore.collection("Chats").document(bothID.toString())
             .set(hashmap, SetOptions.merge()).addOnSuccessListener {
                 Log.e("ZZXX", it.toString() + "XCX ")
+            }*/
+
+        val hashmapBlock = HashMap<String, String>()
+        hashmapBlock.put("whoBlock", otherUserId)
+        firestore.collection("Chats").document(bothID.toString())
+            .set(hashmapBlock, SetOptions.merge()).addOnSuccessListener {
+                Log.e("ZZXX", it.toString() + "XCX ")
             }
     }
-
 
     fun fetchNotificationToken() {
         var db = getInstance()
@@ -554,7 +569,8 @@ class ChatVM @Inject constructor(
         val jsonArray = JSONArray()
         jsonArray.put(fcmToken.get().toString())
         Log.e("felfwefwefwef===", fcmToken.get().toString())
-        sendNotification(jsonArray,
+        sendNotification(
+            jsonArray,
             senderId,
             receiverId,
             message,
@@ -562,7 +578,8 @@ class ChatVM @Inject constructor(
             "",
             bothID,
             "",
-            "")
+            ""
+        )
     }
 
 
@@ -615,8 +632,10 @@ class ChatVM @Inject constructor(
                     notification.put("subtitle", name)
                     notification.put(
                         "icon",
-                        BitmapFactory.decodeResource(CommonMethods.context.resources,
-                            R.mipmap.ic_launcher)
+                        BitmapFactory.decodeResource(
+                            CommonMethods.context.resources,
+                            R.mipmap.ic_launcher
+                        )
                     )
                     val data = JSONObject()
                     val jsonObject = JSONObject()
@@ -672,5 +691,61 @@ class ChatVM @Inject constructor(
         val response = mClient.newCall(request).execute()
         Log.e("Response_Notificat===", response.body!!.string())
         return response.body!!.string()
+    }
+
+    fun fetchBlockMethod(bothId:String) {
+       // var db = getInstance()
+        firestore.collection("Chats").document(bothId.toString()).addSnapshotListener {value,error->
+                if (value!!.data != null) {
+                    if (value.data!!.get("whoBlock") != null) {
+                       var whoBlock=value.data!!.get("whoBlock") as String
+                        checkBlockMethod(whoBlock)
+                    } else {
+                        whoBlocked.set(false)
+                    }
+                } else {
+                    whoBlocked.set(false)
+                }
+                //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
+
+            }
+
+    }
+
+    fun checkBlockMethod(whoBlock:String)
+    {
+        if(whoBlock!="")
+        {
+            isUserBlocked.set(true)
+            checkBlocked.set(true)
+
+        }else
+        {
+            isUserBlocked.set(false)
+            checkBlocked.set(false)
+        }
+
+        if(whoBlock.equals(senderUserID.get().toString())){
+            whoBlocked.set(true)
+            notFoundMessgae.set("You are blocked")
+            emptyMessageList.set(true)
+        }else{
+
+            whoBlocked.set(false)
+
+            if(chatAdapter.dataList!=null){
+                if(chatAdapter.dataList.size==0)
+                {
+                    emptyMessageList.set(true)
+                    notFoundMessgae.set("No Chat history found")
+                }else{
+                    emptyMessageList.set(false)
+                }
+            }else
+            {
+                emptyMessageList.set(true)
+                notFoundMessgae.set("No Chat history found")
+            }
+        }
     }
 }

@@ -108,7 +108,29 @@ class FavouritesVM @Inject constructor(
                             Log.e("REESSFAVVV", res.body().toString())
 
                             data(res.body()!!.data)
-                            var newList = res.body()!!.data as ArrayList<FavData>
+                           // var newList = res.body()!!.data as ArrayList<FavData>
+                            var newList = ArrayList<FavData>()
+                            newList.clear()
+
+                            for (idx in 0 until res.body()?.data!!.size) {
+                                if (res.body()?.data!![idx].postProfile_picture != null && res.body()?.data!![idx].postProfile_picture!!.size > 0) {
+                                    var data=res.body()?.data!![idx]
+                                  //  data.lngValue=data.long
+
+                                    if(data.postProfile_picture?.get(0)!!.contains(".png") ||
+                                        data.postProfile_picture!![0].contains(".jpg") || data.postProfile_picture!![0].contains(".jpeg"))
+                                    {
+                                        data.mediaType=1
+                                    }else
+                                    {
+                                        data.mediaType=2
+                                        Log.e("rererererer===",data.postProfile_picture!![0])
+                                    }
+                                    /*res.body()?.data!![idx].lngValue =
+                                        res.body()?.data!![idx].long*/
+                                    newList.add(data)
+                                }
+                            }
 
                             favAdapter.addItems(newList)
                             favAdapter.notifyDataSetChanged()
@@ -117,6 +139,7 @@ class FavouritesVM @Inject constructor(
                             if (favAdapter.getAllItems().size==0){
                                 noData.set(true)
                             }
+
                             }
 
                         } else {

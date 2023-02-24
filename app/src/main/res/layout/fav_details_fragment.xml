@@ -10,6 +10,7 @@
         <variable
             name="vm"
             type="com.example.plazapalm.views.favourites.favdetails.FavDetailsVM" />
+
         <variable
             name="view"
             type="android.view.View" />
@@ -78,7 +79,6 @@
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -99,38 +99,40 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.imageview.ShapeableImageView
+
                         android:id="@+id/ivFavDetails"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/black"
                         android:adjustViewBounds="true"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:src="@drawable/electrician_image"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="MissingConstraints" />
 
                     <VideoView
                         android:id="@+id/videoViewDetail"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivVideoIconDetails"
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
+                        android:layout_gravity="center"
                         android:src="@drawable/ic_play_icon"
                         android:visibility="visible"
-                        android:layout_gravity="center"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivFavDetailsEmptyHeart"
@@ -144,6 +146,7 @@
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                     <View
                         android:id="@+id/top_view"
                         android:layout_width="match_parent"
@@ -197,14 +200,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_2sdp"
                         android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
                         android:fontFamily="@font/inter_medium"
                         android:singleLine="true"
                         android:text="@{vm.tvFavCityAddress}"
                         android:textColor="@color/white"
                         android:textSize="13sp"
-
                         app:layout_constraintBottom_toTopOf="@id/tvFavDetailsAddress"
                         app:layout_constraintEnd_toStartOf="@+id/tvFavDetailsDistance"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -215,19 +217,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:layout_marginBottom="@dimen/_7sdp"
                         android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
                         android:fontFamily="@font/inter_medium"
                         android:text="@{vm.distanceValue}"
                         android:textColor="@color/white"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
-
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clFavDetailsLikeDislike"
@@ -236,7 +235,6 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:layout_constraintTop_toBottomOf="@+id/clFavDetails">
-
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivFavDetailsLike"
@@ -264,7 +262,6 @@
                         app:layout_constraintBottom_toBottomOf="@id/ivFavDetailsLike"
                         app:layout_constraintStart_toEndOf="@id/ivFavDetailsLike"
                         app:layout_constraintTop_toTopOf="@id/ivFavDetailsLike" />
-
 
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -298,15 +295,14 @@
                         android:id="@+id/ivFavTotalLikedCounts"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:padding="@dimen/_2sdp"
                         android:layout_marginStart="@dimen/_5sdp"
+                        android:padding="@dimen/_3sdp"
                         android:paddingTop="@dimen/_5sdp"
                         android:src="@drawable/ic_heart_icon"
-                        app:tint="@color/black"
                         android:visibility="@{vm.checkFavouriteShow==1 ? view.VISIBLE : view.GONE}"
                         app:layout_constraintStart_toEndOf="@id/tvFavDetailsDisLikeCount"
                         app:layout_constraintTop_toTopOf="@id/ivFavDetailsLike"
-                        />
+                        app:tint="@color/black" />
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -412,7 +408,6 @@
                     </androidx.cardview.widget.CardView>
 
 
-
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clFavOfDesc2"
                         android:layout_width="match_parent"
@@ -463,7 +458,6 @@
                         tools:itemCount="2"
                         tools:layout_editor_absoluteX="13dp"
                         tools:listitem="@layout/view_profile_images_list" />
-
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -529,9 +523,9 @@
                         android:onClick="@{vm::onClicks}"
                         android:paddingBottom="@dimen/_1sdp"
                         android:text="@string/booking_txt"
-                        android:visibility="gone"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/view_" />
 

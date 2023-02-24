@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
-import android.provider.CalendarContract.Colors
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -20,6 +19,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.toColorInt
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.lifecycle.MutableLiveData
@@ -91,6 +91,7 @@ class AdvanceEditLookVM @Inject constructor(
     var advanceEditLookFontsNameList = ArrayList<FontsListModelResponse>()
     var appCompatTxtFont: AppCompatTextView? = null
 
+    var noData = ObservableBoolean(false)
     var fontsName = ObservableField("Optima-Regular")
     var fontBottomSheet: BottomSheetDialog? = null
     var scheduleBinding: AdvanceEditlookFontlistBinding? = null
@@ -216,9 +217,11 @@ class AdvanceEditLookVM @Inject constructor(
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     private fun showBottomSheetDialogOne() {
         fontsFilteredList.clear()
-        fontBottomSheet = BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
+        fontBottomSheet =
+            BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
         fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-        scheduleBinding = AdvanceEditlookFontlistBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
+        scheduleBinding =
+            AdvanceEditlookFontlistBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         fontBottomSheet?.setCancelable(true)
         scheduleBinding?.model = this
         scheduleBinding?.apply {
@@ -1365,8 +1368,17 @@ class AdvanceEditLookVM @Inject constructor(
                 CommonMethods.walkWayObliqueBoldFontName
             )
         )
-        advanceFontListAdapter.addItems(advanceEditLookFontsNameList)
-        updateRecyclerView()
+
+            advanceFontListAdapter.addItems(advanceEditLookFontsNameList)
+            updateRecyclerView()
+
+        if (advanceFontListAdapter.getAllItems().size==0){
+            noData.set(true)
+            updateRecyclerView()
+
+        }else{
+            noData.set(false)
+        }
     }
 
     private fun searchFunctionality() {
@@ -1397,8 +1409,15 @@ class AdvanceEditLookVM @Inject constructor(
                     fontsFilteredList.add(fontsName)
                 }
             }
-            advanceFontListAdapter.addItems(fontsFilteredList)
-            updateRecyclerView()
+                advanceFontListAdapter.addItems(fontsFilteredList)
+                updateRecyclerView()
+
+            if (advanceFontListAdapter.getAllItems().size==0){
+                noData.set(true)
+                Log.e("SDSwew" , advanceFontListAdapter.getAllItems().toString())
+            }else{
+                noData.set(false)
+            }
         }
     }
 
@@ -1410,9 +1429,9 @@ class AdvanceEditLookVM @Inject constructor(
 
     /** Post api for color back ground ..**/
     private fun postColorsAPI() = viewModelScope.launch {
-       var columnOpacityValue=(columnOpacity.get().toDouble()*100).toInt()
-       var borderOpacityValue=(borderOpacity.get().toDouble()*100).toInt()
-       var fontOpacityValue=(fontOpacity.get().toDouble()*100).toInt()
+        var columnOpacityValue = (columnOpacity.get().toDouble() * 100).toInt()
+        var borderOpacityValue = (borderOpacity.get().toDouble() * 100).toInt()
+        var fontOpacityValue = (fontOpacity.get().toDouble() * 100).toInt()
 
 
         repository.makeCall(ApiEnums.COLOR_LOOK,
@@ -1465,7 +1484,7 @@ class AdvanceEditLookVM @Inject constructor(
         borderView: CardView,
     ) {
         var setColumnColor = 0
-        Log.e("fdsdfgsdfsdf====",columnColor.get().toString())
+        Log.e("fdsdfgsdfsdf====", columnColor.get().toString())
         setColumnColor = "#00000000".toColorInt()
         if (columnColor.get().toString().equals("")) {
             setColumnColor = "#00000000".toColorInt()
@@ -1501,7 +1520,9 @@ class AdvanceEditLookVM @Inject constructor(
             setColumnOpacity = columnOpacity.get().toString().toDouble()
         }
 
-        if (!(borderColor.get().toString().equals("")) || borderWidth.get().toString() != "0.0" ||  borderOpacity.get().toString()!="0.0") {
+        if (!(borderColor.get().toString().equals("")) || borderWidth.get()
+                .toString() != "0.0" || borderOpacity.get().toString() != "0.0"
+        ) {
             borderView.alpha = borderOpacity.get()
             val drawable2 = GradientDrawable()
             drawable2.shape = GradientDrawable.RECTANGLE
@@ -1514,17 +1535,16 @@ class AdvanceEditLookVM @Inject constructor(
             // drawable2.alpha=columnOpacity.get().toInt()
             borderView.setBackgroundDrawable(drawable2)
             borderView.alpha = borderOpacity.get()
-Log.e("FFFFFFFFFFd===","Yessss")
-        }else
-        {
+            Log.e("FFFFFFFFFFd===", "Yessss")
+        } else {
             val drawable2 = GradientDrawable()
             drawable2.shape = GradientDrawable.RECTANGLE
-            drawable2.setStroke(4,"#000000".toColorInt())
+            drawable2.setStroke(4, "#000000".toColorInt())
 
             drawable2.cornerRadius = 20f
             drawable2.setColor("#00000000".toColorInt())
             borderView.setBackgroundDrawable(drawable2)
-            Log.e("FFFFFFFFFFd===","NOOOO")
+            Log.e("FFFFFFFFFFd===", "NOOOO")
         }
 
 
@@ -1535,7 +1555,7 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
         drawable.cornerRadius = 20f
         drawable.setColor(setColumnColor)
-         drawable.alpha=(setColumnOpacity*100).toInt()
+        drawable.alpha = (setColumnOpacity * 100).toInt()
         layoutColrs.setBackgroundDrawable(drawable)
 
         // layoutColrs!!.alpha=setColumnOpacity.toFloat()
@@ -1555,8 +1575,8 @@ Log.e("FFFFFFFFFFd===","Yessss")
                 textView.textSize = fontSize.get()
             }
 
-            Log.e("gswrdddgggg===",fontSize.get().toString())
-            Log.e("gswrdddgggg111===",fontOpacity.get().toString())
+            Log.e("gswrdddgggg===", fontSize.get().toString())
+            Log.e("gswrdddgggg111===", fontOpacity.get().toString())
 
             if (fontOpacity.get().toString().equals("0.0")) {
                 textView.alpha = 0.5f
@@ -1570,16 +1590,16 @@ Log.e("FFFFFFFFFFd===","Yessss")
     }
 
     //Only For Background color
-    private fun setFirstBackgroundColor(layoutColrs: ConstraintLayout,borderView:CardView) {
+    private fun setFirstBackgroundColor(layoutColrs: ConstraintLayout, borderView: CardView) {
         var setBackgroundColor = 0
         var strokeColor = 0
         if (backgroundColor.get()
                 .toString() == ""
         ) {
-            strokeColor="#B0B0B0".toColorInt()
+            strokeColor = "#B0B0B0".toColorInt()
             setBackgroundColor = "#00000000".toColorInt()
         } else {
-            strokeColor="#00000000".toColorInt()
+            strokeColor = "#00000000".toColorInt()
             setBackgroundColor = backgroundColor.get().toString().toColorInt()
         }
 
@@ -1594,7 +1614,7 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
         val drawable2 = GradientDrawable()
         drawable2.shape = GradientDrawable.RECTANGLE
-        drawable2.setStroke(4,strokeColor)
+        drawable2.setStroke(4, strokeColor)
 
         drawable2.cornerRadius = 20f
         drawable2.setColor("#00000000".toColorInt())
@@ -1603,22 +1623,22 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
 
     //Only For Background color
-    private fun setTempBackgroundColor(layoutColrs: ConstraintLayout,borderView:CardView) {
+    private fun setTempBackgroundColor(layoutColrs: ConstraintLayout, borderView: CardView) {
         var setBackgroundColor = 0
         var strokeColor = 0
         if (tempBackgroundColor.get()
                 .toString() == ""
         ) {
-            strokeColor="#B0B0B0".toColorInt()
+            strokeColor = "#B0B0B0".toColorInt()
             setBackgroundColor = "#00000000".toColorInt()
         } else {
-            strokeColor="#00000000".toColorInt()
+            strokeColor = "#00000000".toColorInt()
             setBackgroundColor = tempBackgroundColor.get().toString().toColorInt()
         }
 
         val drawable = GradientDrawable()
         drawable.shape = GradientDrawable.RECTANGLE
-        drawable.setStroke(4,strokeColor)
+        drawable.setStroke(4, strokeColor)
 
         drawable.cornerRadius = 20f
         drawable.setColor(setBackgroundColor)
@@ -1626,12 +1646,11 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
         val drawable2 = GradientDrawable()
         drawable2.shape = GradientDrawable.RECTANGLE
-        drawable2.setStroke(4,strokeColor)
+        drawable2.setStroke(4, strokeColor)
 
         drawable2.cornerRadius = 20f
         drawable2.setColor("#00000000".toColorInt())
         borderView.setBackgroundDrawable(drawable2)
-
 
 
     }
@@ -1674,9 +1693,9 @@ Log.e("FFFFFFFFFFd===","Yessss")
                 size_tv?.visibility = View.GONE
                 SelectedDialog.set(Background_color)
 
-               // if(tempBackgroundColor.get().equals())
+                // if(tempBackgroundColor.get().equals())
                 val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
-                setFirstBackgroundColor(layoutColrs!!,borderView)
+                setFirstBackgroundColor(layoutColrs!!, borderView)
 
                 /* if(!(backgroundColor.get().toString().equals(""))) {
                      layoutColrs?.setBackgroundColor(Color.parseColor(backgroundColor.get()
@@ -1709,13 +1728,12 @@ Log.e("FFFFFFFFFFd===","Yessss")
                 try {
                     // columnOpacity.set(preferenceFile.retvieopacity(COLUMN_OPACITY)!!)
 
-                    if(columnOpacity.get().toString()=="0.0")
-                    {
+                    if (columnOpacity.get().toString() == "0.0") {
                         tempColumnOpacity.set(0.5f)
                         sliderOpacitty?.value = 50f
-                    }else{
+                    } else {
                         tempColumnOpacity.set(columnOpacity.get())
-                        sliderOpacitty?.value = (tempColumnOpacity.get()*100)
+                        sliderOpacitty?.value = (tempColumnOpacity.get() * 100)
                     }
 
                     //  columnOpacity.set(preferenceFile.retvieopacity(COLUMN_OPACITY)!!)
@@ -1804,14 +1822,12 @@ Log.e("FFFFFFFFFFd===","Yessss")
                     //  borderOpacity.set(tempBorderOpacity.get())
 
 
-
-                    if(borderOpacity.get().toString()=="0.0")
-                    {
+                    if (borderOpacity.get().toString() == "0.0") {
                         tempBorderOpacity.set(0.5f)
                         sliderOpacitty?.value = 50f
-                    }else{
+                    } else {
                         tempBorderOpacity.set(borderOpacity.get())
-                        sliderOpacitty?.value = (tempBorderOpacity.get()*100)
+                        sliderOpacitty?.value = (tempBorderOpacity.get() * 100)
                     }
 
 
@@ -1827,16 +1843,14 @@ Log.e("FFFFFFFFFFd===","Yessss")
                     Log.d("sliderBorderOpacityEp->", "${e.message.toString()}")
                 }
 
-                if(tempBorderWidth.get().toString()=="0.0")
-                {
-                    slider_size?.value=15f
-                }else
-                {
-                    slider_size?.value=tempBorderWidth.get()
+                if (tempBorderWidth.get().toString() == "0.0") {
+                    slider_size?.value = 15f
+                } else {
+                    slider_size?.value = tempBorderWidth.get()
                 }
 
-                slider_size?.valueFrom=0f
-                slider_size?.valueTo=30f
+                slider_size?.valueFrom = 0f
+                slider_size?.valueTo = 30f
 
                 slider_size?.addOnChangeListener { _, value, _ ->
                     changeColor?.textSize = value
@@ -1956,12 +1970,10 @@ Log.e("FFFFFFFFFFd===","Yessss")
                 /** Slider for SIZE */
 
 
-                if(tempFontSize.get().toString()=="0.0")
-                {
-                    slider_size?.value=10f
-                }else
-                {
-                    slider_size?.value=tempFontSize.get()
+                if (tempFontSize.get().toString() == "0.0") {
+                    slider_size?.value = 10f
+                } else {
+                    slider_size?.value = tempFontSize.get()
                 }
                 slider_size?.valueFrom = 0f
                 slider_size?.valueTo = 30f
@@ -1978,13 +1990,12 @@ Log.e("FFFFFFFFFFd===","Yessss")
                 }
 
 
-                if(fontOpacity.get().toString()=="0.0")
-                {
+                if (fontOpacity.get().toString() == "0.0") {
                     tempFontOpacity.set(0.5f)
                     sliderOpacitty?.value = 50f
-                }else{
+                } else {
                     tempFontOpacity.set(fontOpacity.get())
-                    sliderOpacitty?.value = (tempFontOpacity.get()*100)
+                    sliderOpacitty?.value = (tempFontOpacity.get() * 100)
                 }
 
 
@@ -2062,7 +2073,7 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
             if (selectedValue == 1) {
                 tempBackgroundColor.set("")
-                setTempBackgroundColor(layoutColrs!!,borderView)
+                setTempBackgroundColor(layoutColrs!!, borderView)
 
             } else
                 if (selectedValue == 2) {
@@ -2192,7 +2203,7 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
                 //backgroundColor.set(hexColor!!)
                 tempBackgroundColor.set(hexColor!!)
-                setTempBackgroundColor(layoutColrs!!,borderView)
+                setTempBackgroundColor(layoutColrs!!, borderView)
             }
             COLUMN -> {
                 changeColor = dialog?.findViewById(R.id.change_back_id)
@@ -2374,9 +2385,9 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
                                 fontsName.set(data.font_name.toString())
 
-                                borderOpacity.set((data.border_opacity?.toFloat()!!)/100)
-                                fontOpacity.set((data.font_opacity?.toFloat()!!)/100)
-                                columnOpacity.set((data.column_opacity?.toFloat()!!)/100)
+                                borderOpacity.set((data.border_opacity?.toFloat()!!) / 100)
+                                fontOpacity.set((data.font_opacity?.toFloat()!!) / 100)
+                                columnOpacity.set((data.column_opacity?.toFloat()!!) / 100)
 
 
 
@@ -2483,34 +2494,34 @@ Log.e("FFFFFFFFFFd===","Yessss")
             setColumnOpacity = tempColumnOpacity.get().toString().toDouble()
         }
 
-       // borderView.alpha = tempBorderOpacity.get()
+        // borderView.alpha = tempBorderOpacity.get()
 
-    /*    val drawable2 = GradientDrawable()
-        drawable2.shape = GradientDrawable.RECTANGLE
-        var finalWidth = setBorderWidth.toFloat() * 0.30
+        /*    val drawable2 = GradientDrawable()
+            drawable2.shape = GradientDrawable.RECTANGLE
+            var finalWidth = setBorderWidth.toFloat() * 0.30
 
-        drawable2.setStroke(finalWidth.toInt(), setBorderColor)
+            drawable2.setStroke(finalWidth.toInt(), setBorderColor)
 
-        drawable2.cornerRadius = 20f
-        drawable2.setColor("#00000000".toColorInt())
-        // drawable2.alpha=columnOpacity.get().toInt()
-        borderView.setBackgroundDrawable(drawable2)
-        borderView.alpha = tempBorderOpacity.get()
+            drawable2.cornerRadius = 20f
+            drawable2.setColor("#00000000".toColorInt())
+            // drawable2.alpha=columnOpacity.get().toInt()
+            borderView.setBackgroundDrawable(drawable2)
+            borderView.alpha = tempBorderOpacity.get()
 
-        val drawable = GradientDrawable()
-        drawable.shape = GradientDrawable.RECTANGLE
-        var finalWidth2 = setBorderWidth.toFloat() * 0.30
+            val drawable = GradientDrawable()
+            drawable.shape = GradientDrawable.RECTANGLE
+            var finalWidth2 = setBorderWidth.toFloat() * 0.30
 
-        drawable.setStroke(finalWidth2.toInt(), setBorderColor)
+            drawable.setStroke(finalWidth2.toInt(), setBorderColor)
 
-        drawable.cornerRadius = 20f
-        drawable.setColor(setColumnColor)
-      //   drawable.alpha=(setColumnOpacity.toFloat()*100).toInt()
-        layoutColrs.setBackgroundDrawable(drawable)
-      //  layoutColrs.alpha = setColumnOpacity.toFloat()*100
+            drawable.cornerRadius = 20f
+            drawable.setColor(setColumnColor)
+          //   drawable.alpha=(setColumnOpacity.toFloat()*100).toInt()
+            layoutColrs.setBackgroundDrawable(drawable)
+          //  layoutColrs.alpha = setColumnOpacity.toFloat()*100
 
 
-*/
+    */
 
         val drawable = GradientDrawable()
         drawable.shape = GradientDrawable.RECTANGLE
@@ -2519,26 +2530,28 @@ Log.e("FFFFFFFFFFd===","Yessss")
 
         drawable.cornerRadius = 20f
         drawable.setColor(setColumnColor)
-        drawable.alpha=(setColumnOpacity*100).toInt()
+        drawable.alpha = (setColumnOpacity * 100).toInt()
         layoutColrs.setBackgroundDrawable(drawable)
 
 
-        if (!(borderTempColor.get().toString().equals("")) || tempBorderWidth.get().toString() != "0.0" ||  tempBorderOpacity.get().toString()!="0.0") {
-          //  borderView.alpha = tempBorderOpacity.get()
+        if (!(borderTempColor.get().toString().equals("")) || tempBorderWidth.get()
+                .toString() != "0.0" || tempBorderOpacity.get().toString() != "0.0"
+        ) {
+            //  borderView.alpha = tempBorderOpacity.get()
             val drawable2 = GradientDrawable()
             drawable2.shape = GradientDrawable.RECTANGLE
 
             var finalWidth = setBorderWidth * 0.30
 
-            var newData=borderTempColor.get().toString().replace("#","")
-            Log.e("rgklrmgrgrgrg===",(tempBorderOpacity.get()*100).toString())
-            Log.e("rgklrmgrgrgrg1111===",newData.toString())
-          //var newData1="#"+ tempBorderOpacity.get()*100+newData
+            var newData = borderTempColor.get().toString().replace("#", "")
+            Log.e("rgklrmgrgrgrg===", (tempBorderOpacity.get() * 100).toString())
+            Log.e("rgklrmgrgrgrg1111===", newData.toString())
+            //var newData1="#"+ tempBorderOpacity.get()*100+newData
 
-           // val generatedColor = generateTransparentColor(borderTempColor.get()!!.toColorInt(), tempBorderOpacity.get().toDouble())
+            // val generatedColor = generateTransparentColor(borderTempColor.get()!!.toColorInt(), tempBorderOpacity.get().toDouble())
 
-           // Log.e("rgklrmgrgrgrg2222===",generatedColor.toString())
-            drawable2.setStroke(finalWidth.toInt(),setBorderColor)
+            // Log.e("rgklrmgrgrgrg2222===",generatedColor.toString())
+            drawable2.setStroke(finalWidth.toInt(), setBorderColor)
 
 
             drawable2.cornerRadius = 20f
@@ -2546,22 +2559,19 @@ Log.e("FFFFFFFFFFd===","Yessss")
             // drawable2.alpha=columnOpacity.get().toInt()
             borderView.setBackgroundDrawable(drawable2)
             borderView.alpha = tempBorderOpacity.get()
-           // borderView.setCardBackgroundColor(Color.TRANSPARENT)
-            Log.e("FFFFFFFFFFd===","Yessss")
-        }else
-        {
+            // borderView.setCardBackgroundColor(Color.TRANSPARENT)
+            Log.e("FFFFFFFFFFd===", "Yessss")
+        } else {
             val drawable2 = GradientDrawable()
             drawable2.shape = GradientDrawable.RECTANGLE
-            drawable2.setStroke(4,"#000000".toColorInt())
+            drawable2.setStroke(4, "#000000".toColorInt())
 
             drawable2.cornerRadius = 20f
             drawable2.setColor("#00000000".toColorInt())
             borderView.setBackgroundDrawable(drawable2)
-          //  borderView.setCardBackgroundColor(Color.TRANSPARENT)
-            Log.e("FFFFFFFFFFd===","NOOOO")
+            //  borderView.setCardBackgroundColor(Color.TRANSPARENT)
+            Log.e("FFFFFFFFFFd===", "NOOOO")
         }
-
-
 
 
         var setFontColor = ""

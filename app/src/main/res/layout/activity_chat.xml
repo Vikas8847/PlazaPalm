@@ -64,6 +64,8 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:onClick="@{vm::onClicks}"
+                    android:visibility="@{vm.whoBlocked?View.GONE:View.VISIBLE}"
+
                     android:src="@drawable/ic_profile_view_dots_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tvMyProfile"
@@ -101,6 +103,7 @@
                 android:layout_margin="@dimen/_5sdp"
                 android:overScrollMode="never"
                 android:onClick="@{vm::onClicks}"
+                android:visibility="@{vm.whoBlocked?View.GONE:View.VISIBLE}"
                 app:layout_constraintBottom_toTopOf="@id/clChatSendMessage"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/chat_receiver">
@@ -112,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:visibility="@{vm.emptyMessageList?View.VISIBLE:View.GONE}"
-                android:text="No Chat history found"
+                android:text="@{vm.notFoundMessgae}"
                 android:textSize="@dimen/_12sdp"
                 android:layout_height="match_parent"/>
 
@@ -136,6 +139,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clChatSendMessage"
                 android:layout_width="match_parent"
@@ -143,6 +147,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
+                android:visibility="@{vm.isUserBlocked?View.GONE:View.VISIBLE}"
                 android:background="@drawable/chat_send_bg"
                 app:layout_constraintBottom_toBottomOf="parent">
 
@@ -154,7 +159,7 @@
                     android:background="@drawable/chat_send_bg"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:fontFamily="@font/inter_medium"
-android:imeOptions="normal"
+                    android:imeOptions="normal"
                     android:hint="@string/type_here"
                     android:inputType="text"
                     android:maxLines="5"
@@ -167,7 +172,7 @@ android:imeOptions="normal"
                     app:layout_constraintEnd_toStartOf="@+id/sendNewMessage"
                     android:text="@={vm.messageText}"
                     android:ellipsize="end"
-                    android:visibility="@{vm.isUserBlocked ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.whoBlocked?View.GONE:View.VISIBLE}"
                     android:onClick="@{vm::onClicks}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"

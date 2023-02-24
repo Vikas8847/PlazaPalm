@@ -76,9 +76,12 @@ class Repository @Inject constructor(
             }.collect {
                     response ->
                 Log.d("resCodeIs", "====${response?.code()}")
-                Timer().schedule(2000) {
+//                hideProgress()
+
+                Timer().schedule(500) {
                     hideProgress()
                 }
+
                 when {
                     response?.code() in 100..199 -> {
                         /**Informational*/

@@ -119,7 +119,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:fontFamily="@font/inter_medium"
                     android:onClick="@{vm::onClicks}"
-                    android:text="Resend OTP"
+                    android:text="@string/resend_code"
                     android:textColor="@color/forgot_pass"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="@id/clEmailVerify"
