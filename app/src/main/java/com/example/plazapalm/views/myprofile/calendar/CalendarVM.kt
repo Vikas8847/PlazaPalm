@@ -52,14 +52,10 @@ class CalendarVM @Inject constructor(
     val SeletedDate = MutableLiveData<List<String?>?>()
     var calendarList = ArrayList<Calendar>()
     var isBookingStatus = ObservableBoolean()
-
     val isBookStatus = MutableLiveData<Boolean>()
-
 
     init {
 
-
-        calendarBookingList
         adapterCalendar.addItems(calendarBookingList)
         adapterCalendar.notifyDataSetChanged()
 
