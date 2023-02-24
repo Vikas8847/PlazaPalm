@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.plazapalm.R
@@ -40,6 +41,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -283,6 +285,13 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     /** isEditLook and isViewProfile is same no difference... */
                     viewModel.CommingFrom.set("isViewProfile")
                     binding!!.btnBookingProfile.visibility = View.GONE
+
+                    viewModel.backgroundColor.value = arguments?.getString("background_color")
+                    viewModel.textColor.value = arguments?.getString("font_color")
+                    viewModel.fontViewColor.set(arguments?.getString("font_color"))
+                    viewModel.columnViewColor.set(arguments?.getString("column_color"))
+                    viewModel.borderViewColor.set(arguments?.getString("border_color"))
+
                     colorLookView()
                 }
                 "isBookingDetailsFragment" -> {
@@ -607,15 +616,17 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                                 /** p_id not null */
 
-                                if (res.body()!!.data.user_id.equals("63ec7742793d8dd0d5cc3761")) {
+                                if (res.body()!!.data.p_id.equals(loginUserPId)) {
+
+                                if(viewModel.fontViewColor.get().toString().trim()=="") {
                                     viewModel.getEditLookColor()
-                                    mapFeatureGet()
-                                    Log.e("ZCXCX", "WORKING1")
-                                } else {
-                                    Log.e("ZCXCX", "WORKING2")
+                                    Log.e("ZCXCX" , "WORKING1")
+                                }
+                                }else{
+                                    Log.e("ZCXCX" , "WORKING2")
 
                                 }
-
+                                mapFeatureGet()
 
                                 if (!(loginUserPId.toString().equals(res.body()!!.data._id))) {
                                     viewModel.checkFavouriteShow.set(0)

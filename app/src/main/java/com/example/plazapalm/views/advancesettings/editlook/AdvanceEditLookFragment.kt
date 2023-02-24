@@ -60,6 +60,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         binding = AdvanceEditLookFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
         binding?.vm = viewModel
+
         setbackground()
         viewModel.typfaceObserverLiveData.observe(requireActivity()) {
             val data = it as Boolean

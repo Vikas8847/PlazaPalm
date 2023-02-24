@@ -185,6 +185,11 @@ class AdvanceEditLookVM @Inject constructor(
             R.id.btnAdvanceEditLookView -> {
                 val bundle = Bundle()
                 bundle.putString("comingFrom", "isEditLook")
+                bundle.putString("border_color",borderColor.get().toString())
+                bundle.putString("column_color",columnColor.get().toString())
+                bundle.putString("background_color",backgroundColor.get().toString())
+                bundle.putString("font_color",fontColor.get().toString())
+
                 view.findNavController().navigate(R.id.favDetailsFragment, bundle)
             }
             R.id.viewBoxLookingBGColor -> {
@@ -219,13 +224,13 @@ class AdvanceEditLookVM @Inject constructor(
         fontsFilteredList.clear()
         fontBottomSheet =
             BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
-        fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_EXPANDED
         scheduleBinding =
             AdvanceEditlookFontlistBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         fontBottomSheet?.setCancelable(true)
         scheduleBinding?.model = this
         scheduleBinding?.apply {
-
+            etAdvanceEditLookChooseFont.setQuery("",false)
             tvAdvanceEditLookChooseFontCancel.setOnClickListener {
                 fontBottomSheet?.dismiss()
                 CommonMethods.context.hideKeyboard()
@@ -237,11 +242,13 @@ class AdvanceEditLookVM @Inject constructor(
             rvAdvanceChooseFonts.setOnClickListener {
                 CommonMethods.context.hideKeyboard()
             }
+
             searchFunctionality()
         }
         fontBottomSheet?.setContentView(scheduleBinding?.root!!)
         fontBottomSheet?.show()
         typfaceObserverLiveData.postValue(false)
+        setAdapter()
         advanceFontListAdapter.setOnItemClick { view, position, type ->
             when (type) {
                 CommonMethods.fontsItemClick -> {
@@ -266,6 +273,7 @@ class AdvanceEditLookVM @Inject constructor(
         scheduleBinding?.rvAdvanceChooseFonts?.layoutManager =
             LinearLayoutManager(MainActivity.activity)
         scheduleBinding?.rvAdvanceChooseFonts?.adapter = advanceFontListAdapter
+        advanceFontListAdapter.notifyDataSetChanged()
         updateRecyclerView()
     }
 
@@ -1382,6 +1390,12 @@ class AdvanceEditLookVM @Inject constructor(
     }
 
     private fun searchFunctionality() {
+        scheduleBinding?.etAdvanceEditLookChooseFont?.setQuery("",false)
+        noData.set(false)
+
+        advanceFontListAdapter.addItems(advanceEditLookFontsNameList)
+        updateRecyclerView()
+
         scheduleBinding?.etAdvanceEditLookChooseFont?.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -2108,6 +2122,7 @@ class AdvanceEditLookVM @Inject constructor(
 
             if (!(tempBackgroundColor.get().equals(""))) {
                 backgroundColor.set(tempBackgroundColor.get())
+                backgroundColorLiveData.value=tempBackgroundColor.get()
             }
 
             if (!(tempColumnColor.get().toString().equals(""))) {
@@ -2141,7 +2156,6 @@ class AdvanceEditLookVM @Inject constructor(
             if (!(tempFontOpacity.get().toString().equals(""))) {
                 fontOpacity.set(tempFontOpacity.get())
             }
-
 
             Log.e("Save_DAAAATTTTAAA===", borderOpacity.get().toString())
             dialog?.dismiss()
