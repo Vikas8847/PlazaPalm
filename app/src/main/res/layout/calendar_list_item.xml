@@ -51,7 +51,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvClBookingUserDate"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_105sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_8sdp"
@@ -65,10 +65,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvClBookingUserTime"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_105sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/inter_medium"
             android:text="@{model.choose_time}"
             android:textColor="@color/white"
@@ -81,8 +81,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCalendarDelete"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"
@@ -95,10 +95,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCalenderChat"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_13sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:onClick="@{(view)->model.onItemClick.onClick(view,model.adapterPosition,`calendarBookingToChat`)}"
             android:src="@drawable/ic_chat_icon"
@@ -134,7 +134,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvClBookLocationName"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_105sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_8sdp"
@@ -142,20 +142,22 @@
             android:fontFamily="@font/inter_medium"
             android:paddingBottom="@dimen/_5sdp"
             android:textColor="@color/white"
-            android:text="@{model.category_name}"
+            android:text="@{model.location_text}"
+            android:singleLine="true"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvClBookingUserDate" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_105sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/inter_medium"
             android:paddingBottom="@dimen/_5sdp"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:text="@{model.booking_status}"
             android:textSize="16sp"

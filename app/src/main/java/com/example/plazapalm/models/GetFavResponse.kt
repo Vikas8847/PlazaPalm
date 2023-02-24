@@ -31,12 +31,13 @@ data class FavData(
     val location_text: String? = "",
     val long: Double? = 0.0,
     val p_id: String? = "",
-    val postProfile_picture: List<Any>?,
+    val postProfile_picture: List<String>?,
     val profile_title: String? = "",
     val tags: String? = "",
     val user_name: String? = "",
     val favouriteCount: Int? = 0,
     var booking_status: Boolean? = false,
+    var mediaType: Int? = 0,
 ) : AbstractModel()
 
 data class FavLocation(

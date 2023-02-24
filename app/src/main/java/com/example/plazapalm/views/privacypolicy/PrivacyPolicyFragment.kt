@@ -12,7 +12,10 @@ import androidx.fragment.app.viewModels
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.PrivacyPolicyFragmentBinding
 import com.example.plazapalm.utils.hideProgress
+import com.example.plazapalm.utils.showProgress
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
 class PrivacyPolicyFragment : Fragment(R.layout.privacy_policy_fragment) {
@@ -39,8 +42,9 @@ class PrivacyPolicyFragment : Fragment(R.layout.privacy_policy_fragment) {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun opewebView() {
-        binding!!.webview.settings.setJavaScriptEnabled(true)
 
+        requireActivity().showProgress()
+        binding!!.webview.settings.setJavaScriptEnabled(true)
         binding!!.webview.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 if (url != null) {
@@ -50,7 +54,9 @@ class PrivacyPolicyFragment : Fragment(R.layout.privacy_policy_fragment) {
             }
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                hideProgress()
+                Timer().schedule(2000) {
+                    hideProgress()
+                }
             }
         }
         binding!!.webview.loadUrl("https://app.termly.io/document/privacy-policy/60b97e6b-1d14-45f8-b136-372f27b9304e")

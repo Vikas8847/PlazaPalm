@@ -162,6 +162,23 @@ object BindingAdapters {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter(value = ["noDataFound"], requireAll = false)
+    @JvmStatic
+    fun noDataFound(
+        textview : AppCompatTextView,
+        value: Boolean,
+    ) {
+        Log.e("SFdsas" , value.toString() + "  xsd  ")
+
+        if (value.equals(true)) {
+            textview.visibility = View.VISIBLE
+        } else {
+            textview.visibility = View.GONE
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
     @BindingAdapter(value = ["setTextVisibilty"], requireAll = false)
     @JvmStatic
     fun setTextVisibilty(
@@ -584,18 +601,21 @@ object BindingAdapters {
 
 
     @JvmStatic
-    @BindingAdapter("setVideoImage", "contextValue",requireAll = false)
+    @BindingAdapter("setVideoImage",requireAll = false)
     fun setVideoImage(
-        videoView: VideoView, imageUrl: String?,contextValue:Context
+        videoView: VideoView, imageUrl: String?
     ) {
         var position = 0
+        Log.e("efmgmlwgge===","dffff")
         if (imageUrl != null) {
 
             /*   Glide.with(CommonMethods.context)
                    .load(IMAGE_LOAD_URL + imageUrl)
                    .override(100,100)
                    .into(videoView)*/
-            videoView.setVideoPath(IMAGE_LOAD_URL + imageUrl)
+           var videoLink=IMAGE_LOAD_URL + imageUrl
+            Log.e("efmgmlwgge===",videoLink)
+            videoView.setVideoPath(videoLink)
             //  mediaController.setAnchorView(videoView)
             //   mediaController.setMediaPlayer(videoView)
             // videoView.setMediaController(mediaController)

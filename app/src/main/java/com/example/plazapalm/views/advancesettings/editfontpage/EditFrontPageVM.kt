@@ -105,6 +105,8 @@ class EditFrontPageVM @Inject constructor(
     var checkColor = ObservableField("")
     var colorList = ArrayList<ChooseColor>()
 
+    var noData =ObservableBoolean(false)
+
     init {
         colorList.add(ChooseColor(R.color.goldYellow))
         colorList.add(ChooseColor(R.color.gold))
@@ -1807,8 +1809,7 @@ class EditFrontPageVM @Inject constructor(
         fontBottomSheet =
             BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
         fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-        scheduleBinding =
-            FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
+        scheduleBinding = FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         scheduleBinding?.model = this
         fontBottomSheet?.setCancelable(true)
         scheduleBinding?.apply {
@@ -2959,6 +2960,13 @@ class EditFrontPageVM @Inject constructor(
         )
         fontListAdapter.addItems(fontsNameList)
         updateRecyclerView()
+
+        if (fontListAdapter.getAllItems().size==0){
+            noData.set(true)
+            updateRecyclerView()
+        }else{
+            noData.set(false)
+        }
     }
 
     private fun searchFunctionality() {
@@ -2992,6 +3000,13 @@ class EditFrontPageVM @Inject constructor(
             }
             fontListAdapter.addItems(fontsFilteredList)
             updateRecyclerView()
+
+            if (fontListAdapter.getAllItems().size==0){
+                noData.set(true)
+                updateRecyclerView()
+            }else{
+                noData.set(false)
+            }
         }
     }
 
