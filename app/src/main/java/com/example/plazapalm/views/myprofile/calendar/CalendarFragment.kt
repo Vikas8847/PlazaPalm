@@ -167,12 +167,12 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
     private fun filterList(day: Int?, month: Int, year: Int) {
         val dateMontList = ArrayList<CalenderData>()
         dateMontList.clear()
-      //  var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.month == month && 28 == day } as ArrayList<CalenderData>
-//        var tempList = viewModel.adapterCalendar.getAllItems()!!.filter {   it.month?.equals(true)!! || it.year?.equals(true)!! || it.choose_date} as ArrayList<CalenderData>
-//        var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.year?.equals(true)!! } as ArrayList<CalenderData>
-//        var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.month?.equals(true)!! } as ArrayList<CalenderData>
+       // var tempList = viewModel.adapterCalendar.getAllItems()!!.filter { it.choose_date == month && 28 == day } as ArrayList<CalenderData>
 
-//        Log.e("SDSDXiuys", tempList.toString())
+        val tempList= viewModel.adapterCalendar.getAllItems()
+         tempList.filter { it.choose_date?.equals(true)!! }
+        Log.d("date","$tempList")
+       // Log.e("SDSDXiuys", tempList.toString())
 
 //        day.let {
 //            viewModel.adapterCalendar.getAllItems().forEach { monthofDay ->
@@ -181,8 +181,8 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 //                }
 //            }
 
-//        viewModel.adapterCalendar.addItems(tempList)
-//        viewModel.adapterCalendar.notifyDataSetChanged()
+        viewModel.adapterCalendar.addItems(tempList)
+        viewModel.adapterCalendar.notifyDataSetChanged()
 
     }
 
