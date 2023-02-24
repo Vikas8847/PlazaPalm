@@ -729,8 +729,9 @@ var notFoundMessgae=ObservableField("")
             whoBlocked.set(true)
             notFoundMessgae.set("You are blocked")
             emptyMessageList.set(true)
+            Log.e("BLOCK_Dataaaa===","Yes")
         }else{
-
+            Log.e("BLOCK_Dataaaa===","NO")
             whoBlocked.set(false)
 
             if(chatAdapter.dataList!=null){
