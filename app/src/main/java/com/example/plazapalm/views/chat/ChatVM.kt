@@ -396,6 +396,8 @@ var notFoundMessgae=ObservableField("")
 
     }
 
+
+
     fun sendChatMessage() {
 
         val message = HashMap<String, Any>()
@@ -522,9 +524,12 @@ var notFoundMessgae=ObservableField("")
                         checkBlockMethod(whoBlock)
                     } else {
                         whoBlocked.set(false)
+                        isUserBlocked.set(false)
+
                     }
                 } else {
                     whoBlocked.set(false)
+                    isUserBlocked.set(false)
                 }
                 //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
             }
@@ -702,9 +707,11 @@ var notFoundMessgae=ObservableField("")
                         checkBlockMethod(whoBlock)
                     } else {
                         whoBlocked.set(false)
+                        isUserBlocked.set(false)
                     }
                 } else {
                     whoBlocked.set(false)
+                    isUserBlocked.set(false)
                 }
                 //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
 
@@ -716,11 +723,12 @@ var notFoundMessgae=ObservableField("")
     {
         if(whoBlock!="")
         {
+            Log.e("Check_Block1111===",whoBlock)
             isUserBlocked.set(true)
             checkBlocked.set(true)
-
         }else
         {
+            Log.e("Check_Block1111===","NO")
             isUserBlocked.set(false)
             checkBlocked.set(false)
         }
