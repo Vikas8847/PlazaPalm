@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plazapalm.databinding.ViewProfileImagesListBinding
 import com.example.plazapalm.models.AddImageDescriptionPOJO
+import com.example.plazapalm.models.FontsListModelResponse
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.FullScreenVideoView
@@ -30,6 +31,7 @@ class ViewPostProfileAdapter(
     var requireActivity: FragmentActivity,
     var dataList: ArrayList<AddImageDescriptionPOJO>,
     var widthPixels: Int,
+    var fontListModel: FontsListModelResponse,
 )
 
     : RecyclerView.Adapter<ViewPostProfileAdapter.ViewHolder>() {
@@ -77,6 +79,8 @@ class ViewPostProfileAdapter(
                 bindining.etVEditProDescription.setTextColor(Color.parseColor(fontColor.toString()))
             }
 
+            bindining.etVEditProDescription.setTypeface(fontListModel.fontTypeface)
+
             if (!(photos[position].borderColor.equals(""))) {
                 borderColor = photos[position].borderColor as String
                 setbackground(bindining.clVEditProDescription, columnColor, borSiz, borderColor)
@@ -84,7 +88,11 @@ class ViewPostProfileAdapter(
                 setbackground(bindining.clVEditProDescription, columnColor, borSiz, borderColor)
             }
 
-            if (photos[position].columnColor.equals("") && !(photos[position].columnColor.equals(""))) {
+
+
+
+
+            if (!(photos[position].columnColor.equals(""))) {
 
                 Log.e("SFDDDDWEEW",
                     photos[position].columnColor as String + "DVDVCC  " + photos[position].borderColor as String)

@@ -21,7 +21,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.plazapalm.BuildConfig
 import com.example.plazapalm.MainActivity.Companion.activity
 import com.example.plazapalm.R
 import com.example.plazapalm.chat.ChatActivity
@@ -83,6 +82,9 @@ class FavDetailsVM @Inject constructor(
     var fontViewColor = ObservableField("")
     var columnViewColor = ObservableField("")
     var borderViewColor = ObservableField("")
+    var font_typeface = ObservableField("")
+
+
     var etVEditProDescription = ObservableField("")
     var tvFavDetailsAddress = ObservableField("")
     var tvFavCityAddress = ObservableField("")
@@ -103,6 +105,7 @@ class FavDetailsVM @Inject constructor(
     /** Advance setting */
     val backgroundColor = MutableLiveData<Any>()
     val textColor = MutableLiveData<Any>()
+    var fontList : java.util.ArrayList<FontsListModelResponse>?=null
 
     fun onClicks(view: View) {
         when (view.id) {
@@ -145,14 +148,14 @@ class FavDetailsVM @Inject constructor(
 
             R.id.ivFavDetailsOptions -> {
 
-              /*  if (CommingFrom.get().equals("isFavorite")) {
-                    showFavDetailsDialog(view, isFav.get())
-                } else if (CommingFrom.get().equals("isDashBoard")) {
-                    showFavDetailsDialog(view, isFav.get())
+                /*  if (CommingFrom.get().equals("isFavorite")) {
+                      showFavDetailsDialog(view, isFav.get())
+                  } else if (CommingFrom.get().equals("isDashBoard")) {
+                      showFavDetailsDialog(view, isFav.get())
 
-                } else if (CommingFrom.get().equals("isViewProfile")) {
-                    showViewProfileDialog(view)
-                }*/
+                  } else if (CommingFrom.get().equals("isViewProfile")) {
+                      showViewProfileDialog(view)
+                  }*/
 
                 if (loginUserPId.get().toString().equals(p_id.get().toString())) {
                     showViewProfileDialog(view)
@@ -175,14 +178,14 @@ class FavDetailsVM @Inject constructor(
                     intent.putExtra("user_name", userdata.get()?.user_name)
                     intent.putExtra("userImage", userdata.get()?.postProfile_picture!![0].toString())
                     CommonMethods.context.startActivity(intent)
-                 /*   val bundle =Bundle()
-                    bundle.putString("CommingFrom","FavDetailsScreen")
-                    bundle.putString("user_Id",userIdForChat.get().toString())
-                    bundle.putString("user_name", userdata.get()?.user_name)
-                    bundle.putString("userImage", userdata.get()?.postProfile_picture!![0].toString())
-                    Log.e("asfasfaa",userdata.get()?.user_name.toString())
+                    /*   val bundle =Bundle()
+                       bundle.putString("CommingFrom","FavDetailsScreen")
+                       bundle.putString("user_Id",userIdForChat.get().toString())
+                       bundle.putString("user_name", userdata.get()?.user_name)
+                       bundle.putString("userImage", userdata.get()?.postProfile_picture!![0].toString())
+                       Log.e("asfasfaa",userdata.get()?.user_name.toString())
 
-                    view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment,bundle)*/
+                       view.navigateWithId(R.id.action_favDetailsFragment_to_chatFragment,bundle)*/
                 }
             }
 
@@ -497,8 +500,8 @@ class FavDetailsVM @Inject constructor(
                     var shareMessage = "\nCheck Profile\n\n"
                     shareMessage =
                         """
-                     ${shareMessage}http://www.plazapalm.com?=${BuildConfig.APPLICATION_ID} 
-                        
+                     ${shareMessage}http://www.plazapalm.com?=${BuildConfig.APPLICATION_ID}
+
                         """.trimIndent()
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
                     CommonMethods.context.startActivity(Intent.createChooser(shareIntent, "choose one"))
@@ -549,9 +552,9 @@ class FavDetailsVM @Inject constructor(
         val buo = BranchUniversalObject()
             .setCanonicalIdentifier(pid)
             .setTitle("Plaza Palm")
-          //  .setContentDescription("Hello Description")
-            //.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
-          //  .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+        //  .setContentDescription("Hello Description")
+        //.setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+        //  .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
 
         buo.generateShortUrl(
             CommonMethods.context, lp
@@ -561,7 +564,7 @@ class FavDetailsVM @Inject constructor(
                 val shareIntent = Intent(Intent.ACTION_SEND)
                 shareIntent.type = "text/plain"
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Test")
-            //    val app_url = "http://www.plazapalm.com?profileId=${BuildConfig.APPLICATION_ID}"
+                //    val app_url = "http://www.plazapalm.com?profileId=${BuildConfig.APPLICATION_ID}"
                 val app_url = url
                 shareIntent.putExtra(Intent.EXTRA_TEXT, app_url)
                 CommonMethods.context.startActivity(Intent.createChooser(shareIntent, "Share via"))
@@ -569,7 +572,7 @@ class FavDetailsVM @Inject constructor(
 
                 // share intent
             } else {
-               // Logger.e("error: ${error.message}")
+                // Logger.e("error: ${error.message}")
             }
         }
     }
@@ -774,6 +777,7 @@ class FavDetailsVM @Inject constructor(
                                     fontViewColor.set(res.body()!!.data!!.font_color!!)
                                     columnViewColor.set(res.body()!!.data!!.column_color!!.toString())
                                     borderViewColor.set(res.body()!!.data!!.border_color!!)
+                                    font_typeface.set(res.body()!!.data!!.font_name!!)
 
                                 }
 
