@@ -1,13 +1,16 @@
 package com.example.plazapalm.models
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.RequiresApi
 
 data class GetPostProfileResponse(
     val `data`: postData,
     val message: String,
     val status: Int
 )
+
 data class postData(
     val _id: String?,
     val address: String?,
@@ -15,14 +18,14 @@ data class postData(
     val c_id: String?,
     val category_name: String?,
     val dark_theme: Boolean?,
-    val description_1: String?="",
-    val description_2: String?="",
-    val description_3: String?="",
+    val description_1: String? = "",
+    val description_2: String? = "",
+    val description_3: String? = "",
     val dislikeCount: Int?,
     val distance: Double?,
     val expiry_date: String?,
     val favouriteCount: Int?,
-    val first_name: String?="",
+    val first_name: String? = "",
     val follow: Boolean?,
     val font_size: Int?,
     val isAddedToProfile: Boolean?,
@@ -35,14 +38,27 @@ data class postData(
     val likeCount: Int?,
     val location: getLocation?,
     val location_OnOff: Boolean?,
-    val location_text: String?="",
+    val location_text: String? = "",
     val long: Double?,
     val postProfile_picture: List<Any>?,
-    val profile_title: String?="",
-    val tags: String?="",
-    val user_id: String?="",
-    val user_name: String?="",
-    val p_id: String?="",
+    val profile_title: String? = "",
+    val tags: String? = "",
+    val user_id: String? = "",
+    val user_name: String? = "",
+    val p_id: String? = "",
+
+    val background_color: String? = "",
+    val background_type: String? = "",
+    val border_color: String? = "",
+    val border_opacity: Int? = 0,
+    val border_width: Int? = 0,
+    val column_color: String? = "",
+    val column_opacity: Int? = 0,
+    val font_color: String? = "",
+    val font_name: String? = "",
+    val font_opacity: Int? = 0,
+    val profile_status: Boolean? = false
+
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -82,6 +98,7 @@ data class postData(
     ) {
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(_id)
         parcel.writeString(address)
@@ -115,6 +132,18 @@ data class postData(
         parcel.writeString(user_id)
         parcel.writeString(user_name)
         parcel.writeString(p_id)
+        parcel.writeString(background_color)
+        parcel.writeString(background_type)
+        parcel.writeString(border_color)
+        parcel.writeInt(border_opacity!!)
+        parcel.writeInt(border_width!!)
+        parcel.writeString(column_color)
+        parcel.writeInt(column_opacity!!)
+        parcel.writeString(font_color)
+        parcel.writeString(font_name)
+        parcel.writeInt(font_opacity!!)
+        parcel.writeBoolean(profile_status!!)
+
     }
 
     override fun describeContents(): Int {

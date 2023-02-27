@@ -140,6 +140,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
     }
 
+/*
     @SuppressLint("NotifyDataSetChanged")
     private fun filterList(day: Int?, month: Int, year: Int) {
 
@@ -164,6 +165,40 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         Log.d("filterList-date -> ", "$dateMontList")
         viewModel.adapterCalendar.addItems(dateMontList)
         viewModel.adapterCalendar.notifyDataSetChanged()
+
+    }
+*/
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun filterList(day: Int?, month: Int, year: Int) {
+
+        var dateMontList = ArrayList<CalenderData>()
+        dateMontList.clear()
+
+        var clickDate = ""
+        if (month < 10) {
+            clickDate = year.toString() + "-" + "0" + month.toString() + "-" + day
+
+        } else {
+            clickDate = year.toString() + "-" + month.toString() + "-" + day
+
+        }
+
+        Log.e("Fkjfl;k", clickDate.toString())
+        val tempList = viewModel.calendarBookingList
+        dateMontList = tempList.filter {
+            it.choose_date?.split("T")!!.contains(clickDate)
+        } as ArrayList<CalenderData>
+
+        if(dateMontList.size==0){
+            Log.d("filterList-date ->1 ", "$tempList")
+            viewModel.adapterCalendar.addItems(tempList)
+            viewModel.adapterCalendar.notifyDataSetChanged()
+        }else{
+            Log.d("filterList-date ->2 ", "$dateMontList")
+            viewModel.adapterCalendar.addItems(dateMontList)
+            viewModel.adapterCalendar.notifyDataSetChanged()
+        }
 
     }
 

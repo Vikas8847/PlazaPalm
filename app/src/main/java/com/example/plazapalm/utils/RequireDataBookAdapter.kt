@@ -103,6 +103,7 @@ class RequireDataBookAdapter(
                 bindining.etConfirmBookQuestionAns.isEnabled = false
 
             }
+
             Log.e("iouqwioeu", list.get(position).question_text.toString())
         }
     }
