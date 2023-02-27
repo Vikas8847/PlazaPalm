@@ -2275,46 +2275,46 @@ class AdvanceEditLookVM @Inject constructor(
             //  borderColorLD.value = data.border_color!!
 
 
-            if (!(tempBackgroundColor.get().equals(""))) {
+         //   if (!(tempBackgroundColor.get().equals(""))) {
                 backgroundColor.set(tempBackgroundColor.get())
                 backgroundCLiveData.value = tempBackgroundColor.get()
                 //    backgroundColorLiveData.value=tempBackgroundColor.get()
-            }
+           // }
 
-            if (!(tempColumnColor.get().toString().equals(""))) {
+           // if (!(tempColumnColor.get().toString().equals(""))) {
                 columnColor.set(tempColumnColor.get())
                 columnColorLD.value = tempColumnColor.get()
-            }
+         //   }
 
-            if (!(tempColumnOpacity.get().toString().equals(""))) {
+         //   if (!(tempColumnOpacity.get().toString().equals(""))) {
                 columnOpacity.set(tempColumnOpacity.get())
-            }
+          //  }
 
 
-            if (!(tempBorderWidth.get().toString().equals(""))) {
+            //if (!(tempBorderWidth.get().toString().equals(""))) {
                 borderWidth.set(tempBorderWidth.get())
-            }
+            //}
 
-            if (!(tempBorderOpacity.get().toString().equals(""))) {
+           // if (!(tempBorderOpacity.get().toString().equals(""))) {
                 borderOpacity.set(tempBorderOpacity.get())
-            }
+          //  }
 
-            if (!(borderTempColor.get().toString().equals(""))) {
+           // if (!(borderTempColor.get().toString().equals(""))) {
                 borderColor.set(borderTempColor.get())
                 borderColorLD.value = borderTempColor.get()
-            }
+          //  }
 
-            if (!(tempFontColor.get().toString().equals(""))) {
+           // if (!(tempFontColor.get().toString().equals(""))) {
                 fontColor.set(tempFontColor.get())
                 fontColorLD.value = tempFontColor.get()
-            }
+          //  }
 
-            if (!(tempFontSize.get().toString().equals(""))) {
+          //  if (!(tempFontSize.get().toString().equals(""))) {
                 fontSize.set(tempFontSize.get())
-            }
-            if (!(tempFontOpacity.get().toString().equals(""))) {
+          //  }
+          //  if (!(tempFontOpacity.get().toString().equals(""))) {
                 fontOpacity.set(tempFontOpacity.get())
-            }
+           // }
 
             Log.e("Save_DAAAATTTTAAA===", borderOpacity.get().toString())
             dialog?.dismiss()

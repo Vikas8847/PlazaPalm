@@ -104,15 +104,21 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         //font Color live data ..
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
             Log.e("fontColorLD---", it.toString())
-            if (it != null && !(it.equals(""))) {
+           // if (it != null && !(it.equals(""))) {
                 if (it is Int) {
                     val data = it
                     binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
                 } else {
                     val data = it as String
-                    binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                    if(data.equals("")){
+                      //  binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor("#ffffff"))
+                        binding?.viewBoxLookingBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
+                    }else
+                    {
+                        binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                    }
                 }
-            }
+           // }
         }
     }
 
