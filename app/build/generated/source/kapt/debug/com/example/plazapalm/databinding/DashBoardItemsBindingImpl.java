@@ -17,7 +17,9 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     }
     // views
     @NonNull
-    private final androidx.appcompat.widget.AppCompatImageView mboundView4;
+    private final android.widget.VideoView mboundView2;
+    @NonNull
+    private final androidx.appcompat.widget.AppCompatImageView mboundView5;
     // variables
     @Nullable
     private final android.view.View.OnClickListener mCallback13;
@@ -28,21 +30,23 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     // Inverse Binding Event Handlers
 
     public DashBoardItemsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
     }
     private DashBoardItemsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
             , (androidx.cardview.widget.CardView) bindings[0]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[5]
-            , (android.widget.TextView) bindings[7]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
+            , (android.widget.TextView) bindings[8]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[7]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
             );
         this.ivDashBoardCat.setTag(null);
-        this.mboundView4 = (androidx.appcompat.widget.AppCompatImageView) bindings[4];
-        this.mboundView4.setTag(null);
+        this.mboundView2 = (android.widget.VideoView) bindings[2];
+        this.mboundView2.setTag(null);
+        this.mboundView5 = (androidx.appcompat.widget.AppCompatImageView) bindings[5];
+        this.mboundView5.setTag(null);
         this.playerLayout.setTag(null);
         this.tvDashBoardItemDescription.setTag(null);
         this.tvDashBoardItemDistance.setTag(null);
@@ -159,6 +163,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         java.lang.String modelUserNameTrim = null;
         java.lang.String modelUserName = null;
         java.lang.String modelAddress = null;
+        android.graphics.drawable.Drawable modelIsFavouriteMboundView5AndroidDrawableIcHeartFilledIconMboundView5AndroidDrawableIcHeartIcon = null;
         java.lang.String modelLastName = null;
         com.example.plazapalm.views.dashboard.DashBoardVM vm = mVm;
         boolean androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite = false;
@@ -166,16 +171,17 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         double androidxDatabindingViewDataBindingSafeUnboxModelLngValue = 0.0;
         int modelMediaType = 0;
         double vmLatiGet = 0.0;
-        android.graphics.drawable.Drawable modelIsFavouriteMboundView4AndroidDrawableIcHeartFilledIconMboundView4AndroidDrawableIcHeartIcon = null;
+        boolean modelMediaTypeInt2 = false;
         java.lang.Double modelLngValue = null;
         double vmLongiGet = 0.0;
         androidx.databinding.ObservableDouble vmLongi = null;
         java.lang.String modelPostProfilePicture0 = null;
+        int modelMediaTypeInt2MViewVISIBLEMViewGONE = 0;
         java.lang.Boolean modelIsFavourite = null;
         java.util.List<java.lang.String> modelPostProfilePicture = null;
         double modelLat = 0.0;
+        int modelMediaTypeInt1MViewVISIBLEMViewGONE = 0;
         boolean modelMediaTypeInt1 = false;
-        int modelMediaTypeInt1MViewVISIBLEMViewVISIBLE = 0;
         java.lang.String modelLocationText = null;
 
         if ((dirtyFlags & 0x57L) != 0) {
@@ -205,16 +211,26 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
                         // read model.user_name.trim()
                         modelUserNameTrim = modelUserName.trim();
                     }
+                    // read model.mediaType == 2
+                    modelMediaTypeInt2 = (modelMediaType) == (2);
                     // read model.mediaType == 1
                     modelMediaTypeInt1 = (modelMediaType) == (1);
                     // read androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite())
                     androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite = androidx.databinding.ViewDataBinding.safeUnbox(modelIsFavourite);
                 if((dirtyFlags & 0x44L) != 0) {
-                    if(modelMediaTypeInt1) {
+                    if(modelMediaTypeInt2) {
                             dirtyFlags |= 0x400L;
                     }
                     else {
                             dirtyFlags |= 0x200L;
+                    }
+                }
+                if((dirtyFlags & 0x44L) != 0) {
+                    if(modelMediaTypeInt1) {
+                            dirtyFlags |= 0x1000L;
+                    }
+                    else {
+                            dirtyFlags |= 0x800L;
                     }
                 }
                 if((dirtyFlags & 0x44L) != 0) {
@@ -231,10 +247,12 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
                     }
 
 
-                    // read model.mediaType == 1 ? View.VISIBLE : View.VISIBLE
-                    modelMediaTypeInt1MViewVISIBLEMViewVISIBLE = ((modelMediaTypeInt1) ? (android.view.View.VISIBLE) : (android.view.View.VISIBLE));
+                    // read model.mediaType == 2 ? View.VISIBLE : View.GONE
+                    modelMediaTypeInt2MViewVISIBLEMViewGONE = ((modelMediaTypeInt2) ? (android.view.View.VISIBLE) : (android.view.View.GONE));
+                    // read model.mediaType == 1 ? View.VISIBLE : View.GONE
+                    modelMediaTypeInt1MViewVISIBLEMViewGONE = ((modelMediaTypeInt1) ? (android.view.View.VISIBLE) : (android.view.View.GONE));
                     // read androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
-                    modelIsFavouriteMboundView4AndroidDrawableIcHeartFilledIconMboundView4AndroidDrawableIcHeartIcon = ((androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite) ? (androidx.appcompat.content.res.AppCompatResources.getDrawable(mboundView4.getContext(), R.drawable.ic_heart_filled_icon)) : (androidx.appcompat.content.res.AppCompatResources.getDrawable(mboundView4.getContext(), R.drawable.ic_heart_icon)));
+                    modelIsFavouriteMboundView5AndroidDrawableIcHeartFilledIconMboundView5AndroidDrawableIcHeartIcon = ((androidxDatabindingViewDataBindingSafeUnboxModelIsFavourite) ? (androidx.appcompat.content.res.AppCompatResources.getDrawable(mboundView5.getContext(), R.drawable.ic_heart_filled_icon)) : (androidx.appcompat.content.res.AppCompatResources.getDrawable(mboundView5.getContext(), R.drawable.ic_heart_icon)));
             }
 
                 if (model != null) {
@@ -271,8 +289,10 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
             // api target 1
 
             com.example.plazapalm.utils.BindingAdapters.setImage(this.ivDashBoardCat, modelPostProfilePicture0);
-            this.ivDashBoardCat.setVisibility(modelMediaTypeInt1MViewVISIBLEMViewVISIBLE);
-            androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable(this.mboundView4, modelIsFavouriteMboundView4AndroidDrawableIcHeartFilledIconMboundView4AndroidDrawableIcHeartIcon);
+            this.ivDashBoardCat.setVisibility(modelMediaTypeInt1MViewVISIBLEMViewGONE);
+            com.example.plazapalm.utils.BindingAdapters.setVideoImage(this.mboundView2, modelPostProfilePicture0);
+            this.mboundView2.setVisibility(modelMediaTypeInt2MViewVISIBLEMViewGONE);
+            androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable(this.mboundView5, modelIsFavouriteMboundView5AndroidDrawableIcHeartFilledIconMboundView5AndroidDrawableIcHeartIcon);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDescription, modelUserNameTrim);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLastName, modelLastName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLocation, modelAddress);
@@ -281,7 +301,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         if ((dirtyFlags & 0x40L) != 0) {
             // api target 1
 
-            this.mboundView4.setOnClickListener(mCallback14);
+            this.mboundView5.setOnClickListener(mCallback14);
             this.playerLayout.setOnClickListener(mCallback13);
         }
         if ((dirtyFlags & 0x57L) != 0) {
@@ -380,8 +400,10 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         flag 6 (0x7L): null
         flag 7 (0x8L): androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
         flag 8 (0x9L): androidx.databinding.ViewDataBinding.safeUnbox(model.isFavourite()) ? @android:drawable/ic_heart_filled_icon : @android:drawable/ic_heart_icon
-        flag 9 (0xaL): model.mediaType == 1 ? View.VISIBLE : View.VISIBLE
-        flag 10 (0xbL): model.mediaType == 1 ? View.VISIBLE : View.VISIBLE
+        flag 9 (0xaL): model.mediaType == 2 ? View.VISIBLE : View.GONE
+        flag 10 (0xbL): model.mediaType == 2 ? View.VISIBLE : View.GONE
+        flag 11 (0xcL): model.mediaType == 1 ? View.VISIBLE : View.GONE
+        flag 12 (0xdL): model.mediaType == 1 ? View.VISIBLE : View.GONE
     flag mapping end*/
     //end
 }

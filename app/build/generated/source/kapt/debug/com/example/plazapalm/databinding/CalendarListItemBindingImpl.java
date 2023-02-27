@@ -13,8 +13,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
         sIncludes = null;
-        sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.tvClBookLocationName, 7);
+        sViewsWithIds = null;
     }
     // views
     // variables
@@ -36,8 +35,8 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
             , (androidx.appcompat.widget.AppCompatImageView) bindings[4]
             , (androidx.appcompat.widget.AppCompatImageView) bindings[5]
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[0]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[7]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[1]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
@@ -46,6 +45,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
         this.ivCalenderChat.setTag(null);
         this.mailLayout.setTag(null);
         this.tvAddress.setTag(null);
+        this.tvClBookLocationName.setTag(null);
         this.tvClBookingUserDate.setTag(null);
         this.tvClBookingUserName.setTag(null);
         this.tvClBookingUserTime.setTag(null);
@@ -135,6 +135,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
         java.lang.String modelPostProfileFirstName = null;
         java.lang.String modelPostProfileFirstNameCharModelPostProfileLastName = null;
         java.lang.String modelCustomerFirstNameCharModelCustomerLastName = null;
+        java.lang.String modelLocationText = null;
 
         if ((dirtyFlags & 0x9L) != 0) {
 
@@ -157,6 +158,8 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
                     modelChooseTime = model.getChoose_time();
                     // read model.postProfile_first_name
                     modelPostProfileFirstName = model.getPostProfile_first_name();
+                    // read model.location_text
+                    modelLocationText = model.getLocation_text();
                 }
 
 
@@ -185,6 +188,7 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
             com.example.plazapalm.utils.BindingAdapters.setImageVisibilty(this.ivCalendarDelete, modelBookingStatus);
             com.example.plazapalm.utils.BindingAdapters.setCalndarBackground(this.mailLayout, modelBookingStatus, modelUserType);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvAddress, modelBookingStatus);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookLocationName, modelLocationText);
             com.example.plazapalm.utils.BindingAdapters.setText(this.tvClBookingUserDate, modelChooseDate);
             com.example.plazapalm.utils.BindingAdapters.setPostPsrofileName(this.tvClBookingUserName, modelPostProfileFirstNameCharModelPostProfileLastName, modelCustomerFirstNameCharModelCustomerLastName, modelUserType);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvClBookingUserTime, modelChooseTime);
