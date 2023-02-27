@@ -579,6 +579,7 @@ object BindingAdapters {
                    .override(100,100)
                    .into(videoView)*/
             var videoLink = IMAGE_LOAD_URL + imageUrl
+
             Log.e("efmgmlwgge===", videoLink)
             videoView.setVideoPath(videoLink)
             //  mediaController.setAnchorView(videoView)

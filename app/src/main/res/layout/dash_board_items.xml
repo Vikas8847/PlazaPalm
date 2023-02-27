@@ -71,7 +71,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 setVideoImage="@{model.postProfile_picture[0]}"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:visibility="@{model.mediaType==2?mView.VISIBLE:mView.GONE}"
@@ -132,6 +131,19 @@
                 android:src="@{model.isFavourite() ? @drawable/ic_heart_filled_icon : @drawable/ic_heart_icon}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvDashBoardItemName" />
+
+<!--
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:visibility="@{model.mediaType==1?mView.VISIBLE:mView.GONE}"
+                android:src="@{model.isFavourite() ? @drawable/ic_heart_filled_icon : @drawable/ic_heart_icon}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDashBoardItemDescription"

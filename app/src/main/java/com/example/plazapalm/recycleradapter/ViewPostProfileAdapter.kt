@@ -71,7 +71,7 @@ class ViewPostProfileAdapter(
 
             bindining.etVEditProDescription.text = photos[position].Desc.toString().trim()
 
-            if (!(photos[position].fontColor.equals(""))) {
+            if (!(photos[position].fontColor.equals("null")) && !(photos[position].fontColor.equals(""))) {
                 fontColor = photos[position].fontColor as String
                 bindining.etVEditProDescription.setTextColor(Color.parseColor(fontColor.toString()))
 
@@ -79,9 +79,14 @@ class ViewPostProfileAdapter(
                 bindining.etVEditProDescription.setTextColor(Color.parseColor(fontColor.toString()))
             }
 
-            bindining.etVEditProDescription.setTypeface(fontListModel.fontTypeface)
+            if (!(photos[position].font_name.equals("null")) && !(photos[position].font_name.equals(""))) {
+                bindining.etVEditProDescription.setTypeface(fontListModel.fontTypeface)
 
-            if (!(photos[position].borderColor.equals(""))) {
+            } else {
+//                bindining.etVEditProDescription.setTextColor(Color.parseColor(fontColor.toString()))
+            }
+
+            if (!(photos[position].borderColor.equals("null")) && !(photos[position].borderColor.equals(""))) {
                 borderColor = photos[position].borderColor as String
                 setbackground(bindining.clVEditProDescription, columnColor, borSiz, borderColor)
             } else {
@@ -92,7 +97,7 @@ class ViewPostProfileAdapter(
 
 
 
-            if (!(photos[position].columnColor.equals(""))) {
+            if (!(photos[position].columnColor.equals("null")) && !(photos[position].columnColor.equals(""))) {
 
                 Log.e("SFDDDDWEEW",
                     photos[position].columnColor as String + "DVDVCC  " + photos[position].borderColor as String)
@@ -104,7 +109,7 @@ class ViewPostProfileAdapter(
                 setbackground(bindining.clVEditProDescription, columnColor, borSiz, borderColor)
             }
 
-            if(!(photos.get(position).Image!!.equals(""))) {
+            if(!(photos[position].Image.equals("null")) && !(photos.get(position).Image!!.equals(""))) {
                 if (photos.get(position).Image!!.contains(".png") || photos.get(position).Image!!.contains(
                         ".jpg") || photos.get(position).Image!!.contains(".jpeg")
                 ) {
@@ -117,6 +122,7 @@ class ViewPostProfileAdapter(
 
                     bindining.ivFavOfDesc1Img.visibility = View.VISIBLE
                     bindining.ivFavOfDesc1.visibility = View.VISIBLE
+
                 } else {
                     bindining.videoViewDetail.visibility = View.VISIBLE
                     bindining.ivVideoIcon.visibility = View.VISIBLE
