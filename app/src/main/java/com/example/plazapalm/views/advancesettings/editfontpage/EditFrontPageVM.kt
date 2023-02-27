@@ -193,14 +193,21 @@ class EditFrontPageVM @Inject constructor(
                 tvProfileUserAddress.text = response.data.address
                 tvProfileUserDescription.text = response.data.description_1
                 /**Set font color for view only **/
-                tvProfileUserName.setTextColor(Color.parseColor(fontColor.get()))
-                tvProfileUserAddress.setTextColor(Color.parseColor(fontColor.get()))
-                tvProfileUserDescription.setTextColor(Color.parseColor(fontColor.get()))
+
+                var newColor=""
+                if(fontColor.get()==""){
+                    newColor="#000000"
+                }else{
+                    newColor= fontColor.get().toString()
+                }
+                Log.e("efkfefefe===0",newColor)
+                tvProfileUserName.setTextColor(Color.parseColor(newColor))
+                tvProfileUserAddress.setTextColor(Color.parseColor(newColor))
+                tvProfileUserDescription.setTextColor(Color.parseColor(newColor))
                 /**Set font size for view **/
                 tvProfileUserName.textSize = fontSize.get()
                 tvProfileUserAddress.textSize = fontSize.get()
                 tvProfileUserDescription.textSize = fontSize.get()
-
 
                 tvProfileUserName.typeface = fontTypeface
                 tvProfileUserAddress.typeface = fontTypeface

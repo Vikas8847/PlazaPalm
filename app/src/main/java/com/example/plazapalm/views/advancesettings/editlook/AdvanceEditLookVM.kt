@@ -134,7 +134,6 @@ class AdvanceEditLookVM @Inject constructor(
     var fontOpacity = ObservableFloat()
     var tempFontOpacity = ObservableFloat()
 
-
     var selectedbackgrouncolor = -65536
     var borderSlideValue = 0F
     var columnColorLiveData = 0
