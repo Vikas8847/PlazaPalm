@@ -21,6 +21,7 @@ import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
+import com.example.plazapalm.utils.getFontsInList
 import com.example.plazapalm.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.String
@@ -50,6 +51,8 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     ): View? {
         binding = EditFrontPageFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
+        var fontTypeFaceList= requireActivity().getFontsInList()
+        viewModel.fontList=fontTypeFaceList
         return binding?.root
     }
     @RequiresApi(Build.VERSION_CODES.M)
@@ -67,11 +70,14 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         }
         viewModel.typfaceObserverLiveData.observe(requireActivity()) {
             val data = it as Boolean
+            Log.e("fnekdddfggg===",data.toString())
             if (data) {
+
                 binding?.tvAdvanceEditFrontPageFontValue?.typeface = viewModel.fontTypeface
             }
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setbackground() {
         viewModel.backgroundColorLiveData.observe(viewLifecycleOwner) {

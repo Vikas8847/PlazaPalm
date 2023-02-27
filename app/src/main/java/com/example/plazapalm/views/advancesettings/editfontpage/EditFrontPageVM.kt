@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.toColorInt
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
@@ -74,6 +75,8 @@ class EditFrontPageVM @Inject constructor(
     var SelectedDialog = ObservableField("")
     val fontListAdapter by lazy { RecyclerAdapter<FontsListModelResponse>(R.layout.fonts_list_item) }
     var fontSize = ObservableFloat(14f)
+    var tempFontSize = ObservableFloat(14f)
+
     var backgroundColor = ObservableField("")
     var selectedbackgrouncolor = -65536
     var fontColorLiveData = 0
@@ -95,7 +98,10 @@ class EditFrontPageVM @Inject constructor(
     var scheduleBinding: FontsListFragmentBinding? = null
     var borderColor = ObservableField("")
     var fontColor = ObservableField("")
+    var tempFontColor = ObservableField("")
+
     var fontOpacity = ObservableFloat()
+    var tempfontOpacity = ObservableFloat()
     var recyclerChoosecolor: RecyclerView? = null
     var borderSlideValue = 0F
     var columnColorLiveData = 0
@@ -107,7 +113,9 @@ class EditFrontPageVM @Inject constructor(
 
     var noData =ObservableBoolean(false)
 
+    var fontList:ArrayList<FontsListModelResponse>?=null
     init {
+
         colorList.add(ChooseColor(R.color.goldYellow))
         colorList.add(ChooseColor(R.color.gold))
         colorList.add(ChooseColor(R.color.brickRed))
@@ -123,6 +131,7 @@ class EditFrontPageVM @Inject constructor(
         getProfileId()
         setFontsInAdapterList()
         setAdapter()
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -191,6 +200,12 @@ class EditFrontPageVM @Inject constructor(
                 tvProfileUserName.textSize = fontSize.get()
                 tvProfileUserAddress.textSize = fontSize.get()
                 tvProfileUserDescription.textSize = fontSize.get()
+
+
+                tvProfileUserName.typeface = fontTypeface
+                tvProfileUserAddress.typeface = fontTypeface
+                tvProfileUserDescription.typeface = fontTypeface
+
                 /**Set type face of view according to topText and Bottom Text is Selected or not **/
                 if (this@EditFrontPageVM.isTopText.get()) {
                     tvProfileUserName.typeface = fontTypeface
@@ -3031,6 +3046,19 @@ class EditFrontPageVM @Inject constructor(
         changeColor = dialog?.findViewById(R.id.change_back_id)
         layoutColrs = dialog?.findViewById(R.id.Show_back)
         cardLayoutColrs = dialog?.findViewById(R.id.show_color_id)
+
+        tempFontColor.set(fontColor.get())
+        tempFontSize.set(fontSize.get())
+        tempfontOpacity.set(fontOpacity.get())
+
+        dialog!!.findViewById<CardView>(R.id.show_color_id)
+            .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
+        dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
+            .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
+       /* dialog!!.findViewById<TextView>(R.id.change_back_id)
+            .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))*/
+
+
         when (checkColor.get()) {
             "FONTCOLOR" -> {
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
@@ -3042,38 +3070,48 @@ class EditFrontPageVM @Inject constructor(
                 Log.e("SDFFFSDFFF", SelectedDialog.get().toString())
                 /** Slider for SIZE */
 
+                    //tempfontOpacity.set(fontOpacity.get())
+              //  tempFontSize.set(fontSize.get())
+                tempFontColor.set(fontColor.get())
 
                 if (fontOpacity.get().toString() == "0.0") {
-                    fontOpacity.set(50f)
-                    sliderOpacitty?.value = 50f
+                    tempfontOpacity.set(100f)
+                    sliderOpacitty?.value = 100f
                 } else {
                     fontOpacity.set(fontOpacity.get())
                     sliderOpacitty?.value = (fontOpacity.get())
                 }
 
                 if (fontSize.get().toString() == "0.0") {
-                    slider_size?.value = 15f
+                    slider_size?.value = 16f
+                    tempFontSize.set(16f)
                 } else {
                     slider_size?.value = fontSize.get()
+                    tempFontSize.set(fontSize.get())
                 }
 
-                slider_size?.valueFrom = 0f
+                slider_size?.valueFrom = 10f
                 slider_size?.valueTo = 30f
 
                 slider_size?.addOnChangeListener { _, value, _ ->
                     changeColor?.textSize = value
-                    fontSize.set(value)
+                    tempFontSize.set(value)
                     preferenceFile.storeosize(Constants.FONT_SIZE, value)
+                    setTempDataForColors(changeColor!!)
                     Log.e("WOrking", "---$value")
                 }
                 /** Slider for Opacity */
                 sliderOpacitty?.addOnChangeListener { _, value, _ ->
                   //  val alpha = value / 100
-                    changeColor?.alpha = value
-                    fontOpacity.set(value)
+                    changeColor?.alpha = value/ 255
+
+                    tempfontOpacity.set(value)
                     preferenceFile.storeopacity(Constants.FONT_OPACITY, value)
+                    setTempDataForColors(changeColor!!)
                     Log.e("WOrking11222", "---$value")
                 }
+
+                setFirstTimeForColors(changeColor!!)
             }
         }
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -3095,25 +3133,138 @@ class EditFrontPageVM @Inject constructor(
         }
         dialog?.findViewById<TextView>(R.id.reset_all)?.setOnClickListener {
             /** Correction is pending */
-            dialog!!.findViewById<CardView>(R.id.show_color_id)
-                .setBackgroundResource(R.drawable.back_color_choose)
+           /* dialog!!.findViewById<CardView>(R.id.show_color_id)
+                .setBackgroundResource(R.drawable.back_color_choose)*/
             dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                 .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
             dialog!!.findViewById<TextView>(R.id.change_back_id)
                 .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
+
+            dialog!!.findViewById<CardView>(R.id.show_color_id)
+                .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
+            dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
+                .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
+
+          var textBack=  dialog!!.findViewById<TextView>(R.id.change_back_id)
+
+            tempFontColor.set("")
+            tempfontOpacity.set(100f)
+            tempFontSize.set(16f)
+
+            sliderOpacitty!!.value = 100f
+            slider_size!!.value = 16f
+
+            setTempDataForColors(textBack)
 
         }
         dialog?.findViewById<TextView>(R.id.tvCancelBtn)?.setOnClickListener {
             dialog?.dismiss()
         }
         dialog?.findViewById<TextView>(R.id.tvSaveSwipeBtn)?.setOnClickListener {
-            backgroundColorLiveData.value = selectedbackgrouncolor
+            //backgroundColorLiveData.value = selectedbackgrouncolor
             Log.e("ZZZZZZZZZ", selectedbackgrouncolor.toString())
+
+            if (!(tempFontSize.get().toString().equals(""))) {
+                fontSize.set(tempFontSize.get())
+            }
+
+            if (!(tempfontOpacity.get().toString().equals(""))) {
+                fontOpacity.set(tempfontOpacity.get())
+            }
+
+            if (!(tempFontColor.get().toString().equals(""))) {
+                fontColor.set(tempFontColor.get())
+                fontColorLD.value = fontColor.get()
+            }
+
             dialog?.dismiss()
         }
         if (!context.isFinishing) {
             dialog?.show()
         }
+    }
+
+
+   fun setTempDataForColors(textBack: TextView)
+    {
+        if (tempFontColor.get().toString().equals("")) {
+            changeColor?.setTextColor(Color.BLACK)
+        } else {
+            changeColor?.setTextColor(tempFontColor.get()!!.toColorInt())
+        }
+
+        if (tempFontSize.get().toString().equals("")) {
+            changeColor?.textSize = 12f
+        } else {
+            changeColor?.textSize = tempFontSize.get()
+        }
+
+        if (tempfontOpacity.get().toString().equals("")) {
+            changeColor?.alpha = 100f/ 255f
+        } else {
+            changeColor?.alpha = tempfontOpacity.get() / 255
+        }
+
+
+        val drawable = GradientDrawable()
+        drawable.shape = GradientDrawable.RECTANGLE
+        var finalWidth2 = 12 * 0.30
+        drawable.setStroke(finalWidth2.toInt(), Color.BLACK)
+        drawable.cornerRadius = 20f
+        drawable.setColor(Color.TRANSPARENT)
+        layoutColrs!!.setBackgroundDrawable(drawable)
+
+    }
+
+
+    fun setFirstTimeForColors(textBack: TextView)
+    {
+        if (fontColor.get().toString().equals("")) {
+            changeColor?.setTextColor(Color.BLACK)
+        } else {
+            changeColor?.setTextColor(fontColor.get()!!.toColorInt())
+        }
+
+        if (fontSize.get().toString().equals("") || fontSize.get().toString().equals("0.0")) {
+            changeColor?.textSize = 12f
+        } else {
+            changeColor?.textSize = fontSize.get()
+        }
+
+        if (fontOpacity.get().toString().equals("0.0") || fontOpacity.get().toString().equals("")) {
+            changeColor?.alpha = 100f/ 255f
+        } else {
+            changeColor?.alpha = fontOpacity.get() / 255
+        }
+
+        if (fontsName.get().toString() == "") {
+            //  advanceEditLookFontsNameList.filter { it.name==fontsName.get() }
+            changeColor?.typeface = fontList!![0].fontTypeface
+        } else {
+            var fontList1 = fontList!!.filter { it.name == fontsName.get() }
+            if(fontList1.size==0){
+                changeColor?.typeface = fontList!![0].fontTypeface
+            }else
+            {
+                changeColor?.typeface = fontList1[0].fontTypeface
+            }
+
+        }
+
+
+        val drawable = GradientDrawable()
+        drawable.shape = GradientDrawable.RECTANGLE
+        var finalWidth2 = 12 * 0.30
+        drawable.setStroke(finalWidth2.toInt(), Color.BLACK)
+        drawable.cornerRadius = 20f
+        drawable.setColor(Color.TRANSPARENT)
+        layoutColrs!!.setBackgroundDrawable(drawable)
+
+
+
+
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -3239,9 +3390,9 @@ class EditFrontPageVM @Inject constructor(
             }
             CommonMethods.FONTCOLOR -> {
                 /** Slider for size */
-                slider_size?.addOnChangeListener { _, value, _ -> changeColor?.textSize = value
+               /* slider_size?.addOnChangeListener { _, value, _ -> changeColor?.textSize = value
                     Log.e("WOrking", "---$value")
-                }
+                }*/
 
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(context.getColor(R.color.gray))
@@ -3249,10 +3400,16 @@ class EditFrontPageVM @Inject constructor(
                 changeColor?.text = "Font Sample"
                 dialog!!.findViewById<TextView>(R.id.change_back_id).setTextColor(MainActivity.context.get()!!.getColor(color!!))
                 val colorCode = dialog!!.findViewById<TextView>(R.id.change_back_id).currentTextColor
+
                 selectedbackgrouncolor = colorCode
                 fontColorLiveData = colorCode
                 val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and colorCode)
                 preferenceFile.storecolorString(Constants.FONT_COLOR, hexColor)
+Log.e("efkwfkewfw===",hexColor)
+                tempFontColor.set(hexColor)
+                val textBack = dialog!!.findViewById<TextView>(R.id.change_back_id)
+
+                setTempDataForColors(textBack)
             }
         }
     }
@@ -3285,6 +3442,24 @@ class EditFrontPageVM @Inject constructor(
                             fontsName.set(data.frontpage_bottom_text)
                             fontColor.set(data.frontpage_font_color)
                             preferenceFile.storeBoolKey(Constants.isBottomTextSelected, data.is_bottom_selected)
+
+                            if (fontsName.get().toString() == "") {
+                                //  advanceEditLookFontsNameList.filter { it.name==fontsName.get() }
+                                fontTypeface = fontList!![0].fontTypeface
+                            } else {
+                                var fontList1 = fontList!!.filter { it.name == fontsName.get() }
+                                if(fontList1.size==0){
+                                    fontTypeface = fontList!![0].fontTypeface
+                                }else
+                                {
+                                    fontTypeface = fontList1[0].fontTypeface
+                                }
+
+                            }
+
+                          // fontTypeface = typeface
+                            typfaceObserverLiveData.postValue(true)
+
                         }
                         else
                         {

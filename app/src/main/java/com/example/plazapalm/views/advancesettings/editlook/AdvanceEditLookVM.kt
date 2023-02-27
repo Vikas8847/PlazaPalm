@@ -1636,7 +1636,12 @@ class AdvanceEditLookVM @Inject constructor(
                 textView.typeface = advanceEditLookFontsNameList[0].fontTypeface
             } else {
                 var fontList1 = advanceEditLookFontsNameList.filter { it.name == fontsName.get() }
-                textView.typeface = fontList1[0].fontTypeface
+                if(fontList1.size==0){
+                    textView.typeface = advanceEditLookFontsNameList[0].fontTypeface
+                }else
+                {
+                    textView.typeface = fontList1[0].fontTypeface
+                }
             }
         } else {
             textView.visibility = View.GONE
@@ -2606,7 +2611,13 @@ class AdvanceEditLookVM @Inject constructor(
                 textView.typeface = advanceEditLookFontsNameList[0].fontTypeface
             } else {
                 var fontList1 = advanceEditLookFontsNameList.filter { it.name == fontsName.get() }
-                textView.typeface = fontList1[0].fontTypeface
+                if(fontList1.size==0){
+                    textView.typeface = advanceEditLookFontsNameList[0].fontTypeface
+                }else
+                {
+                    textView.typeface = fontList1[0].fontTypeface
+                }
+
             }
             textView.setBackgroundColor(Color.TRANSPARENT)
         } else {
