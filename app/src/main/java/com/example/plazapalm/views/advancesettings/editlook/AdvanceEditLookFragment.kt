@@ -49,6 +49,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
            preferenceFile.cleardata(Constants.FONT_COLOR)
            viewModel.getEditLookColor()
          //  checkApi.set(true)*/
+        viewModel.checkOldValue.set(false)
         viewModel.getEditLookColor()
     }
 
@@ -65,6 +66,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         viewModel.typfaceObserverLiveData.observe(requireActivity()) {
             val data = it as Boolean
             if (data) {
+                Log.e("fmwlfwfwf===","dqdqddqd")
                 binding?.tvAdvanceEditLookFontValues?.typeface = viewModel.fontTypeface
             }
         }
@@ -81,7 +83,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
         Log.e("QWCGGH111", "Working---")
 
         if (!checkApi.get()) {
-           // getLocalData()
+            // getLocalData()
             Log.e("QWCGGH333", "Working---")
 
         }
@@ -135,89 +137,94 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setbackground() {
         viewModel.backgroundColorLiveData.observe(viewLifecycleOwner) {
-            Log.e("sadsdaaaaaaaaa", it.toString())
-            when (viewModel.SelectedDialog.get().toString()) {
-                "Background Color" -> {
-                    if (it != null && !(it.equals(""))) {
-                        if (it is String) {
-                            val data = it
-                            binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
 
-                        } else {
-                            val data = it as Int
+            if(viewModel.checkOldValue.get()==false){
+                Log.e("sadsdaaaaaaaaa111==", it.toString())
+                when (viewModel.SelectedDialog.get().toString()) {
+                    "Background Color" -> {
+                        if (it != null && !(it.equals(""))) {
+                            if (it is String) {
+                                val data = it
+                                binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
 
-                            binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
+                            } else {
+                                val data = it as Int
+
+                                binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
+
+                            }
+                            val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
+                            val colorCode = cd.color
+                            val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+                            viewModel.backgroundColor.set(hexColor)
+                            preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
+                            Log.e("asdasdasBackground", hexColor.toString())
 
                         }
-                        val cd = binding?.viewBoxLookingBGColor?.background as ColorDrawable
+                    }
+
+                    "Column Color" -> {
+                        //  var  data=it as Int
+                        if (it is Int) {
+                            val data = it
+                            binding?.viewBoxColumnBGColor?.setBackgroundColor(data)
+                        } else {
+                            val data = it as String
+                            binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                        }
+                        val cd = binding?.viewBoxColumnBGColor?.background as ColorDrawable
                         val colorCode = cd.color
                         val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
-                        viewModel.backgroundColor.set(hexColor)
-                        preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
-                        Log.e("asdasdasBackground", hexColor.toString())
+                        viewModel.columnColor.set(hexColor)
 
-                    }
-                }
-
-                "Column Color" -> {
-                    //  var  data=it as Int
-                    if (it is Int) {
-                        val data = it
-                        binding?.viewBoxColumnBGColor?.setBackgroundColor(data)
-                    } else {
-                        val data = it as String
-                        binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                    }
-                    val cd = binding?.viewBoxColumnBGColor?.background as ColorDrawable
-                    val colorCode = cd.color
-                    val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
-                    viewModel.columnColor.set(hexColor)
-
-                    Log.e("asdasdasColumn", viewModel.columnColor.get().toString())
-                }
-
-                "Border Color" -> {
-
-                    if (it is Int) {
-                        val data = it
-                        binding?.viewBoxBorderColor?.setBackgroundColor(data)
-                    } else {
-                        val data = it as String
-                        binding?.viewBoxBorderColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                        Log.e("asdasdasColumn", viewModel.columnColor.get().toString())
                     }
 
-                    //  binding?.viewBoxBorderColor?.setBackgroundColor(CommonMethods.context.getColor(it))
-                    val cd = binding?.viewBoxBorderColor?.background as ColorDrawable
-                    val colorCode = cd.color
-                    val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
-                    viewModel.borderColor.set(hexColor)
-                    Log.e("asdasdasBorder", viewModel.borderColor.get().toString())
+                    "Border Color" -> {
 
-                }
+                        if (it is Int) {
+                            val data = it
+                            binding?.viewBoxBorderColor?.setBackgroundColor(data)
+                        } else {
+                            val data = it as String
+                            binding?.viewBoxBorderColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                        }
 
-                "Font Color" -> {
-                    if (it is Int) {
-                        val data = it
-                        binding?.viewBoxEditFonts?.setBackgroundColor(data)
-                    } else {
-                        val data = it as String
-                        binding?.viewBoxEditFonts?.setBackgroundColor(Color.parseColor(data.toString()))
+                        //  binding?.viewBoxBorderColor?.setBackgroundColor(CommonMethods.context.getColor(it))
+                        val cd = binding?.viewBoxBorderColor?.background as ColorDrawable
+                        val colorCode = cd.color
+                        val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+                        viewModel.borderColor.set(hexColor)
+                        Log.e("asdasdasBorder", viewModel.borderColor.get().toString())
+
                     }
-                    Log.e("dfsdfsdf", "working")
-                    // binding?.viewBoxEditFonts?.setBackgroundColor(it)
-                    val cd = binding?.viewBoxEditFonts?.background as ColorDrawable
-                    val colorCode = cd.color
-                    val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
-                    viewModel.fontColor.set(hexColor)
-                    Log.e("asdasdasFONTS", viewModel.fontColor.get().toString())
-                }
 
+                    "Font Color" -> {
+                        if (it is Int) {
+                            val data = it
+                            binding?.viewBoxEditFonts?.setBackgroundColor(data)
+                        } else {
+                            val data = it as String
+                            binding?.viewBoxEditFonts?.setBackgroundColor(Color.parseColor(data.toString()))
+                        }
+                        Log.e("dfsdfsdf", "working")
+                        // binding?.viewBoxEditFonts?.setBackgroundColor(it)
+                        val cd = binding?.viewBoxEditFonts?.background as ColorDrawable
+                        val colorCode = cd.color
+                        val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
+                        viewModel.fontColor.set(hexColor)
+                        Log.e("asdasdasFONTS", viewModel.fontColor.get().toString())
+                    }
+
+                }
             }
+            viewModel.checkOldValue.set(false)
         }
 
 
         viewModel.columnColorLD.observe(viewLifecycleOwner) {
             Log.e("COLOR---", it.toString())
+            Log.e("sadsdaaaaaaaaa222==", it.toString())
             if (it != null && !(it.equals(""))) {
                 if (it is Int) {
                     var data = it
@@ -229,6 +236,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
             }
         }
         viewModel.borderColorLD.observe(viewLifecycleOwner) {
+            Log.e("sadsdaaaaaaaaa333==", it.toString())
             Log.e("borderColorLD---", it.toString())
             if (it != null && !(it.equals(""))) {
                 if (it is Int) {
@@ -241,6 +249,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
             }
         }
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
+            Log.e("sadsdaaaaaaaaa444==", it.toString())
             Log.e("fontColorLD---", it.toString())
             if (it != null && !(it.equals(""))) {
                 if (it is Int) {
@@ -254,6 +263,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
         }
         viewModel.backgroundCLiveData.observe(viewLifecycleOwner){
+            Log.e("sadsdaaaaaaaaa555==", it.toString())
             if (it != null && !(it.equals(""))) {
                 if (it is String) {
                     val data = it
@@ -274,7 +284,7 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // backPressedData()
+        // backPressedData()
         //     binding?.vm = viewModel
     }
 

@@ -3041,6 +3041,25 @@ class EditFrontPageVM @Inject constructor(
 
                 Log.e("SDFFFSDFFF", SelectedDialog.get().toString())
                 /** Slider for SIZE */
+
+
+                if (fontOpacity.get().toString() == "0.0") {
+                    fontOpacity.set(50f)
+                    sliderOpacitty?.value = 50f
+                } else {
+                    fontOpacity.set(fontOpacity.get())
+                    sliderOpacitty?.value = (fontOpacity.get())
+                }
+
+                if (fontSize.get().toString() == "0.0") {
+                    slider_size?.value = 15f
+                } else {
+                    slider_size?.value = fontSize.get()
+                }
+
+                slider_size?.valueFrom = 0f
+                slider_size?.valueTo = 30f
+
                 slider_size?.addOnChangeListener { _, value, _ ->
                     changeColor?.textSize = value
                     fontSize.set(value)
@@ -3049,10 +3068,10 @@ class EditFrontPageVM @Inject constructor(
                 }
                 /** Slider for Opacity */
                 sliderOpacitty?.addOnChangeListener { _, value, _ ->
-                    val alpha = value / 100
-                    changeColor?.alpha = alpha
-                    fontOpacity.set(alpha)
-                    preferenceFile.storeopacity(Constants.FONT_OPACITY, alpha)
+                  //  val alpha = value / 100
+                    changeColor?.alpha = value
+                    fontOpacity.set(value)
+                    preferenceFile.storeopacity(Constants.FONT_OPACITY, value)
                     Log.e("WOrking11222", "---$value")
                 }
             }
@@ -3095,8 +3114,6 @@ class EditFrontPageVM @Inject constructor(
         if (!context.isFinishing) {
             dialog?.show()
         }
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

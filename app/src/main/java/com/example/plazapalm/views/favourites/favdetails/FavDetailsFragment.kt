@@ -16,9 +16,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.plazapalm.R
@@ -30,10 +30,7 @@ import com.example.plazapalm.models.*
 import com.example.plazapalm.networkcalls.*
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.recycleradapter.ViewPostProfileAdapter
-import com.example.plazapalm.utils.BindingAdapters
-import com.example.plazapalm.utils.CommonMethods
-import com.example.plazapalm.utils.Constants
-import com.example.plazapalm.utils.setVideoPlayMethod
+import com.example.plazapalm.utils.*
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
@@ -41,7 +38,6 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -81,9 +77,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         viewModel.isFavourites.set(true)
         CommonMethods.isAdvanceMap = true
         CommonMethods.statusBar(true)
+        var fontTypeFaceList= requireActivity().getFontsInList()
+        viewModel.fontList=fontTypeFaceList
         binding?.mainConslayout?.visibility = View.VISIBLE
         getlocalData()
         dataList = ArrayList()
+
         return binding?.root
 
     }
@@ -150,6 +149,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     binding?.tvFavDetailsAddress?.setTextColor(Color.parseColor(data.toString()))
                     binding?.tvFavDetailsDistance?.setTextColor(Color.parseColor(data.toString()))
                     binding?.tvFavDetails?.setTextColor(Color.parseColor(data.toString()))
+
                     binding?.tvFavDetailsLikeCounts?.setTextColor(Color.parseColor(data.toString()))
                     binding?.tvFavDetailsDisLikeCount?.setTextColor(Color.parseColor(data.toString()))
                     binding?.tvFavDetailsName?.setTextColor(Color.parseColor(data.toString()))
@@ -160,11 +160,33 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     binding?.ivFavDetailsDislike?.setColorFilter(Color.parseColor(data.toString()))
                     binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(data.toString()))
                     binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(data.toString()))
+
+                    setTypeFaceMethod(binding?.tvFavCityAddress!!)
+                    setTypeFaceMethod(binding?.tvFavDetailsAddress!!)
+                    setTypeFaceMethod(binding?.tvFavDetailsDistance!!)
+
+                    setTypeFaceMethod(binding?.tvFavDetails!!)
+                    setTypeFaceMethod(binding?.tvFavDetailsLikeCounts!!)
+                    setTypeFaceMethod(binding?.tvFavDetailsDisLikeCount!!)
+                    setTypeFaceMethod(binding?.tvFavDetailsName!!)
+                    setTypeFaceMethod(binding?.tvFavHeartFilledCounts!!)
+
                 }
             }
         }
 
     }
+
+    private fun setTypeFaceMethod(appTextView: AppCompatTextView?) {
+        if(viewModel.font_typeface.get()!="") {
+            var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
+            appTextView!!.setTypeface(fontList1[0].fontTypeface)
+        }else
+        {
+            appTextView!!.setTypeface(viewModel.fontList!![0].fontTypeface)
+        }
+    }
+
 
     private fun getlocalData() {
         dataStoreUtil.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
@@ -292,6 +314,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     viewModel.columnViewColor.set(arguments?.getString("column_color"))
                     viewModel.borderViewColor.set(arguments?.getString("border_color"))
 
+
+                    viewModel.font_typeface.set(arguments?.getString("font_typeface"))
                     colorLookView()
                 }
                 "isBookingDetailsFragment" -> {
@@ -387,7 +411,16 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         setFirstMediaMethod(image[0])
 
-        setAdapter(image, dscList)
+        var fontListModel:FontsListModelResponse
+        if(viewModel.font_typeface.get()!="") {
+            var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
+            fontListModel=fontList1[0]
+        }else
+        {
+            fontListModel= viewModel.fontList!![0]
+        }
+
+        setAdapter(image, dscList,fontListModel)
 
         Log.e("fkqwfrkwqkfqwff===", data.get(pos)._id.toString())
 
@@ -618,10 +651,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                                 if (res.body()!!.data.p_id.equals(loginUserPId)) {
 
-                                if(viewModel.fontViewColor.get().toString().trim()=="") {
-                                    viewModel.getEditLookColor()
-                                    Log.e("ZCXCX" , "WORKING1")
-                                }
+                                    if(viewModel.fontViewColor.get().toString().trim()=="") {
+                                        viewModel.getEditLookColor()
+                                        Log.e("ZCXCX" , "WORKING1")
+                                    }
                                 }else{
                                     Log.e("ZCXCX" , "WORKING2")
 
@@ -736,7 +769,17 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                     res.body()!!.data.postProfile_picture.toString()
                                 )
 
-                                setAdapter(dataList, dscList)
+
+                                var fontListModel:FontsListModelResponse
+                                if(viewModel.font_typeface.get()!="") {
+                                    var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
+                                    fontListModel=fontList1[0]
+                                }else
+                                {
+                                    fontListModel= viewModel.fontList!![0]
+                                }
+
+                                setAdapter(dataList, dscList, fontListModel)
 
                                 binding!!.ivFavDetails
 
@@ -786,7 +829,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     }
 */
 
-    private fun setAdapter(data: ArrayList<String>, dscList: ArrayList<String>) {
+    private fun setAdapter(
+        data: ArrayList<String>,
+        dscList: ArrayList<String>,
+        fontListModel: FontsListModelResponse
+    ) {
 
         var dataList = ArrayList<AddImageDescriptionPOJO>()
         dataList.clear()
@@ -850,7 +897,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         //val params = videoView.layoutParams as LinearLayout.LayoutParams
         //params.width = metrics.widthPixels
         Log.e("Updated_List_Size===", dataList.size.toString())
-        val addapter = ViewPostProfileAdapter(requireActivity(), dataList, metrics.widthPixels)
+        val addapter = ViewPostProfileAdapter(requireActivity(), dataList, metrics.widthPixels,fontListModel)
         binding?.rvImages?.adapter = addapter
         binding?.rvImages?.adapter?.notifyDataSetChanged()
 
