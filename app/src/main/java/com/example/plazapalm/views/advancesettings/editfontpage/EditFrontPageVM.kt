@@ -3164,18 +3164,18 @@ class EditFrontPageVM @Inject constructor(
             //backgroundColorLiveData.value = selectedbackgrouncolor
             Log.e("ZZZZZZZZZ", selectedbackgrouncolor.toString())
 
-            if (!(tempFontSize.get().toString().equals(""))) {
+           // if (!(tempFontSize.get().toString().equals(""))) {
                 fontSize.set(tempFontSize.get())
-            }
+            //}
 
-            if (!(tempfontOpacity.get().toString().equals(""))) {
+          //  if (!(tempfontOpacity.get().toString().equals(""))) {
                 fontOpacity.set(tempfontOpacity.get())
-            }
+          //  }
 
-            if (!(tempFontColor.get().toString().equals(""))) {
+          //  if (!(tempFontColor.get().toString().equals(""))) {
                 fontColor.set(tempFontColor.get())
                 fontColorLD.value = fontColor.get()
-            }
+           // }
 
             dialog?.dismiss()
         }
@@ -3205,7 +3205,6 @@ class EditFrontPageVM @Inject constructor(
             changeColor?.alpha = tempfontOpacity.get() / 255
         }
 
-
         val drawable = GradientDrawable()
         drawable.shape = GradientDrawable.RECTANGLE
         var finalWidth2 = 12 * 0.30
@@ -3215,7 +3214,6 @@ class EditFrontPageVM @Inject constructor(
         layoutColrs!!.setBackgroundDrawable(drawable)
 
     }
-
 
     fun setFirstTimeForColors(textBack: TextView)
     {
