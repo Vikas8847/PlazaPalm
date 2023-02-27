@@ -2064,7 +2064,7 @@ class AdvanceEditLookVM @Inject constructor(
             Constants.BORDER -> {
                 selectedValue = 3
                 val borderView = dialog!!.findViewById<CardView>(R.id.show_color_id)
-
+                title?.text = "Border Color"
 
                 /*Store border width value */
                 try {

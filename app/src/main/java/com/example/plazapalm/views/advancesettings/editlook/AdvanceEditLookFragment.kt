@@ -165,6 +165,9 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                             preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
                             Log.e("asdasdasBackground", hexColor.toString())
 
+                        }else
+                        {
+                            binding?.viewBoxLookingBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
                         }
                     }
 
@@ -256,6 +259,9 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                     }else {
                     binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
                 }}
+            }else
+            {
+                binding?.viewBoxColumnBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
             }
         }
         viewModel.borderColorLD.observe(viewLifecycleOwner) {
@@ -274,6 +280,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                         binding?.viewBoxBorderColor?.setBackgroundColor(Color.parseColor(data.toString()))
                     }
                 }
+            }else{
+                binding?.viewBoxBorderColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
             }
         }
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
@@ -291,6 +299,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                     }else{
                     binding?.viewBoxEditFonts?.setBackgroundColor(Color.parseColor(data.toString()))
                 }}
+            }else{
+                binding?.viewBoxEditFonts?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
             }
 
         }
@@ -310,6 +320,9 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                 viewModel.backgroundColor.set(hexColor)
                 preferenceFile.storecolorString(Constants.BACKGROUND_COLOR, hexColor)
                 Log.e("asdasdasBackground", hexColor.toString())
+            }else
+            {
+                binding?.viewBoxLookingBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
             }
         }
     }
