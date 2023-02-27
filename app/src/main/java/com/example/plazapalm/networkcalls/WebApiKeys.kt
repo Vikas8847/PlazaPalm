@@ -27,6 +27,7 @@ const val GET_POST_PROFILE = "getPostProfile"
 const val DELETE_PROFILE_POST = "postProfileDelete"
 
 //const val GET_CATEGORIES = "getCategory?lat=30.8987&long=76.7179&offset=1&limit=10&search="
+
 const val ADD_TO_CALENDAR = "addToCalender"
 const val VALIDATE_OTP_UPDATE_EMAIL = "validateOtpForUpdateEmail"
 const val VALIDATE_USERNAME = "validateUserName"

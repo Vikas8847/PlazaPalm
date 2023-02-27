@@ -1,7 +1,6 @@
 package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Typeface
 import android.location.Location
 import android.media.MediaPlayer
@@ -38,11 +37,6 @@ import java.util.*
 
 /** Binding Adapters */
 object BindingAdapters {
-    //    @Inject
-//    lateinit var pref: PreferenceFile
-
-    //    @Inject
-//    lateinit var pref : PreferenceFile
     @BindingAdapter(value = ["setRecyclerAdapter"], requireAll = false)
     @JvmStatic
     fun setRecyclerAdapter(
@@ -98,15 +92,6 @@ object BindingAdapters {
     ) {
         recyclerView.addOnScrollListener(listener)
     }
-
-    /* @BindingAdapter(value = ["otpListener"], requireAll = false)
-     @JvmStatic
-     fun otpListener(
-         otpView: MukeshOtpView,
-         listener: MukeshOtpCompleteListener
-     ) {
-         otpView.setOtpCompletionListener(listener)
-     }*/
 
     @BindingAdapter(value = ["bottomNavigationListener"], requireAll = false)
     @JvmStatic
@@ -165,10 +150,10 @@ object BindingAdapters {
     @BindingAdapter(value = ["noDataFound"], requireAll = false)
     @JvmStatic
     fun noDataFound(
-        textview : AppCompatTextView,
+        textview: AppCompatTextView,
         value: Boolean,
     ) {
-        Log.e("SFdsas" , value.toString() + "  xsd  ")
+        Log.e("SFdsas", value.toString() + "  xsd  ")
 
         if (value.equals(true)) {
             textview.visibility = View.VISIBLE
@@ -246,12 +231,12 @@ object BindingAdapters {
                 imageView.text = "Cancel Booking"
                 Log.e("lkds3", value.toString())
 
-            }  else if (value.equals("declined")) {
+            } else if (value.equals("declined")) {
                 imageView.visibility = View.GONE
                 Log.e("lkds1", value.toString())
 
 
-            }else {
+            } else {
                 imageView.visibility = View.VISIBLE
             }
         }
@@ -296,7 +281,7 @@ object BindingAdapters {
                 imageView.visibility = View.GONE
                 Log.e("lkds1", value.toString())
 
-            }else if (value.equals("cancelled")) {
+            } else if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
                 Log.e("lkds1", value.toString())
 
@@ -338,7 +323,7 @@ object BindingAdapters {
                 Log.e("lkds1", value.toString())
 
             } else if (value.equals("pending")) {
-            imageView.text= "Accepted"
+                imageView.text = "Accepted"
                 imageView.visibility = View.GONE
                 Log.e("lkds2", value.toString())
 
@@ -365,7 +350,7 @@ object BindingAdapters {
                 Log.e("lkds2", value.toString())
 
             } else if (value.equals("accepted")) {
-                imageView.visibility=View.GONE
+                imageView.visibility = View.GONE
                 Log.e("lkds3", value.toString())
 
             } else if (value.equals("declined")) {
@@ -382,7 +367,7 @@ object BindingAdapters {
 
 
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter("setImageVisibilty" )
+    @BindingAdapter("setImageVisibilty")
     @JvmStatic
     fun setImageVisibilty(
         imageView: ImageView,
@@ -535,23 +520,6 @@ object BindingAdapters {
     }
 
 
-    /*   @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
-       @JvmStatic
-       fun setEditCoverImage(
-           appCompatImageView: AppCompatImageView,
-           imageUrl: String?
-       ) {
-           if (imageUrl != null) {
-               Glide.with(context)
-                   .load(IMAGE_LOAD_URL + imageUrl)
-   //                .apply( RequestOptions().override(700, 400))
-                   .into(appCompatImageView)
-
-           } else {
-               //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
-           }
-       }*/
-
     @BindingAdapter(value = ["setHeartImage"], requireAll = false)
     @JvmStatic
     fun setHeartImage(
@@ -576,9 +544,6 @@ object BindingAdapters {
         return meters / METERS_IN_MILE
     }
 
-    fun milesToMeters(miles: Double): Double {
-        return miles * METERS_IN_MILE
-    }
 
     @JvmStatic
     @BindingAdapter(
@@ -601,35 +566,35 @@ object BindingAdapters {
 
 
     @JvmStatic
-    @BindingAdapter("setVideoImage",requireAll = false)
+    @BindingAdapter("setVideoImage", requireAll = false)
     fun setVideoImage(
         videoView: VideoView, imageUrl: String?
     ) {
         var position = 0
-        Log.e("efmgmlwgge===","dffff")
+        Log.e("efmgmlwgge===", "dffff")
         if (imageUrl != null) {
 
             /*   Glide.with(CommonMethods.context)
                    .load(IMAGE_LOAD_URL + imageUrl)
                    .override(100,100)
                    .into(videoView)*/
-           var videoLink=IMAGE_LOAD_URL + imageUrl
-            Log.e("efmgmlwgge===",videoLink)
+            var videoLink = IMAGE_LOAD_URL + imageUrl
+            Log.e("efmgmlwgge===", videoLink)
             videoView.setVideoPath(videoLink)
             //  mediaController.setAnchorView(videoView)
             //   mediaController.setMediaPlayer(videoView)
             // videoView.setMediaController(mediaController)
-          /*  var imageIcon=ImageView(contextValue)
-            imageIcon.layoutParams.height=20
-            imageIcon.layoutParams.width=20
-            imageIcon.setImageResource(R.drawable.ic_play_icon)
-            imageIcon.visibility=View.VISIBLE*/
+            /*  var imageIcon=ImageView(contextValue)
+              imageIcon.layoutParams.height=20
+              imageIcon.layoutParams.width=20
+              imageIcon.setImageResource(R.drawable.ic_play_icon)
+              imageIcon.visibility=View.VISIBLE*/
 
             videoView.setOnPreparedListener { mp ->
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
                 mp.setVolume(0f, 0f)
                 videoView.seekTo(position)
-               // imageIcon.visibility=View.GONE
+                // imageIcon.visibility=View.GONE
                 if (position == 0) {
                     videoView.start()
                 } else {
@@ -852,4 +817,38 @@ object BindingAdapters {
         var dateString = formatter.format(Date(newTime))
         textView.text = dateString
     }
+
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter("SetSelectionColor")
+    @JvmStatic
+    fun SetSelectionColor(
+        calendarView: com.applandeo.materialcalendarview.CalendarView,
+        value: String?
+    ) {
+
+        Log.e("ZSDZXC", value.toString() + " cxv ")
+        for (i in 0..10) {
+            if (i % 2 == 0) {
+                calendarView.setSelectionBackground(R.drawable.accepet_back)
+                Log.e("lkds1", i.toString())
+
+            } else {
+
+            calendarView.setSelectionBackground(R.drawable.splash_icon)
+            Log.e("lkds2", i.toString())
+        }
+    }
+
+//        if ("pending"!=null && "pending".equals("pending")) {
+//            calendarView.setSelectionBackground(R.drawable.bookanother_back)
+//            Log.e("lkds1", value.toString())
+//
+//        } else {
+//            calendarView.setSelectionBackground(R.drawable.tick_white_image)
+//            Log.e("lkds2", value.toString())
+//        }
+
+    }
+
 }
