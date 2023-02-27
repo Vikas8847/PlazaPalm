@@ -53,22 +53,13 @@ class FavDetailsVM @Inject constructor(
     private var pref: PreferenceFile,
 ) : ViewModel() {
 
-    // private var tvRemoveFav=ObservableField("")
     private var tvRemoveFav: AppCompatTextView? = null
-
-    var uploadImagesList = ArrayList<ImagesVideosModel>()
-    var uploadVideoList = ArrayList<ImagesVideosModel>()
-//  val viewProfileAdapter by lazy { RecyclerAdapter<ImagesVideosModel>(R.layout.view_profile_images_list) }
-
     val videosAdapter by lazy { RecyclerAdapter<ImagesVideosModel>(R.layout.view_profile_videos_list) }
     var isFavourites = ObservableBoolean(false)
-    var isViewProfile = ObservableBoolean(false)
     var CommingFrom = ObservableField("")
     var p_id = ObservableField("")
     var u_ID = ObservableField("")
-
     var loginUserPId = ObservableField("")
-
     var userId = ObservableField("")
     var userIdForChat = ObservableField("")
     var firstName = ObservableField("")
@@ -76,14 +67,17 @@ class FavDetailsVM @Inject constructor(
     var DisLikesCount = ObservableField("")
     var LikesCount = ObservableField("")
     var username = ObservableField("")
-    var addData = ObservableField("")
-    var fav_title = ObservableField("")
-
     var fontViewColor = ObservableField("")
+    var backgrColor = ObservableField("")
     var columnViewColor = ObservableField("")
     var borderViewColor = ObservableField("")
     var font_typeface = ObservableField("")
 
+    var border_opacity=ObservableInt()
+    var column_opacity=ObservableInt()
+    var font_opacity=ObservableInt()
+    var font_size=ObservableInt()
+    var border_size=ObservableInt()
 
     var etVEditProDescription = ObservableField("")
     var tvFavDetailsAddress = ObservableField("")

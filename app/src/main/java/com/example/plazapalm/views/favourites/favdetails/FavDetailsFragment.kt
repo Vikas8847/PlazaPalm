@@ -129,8 +129,9 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     }
 
     private fun setbackground() {
+
         viewModel.backgroundColor.observe(viewLifecycleOwner) {
-            if (!(it.equals("")) && it != null) {
+            if ( it != null && !(it.equals(""))) {
 
                 if (it is String) {
                     val data = it
@@ -141,7 +142,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         }
 
         viewModel.textColor.observe(viewLifecycleOwner) {
-            if (!(it.equals("")) && it != null) {
+            if (it != null && !(it.equals(""))) {
                 if (it is String) {
                     val data = it
                     viewModel.fontViewColor.set(data)
@@ -641,6 +642,22 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.categoryName.set(res.body()!!.data.category_name!!)
 
+                                viewModel.backgroundColor.value = res.body()?.data?.background_color
+                                viewModel.textColor.value = res.body()?.data?.font_color
+                                viewModel.backgrColor.set(res.body()?.data?.font_color)
+                                viewModel.fontViewColor.set(res.body()?.data?.font_color)
+                                viewModel.columnViewColor.set(res.body()?.data?.column_color.toString())
+                                viewModel.borderViewColor.set(res.body()?.data?.border_color)
+                                viewModel.font_typeface.set(res.body()?.data?.font_name)
+
+                                res.body()?.data?.border_opacity?.let { viewModel.border_opacity.set(it) }
+                                res.body()?.data?.font_opacity?.let { viewModel.font_opacity.set(it) }
+                                res.body()?.data?.font_size?.let { viewModel.font_opacity.set(it) }
+                                res.body()?.data?.border_width?.let { viewModel.font_opacity.set(it) }
+                                res.body()?.data?.column_opacity?.let { viewModel.column_opacity.set(it) }
+
+
+
                                 Log.e("userIddddd====", viewModel.userdata.get().toString())
                                 Log.e(
                                     "userIddddd111====",
@@ -649,7 +666,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                                 /** p_id not null */
 
-                                if (res.body()!!.data.p_id.equals(loginUserPId)) {
+                             /*   if (res.body()!!.data.p_id.equals(loginUserPId)) {
 
                                     if(viewModel.fontViewColor.get().toString().trim()=="") {
                                         viewModel.getEditLookColor()
@@ -658,7 +675,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 }else{
                                     Log.e("ZCXCX" , "WORKING2")
 
-                                }
+                                }*/
                                 mapFeatureGet()
 
                                 if (!(loginUserPId.toString().equals(res.body()!!.data._id))) {
@@ -771,11 +788,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
 
                                 var fontListModel:FontsListModelResponse
-                                if(viewModel.font_typeface.get()!="") {
+                                if(viewModel.font_typeface.get().toString()!="null" && viewModel.font_typeface.get()!="") {
                                     var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
                                     fontListModel=fontList1[0]
-                                }else
-                                {
+                                }else {
                                     fontListModel= viewModel.fontList!![0]
                                 }
 
@@ -879,14 +895,23 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     nameDes,
                     "",
                     viewModel.fontViewColor.get().toString(),
-                    0,
-                    0,
+                    viewModel.font_size.get(),
+                    viewModel.font_opacity.get(),
                     viewModel.columnViewColor.get().toString(),
-                    0,
-                    viewModel.borderViewColor.get().toString()
+                    viewModel.border_size.get(),
+                    viewModel.borderViewColor.get().toString(),
+                    viewModel.backgrColor.get().toString(),
+                    "",viewModel.border_opacity.get(),
+                    viewModel.border_size.get(),viewModel.column_opacity.get(),
+                    viewModel.font_typeface.get().toString()
                 )
             )
 
+//            fontViewColor.set(res.body()!!.data!!.font_color!!)
+//            columnViewColor.set(res.body()!!.data!!.column_color!!.toString())
+//            borderViewColor.set(res.body()!!.data!!.border_color!!)
+//            font_typeface.set(res.body()!!.data!!.font_name!!)
+//
             Log.e("ADASDAEWQEWE", viewModel.fontViewColor.get().toString())
         }
 
