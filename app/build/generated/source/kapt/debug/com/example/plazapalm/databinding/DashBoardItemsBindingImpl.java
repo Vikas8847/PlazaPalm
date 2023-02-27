@@ -20,6 +20,8 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     private final android.widget.VideoView mboundView2;
     @NonNull
     private final androidx.appcompat.widget.AppCompatImageView mboundView5;
+    @NonNull
+    private final androidx.appcompat.widget.AppCompatImageView mboundView6;
     // variables
     @Nullable
     private final android.view.View.OnClickListener mCallback13;
@@ -30,16 +32,16 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
     // Inverse Binding Event Handlers
 
     public DashBoardItemsBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 10, sIncludes, sViewsWithIds));
     }
     private DashBoardItemsBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
             , (androidx.appcompat.widget.AppCompatImageView) bindings[1]
             , (androidx.cardview.widget.CardView) bindings[0]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[6]
-            , (android.widget.TextView) bindings[8]
-            , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[7]
+            , (android.widget.TextView) bindings[9]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[4]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[8]
             , (androidx.appcompat.widget.AppCompatTextView) bindings[3]
             );
         this.ivDashBoardCat.setTag(null);
@@ -47,6 +49,8 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
         this.mboundView2.setTag(null);
         this.mboundView5 = (androidx.appcompat.widget.AppCompatImageView) bindings[5];
         this.mboundView5.setTag(null);
+        this.mboundView6 = (androidx.appcompat.widget.AppCompatImageView) bindings[6];
+        this.mboundView6.setTag(null);
         this.playerLayout.setTag(null);
         this.tvDashBoardItemDescription.setTag(null);
         this.tvDashBoardItemDistance.setTag(null);
@@ -293,6 +297,7 @@ public class DashBoardItemsBindingImpl extends DashBoardItemsBinding implements 
             com.example.plazapalm.utils.BindingAdapters.setVideoImage(this.mboundView2, modelPostProfilePicture0);
             this.mboundView2.setVisibility(modelMediaTypeInt2MViewVISIBLEMViewGONE);
             androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable(this.mboundView5, modelIsFavouriteMboundView5AndroidDrawableIcHeartFilledIconMboundView5AndroidDrawableIcHeartIcon);
+            this.mboundView6.setVisibility(modelMediaTypeInt2MViewVISIBLEMViewGONE);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemDescription, modelUserNameTrim);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLastName, modelLastName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.tvDashBoardItemLocation, modelAddress);
