@@ -111,8 +111,7 @@ class UpdateEmailVM @Inject constructor(
                     /*From here we will send type for update email and get it in EmailVerify Fragment using Bundle */
                     Log.e("Dasdieo", res.body()!!.data.toString())
 
-                    if (res.isSuccessful && res.code() == 200 && res.message().equals("")) {
-                        if (res.body()?.data != null ) {
+                    if (res.isSuccessful && res.body()!!.status == 401) {
                             val bundle = Bundle()
                             bundle.putString("comingFrom", "emailUpdateType")
                             bundle.putString("email", newEmail.get())
@@ -123,7 +122,7 @@ class UpdateEmailVM @Inject constructor(
                                 res.body()?.message.toString()
                             )
                             CommonMethods.context.hideKeyboard()
-                        }
+
                     } else {
                         CommonMethods.showToast(
                             CommonMethods.context,

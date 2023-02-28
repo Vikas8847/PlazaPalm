@@ -54,8 +54,8 @@ class BookingDetailsVM @Inject constructor(
         when (view.id) {
 
             R.id.ivBookingDetailsBack -> {
-//                view.navigateBack()
-                view.findNavController().navigateUp()
+                view.navigateBack()
+   //             view.findNavController().navigateUp()
 
             }
 
