@@ -529,7 +529,7 @@ object BindingAdapters {
         if (imageUrl != null) {
             Glide.with(MainActivity.context.get()!!)
                 .load(IMAGE_LOAD_URL + imageUrl)
-                .override(100, 100)
+                .override(100, 100).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
                 .into(heartImage)
 
         } else {
