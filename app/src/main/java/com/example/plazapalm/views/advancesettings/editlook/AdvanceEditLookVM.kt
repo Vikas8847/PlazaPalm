@@ -134,7 +134,6 @@ class AdvanceEditLookVM @Inject constructor(
     var fontOpacity = ObservableFloat()
     var tempFontOpacity = ObservableFloat()
 
-
     var selectedbackgrouncolor = -65536
     var borderSlideValue = 0F
     var columnColorLiveData = 0
@@ -1452,6 +1451,13 @@ class AdvanceEditLookVM @Inject constructor(
         var fontOpacityValue = (fontOpacity.get().toDouble()).toInt()
 
 
+        /*  var columnOpacityValue = (columnOpacity.get().toDouble()/2.55).toInt()
+         var borderOpacityValue = (borderOpacity.get().toDouble()/2.55).toInt()
+         var fontOpacityValue = (fontOpacity.get().toDouble()/2.55).toInt()*/
+
+        //   var  finalOpacity=(fontOpacity.get()/2.55).toInt()
+
+
         repository.makeCall(ApiEnums.COLOR_LOOK,
             loader = true, saveInCache = false, getFromCache = false,
             object : ApiProcessor<Response<EditLookColorsResponse>> {
@@ -1505,7 +1511,7 @@ class AdvanceEditLookVM @Inject constructor(
         Log.e("fdsdfgsdfsdf====", columnColor.get().toString())
         setColumnColor = "#00000000".toColorInt()
         if (columnColor.get().toString().equals("")) {
-           // setColumnColor = "#00000000".toColorInt()
+            // setColumnColor = "#00000000".toColorInt()
             setColumnColor = Color.TRANSPARENT
         } else {
             setColumnColor = columnColor.get().toString().toColorInt()
@@ -1571,7 +1577,7 @@ class AdvanceEditLookVM @Inject constructor(
             drawable.setColor(generatedColorForColumn)
         }
 
-       // drawable.setColor(generatedColorForColumn)
+        // drawable.setColor(generatedColorForColumn)
         // drawable.setColor(setColumnColor)
         //drawable.alpha = (setColumnOpacity * 100).toInt()
         layoutColrs.setBackgroundDrawable(drawable)
@@ -1800,7 +1806,7 @@ class AdvanceEditLookVM @Inject constructor(
 
                     val borderView = oldDialog!!.findViewById<CardView>(R.id.show_color_id)
                     borderTempColor.set(hexColor!!)
-                 //   setTempBackgroundColor(layoutColrs!!, borderView!!)
+                    //   setTempBackgroundColor(layoutColrs!!, borderView!!)
                     setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
                 }
 
@@ -1883,6 +1889,32 @@ class AdvanceEditLookVM @Inject constructor(
                                 borderOpacity.set((data.border_opacity?.toFloat()!!))
                                 fontOpacity.set((data.font_opacity?.toFloat()!!))
                                 columnOpacity.set((data.column_opacity?.toFloat()!!))
+//////////////////////////////////////////////////////////////////////////////////////////////////
+                                /* if(data.border_opacity!!>0) {
+                                     var finalOpacity = (data.border_opacity *2.55).toFloat()
+                                     borderOpacity.set(finalOpacity)
+                                 }else
+                                 {
+                                     borderOpacity.set(0.0f)
+                                 }
+
+                                 if(data.font_opacity!!>0) {
+                                     var finalOpacity = (data.font_opacity *2.55).toFloat()
+                                     fontOpacity.set(finalOpacity)
+                                 }else
+                                 {
+                                     fontOpacity.set(0.0f)
+                                 }
+
+                                 if(data.column_opacity!!>0) {
+                                     var finalOpacity = (data.column_opacity *2.55).toFloat()
+                                     columnOpacity.set(finalOpacity)
+                                 }else
+                                 {
+                                     columnOpacity.set(0.0f)
+                                 }*/
+                                ///////////////////////////////////////////////////////
+
 
                                 fontSize.set((data.font_size?.toFloat()!!))
                                 borderWidth.set((data.border_width?.toFloat()!!))
@@ -1976,13 +2008,15 @@ class AdvanceEditLookVM @Inject constructor(
         // .setBackgroundResource(R.drawable.back_color_choose)
         dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
             .setBackgroundColor(CommonMethods.context.getColor(R.color.white))
-      /*  dialog!!.findViewById<TextView>(R.id.change_back_id)
-            .setBackgroundColor(CommonMethods.context.getColor(R.color.white))*/
+        /*  dialog!!.findViewById<TextView>(R.id.change_back_id)
+              .setBackgroundColor(CommonMethods.context.getColor(R.color.white))*/
 
 
 
         tempBackgroundColor.set(backgroundColor.get())
         tempColumnColor.set(columnColor.get())
+        tempColumnOpacity.set(columnOpacity.get())
+
         tempBorderOpacity.set(borderOpacity.get())
         borderTempColor.set(borderColor.get())
         tempBorderWidth.set(borderWidth.get())
@@ -2045,14 +2079,15 @@ class AdvanceEditLookVM @Inject constructor(
                 /** Slider for Opacity */
                 sliderOpacitty?.addOnChangeListener { _, value, _ ->
                     //val alpha = value / 100
-                    dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).alpha = value
-                    //   columnOpacity.set(alpha)
-                    tempColumnOpacity.set(value)
-                    preferenceFile.storeopacity(COLUMN_OPACITY, value)
-                    setForTempAllColors(layoutColrs!!, changeColor!!, 0, borderView)
+                    if(selectedValue==2){
+                        //dialog!!.findViewById<ConstraintLayout>(R.id.Show_back).alpha = value
+                        //   columnOpacity.set(alpha)
+                        tempColumnOpacity.set(value)
+                        preferenceFile.storeopacity(COLUMN_OPACITY, value)
+                        setForTempAllColors(layoutColrs!!, changeColor!!, 0, borderView)
 
-                    Log.e("WOrking11222", "---$value")
-                }
+                        Log.e("WOrking11222", "---$value")
+                    }}
                 if (tempColumnColor.get().toString() != "") {
                     selectedbackgrouncolor = tempColumnColor.get().toString().toColorInt()
                 }
@@ -2097,20 +2132,22 @@ class AdvanceEditLookVM @Inject constructor(
                 slider_size?.valueTo = 30f
 
                 slider_size?.addOnChangeListener { _, value, _ ->
-                    changeColor?.textSize = value
-                    tempBorderWidth.set(value)
-                    preferenceFile.storeosize(BORDER_WIDTH, value)
-                    setForTempAllColors(layoutColrs!!, changeColor!!, 0, borderView)
-                }
+                    if(selectedValue==3){
+                        changeColor?.textSize = value
+                        tempBorderWidth.set(value)
+                        preferenceFile.storeosize(BORDER_WIDTH, value)
+                        setForTempAllColors(layoutColrs!!, changeColor!!, 0, borderView)
+                    }}
                 sliderOpacitty?.addOnChangeListener { _, value, _ ->
                     // val alpha = value / 100
-                    tempBorderOpacity.set(value)
+                    if(selectedValue==3){
+                        tempBorderOpacity.set(value)
 
-                    preferenceFile.storeopacity(BORDER_OPACITY, value)
-                    dialog!!.findViewById<CardView>(R.id.show_color_id)?.alpha = value
-                    setForTempAllColors(layoutColrs!!, changeColor!!, 0, borderView)
-                    Log.e("WOrking11222", "---$value")
-                }
+                        preferenceFile.storeopacity(BORDER_OPACITY, value)
+                        //dialog!!.findViewById<CardView>(R.id.show_color_id)?.alpha = value
+                        setForTempAllColors(layoutColrs!!, changeColor!!, 0, borderView)
+                        Log.e("WOrking11222", "---$value")
+                    }}
 
                 //title?.text = Border_Color
                 SelectedDialog.set(Border_Color)
@@ -2162,12 +2199,14 @@ class AdvanceEditLookVM @Inject constructor(
 
                 // slider_size?.value=5f
                 slider_size?.addOnChangeListener { _, value, _ ->
-                    changeColor?.textSize = value
-                    //    fontSize.set(value)
-                    tempFontSize.set(value)
-                    preferenceFile.storeosize(Constants.FONT_SIZE, value)
-                    setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
-                    Log.e("WOrking", "---$value")
+                    if(selectedValue==4) {
+                        changeColor?.textSize = value
+                        //    fontSize.set(value)
+                        tempFontSize.set(value)
+                        preferenceFile.storeosize(Constants.FONT_SIZE, value)
+                        setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
+                        Log.e("WOrking", "---$value")
+                    }
                 }
 
                 if (fontOpacity.get().toString() == "0.0") {
@@ -2182,13 +2221,14 @@ class AdvanceEditLookVM @Inject constructor(
                 /** Slider for Opacity */
                 sliderOpacitty?.addOnChangeListener { _, value, _ ->
                     // val alpha = value / 100
-                    changeColor?.alpha = value
-                    //  fontOpacity.set(alpha)
-                    tempFontOpacity.set(value)
-                    preferenceFile.storeopacity(FONT_OPACITY, value)
-                    setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
-                    Log.e("WOrking11222", "---$value")
-                }
+                    if(selectedValue==4) {
+                        changeColor?.alpha = value
+                        //  fontOpacity.set(alpha)
+                        tempFontOpacity.set(value)
+                        preferenceFile.storeopacity(FONT_OPACITY, value)
+                        setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
+                        Log.e("WOrking11222", "---$value")
+                    }}
                 if (tempFontColor.get().toString() != "") {
                     selectedbackgrouncolor = tempFontColor.get().toString().toColorInt()
                 }
@@ -2275,46 +2315,46 @@ class AdvanceEditLookVM @Inject constructor(
             //  borderColorLD.value = data.border_color!!
 
 
-         //   if (!(tempBackgroundColor.get().equals(""))) {
-                backgroundColor.set(tempBackgroundColor.get())
-                backgroundCLiveData.value = tempBackgroundColor.get()
-                //    backgroundColorLiveData.value=tempBackgroundColor.get()
-           // }
+            //   if (!(tempBackgroundColor.get().equals(""))) {
+            backgroundColor.set(tempBackgroundColor.get())
+            backgroundCLiveData.value = tempBackgroundColor.get()
+            //    backgroundColorLiveData.value=tempBackgroundColor.get()
+            // }
 
-           // if (!(tempColumnColor.get().toString().equals(""))) {
-                columnColor.set(tempColumnColor.get())
-                columnColorLD.value = tempColumnColor.get()
-         //   }
+            // if (!(tempColumnColor.get().toString().equals(""))) {
+            columnColor.set(tempColumnColor.get())
+            columnColorLD.value = tempColumnColor.get()
+            //   }
 
-         //   if (!(tempColumnOpacity.get().toString().equals(""))) {
-                columnOpacity.set(tempColumnOpacity.get())
-          //  }
+            //   if (!(tempColumnOpacity.get().toString().equals(""))) {
+            columnOpacity.set(tempColumnOpacity.get())
+            //  }
 
 
             //if (!(tempBorderWidth.get().toString().equals(""))) {
-                borderWidth.set(tempBorderWidth.get())
+            borderWidth.set(tempBorderWidth.get())
             //}
 
-           // if (!(tempBorderOpacity.get().toString().equals(""))) {
-                borderOpacity.set(tempBorderOpacity.get())
-          //  }
+            // if (!(tempBorderOpacity.get().toString().equals(""))) {
+            borderOpacity.set(tempBorderOpacity.get())
+            //  }
 
-           // if (!(borderTempColor.get().toString().equals(""))) {
-                borderColor.set(borderTempColor.get())
-                borderColorLD.value = borderTempColor.get()
-          //  }
+            // if (!(borderTempColor.get().toString().equals(""))) {
+            borderColor.set(borderTempColor.get())
+            borderColorLD.value = borderTempColor.get()
+            //  }
 
-           // if (!(tempFontColor.get().toString().equals(""))) {
-                fontColor.set(tempFontColor.get())
-                fontColorLD.value = tempFontColor.get()
-          //  }
+            // if (!(tempFontColor.get().toString().equals(""))) {
+            fontColor.set(tempFontColor.get())
+            fontColorLD.value = tempFontColor.get()
+            //  }
 
-          //  if (!(tempFontSize.get().toString().equals(""))) {
-                fontSize.set(tempFontSize.get())
-          //  }
-          //  if (!(tempFontOpacity.get().toString().equals(""))) {
-                fontOpacity.set(tempFontOpacity.get())
-           // }
+            //  if (!(tempFontSize.get().toString().equals(""))) {
+            fontSize.set(tempFontSize.get())
+            //  }
+            //  if (!(tempFontOpacity.get().toString().equals(""))) {
+            fontOpacity.set(tempFontOpacity.get())
+            // }
 
             Log.e("Save_DAAAATTTTAAA===", borderOpacity.get().toString())
             dialog?.dismiss()
@@ -2445,7 +2485,7 @@ class AdvanceEditLookVM @Inject constructor(
         var setColumnColor = 0
         if (tempColumnColor.get().toString().equals("")) {
             //setColumnColor = "#00000000".toColorInt()
-              setColumnColor = Color.TRANSPARENT
+            setColumnColor = Color.TRANSPARENT
         } else {
             setColumnColor = tempColumnColor.get().toString().toColorInt()
         }
@@ -2629,8 +2669,12 @@ class AdvanceEditLookVM @Inject constructor(
         var newAlpha = alpha!! / 255.toDouble()
         val defaultAlpha = 255 // (0 - Invisible / 255 - Max visibility)
 
-        val colorAlpha = newAlpha.times(defaultAlpha)?.roundToInt() ?: defaultAlpha
+        var colorAlpha = newAlpha.times(defaultAlpha)?.roundToInt() ?: defaultAlpha
         Log.e("wdfwfwfwfw==", colorAlpha.toString())
+        /*  if(colorAlpha>255){
+              colorAlpha=250
+          }*/
+        Log.e("wdfwfwfwfw111==", colorAlpha.toString())
         return ColorUtils.setAlphaComponent(color, colorAlpha)
 
         //  val alpha = Math.round((Color.alpha(color) * factor).toDouble()).toInt()

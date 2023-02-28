@@ -1,14 +1,17 @@
 package com.example.plazapalm.views.advancesettings.editfontpage
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -56,6 +59,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
+
 
 @HiltViewModel
 class EditFrontPageVM @Inject constructor(
@@ -112,8 +116,9 @@ class EditFrontPageVM @Inject constructor(
     var colorList = ArrayList<ChooseColor>()
 
     var noData =ObservableBoolean(false)
-
+    var fontsFilteredList = ArrayList<FontsListModelResponse>()
     var fontList:ArrayList<FontsListModelResponse>?=null
+    var screenHeight:Int?=0
     init {
 
         colorList.add(ChooseColor(R.color.goldYellow))
@@ -178,12 +183,12 @@ class EditFrontPageVM @Inject constructor(
         if (dialog != null && dialog?.isShowing!!) {
             dialog?.dismiss()
         } else {
-           // dialog = Dialog(context, R.style.Style_Dialog_Rounded_Corner)
+            // dialog = Dialog(context, R.style.Style_Dialog_Rounded_Corner)
             dialog = Dialog(context)
             //  dialog!!.window!!.setBackgroundDrawableResource(R.drawable.round_cornerback)
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-           // dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog?.window?.setDimAmount(80f)
+            // dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog?.window?.setDimAmount(50f)
             profileBinding = AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
             dialog?.setContentView(profileBinding?.root!!)
             /**Set advance  profile edit cover page data **/
@@ -193,14 +198,21 @@ class EditFrontPageVM @Inject constructor(
                 tvProfileUserAddress.text = response.data.address
                 tvProfileUserDescription.text = response.data.description_1
                 /**Set font color for view only **/
-                tvProfileUserName.setTextColor(Color.parseColor(fontColor.get()))
-                tvProfileUserAddress.setTextColor(Color.parseColor(fontColor.get()))
-                tvProfileUserDescription.setTextColor(Color.parseColor(fontColor.get()))
+
+                var newColor=""
+                if(fontColor.get()==""){
+                    newColor="#000000"
+                }else{
+                    newColor= fontColor.get().toString()
+                }
+                Log.e("efkfefefe===0",newColor)
+                tvProfileUserName.setTextColor(Color.parseColor(newColor))
+                tvProfileUserAddress.setTextColor(Color.parseColor(newColor))
+                tvProfileUserDescription.setTextColor(Color.parseColor(newColor))
                 /**Set font size for view **/
                 tvProfileUserName.textSize = fontSize.get()
                 tvProfileUserAddress.textSize = fontSize.get()
                 tvProfileUserDescription.textSize = fontSize.get()
-
 
                 tvProfileUserName.typeface = fontTypeface
                 tvProfileUserAddress.typeface = fontTypeface
@@ -240,7 +252,7 @@ class EditFrontPageVM @Inject constructor(
                 .contains(".jpg"))
         {
             profileBinding!!.ivDashBoardCat.visibility = View.VISIBLE
-          //  profileBinding!!.playerLayout.clipToOutline=true
+            //  profileBinding!!.playerLayout.clipToOutline=true
             profileBinding!!.videoViewCl.clipToOutline=true
             profileBinding!!.ivVideoIconDetails.visibility = View.GONE
             profileBinding!!.videVAdvanceShowProfile.visibility = View.GONE
@@ -253,7 +265,7 @@ class EditFrontPageVM @Inject constructor(
             profileBinding?.videVAdvanceShowProfile?.outlineProvider= ViewOutlineProvider.BACKGROUND
             profileBinding?.videVAdvanceShowProfile?.clipToOutline=true
             profileBinding!!.ivDashBoardCat.visibility = View.GONE
-            profileBinding!!.ivVideoIconDetails.visibility = View.GONE
+            profileBinding!!.ivVideoIconDetails.visibility = View.VISIBLE
             profileBinding!!.videVAdvanceShowProfile.visibility = View.VISIBLE
             val videoPath = response.data.postProfile_picture?.get(0)
             Log.e("Photo_Data_Showss==",IMAGE_LOAD_URL + videoPath)
@@ -1821,13 +1833,21 @@ class EditFrontPageVM @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     private fun showBottomSheetDialogOne() {
+        fontsFilteredList.clear()
         fontBottomSheet =
             BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
         fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         scheduleBinding = FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         scheduleBinding?.model = this
         fontBottomSheet?.setCancelable(true)
+        //  setupFullHeight(fontBottomSheet!!,scheduleBinding!!.clFontListMain)
+
+        fontBottomSheet!!.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        fontBottomSheet!!.behavior.peekHeight = screenHeight!!
+
+        // scheduleBinding.etChooseFont.setQuery("", false)
         scheduleBinding?.apply {
+            etChooseFont.setQuery("", false)
             tvChooseFontCancel.setOnClickListener {
                 fontBottomSheet?.dismiss()
                 CommonMethods.context.hideKeyboard()
@@ -1843,6 +1863,7 @@ class EditFrontPageVM @Inject constructor(
         fontBottomSheet?.setContentView(scheduleBinding?.root!!)
         fontBottomSheet?.show()
         typfaceObserverLiveData.postValue(false)
+        setAdapter()
         fontListAdapter.setOnItemClick { view, position, type ->
             when (type) {
                 CommonMethods.fontsItemClick -> {
@@ -1858,6 +1879,19 @@ class EditFrontPageVM @Inject constructor(
             }
         }
     }
+
+    private fun setupFullHeight(bottomSheetDialog: BottomSheetDialog,clFontListMain:ConstraintLayout) {
+        val bottomSheet = clFontListMain
+        val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from(bottomSheet)
+        val layoutParams = bottomSheet!!.layoutParams
+        val windowHeight = screenHeight
+        if (layoutParams != null) {
+            layoutParams.height = windowHeight!!
+        }
+        bottomSheet.layoutParams = layoutParams
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
 
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     private fun setAdapter() {
@@ -2027,9 +2061,9 @@ class EditFrontPageVM @Inject constructor(
 
 
         val firaSansBoldItalic = Typeface.createFromAsset(
-                MainActivity.context.get()!!.assets,
-                CommonMethods.firaSansBoldItalic
-            )
+            MainActivity.context.get()!!.assets,
+            CommonMethods.firaSansBoldItalic
+        )
         appCompatTxtFont?.typeface = firaSansBoldItalic
 
         val firaSansBook = Typeface.createFromAsset(
@@ -2985,6 +3019,13 @@ class EditFrontPageVM @Inject constructor(
     }
 
     private fun searchFunctionality() {
+
+        scheduleBinding?.etChooseFont?.setQuery("", false)
+        noData.set(false)
+
+        fontListAdapter.addItems(fontsNameList)
+        updateRecyclerView()
+
         scheduleBinding?.etChooseFont?.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -3001,7 +3042,7 @@ class EditFrontPageVM @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun search(text: String?) {
-        val fontsFilteredList = ArrayList<FontsListModelResponse>()
+        fontsFilteredList = ArrayList<FontsListModelResponse>()
         fontsFilteredList.clear()
         text.let {
             fontsNameList.forEach { fontsName ->
@@ -3055,8 +3096,8 @@ class EditFrontPageVM @Inject constructor(
             .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
         dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
             .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
-       /* dialog!!.findViewById<TextView>(R.id.change_back_id)
-            .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))*/
+        /* dialog!!.findViewById<TextView>(R.id.change_back_id)
+             .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))*/
 
 
         when (checkColor.get()) {
@@ -3070,8 +3111,8 @@ class EditFrontPageVM @Inject constructor(
                 Log.e("SDFFFSDFFF", SelectedDialog.get().toString())
                 /** Slider for SIZE */
 
-                    //tempfontOpacity.set(fontOpacity.get())
-              //  tempFontSize.set(fontSize.get())
+                //tempfontOpacity.set(fontOpacity.get())
+                //  tempFontSize.set(fontSize.get())
                 tempFontColor.set(fontColor.get())
 
                 if (fontOpacity.get().toString() == "0.0") {
@@ -3102,7 +3143,7 @@ class EditFrontPageVM @Inject constructor(
                 }
                 /** Slider for Opacity */
                 sliderOpacitty?.addOnChangeListener { _, value, _ ->
-                  //  val alpha = value / 100
+                    //  val alpha = value / 100
                     changeColor?.alpha = value/ 255
 
                     tempfontOpacity.set(value)
@@ -3133,8 +3174,8 @@ class EditFrontPageVM @Inject constructor(
         }
         dialog?.findViewById<TextView>(R.id.reset_all)?.setOnClickListener {
             /** Correction is pending */
-           /* dialog!!.findViewById<CardView>(R.id.show_color_id)
-                .setBackgroundResource(R.drawable.back_color_choose)*/
+            /* dialog!!.findViewById<CardView>(R.id.show_color_id)
+                 .setBackgroundResource(R.drawable.back_color_choose)*/
             dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                 .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
             dialog!!.findViewById<TextView>(R.id.change_back_id)
@@ -3145,7 +3186,7 @@ class EditFrontPageVM @Inject constructor(
             dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                 .setBackgroundColor(MainActivity.context.get()!!.getColor(R.color.white))
 
-          var textBack=  dialog!!.findViewById<TextView>(R.id.change_back_id)
+            var textBack=  dialog!!.findViewById<TextView>(R.id.change_back_id)
 
             tempFontColor.set("")
             tempfontOpacity.set(100f)
@@ -3164,18 +3205,18 @@ class EditFrontPageVM @Inject constructor(
             //backgroundColorLiveData.value = selectedbackgrouncolor
             Log.e("ZZZZZZZZZ", selectedbackgrouncolor.toString())
 
-           // if (!(tempFontSize.get().toString().equals(""))) {
-                fontSize.set(tempFontSize.get())
+            // if (!(tempFontSize.get().toString().equals(""))) {
+            fontSize.set(tempFontSize.get())
             //}
 
-          //  if (!(tempfontOpacity.get().toString().equals(""))) {
-                fontOpacity.set(tempfontOpacity.get())
-          //  }
+            //  if (!(tempfontOpacity.get().toString().equals(""))) {
+            fontOpacity.set(tempfontOpacity.get())
+            //  }
 
-          //  if (!(tempFontColor.get().toString().equals(""))) {
-                fontColor.set(tempFontColor.get())
-                fontColorLD.value = fontColor.get()
-           // }
+            //  if (!(tempFontColor.get().toString().equals(""))) {
+            fontColor.set(tempFontColor.get())
+            fontColorLD.value = fontColor.get()
+            // }
 
             dialog?.dismiss()
         }
@@ -3185,7 +3226,7 @@ class EditFrontPageVM @Inject constructor(
     }
 
 
-   fun setTempDataForColors(textBack: TextView)
+    fun setTempDataForColors(textBack: TextView)
     {
         if (tempFontColor.get().toString().equals("")) {
             changeColor?.setTextColor(Color.BLACK)
@@ -3330,9 +3371,10 @@ class EditFrontPageVM @Inject constructor(
                     val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and envelope.color)
                     /** Store locally */
                     preferenceFile.storecolorString(Constants.FONT_COLOR, hexColor)
+                    tempFontColor.set(hexColor!!)
+                    val textBack = CommonMethods.dialog!!.findViewById<TextView>(R.id.change_back_id)
+                    setTempDataForColors(textBack)
                 }
-
-
             }
             Log.e("DFSDF", selectedbackgrouncolor.toString())
         })
@@ -3388,9 +3430,9 @@ class EditFrontPageVM @Inject constructor(
             }
             CommonMethods.FONTCOLOR -> {
                 /** Slider for size */
-               /* slider_size?.addOnChangeListener { _, value, _ -> changeColor?.textSize = value
-                    Log.e("WOrking", "---$value")
-                }*/
+                /* slider_size?.addOnChangeListener { _, value, _ -> changeColor?.textSize = value
+                     Log.e("WOrking", "---$value")
+                 }*/
 
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(context.getColor(R.color.gray))
@@ -3403,7 +3445,7 @@ class EditFrontPageVM @Inject constructor(
                 fontColorLiveData = colorCode
                 val hexColor = java.lang.String.format("#%06X", 0xFFFFFF and colorCode)
                 preferenceFile.storecolorString(Constants.FONT_COLOR, hexColor)
-Log.e("efkwfkewfw===",hexColor)
+                Log.e("efkwfkewfw===",hexColor)
                 tempFontColor.set(hexColor)
                 val textBack = dialog!!.findViewById<TextView>(R.id.change_back_id)
 
@@ -3439,23 +3481,49 @@ Log.e("efkwfkewfw===",hexColor)
                             fontsName.set(data.frontpage_top_text)
                             fontsName.set(data.frontpage_bottom_text)
                             fontColor.set(data.frontpage_font_color)
+
+                            if(data.frontpage_font_opacity!!>0) {
+                                var finalOpacity = (data.frontpage_font_opacity *2.55).toFloat()
+                                fontOpacity.set(finalOpacity)
+                            }else
+                            {
+                                fontOpacity.set(0.0f)
+                            }
+
+                            fontSize.set(data.frontpage_font_size!!.toFloat())
+
                             preferenceFile.storeBoolKey(Constants.isBottomTextSelected, data.is_bottom_selected)
 
-                            if (fontsName.get().toString() == "") {
+                            if (data.frontpage_bottom_text.toString() == "") {
                                 //  advanceEditLookFontsNameList.filter { it.name==fontsName.get() }
                                 fontTypeface = fontList!![0].fontTypeface
+                                fontsName.set(fontList!![0].name)
                             } else {
                                 var fontList1 = fontList!!.filter { it.name == fontsName.get() }
                                 if(fontList1.size==0){
                                     fontTypeface = fontList!![0].fontTypeface
+                                    fontsName.set(fontList!![0].name)
                                 }else
                                 {
                                     fontTypeface = fontList1[0].fontTypeface
+                                    fontsName.set(fontList1!![0].name)
                                 }
-
                             }
 
-                          // fontTypeface = typeface
+
+                          /*  if (!(data.font_name.equals(""))) {
+                                var fontList1 =
+                                    advanceEditLookFontsNameList.filter { it.name == fontsName.get() }
+                                fontTypeface = fontList1[0].fontTypeface
+                                Log.e("grlgrgrgr===","Yes")
+                            } else {
+                                fontsName.set(advanceEditLookFontsNameList[0].name)
+                                fontTypeface = advanceEditLookFontsNameList[0].fontTypeface
+                                Log.e("grlgrgrgr===","NO")
+                            }*/
+
+
+                            // fontTypeface = typeface
                             typfaceObserverLiveData.postValue(true)
 
                         }
@@ -3477,8 +3545,12 @@ Log.e("efkwfkewfw===",hexColor)
 
     /** Post api for color back ground ..**/
     private fun postFrontPageApi() = viewModelScope.launch {
+        Log.e("efnkenfefefef===",fontOpacity.get().toString())
         Log.e("TopText_data===", isTopText.get().toString())
         Log.e("TopText_data111===", isBottomText.get().toString())
+
+        var  finalOpacity=(fontOpacity.get()/2.55).toInt()
+
         repository.makeCall(ApiEnums.POST_EDIT_COVER_PAGE,
             loader = true, saveInCache = false, getFromCache = false,
             object : ApiProcessor<Response<PostFrontPageResponse>> {
@@ -3488,7 +3560,7 @@ Log.e("efkwfkewfw===",hexColor)
                         FrontPageBottomText = fontsName.get()!!,
                         FrontPageFontSize = fontSize.get().toInt(),
                         FrontPageTopText = fontsName.get()!!,
-                        FrontPagerFontOpacity = fontOpacity.get().toString(),
+                        FrontPagerFontOpacity = finalOpacity,
                         FrontPagerFrontColor = fontColor.get().toString(),
                         isBottomSelected = isBottomText.get(),
                         isTopSelected = isTopText.get(),

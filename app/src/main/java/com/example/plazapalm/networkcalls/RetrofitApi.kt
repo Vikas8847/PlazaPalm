@@ -523,7 +523,7 @@ interface RetrofitApi {
         @Field("frontPageBottomText") FrontPageBottomText: String,
         @Field("frontPageFontSize") FrontPageFontSize: Int,
         @Field("frontPageFontColor") FrontPagerFrontColor: String,
-        @Field("frontPageFontOpacity") FrontPagerFontOpacity: String,
+        @Field("frontPageFontOpacity") FrontPagerFontOpacity: Int,
         @Field("isBottomSelected") isBottomSelected: Boolean,
         @Field("isTopSelected") isTopSelected: Boolean
     ): Response<PostFrontPageResponse>

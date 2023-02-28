@@ -107,7 +107,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
             val user_id = it?.data?.user_id.toString()
             Log.e("SDSFSDf", it?.data?.user_name + "DFDFDDg   " + user_id.toString())
             //63ce507ba67c70857439f892
-            if (user_id =="63ec7896793d8dd0d5cc3849") {
+            if (user_id =="63ce2311a67c70857439f543") {
 
                 binding?.tvAdvanceSetting?.visibility = View.VISIBLE
                 binding?.viewAdvanceSettings?.visibility = View.VISIBLE

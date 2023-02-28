@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -53,8 +54,19 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         CommonMethods.statusBar(true)
         var fontTypeFaceList= requireActivity().getFontsInList()
         viewModel.fontList=fontTypeFaceList
+
+        viewModel.screenHeight= getWindowHeight()
+
         return binding?.root
     }
+
+    private fun getWindowHeight(): Int {
+        // Calculate window height for fullscreen use
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.heightPixels
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -104,21 +116,21 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
         //font Color live data ..
         viewModel.fontColorLD.observe(viewLifecycleOwner) {
             Log.e("fontColorLD---", it.toString())
-           // if (it != null && !(it.equals(""))) {
-                if (it is Int) {
-                    val data = it
-                    binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
-                } else {
-                    val data = it as String
-                    if(data.equals("")){
-                      //  binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor("#ffffff"))
-                        binding?.viewBoxLookingBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
-                    }else
-                    {
-                        binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                    }
+            // if (it != null && !(it.equals(""))) {
+            if (it is Int) {
+                val data = it
+                binding?.viewBoxLookingBGColor?.setBackgroundColor(data)
+            } else {
+                val data = it as String
+                if(data.equals("")){
+                    //  binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor("#ffffff"))
+                    binding?.viewBoxLookingBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
+                }else
+                {
+                    binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
                 }
-           // }
+            }
+            // }
         }
     }
 

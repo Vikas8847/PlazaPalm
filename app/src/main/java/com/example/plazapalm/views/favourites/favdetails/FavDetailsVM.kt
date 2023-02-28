@@ -101,6 +101,7 @@ class FavDetailsVM @Inject constructor(
     val textColor = MutableLiveData<Any>()
     var fontList : java.util.ArrayList<FontsListModelResponse>?=null
 
+    var checkScreenType:String?=""
     fun onClicks(view: View) {
         when (view.id) {
             R.id.ivFavDetailsDislike -> {
