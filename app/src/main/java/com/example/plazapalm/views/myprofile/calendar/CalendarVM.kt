@@ -34,6 +34,7 @@ import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 
+@SuppressLint("NotifyDataSetChanged")
 @HiltViewModel
 class CalendarVM @Inject constructor(
     private var repository: Repository,
@@ -196,6 +197,7 @@ class CalendarVM @Inject constructor(
 
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(res: Response<GetCalanderResponseModel>) {
+
                     Log.e("CHECKQASWEA", res.body().toString())
                     if (res.isSuccessful && res.code() == 200) {
 

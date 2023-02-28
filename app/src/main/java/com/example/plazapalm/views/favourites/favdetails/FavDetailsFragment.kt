@@ -817,6 +817,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 //                                }
 
 
+
                             } else {
                                 binding?.displayBack?.visibility = View.GONE
                                 CommonMethods.showToast(requireActivity(), res.body()!!.message)
