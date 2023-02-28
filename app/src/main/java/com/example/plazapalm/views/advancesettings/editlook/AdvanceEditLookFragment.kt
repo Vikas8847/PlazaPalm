@@ -184,8 +184,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                                 binding?.viewBoxColumnBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
                             }else {
 
-                            binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                        }}
+                                binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                            }}
                         val cd = binding?.viewBoxColumnBGColor?.background as ColorDrawable
                         val colorCode = cd.color
                         val hexColor = String.format("#%06X", 0xFFFFFF and colorCode)
@@ -205,8 +205,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                                 //  binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor("#ffffff"))
                                 binding?.viewBoxBorderColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
                             }else {
-                            binding?.viewBoxBorderColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                        }}
+                                binding?.viewBoxBorderColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                            }}
 
                         //  binding?.viewBoxBorderColor?.setBackgroundColor(CommonMethods.context.getColor(it))
                         val cd = binding?.viewBoxBorderColor?.background as ColorDrawable
@@ -227,8 +227,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                                 //  binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor("#ffffff"))
                                 binding?.viewBoxEditFonts?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
                             }else {
-                            binding?.viewBoxEditFonts?.setBackgroundColor(Color.parseColor(data.toString()))
-                        }}
+                                binding?.viewBoxEditFonts?.setBackgroundColor(Color.parseColor(data.toString()))
+                            }}
                         Log.e("dfsdfsdf", "working")
                         // binding?.viewBoxEditFonts?.setBackgroundColor(it)
                         val cd = binding?.viewBoxEditFonts?.background as ColorDrawable
@@ -257,8 +257,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                         //  binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor("#ffffff"))
                         binding?.viewBoxColumnBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
                     }else {
-                    binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
-                }}
+                        binding?.viewBoxColumnBGColor?.setBackgroundColor(Color.parseColor(data.toString()))
+                    }}
             }else
             {
                 binding?.viewBoxColumnBGColor?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
@@ -297,8 +297,8 @@ class AdvanceEditLookFragment : Fragment(R.layout.advance_edit_look_fragment) {
                         //  binding?.viewBoxLookingBGColor?.setBackgroundColor(Color.parseColor("#ffffff"))
                         binding?.viewBoxEditFonts?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
                     }else{
-                    binding?.viewBoxEditFonts?.setBackgroundColor(Color.parseColor(data.toString()))
-                }}
+                        binding?.viewBoxEditFonts?.setBackgroundColor(Color.parseColor(data.toString()))
+                    }}
             }else{
                 binding?.viewBoxEditFonts?.background=requireActivity().resources.getDrawable(R.drawable.forgot_email_bg)
             }
