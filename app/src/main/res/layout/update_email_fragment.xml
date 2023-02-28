@@ -175,7 +175,7 @@
                     android:gravity="center"
                     android:onClick="@{vm::onClicks}"
                     android:paddingBottom="@dimen/_1sdp"
-                    android:text="Send Code"
+                    android:text="@string/send_code"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="14sp"
