@@ -15,6 +15,7 @@ import com.example.plazapalm.databinding.ActivityChatBinding
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.datastore.IS_BLOCK
 import com.example.plazapalm.datastore.LOGIN_DATA
+import com.example.plazapalm.datastore.PROFILE_DATA
 import com.example.plazapalm.models.GetProfileResponseModel
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
@@ -95,7 +96,7 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
-        dataStore.readObject(LOGIN_DATA, GetProfileResponseModel::class.java) {
+        dataStore.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
 
             /** Sender Data */
 

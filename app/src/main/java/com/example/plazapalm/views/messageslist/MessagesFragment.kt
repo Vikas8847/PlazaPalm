@@ -139,17 +139,44 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                                     userImage = otherUserData["userImage"] as String
 
 //                        viewModel.usersList.add(LastSeenData(usderName,message as String?,userImage,milisecondTime))
-                                    LastMesageList.add(
-                                        LastSeenData(
-                                            usderName,
-                                            message as String?,
-                                            userImage,
-                                            milisecondTime,
-                                            chatID,
-                                            otherUserId
 
+                                var checkUser=false
+                                    var whoBlockValue=false
+                                    if (dataSnapshot.get("whoBlock") != null) {
+
+                                        var whoBlock = dataSnapshot.get("whoBlock") as String
+                                       // whoBlockValue=whoBlock
+                                        if(whoBlock.equals("")){
+                                             checkUser=true
+                                            whoBlockValue=true
+                                        }else
+                                        {
+                                            if(whoBlock.equals(viewModel.senderUserID.get())){
+                                                checkUser=false
+                                                whoBlockValue=false
+                                            }else{
+                                                checkUser=true
+                                                whoBlockValue=false
+                                            }
+                                        }
+                                    }else
+                                    {
+                                         checkUser=true
+                                        whoBlockValue=true
+                                    }
+                                    if(checkUser) {
+                                        LastMesageList.add(
+                                            LastSeenData(
+                                                usderName,
+                                                message as String?,
+                                                userImage,
+                                                milisecondTime,
+                                                chatID,
+                                                otherUserId,whoBlockValue
+
+                                            )
                                         )
-                                    )
+                                    }
 
                                     Log.e("dasdasdasdww  ", LastMesageList.toString())
 
