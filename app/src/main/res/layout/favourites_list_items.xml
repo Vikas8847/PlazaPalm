@@ -61,7 +61,7 @@
 
 
 
-            <VideoView
+            <com.example.plazapalm.utils.FullScreenVideoView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 setVideoImage="@{model.postProfile_picture[0]}"

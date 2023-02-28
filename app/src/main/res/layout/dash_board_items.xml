@@ -67,15 +67,41 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>-->
 
-            <VideoView
+            <FrameLayout
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="@{model.mediaType==2?mView.VISIBLE:mView.GONE}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="@dimen/_200sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivVideoIcon"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:src="@drawable/ic_play_icon"
+                    android:visibility="@{model.mediaType==2?mView.VISIBLE:mView.GONE}"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.example.plazapalm.utils.FullScreenVideoView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 setVideoImage="@{model.postProfile_picture[0]}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/play_icon"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:visibility="@{model.mediaType==2?mView.VISIBLE:mView.GONE}"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            </FrameLayout>
+
+
 
             <View
                 android:layout_width="match_parent"
