@@ -185,7 +185,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     private fun setTypeFaceMethod(appTextView: AppCompatTextView?) {
         if(viewModel.font_typeface.get()!="") {
             var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
-            appTextView!!.setTypeface(fontList1[0].fontTypeface)
+            if(fontList1.size==0){
+                appTextView!!.setTypeface(viewModel.fontList!![0].fontTypeface)
+            }else
+            {
+                appTextView!!.setTypeface(fontList1[0].fontTypeface)
+            }
         }else
         {
             appTextView!!.setTypeface(viewModel.fontList!![0].fontTypeface)

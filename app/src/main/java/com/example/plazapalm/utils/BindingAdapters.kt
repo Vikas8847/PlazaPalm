@@ -415,7 +415,7 @@ object BindingAdapters {
 
         if (imageUrl != null && imageUrl != "null" && imageUrl != "") {
             Glide.with(MainActivity.context.get()!!)
-                .load(IMAGE_LOAD_URL + imageUrl)
+                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .into(circleImage)
         } else {
@@ -511,7 +511,7 @@ object BindingAdapters {
     ) {
         if (imageUrl != null) {
             Glide.with(context)
-                .load(IMAGE_LOAD_URL + imageUrl)
+                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
 //                .apply( RequestOptions().override(700, 400))
                 .into(shapeableImageView)
         } else {
@@ -529,7 +529,7 @@ object BindingAdapters {
         if (imageUrl != null) {
             Glide.with(MainActivity.context.get()!!)
                 .load(IMAGE_LOAD_URL + imageUrl)
-                .override(100, 100)
+                .override(100, 100).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
                 .into(heartImage)
 
         } else {
@@ -695,7 +695,7 @@ object BindingAdapters {
     ) {
         if (imageUrl != null) {
             Glide.with(MainActivity.context.get()!!)
-                .load(IMAGE_LOAD_URL + imageUrl)
+                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
                 .into(appCompatImageView)
         } else {
         }
@@ -709,7 +709,7 @@ object BindingAdapters {
     ) {
         if (imageUrl != null) {
             Glide.with(MainActivity.context.get()!!)
-                .load(IMAGE_LOAD_URL + imageUrl)
+                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
                 .into(appCompatImageView)
 
         } else {

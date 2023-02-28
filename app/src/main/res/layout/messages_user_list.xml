@@ -53,7 +53,7 @@
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_2sdp"
             android:fontFamily="@font/inter_medium"
-            android:text="@{model.message}"
+            android:text="@{model.whoBlock?model.message:@string/new_block_text}"
             android:textColor="@{@color/light_black}"
             android:textSize="12sp"
             android:maxLines="2"
