@@ -68,6 +68,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
     private val viewModel: FavDetailsVM by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.checkScreenType=""
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -314,9 +318,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     viewModel.fontViewColor.set(arguments?.getString("font_color"))
                     viewModel.columnViewColor.set(arguments?.getString("column_color"))
                     viewModel.borderViewColor.set(arguments?.getString("border_color"))
-
-
                     viewModel.font_typeface.set(arguments?.getString("font_typeface"))
+                    viewModel.checkScreenType="edit"
                     colorLookView()
                 }
                 "isBookingDetailsFragment" -> {
@@ -642,20 +645,32 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.categoryName.set(res.body()!!.data.category_name!!)
 
-                                viewModel.backgroundColor.value = res.body()?.data?.background_color
-                                viewModel.textColor.value = res.body()?.data?.font_color
-                                viewModel.backgrColor.set(res.body()?.data?.font_color)
-                                viewModel.fontViewColor.set(res.body()?.data?.font_color)
-                                viewModel.columnViewColor.set(res.body()?.data?.column_color.toString())
-                                viewModel.borderViewColor.set(res.body()?.data?.border_color)
-                                viewModel.font_typeface.set(res.body()?.data?.font_name)
+                               // viewModel.checkScreenType
+                                if(viewModel.checkScreenType=="") {
+                                    Log.e("Profile_Show===","Yes")
+                                    viewModel.backgroundColor.value =
+                                        res.body()?.data?.background_color
+                                    viewModel.textColor.value = res.body()?.data?.font_color
+                                    viewModel.backgrColor.set(res.body()?.data?.font_color)
+                                    viewModel.fontViewColor.set(res.body()?.data?.font_color)
+                                    viewModel.columnViewColor.set(res.body()?.data?.column_color.toString())
+                                    viewModel.borderViewColor.set(res.body()?.data?.border_color)
+                                    viewModel.font_typeface.set(res.body()?.data?.font_name)
 
-                                res.body()?.data?.border_opacity?.let { viewModel.border_opacity.set(it) }
-                                res.body()?.data?.font_opacity?.let { viewModel.font_opacity.set(it) }
-                                res.body()?.data?.font_size?.let { viewModel.font_opacity.set(it) }
-                                res.body()?.data?.border_width?.let { viewModel.font_opacity.set(it) }
-                                res.body()?.data?.column_opacity?.let { viewModel.column_opacity.set(it) }
-
+                                    res.body()?.data?.border_opacity?.let {
+                                        viewModel.border_opacity.set(it)
+                                    }
+                                    res.body()?.data?.font_opacity?.let {
+                                        viewModel.font_opacity.set(it)
+                                    }
+                                    res.body()?.data?.font_size?.let { viewModel.font_opacity.set(it) }
+                                    res.body()?.data?.border_width?.let {
+                                        viewModel.font_opacity.set(it)
+                                    }
+                                    res.body()?.data?.column_opacity?.let {
+                                        viewModel.column_opacity.set(it)
+                                    }
+                                }
 
 
                                 Log.e("userIddddd====", viewModel.userdata.get().toString())

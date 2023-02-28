@@ -167,8 +167,22 @@ class ViewPostProfileAdapter(
         val shape = GradientDrawable()
         shape.shape = GradientDrawable.RECTANGLE
         shape.cornerRadii = floatArrayOf(22f, 22f, 22f, 22f, 22f, 22f, 22f, 22f)
-        shape.setColor(Color.parseColor(color))
-        shape.setStroke(borSiz, Color.parseColor(borColor))
+
+        if(color==""){
+            shape.setColor(Color.parseColor("#ffffff"))
+        }else
+        {
+            shape.setColor(Color.parseColor(color))
+        }
+
+        if(borColor==""){
+            shape.setStroke(borSiz, Color.parseColor("#000000"))
+        }else
+        {
+            shape.setStroke(borSiz, Color.parseColor(borColor))
+        }
+
+      //  shape.setStroke(borSiz, Color.parseColor(borColor))
         layout.background = shape
     }
 

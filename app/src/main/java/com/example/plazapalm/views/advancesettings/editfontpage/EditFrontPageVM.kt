@@ -265,7 +265,7 @@ class EditFrontPageVM @Inject constructor(
             profileBinding?.videVAdvanceShowProfile?.outlineProvider= ViewOutlineProvider.BACKGROUND
             profileBinding?.videVAdvanceShowProfile?.clipToOutline=true
             profileBinding!!.ivDashBoardCat.visibility = View.GONE
-            profileBinding!!.ivVideoIconDetails.visibility = View.GONE
+            profileBinding!!.ivVideoIconDetails.visibility = View.VISIBLE
             profileBinding!!.videVAdvanceShowProfile.visibility = View.VISIBLE
             val videoPath = response.data.postProfile_picture?.get(0)
             Log.e("Photo_Data_Showss==",IMAGE_LOAD_URL + videoPath)
@@ -3490,24 +3490,38 @@ class EditFrontPageVM @Inject constructor(
                                 fontOpacity.set(0.0f)
                             }
 
-
                             fontSize.set(data.frontpage_font_size!!.toFloat())
 
                             preferenceFile.storeBoolKey(Constants.isBottomTextSelected, data.is_bottom_selected)
 
-                            if (fontsName.get().toString() == "") {
+                            if (data.frontpage_bottom_text.toString() == "") {
                                 //  advanceEditLookFontsNameList.filter { it.name==fontsName.get() }
                                 fontTypeface = fontList!![0].fontTypeface
+                                fontsName.set(fontList!![0].name)
                             } else {
                                 var fontList1 = fontList!!.filter { it.name == fontsName.get() }
                                 if(fontList1.size==0){
                                     fontTypeface = fontList!![0].fontTypeface
+                                    fontsName.set(fontList!![0].name)
                                 }else
                                 {
                                     fontTypeface = fontList1[0].fontTypeface
+                                    fontsName.set(fontList1!![0].name)
                                 }
-
                             }
+
+
+                          /*  if (!(data.font_name.equals(""))) {
+                                var fontList1 =
+                                    advanceEditLookFontsNameList.filter { it.name == fontsName.get() }
+                                fontTypeface = fontList1[0].fontTypeface
+                                Log.e("grlgrgrgr===","Yes")
+                            } else {
+                                fontsName.set(advanceEditLookFontsNameList[0].name)
+                                fontTypeface = advanceEditLookFontsNameList[0].fontTypeface
+                                Log.e("grlgrgrgr===","NO")
+                            }*/
+
 
                             // fontTypeface = typeface
                             typfaceObserverLiveData.postValue(true)
