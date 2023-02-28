@@ -188,7 +188,7 @@ class EditFrontPageVM @Inject constructor(
             //  dialog!!.window!!.setBackgroundDrawableResource(R.drawable.round_cornerback)
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             // dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog?.window?.setDimAmount(50f)
+            dialog?.window?.setDimAmount(40f)
             profileBinding = AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
             dialog?.setContentView(profileBinding?.root!!)
             /**Set advance  profile edit cover page data **/

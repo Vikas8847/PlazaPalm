@@ -33,19 +33,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvReceiverDay"
             android:background="@drawable/ic_receiver"
-            android:padding="@dimen/_5sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingBottom="@dimen/_3sdp"
             android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_2sdp"
-                android:maxWidth="@dimen/_350sdp"
 
-                android:layout_marginTop="@dimen/_5sdp"
+                android:maxWidth="@dimen/_350sdp"
+android:paddingBottom="@dimen/_2sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingEnd="0dp"
+                android:paddingStart="@dimen/_2sdp"
+
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
+
                 android:fontFamily="@font/inter_medium"
                 android:text="ddd"
                 android:textColor="@color/black"
@@ -59,11 +65,11 @@
                 android:id="@+id/reciver_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_2sdp"
-                android:text="1:30 pm"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_10sdp"
 
+                android:text="1:30 pm"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+android:layout_marginEnd="@dimen/_3sdp"
                 android:textColor="@color/chat_time_text_color"
                 android:fontFamily="@font/inter_medium"
                 android:textSize="@dimen/_10ssp"
