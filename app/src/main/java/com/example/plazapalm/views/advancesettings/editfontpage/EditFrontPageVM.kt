@@ -3492,7 +3492,7 @@ class EditFrontPageVM @Inject constructor(
                             fontsName.set(data.frontpage_bottom_text)
                             fontColor.set(data.frontpage_font_color)
 
-                            if(data.frontpage_font_opacity!!>0) {
+                            if(data.frontpage_font_opacity!!>0 && data.frontpage_font_opacity!!<=100) {
                                 var finalOpacity = (getExactValue(data.frontpage_font_opacity *2.55)).toFloat()
                                 fontOpacity.set(finalOpacity)
                             }else

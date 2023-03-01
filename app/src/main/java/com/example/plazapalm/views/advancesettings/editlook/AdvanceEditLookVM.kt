@@ -1905,15 +1905,17 @@ class AdvanceEditLookVM @Inject constructor(
                                  fontOpacity.set((data.font_opacity?.toFloat()!!))
                                  columnOpacity.set((data.column_opacity?.toFloat()!!))*/
 //////////////////////////////////////////////////////////////////////////////////////////////////
-                                if(data.border_opacity!!>0) {
+                                if(data.border_opacity!!>0 && data.border_opacity!!<=100) {
+                                    Log.e("fdffdfdfdfdf==","Yes")
                                     var finalOpacity = (getExactValue((data.border_opacity *2.55).toDouble())).toFloat()
                                     borderOpacity.set(finalOpacity)
                                 }else
                                 {
+                                    Log.e("fdffdfdfdfdf==","NO")
                                     borderOpacity.set(0.0f)
                                 }
 
-                                if(data.font_opacity!!>0) {
+                                if(data.font_opacity!!>0 && data.font_opacity!!<=100) {
                                     var finalOpacity = (getExactValue(data.font_opacity *2.55)).toFloat()
                                     fontOpacity.set(finalOpacity)
                                 }else
@@ -1921,7 +1923,7 @@ class AdvanceEditLookVM @Inject constructor(
                                     fontOpacity.set(0.0f)
                                 }
 
-                                if(data.column_opacity!!>0) {
+                                if(data.column_opacity!!>0 && data.column_opacity!!<=100) {
                                     var finalOpacity = (getExactValue(data.column_opacity *2.55)).toFloat()
                                     columnOpacity.set(finalOpacity)
                                 }else
