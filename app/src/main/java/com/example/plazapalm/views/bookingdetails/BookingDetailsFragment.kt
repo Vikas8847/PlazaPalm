@@ -54,7 +54,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
             Log.e("SDDSasdas", viewModel.userType.get().toString() + " Vxv ")
 
         } else if (viewModel.userType.get().toString().equals("provider")) {
-//            getBookingDataForProvider()
+            getBookingDataForProvider()
             Log.e("SDDSasdas", viewModel.userType.get().toString() + "  Vdfgdf ")
         }
     }
@@ -346,6 +346,8 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                 }
 
                 override fun onResponse(res: Response<DataForProviderResponse>) {
+                    Log.e("sdfYfds", res.body().toString())
+
                     if (res.isSuccessful && res.code() == 200) {
                         if (res.body() != null) {
 
