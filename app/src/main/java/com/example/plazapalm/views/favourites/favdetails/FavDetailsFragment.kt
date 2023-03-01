@@ -176,15 +176,16 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                 }
             }
+
             setTypeFaceMethod(binding?.tvFavCityAddress!!)
             setTypeFaceMethod(binding?.tvFavDetailsAddress!!)
             setTypeFaceMethod(binding?.tvFavDetailsDistance!!)
-
             setTypeFaceMethod(binding?.tvFavDetails!!)
             setTypeFaceMethod(binding?.tvFavDetailsLikeCounts!!)
             setTypeFaceMethod(binding?.tvFavDetailsDisLikeCount!!)
             setTypeFaceMethod(binding?.tvFavDetailsName!!)
             setTypeFaceMethod(binding?.tvFavHeartFilledCounts!!)
+
         }
 
     }

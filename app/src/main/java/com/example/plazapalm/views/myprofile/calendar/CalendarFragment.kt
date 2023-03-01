@@ -198,7 +198,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         clickDate = year.toString() + "-"  + monthValue.toString() + "-" + dayValue
 
 
-
         /*    var clickDate = ""
             if (month < 10 || day!!<10) {
                 clickDate = year.toString() + "-" + "0" + month.toString() + "-" +"0" + day
