@@ -45,7 +45,7 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
 
         binding = FragmentOpenCategeroyBinding.inflate(inflater, container, false)
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
-
+        refreshLayout()
         return binding?.root
     }
 
@@ -72,7 +72,12 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         binding?.tvCategories?.visibility = View.VISIBLE
         viewmodel.isChecked.set(false)
         binding?.rvCategoryLocation?.isSelected = false
-        viewmodel.getCategoriesApi(binding!!.rvCategoryLocation, requireActivity(), this)
+        viewmodel.getCategoriesApi(
+            binding!!.rvCategoryLocation,
+            requireActivity(),
+            binding!!.refreshContainer,
+            true,this
+        )
 
         /** Get Data from Add cities screen **/
 
@@ -193,5 +198,14 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
     override fun onResume() {
         super.onResume()
         CommonMethods.statusBar(false)
+    }
+    private fun refreshLayout(){
+        binding?.refreshContainer?.setOnRefreshListener {
+//            // on below line we are setting is refreshing to false.
+//            binding?.refreshContainer?.isRefreshing = false
+
+            viewmodel.getCategoriesApi(binding!!.rvCategoryLocation, requireActivity(),binding!!.refreshContainer, false,this)
+            binding?.refreshContainer?.isRefreshing = false
+        }
     }
 }
