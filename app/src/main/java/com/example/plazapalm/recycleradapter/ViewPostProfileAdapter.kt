@@ -74,11 +74,15 @@ class ViewPostProfileAdapter(
                 bindining.etVEditProDescription.setTextColor(Color.parseColor(fontColor.toString()))
             }
 
-            if (!(photos[position].font_name.equals("null")) && !(photos[position].font_name.equals(""))) {
-                bindining.etVEditProDescription.setTypeface(fontListModel.fontTypeface)
+            if(fontListModel.name!="temp") {
+                if (!(photos[position].font_name.equals("null")) && !(photos[position].font_name.equals(
+                        ""))
+                ) {
+                    bindining.etVEditProDescription.setTypeface(fontListModel.fontTypeface)
 
-            } else {
+                } else {
 //                bindining.etVEditProDescription.setTextColor(Color.parseColor(fontColor.toString()))
+                }
             }
 
             if (!(photos[position].borderColor.equals("null")) && !(photos[position].borderColor.equals(""))) {
