@@ -228,12 +228,16 @@ class AdvanceEditLookVM @Inject constructor(
         fontsFilteredList.clear()
         fontBottomSheet =
             BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
+
         fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_EXPANDED
         scheduleBinding =
             AdvanceEditlookFontlistBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         fontBottomSheet?.setCancelable(true)
         scheduleBinding?.model = this
+
         scheduleBinding?.apply {
+            rvAdvanceChooseFonts.layoutParams.height=WindowManager.LayoutParams.WRAP_CONTENT
+
             etAdvanceEditLookChooseFont.setQuery("", false)
             tvAdvanceEditLookChooseFontCancel.setOnClickListener {
                 fontBottomSheet?.dismiss()
