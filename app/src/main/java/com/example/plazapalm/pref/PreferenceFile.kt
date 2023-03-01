@@ -224,5 +224,12 @@ class PreferenceFile @Inject constructor(
     fun retrieveFirebaseToken(): String? {
         return sharedPreferences.getString(SAVE_FIREBASE_TOKEN, "")
     }
+    fun savePurchaseUserId(value: String) {
+        editor.putString("PURCHASE_USERID", value)
+        editor.apply()
+    }
 
+    fun retrviepurchaseUserId(): String? {
+        return sharedPreferences.getString("PURCHASE_USERID","")
+    }
 }

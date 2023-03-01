@@ -61,6 +61,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
         mFusedLocation = LocationServices.getFusedLocationProviderClient(requireContext())
         //  getCurrentCoOrdinates()
         getLastLocation()
+        refreshLayout()
         return binding?.root
     }
 
@@ -426,5 +427,13 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
         CommonMethods.statusBar(false)
         getLastLocation()
     }
+    private fun refreshLayout(){
+        binding?.refreshContainer?.setOnRefreshListener {
+//            // on below line we are setting is refreshing to false.
+//            binding?.refreshContainer?.isRefreshing = false
 
+            viewmodel.getCategoriesApi("",false)
+            binding?.refreshContainer?.isRefreshing = false
+        }
+    }
 }

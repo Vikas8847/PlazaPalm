@@ -227,9 +227,17 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
             CommonMethods.context.getString(R.string.add_photo_type) -> {
 
                 pos = position
-               // selectedPosition=position
-                  showVideoPhotoDialog()
-              //showChooseOptionAccountDialog()
+
+
+                if (pref.retrviepurchaseUserId() == "") {
+                    showChooseOptionAccountDialog()
+                } else {
+                    showVideoPhotoDialog()
+
+                }
+//               // selectedPosition=position
+//                  showVideoPhotoDialog()
+//              //showChooseOptionAccountDialog()
             }
         }
     }

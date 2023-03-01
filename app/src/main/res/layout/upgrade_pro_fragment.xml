@@ -296,6 +296,7 @@
                     android:background="@drawable/capsule_login_button"
                     android:fontFamily="@font/inter_bold"
                     android:gravity="center"
+                    android:onClick="@{vm::onClicks}"
                     app:layout_constraintTop_toBottomOf="@id/tvUpgradeGetAccessPrice"
                     android:soundEffectsEnabled="true"
                     android:text="Upgrade Now "
