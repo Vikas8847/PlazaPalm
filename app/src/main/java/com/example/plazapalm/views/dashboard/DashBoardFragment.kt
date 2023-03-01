@@ -368,6 +368,15 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     viewModel.lati.set(arguments?.getDouble("latitude")!!)
                     viewModel.longi.set(arguments?.getDouble("longitude")!!)
 
+
+
+                    /* val gsonValue = Gson().toJson(viewModel.selectedCategoriesList)
+                     pref.storeFilterResponse(gsonValue)*/
+
+                    val gsonValueCateIdList = Gson().toJson(viewModel.idList)
+                    pref.saveCateIdList(gsonValueCateIdList)
+
+
                     viewModel.getProfileByCategory("", true, "")
 
                 }
@@ -438,7 +447,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                     val gsonValue = Gson().toJson(viewModel.selectedCategoriesList)
                     pref.storeFilterResponse(gsonValue)
-
 
                     val gsonValueCateIdList = Gson().toJson(viewModel.idList)
                     pref.saveCateIdList(gsonValueCateIdList)
