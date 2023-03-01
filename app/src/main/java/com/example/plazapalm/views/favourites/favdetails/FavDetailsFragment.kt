@@ -139,8 +139,14 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                 if (it is String) {
                     val data = it
-                    binding!!.mainConslayout.setBackgroundColor(Color.parseColor(data.toString()))
-                    binding!!.mainToolBar.setBackgroundColor(Color.parseColor(data.toString()))
+                    var newColor=""
+                    if(data!=""){
+                        newColor=data
+                    }else{
+                        newColor="#ffffff"
+                    }
+                    binding!!.mainConslayout.setBackgroundColor(Color.parseColor(newColor.toString()))
+                    binding!!.mainToolBar.setBackgroundColor(Color.parseColor(newColor.toString()))
                 }
             }
         }
@@ -650,16 +656,105 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.categoryName.set(res.body()!!.data.category_name!!)
 
-                               // viewModel.checkScreenType
+                                // viewModel.checkScreenType
                                 if(viewModel.checkScreenType=="") {
                                     Log.e("Profile_Show===","Yes")
-                                    viewModel.backgroundColor.value =
-                                        res.body()?.data?.background_color
-                                    viewModel.textColor.value = res.body()?.data?.font_color
-                                    viewModel.backgrColor.set(res.body()?.data?.font_color)
-                                    viewModel.fontViewColor.set(res.body()?.data?.font_color)
-                                    viewModel.columnViewColor.set(res.body()?.data?.column_color.toString())
-                                    viewModel.borderViewColor.set(res.body()?.data?.border_color)
+
+                                    var hashValue="#"
+
+                                    if(res.body()?.data?.background_color!=null && res.body()?.data?.background_color!=""
+                                        && !(res.body()?.data?.background_color.equals("null"))) {
+                                        if (res.body()?.data?.background_color!!.contains("#")) {
+                                            viewModel.backgroundColor.value =
+                                                res.body()?.data?.background_color
+                                        } else {
+                                            viewModel.backgroundColor.value =
+                                                "$hashValue" + res.body()?.data?.background_color
+                                        }
+                                    }else
+                                    {
+                                        viewModel.backgroundColor.value ="#ffffff"
+                                    }
+                                    // }
+                                    if(res.body()?.data?.font_color!=null && res.body()?.data?.font_color!=""
+                                        && !(res.body()?.data?.font_color.equals("null"))) {
+                                        if (res.body()?.data?.font_color!!.contains("#")) {
+                                            viewModel.textColor.value =
+                                                res.body()?.data?.font_color
+                                        } else {
+                                            viewModel.textColor.value =
+                                                "$hashValue" + res.body()?.data?.font_color
+                                        }
+                                    }else
+                                    {
+                                        viewModel.textColor.value ="#000000"
+                                    }
+
+
+                                    if(res.body()?.data?.background_color!=null && res.body()?.data?.background_color!=""
+                                        && !(res.body()?.data?.background_color.equals("null"))) {
+                                        if (res.body()?.data?.background_color!!.contains("#")) {
+                                            viewModel.backgrColor.set(res.body()?.data?.background_color)
+                                        } else {
+                                            viewModel.backgrColor.set(
+                                                "$hashValue" + res.body()?.data?.background_color
+                                            )
+                                        }
+                                    }else
+                                    {
+                                        viewModel.backgrColor.set("#ffffff")
+                                    }
+
+                                    // viewModel.textColor.value = res.body()?.data?.font_color
+                                    // viewModel.backgrColor.set(res.body()?.data?.background_color)
+
+                                    if(res.body()?.data?.font_color!=null && res.body()?.data?.font_color!=""
+                                        && !(res.body()?.data?.font_color.equals("null"))) {
+                                        if (res.body()?.data?.font_color!!.contains("#")) {
+                                            viewModel.fontViewColor.set(res.body()?.data?.font_color)
+                                        } else {
+                                            viewModel.fontViewColor.set(
+                                                "$hashValue" + res.body()?.data?.font_color
+                                            )
+                                        }
+                                    }else
+                                    {
+                                        viewModel.fontViewColor.set("#000000")
+                                    }
+
+
+                                    if(res.body()?.data?.column_color!=null && res.body()?.data?.column_color!=""
+                                        && !(res.body()?.data?.column_color.equals("null"))) {
+                                        if(res.body()?.data?.column_color!!.contains("#")){
+                                            viewModel.columnViewColor.set(res.body()?.data?.column_color)
+                                        }else
+                                        {
+                                            viewModel.columnViewColor.set(
+                                                "$hashValue" +res.body()?.data?.column_color)
+                                        }}else
+                                    {
+                                        viewModel.columnViewColor.set("#00000000")
+                                    }
+
+                                    // viewModel.fontViewColor.set(res.body()?.data?.font_color)
+                                    // viewModel.columnViewColor.set(res.body()?.data?.column_color.toString())
+
+                                    if(res.body()?.data?.border_color!=null && res.body()?.data?.border_color!=""
+                                        && !(res.body()?.data?.border_color.equals("null"))) {
+                                        if (res.body()?.data?.border_color!!.contains("#")) {
+                                            viewModel.borderViewColor.set(res.body()?.data?.border_color)
+                                        } else {
+                                            viewModel.borderViewColor.set(
+                                                "$hashValue" + res.body()?.data?.border_color
+                                            )
+                                        }
+                                    }else
+                                    {
+                                        viewModel.borderViewColor.set("#000000")
+                                    }
+
+
+                                    //  viewModel.borderViewColor.set(res.body()?.data?.border_color)
                                     viewModel.font_typeface.set(res.body()?.data?.font_name)
 
                                     res.body()?.data?.border_opacity?.let {
@@ -686,16 +781,16 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                                 /** p_id not null */
 
-                             /*   if (res.body()!!.data.p_id.equals(loginUserPId)) {
+                                /*   if (res.body()!!.data.p_id.equals(loginUserPId)) {
 
-                                    if(viewModel.fontViewColor.get().toString().trim()=="") {
-                                        viewModel.getEditLookColor()
-                                        Log.e("ZCXCX" , "WORKING1")
-                                    }
-                                }else{
-                                    Log.e("ZCXCX" , "WORKING2")
+                                       if(viewModel.fontViewColor.get().toString().trim()=="") {
+                                           viewModel.getEditLookColor()
+                                           Log.e("ZCXCX" , "WORKING1")
+                                       }
+                                   }else{
+                                       Log.e("ZCXCX" , "WORKING2")
 
-                                }*/
+                                   }*/
                                 mapFeatureGet()
 
                                 if (!(loginUserPId.toString().equals(res.body()!!.data._id))) {
@@ -810,7 +905,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 var fontListModel:FontsListModelResponse
                                 if(viewModel.font_typeface.get().toString()!="null" && viewModel.font_typeface.get()!="") {
                                     var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
-                                    fontListModel=fontList1[0]
+                                    if(fontList1.size>0){
+                                        fontListModel=fontList1[0]
+                                    }else
+                                    {
+                                        fontListModel=viewModel.fontList!![0]
+                                    }
                                 }else {
                                     fontListModel= viewModel.fontList!![0]
                                 }
@@ -928,11 +1028,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 )
             )
 
-//            fontViewColor.set(res.body()!!.data!!.font_color!!)
-//            columnViewColor.set(res.body()!!.data!!.column_color!!.toString())
-//            borderViewColor.set(res.body()!!.data!!.border_color!!)
-//            font_typeface.set(res.body()!!.data!!.font_name!!)
-//
             Log.e("ADASDAEWQEWE", viewModel.fontViewColor.get().toString())
         }
 

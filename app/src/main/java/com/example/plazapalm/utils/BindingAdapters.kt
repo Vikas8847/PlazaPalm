@@ -7,6 +7,7 @@ import android.media.MediaPlayer
 import android.os.Build
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -574,6 +575,9 @@ object BindingAdapters {
         Log.e("efmgmlwgge===", "dffff")
         if (imageUrl != null) {
 
+            var view=LayoutInflater.from(MainActivity.context.get()).inflate(R.layout.empty_video_layout,null)
+          var  ivVideoIcon= view.findViewById<AppCompatImageView>(R.id.ivVideoIcon)
+            ivVideoIcon.visibility=View.VISIBLE
             /*   Glide.with(CommonMethods.context)
                    .load(IMAGE_LOAD_URL + imageUrl)
                    .override(100,100)
@@ -595,6 +599,7 @@ object BindingAdapters {
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
                 mp.setVolume(0f, 0f)
                 videoView.seekTo(position)
+                ivVideoIcon.visibility=View.GONE
                 // imageIcon.visibility=View.GONE
                 if (position == 0) {
                     videoView.start()
