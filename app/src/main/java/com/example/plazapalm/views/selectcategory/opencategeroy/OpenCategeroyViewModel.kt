@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.plazapalm.R
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.interfaces.clickItem
@@ -82,11 +83,13 @@ class OpenCategeroyViewModel @Inject constructor(
     fun getCategoriesApi(
         rvCategoryLocation: RecyclerView,
         requireActivity: FragmentActivity,
+        refreshContainer: SwipeRefreshLayout,
+        loader :Boolean,
         clickItem: clickItem
     ) = viewModelScope.launch {
         rvCategoryLocation1=rvCategoryLocation
         requireActivity1=requireActivity
-        clickItem1=clickItem
+        this@OpenCategeroyViewModel.clickItem1 =clickItem
         val body = JSONObject()
         body.put(Constants.AUTHORIZATION, token.get())
         // body.put("lat", "30.8987")
@@ -106,7 +109,7 @@ class OpenCategeroyViewModel @Inject constructor(
         Log.e("cateogory_Responseeee===",body.toString())
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
-            loader = true,
+            loader = loader,
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<CategoriesResponseModel>> {
@@ -126,6 +129,7 @@ class OpenCategeroyViewModel @Inject constructor(
                     Log.e("SSSSS", res.body().toString())
 
                     if (res.isSuccessful && res.body() != null) {
+                        refreshContainer.isRefreshing=false
                         if (res.body()!!.status == 200) {
                             categoryList=res.body()?.data!!
 
@@ -150,7 +154,7 @@ class OpenCategeroyViewModel @Inject constructor(
                                 tempSearchList!!,
                                 rvCategoryLocation1!!,
                                 requireActivity1!!,
-                                clickItem1!!
+                                this@OpenCategeroyViewModel.clickItem1!!
                             )
 
                         } else {
