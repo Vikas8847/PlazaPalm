@@ -57,6 +57,8 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 import javax.inject.Inject
 
@@ -3144,7 +3146,8 @@ class EditFrontPageVM @Inject constructor(
                 /** Slider for Opacity */
                 sliderOpacitty?.addOnChangeListener { _, value, _ ->
                     //  val alpha = value / 100
-                    changeColor?.alpha = value/ 255
+                    // changeColor?.alpha = value/ 255
+                    changeColor?.alpha = value
 
                     tempfontOpacity.set(value)
                     preferenceFile.storeopacity(Constants.FONT_OPACITY, value)
@@ -3453,6 +3456,13 @@ class EditFrontPageVM @Inject constructor(
             }
         }
     }
+    fun getExactValue(value:Double):Int
+    {
+        //  var value=27.50
+        var bd: BigDecimal = BigDecimal.valueOf(value)
+        bd= bd.setScale(0, RoundingMode.HALF_UP)
+        return bd.toInt()
+    }
 
     /*Call here get fonts Api */
     fun getFontsApi() {
@@ -3483,7 +3493,7 @@ class EditFrontPageVM @Inject constructor(
                             fontColor.set(data.frontpage_font_color)
 
                             if(data.frontpage_font_opacity!!>0) {
-                                var finalOpacity = (data.frontpage_font_opacity *2.55).toFloat()
+                                var finalOpacity = (getExactValue(data.frontpage_font_opacity *2.55)).toFloat()
                                 fontOpacity.set(finalOpacity)
                             }else
                             {
@@ -3511,16 +3521,16 @@ class EditFrontPageVM @Inject constructor(
                             }
 
 
-                          /*  if (!(data.font_name.equals(""))) {
-                                var fontList1 =
-                                    advanceEditLookFontsNameList.filter { it.name == fontsName.get() }
-                                fontTypeface = fontList1[0].fontTypeface
-                                Log.e("grlgrgrgr===","Yes")
-                            } else {
-                                fontsName.set(advanceEditLookFontsNameList[0].name)
-                                fontTypeface = advanceEditLookFontsNameList[0].fontTypeface
-                                Log.e("grlgrgrgr===","NO")
-                            }*/
+                            /*  if (!(data.font_name.equals(""))) {
+                                  var fontList1 =
+                                      advanceEditLookFontsNameList.filter { it.name == fontsName.get() }
+                                  fontTypeface = fontList1[0].fontTypeface
+                                  Log.e("grlgrgrgr===","Yes")
+                              } else {
+                                  fontsName.set(advanceEditLookFontsNameList[0].name)
+                                  fontTypeface = advanceEditLookFontsNameList[0].fontTypeface
+                                  Log.e("grlgrgrgr===","NO")
+                              }*/
 
 
                             // fontTypeface = typeface
@@ -3549,7 +3559,7 @@ class EditFrontPageVM @Inject constructor(
         Log.e("TopText_data===", isTopText.get().toString())
         Log.e("TopText_data111===", isBottomText.get().toString())
 
-        var  finalOpacity=(fontOpacity.get()/2.55).toInt()
+        var  finalOpacity=getExactValue(fontOpacity.get()/2.55).toInt()
 
         repository.makeCall(ApiEnums.POST_EDIT_COVER_PAGE,
             loader = true, saveInCache = false, getFromCache = false,

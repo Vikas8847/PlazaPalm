@@ -343,7 +343,7 @@ class DashBoardVM @Inject constructor(
             userMiles.get().toString() + " LATI " + lati.get().toString()
                     + " LONG " + longi.get()
                 .toString() + " CATEIDDD - " + idList.toString() + "search --- " + search)
-Log.e("Token_Dataaaa===",pref.retrieveKey("token").toString())
+        Log.e("Token_Dataaaa===",pref.retrieveKey("token").toString())
         repository.makeCall(
             ApiEnums.GETPROFILE_BYCATE,
             loader = showLoader,
@@ -397,7 +397,7 @@ Log.e("Token_Dataaaa===",pref.retrieveKey("token").toString())
 
                                     for (idx in 0 until res.body()?.data!!.size) {
                                         if (res.body()?.data!![idx].postProfile_picture != null && res.body()?.data!![idx].postProfile_picture.size > 0) {
-                                          var data=res.body()?.data!![idx]
+                                            var data=res.body()?.data!![idx]
                                             data.lngValue=data.long
 
                                             if(data.postProfile_picture[0].contains(".png") ||
@@ -793,7 +793,7 @@ Log.e("Token_Dataaaa===",pref.retrieveKey("token").toString())
         )
     }
 
-     fun getPostprofile(p_Id: String) {
+    fun getPostprofile(p_Id: String) {
 
         Log.e(
             "POSSSDDD", p_Id + " PID " + pref.retvieLatlong("lati").toFloat() + " LAT  " + pref.retvieLatlong("longi").toFloat() + " LONG "

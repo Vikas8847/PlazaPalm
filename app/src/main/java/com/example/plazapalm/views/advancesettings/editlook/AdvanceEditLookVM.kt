@@ -71,6 +71,8 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -1444,19 +1446,32 @@ class AdvanceEditLookVM @Inject constructor(
         }
     }
 
+    fun getExactValue(value:Double):Int
+    {
+        //  var value=27.50
+        var bd: BigDecimal = BigDecimal.valueOf(value)
+        bd= bd.setScale(0, RoundingMode.HALF_UP)
+        return bd.toInt()
+    }
+
     /** Post api for color back ground ..**/
     private fun postColorsAPI() = viewModelScope.launch {
-        var columnOpacityValue = (columnOpacity.get().toDouble()).toInt()
-        var borderOpacityValue = (borderOpacity.get().toDouble()).toInt()
-        var fontOpacityValue = (fontOpacity.get().toDouble()).toInt()
+        /* var columnOpacityValue = (columnOpacity.get().toDouble()).toInt()
+         var borderOpacityValue = (borderOpacity.get().toDouble()).toInt()
+         var fontOpacityValue = (fontOpacity.get().toDouble()).toInt()*/
 
+        Log.e("eefefefef==",columnOpacity.get().toString())
+        Log.e("eefefefef11==",borderOpacity.get().toString())
+        Log.e("eefefefef22==",fontOpacity.get().toString())
+        var columnOpacityValue = getExactValue((columnOpacity.get().toDouble()/2.55))
+        var borderOpacityValue = getExactValue((borderOpacity.get().toDouble()/2.55))
+        var fontOpacityValue = getExactValue((fontOpacity.get().toDouble()/2.55))
 
-        /*  var columnOpacityValue = (columnOpacity.get().toDouble()/2.55).toInt()
-         var borderOpacityValue = (borderOpacity.get().toDouble()/2.55).toInt()
-         var fontOpacityValue = (fontOpacity.get().toDouble()/2.55).toInt()*/
 
         //   var  finalOpacity=(fontOpacity.get()/2.55).toInt()
-
+        Log.e("eefefefef##==",columnOpacityValue.toString())
+        Log.e("eefefefef##11==",borderOpacityValue.toString())
+        Log.e("eefefefef##22==",fontOpacityValue.toString())
 
         repository.makeCall(ApiEnums.COLOR_LOOK,
             loader = true, saveInCache = false, getFromCache = false,
@@ -1536,23 +1551,23 @@ class AdvanceEditLookVM @Inject constructor(
         }
 
         //  if(columnOpacity.get())
-        var setColumnOpacity = 50.0
+        var setColumnOpacity = 50f
         if (columnOpacity.get().toString() == "" || columnOpacity.get()
                 .toString() == "0" || columnOpacity.get().toString() == "0.0"
         ) {
-            setColumnOpacity = 50.0
+            setColumnOpacity = 100f
         } else {
-            setColumnOpacity = columnOpacity.get().toString().toDouble()
+            setColumnOpacity = columnOpacity.get().toString().toFloat()
         }
 
 
-        var setBorderOpacity = 50.0
+        var setBorderOpacity = 50f
         if (borderOpacity.get().toString() == "" || borderOpacity.get()
                 .toString() == "0" || borderOpacity.get().toString() == "0.0"
         ) {
-            setBorderOpacity = 50.0
+            setBorderOpacity = 100f
         } else {
-            setBorderOpacity = borderOpacity.get().toString().toDouble()
+            setBorderOpacity = borderOpacity.get().toString().toFloat()
         }
 
         Log.e("Border_Opacity===", (setBorderOpacity).toString())
@@ -1886,33 +1901,33 @@ class AdvanceEditLookVM @Inject constructor(
                                 typfaceObserverLiveData.postValue(true)
 
 
-                                borderOpacity.set((data.border_opacity?.toFloat()!!))
-                                fontOpacity.set((data.font_opacity?.toFloat()!!))
-                                columnOpacity.set((data.column_opacity?.toFloat()!!))
+                                /* borderOpacity.set((data.border_opacity?.toFloat()!!))
+                                 fontOpacity.set((data.font_opacity?.toFloat()!!))
+                                 columnOpacity.set((data.column_opacity?.toFloat()!!))*/
 //////////////////////////////////////////////////////////////////////////////////////////////////
-                                /* if(data.border_opacity!!>0) {
-                                     var finalOpacity = (data.border_opacity *2.55).toFloat()
-                                     borderOpacity.set(finalOpacity)
-                                 }else
-                                 {
-                                     borderOpacity.set(0.0f)
-                                 }
+                                if(data.border_opacity!!>0) {
+                                    var finalOpacity = (getExactValue((data.border_opacity *2.55).toDouble())).toFloat()
+                                    borderOpacity.set(finalOpacity)
+                                }else
+                                {
+                                    borderOpacity.set(0.0f)
+                                }
 
-                                 if(data.font_opacity!!>0) {
-                                     var finalOpacity = (data.font_opacity *2.55).toFloat()
-                                     fontOpacity.set(finalOpacity)
-                                 }else
-                                 {
-                                     fontOpacity.set(0.0f)
-                                 }
+                                if(data.font_opacity!!>0) {
+                                    var finalOpacity = (getExactValue(data.font_opacity *2.55)).toFloat()
+                                    fontOpacity.set(finalOpacity)
+                                }else
+                                {
+                                    fontOpacity.set(0.0f)
+                                }
 
-                                 if(data.column_opacity!!>0) {
-                                     var finalOpacity = (data.column_opacity *2.55).toFloat()
-                                     columnOpacity.set(finalOpacity)
-                                 }else
-                                 {
-                                     columnOpacity.set(0.0f)
-                                 }*/
+                                if(data.column_opacity!!>0) {
+                                    var finalOpacity = (getExactValue(data.column_opacity *2.55)).toFloat()
+                                    columnOpacity.set(finalOpacity)
+                                }else
+                                {
+                                    columnOpacity.set(0.0f)
+                                }
                                 ///////////////////////////////////////////////////////
 
 
@@ -2024,6 +2039,10 @@ class AdvanceEditLookVM @Inject constructor(
         tempFontSize.set(fontSize.get())
         tempFontOpacity.set(fontOpacity.get())
 
+        Log.e("ddddddddd==",columnOpacity.get().toString())
+        Log.e("ddddddddd111==",borderOpacity.get().toString())
+        Log.e("ddddddddd222==",fontOpacity.get().toString())
+
         when (checkColor.get()) {
             //for background ..
             Constants.BACKGROUND -> {
@@ -2067,8 +2086,8 @@ class AdvanceEditLookVM @Inject constructor(
                 try {
 
                     if (columnOpacity.get().toString() == "0.0") {
-                        tempColumnOpacity.set(50f)
-                        sliderOpacitty?.value = 50f
+                        tempColumnOpacity.set(100f)
+                        sliderOpacitty?.value = 100f
                     } else {
                         tempColumnOpacity.set(columnOpacity.get())
                         sliderOpacitty?.value = (tempColumnOpacity.get())
@@ -2111,8 +2130,8 @@ class AdvanceEditLookVM @Inject constructor(
                 }
                 try {
                     if (borderOpacity.get().toString() == "0.0") {
-                        tempBorderOpacity.set(50f)
-                        sliderOpacitty?.value = 50f
+                        tempBorderOpacity.set(100f)
+                        sliderOpacitty?.value = 100f
                     } else {
                         tempBorderOpacity.set(borderOpacity.get())
                         sliderOpacitty?.value = (tempBorderOpacity.get())
@@ -2210,8 +2229,8 @@ class AdvanceEditLookVM @Inject constructor(
                 }
 
                 if (fontOpacity.get().toString() == "0.0") {
-                    tempFontOpacity.set(50f)
-                    sliderOpacitty?.value = 50f
+                    tempFontOpacity.set(100f)
+                    sliderOpacitty?.value = 100f
                 } else {
                     tempFontOpacity.set(fontOpacity.get())
                     sliderOpacitty?.value = (tempFontOpacity.get())
@@ -2274,24 +2293,24 @@ class AdvanceEditLookVM @Inject constructor(
             } else
                 if (selectedValue == 2) {
                     tempColumnColor.set("")
-                    tempColumnOpacity.set(50f)
-                    sliderOpacitty!!.value = 50f
+                    tempColumnOpacity.set(100f)
+                    sliderOpacitty!!.value = 100f
                     setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
                 } else
                     if (selectedValue == 3) {
-                        tempBorderOpacity.set(50f)
+                        tempBorderOpacity.set(100f)
 
                         tempBorderWidth.set(12f)
-                        sliderOpacitty!!.value = 50f
+                        sliderOpacitty!!.value = 100f
                         slider_size!!.value = 12f
                         borderTempColor.set("")
                         setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
                     } else
                         if (selectedValue == 4) {
                             tempFontColor.set("")
-                            tempFontOpacity.set(50f)
+                            tempFontOpacity.set(100f)
                             tempFontSize.set(12f)
-                            sliderOpacitty!!.value = 50f
+                            sliderOpacitty!!.value = 100f
                             slider_size!!.value = 12f
                             setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
                         } else {
@@ -2510,7 +2529,7 @@ class AdvanceEditLookVM @Inject constructor(
         var setColumnOpacity = 50.0f
         if (tempColumnOpacity.get().toString() == "0.0"
         ) {
-            setColumnOpacity = 50.0f
+            setColumnOpacity = 100f
         } else {
             setColumnOpacity = tempColumnOpacity.get().toString().toDouble().toFloat()
         }
@@ -2548,7 +2567,7 @@ class AdvanceEditLookVM @Inject constructor(
         if (tempBorderOpacity.get().toString() == "" || tempBorderOpacity.get()
                 .toString() == "0" || tempBorderOpacity.get().toString() == "0.0"
         ) {
-            setBorderOpacity = 50.0f
+            setBorderOpacity = 100f
         } else {
             setBorderOpacity = tempBorderOpacity.get().toString().toDouble().toFloat()
         }
@@ -2632,14 +2651,14 @@ class AdvanceEditLookVM @Inject constructor(
                 textView.setTextColor(setFontColor.toColorInt())
             }
 
-            if (tempFontSize.get().toString().equals("")) {
+            if (tempFontSize.get().toString().equals("") || tempFontSize.get().toString()=="0.0") {
                 textView.textSize = 12f
             } else {
                 textView.textSize = tempFontSize.get()
             }
 
-            if (tempFontOpacity.get().toString().equals("")) {
-                textView.alpha = 50f
+            if (tempFontOpacity.get().toString().equals("") || tempFontOpacity.get().toString().equals("0.0")) {
+                textView.alpha = 100f/ 255
             } else {
                 textView.alpha = tempFontOpacity.get() / 255
             }
@@ -2671,9 +2690,9 @@ class AdvanceEditLookVM @Inject constructor(
 
         var colorAlpha = newAlpha.times(defaultAlpha)?.roundToInt() ?: defaultAlpha
         Log.e("wdfwfwfwfw==", colorAlpha.toString())
-        /*  if(colorAlpha>255){
+          if(colorAlpha>=255){
               colorAlpha=250
-          }*/
+          }
         Log.e("wdfwfwfwfw111==", colorAlpha.toString())
         return ColorUtils.setAlphaComponent(color, colorAlpha)
 

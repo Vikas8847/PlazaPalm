@@ -32,30 +32,25 @@ class ViewPostProfileAdapter(
     var dataList: ArrayList<AddImageDescriptionPOJO>,
     var widthPixels: Int,
     var fontListModel: FontsListModelResponse,
-)
+) : RecyclerView.Adapter<ViewPostProfileAdapter.MyViewHolder>() {
 
-    : RecyclerView.Adapter<ViewPostProfileAdapter.ViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layInflater = LayoutInflater.from(parent.context)
-        val viewHolder: RecyclerView.ViewHolder?
-        viewHolder = ViewHolder(ViewProfileImagesListBinding.inflate(layInflater, parent, false))
-        return viewHolder
-
+        var view=ViewProfileImagesListBinding.inflate(layInflater, parent, false)
+        return MyViewHolder(view)
     }
 
     override fun getItemCount(): Int = dataList.size
 
-
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         Log.e("SDSDSDSDSd", dataList.toString())
 
         holder.setDAta(requireActivity, dataList, position)
     }
 
-    inner class ViewHolder(var bindining: ViewProfileImagesListBinding) : RecyclerView.ViewHolder(bindining.root) {
+    inner class MyViewHolder(var bindining: ViewProfileImagesListBinding) : RecyclerView.ViewHolder(bindining.root) {
 
         @RequiresApi(Build.VERSION_CODES.M)
         fun setDAta(
@@ -116,7 +111,7 @@ class ViewPostProfileAdapter(
                     Log.e("Media_Valueeeeee===", photos.get(position).Image!!)
                     Glide.with(context).load(IMAGE_LOAD_URL + photos.get(position).Image)
                         .into(bindining.ivFavOfDesc1Img)
-                    bindining.videoViewDetail.visibility = View.GONE
+                    bindining.videoViewDetailView.visibility = View.GONE
                     bindining.ivVideoIcon.visibility = View.GONE
                     bindining.vPlayer1.visibility = View.GONE
 
@@ -124,7 +119,7 @@ class ViewPostProfileAdapter(
                     bindining.ivFavOfDesc1.visibility = View.VISIBLE
 
                 } else {
-                    bindining.videoViewDetail.visibility = View.VISIBLE
+                    bindining.videoViewDetailView.visibility = View.VISIBLE
                     bindining.ivVideoIcon.visibility = View.VISIBLE
                     bindining.vPlayer1.visibility = View.VISIBLE
 
@@ -132,24 +127,24 @@ class ViewPostProfileAdapter(
                     bindining.ivFavOfDesc1.visibility = View.GONE
                     Log.e("gkdegmgeggswg====",
                         IMAGE_LOAD_URL + photos.get(position).Image.toString())
-              /*      try {
-                    setVideoPlayerMethod(bindining.videoViewDetail,
-                        IMAGE_LOAD_URL + photos.get(position).Image,
-                        bindining.ivVideoIcon,
-                        widthPixels,
-                        bindining.vPlayer1)
-                }catch (e:Exception)
-                {
+                    /*      try {
+                          setVideoPlayerMethod(bindining.videoViewDetail,
+                              IMAGE_LOAD_URL + photos.get(position).Image,
+                              bindining.ivVideoIcon,
+                              widthPixels,
+                              bindining.vPlayer1)
+                      }catch (e:Exception)
+                      {
 
-                }*/
-                    setVideoImage(bindining.videoViewDetail,IMAGE_LOAD_URL + photos.get(position).Image,bindining.ivVideoIcon)
+                      }*/
+                    setVideoImage(bindining.videoViewDetailView,IMAGE_LOAD_URL + photos.get(position).Image,bindining.ivVideoIcon)
                 }
             }else
             {
                 bindining.ivFavOfDesc1Img.visibility = View.GONE
                 bindining.ivFavOfDesc1.visibility = View.GONE
 
-                bindining.videoViewDetail.visibility = View.GONE
+                bindining.videoViewDetailView.visibility = View.GONE
                 bindining.ivVideoIcon.visibility = View.GONE
                 bindining.vPlayer1.visibility = View.GONE
             }
@@ -163,26 +158,27 @@ class ViewPostProfileAdapter(
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setbackground(layout: View, color: String, borSiz: Int, borColor: String) {
-
+        Log.e("wdwdwdwd===",borColor)
+        Log.e("wdwdwdwd1111===",color)
         val shape = GradientDrawable()
         shape.shape = GradientDrawable.RECTANGLE
         shape.cornerRadii = floatArrayOf(22f, 22f, 22f, 22f, 22f, 22f, 22f, 22f)
 
-        if(color==""){
+        if(color=="" || color=="null" || color==null){
             shape.setColor(Color.parseColor("#ffffff"))
         }else
         {
             shape.setColor(Color.parseColor(color))
         }
 
-        if(borColor==""){
+        if(borColor=="" || borColor=="null" || borColor==null){
             shape.setStroke(borSiz, Color.parseColor("#000000"))
         }else
         {
             shape.setStroke(borSiz, Color.parseColor(borColor))
         }
 
-      //  shape.setStroke(borSiz, Color.parseColor(borColor))
+        //  shape.setStroke(borSiz, Color.parseColor(borColor))
         layout.background = shape
     }
 
