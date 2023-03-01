@@ -212,9 +212,17 @@ class EditFrontPageVM @Inject constructor(
                 tvProfileUserAddress.setTextColor(Color.parseColor(newColor))
                 tvProfileUserDescription.setTextColor(Color.parseColor(newColor))
                 /**Set font size for view **/
-                tvProfileUserName.textSize = fontSize.get()
-                tvProfileUserAddress.textSize = fontSize.get()
-                tvProfileUserDescription.textSize = fontSize.get()
+                var newFontSize=0.0f
+                if(fontSize.get().toString()=="0.0"){
+                    newFontSize=14.0f
+                }else
+                {
+                    newFontSize=fontSize.get().toFloat()
+                }
+
+                tvProfileUserName.textSize = newFontSize
+                tvProfileUserAddress.textSize = newFontSize
+                tvProfileUserDescription.textSize = newFontSize
 
                 tvProfileUserName.typeface = fontTypeface
                 tvProfileUserAddress.typeface = fontTypeface
@@ -3281,11 +3289,11 @@ class EditFrontPageVM @Inject constructor(
 
         if (fontsName.get().toString() == "") {
             //  advanceEditLookFontsNameList.filter { it.name==fontsName.get() }
-            changeColor?.typeface = fontList!![0].fontTypeface
+            changeColor?.typeface = fontList!![1].fontTypeface
         } else {
             var fontList1 = fontList!!.filter { it.name == fontsName.get() }
             if(fontList1.size==0){
-                changeColor?.typeface = fontList!![0].fontTypeface
+                changeColor?.typeface = fontList!![1].fontTypeface
             }else
             {
                 changeColor?.typeface = fontList1[0].fontTypeface
@@ -3506,13 +3514,13 @@ class EditFrontPageVM @Inject constructor(
 
                             if (data.frontpage_bottom_text.toString() == "") {
                                 //  advanceEditLookFontsNameList.filter { it.name==fontsName.get() }
-                                fontTypeface = fontList!![0].fontTypeface
-                                fontsName.set(fontList!![0].name)
+                                fontTypeface = fontList!![1].fontTypeface
+                                fontsName.set(fontList!![1].name)
                             } else {
                                 var fontList1 = fontList!!.filter { it.name == fontsName.get() }
                                 if(fontList1.size==0){
-                                    fontTypeface = fontList!![0].fontTypeface
-                                    fontsName.set(fontList!![0].name)
+                                    fontTypeface = fontList!![1].fontTypeface
+                                    fontsName.set(fontList!![1].name)
                                 }else
                                 {
                                     fontTypeface = fontList1[0].fontTypeface
