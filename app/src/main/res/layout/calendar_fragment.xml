@@ -118,6 +118,7 @@
                 android:focusable="false"
                 android:switchTextAppearance="@dimen/small_thumb"
                 android:textSize="12sp"
+                android:layout_marginStart="-4dp"
                 android:theme="@style/ThemeOverlay.MaterialComponents.MaterialCalendar"
                 android:visibility="visible"
                 app:abbreviationsBarColor="@color/light_sky_blue"
