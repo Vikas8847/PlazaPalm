@@ -778,6 +778,29 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                     }
                                 }
 
+                                if (res.body()!!.data.location_OnOff == true) {
+                                    binding!!.cvFavDetails.visibility = View.VISIBLE
+                                } else {
+                                    binding!!.cvFavDetails.visibility = View.GONE
+                                }
+
+                                if (res.body()!!.data.dark_theme == true) {
+                                    mMap.setMapStyle(
+                                        MapStyleOptions.loadRawResourceStyle(
+                                            requireContext(),
+                                            R.raw.map_json_dark_mode
+                                        )
+                                    )
+
+                                } else {
+                                    mMap.setMapStyle(null)
+                                }
+
+                                if (res.body()!!.data.follow == true) {
+//                                    binding!!.cvFavDetails.visibility = View.VISIBLE
+                                } else {
+//                                    binding!!.cvFavDetails.visibility = View.GONE
+                                }
 
                                 Log.e("userIddddd====", viewModel.userdata.get().toString())
                                 Log.e(
