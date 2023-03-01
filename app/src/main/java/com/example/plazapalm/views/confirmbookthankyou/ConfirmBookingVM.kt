@@ -287,7 +287,7 @@ class ConfirmBookingVM @Inject constructor(
                     calender.set(Calendar.MONTH, monthofYear)
                     calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                     observableField.set("$year-${"0" + monthofYear}-$dayOfMonth")
-                    chooseDate.set("$year-${"0" + monthofYear}-$dayOfMonth")
+                    chooseDate.set("$year-${"0" + monthofYear}-${"0"+dayOfMonth}")
                 } else {
                     monthofYear = month + 1
                     calender.set(Calendar.YEAR, year)
@@ -355,7 +355,7 @@ class ConfirmBookingVM @Inject constructor(
 
             adapter?.dataList?.size != counter -> {
                 if (commingFrom.get().equals("confirmBook")) {
-                    CommonMethods.showToast(CommonMethods.context, "Please enter questions")
+                    CommonMethods.showToast(CommonMethods.context, "Answer is Mandatory")
                 } else if (commingFrom.get().equals("addToCalander")) {
                     return true
                 }

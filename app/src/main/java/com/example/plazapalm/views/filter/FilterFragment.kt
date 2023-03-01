@@ -24,6 +24,7 @@ import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
@@ -176,16 +177,53 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
                 /** Get data from bundle using back stack */
 
                 val myType = object : TypeToken<Bundle>() {}.type
-                val bundleData = Gson().fromJson<Bundle>(result, myType)
+                //val bundleData = Gson().fromJson<Bundle>(result, myType)
+                var jsonObject=JSONObject(result)
+                var bundleData=jsonObject.getJSONObject("mMap")
+
+
+
                     /* val gson = GsonBuilder()
                     .addDeserializationExclusionStrategy(GsonDeserializeExclusion())
                     .create()*/
 
-                var categeoryData: ArrayList<SelectedDataModelList> = bundleData.getSerializable("SelectedList")!! as ArrayList<SelectedDataModelList>
+             //   var categeoryData: ArrayList<SelectedDataModelList> = bundleData.getSerializable("SelectedList")!! as ArrayList<SelectedDataModelList>
+
+              //  var categeoryData: ArrayList<SelectedDataModelList> = bundleData.getJSONArray("SelectedList")!! as ArrayList<SelectedDataModelList>
+                var categeoryJsonArray = bundleData.getJSONArray("SelectedList")!!
+
                 val tempList = ArrayList<String>()
                 categoryList.clear()
 
-                for (idx in 0 until categeoryData.size) {
+
+                for (idx in 0 until categeoryJsonArray.length()) {
+
+                   // var data22 = categeoryJsonArray[idx] as LinkedTreeMap<String, Any>
+                    var data22=categeoryJsonArray.getJSONObject(idx)
+
+                    var data33 = data22.opt("adapterPos").toString().toInt()
+
+                    Log.e("QWEQSAa", data22.get("cateName").toString())
+
+                    categoryList.add(
+                        SelectedDataModelList(
+                            data22.get("cateName").toString(),
+                            data22.get("cate_ID").toString(),
+                            data33,
+                            data22.get("istrue") as Boolean?,
+                            data22.get("count").toString()
+                        )
+
+                    )
+
+                    viewModel.filterDataList.add(SelectedDataModelList(categoryList[idx].cateName,categoryList[idx].cate_ID, categoryList[idx].adapterPosition,categoryList[idx].istrue,categoryList[idx].count))
+                    tempList.add(data22.get("cateName").toString())
+
+                }
+
+
+
+           /*     for (idx in 0 until categeoryData.size) {
 
                     var data22 = categeoryData[idx] as LinkedTreeMap<String, Any>
                     var data33 = (data22.get("adapterPos") as Double).toInt()
@@ -205,7 +243,7 @@ class FilterFragment : Fragment(R.layout.filter_fragment) {
                     viewModel.filterDataList.add(SelectedDataModelList(categoryList[idx].cateName,categoryList[idx].cate_ID, categoryList[idx].adapterPosition,categoryList[idx].istrue,categoryList[idx].count))
                     tempList.add(data22.get("cateName").toString())
 
-                }
+                }*/
 
                  viewModel.newfilterList.set(tempList)
                  viewModel.filterAdapter.addItems(categoryList)
