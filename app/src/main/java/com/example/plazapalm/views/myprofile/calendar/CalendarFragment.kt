@@ -175,14 +175,38 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         var dateMontList = ArrayList<CalenderData>()
         dateMontList.clear()
 
+
         var clickDate = ""
-        if (month < 10) {
-            clickDate = year.toString() + "-" + "0" + month.toString() + "-" + day
-
-        } else {
-            clickDate = year.toString() + "-" + month.toString() + "-" + day
-
+        var monthValue=""
+        if(month<10)
+        {
+            monthValue="0"+month
+        }else
+        {
+            monthValue=month.toString()
         }
+
+        var dayValue=""
+        if(day!!<10)
+        {
+            dayValue="0"+day!!
+        }else
+        {
+            dayValue=day!!.toString()
+        }
+
+        clickDate = year.toString() + "-"  + monthValue.toString() + "-" + dayValue
+
+
+
+        /*    var clickDate = ""
+            if (month < 10 || day!!<10) {
+                clickDate = year.toString() + "-" + "0" + month.toString() + "-" +"0" + day
+
+            } else {
+                clickDate = year.toString() + "-" + month.toString() + "-" + day
+
+            }*/
 
         Log.e("Fkjfl;k", clickDate.toString())
         val tempList = viewModel.calendarBookingList
