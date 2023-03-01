@@ -1855,8 +1855,17 @@ class EditFrontPageVM @Inject constructor(
         fontBottomSheet!!.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         fontBottomSheet!!.behavior.peekHeight = screenHeight!!
 
+      /*  scheduleBinding!!.root?.viewTreeObserver?.addOnGlobalLayoutListener {
+            val behavior = BottomSheetBehavior.from( scheduleBinding!!.root!!.parent as View)
+            behavior.peekHeight = WindowManager.LayoutParams.MATCH_PARENT
+        }*/
+
+
+
         // scheduleBinding.etChooseFont.setQuery("", false)
         scheduleBinding?.apply {
+            rvChooseFonts.layoutParams.height=WindowManager.LayoutParams.WRAP_CONTENT
+
             etChooseFont.setQuery("", false)
             tvChooseFontCancel.setOnClickListener {
                 fontBottomSheet?.dismiss()

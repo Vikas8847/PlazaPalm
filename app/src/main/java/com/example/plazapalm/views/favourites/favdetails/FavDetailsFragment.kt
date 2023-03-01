@@ -153,6 +153,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         viewModel.textColor.observe(viewLifecycleOwner) {
             if (it != null && !(it.equals(""))) {
+                Log.e("mfdlfdfdsff===",it.toString())
+                Log.e("fwefwefwefwefwef===",viewModel.font_typeface.get().toString())
                 if (it is String) {
                     val data = it
                     viewModel.fontViewColor.set(data)
@@ -172,34 +174,34 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     binding?.ivFavTotalLikedCounts?.setColorFilter(Color.parseColor(data.toString()))
                     binding?.tvFavHeartFilledCounts?.setTextColor(Color.parseColor(data.toString()))
 
-                    setTypeFaceMethod(binding?.tvFavCityAddress!!)
-                    setTypeFaceMethod(binding?.tvFavDetailsAddress!!)
-                    setTypeFaceMethod(binding?.tvFavDetailsDistance!!)
-
-                    setTypeFaceMethod(binding?.tvFavDetails!!)
-                    setTypeFaceMethod(binding?.tvFavDetailsLikeCounts!!)
-                    setTypeFaceMethod(binding?.tvFavDetailsDisLikeCount!!)
-                    setTypeFaceMethod(binding?.tvFavDetailsName!!)
-                    setTypeFaceMethod(binding?.tvFavHeartFilledCounts!!)
-
                 }
             }
+            setTypeFaceMethod(binding?.tvFavCityAddress!!)
+            setTypeFaceMethod(binding?.tvFavDetailsAddress!!)
+            setTypeFaceMethod(binding?.tvFavDetailsDistance!!)
+
+            setTypeFaceMethod(binding?.tvFavDetails!!)
+            setTypeFaceMethod(binding?.tvFavDetailsLikeCounts!!)
+            setTypeFaceMethod(binding?.tvFavDetailsDisLikeCount!!)
+            setTypeFaceMethod(binding?.tvFavDetailsName!!)
+            setTypeFaceMethod(binding?.tvFavHeartFilledCounts!!)
         }
 
     }
 
     private fun setTypeFaceMethod(appTextView: AppCompatTextView?) {
-        if(viewModel.font_typeface.get()!="") {
+        Log.e("fwefwefwefwefwef===",viewModel.font_typeface.get().toString())
+        if(viewModel.font_typeface.get()!="" && viewModel.font_typeface.get()!="null" && viewModel.font_typeface.get()!=null) {
             var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
             if(fontList1.size==0){
-                appTextView!!.setTypeface(viewModel.fontList!![0].fontTypeface)
+                appTextView!!.setTypeface(viewModel.fontList!![1].fontTypeface)
             }else
             {
                 appTextView!!.setTypeface(fontList1[0].fontTypeface)
             }
         }else
         {
-            appTextView!!.setTypeface(viewModel.fontList!![0].fontTypeface)
+          //  appTextView!!.setTypeface(viewModel.fontList!![1].fontTypeface)
         }
     }
 
@@ -655,7 +657,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.tvAllowBooking.set(res.body()!!.data.booking_status!!)
                                 viewModel.categoryName.set(res.body()!!.data.category_name!!)
-
+                                viewModel.font_typeface.set(res.body()?.data?.font_name)
                                 // viewModel.checkScreenType
                                 if(viewModel.checkScreenType=="") {
                                     Log.e("Profile_Show===","Yes")
@@ -708,6 +710,10 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                     // viewModel.textColor.value = res.body()?.data?.font_color
                                     // viewModel.backgrColor.set(res.body()?.data?.background_color)
 
+
+
+
+
                                     if(res.body()?.data?.font_color!=null && res.body()?.data?.font_color!=""
                                         && !(res.body()?.data?.font_color.equals("null"))) {
                                         if (res.body()?.data?.font_color!!.contains("#")) {
@@ -755,7 +761,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
 
                                     //  viewModel.borderViewColor.set(res.body()?.data?.border_color)
-                                    viewModel.font_typeface.set(res.body()?.data?.font_name)
+
 
                                     res.body()?.data?.border_opacity?.let {
                                         viewModel.border_opacity.set(it)
@@ -902,7 +908,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                 )
 
 
-                                var fontListModel:FontsListModelResponse
+                                var fontListModel:FontsListModelResponse?=null
                                 if(viewModel.font_typeface.get().toString()!="null" && viewModel.font_typeface.get()!="") {
                                     var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
                                     if(fontList1.size>0){
@@ -912,16 +918,12 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                         fontListModel=viewModel.fontList!![0]
                                     }
                                 }else {
-                                    fontListModel= viewModel.fontList!![0]
+                                  // fontListModel= viewModel.fontList!![0]
+                                    fontListModel=FontsListModelResponse(viewModel.fontList!![0].fontTypeface,"temp")
                                 }
 
-                                setAdapter(dataList, dscList, fontListModel)
 
-                                binding!!.ivFavDetails
-
-//                                }
-
-
+                                setAdapter(dataList, dscList, fontListModel!!)
 
                             } else {
                                 binding?.displayBack?.visibility = View.GONE
