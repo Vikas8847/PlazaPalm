@@ -1,6 +1,7 @@
 package com.example.plazapalm.utils
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.graphics.Typeface
 import android.location.Location
 import android.media.MediaPlayer
@@ -25,6 +26,7 @@ import com.bumptech.glide.Glide
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.models.GetProfileData
+import com.example.plazapalm.models.ProfileCateData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.example.plazapalm.utils.CommonMethods.context
 import com.google.android.gms.maps.model.LatLng
@@ -32,6 +34,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import me.relex.circleindicator.CircleIndicator
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -576,7 +580,7 @@ object BindingAdapters {
         if (imageUrl != null) {
 
             var view=LayoutInflater.from(MainActivity.context.get()).inflate(R.layout.empty_video_layout,null)
-          var  ivVideoIcon= view.findViewById<AppCompatImageView>(R.id.ivVideoIcon)
+            var  ivVideoIcon= view.findViewById<AppCompatImageView>(R.id.ivVideoIcon)
             ivVideoIcon.visibility=View.VISIBLE
             /*   Glide.with(CommonMethods.context)
                    .load(IMAGE_LOAD_URL + imageUrl)
@@ -735,8 +739,9 @@ object BindingAdapters {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.M)
     @BindingAdapter(
-        value = ["calculateDistance", "destinationLat", "destinationLong", "currentLat", "currentLong"],
+        value = ["calculateDistance", "destinationLat", "destinationLong", "currentLat", "currentLong","textData","toptext"],
         requireAll = false
     )
     @JvmStatic
@@ -746,7 +751,7 @@ object BindingAdapters {
         destinationLat: Double,
         destinationLong: Double,
         currentLat: Double,
-        currentLong: Double
+        currentLong: Double,profileData:ProfileCateData,toptext:Int
     ) {
 
         /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
@@ -784,6 +789,47 @@ object BindingAdapters {
         }
 
         Log.e("ABCDDDDDDD2222==", milesValues.toString())
+
+        if(toptext==3){
+            if (profileData.is_bottom_selected ) {
+                if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
+                    destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                } else {
+                    destinationTV.setTextColor(Color.parseColor(profileData.frontpage_font_color))
+                }
+
+                if (profileData.frontpage_font_size == 0) {
+                    destinationTV.textSize =
+                        MainActivity.context.get()!!.resources.getDimension(com.intuit.ssp.R.dimen._10ssp)
+                } else {
+                    destinationTV.textSize = profileData.frontpage_font_size.toFloat()
+                }
+                if (profileData.frontpage_font_opacity == 0) {
+                    destinationTV.alpha = 1f
+                } else {
+                    var finalOpacity =((profileData.frontpage_font_opacity.toFloat())/100f).toFloat()
+                    destinationTV.alpha = finalOpacity
+                }
+
+                if (profileData.frontpage_bottom_text.toString() == "") {
+                } else {
+                    var fontList= getNewFontsInList()
+                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if(fontList1.size>0){
+                        destinationTV.setTypeface(fontList1[0].fontTypeface)
+                    }
+                }
+            }else
+            {
+                destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                //destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                // textView.textSize=MainActivity.context.get()!!.resources.getDimension(com.intuit.ssp.R.dimen._5ssp)
+                // textView.alpha=1f
+            }
+        }else
+        {
+            destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+        }
     }
 
 
@@ -841,10 +887,10 @@ object BindingAdapters {
 
             } else {
 
-            calendarView.setSelectionBackground(R.drawable.splash_icon)
-            Log.e("lkds2", i.toString())
+                calendarView.setSelectionBackground(R.drawable.splash_icon)
+                Log.e("lkds2", i.toString())
+            }
         }
-    }
 
 //        if ("pending"!=null && "pending".equals("pending")) {
 //            calendarView.setSelectionBackground(R.drawable.bookanother_back)
@@ -857,4 +903,193 @@ object BindingAdapters {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter(value = ["textproperties","toptext"])
+    @JvmStatic
+    fun textproperties(
+        textView: AppCompatTextView,
+        profileData: ProfileCateData,toptext:Int
+    ) {
+        if(toptext==1) {
+            if (profileData.is_top_selected) {
+                if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
+                    textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                } else {
+                    textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
+                }
+
+                if (profileData.frontpage_font_size == 0) {
+                    textView.textSize =
+                        MainActivity.context.get()!!.resources.getDimension(com.intuit.ssp.R.dimen._10ssp)
+                } else {
+                    textView.textSize = profileData.frontpage_font_size.toFloat()
+                }
+
+                if (profileData.frontpage_font_opacity == 0) {
+                    textView.alpha = 1f
+                } else {
+                    //var finalOpacity = (getExactValue(profileData.frontpage_font_opacity * 2.55)).toFloat()
+                    var finalOpacity =((profileData.frontpage_font_opacity.toFloat())/100f).toFloat()
+                    textView.alpha = finalOpacity
+                    Log.e("dfwfwfwf=w==",finalOpacity.toString())
+                }
+
+                if (profileData.frontpage_bottom_text.toString() == "") {
+                } else {
+                    var fontList= getNewFontsInList()
+                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if(fontList1.size>0){
+                        textView.setTypeface(fontList1[0].fontTypeface)
+                    }
+                }
+
+            }else
+            {
+                textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                //textView.textSize=MainActivity.context.get()!!.resources.getDimension(com.intuit.ssp.R.dimen._5ssp)
+                // textView.alpha=1f
+            }
+        }
+        else
+        {
+            if (profileData.is_bottom_selected) {
+                if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
+                    textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                } else {
+                    textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
+                }
+
+                if (profileData.frontpage_font_size == 0) {
+                    textView.textSize =
+                        MainActivity.context.get()!!.resources.getDimension(com.intuit.ssp.R.dimen._10ssp)
+                } else {
+                    textView.textSize = profileData.frontpage_font_size.toFloat()
+                }
+                if (profileData.frontpage_font_opacity == 0) {
+                    textView.alpha = 1f
+                } else {
+                    var finalOpacity =((profileData.frontpage_font_opacity.toFloat())/100f).toFloat()
+                    textView.alpha = finalOpacity
+                }
+
+                if (profileData.frontpage_bottom_text.toString() == "") {
+                } else {
+                    var fontList= getNewFontsInList()
+                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if(fontList1.size>0){
+                        textView.setTypeface(fontList1[0].fontTypeface)
+                    }
+                }
+            }else
+            {
+                textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                // textView.textSize=MainActivity.context.get()!!.resources.getDimension(com.intuit.ssp.R.dimen._5ssp)
+                // textView.alpha=1f
+            }
+        }
+
+        // }
+
+    }
+
+
+    fun getExactValue(value:Double):Int
+    {
+        //  var value=27.50
+        var bd: BigDecimal = BigDecimal.valueOf(value)
+        bd= bd.setScale(0, RoundingMode.HALF_UP)
+        return bd.toInt()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter(
+        value = ["calculateDistanceForFavourite", "destinationLat", "destinationLong", "currentLat", "currentLong"],
+        requireAll = false
+    )
+    @JvmStatic
+    fun calculateDistanceForFavourite(
+        destinationTV: TextView,
+        preferenceFile11: String,
+        destinationLat: Double,
+        destinationLong: Double,
+        currentLat: Double,
+        currentLong: Double
+    ) {
+
+        /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
+          var currentLong=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()*/
+
+        //currentLat= Constants.TEMP_LATVALUE!!
+        //currentLong= Constants.TEMP_LONGVALUE!!
+
+
+        //var currentLat="30.7046".toDouble()
+        //var currentLong="76.7179".toDouble()
+        Log.e("egmhamgasg===", Constants.TEMP_LATVALUE!!.toString())
+        Log.e("egmhamgasg111===", Constants.TEMP_LONGVALUE!!.toString())
+        val latLngA =
+            LatLng(Constants.TEMP_LATVALUE!!.toDouble(), Constants.TEMP_LONGVALUE!!.toDouble())
+        // val latLngB = LatLng(destLat, destLong)
+        val latLngB = LatLng(destinationLat, destinationLong)
+        val locationA = Location("Point A")
+        locationA.latitude = latLngA.latitude
+        locationA.longitude = latLngA.longitude
+
+        val locationB = Location("Point B")
+        locationB.latitude = latLngB.latitude
+        locationB.longitude = latLngB.longitude
+
+        Log.e("ABCDDDDDDD==", locationA.toString())
+        Log.e("ABCDDDDDDD1111==", locationB.toString())
+        var distance = locationA.distanceTo(locationB).toDouble().toString()
+
+        var milesValues = metersToMiles(distance.toDouble())
+        if (milesValues.toString().contains(".")) {
+            destinationTV.text = milesValues.toString().split(".")[0] + " " + Constants.MILES_TEXT
+        } else {
+            destinationTV.text = milesValues.toString() + " " + Constants.MILES_TEXT
+        }
+
+        Log.e("ABCDDDDDDD2222==", milesValues.toString())
+
+        /*  if(toptext==3){
+              if (profileData.is_bottom_selected ) {
+                  if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
+                      destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                  } else {
+                      destinationTV.setTextColor(Color.parseColor(profileData.frontpage_font_color))
+                  }
+
+                  if (profileData.frontpage_font_size == 0) {
+                      destinationTV.textSize =
+                          MainActivity.context.get()!!.resources.getDimension(com.intuit.ssp.R.dimen._10ssp)
+                  } else {
+                      destinationTV.textSize = profileData.frontpage_font_size.toFloat()
+                  }
+                  if (profileData.frontpage_font_opacity == 0) {
+                      destinationTV.alpha = 1f
+                  } else {
+                      var finalOpacity =((profileData.frontpage_font_opacity.toFloat())/100f).toFloat()
+                      destinationTV.alpha = finalOpacity
+                  }
+
+                  if (profileData.frontpage_bottom_text.toString() == "") {
+                  } else {
+                      var fontList= getNewFontsInList()
+                      var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                      if(fontList1.size>0){
+                          destinationTV.setTypeface(fontList1[0].fontTypeface)
+                      }
+                  }
+              }else
+              {
+                  //destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                  // textView.textSize=MainActivity.context.get()!!.resources.getDimension(com.intuit.ssp.R.dimen._5ssp)
+                  // textView.alpha=1f
+              }
+          }else
+          {
+              destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+          }*/
+    }
 }
