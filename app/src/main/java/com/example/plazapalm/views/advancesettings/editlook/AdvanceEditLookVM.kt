@@ -254,6 +254,7 @@ class AdvanceEditLookVM @Inject constructor(
             searchFunctionality()
         }
         fontBottomSheet?.setContentView(scheduleBinding?.root!!)
+        fontBottomSheet?.behavior?.peekHeight=WindowManager.LayoutParams.MATCH_PARENT
         fontBottomSheet?.show()
         typfaceObserverLiveData.postValue(false)
         setAdapter()

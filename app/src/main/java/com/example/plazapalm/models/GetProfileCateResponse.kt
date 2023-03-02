@@ -41,7 +41,10 @@ data class ProfileCateData(
     val u_id: String,
     val user_name: String,
     var lngValue:Double?,
-    var mediaType:Int
+    var mediaType:Int,
+    var frontpage_font_size:Int,
+    var frontpage_font_opacity:Int,
+    var frontpage_font_color:String,
 ): AbstractModel()
 
 data class DashLocation(
