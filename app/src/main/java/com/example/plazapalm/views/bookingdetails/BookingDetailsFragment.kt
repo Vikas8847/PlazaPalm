@@ -49,13 +49,13 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     }
 
     private fun customerORProvider() {
+        Log.e("SDDSasdas", viewModel.userType.get().toString() + " Vxv ")
+
         if (viewModel.userType.get().toString().equals("customer")) {
             getBookingDataForCustomer()
-            Log.e("SDDSasdas", viewModel.userType.get().toString() + " Vxv ")
 
         } else if (viewModel.userType.get().toString().equals("provider")) {
             getBookingDataForProvider()
-            Log.e("SDDSasdas", viewModel.userType.get().toString() + "  Vdfgdf ")
         }
     }
 
