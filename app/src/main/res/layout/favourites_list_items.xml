@@ -153,11 +153,12 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvFavItemDistance"
-                            calculateDistance="@{model.location_text}"
+                            calculateDistanceForFavourite="@{model.location_text}"
                             currentLat="@{vm.lati}"
                             currentLong="@{vm.longi}"
                             destinationLat="@{model.location.coordinates[1]}"
                             destinationLong="@{model.location.coordinates[0]}"
+
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_5sdp"

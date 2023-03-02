@@ -20,10 +20,7 @@ import com.example.plazapalm.databinding.AdvanceShowViewProfileBinding
 import com.example.plazapalm.databinding.EditFrontPageFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.pref.PreferenceFile
-import com.example.plazapalm.utils.CommonMethods
-import com.example.plazapalm.utils.Constants
-import com.example.plazapalm.utils.getFontsInList
-import com.example.plazapalm.utils.hideKeyboard
+import com.example.plazapalm.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.String
 import javax.inject.Inject
@@ -52,7 +49,7 @@ class EditFrontPageFragment : Fragment(R.layout.edit_front_page_fragment) {
     ): View? {
         binding = EditFrontPageFragmentBinding.inflate(layoutInflater)
         CommonMethods.statusBar(true)
-        var fontTypeFaceList= requireActivity().getFontsInList()
+        var fontTypeFaceList= getNewFontsInList()
         viewModel.fontList=fontTypeFaceList
 
         viewModel.screenHeight= getWindowHeight()
