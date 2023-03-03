@@ -395,7 +395,7 @@ interface RetrofitApi {
 
 
     /** GetBookingDetailsForCustomer Api */
-    @GET(GET_BOOKING_DETAILSFOR_CUSTOMER)
+    @GET(GET_BOOKING_DETAILSFOR_PROVIDER)
     suspend fun getBookingDetailsForProvider(
         @Header("Authorization") Authorization: String,
         @Query("booking_id") booking_id: String

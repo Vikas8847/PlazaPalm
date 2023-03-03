@@ -72,6 +72,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         super.onCreate(savedInstanceState)
         viewModel.checkScreenType=""
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,

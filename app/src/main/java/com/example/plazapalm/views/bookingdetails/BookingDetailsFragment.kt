@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.bookingdetails
 
 import android.os.Bundle
+import android.text.TextUtils.split
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,13 +50,13 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     }
 
     private fun customerORProvider() {
+        Log.e("SDDSasdas", viewModel.userType.get().toString() + " Vxv ")
+
         if (viewModel.userType.get().toString().equals("customer")) {
             getBookingDataForCustomer()
-            Log.e("SDDSasdas", viewModel.userType.get().toString() + " Vxv ")
 
         } else if (viewModel.userType.get().toString().equals("provider")) {
-            getBookingDataForProvider()
-            Log.e("SDDSasdas", viewModel.userType.get().toString() + "  Vdfgdf ")
+//            getBookingDataForProvider()
         }
     }
 
@@ -104,10 +105,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         )
                         viewModel.bookingStatus.set("Booking Status : " + userdata.get(postion as Int).booking_status)
 
-                        if (userdata.get(postion).postProfile_picture == null || userdata.get(
-                                postion
-                            ).postProfile_picture.isEmpty()
-                        ) {
+                        if (userdata.get(postion).postProfile_picture == null || userdata.get(postion).postProfile_picture.isEmpty()) {
                             Log.e("DasQWK", "Work4")
                             viewModel.imageUrl.set("https://i.picsum.photos/id/65/200/300.jpg?hmac=o9HaDBPcrCPi8zfB6MoTe6MNNVPsEN4orpzsHhCPlbU")
                         } else {
@@ -161,7 +159,8 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         }
 
 //                        viewModel.getCustomerDetails()
-                    } else if (userdata.get(postion as Int).userType.equals("provider")) {
+                    }
+                    else if (userdata.get(postion as Int).userType.equals("provider")) {
                         //                     viewModel.getCustomerDetails()
 
                         /*** For Provider */
@@ -184,7 +183,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             ).customer_last_name
                         )
 
-                        if (userdata.get(postion).postProfile_picture == null || userdata.get(
+                  /*      if (userdata.get(postion).postProfile_picture == null || userdata.get(
                                 postion
                             ).postProfile_picture.isEmpty()
                         ) {
@@ -193,7 +192,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         } else {
                             Log.e("DasQWK  ", UPLOAD_MEDIA)
                             viewModel.imageUrl.set(userdata.get(postion as Int).postProfile_picture[0].toString())
-                        }
+                        }*/
 
                         viewModel.bookingStatus.set("Category : " + userdata.get(postion).category_name)
                         if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&
@@ -294,8 +293,14 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             val arrayList = ArrayList<Joined>()
                             arrayList.clear()
                             Log.e("RESEER", res.body().toString())
-                            for (idx in 0 until res.body()!!.data.size) {
 
+                            for (idx in 0 until res.body()!!.data.size) {
+                                val splitValue = res.body()!!.data[idx].choose_date
+                                val date = splitValue!!.split("T").toTypedArray()
+
+                                Log.e("salkjkl",date[0].toString())
+
+                                viewModel.date.set(date[0])
                                 for (i in 0 until res.body()!!.data[idx].question_answer.size) {
                                     arrayList.add(
                                         Joined(

@@ -31,19 +31,18 @@
         tools:replace="android:allowBackup">
         <activity
             android:name=".chat.ChatActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
 
-     <!--   <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true"
-            tools:ignore="WrongManifestParent">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>-->
+        <!--   <provider
+               android:name="androidx.core.content.FileProvider"
+               android:authorities="${applicationId}.fileprovider"
+               android:exported="false"
+               android:grantUriPermissions="true"
+               tools:ignore="WrongManifestParent">
+               <meta-data
+                   android:name="android.support.FILE_PROVIDER_PATHS"
+                   android:resource="@xml/file_paths" />
+           </provider>-->
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -54,11 +53,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-
-
-
-
 
 
         <meta-data
@@ -139,8 +133,13 @@
             </intent-filter>
         </service>
 
-        <service android:name=".workmanager.MyService"
-            android:exported="true"/>
+        <service
+            android:name=".workmanager.MyService"
+            android:exported="true" />
+        <service
+            android:name=".utils.ServiceClass"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

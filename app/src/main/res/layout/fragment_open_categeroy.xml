@@ -135,6 +135,7 @@
             tools:layout_editor_absoluteX="16dp"
             tools:listitem="@layout/categories_list_items"
             />
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.appcompat.widget.AppCompatImageView

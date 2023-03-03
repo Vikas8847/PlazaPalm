@@ -174,8 +174,6 @@ class CategoriesListVM @Inject constructor(
                     categoriesDataList.addAll(newDataList)
                     Log.e("nvkwdnwvdswvdvd===",categoriesDataList.toString())
                     adapterCategories.notifyDataSetChanged()
-//                    dataStoreUtil.saveData(res.body()?.data!!)
-//                    Log.e("SSSSS", res.body()?.data!![0]._id.toString())
 
                     adapterCategories.setOnItemClick { view, position, type ->
                         when (type) {
