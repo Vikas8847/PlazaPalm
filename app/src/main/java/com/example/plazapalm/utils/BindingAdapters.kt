@@ -18,6 +18,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -25,6 +26,7 @@ import com.apachat.swipereveallayout.core.SwipeLayout
 import com.bumptech.glide.Glide
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
+import com.example.plazapalm.databinding.VideoShowLayoutBinding
 import com.example.plazapalm.models.FavData
 import com.example.plazapalm.models.GetProfileData
 import com.example.plazapalm.models.ProfileCateData
@@ -445,7 +447,7 @@ object BindingAdapters {
     fun setCalndarBackground(
         view: androidx.constraintlayout.widget.ConstraintLayout,
         bookingStatus: String,
-        setCalndarUserType: String
+        setCalndarUserType: String,
     ) {
         if (setCalndarUserType.equals("provider")) {
             if (bookingStatus.equals("pending") || bookingStatus.equals("cancelled") ||
@@ -574,7 +576,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("setVideoImage", requireAll = false)
     fun setVideoImage(
-        videoView: VideoView, imageUrl: String?
+        videoView: VideoView, imageUrl: String?,
     ) {
         var position = 0
         Log.e("efmgmlwgge===", "dffff")
@@ -715,7 +717,7 @@ object BindingAdapters {
     @BindingAdapter(value = ["setEditCoverImage"], requireAll = false)
     fun setEditCoverImage(
         appCompatImageView: AppCompatImageView,
-        imageUrl: String?
+        imageUrl: String?,
     ) {
         if (imageUrl != null) {
             Glide.with(MainActivity.context.get()!!)
@@ -752,7 +754,7 @@ object BindingAdapters {
         destinationLat: Double,
         destinationLong: Double,
         currentLat: Double,
-        currentLong: Double,profileData:ProfileCateData,toptext:Int
+        currentLong: Double, profileData: ProfileCateData, toptext: Int,
     ) {
 
         /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
@@ -892,7 +894,7 @@ object BindingAdapters {
     @JvmStatic
     fun SetSelectionColor(
         calendarView: com.applandeo.materialcalendarview.CalendarView,
-        value: String?
+        value: String?,
     ) {
 
         Log.e("ZSDZXC", value.toString() + " cxv ")
@@ -924,7 +926,7 @@ object BindingAdapters {
     @JvmStatic
     fun textproperties(
         textView: AppCompatTextView,
-        profileData: ProfileCateData,toptext:Int,nameValue:String
+        profileData: ProfileCateData, toptext: Int, nameValue: String,
     ) {
         textView.setText(nameValue)
         if(toptext==1) {
@@ -1069,7 +1071,7 @@ object BindingAdapters {
         destinationLat: Double,
         destinationLong: Double,
         currentLat: Double,
-        currentLong: Double,textData:FavData,toptext:Int
+        currentLong: Double, textData: FavData, toptext: Int,
     ) {
 
         /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
@@ -1220,7 +1222,7 @@ object BindingAdapters {
     @JvmStatic
     fun textpropertiesForFavourite(
         textView: AppCompatTextView,
-        profileData: FavData,toptext:Int
+        profileData: FavData, toptext: Int,
     ) {
         if(toptext==1) {
             if (profileData.is_top_selected!!) {
@@ -1348,5 +1350,76 @@ object BindingAdapters {
             textview.visibility = View.VISIBLE
         }
     }
+
+
+    @JvmStatic
+    @BindingAdapter("app:setIncludeLayoutImage", requireAll = false)
+    fun setIncludeLayoutImage(
+        videoView: View, imageUrl: String?,
+    ) {
+        var position = 0
+        Log.e("efmgmlwgge===", "dffff")
+        if (imageUrl != null) {
+
+            val binding: VideoShowLayoutBinding =
+                VideoShowLayoutBinding.inflate(LayoutInflater.from(MainActivity.context.get()))
+           // binding.includedLayout.textView.setText("text")
+
+
+               /* var view=LayoutInflater.from(MainActivity.context.get()).inflate(R.layout.video_show_layout,null)
+                var  ivVideoIcon= view.findViewById<AppCompatImageView>(R.id.ivVideoIcon)
+                var  videoView= view.findViewById<FullScreenVideoView>(R.id.newVideoView)*/
+            // ivVideoIcon.visibility=View.VISIBLE
+            /*   Glide.with(CommonMethods.context)
+                   .load(IMAGE_LOAD_URL + imageUrl)
+                   .override(100,100)
+                   .into(videoView)*/
+            var videoLink = IMAGE_LOAD_URL + imageUrl
+
+            Log.e("efmgmlwgge===", videoLink)
+            binding.newVideoView.setVideoPath(videoLink)
+            //  mediaController.setAnchorView(videoView)
+            //   mediaController.setMediaPlayer(videoView)
+            // videoView.setMediaController(mediaController)
+            /*  var imageIcon=ImageView(contextValue)
+              imageIcon.layoutParams.height=20
+              imageIcon.layoutParams.width=20
+              imageIcon.setImageResource(R.drawable.ic_play_icon)
+              imageIcon.visibility=View.VISIBLE*/
+
+            binding.newVideoView.setOnPreparedListener { mp ->
+                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+                mp.setVolume(0f, 0f)
+                binding.newVideoView.seekTo(position)
+                binding.ivVideoIcon.visibility=View.GONE
+                // imageIcon.visibility=View.GONE
+                if (position == 0) {
+                    binding.newVideoView.start()
+                } else {
+                    binding.newVideoView.pause()
+                }
+
+                mp.isLooping = true
+                // CommonMethods.showToast(requireContext(), "Video is Preparing")
+                Log.d("VideoPreparing", "video is preparing " + binding.newVideoView.duration)
+            }
+            binding.newVideoView.setOnErrorListener { _, code1, _ ->
+                Log.e("Video_ErrorCode===", code1.toString())
+                //  Log.d("VideoError", "$mediaPlayer")
+                //  CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
+                true
+            }
+            binding.newVideoView.setOnCompletionListener { mp ->
+                // videoView.start()
+                /* if (mp.duration == videoView.duration) {
+ \                }*/
+            }
+            binding.newVideoView.requestFocus()
+            binding.newVideoView.start()
+        } else {
+            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
+        }
+    }
+
 
 }

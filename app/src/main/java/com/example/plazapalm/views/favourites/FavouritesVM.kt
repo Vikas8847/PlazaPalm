@@ -161,7 +161,6 @@ class FavouritesVM @Inject constructor(
 
     }
 
-
     private fun AddtoFavAPI(pIdValue: String, position: Int, ) {
 
         Log.e("SADFddddddddddddd==", pIdValue)
@@ -205,12 +204,9 @@ class FavouritesVM @Inject constructor(
                     } else {
                         CommonMethods.showToast(CommonMethods.context, res.message())
                     }
-
                 }
-
             }
         )
     }
-
 }
 

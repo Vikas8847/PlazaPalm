@@ -1,6 +1,7 @@
 package com.example.plazapalm.views.dashboard
 
 import android.content.Context
+import android.graphics.Color
 import android.location.Location
 import android.media.MediaPlayer
 import android.util.Log
@@ -75,10 +76,10 @@ class RVDashboardAdapter(
             itemClick.onItemClick(position, holder.player_layout)
         }
 
-      // textproperties(holder.tvDashBoardItemName,profileList[position],1,fontList)
-        /*   textproperties(holder.tvDashBoardItemLastName,profileList[position],1)
-          textproperties(holder.tvDashBoardItemDescription,profileList[position],2)
-          textproperties(holder.tvDashBoardItemLocation,profileList[position],2)*/
+       textproperties(holder.tvDashBoardItemName,profileList[position],1,fontList)
+           textproperties(holder.tvDashBoardItemLastName,profileList[position],1,fontList)
+          textproperties(holder.tvDashBoardItemDescription,profileList[position],2,fontList)
+          textproperties(holder.tvDashBoardItemLocation,profileList[position],2,fontList)
 
         calculateDistance(holder.tvDashBoardItemDistance,
             profileList[position].lat,
@@ -141,14 +142,6 @@ class RVDashboardAdapter(
         destinationLong: Double,
         profileData: ProfileCateData, toptext: Int,
     ) {
-
-        /*  var currentLat=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble()
-          var currentLong=preferenceFile.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()*/
-
-        //currentLat= Constants.TEMP_LATVALUE!!
-        //currentLong= Constants.TEMP_LONGVALUE!!
-
-
         //var currentLat="30.7046".toDouble()
         //var currentLong="76.7179".toDouble()
         Log.e("egmhamgasg===", Constants.TEMP_LATVALUE!!.toString())
@@ -179,7 +172,7 @@ class RVDashboardAdapter(
 
         Log.e("ABCDDDDDDD2222==", milesValues.toString())
 
-       /* if (toptext == 3) {
+        if (toptext == 3) {
             if (profileData.is_bottom_selected!!) {
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     destinationTV.setTextColor(context.resources.getColor(R.color.white))
@@ -197,7 +190,6 @@ class RVDashboardAdapter(
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
                         destinationTV.textSize = 12f
                     } else {
-                        // destinationTV.textSize = profileData.frontpage_font_size.toFloat()
                         var finalTextSize =
                             (getTextSizeValue((profileData.frontpage_font_size.toString()
                                 .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()))
@@ -209,7 +201,6 @@ class RVDashboardAdapter(
                     if (profileData.frontpage_font_size.toString().toDouble() == 0.0) {
                         destinationTV.textSize = 12f
                     } else {
-                        // destinationTV.textSize = profileData.frontpage_font_size.toFloat()
                         var finalTextSize =
                             (getTextSizeValue((profileData.frontpage_font_size.toString().toDouble() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()))
                         finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
@@ -218,17 +209,17 @@ class RVDashboardAdapter(
                 }
 
 
-                if (profileData.frontpage_font_opacity == 0) {
+             /*   if (profileData.frontpage_font_opacity == 0) {
                     destinationTV.alpha = 1f
                 } else {
                     var finalOpacity =
                         ((profileData.frontpage_font_opacity!!.toFloat()) / 100f).toFloat()
                     destinationTV.alpha = finalOpacity
                 }
-
+*/
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                    var fontList = getNewFontsInList()
+                  //  var fontList = getNewFontsInList()
                     var fontList1 =
                         fontList.filter { it.name == profileData.frontpage_bottom_text.toString() }
                     if (fontList1.size > 0) {
@@ -239,16 +230,16 @@ class RVDashboardAdapter(
                 destinationTV.setTextColor(context.resources.getColor(R.color.white))
                 destinationTV.textSize = 12f
                 destinationTV.alpha = 1f
-                var fontList = getNewFontsInList()
+               // var fontList = getNewFontsInList()
                 destinationTV.typeface = fontList[1].fontTypeface
             }
         } else {
             destinationTV.setTextColor(context.resources.getColor(R.color.white))
             destinationTV.textSize = 12f
             destinationTV.alpha = 1f
-            var fontList = getNewFontsInList()
+          //  var fontList = getNewFontsInList()
             destinationTV.typeface = fontList[1].fontTypeface
-        }*/
+        }
     }
 
     fun metersToMiles(meters: Double): Double {
@@ -264,17 +255,8 @@ class RVDashboardAdapter(
         if (imageUrl != null) {
 
             var videoLink = IMAGE_LOAD_URL + imageUrl
-
             Log.e("efmgmlwgge===", videoLink)
             videoView.setVideoPath(videoLink)
-            //  mediaController.setAnchorView(videoView)
-            //   mediaController.setMediaPlayer(videoView)
-            // videoView.setMediaController(mediaController)
-            /*  var imageIcon=ImageView(contextValue)
-              imageIcon.layoutParams.height=20
-              imageIcon.layoutParams.width=20
-              imageIcon.setImageResource(R.drawable.ic_play_icon)
-              imageIcon.visibility=View.VISIBLE*/
 
             videoView.setOnPreparedListener { mp ->
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
@@ -294,19 +276,13 @@ class RVDashboardAdapter(
             }
             videoView.setOnErrorListener { _, code1, _ ->
                 Log.e("Video_ErrorCode===", code1.toString())
-                //  Log.d("VideoError", "$mediaPlayer")
-                //  CommonMethods.showToast(MainActivity.context.get()!!, "Error in Video Playing..")
                 true
             }
             videoView.setOnCompletionListener { mp ->
-                // videoView.start()
-                /* if (mp.duration == videoView.duration) {
- \                }*/
             }
             videoView.requestFocus()
             videoView.start()
         } else {
-            //shapeableImageView.setImageResource(R.drawable.dash_items_nurse_image)
         }
     }
 
@@ -317,12 +293,9 @@ class RVDashboardAdapter(
        // textView.setText(nameValue)
         if(toptext==1) {
             if (profileData.is_top_selected!!) {
-              /*  if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
+                if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(context.resources.getColor(R.color.white))
                 } else {
-                    if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
-                        textView.setTextColor(context.resources.getColor(R.color.white))
-                    } else {
                         var newColor=""
                         if(profileData.frontpage_font_color!!.contains("#")){
                             newColor=profileData.frontpage_font_color!!
@@ -333,9 +306,9 @@ class RVDashboardAdapter(
                         textView.setTextColor(Color.parseColor(newColor))
                     }
                     //  textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
-                }*/
+               // }
 
-               /* if(profileData.frontpage_font_size is Int){
+                if(profileData.frontpage_font_size is Int){
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
                         textView.textSize = 12f
                     } else {
@@ -353,10 +326,10 @@ class RVDashboardAdapter(
 
                         var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toDouble() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
                         finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
-
+                        Log.e("rfejfjefefef===",profileData.first_name+"=="+finalTextSize.toString())
                         textView.textSize = finalTextSize.toFloat()
                     }
-                }*/
+                }
 
               /*  if (profileData.frontpage_font_opacity == 0) {
                     textView.alpha = 1f
@@ -380,20 +353,17 @@ class RVDashboardAdapter(
                 textView.setTextColor(context.resources.getColor(R.color.white))
                 textView.textSize = 12f
                 textView.alpha=1f
-                var fontList= getNewFontsInList()
+              //  var fontList= getNewFontsInList()
                 textView.setTypeface(fontList[1].fontTypeface)
             }
         }
         else
         {
             if (profileData.is_bottom_selected!!) {
-            /*    if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
-                    textView.setTextColor(context.resources.getColor(R.color.white))
-                } else {
 
-                    if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
-                        textView.setTextColor(context.resources.getColor(R.color.white))
-                    } else {
+                if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
+                    textView.setTextColor(context.resources.getColor(R.color.white))
+                } else  {
                         var newColor=""
                         if(profileData.frontpage_font_color!!.contains("#")){
                             newColor=profileData.frontpage_font_color!!
@@ -407,9 +377,9 @@ class RVDashboardAdapter(
 
 
                     //textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
-                }*/
+             //   }
 
-          /*      if(profileData.frontpage_font_size is Int){
+                if(profileData.frontpage_font_size is Int){
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
                         textView.textSize = 12f
                     } else {
@@ -428,7 +398,7 @@ class RVDashboardAdapter(
 
                         textView.textSize = finalTextSize.toFloat()
                     }
-                }*/
+                }
 
             /* if (profileData.frontpage_font_opacity == 0) {
                     textView.alpha = 1f
@@ -449,7 +419,7 @@ class RVDashboardAdapter(
                 textView.setTextColor(context.resources.getColor(R.color.white))
                 textView.textSize=12f
                 textView.alpha=1f
-                var fontList= getNewFontsInList()
+              //  var fontList= getNewFontsInList()
                 textView.setTypeface(fontList[1].fontTypeface)
             }
         }

@@ -52,30 +52,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 android:scaleType="centerCrop"
-                android:visibility="@{model.mediaType==1?mView.VISIBLE:mView.GONE}"
                 android:src="@drawable/placeholder"
+                android:visibility="@{model.mediaType==1?mView.VISIBLE:mView.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
             <com.example.plazapalm.utils.FullScreenVideoView
+                setVideoImage="@{model.postProfile_picture[0]}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
-                setVideoImage="@{model.postProfile_picture[0]}"
+                android:visibility="@{model.mediaType==2?mView.VISIBLE:mView.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:visibility="@{model.mediaType==2?mView.VISIBLE:mView.GONE}"
-                app:layout_constraintTop_toTopOf="parent" /><View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp"
-            android:background="@drawable/dash_board_items_gradient_top"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:background="@drawable/dash_board_items_gradient_top"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:layout_width="match_parent"
@@ -94,7 +93,6 @@
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center_horizontal"
                 android:text="@{model.user_name}"
-
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,6 +172,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvFavItemLocation"
                 tool:text="2mi" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
