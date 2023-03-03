@@ -1,19 +1,17 @@
 package com.example.plazapalm.views.advancesettings.editfontpage
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
@@ -57,8 +55,6 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.math.BigDecimal
-import java.math.RoundingMode
 import java.util.*
 import javax.inject.Inject
 
@@ -67,7 +63,7 @@ import javax.inject.Inject
 class EditFrontPageVM @Inject constructor(
     private var preferenceFile: PreferenceFile,
     private var repository: Repository,
-    private var dataStoreUtil: DataStoreUtil
+    private var dataStoreUtil: DataStoreUtil,
 ) : ViewModel(), clickItem {
     var columnColor = ObservableField("")
     private var longi: Double? = null
@@ -188,11 +184,11 @@ class EditFrontPageVM @Inject constructor(
             // dialog = Dialog(context, R.style.Style_Dialog_Rounded_Corner)
             dialog = Dialog(context)
             //  dialog!!.window!!.setBackgroundDrawableResource(R.drawable.round_cornerback)
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             // dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog?.window?.setDimAmount(40f)
+            //dialog?.window?.setDimAmount(40f)
             profileBinding = AdvanceShowViewProfileBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
             dialog?.setContentView(profileBinding?.root!!)
+            //dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             /**Set advance  profile edit cover page data **/
             profileBinding?.apply {
                 /**Check if font- list text contains names set typeface according to their name **/
@@ -1843,22 +1839,32 @@ class EditFrontPageVM @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     private fun showBottomSheetDialogOne() {
+        Log.e("fontsNameList===",fontsNameList[fontsNameList.size-1].name)
         fontsFilteredList.clear()
         fontBottomSheet =
             BottomSheetDialog(MainActivity.context.get()!!, R.style.CustomBottomSheetDialogTheme)
-        fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        //  fontBottomSheet?.behavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         scheduleBinding = FontsListFragmentBinding.inflate(LayoutInflater.from(MainActivity.context.get()!!))
         scheduleBinding?.model = this
         fontBottomSheet?.setCancelable(true)
         //  setupFullHeight(fontBottomSheet!!,scheduleBinding!!.clFontListMain)
 
         fontBottomSheet!!.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        fontBottomSheet!!.behavior.peekHeight = screenHeight!!
+        fontBottomSheet!!.behavior.peekHeight = 2000
 
-      /*  scheduleBinding!!.root?.viewTreeObserver?.addOnGlobalLayoutListener {
-            val behavior = BottomSheetBehavior.from( scheduleBinding!!.root!!.parent as View)
-            behavior.peekHeight = WindowManager.LayoutParams.MATCH_PARENT
-        }*/
+        fontBottomSheet!!.behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, i: Int) {
+                fontBottomSheet!!.behavior.setPeekHeight(2000)
+            }
+
+            override  fun onSlide(bottomSheet: View, v: Float) {}
+        })
+
+
+        /*  scheduleBinding!!.root?.viewTreeObserver?.addOnGlobalLayoutListener {
+              val behavior = BottomSheetBehavior.from( scheduleBinding!!.root!!.parent as View)
+              behavior.peekHeight = WindowManager.LayoutParams.MATCH_PARENT
+          }*/
 
 
 
@@ -3143,18 +3149,18 @@ class EditFrontPageVM @Inject constructor(
                 }
 
                 if (fontSize.get().toString() == "0.0") {
-                    slider_size?.value = 16f
-                    tempFontSize.set(16f)
+                    slider_size?.value = Constants.DEFAULT_FONT_SIZE.toFloat()
+                    tempFontSize.set(Constants.DEFAULT_FONT_SIZE.toFloat())
                 } else {
                     slider_size?.value = fontSize.get()
                     tempFontSize.set(fontSize.get())
                 }
 
-                slider_size?.valueFrom = 10f
-                slider_size?.valueTo = 30f
-
+                slider_size?.valueFrom = Constants.MIN_FONT_SIZE.toFloat()
+                slider_size?.valueTo = Constants.MAX_FONT_SIZE.toFloat()
+                //  slider_size?.stepSize=1f
                 slider_size?.addOnChangeListener { _, value, _ ->
-                    changeColor?.textSize = value
+                    changeColor?.setTextSize(value)
                     tempFontSize.set(value)
                     preferenceFile.storeosize(Constants.FONT_SIZE, value)
                     setTempDataForColors(changeColor!!)
@@ -3210,10 +3216,10 @@ class EditFrontPageVM @Inject constructor(
 
             tempFontColor.set("")
             tempfontOpacity.set(100f)
-            tempFontSize.set(16f)
+            tempFontSize.set(Constants.DEFAULT_FONT_SIZE.toFloat())
 
             sliderOpacitty!!.value = 100f
-            slider_size!!.value = 16f
+            slider_size!!.value = Constants.DEFAULT_FONT_SIZE.toFloat()
 
             setTempDataForColors(textBack)
 
@@ -3255,9 +3261,9 @@ class EditFrontPageVM @Inject constructor(
         }
 
         if (tempFontSize.get().toString().equals("")) {
-            changeColor?.textSize = 12f
+            changeColor?.setTextSize(Constants.DEFAULT_FONT_SIZE.toFloat())
         } else {
-            changeColor?.textSize = tempFontSize.get()
+            changeColor?.setTextSize(tempFontSize.get())
         }
 
         if (tempfontOpacity.get().toString().equals("")) {
@@ -3285,9 +3291,9 @@ class EditFrontPageVM @Inject constructor(
         }
 
         if (fontSize.get().toString().equals("") || fontSize.get().toString().equals("0.0")) {
-            changeColor?.textSize = 12f
+            changeColor?.setTextSize(Constants.DEFAULT_FONT_SIZE.toFloat())
         } else {
-            changeColor?.textSize = fontSize.get()
+            changeColor?.setTextSize(fontSize.get())
         }
 
         if (fontOpacity.get().toString().equals("0.0") || fontOpacity.get().toString().equals("")) {
@@ -3473,13 +3479,13 @@ class EditFrontPageVM @Inject constructor(
             }
         }
     }
-    fun getExactValue(value:Double):Int
-    {
-        //  var value=27.50
-        var bd: BigDecimal = BigDecimal.valueOf(value)
-        bd= bd.setScale(0, RoundingMode.HALF_UP)
-        return bd.toInt()
-    }
+    /*   fun getExactValue(value:Double):Int
+       {
+           //  var value=27.50
+           var bd: BigDecimal = BigDecimal.valueOf(value)
+           bd= bd.setScale(0, RoundingMode.HALF_UP)
+           return bd.toInt()
+       }*/
 
     /*Call here get fonts Api */
     fun getFontsApi() {
@@ -3517,7 +3523,25 @@ class EditFrontPageVM @Inject constructor(
                                 fontOpacity.set(0.0f)
                             }
 
-                            fontSize.set(data.frontpage_font_size!!.toFloat())
+
+                            var maxFontSize=Constants.MAX_FONT_SIZE
+                            var minFontSize=Constants.MIN_FONT_SIZE
+
+                            //  var finalTextSize = (getTextSizeValue(data.frontpage_font_size!!.toFloat() *0.11)+12).toFloat()
+                            var finalTextSize = (convertFromPerceneategtoText((data.frontpage_font_size!!.toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
+                            finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+
+
+                            if(finalTextSize!!>maxFontSize || finalTextSize<minFontSize)
+                            {Log.e("sdsffsfsfs111===",finalTextSize.toString())
+                                fontSize.set(maxFontSize.toFloat())
+                            }
+                            else{
+                                var dividedValue=Constants.MAX_FONT_SIZE/100
+
+                                fontSize.set(finalTextSize.toFloat())
+                                Log.e("sdsffsfsfs===",data.frontpage_font_size.toString()+"==="+finalTextSize.toString())
+                            }
 
                             preferenceFile.storeBoolKey(Constants.isBottomTextSelected, data.is_bottom_selected)
 
@@ -3578,6 +3602,16 @@ class EditFrontPageVM @Inject constructor(
 
         var  finalOpacity=getExactValue(fontOpacity.get()/2.55).toInt()
 
+        var dividedValue=Constants.MAX_FONT_SIZE/100
+
+        var text22=fontSize.get()-Constants.MIN_FONT_SIZE.toFloat()
+        var text23=100.toFloat()/(Constants.MAX_FONT_SIZE.toFloat()-Constants.MIN_FONT_SIZE.toFloat())
+
+        var finalTextSize = (getTextSizeValue((text22 *text23).toDouble()).toDouble()).toFloat()
+
+        Log.e("sdsffsfsfs333===",text22.toString()+"==="+text23.toString())
+        Log.e("sdsffsfsfs222===",fontSize.get().toString()+"==="+finalTextSize.toString())
+
         repository.makeCall(ApiEnums.POST_EDIT_COVER_PAGE,
             loader = true, saveInCache = false, getFromCache = false,
             object : ApiProcessor<Response<PostFrontPageResponse>> {
@@ -3585,7 +3619,7 @@ class EditFrontPageVM @Inject constructor(
                     return retrofitApi.postFonts(
                         Authorization = preferenceFile.retrieveKey("token").toString(),
                         FrontPageBottomText = fontsName.get()!!,
-                        FrontPageFontSize = fontSize.get().toInt(),
+                        FrontPageFontSize = finalTextSize.toInt(),
                         FrontPageTopText = fontsName.get()!!,
                         FrontPagerFontOpacity = finalOpacity,
                         FrontPagerFrontColor = fontColor.get().toString(),

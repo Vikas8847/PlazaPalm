@@ -46,9 +46,7 @@ import com.example.plazapalm.networkcalls.Repository
 import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.recycleradapter.RecyclerAdapter
-import com.example.plazapalm.utils.ColorsAdapter
-import com.example.plazapalm.utils.CommonMethods
-import com.example.plazapalm.utils.Constants
+import com.example.plazapalm.utils.*
 import com.example.plazapalm.utils.Constants.BACKGROUND_COLOR
 import com.example.plazapalm.utils.Constants.BORDER_COLOR
 import com.example.plazapalm.utils.Constants.BORDER_OPACITY
@@ -62,7 +60,6 @@ import com.example.plazapalm.utils.Constants.Column_color
 import com.example.plazapalm.utils.Constants.FONTCOLOR
 import com.example.plazapalm.utils.Constants.FONT_COLOR
 import com.example.plazapalm.utils.Constants.FONT_OPACITY
-import com.example.plazapalm.utils.hideKeyboard
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.Slider
@@ -1451,13 +1448,7 @@ class AdvanceEditLookVM @Inject constructor(
         }
     }
 
-    fun getExactValue(value:Double):Int
-    {
-        //  var value=27.50
-        var bd: BigDecimal = BigDecimal.valueOf(value)
-        bd= bd.setScale(0, RoundingMode.HALF_UP)
-        return bd.toInt()
-    }
+
 
     /** Post api for color back ground ..**/
     private fun postColorsAPI() = viewModelScope.launch {
@@ -1472,7 +1463,11 @@ class AdvanceEditLookVM @Inject constructor(
         var borderOpacityValue = getExactValue((borderOpacity.get().toDouble()/2.55))
         var fontOpacityValue = getExactValue((fontOpacity.get().toDouble()/2.55))
 
+        var text22=fontSize.get()-Constants.MIN_FONT_SIZE.toFloat()
+        var text23=100.toFloat()/(Constants.MAX_FONT_SIZE.toFloat()-Constants.MIN_FONT_SIZE.toFloat())
 
+        var finalTextSize = (getTextSizeValue((text22 *text23).toDouble()).toDouble()).toFloat()
+        Log.e("sdsffsfsfs111===",fontSize.get().toString()+"=="+finalTextSize.toString())
         //   var  finalOpacity=(fontOpacity.get()/2.55).toInt()
         Log.e("eefefefef##==",columnOpacityValue.toString())
         Log.e("eefefefef##11==",borderOpacityValue.toString())
@@ -1493,7 +1488,7 @@ class AdvanceEditLookVM @Inject constructor(
                         borderColor = borderColor.get().toString(),
                         fontName = fontsName.get().toString(),
                         fontColor = fontColor.get().toString(),
-                        fontSize = fontSize.get().toInt(),
+                        fontSize = finalTextSize.toInt(),
                         fontOpacity = fontOpacityValue.toInt()
                     )
                 }
@@ -1643,9 +1638,9 @@ class AdvanceEditLookVM @Inject constructor(
             }
 
             if (fontSize.get().toString().equals("0.0")) {
-                textView.textSize = 12f
+                textView.setTextSize(Constants.DEFAULT_FONT_SIZE.toFloat())
             } else {
-                textView.textSize = fontSize.get()
+                textView.setTextSize(fontSize.get())
             }
 
             Log.e("gswrdddgggg===", fontSize.get().toString())
@@ -1936,9 +1931,28 @@ class AdvanceEditLookVM @Inject constructor(
                                     columnOpacity.set(0.0f)
                                 }
                                 ///////////////////////////////////////////////////////
+                                var maxFontSize=Constants.MAX_FONT_SIZE
+                                var minFontSize=Constants.MIN_FONT_SIZE
+
+                                //  var finalTextSize = (getTextSizeValue(data.frontpage_font_size!!.toFloat() *0.11)+12).toFloat()
+                                var finalTextSize = (convertFromPerceneategtoText((data.font_size!!.toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
+                                finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+
+                                if(finalTextSize!!>maxFontSize || finalTextSize<minFontSize)
+                                {Log.e("sdsffsfsfs111===",finalTextSize.toString())
+                                    fontSize.set(maxFontSize.toFloat())
+                                }
+                                else{
+                                    var dividedValue=Constants.MAX_FONT_SIZE/100
+
+                                    fontSize.set(finalTextSize.toFloat())
+                                    Log.e("sdsffsfsfs===",data.font_size.toString()+"==="+finalTextSize.toString())
+                                }
 
 
-                                fontSize.set((data.font_size?.toFloat()!!))
+
+
+
                                 borderWidth.set((data.border_width?.toFloat()!!))
 
                                 backgroundColor.set(data.background_color)
@@ -2159,7 +2173,7 @@ class AdvanceEditLookVM @Inject constructor(
 
                 slider_size?.addOnChangeListener { _, value, _ ->
                     if(selectedValue==3){
-                        changeColor?.textSize = value
+                        changeColor?.setTextSize(value)
                         tempBorderWidth.set(value)
                         preferenceFile.storeosize(BORDER_WIDTH, value)
                         setForTempAllColors(layoutColrs!!, changeColor!!, 0, borderView)
@@ -2216,17 +2230,17 @@ class AdvanceEditLookVM @Inject constructor(
 
 
                 if (tempFontSize.get().toString() == "0.0") {
-                    slider_size?.value = 15f
+                    slider_size?.value =  Constants.DEFAULT_FONT_SIZE.toFloat()
                 } else {
                     slider_size?.value = tempFontSize.get()
                 }
-                slider_size?.valueFrom = 10f
-                slider_size?.valueTo = 30f
+                slider_size?.valueFrom = Constants.MIN_FONT_SIZE.toFloat()
+                slider_size?.valueTo = Constants.MAX_FONT_SIZE.toFloat()
 
                 // slider_size?.value=5f
                 slider_size?.addOnChangeListener { _, value, _ ->
                     if(selectedValue==4) {
-                        changeColor?.textSize = value
+                        changeColor?.setTextSize(value)
                         //    fontSize.set(value)
                         tempFontSize.set(value)
                         preferenceFile.storeosize(Constants.FONT_SIZE, value)
@@ -2316,9 +2330,9 @@ class AdvanceEditLookVM @Inject constructor(
                         if (selectedValue == 4) {
                             tempFontColor.set("")
                             tempFontOpacity.set(100f)
-                            tempFontSize.set(12f)
+                            tempFontSize.set(Constants.DEFAULT_FONT_SIZE.toFloat())
                             sliderOpacitty!!.value = 100f
-                            slider_size!!.value = 12f
+                            slider_size!!.value = Constants.DEFAULT_FONT_SIZE.toFloat()
                             setForTempAllColors(layoutColrs!!, changeColor!!, 1, borderView)
                         } else {
 
@@ -2478,7 +2492,7 @@ class AdvanceEditLookVM @Inject constructor(
                 slider_size?.visibility = View.VISIBLE
                 /** Slider for size */
                 slider_size?.addOnChangeListener { _, value, _ ->
-                    changeColor?.textSize = value
+                    changeColor?.setTextSize(value)
                 }
                 dialog!!.findViewById<ConstraintLayout>(R.id.Show_back)
                     .setBackgroundColor(CommonMethods.context.getColor(R.color.gray))
@@ -2659,9 +2673,9 @@ class AdvanceEditLookVM @Inject constructor(
             }
 
             if (tempFontSize.get().toString().equals("") || tempFontSize.get().toString()=="0.0") {
-                textView.textSize = 12f
+                textView.setTextSize(Constants.DEFAULT_FONT_SIZE.toFloat())
             } else {
-                textView.textSize = tempFontSize.get()
+                textView.setTextSize(tempFontSize.get())
             }
 
             if (tempFontOpacity.get().toString().equals("") || tempFontOpacity.get().toString().equals("0.0")) {
@@ -2697,9 +2711,9 @@ class AdvanceEditLookVM @Inject constructor(
 
         var colorAlpha = newAlpha.times(defaultAlpha)?.roundToInt() ?: defaultAlpha
         Log.e("wdfwfwfwfw==", colorAlpha.toString())
-          if(colorAlpha>=255){
-              colorAlpha=250
-          }
+        if(colorAlpha>=255){
+            colorAlpha=250
+        }
         Log.e("wdfwfwfwfw111==", colorAlpha.toString())
         return ColorUtils.setAlphaComponent(color, colorAlpha)
 

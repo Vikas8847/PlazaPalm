@@ -65,8 +65,11 @@
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             app:iconifiedByDefault="false"
+            android:outlineAmbientShadowColor="@color/black"
+            android:outlineSpotShadowColor="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/tvChooseFont"
             app:queryBackground="@null"
+
             app:queryHint="Search"
             />
 
@@ -109,15 +112,18 @@
             android:id="@+id/rvChooseFonts"
             setRecyclerAdapter="@{model.fontListAdapter}"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_350sdp"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_2sdp"
             android:nestedScrollingEnabled="true"
+            app:layout_constrainedHeight="true"
             android:paddingTop="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/rvChooseFontRecent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="6dp"
+
             tools:listitem="@layout/fonts_list_item" />
 
         <androidx.appcompat.widget.AppCompatTextView

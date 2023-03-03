@@ -60,6 +60,7 @@ class RecyclerAdapter<T : AbstractModel>(@LayoutRes val layoutId: Int) :
             //if (isAnimation)
             // Turning off animations to make the app more smooth
             // setAnimation(holder, position)
+            holder.setIsRecyclable(false)
         } catch (e: Exception) {
 
         }

@@ -81,7 +81,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         viewModel.isFavourites.set(true)
         CommonMethods.isAdvanceMap = true
         CommonMethods.statusBar(true)
-        var fontTypeFaceList= requireActivity().getFontsInList()
+        var fontTypeFaceList=getNewFontsInList()
         viewModel.fontList=fontTypeFaceList
         binding?.mainConslayout?.visibility = View.VISIBLE
         getlocalData()

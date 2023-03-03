@@ -57,7 +57,7 @@ class DashBoardVM @Inject constructor(
     private var repository: Repository,
     var dataStoreUtil: DataStoreUtil,
     var pref: PreferenceFile,
-) : ViewModel(), clickItem {
+) : ViewModel(), clickItem,DashboardInterface {
     private var _id: String? = null
     var calulatedDistance = ObservableField("")
 
@@ -88,7 +88,6 @@ class DashBoardVM @Inject constructor(
     var idCategoriesData = ObservableArrayList<CategoriesData>()
     val adapter by lazy { RecyclerAdapter<ProfileCateData>(R.layout.dash_board_items) }
 
-
     var selectedCategoriesList = ArrayList<SelectedDataModelList>()
     var selectedCategoriesLists = ArrayList<SelectedDataModelList>()
     val dashSelectedAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.dash_board_events_items) }
@@ -99,7 +98,9 @@ class DashBoardVM @Inject constructor(
     var selectedCatId = ObservableField("")
     var searchValue = ObservableField("")
     var isRVScroll = ObservableBoolean(false)
-
+ //var rvNewView:RecyclerView?=null
+        var rvadapter:RVDashboardAdapter?=null
+        var fontList:ArrayList<FontsListModelResponse>?=null
     init {
 
         /*** 03-01-23
@@ -332,10 +333,10 @@ class DashBoardVM @Inject constructor(
         if (!(c_id.equals(""))) {
             singleList.add(c_id)
             dataObject = DashBoardPostData(singleList, lati.get().toString(),
-                "500", longi.get().toString(), userMiles.get().toString(), "1", searchValue.get().toString())
+                "100", longi.get().toString(), userMiles.get().toString(), "1", searchValue.get().toString())
         } else {
             dataObject = DashBoardPostData(dataArray, lati.get().toString(),
-                "500", longi.get().toString(), userMiles.get().toString(), "1",  searchValue.get().toString())
+                "100", longi.get().toString(), userMiles.get().toString(), "1",  searchValue.get().toString())
         }
 
         Log.e("Dash_Board_Input===", dataObject.toString())
@@ -378,15 +379,13 @@ class DashBoardVM @Inject constructor(
                                 // longi.set(pref.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble())
 
 
-                                if (res.body()!!.data.size > 0 || adapter.getAllItems().size > 0) {
+
+
+                              //  if (res.body()!!.data.size > 0 || adapter!!.getProfileList().size > 0) {
+                                if (res.body()!!.data.size > 0 ) {
 
                                     isNodatafound.set(true)
 
-                                    for (idx in 0 until adapter.getAllItems().size) {
-
-                                        Log.e("Dashboard_itemsss===",
-                                            adapter.getAllItems()[idx].category_name)
-                                    }
 
                                     var profileList = ArrayList<ProfileCateData>()
                                     profileList.clear()
@@ -414,10 +413,16 @@ class DashBoardVM @Inject constructor(
                                             profileList.add(data)
                                         }
                                     }
-                                    adapter.addItems(profileList)
-                                    adapter.notifyDataSetChanged()
+                                 /*   adapter.addItems(profileList)
+                                    adapter.notifyDataSetChanged()*/
 
-                                    Log.d("DashBoardResponse->", res.body()!!.data.toString())
+                                    rvadapter=  RVDashboardAdapter(context,profileList,this@DashBoardVM,fontList!!)
+                                    rvView!!.setHasFixedSize(true)
+                                    rvView!!.layoutManager=GridLayoutManager(context,2)
+
+                                    rvView!!.adapter=rvadapter
+
+                                    Log.d("DashBoardResponse->",profileList.size.toString())
 
                                     /* for (i in 0 until res.body()!!.data.size) {
                                          destinationLat.set(adapter.getAllItems()[i].lat!!)
@@ -441,7 +446,7 @@ class DashBoardVM @Inject constructor(
                                     }
 
                                     Log.d("viaksdance", distance.get().toString().split(".")[0])
-                                    adapter.setOnItemClick { view, position, type ->
+                                   /* adapter.setOnItemClick { view, position, type ->
 
                                         when (type) {
                                             "dashItemClick" -> {
@@ -480,12 +485,11 @@ class DashBoardVM @Inject constructor(
                                                     position)
                                             }
                                         }
-                                    }
+                                    }*/
 
                                 } else {
                                     isNodatafound.set(false)
                                     Log.e("ASDASQKHE", "NO Data Found ")
-
 
                                     val myType =
                                         object : TypeToken<ArrayList<SelCategory>>() {}.type
@@ -605,8 +609,8 @@ class DashBoardVM @Inject constructor(
             }*/
 
         var selectedPosition = -1
-        for (idx in 0 until adapter.getAllItems().size) {
-            if (adapter.getAllItems()[idx].c_id == _id) {
+        for (idx in 0 until rvadapter!!.getProfileList().size) {
+            if (rvadapter!!.getProfileList()[idx].c_id == _id) {
                 selectedPosition = idx
                 break
             }
@@ -721,23 +725,23 @@ class DashBoardVM @Inject constructor(
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                             context.runOnUiThread {
                                 var catDataList =
-                                    adapter.getAllItems() as ArrayList<ProfileCateData>
+                                    rvadapter!!.getProfileList() as ArrayList<ProfileCateData>
                                 if (isfav) {
-                                    adapter.getAllItems()[position].isFavourite = true
+                                    rvadapter!!.getProfileList()[position].isFavourite = true
 //                                    tvRemoveFav?.text="Remove from Favourites"
                                     // isFav.set(false)
                                     Log.e("check_valueee===", res.body().toString())
                                 } else {
-                                    adapter.getAllItems()[position].isFavourite = false
+                                    rvadapter!!.getProfileList()[position].isFavourite = false
                                     //   isFav.set(true)
 //                                    tvRemoveFav?.text="Add from Favourites"
                                     Log.e("check_valueee===", res.body().toString())
                                 }
                                 //  Toast.makeText(context,res.body()!!.message.toString(),Toast.LENGTH_LONG).show()
                                 Log.e("ngwkngwngkwngwgg===",
-                                    adapter.getAllItems()[position].isFavourite.toString())
+                                    rvadapter!!.getProfileList()[position].isFavourite.toString())
                                 //   adapter.notifyItemChanged(position)
-                                adapter.notifyDataSetChanged()
+                                rvadapter!!.notifyDataSetChanged()
                             }
                         } else {
                             CommonMethods.showToast(
@@ -839,6 +843,42 @@ class DashBoardVM @Inject constructor(
             }
 
         )
+    }
+
+    override fun onFavouriteClick(position: Int) {
+        Log.e("DFSddddddddDFA",
+            rvadapter!!.getProfileList()[position].isFavourite!!.toString())
+
+        AddtoFavAPI(!(rvadapter!!.getProfileList()[position].isFavourite!!),
+            rvadapter!!.getProfileList()[position]._id.toString(),
+            position)
+    }
+
+    override fun onItemClick(position: Int,view:View) {
+        Log.e("dvsvwsdvsr=",
+            idList.toString())
+        val isDashBoard = Bundle()
+        isDashBoard.putString("comingFrom", "isDashBoard")
+
+        isDashBoard.putString(
+            "DashBoardPostId",
+            rvadapter!!.getProfileList()[position]._id
+        )
+        isDashBoard.putDouble(
+            "DashBoardPostLatitude",
+            lati.get()
+        )
+        isDashBoard.putDouble(
+            "DashBoardPostLongitude",
+            longi.get()
+        )
+        view.navigateWithId(
+            R.id.action_dashBoardFragment_to_favDetailsFragment,
+            isDashBoard)
+
+        Log.d("DashBoardResponse->",
+            "Workingggg-----fine--")
+
     }
 
 }
