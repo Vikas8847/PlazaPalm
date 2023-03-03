@@ -1332,4 +1332,21 @@ object BindingAdapters {
         // }
 
     }
+
+
+    @BindingAdapter(value = ["ViewProfile"], requireAll = false)
+    @JvmStatic
+    fun ViewProfile(
+        textview: AppCompatTextView,
+        value: String,
+    ) {
+        Log.e("Value_Check===", value)
+
+        if (value.equals("provider")) {
+            textview.visibility = View.GONE
+        } else {
+            textview.visibility = View.VISIBLE
+        }
+    }
+
 }

@@ -164,7 +164,7 @@ object Constants {
 
     var MIN_FONT_SIZE:Int=12
     var MAX_FONT_SIZE:Int=20
-    var DEFAULT_FONT_SIZE=15
+    var DEFAULT_FONT_SIZE=13
 
 
 }
