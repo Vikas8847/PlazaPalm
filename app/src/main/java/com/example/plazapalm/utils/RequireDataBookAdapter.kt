@@ -89,7 +89,7 @@ class RequireDataBookAdapter(
 
             } else if (Type == 2) {
 
-                bindining.tvConfirmBookQuestionOne.text = (" " + position + 1).toString()
+                bindining.tvConfirmBookQuestionOne.text = ( position + 1).toString()
                 bindining.tvConfirmBookQuestionHair.text = list.get(position).question_text
                 bindining.etConfirmBookQuestionAns.setText(list.get(position).save_ans)
 

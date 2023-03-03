@@ -20,7 +20,13 @@ import androidx.databinding.ObservableBoolean
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.plazapalm.databinding.ActivityMainBinding
+import com.example.plazapalm.models.UpdateLatlngResponse
+import com.example.plazapalm.networkcalls.ApiEnums
+import com.example.plazapalm.networkcalls.ApiProcessor
+import com.example.plazapalm.networkcalls.Repository
+import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
+import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.CommonMethods.dialog
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.hideKeyboard
@@ -32,11 +38,15 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import io.branch.referral.Branch
+import retrofit2.Response
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 @AndroidEntryPoint
 open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+//    @Inject
+//    lateinit var repository: Repository
+
     private val mainVM: MainVM? = null
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var isMyProfileClicked = ObservableBoolean(false)
@@ -290,4 +300,45 @@ open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
                         binding?.bottNavMain?.isVisible = true
                     }
     }
+//    fun updateLatlng() {
+//
+//        Log.d("service_is", "running")
+//
+//        repository.makeCall(
+//            apiKey = ApiEnums.GET_MAP_FEATURED,
+//            loader = true,
+//            saveInCache = false,
+//            getFromCache = false,
+//            requestProcessor = object : ApiProcessor<Response<UpdateLatlngResponse>> {
+//                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<UpdateLatlngResponse> {
+//                    return retrofitApi.updateLatlng(
+//                        pref.retrieveKey("token").toString(),
+//                        pref.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble(),
+//                        pref.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble()
+//                    )
+//                }
+//
+//                override fun onResponse(res: Response<UpdateLatlngResponse>) {
+//                    Log.e("SDASDASWQ", res.body().toString())
+//
+//                    if (res.isSuccessful && res.code() == 200) {
+//                        if (res.body()!!.data != null) {
+//
+//                            Log.e("SDASDASWQ123", res.body()!!.data.toString())
+//
+//                        } else {
+//                            CommonMethods.showToast(
+//                                CommonMethods.context,
+//                                res.body()!!.data.toString()
+//                            )
+//                        }
+//
+//                    } else {
+//                        CommonMethods.showToast(CommonMethods.context, res.message())
+//                    }
+//                }
+//
+//            }
+//        )
+//    }
 }

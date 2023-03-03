@@ -603,7 +603,7 @@ class FavDetailsVM @Inject constructor(
                 bundle.putString("p_id", userdata.get()?._id)
                 bundle.putString("c_id", userdata.get()?.c_id)
                 bundle.putString("cate", userdata.get()?.category_name)
-                bundle.putString("longi", userdata.get()?.long!!.toString())
+                 bundle.putString("longi", userdata.get()?.long!!.toString())
                 bundle.putString("lati", userdata.get()?.lat!!.toString())
                 bundle.putString("location_text", userdata.get()?.location_text)
                 bundle.putBoolean("booking_status", tvAllowBooking.get())

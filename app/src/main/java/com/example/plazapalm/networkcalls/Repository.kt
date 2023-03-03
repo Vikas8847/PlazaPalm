@@ -78,7 +78,7 @@ class Repository @Inject constructor(
                 Log.d("resCodeIs", "====${response?.code()}")
 //                hideProgress()
 
-                Timer().schedule(500) {
+                Timer().schedule(1000) {
                     hideProgress()
                 }
 
@@ -109,6 +109,7 @@ class Repository @Inject constructor(
                         // activity.showNegativeAlerter(activity.resources?.getString(R.string.some_error_occured) ?: "")
 
                     }
+
                     response?.code() == 401 -> {
                         /**UnAuthorized*/
                         Log.d("errorBody", "====${response.errorBody()?.string()}")

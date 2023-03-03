@@ -30,7 +30,6 @@ import com.example.plazapalm.utils.CommonMethods.currentLocation
 import com.example.plazapalm.utils.CommonMethods.isLocationEnabled
 import com.example.plazapalm.utils.CommonMethods.mFusedLocationClient
 import com.example.plazapalm.utils.CommonMethods.requestNewLocationData
-import com.example.plazapalm.utils.navigateWithId
 import com.example.plazapalm.workmanager.WorkManagerForLocation
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -66,6 +65,9 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
     @Inject
     lateinit var pref : PreferenceFile
 
+//    @Inject
+//    lateinit var update : Update
+
 //    var isDrag =ObservableBoolean(false)
 
     lateinit var mapFragment: SupportMapFragment
@@ -82,6 +84,10 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
         setApiData()
         onClicks()
         workmanager()
+//
+//        requireContext().startService(Intent(requireContext(),ServiceClass::class.java))
+//        update.updateLatlng()
+
         return binding?.root
 
     }
@@ -128,6 +134,7 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
                     binding?.bSheetAdvanceMap?.switchMapFollow?.isChecked = false
                     Log.e("ASDQWQQqq","SADASD")
                 }
+
             }
         }
 

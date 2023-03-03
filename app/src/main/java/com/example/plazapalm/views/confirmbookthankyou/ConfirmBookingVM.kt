@@ -280,23 +280,34 @@ class ConfirmBookingVM @Inject constructor(
             CommonMethods.context,
             R.style.DatePickerDialogTheme, { view, year, month, dayOfMonth ->
 
-                var monthofYear = 0
+                var monthofYear = ""
+                var dayofm = ""
+                var mont =  0
+
                 if (month < 10) {
-                    monthofYear = month + 1
-                    calender.set(Calendar.YEAR, year)
-                    calender.set(Calendar.MONTH, monthofYear)
-                    calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    observableField.set("$year-${"0" + monthofYear}-$dayOfMonth")
-                    chooseDate.set("$year-${"0" + monthofYear}-${"0"+dayOfMonth}")
+                     mont =  month +1
+                    monthofYear = "0"+ mont
+
                 } else {
-                    monthofYear = month + 1
-                    calender.set(Calendar.YEAR, year)
-                    calender.set(Calendar.MONTH, monthofYear)
-                    calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    observableField.set("$year-${monthofYear}-$dayOfMonth")
-                    chooseDate.set("$year-${monthofYear}-$dayOfMonth")
+                    mont= month+1
+                    monthofYear = "0"+mont
 
                 }
+
+                if (dayOfMonth < 10) {
+                    dayofm = "0"+dayOfMonth
+                } else {
+                    dayofm = ""+dayOfMonth
+                }
+
+                calender.set(Calendar.YEAR, year)
+                calender.set(Calendar.MONTH, monthofYear.toInt())
+                calender.set(Calendar.DAY_OF_MONTH, dayofm.toInt())
+
+                observableField.set("$year-${monthofYear}-$dayofm")
+                chooseDate.set("$year-${monthofYear}-$dayofm")
+
+
 
 //                calender.set(Calendar.YEAR, year)
 //                calender.set(Calendar.MONTH, monthofYear)

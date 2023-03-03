@@ -178,8 +178,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
         var clickDate = ""
         var monthValue=""
-        if(month<10)
-        {
+        if(month<10) {
             monthValue="0"+month
         }else
         {
