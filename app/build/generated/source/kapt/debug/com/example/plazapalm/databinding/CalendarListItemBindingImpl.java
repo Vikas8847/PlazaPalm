@@ -18,11 +18,11 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback25;
-    @Nullable
     private final android.view.View.OnClickListener mCallback23;
     @Nullable
-    private final android.view.View.OnClickListener mCallback24;
+    private final android.view.View.OnClickListener mCallback21;
+    @Nullable
+    private final android.view.View.OnClickListener mCallback22;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -51,9 +51,9 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
         this.tvClBookingUserTime.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback25 = new com.example.plazapalm.generated.callback.OnClickListener(this, 3);
-        mCallback23 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
-        mCallback24 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
+        mCallback23 = new com.example.plazapalm.generated.callback.OnClickListener(this, 3);
+        mCallback21 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback22 = new com.example.plazapalm.generated.callback.OnClickListener(this, 2);
         invalidateAll();
     }
 
@@ -178,9 +178,9 @@ public class CalendarListItemBindingImpl extends CalendarListItemBinding impleme
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.ivCalendarDelete.setOnClickListener(mCallback24);
-            this.ivCalenderChat.setOnClickListener(mCallback25);
-            this.mailLayout.setOnClickListener(mCallback23);
+            this.ivCalendarDelete.setOnClickListener(mCallback22);
+            this.ivCalenderChat.setOnClickListener(mCallback23);
+            this.mailLayout.setOnClickListener(mCallback21);
         }
         if ((dirtyFlags & 0x9L) != 0) {
             // api target 1

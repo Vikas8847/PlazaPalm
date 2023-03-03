@@ -152,8 +152,8 @@ object Constants {
     var CATEGORY_SCREEN_ADDRESS: String = "category_screen_address"
 
 
-var CURRENT_LOCATION_LAT:String="current_location_lat"
-var CURRENT_LOCATION_LONG:String="current_location_long"
+    var CURRENT_LOCATION_LAT:String="current_location_lat"
+    var CURRENT_LOCATION_LONG:String="current_location_long"
     var TEMP_LATVALUE:Double?=0.0
     var TEMP_LONGVALUE:Double?=0.0
 
@@ -161,6 +161,10 @@ var CURRENT_LOCATION_LONG:String="current_location_long"
 
     var CURRENTCHATID:String?=""
     var APP_STATE:String?=""
+
+    var MIN_FONT_SIZE:Int=12
+    var MAX_FONT_SIZE:Int=20
+    var DEFAULT_FONT_SIZE=13
 
 
 }

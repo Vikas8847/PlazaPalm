@@ -1,6 +1,5 @@
 package com.example.plazapalm.utils
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
@@ -15,7 +14,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.VideoView
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
@@ -24,9 +22,12 @@ import com.example.plazapalm.R
 import com.example.plazapalm.databinding.AdvanceShowViewProfileBinding
 import com.example.plazapalm.models.FontsListModelResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import java.util.ArrayList
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 fun Activity.hideKeyboard() {
     val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -2376,6 +2377,29 @@ fun getNewFontsInList():ArrayList<FontsListModelResponse> {
 }
 
 
+fun getTextSizeValue(value:Double):Double
+{
+    //  var value=27.50
+    var bd: BigDecimal = BigDecimal.valueOf(value)
+    bd= bd.setScale(0, RoundingMode.HALF_UP)
+    return bd.toDouble()
+}
+
+fun convertFromPerceneategtoText(value:Double):Double
+{
+    //  var value=27.50
+    val formatter: NumberFormat = DecimalFormat("##.00")
+    System.out.println(formatter.format(value))
+    return formatter.format(value).toDouble()
+}
+
+fun getExactValue(value:Double):Int
+{
+    //  var value=27.50
+    var bd: BigDecimal = BigDecimal.valueOf(value)
+    bd= bd.setScale(0, RoundingMode.HALF_UP)
+    return bd.toInt()
+}
 
 
 

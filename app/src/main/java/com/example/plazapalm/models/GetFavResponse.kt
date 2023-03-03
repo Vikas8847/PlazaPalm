@@ -11,7 +11,7 @@ data class GetFavResponse(
 
 data class FavData(
     val _id: String? = "",
-    val address: String? = "",
+    var address: String? = "",
     val c_id: String? = "",
     val category_name: String? = "",
     val description_1: String? = "",
@@ -38,6 +38,9 @@ data class FavData(
     val favouriteCount: Int? = 0,
     var booking_status: Boolean? = false,
     var mediaType: Int? = 0,
+    var frontpage_font_size: Int? = 0,
+    var frontpage_font_color: String? = "",
+    var frontpage_font_opacity: Int? = 0,
 ) : AbstractModel()
 
 data class FavLocation(

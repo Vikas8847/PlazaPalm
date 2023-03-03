@@ -31,6 +31,7 @@ import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.Constants.SELECTED_CATEGORY_ID
+import com.example.plazapalm.utils.getNewFontsInList
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
@@ -57,6 +58,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         savedInstanceState: Bundle?,
     ): View? {
         binding = DashBoardFragmentBinding.inflate(layoutInflater)
+
 
         if (pref.retvieLatlong(Constants.FILTER_SCREEN_LAT).toDouble() != 0.0 && pref.retvieLatlong(
                 Constants.FILTER_SCREEN_LONG
@@ -297,9 +299,12 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAdapter()
+       // setAdapter()
         binding?.vm = viewModel
         viewModel.rvView = binding!!.rvDashBoard
+        var fontlist=getNewFontsInList()
+        viewModel.fontList=fontlist
+        //viewModel.rvNewView= binding!!.rvDashBoard
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -636,15 +641,15 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                 var firstVisibleInListview = currentFirstVisible
                 Log.e("Scroll_Position===", firstVisibleInListview.toString())
                 if (!viewModel.isRVScroll.get()) {
-                    if (viewModel.adapter.getAllItems().size > 0) {
+                    if (viewModel.rvadapter!!.getProfileList().size > 0) {
                         if (!(viewModel.title.get().toString()
                                 .equals(
-                                    viewModel.adapter.getAllItems()
+                                    viewModel.rvadapter!!.getProfileList()
                                         .get(firstVisibleInListview).category_name.toString()
                                 ))
                         ) {
                             viewModel.title.set(
-                                viewModel.adapter.getAllItems()
+                                viewModel.rvadapter!!.getProfileList()
                                     .get(firstVisibleInListview).category_name.toString()
                             )
                         }

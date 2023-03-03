@@ -140,20 +140,17 @@
 -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDashBoard"
-                setRecyclerAdapter="@{vm.adapter}"
+
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/_5sdp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 android:visibility="@{vm.isNodatafound ? View.VISIBLE  : View.GONE}"
-                app:spanCount="2"
-                tools:itemCount="12"
-                tools:layout_editor_absoluteX="-4dp"
-                tools:listitem="@layout/dash_board_items" />
+                android:nestedScrollingEnabled="false"
+            />
 
             <!-- android:visibility="@{vm.isNodatafound ? View.GONE   : View.VISIBLE}"
                 android:text="@{vm.isNodatafound ? @string/space  : @string/nodata_found}"\

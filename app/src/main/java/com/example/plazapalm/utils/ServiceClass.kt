@@ -1,3 +1,4 @@
+/*
 package com.example.plazapalm.utils
 
 import android.app.Service
@@ -83,7 +84,8 @@ class ServiceClass : Service() {
         )
     }
 
-   /* fun updateLatlng() {
+   */
+/* fun updateLatlng() {
 
         Log.d("service_is", "running")
 
@@ -123,8 +125,10 @@ class ServiceClass : Service() {
 
             }
         )
-    }*/
+    }*//*
+
 
 //class TimeDisplay for handling task
 
 }
+*/
