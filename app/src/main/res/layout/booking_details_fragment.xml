@@ -158,13 +158,13 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:onClick="@{vm::onClicks}"
+                    ViewProfile="@{vm.userType}"
                     android:paddingVertical="@dimen/_1sdp"
                     android:text="@string/view_profile"
                     android:textColor="@color/blue"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/clBookingDetailsCircular"
                     app:layout_constraintTop_toBottomOf="@id/tvBookingDetailDate" />
-
 
                 <View
                     android:id="@+id/vBookingDetails"

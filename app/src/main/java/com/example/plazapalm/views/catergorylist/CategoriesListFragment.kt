@@ -205,6 +205,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     viewmodel.getCategoriesApi("", true)
 
                 }
+
                 "login" -> {
                     viewmodel.getCategoriesApi("", true)
 
@@ -213,6 +214,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     binding?.tvCategories?.visibility = View.VISIBLE
                     binding?.ivCategory?.visibility = View.VISIBLE
                     binding?.ivCategoriesForward?.visibility = View.VISIBLE
+
                     binding?.ivCategoriesForward?.setOnClickListener {
                         val dataList = viewmodel.categoriesDataList.filter { it.isCheck == true }
                         if (dataList.isNotEmpty()) {
@@ -236,6 +238,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     }
                     bottomNavigationView?.visibility = View.GONE
                 }
+
                 "signup" -> {
 
                     viewmodel.getCategoriesApi("", true)
@@ -431,7 +434,7 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
         binding?.refreshContainer?.setOnRefreshListener {
 //            // on below line we are setting is refreshing to false.
 //            binding?.refreshContainer?.isRefreshing = false
-
+//            getLastLocation()
             viewmodel.getCategoriesApi("",false)
             binding?.refreshContainer?.isRefreshing = false
         }

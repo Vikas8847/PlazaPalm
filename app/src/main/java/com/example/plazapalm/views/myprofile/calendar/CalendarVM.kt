@@ -31,6 +31,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
+import java.io.Serializable
 import java.util.*
 import javax.inject.Inject
 
@@ -105,7 +106,7 @@ class CalendarVM @Inject constructor(
 
                     val bundle = Bundle()
                     bundle.putString("calendarScreen", "CalendarFrag")
-                    bundle.putSerializable("userData", calendarBookingList)
+                    bundle.putSerializable("userData", adapterCalendar.getAllItems() as Serializable)
                     bundle.putInt("position", position)
 
                     view.navigateWithId(
@@ -115,7 +116,6 @@ class CalendarVM @Inject constructor(
 
                 }
                 deleteConfirmBooking ->{
-
                     deleteBooking(position)
                 }
 
@@ -205,8 +205,6 @@ class CalendarVM @Inject constructor(
 
                             for (i in 0 until res.body()!!.data.size) {
                                 SeletedDate.value = listOf(res.body()!!.data[i]!!.choose_date)
-
-
                             }
 
 
