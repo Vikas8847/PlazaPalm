@@ -276,7 +276,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     binding?.ivFavDetailsFilledHeart?.visibility = View.VISIBLE
                     /** GET DATA FROM FAVOURITES // BY SERIALIZABLE */
 
-                    val data = requireArguments().getSerializable("ResBody") as ArrayList<FavData>
+                    val data = requireArguments().getSerializable("ResBody") as ArrayList<ProfileCateData>
                     val pos = requireArguments().getInt("pos")
                     val image: ArrayList<String> =
                         data[pos].postProfile_picture as ArrayList<String>
@@ -365,7 +365,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
 
     /** only call when coming from Favouirte screen **/
-    private fun setFavdata(pos: Int, data: ArrayList<FavData>, image: ArrayList<String>) {
+    private fun setFavdata(pos: Int, data: ArrayList<ProfileCateData>, image: ArrayList<String>) {
 
         binding?.displayBack?.visibility = View.VISIBLE
         binding?.mainConslayout?.visibility = View.VISIBLE

@@ -293,7 +293,7 @@ interface RetrofitApi {
         @Header("Authorization") Authorization: String?,
         @Query("lat") lat: Double,
         @Query("long") long: Double
-    ): Response<GetFavResponse>
+    ): Response<GetProfileCateResponse>
 
     @FormUrlEncoded
     @POST(LIKES_DISLIKES)

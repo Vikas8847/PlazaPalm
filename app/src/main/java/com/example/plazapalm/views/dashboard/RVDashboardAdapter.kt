@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso
 class RVDashboardAdapter(
     private var context: Context,
     private var profileList: ArrayList<ProfileCateData>,
-    private var itemClick: DashboardInterface,private var fontList:ArrayList<FontsListModelResponse>
+    private var itemClick: DashboardInterface,private var fontList:ArrayList<FontsListModelResponse>,var screenType:String
 ) :
     RecyclerView.Adapter<RVDashboardAdapter.MyViewHolder>() {
 
@@ -61,11 +61,15 @@ class RVDashboardAdapter(
         holder.tvDashBoardItemDescription.text = profileList[position].user_name
         holder.tvDashBoardItemLocation.text = profileList[position].address
 
-        if(profileList[position].isFavourite!!){
-            holder.ivFavourite.setImageResource(R.drawable.ic_heart_filled_icon)
+        if(screenType.equals("dash")) {
+            if (profileList[position].isFavourite!!) {
+                holder.ivFavourite.setImageResource(R.drawable.ic_heart_filled_icon)
+            } else {
+                holder.ivFavourite.setImageResource(R.drawable.ic_heart_icon)
+            }
         }else
         {
-            holder.ivFavourite.setImageResource(R.drawable.ic_heart_icon)
+            holder.ivFavourite.setImageResource(R.drawable.ic_heart_filled_icon)
         }
 
         holder.ivFavourite.setOnClickListener {

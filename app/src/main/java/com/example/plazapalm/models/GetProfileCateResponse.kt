@@ -45,6 +45,8 @@ data class ProfileCateData(
     var frontpage_font_size:Any?=null,
     var frontpage_font_opacity:Int?=0,
     var frontpage_font_color:String?="",
+    val p_id: String? = "",
+    val favouriteCount: Int? = 0,
 ): AbstractModel()
 
 data class DashLocation(
