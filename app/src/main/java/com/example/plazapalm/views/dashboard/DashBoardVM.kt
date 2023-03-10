@@ -416,7 +416,7 @@ class DashBoardVM @Inject constructor(
                                  /*   adapter.addItems(profileList)
                                     adapter.notifyDataSetChanged()*/
 
-                                    rvadapter=  RVDashboardAdapter(context,profileList,this@DashBoardVM,fontList!!)
+                                    rvadapter=  RVDashboardAdapter(context,profileList,this@DashBoardVM,fontList!!,"dash")
                                     rvView!!.setHasFixedSize(true)
                                     rvView!!.layoutManager=GridLayoutManager(context,2)
 

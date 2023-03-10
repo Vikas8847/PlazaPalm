@@ -101,7 +101,6 @@ class PreferenceFile @Inject constructor(
         return sharedPreferences.getString("location_filter", null)
     }
 
-
     fun storeLatlong(key: String, value: Float) {
         editor.putFloat(key, value)
         editor.apply()

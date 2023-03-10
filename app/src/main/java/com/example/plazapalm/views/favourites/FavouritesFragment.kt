@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.FavouritesFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.getNewFontsInList
 import com.google.android.gms.common.internal.service.Common
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,14 +32,17 @@ class FavouritesFragment : Fragment(R.layout.favourites_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.vm = viewModel
+        var fontlist= getNewFontsInList()
+        viewModel.fontList=fontlist
+        viewModel.rvView= binding?.rvFavourites!!
         setFavouritesAdapter()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setFavouritesAdapter() {
-        binding?.rvFavourites?.layoutManager = GridLayoutManager(requireContext(), 2)
+       /* binding?.rvFavourites?.layoutManager = GridLayoutManager(requireContext(), 2)
         binding?.rvFavourites?.adapter = viewModel.favAdapter
-        binding?.rvFavourites?.adapter?.notifyDataSetChanged()
+        binding?.rvFavourites?.adapter?.notifyDataSetChanged()*/
 
     }
 

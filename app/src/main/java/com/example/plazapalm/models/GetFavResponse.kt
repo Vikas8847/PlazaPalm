@@ -38,7 +38,7 @@ data class FavData(
     val favouriteCount: Int? = 0,
     var booking_status: Boolean? = false,
     var mediaType: Int? = 0,
-    var frontpage_font_size: Int? = 0,
+    var frontpage_font_size: Any,
     var frontpage_font_color: String? = "",
     var frontpage_font_opacity: Int? = 0,
 ) : AbstractModel()
