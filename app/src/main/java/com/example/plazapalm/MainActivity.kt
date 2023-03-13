@@ -95,6 +95,7 @@ open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
         }
     }
 
+
     private fun setUpNav() {
         navController = findNavController(R.id.fragmentMain)
         // navController!!.setGraph(navController!!.graph,Bundle())
@@ -105,8 +106,10 @@ open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
 
                 if (destination.id == R.id.dashBoardFragment || destination.id == R.id.myProfileFragment ||
                     destination.id == R.id.messagesFragment || destination.id == R.id.openCategeroyFragment ||
-                    destination.id == R.id.advanceMapFragment || destination.id == R.id.picturesFragment ||
-                    destination.id == R.id.bookingDetailsFragment
+                    destination.id == R.id.advanceMapFragment || destination.id == R.id.picturesFragment
+
+                /*   ||   destination.id == R.id.bookingDetailsFragment   */
+
                 ) {
 
                     binding?.bottNavMain?.selectedItemId = destination.id
@@ -281,7 +284,12 @@ open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
             finishAffinity()
             // showExitDialog()
         } else {
-            super.onBackPressed()
+            try {
+                super.onBackPressed()
+            }catch (e:Exception)
+            {
+
+            }
         }
     }
 

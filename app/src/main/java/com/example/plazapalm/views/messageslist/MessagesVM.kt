@@ -45,6 +45,7 @@ class MessagesVM @Inject constructor(
     var userImage = ObservableField("")
     var userMessage = ObservableField("")
     var userTime = ObservableField("")
+    var emptyMessageList = ObservableBoolean(false)
 
 
 

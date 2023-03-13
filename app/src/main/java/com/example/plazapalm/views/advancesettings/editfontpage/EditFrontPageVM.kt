@@ -204,42 +204,48 @@ class EditFrontPageVM @Inject constructor(
                     newColor= fontColor.get().toString()
                 }
                 Log.e("efkfefefe===0",newColor)
-                tvProfileUserName.setTextColor(Color.parseColor(newColor))
-                tvProfileUserAddress.setTextColor(Color.parseColor(newColor))
-                tvProfileUserDescription.setTextColor(Color.parseColor(newColor))
+
                 /**Set font size for view **/
                 var newFontSize=0.0f
                 if(fontSize.get().toString()=="0.0"){
-                    newFontSize=14.0f
+                    newFontSize=Constants.DEFAULT_FONT_SIZE.toFloat()
                 }else
                 {
                     newFontSize=fontSize.get().toFloat()
                 }
-
-                tvProfileUserName.textSize = newFontSize
-                tvProfileUserAddress.textSize = newFontSize
-                tvProfileUserDescription.textSize = newFontSize
-
-                tvProfileUserName.typeface = fontTypeface
-                tvProfileUserAddress.typeface = fontTypeface
-                tvProfileUserDescription.typeface = fontTypeface
 
                 /**Set type face of view according to topText and Bottom Text is Selected or not **/
                 if (this@EditFrontPageVM.isTopText.get()) {
                     tvProfileUserName.typeface = fontTypeface
                     //call here toptext selected font-typfaces...
                     topTextSelectedTypeFaces()
+                    tvProfileUserName.textSize = newFontSize
+                    tvProfileUserName.setTextColor(Color.parseColor(newColor))
                 }else{
                     tvProfileUserName.setTextColor(Color.parseColor("#000000"))
+                    tvProfileUserName.setTypeface(Typeface.SANS_SERIF)
+                    tvProfileUserName.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                 }
                 if (this@EditFrontPageVM.isBottomText.get()) {
+                    tvProfileUserAddress.setTextColor(Color.parseColor(newColor))
+                    tvProfileUserDescription.setTextColor(Color.parseColor(newColor))
+
                     tvProfileUserAddress.typeface = fontTypeface
                     tvProfileUserDescription.typeface = fontTypeface
                     bottomTextSelectedTypeFaces()
+                    tvProfileUserAddress.textSize = newFontSize
+                    tvProfileUserDescription.textSize = newFontSize
+
                 }else
                 {
                     tvProfileUserAddress.setTextColor(Color.parseColor("#000000"))
                     tvProfileUserDescription.setTextColor(Color.parseColor("#000000"))
+
+                    tvProfileUserAddress.setTypeface(Typeface.SANS_SERIF)
+                    tvProfileUserDescription.setTypeface(Typeface.SANS_SERIF)
+
+                    tvProfileUserAddress.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
+                    tvProfileUserDescription.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                 }
                 /**Set here video and image at zero position..***/
                 showImageAndVideo(response)

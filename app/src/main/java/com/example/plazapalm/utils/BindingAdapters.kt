@@ -582,9 +582,9 @@ object BindingAdapters {
         Log.e("efmgmlwgge===", "dffff")
         if (imageUrl != null) {
 
-        /*    var view=LayoutInflater.from(MainActivity.context.get()).inflate(R.layout.empty_video_layout,null)
-            var  ivVideoIcon= view.findViewById<AppCompatImageView>(R.id.ivVideoIcon)*/
-           // ivVideoIcon.visibility=View.VISIBLE
+            /*    var view=LayoutInflater.from(MainActivity.context.get()).inflate(R.layout.empty_video_layout,null)
+                var  ivVideoIcon= view.findViewById<AppCompatImageView>(R.id.ivVideoIcon)*/
+            // ivVideoIcon.visibility=View.VISIBLE
             /*   Glide.with(CommonMethods.context)
                    .load(IMAGE_LOAD_URL + imageUrl)
                    .override(100,100)
@@ -606,7 +606,7 @@ object BindingAdapters {
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
                 mp.setVolume(0f, 0f)
                 videoView.seekTo(position)
-               // ivVideoIcon.visibility=View.GONE
+                // ivVideoIcon.visibility=View.GONE
                 // imageIcon.visibility=View.GONE
                 if (position == 0) {
                     videoView.start()
@@ -817,10 +817,10 @@ object BindingAdapters {
                     destinationTV.textSize = finalTextSize.toFloat()
                 }
 
-                if (profileData.frontpage_font_opacity == 0) {
+                if (profileData.frontpage_font_opacity==null || profileData.frontpage_font_opacity.toString().toInt() == 0) {
                     destinationTV.alpha = 1f
                 } else {
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
+                    var finalOpacity =((profileData.frontpage_font_opacity!!.toString().toFloat())/100f).toFloat()
                     destinationTV.alpha = finalOpacity
                 }
 
@@ -959,11 +959,11 @@ object BindingAdapters {
                     textView.textSize = finalTextSize.toFloat()
                 }
 
-                if (profileData.frontpage_font_opacity == 0) {
+                if (profileData.frontpage_font_opacity==null || profileData.frontpage_font_opacity.toString().toInt() == 0) {
                     textView.alpha = 1f
                 } else {
                     //var finalOpacity = (getExactValue(profileData.frontpage_font_opacity * 2.55)).toFloat()
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
+                    var finalOpacity =((profileData.frontpage_font_opacity!!.toString().toFloat())/100f).toFloat()
                     textView.alpha = finalOpacity
                     Log.e("dfwfwfwf=w==",finalOpacity.toString())
                 }
@@ -1019,10 +1019,10 @@ object BindingAdapters {
 
                     textView.textSize = finalTextSize.toFloat()
                 }
-                if (profileData.frontpage_font_opacity == 0) {
+                if (profileData.frontpage_font_opacity == null || profileData.frontpage_font_opacity.toString().toInt() == 0) {
                     textView.alpha = 1f
                 } else {
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
+                    var finalOpacity =((profileData.frontpage_font_opacity!!.toString().toFloat())/100f).toFloat()
                     textView.alpha = finalOpacity
                 }
 
@@ -1109,55 +1109,63 @@ object BindingAdapters {
         }
 
         Log.e("ABCDDDDDDD2222==", milesValues.toString())
-    /*    if(toptext==3){
-            if (textData.is_bottom_selected!!) {
-                if (textData.frontpage_font_color == "" || textData.frontpage_font_color == "null") {
-                    destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
-                } else {
-
-
+        /*    if(toptext==3){
+                if (textData.is_bottom_selected!!) {
                     if (textData.frontpage_font_color == "" || textData.frontpage_font_color == "null") {
                         destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
                     } else {
-                        var newColor=""
-                        if(textData.frontpage_font_color!!.contains("#")){
-                            newColor=textData.frontpage_font_color!!
-                        }else
-                        {
-                            newColor="#"+textData.frontpage_font_color!!
+
+
+                        if (textData.frontpage_font_color == "" || textData.frontpage_font_color == "null") {
+                            destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                        } else {
+                            var newColor=""
+                            if(textData.frontpage_font_color!!.contains("#")){
+                                newColor=textData.frontpage_font_color!!
+                            }else
+                            {
+                                newColor="#"+textData.frontpage_font_color!!
+                            }
+                            destinationTV.setTextColor(Color.parseColor(newColor))
                         }
-                        destinationTV.setTextColor(Color.parseColor(newColor))
+
+
+                        // destinationTV.setTextColor(Color.parseColor(textData.frontpage_font_color))
                     }
 
+                    if (textData.frontpage_font_size.toString().toInt() == 0) {
+                        destinationTV.textSize =12f
+                    } else {
 
-                    // destinationTV.setTextColor(Color.parseColor(textData.frontpage_font_color))
-                }
+                        var finalTextSize = (getTextSizeValue((textData.frontpage_font_size!!.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
+                        finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
 
-                if (textData.frontpage_font_size.toString().toInt() == 0) {
-                    destinationTV.textSize =12f
-                } else {
+                        destinationTV.textSize = finalTextSize.toFloat()
 
-                    var finalTextSize = (getTextSizeValue((textData.frontpage_font_size!!.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                    finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                        // destinationTV.textSize = textData.frontpage_font_size!!.toFloat()
+                    }
+                    if (textData.frontpage_font_opacity == 0) {
+                        destinationTV.alpha = 1f
+                    } else {
+                        var finalOpacity =((textData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
+                        destinationTV.alpha = finalOpacity
+                    }
 
-                    destinationTV.textSize = finalTextSize.toFloat()
-
-                    // destinationTV.textSize = textData.frontpage_font_size!!.toFloat()
-                }
-                if (textData.frontpage_font_opacity == 0) {
-                    destinationTV.alpha = 1f
-                } else {
-                    var finalOpacity =((textData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
-                    destinationTV.alpha = finalOpacity
-                }
-
-                if (textData.frontpage_bottom_text.toString() == "") {
-                } else {
+                    if (textData.frontpage_bottom_text.toString() == "") {
+                    } else {
+                        var fontList= getNewFontsInList()
+                        var fontList1 = fontList!!.filter { it.name == textData.frontpage_bottom_text.toString() }
+                        if(fontList1.size>0){
+                            destinationTV.setTypeface(fontList1[0].fontTypeface)
+                        }
+                    }
+                }else
+                {
+                    destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
+                    destinationTV.textSize=12f
+                    destinationTV.alpha=1f
                     var fontList= getNewFontsInList()
-                    var fontList1 = fontList!!.filter { it.name == textData.frontpage_bottom_text.toString() }
-                    if(fontList1.size>0){
-                        destinationTV.setTypeface(fontList1[0].fontTypeface)
-                    }
+                    destinationTV.setTypeface(fontList[1].fontTypeface)
                 }
             }else
             {
@@ -1166,15 +1174,7 @@ object BindingAdapters {
                 destinationTV.alpha=1f
                 var fontList= getNewFontsInList()
                 destinationTV.setTypeface(fontList[1].fontTypeface)
-            }
-        }else
-        {
-            destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
-            destinationTV.textSize=12f
-            destinationTV.alpha=1f
-            var fontList= getNewFontsInList()
-            destinationTV.setTypeface(fontList[1].fontTypeface)
-        }*/
+            }*/
         /*  if(toptext==3){
               if (profileData.is_bottom_selected ) {
                   if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
@@ -1363,12 +1363,12 @@ object BindingAdapters {
 
             val binding: VideoShowLayoutBinding =
                 VideoShowLayoutBinding.inflate(LayoutInflater.from(MainActivity.context.get()))
-           // binding.includedLayout.textView.setText("text")
+            // binding.includedLayout.textView.setText("text")
 
 
-               /* var view=LayoutInflater.from(MainActivity.context.get()).inflate(R.layout.video_show_layout,null)
-                var  ivVideoIcon= view.findViewById<AppCompatImageView>(R.id.ivVideoIcon)
-                var  videoView= view.findViewById<FullScreenVideoView>(R.id.newVideoView)*/
+            /* var view=LayoutInflater.from(MainActivity.context.get()).inflate(R.layout.video_show_layout,null)
+             var  ivVideoIcon= view.findViewById<AppCompatImageView>(R.id.ivVideoIcon)
+             var  videoView= view.findViewById<FullScreenVideoView>(R.id.newVideoView)*/
             // ivVideoIcon.visibility=View.VISIBLE
             /*   Glide.with(CommonMethods.context)
                    .load(IMAGE_LOAD_URL + imageUrl)

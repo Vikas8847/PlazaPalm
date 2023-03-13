@@ -1,14 +1,15 @@
 package com.example.plazapalm.models
 
 import com.example.plazapalm.recycleradapter.AbstractModel
+import java.io.Serializable
 
 data class GetCalanderResponseModel(
     val data: List<CalenderData?>,
     val message: String? = "",
     val status: Int? = 0
-     ) :AbstractModel()
+) :AbstractModel(), Serializable
 
-    data class CalenderData(
+data class CalenderData(
     val _id: String? = "",
     val booking_status: String? = "",
     val category_name: String? = "",
@@ -28,4 +29,4 @@ data class GetCalanderResponseModel(
     val post_profile_user_id: String? = "",
     val userType: String? = "",
     val year: Int? = 0
-     ):AbstractModel()
+):AbstractModel(), Serializable
