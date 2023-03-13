@@ -31,6 +31,7 @@ import com.example.plazapalm.networkcalls.RetrofitApi
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
+import com.example.plazapalm.utils.hideProgress
 import com.example.plazapalm.views.chat.adapter.ChatAdapter
 import com.google.firebase.firestore.FirebaseFirestore.*
 import com.google.firebase.firestore.SetOptions
@@ -57,7 +58,7 @@ class ChatVM @Inject constructor(
 ) : ViewModel() {
 
     var dialog: Dialog? = null
-    var isClicked: ObservableBoolean = ObservableBoolean(false)
+    var isClicked = ObservableBoolean(false)
     var dataList = ArrayList<ChatData>()
     var messageText = ObservableField("")
     var reciverUserID = ObservableField("")
@@ -84,7 +85,7 @@ class ChatVM @Inject constructor(
     var emptyMessageList = ObservableBoolean(false)
 
     var activity: Activity? = null
-var notFoundMessgae=ObservableField("")
+    var notFoundMessgae=ObservableField("")
     init {
 
         val bothID1 = senderUserID.get().toString() + "_" + reciverUserID.get().toString()
@@ -99,7 +100,8 @@ var notFoundMessgae=ObservableField("")
             R.id.ivChat -> {
 //                view.findNavController().navigateUp()
                 //view.navigateBack()
-                activity!!.finish()
+                activity!!.onBackPressed()
+//                activity!!.finish()
             }
             R.id.cLChatMain -> {
                 isClicked.set(false)
@@ -125,7 +127,7 @@ var notFoundMessgae=ObservableField("")
                 showChooseOptionAccountDialog()
             }
             R.id.layout_for_dismiss -> {
-                isClicked.set(true)
+                isClicked.set(false)
                 /* if (dialog != null && dialog?.isShowing!!) {
                      dialog?.dismiss()
                  }*/
@@ -331,7 +333,7 @@ var notFoundMessgae=ObservableField("")
                 chatAdapter.addItems(dataList, userTypeId.get().toString())
                 chatAdapter.notifyDataSetChanged()
                 scrollToBottomMethod()
-
+                hideProgress()
                 if (dataList.size == 0) {
                     emptyMessageList.set(true)
                     if(checkBlocked.get()==false) {
@@ -699,23 +701,23 @@ var notFoundMessgae=ObservableField("")
     }
 
     fun fetchBlockMethod(bothId:String) {
-       // var db = getInstance()
+        // var db = getInstance()
         firestore.collection("Chats").document(bothId.toString()).addSnapshotListener {value,error->
-                if (value!!.data != null) {
-                    if (value.data!!.get("whoBlock") != null) {
-                       var whoBlock=value.data!!.get("whoBlock") as String
-                        checkBlockMethod(whoBlock)
-                    } else {
-                        whoBlocked.set(false)
-                        isUserBlocked.set(false)
-                    }
+            if (value!!.data != null) {
+                if (value.data!!.get("whoBlock") != null) {
+                    var whoBlock=value.data!!.get("whoBlock") as String
+                    checkBlockMethod(whoBlock)
                 } else {
                     whoBlocked.set(false)
                     isUserBlocked.set(false)
                 }
-                //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
-
+            } else {
+                whoBlocked.set(false)
+                isUserBlocked.set(false)
             }
+            //  Log.e("DFFDFjhjhj", (it.data!!.get("IsBlock")).toString())
+
+        }
 
     }
 

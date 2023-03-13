@@ -190,7 +190,8 @@ class ConfirmBookingVM @Inject constructor(
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
                             dataStoreUtil.saveObject(CONFIRM_BOOKING_PROFILE, res.body())
 
-                            view.navigateWithId(R.id.thankYouFragment)
+                            //view.navigateWithId(R.id.thankYouFragment)
+                            view.navigateWithId(R.id.action_confirmBookingFragment_to_thankYouFragment)
 
                         } else {
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
@@ -285,7 +286,7 @@ class ConfirmBookingVM @Inject constructor(
                 var mont =  0
 
                 if (month < 10) {
-                     mont =  month +1
+                    mont =  month +1
                     monthofYear = "0"+ mont
 
                 } else {

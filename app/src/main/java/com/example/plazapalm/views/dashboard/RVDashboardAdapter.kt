@@ -2,6 +2,7 @@ package com.example.plazapalm.views.dashboard
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.location.Location
 import android.media.MediaPlayer
 import android.util.Log
@@ -80,10 +81,10 @@ class RVDashboardAdapter(
             itemClick.onItemClick(position, holder.player_layout)
         }
 
-       textproperties(holder.tvDashBoardItemName,profileList[position],1,fontList)
-           textproperties(holder.tvDashBoardItemLastName,profileList[position],1,fontList)
-          textproperties(holder.tvDashBoardItemDescription,profileList[position],2,fontList)
-          textproperties(holder.tvDashBoardItemLocation,profileList[position],2,fontList)
+        textproperties(holder.tvDashBoardItemName,profileList[position],1,fontList)
+        textproperties(holder.tvDashBoardItemLastName,profileList[position],1,fontList)
+        textproperties(holder.tvDashBoardItemDescription,profileList[position],2,fontList)
+        textproperties(holder.tvDashBoardItemLocation,profileList[position],2,fontList)
 
         calculateDistance(holder.tvDashBoardItemDistance,
             profileList[position].lat,
@@ -97,11 +98,11 @@ class RVDashboardAdapter(
         ) {
 
             if (profileList[position].postProfile_picture[0] != null && profileList[position].postProfile_picture[0] != "null" && profileList[position].postProfile_picture[0] != "") {
-              /*  Glide.with(context)
-                    .load(IMAGE_LOAD_URL + profileList[position].postProfile_picture[0])
-                    .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.placeholder)
-                    .into(holder.ivDashBoardCat)*/
+                /*  Glide.with(context)
+                      .load(IMAGE_LOAD_URL + profileList[position].postProfile_picture[0])
+                      .placeholder(R.drawable.placeholder)
+                      .error(R.drawable.placeholder)
+                      .into(holder.ivDashBoardCat)*/
 
                 Picasso.get().load(IMAGE_LOAD_URL + profileList[position].postProfile_picture[0]).fit().centerCrop()
                     .placeholder(R.drawable.placeholder)
@@ -192,7 +193,7 @@ class RVDashboardAdapter(
 
                 if(profileData.frontpage_font_size is Int){
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
-                        destinationTV.textSize = 12f
+                        destinationTV.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
                         var finalTextSize =
                             (getTextSizeValue((profileData.frontpage_font_size.toString()
@@ -203,7 +204,7 @@ class RVDashboardAdapter(
                 }else
                 {
                     if (profileData.frontpage_font_size.toString().toDouble() == 0.0) {
-                        destinationTV.textSize = 12f
+                        destinationTV.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
                         var finalTextSize =
                             (getTextSizeValue((profileData.frontpage_font_size.toString().toDouble() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()))
@@ -213,17 +214,17 @@ class RVDashboardAdapter(
                 }
 
 
-             /*   if (profileData.frontpage_font_opacity == 0) {
-                    destinationTV.alpha = 1f
-                } else {
-                    var finalOpacity =
-                        ((profileData.frontpage_font_opacity!!.toFloat()) / 100f).toFloat()
-                    destinationTV.alpha = finalOpacity
-                }
-*/
+                /*   if (profileData.frontpage_font_opacity == 0) {
+                       destinationTV.alpha = 1f
+                   } else {
+                       var finalOpacity =
+                           ((profileData.frontpage_font_opacity!!.toFloat()) / 100f).toFloat()
+                       destinationTV.alpha = finalOpacity
+                   }
+   */
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                  //  var fontList = getNewFontsInList()
+                    //  var fontList = getNewFontsInList()
                     var fontList1 =
                         fontList.filter { it.name == profileData.frontpage_bottom_text.toString() }
                     if (fontList1.size > 0) {
@@ -232,17 +233,19 @@ class RVDashboardAdapter(
                 }
             } else {
                 destinationTV.setTextColor(context.resources.getColor(R.color.white))
-                destinationTV.textSize = 12f
+                destinationTV.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                 destinationTV.alpha = 1f
-               // var fontList = getNewFontsInList()
-                destinationTV.typeface = fontList[1].fontTypeface
+                // var fontList = getNewFontsInList()
+                //  destinationTV.typeface = fontList[1].fontTypeface
+                destinationTV.setTypeface(Typeface.SANS_SERIF)
             }
         } else {
             destinationTV.setTextColor(context.resources.getColor(R.color.white))
-            destinationTV.textSize = 12f
+            destinationTV.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
             destinationTV.alpha = 1f
-          //  var fontList = getNewFontsInList()
-            destinationTV.typeface = fontList[1].fontTypeface
+            //  var fontList = getNewFontsInList()
+            // destinationTV.typeface = fontList[1].fontTypeface
+            destinationTV.setTypeface(Typeface.SANS_SERIF)
         }
     }
 
@@ -294,27 +297,27 @@ class RVDashboardAdapter(
         textView: AppCompatTextView,
         profileData: ProfileCateData, toptext: Int, fontList: ArrayList<FontsListModelResponse>
     ) {
-       // textView.setText(nameValue)
+        // textView.setText(nameValue)
         if(toptext==1) {
             if (profileData.is_top_selected!!) {
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(context.resources.getColor(R.color.white))
                 } else {
-                        var newColor=""
-                        if(profileData.frontpage_font_color!!.contains("#")){
-                            newColor=profileData.frontpage_font_color!!
-                        }else
-                        {
-                            newColor="#"+profileData.frontpage_font_color!!
-                        }
-                        textView.setTextColor(Color.parseColor(newColor))
+                    var newColor=""
+                    if(profileData.frontpage_font_color!!.contains("#")){
+                        newColor=profileData.frontpage_font_color!!
+                    }else
+                    {
+                        newColor="#"+profileData.frontpage_font_color!!
                     }
-                    //  textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
-               // }
+                    textView.setTextColor(Color.parseColor(newColor))
+                }
+                //  textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
+                // }
 
                 if(profileData.frontpage_font_size is Int){
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
-                        textView.textSize = 12f
+                        textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
 
                         var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
@@ -325,7 +328,7 @@ class RVDashboardAdapter(
                 }else
                 {
                     if (profileData.frontpage_font_size.toString().toDouble() == 0.0) {
-                        textView.textSize = 12f
+                        textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
 
                         var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toDouble() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
@@ -335,17 +338,17 @@ class RVDashboardAdapter(
                     }
                 }
 
-              /*  if (profileData.frontpage_font_opacity == 0) {
-                    textView.alpha = 1f
-                } else {
-                    //var finalOpacity = (getExactValue(profileData.frontpage_font_opacity * 2.55)).toFloat()
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
-                    textView.alpha = finalOpacity
-                    Log.e("dfwfwfwf=w==",finalOpacity.toString())
-                }*/
+                /*  if (profileData.frontpage_font_opacity == 0) {
+                      textView.alpha = 1f
+                  } else {
+                      //var finalOpacity = (getExactValue(profileData.frontpage_font_opacity * 2.55)).toFloat()
+                      var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
+                      textView.alpha = finalOpacity
+                      Log.e("dfwfwfwf=w==",finalOpacity.toString())
+                  }*/
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                  //  var fontList= getNewFontsInList()
+                    //  var fontList= getNewFontsInList()
                     var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
                     if(fontList1.size>0){
                         textView.setTypeface(fontList1[0].fontTypeface)
@@ -355,10 +358,11 @@ class RVDashboardAdapter(
             }else
             {
                 textView.setTextColor(context.resources.getColor(R.color.white))
-                textView.textSize = 12f
+                textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                 textView.alpha=1f
-              //  var fontList= getNewFontsInList()
-                textView.setTypeface(fontList[1].fontTypeface)
+                textView.setTypeface(Typeface.SANS_SERIF)
+                //  var fontList= getNewFontsInList()
+                //  textView.setTypeface(fontList[1].fontTypeface)
             }
         }
         else
@@ -368,24 +372,24 @@ class RVDashboardAdapter(
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(context.resources.getColor(R.color.white))
                 } else  {
-                        var newColor=""
-                        if(profileData.frontpage_font_color!!.contains("#")){
-                            newColor=profileData.frontpage_font_color!!
-                        }else
-                        {
-                            newColor="#"+profileData.frontpage_font_color!!
-                        }
-                        textView.setTextColor(Color.parseColor(newColor))
+                    var newColor=""
+                    if(profileData.frontpage_font_color!!.contains("#")){
+                        newColor=profileData.frontpage_font_color!!
+                    }else
+                    {
+                        newColor="#"+profileData.frontpage_font_color!!
                     }
+                    textView.setTextColor(Color.parseColor(newColor))
+                }
 
 
 
-                    //textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
-             //   }
+                //textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
+                //   }
 
                 if(profileData.frontpage_font_size is Int){
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
-                        textView.textSize = 12f
+                        textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
                         var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
                         finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
@@ -395,7 +399,7 @@ class RVDashboardAdapter(
                 }else
                 {
                     if (profileData.frontpage_font_size.toString().toDouble() == 0.0) {
-                        textView.textSize = 12f
+                        textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
                         var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toDouble() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
                         finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
@@ -404,27 +408,28 @@ class RVDashboardAdapter(
                     }
                 }
 
-            /* if (profileData.frontpage_font_opacity == 0) {
-                    textView.alpha = 1f
+                /* if (profileData.frontpage_font_opacity == 0) {
+                        textView.alpha = 1f
+                    } else {
+                        var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
+                        textView.alpha = finalOpacity
+                    }*/
+                if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
-                    textView.alpha = finalOpacity
-                }*/
-                             if (profileData.frontpage_bottom_text.toString() == "") {
-                             } else {
-                                 //var fontList= getNewFontsInList()
-                                 var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
-                                 if(fontList1.size>0){
-                                     textView.setTypeface(fontList1[0].fontTypeface)
-                                 }
-                             }
+                    //var fontList= getNewFontsInList()
+                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if(fontList1.size>0){
+                        textView.setTypeface(fontList1[0].fontTypeface)
+                    }
+                }
             }else
             {
                 textView.setTextColor(context.resources.getColor(R.color.white))
-                textView.textSize=12f
+                textView.textSize=Constants.DEFAULT_FONT_SIZE.toFloat()
                 textView.alpha=1f
-              //  var fontList= getNewFontsInList()
-                textView.setTypeface(fontList[1].fontTypeface)
+                textView.setTypeface(Typeface.SANS_SERIF)
+                //  var fontList= getNewFontsInList()
+                //  textView.setTypeface(fontList[1].fontTypeface)
             }
         }
         textView.invalidate()

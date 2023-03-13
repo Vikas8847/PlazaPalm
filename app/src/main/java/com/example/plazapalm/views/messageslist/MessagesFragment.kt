@@ -88,7 +88,8 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
         )
 */
 
-        dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
+        //  dataStore.readObject(LOGIN_DATA, LoginDataModel::class.java) {
+        dataStore.readObject(PROFILE_DATA, GetProfileResponseModel::class.java) {
 
             //PROFILE_DATA
 
@@ -110,6 +111,11 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                     var otherUserId = ""
                     var loginUserId = ""
                     var userImage = ""
+                    if(error!=null)
+                    {
+                        viewModel.emptyMessageList.set(true)
+                    }
+
                     if (snapshot!!.documents.size > 0) {
                         for (dataSnapshot in snapshot.documents) {
 
@@ -140,14 +146,14 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
 
 //                        viewModel.usersList.add(LastSeenData(usderName,message as String?,userImage,milisecondTime))
 
-                                var checkUser=false
+                                    var checkUser=false
                                     var whoBlockValue=false
                                     if (dataSnapshot.get("whoBlock") != null) {
 
                                         var whoBlock = dataSnapshot.get("whoBlock") as String
-                                       // whoBlockValue=whoBlock
+                                        // whoBlockValue=whoBlock
                                         if(whoBlock.equals("")){
-                                             checkUser=true
+                                            checkUser=true
                                             whoBlockValue=true
                                         }else
                                         {
@@ -161,7 +167,7 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                                         }
                                     }else
                                     {
-                                         checkUser=true
+                                        checkUser=true
                                         whoBlockValue=true
                                     }
                                     if(checkUser) {
@@ -189,6 +195,16 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
 
                             viewModel.messageUserAdapter.addItems(LastMesageList)
                             viewModel.messageUserAdapter.notifyDataSetChanged()
+
+
+                            if(LastMesageList.size==0)
+                            {
+                                viewModel.emptyMessageList.set(true)
+                            }else
+                            {
+                                viewModel.emptyMessageList.set(false)
+                            }
+
                             var intent = Intent(requireActivity(), ChatActivity::class.java)
                             viewModel.messageUserAdapter.setOnItemClick { view, position, type ->
                                 when (type) {
@@ -248,6 +264,9 @@ class MessagesFragment : Fragment(R.layout.messages_fragment) {
                             }
 
                         }
+                    }else
+                    {
+                        viewModel.emptyMessageList.set(true)
                     }
 
                 }

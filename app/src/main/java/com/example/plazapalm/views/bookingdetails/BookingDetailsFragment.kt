@@ -183,16 +183,16 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             ).customer_last_name
                         )
 
-                  /*      if (userdata.get(postion).postProfile_picture == null || userdata.get(
-                                postion
-                            ).postProfile_picture.isEmpty()
-                        ) {
-                            Log.e("DasQWK", "Work4")
-                            viewModel.imageUrl.set("https://i.picsum.photos/id/65/200/300.jpg?hmac=o9HaDBPcrCPi8zfB6MoTe6MNNVPsEN4orpzsHhCPlbU")
-                        } else {
-                            Log.e("DasQWK  ", UPLOAD_MEDIA)
-                            viewModel.imageUrl.set(userdata.get(postion as Int).postProfile_picture[0].toString())
-                        }*/
+                        /*      if (userdata.get(postion).postProfile_picture == null || userdata.get(
+                                      postion
+                                  ).postProfile_picture.isEmpty()
+                              ) {
+                                  Log.e("DasQWK", "Work4")
+                                  viewModel.imageUrl.set("https://i.picsum.photos/id/65/200/300.jpg?hmac=o9HaDBPcrCPi8zfB6MoTe6MNNVPsEN4orpzsHhCPlbU")
+                              } else {
+                                  Log.e("DasQWK  ", UPLOAD_MEDIA)
+                                  viewModel.imageUrl.set(userdata.get(postion as Int).postProfile_picture[0].toString())
+                              }*/
 
                         viewModel.bookingStatus.set("Category : " + userdata.get(postion).category_name)
                         if (!(userdata.get(postion).booking_status.toString().isEmpty()) &&

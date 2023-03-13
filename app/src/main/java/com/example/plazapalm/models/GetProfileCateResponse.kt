@@ -1,12 +1,13 @@
 package com.example.plazapalm.models
 
 import com.example.plazapalm.recycleradapter.AbstractModel
+import java.io.Serializable
 
 data class GetProfileCateResponse(
     val data: ArrayList<ProfileCateData>,
     val message: String,
     val status: Int
-): AbstractModel()
+): AbstractModel(), Serializable
 
 data class ProfileCateData(
     val _id: String,
@@ -43,16 +44,16 @@ data class ProfileCateData(
     var lngValue:Double?,
     var mediaType:Int,
     var frontpage_font_size:Any?=null,
-    var frontpage_font_opacity:Int?=0,
+    var frontpage_font_opacity:Any?=null,
     var frontpage_font_color:String?="",
     val p_id: String? = "",
-    val favouriteCount: Int? = 0,
-): AbstractModel()
+    val favouriteCount: Int? = 0
+): AbstractModel(),Serializable
 
 data class DashLocation(
     val coordinates: List<Double>,
     val type: String
-)
+):Serializable
 
 /*
 data class ProfileCateData(

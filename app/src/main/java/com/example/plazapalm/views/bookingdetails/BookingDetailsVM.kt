@@ -1,5 +1,6 @@
 package com.example.plazapalm.views.bookingdetails
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.example.plazapalm.R
+import com.example.plazapalm.chat.ChatActivity
 import com.example.plazapalm.datastore.DataStoreUtil
 import com.example.plazapalm.models.AddToCalendarResponseModel
 import com.example.plazapalm.models.BookingDataForCustomer
@@ -55,7 +57,7 @@ class BookingDetailsVM @Inject constructor(
 
             R.id.ivBookingDetailsBack -> {
                 view.navigateBack()
-   //             view.findNavController().navigateUp()
+                //             view.findNavController().navigateUp()
 
             }
 
@@ -95,16 +97,24 @@ class BookingDetailsVM @Inject constructor(
                 if (!imageUrl.get().toString().isNullOrEmpty()) {
                     userImage = imageUrl.get().toString()
                 } else {
-                    userImage = IMAGE_LOAD_URL + R.drawable.placeholder
+                    //  userImage = IMAGE_LOAD_URL + R.drawable.placeholder
+                    userImage = ""
                 }
 
-                val chatData = Bundle()
-                chatData.putString("CommingFrom", "CalendarScreen")
-                chatData.putString("user_Id", userIdForChat.get().toString())
-                chatData.putString("user_name", userFLName.get().toString())
-                chatData.putString("userImage", userImage)
+                /*  val chatData = Bundle()
+                  chatData.putString("CommingFrom", "CalendarScreen")
+                  chatData.putString("user_Id", userIdForChat.get().toString())
+                  chatData.putString("user_name", userFLName.get().toString())
+                  chatData.putString("userImage", userImage)
 
-                view.navigateWithId(R.id.action_bookingDetailsFragment_to_chatFragment, chatData)
+                  view.navigateWithId(R.id.action_bookingDetailsFragment_to_chatFragment, chatData)*/
+
+                var intent = Intent(CommonMethods.context, ChatActivity::class.java)
+                intent.putExtra("CommingFrom","CalendarScreen")
+                intent.putExtra("user_Id",userIdForChat.get().toString())
+                intent.putExtra("user_name", userFLName.get().toString())
+                intent.putExtra("userImage", userImage)
+                CommonMethods.context.startActivity(intent)
 
             }
 
@@ -113,12 +123,6 @@ class BookingDetailsVM @Inject constructor(
                 val bundle = Bundle()
                 bundle.putString("comingFrom", "isBookingDetailsFragment")
                 bundle.putString("userPostProfileId", userPostProfileId.get())
-
-                Log.e("SAASAqqwqwq", userPostProfileId.get().toString())
-                view.navigateWithId(
-                    R.id.action_bookingDetailsFragment_to_favDetailsFragment,
-                    bundle
-                )
                 Log.e("SAASAqqwqwq", userPostProfileId.get().toString())
                 view.navigateWithId(
                     R.id.action_bookingDetailsFragment_to_favDetailsFragment,

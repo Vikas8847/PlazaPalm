@@ -276,14 +276,16 @@
         android:name="com.example.plazapalm.views.messageslist.MessagesFragment"
         android:label="messages_fragment"
         tools:layout="@layout/messages_fragment">
-        <action
+
+
+        <!--<action
             android:id="@+id/action_messagesFragment_to_chatFragment"
             app:destination="@id/chatFragment"
             app:enterAnim="@anim/pop_enter"
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/messagesFragment" />
+            app:popUpTo="@id/messagesFragment" />-->
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -405,14 +407,14 @@
         android:name="com.example.plazapalm.views.myprofile.calendar.CalendarFragment"
         android:label="CalendarFragment"
         tools:layout="@layout/calendar_fragment">
-        <action
+      <!--  <action
             android:id="@+id/action_calendarFragment_to_chatFragment"
             app:destination="@id/chatFragment"
             app:enterAnim="@anim/pop_enter"
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/calendarFragment" />
+            app:popUpTo="@id/calendarFragment" />-->
         <action
             android:id="@+id/action_calendarFragment_to_bookingDetailsFragment"
             app:destination="@id/bookingDetailsFragment"
@@ -490,13 +492,13 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/favDetailsFragment"
             />
-        <action
+       <!-- <action
             android:id="@+id/action_favDetailsFragment_to_chatFragment"
             app:destination="@id/chatFragment"
             app:enterAnim="@anim/pop_enter"
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right" />-->
         <action
             android:id="@+id/action_favDetailsFragment_to_postProfileFragment"
             app:destination="@id/postProfileFragment"
@@ -508,6 +510,26 @@
 
         <action
             android:id="@+id/action_favDetailsFragment_to_MessagesFragment"
+            app:destination="@id/messagesFragment"
+            app:enterAnim="@anim/pop_enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/favDetailsFragment" />
+
+        <action
+            android:id="@+id/action_favDetailsFragment_to_confirmBookingFragment"
+            app:destination="@id/confirmBookingFragment"
+            app:enterAnim="@anim/pop_enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/favDetailsFragment" />
+
+
+
+        <action
+            android:id="@+id/action_favDetailsFragment_to_messagesFragment"
             app:destination="@id/messagesFragment"
             app:enterAnim="@anim/pop_enter"
             app:exitAnim="@anim/exit"
@@ -673,28 +695,39 @@
         android:name="com.example.plazapalm.views.confirmbookthankyou.ConfirmBookingFragment"
         android:label="ConfirmBookingFragment"
         tools:layout="@layout/confirm_booking_fragment">
+
+
         <action
+            android:id="@+id/action_confirmBookingFragment_to_thankYouFragment"
+            app:destination="@id/thankYouFragment"
+            app:enterAnim="@anim/pop_enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/favDetailsFragment" />
+
+      <!--  <action
             android:id="@+id/action_confirmBookingFragment_to_chatFragment"
             app:destination="@id/chatFragment"
             app:enterAnim="@anim/pop_enter"
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/confirmBookingFragment" />
+            app:popUpTo="@id/confirmBookingFragment" />-->
     </fragment>
     <fragment
         android:id="@+id/bookingDetailsFragment"
         android:name="com.example.plazapalm.views.bookingdetails.BookingDetailsFragment"
         android:label="BookingDetailsFragment"
         tools:layout="@layout/booking_details_fragment">
-        <action
+        <!--<action
             android:id="@+id/action_bookingDetailsFragment_to_chatFragment"
             app:destination="@id/chatFragment"
             app:enterAnim="@anim/pop_enter"
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/bookingDetailsFragment" />
+            app:popUpTo="@id/bookingDetailsFragment" />-->
         <action
             android:id="@+id/action_bookingDetailsFragment_to_favDetailsFragment"
             app:destination="@id/favDetailsFragment"

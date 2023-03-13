@@ -3,6 +3,7 @@ package com.example.plazapalm.views.confirmbookthankyou
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.plazapalm.R
+import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.utils.navigateWithId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,7 +14,8 @@ class ThankYouVM @Inject constructor():ViewModel() {
         when(view.id){
 
             R.id.ivThankYouConfirmBookNextBtn->{
-                view.navigateWithId(R.id.dashBoardFragment)
+                //   view.navigateWithId(R.id.dashBoardFragment)
+                view.navigateBack()
             }
         }
     }
