@@ -159,6 +159,7 @@ open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
                         navController?.navigate(R.id.openCategeroyFragment, bundle)
                     }
                 }
+
                 R.id.messages -> {
                     if (binding!!.bottNavMain.menu.getItem(2).isChecked) {
 
@@ -172,7 +173,12 @@ open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
                             item.itemId,
                             navController!!
                         )
-                        navController?.navigate(R.id.messagesFragment)
+                        try{
+                            navController?.navigate(R.id.messagesFragment)
+                        }catch (e:Exception){
+                            Log.e("sdfsasds" , e.toString())
+                        }
+
                     }
                 }
                 R.id.myProfile -> {
