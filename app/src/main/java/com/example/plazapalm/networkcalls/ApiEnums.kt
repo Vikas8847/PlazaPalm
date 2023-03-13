@@ -28,6 +28,7 @@ enum class ApiEnums {
     ADD_TO_FAV,
     GET_POST_PROFILE,
     GET_EDITCOLORS,
+    GET_LATLNG,
     DELETE_POST,
     UPDATE_POST_PROFILE,
     ADD_TO_CALENDAR,

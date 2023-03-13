@@ -84,7 +84,8 @@ class AdvanceMapFragment : Fragment(R.layout.advance_map_fragment), OnMapReadyCa
         setApiData()
         onClicks()
         workmanager()
-//
+        viewModel.updateLatlng()
+
 //        requireContext().startService(Intent(requireContext(),ServiceClass::class.java))
 //        update.updateLatlng()
 

@@ -78,7 +78,7 @@ class Repository @Inject constructor(
                 Log.d("resCodeIs", "====${response?.code()}")
 //                hideProgress()
 
-                Timer().schedule(1000) {
+                Timer().schedule(2000) {
                     hideProgress()
                 }
 

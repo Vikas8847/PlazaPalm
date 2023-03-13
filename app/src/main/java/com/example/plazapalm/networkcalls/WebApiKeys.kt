@@ -1,8 +1,8 @@
 package com.example.plazapalm.networkcalls
 
 
-const val BASE_URL = "https://plazapalm.com/auth/" /* Live URL..*/
-//const val BASE_URL = "http://192.168.1.87:3000/auth/" /* Local URL..*/
+//const val BASE_URL = "https://plazapalm.com/auth/" /* Live URL..*/
+const val BASE_URL = "http://192.168.1.87:3000/auth/" /* Local URL..*/
 const val IMAGE_LOAD_URL = "https://d17am3tdlggecz.cloudfront.net/"
 
 /*************************************************************/
@@ -55,6 +55,7 @@ const val GET_COLORS  = "colorLookGet"
 const val MAP_FEATURES  = "mapFeature"
 const val GET_MAP_FEATURES  = "mapFeatureGet"
 const val UPDATE_LATLONG  = "updateLatLong"
+const val GET_LATLONG  = "getLatLong"
 const val GALLERYPOST  = "galleryPost"
 const val GALLERYGET  = "galleryGet"
 const val DELETE_MEDIA  = "deleteMedia"

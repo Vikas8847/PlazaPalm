@@ -91,8 +91,7 @@ class LoginVM @Inject constructor(
             "LOGIN--REQUEST--",
             email.get() + "-- " + password.get() + " Local-->> " + preferences.retrieveFirebaseToken()
                     + "--->> " + sendFirebaseLoginToken.get()
-                .toString() + "--" + Constants.DeviceType + "--"
-        )
+                .toString() + "--" + Constants.DeviceType + "--" )
 
         repository.makeCall(
             apiKey = ApiEnums.LOGIN,
@@ -176,7 +175,9 @@ class LoginVM @Inject constructor(
 
                                   }*/
 
-                        } else {
+//                        } else {
+                        } else if (res.body()?.status == 401) {
+
                             val bundle = Bundle()
                             bundle.putString("comingFrom", "login")
                             //bundle.putString("login", email.get())
