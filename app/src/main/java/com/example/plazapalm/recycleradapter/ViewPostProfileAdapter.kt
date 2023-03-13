@@ -24,6 +24,7 @@ import com.example.plazapalm.models.AddImageDescriptionPOJO
 import com.example.plazapalm.models.FontsListModelResponse
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
 import com.example.plazapalm.utils.CommonMethods
+import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.FullScreenVideoView
 
 
@@ -92,9 +93,15 @@ class ViewPostProfileAdapter(
                 setbackground(bindining.clVEditProDescription, columnColor, borSiz, borderColor)
             }
 
+            var newFontSize=0.0f
+            if(photos[position].fontSize.toString()=="0.0" || photos[position].fontSize.toString()=="0"){
+                newFontSize= Constants.DEFAULT_FONT_SIZE.toFloat()
+            }else
+            {
+                newFontSize=photos[position].fontSize!!.toFloat()
+            }
 
-
-
+            bindining.etVEditProDescription.textSize = newFontSize
 
             if (!(photos[position].columnColor.equals("null")) && !(photos[position].columnColor.equals(""))) {
 

@@ -12,7 +12,7 @@ data class AddImageDescriptionPOJO(
     var borderColor: String? = "",
     val background_color: String? = "",
     val background_type: String? = "",
-    val border_opacity: Int? = 0,
+    val border_opacity: String? = "",
     val border_width: Int? = 0,
     val column_opacity: Int? = 0,
     val font_name: String? = "",

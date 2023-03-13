@@ -73,7 +73,7 @@ class FavDetailsVM @Inject constructor(
     var borderViewColor = ObservableField("")
     var font_typeface = ObservableField("")
 
-    var border_opacity=ObservableInt()
+    var border_opacity=ObservableField("")
     var column_opacity=ObservableInt()
     var font_opacity=ObservableInt()
     var font_size=ObservableInt()
@@ -163,7 +163,8 @@ class FavDetailsVM @Inject constructor(
             R.id.ivFavDetailsChats -> {
                 if (loginUserPId.get().toString().equals(p_id.get().toString())) {
                     //Go to the Recent Message screen
-                    view.navigateWithId(R.id.messagesFragment)
+                  //  view.navigateWithId(R.id.messagesFragment)
+                    view.navigateWithId(R.id.action_favDetailsFragment_to_messagesFragment)
                 } else {
                     //Go to the Single Message screen
 
@@ -201,7 +202,8 @@ class FavDetailsVM @Inject constructor(
 
 //                getrequiredDataForBookProfileForm()
 
-                view.navigateWithId(R.id.confirmBookingFragment, booking_pro)
+                // view.navigateWithId(R.id.confirmBookingFragment, booking_pro)
+                view.navigateWithId(R.id.action_favDetailsFragment_to_confirmBookingFragment, booking_pro)
 
             }
         }
@@ -603,7 +605,7 @@ class FavDetailsVM @Inject constructor(
                 bundle.putString("p_id", userdata.get()?._id)
                 bundle.putString("c_id", userdata.get()?.c_id)
                 bundle.putString("cate", userdata.get()?.category_name)
-                 bundle.putString("longi", userdata.get()?.long!!.toString())
+                bundle.putString("longi", userdata.get()?.long!!.toString())
                 bundle.putString("lati", userdata.get()?.lat!!.toString())
                 bundle.putString("location_text", userdata.get()?.location_text)
                 bundle.putBoolean("booking_status", tvAllowBooking.get())

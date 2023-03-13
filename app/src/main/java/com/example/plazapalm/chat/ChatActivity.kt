@@ -20,6 +20,7 @@ import com.example.plazapalm.models.GetProfileResponseModel
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
+import com.example.plazapalm.utils.showProgress
 import com.example.plazapalm.views.chat.ChatVM
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -55,6 +56,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun initUI() {
+        showProgress()
         binding.vm = viewModel
         getLocal()
         setAdapter()
@@ -114,7 +116,7 @@ class ChatActivity : AppCompatActivity() {
             viewModel.fetchNotificationToken()
         }
 
-   }
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun sendClicks() {

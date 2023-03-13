@@ -92,12 +92,12 @@ class CalendarVM @Inject constructor(
                     intent.putExtra("userImage", userImage)
                     CommonMethods.context.startActivity(intent)
 
-                   /* val chatData = Bundle()
-                    chatData.putString("CommingFrom", "CalendarScreen")
-                    chatData.putString("user_Id", adapterCalendar.getAllItems().get(position).post_profile_user_id.toString())
-                    chatData.putString("user_name", adapterCalendar.getAllItems().get(position).postProfile_first_name.toString() + " " + adapterCalendar.getAllItems().get(position).postProfile_last_name.toString())
-                    chatData.putString("userImage", userImage)
-                    view.navigateWithId(R.id.action_calendarFragment_to_chatFragment, chatData)*/
+                    /* val chatData = Bundle()
+                     chatData.putString("CommingFrom", "CalendarScreen")
+                     chatData.putString("user_Id", adapterCalendar.getAllItems().get(position).post_profile_user_id.toString())
+                     chatData.putString("user_name", adapterCalendar.getAllItems().get(position).postProfile_first_name.toString() + " " + adapterCalendar.getAllItems().get(position).postProfile_last_name.toString())
+                     chatData.putString("userImage", userImage)
+                     view.navigateWithId(R.id.action_calendarFragment_to_chatFragment, chatData)*/
 
                 }
 
@@ -129,7 +129,7 @@ class CalendarVM @Inject constructor(
             "CXVDD",
             pref.retrieveKey("token").toString() + "XXXZXZ " +
 
-                   adapterCalendar.getAllItems()[position]._id
+                    adapterCalendar.getAllItems()[position]._id
         )
         val bookingID = adapterCalendar.getAllItems()[position]._id
 

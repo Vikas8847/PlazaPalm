@@ -203,8 +203,18 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
             }
         }else
         {
-          //  appTextView!!.setTypeface(viewModel.fontList!![1].fontTypeface)
+            //  appTextView!!.setTypeface(viewModel.fontList!![1].fontTypeface)
         }
+
+        var newFontSize=0.0f
+        if(viewModel.font_size.get().toString()=="0.0" || viewModel.font_size.get().toString()=="0"){
+            newFontSize=Constants.DEFAULT_FONT_SIZE.toFloat()
+        }else
+        {
+            newFontSize=viewModel.font_size.get().toFloat()
+        }
+        appTextView!!.textSize = newFontSize
+
     }
 
 
@@ -280,7 +290,14 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     val pos = requireArguments().getInt("pos")
                     val image: ArrayList<String> =
                         data[pos].postProfile_picture as ArrayList<String>
-                    setFavdata(pos, data, image)
+
+
+                    p_id = data[pos].p_id
+                    lati = data[pos].lat
+                    longi = data[pos].long
+                    viewModel.p_id.set(p_id)
+
+                    // setFavdata(pos, data, image)
 
                     Log.e("kgvnsngsgggg===", loginUserPId.toString())
                     Log.e("kgvnsngsgggg11===", data[pos].p_id.toString())
@@ -383,6 +400,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         viewModel.userId.set(data[pos]._id)
         viewModel.userIdForChat.set(data[pos]._id.toString())
 
+        viewModel.font_opacity.set(data[pos].frontpage_font_opacity.toString().toInt())
+        viewModel.font_size.set(data[pos].frontpage_font_size.toString().toInt())
+        viewModel.fontViewColor.set(data[pos].frontpage_font_color.toString())
+        viewModel.font_typeface.set(data[pos].frontpage_bottom_text.toString())
+
         checkForMiles(data[pos]._id.toString())
         val imageList = ArrayList<AddPhoto>()
 
@@ -430,16 +452,23 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         setFirstMediaMethod(image[0])
 
-        var fontListModel:FontsListModelResponse
+        var fontListModel:FontsListModelResponse?=null
         if(viewModel.font_typeface.get()!="") {
             var fontList1 = viewModel.fontList!!.filter { it.name == viewModel.font_typeface.get() }
-            fontListModel=fontList1[0]
+
+            if(fontList1!!.size>0)
+            {
+                fontListModel=fontList1[0]
+            }else
+            {
+                fontListModel= viewModel.fontList!![0]
+            }
         }else
         {
             fontListModel= viewModel.fontList!![0]
         }
 
-        setAdapter(image, dscList,fontListModel)
+        setAdapter(image, dscList,fontListModel!!)
 
         Log.e("fkqwfrkwqkfqwff===", data.get(pos)._id.toString())
 
@@ -611,9 +640,11 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
     private fun getPostprofile(p_id: String, lati: Double, longi: Double) {
 
         Log.e(
-            "KKKKAAALLLL",
-            p_id + " PID " + pref.retvieLatlong("lati")
-                .toFloat() + " LAT  " + pref.retvieLatlong("longi").toFloat() + " LONG "
+            "KKKKAAALLLL",pref.retrieveKey("token").toString() +" dfdf "+
+                    p_id + " PID " +
+                    pref.retvieLatlong("lati")
+                        .toFloat() + " LAT  " +
+                    pref.retvieLatlong("longi").toFloat() + " LONG "
         )
 
         repository.makeCall(
@@ -625,7 +656,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
                 override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<GetPostProfileResponse> {
                     return retrofitApi.getPostProfile(
-
                         pref.retrieveKey("token").toString(),
                         p_id,
                         pref.retvieLatlong("lati").toFloat(),
@@ -730,7 +760,6 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                         viewModel.fontViewColor.set("#000000")
                                     }
 
-
                                     if(res.body()?.data?.column_color!=null && res.body()?.data?.column_color!=""
                                         && !(res.body()?.data?.column_color.equals("null"))) {
                                         if(res.body()?.data?.column_color!!.contains("#")){
@@ -766,7 +795,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
 
                                     res.body()?.data?.border_opacity?.let {
-                                        viewModel.border_opacity.set(it)
+                                        viewModel.border_opacity.set(it.toString())
                                     }
                                     res.body()?.data?.font_opacity?.let {
                                         viewModel.font_opacity.set(it)
@@ -775,6 +804,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                     res.body()?.data?.border_width?.let {
                                         viewModel.font_opacity.set(it)
                                     }
+
                                     res.body()?.data?.column_opacity?.let {
                                         viewModel.column_opacity.set(it)
                                     }
@@ -943,7 +973,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                                         fontListModel=viewModel.fontList!![0]
                                     }
                                 }else {
-                                  // fontListModel= viewModel.fontList!![0]
+                                    // fontListModel= viewModel.fontList!![0]
                                     fontListModel=FontsListModelResponse(viewModel.fontList!![0].fontTypeface,"temp")
                                 }
 
@@ -1049,7 +1079,8 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                     viewModel.border_size.get(),
                     viewModel.borderViewColor.get().toString(),
                     viewModel.backgrColor.get().toString(),
-                    "",viewModel.border_opacity.get(),
+                    ""
+                    ,viewModel.border_opacity.get().toString(),
                     viewModel.border_size.get(),viewModel.column_opacity.get(),
                     viewModel.font_typeface.get().toString()
                 )
