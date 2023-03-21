@@ -6,7 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:gravity="end">
 
         <TextView
@@ -29,11 +30,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_5sdp"
-            android:paddingEnd="@dimen/_5sdp"
-            android:paddingTop="@dimen/_3sdp"
-            android:paddingBottom="@dimen/_3sdp"
             android:background="@drawable/ic_sender"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_3sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSenderDay">
 
@@ -47,10 +48,10 @@
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:fontFamily="@font/inter_medium"
                 android:text="fedfef."
-                android:textSize="@dimen/_12ssp"
                 android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
@@ -65,8 +66,8 @@
                 android:fontFamily="@font/inter_medium"
                 android:maxWidth="@dimen/_350sdp"
                 android:paddingStart="@dimen/_3sdp"
-                android:paddingEnd="@dimen/_3sdp"
                 android:paddingTop="@dimen/_1sdp"
+                android:paddingEnd="@dimen/_3sdp"
                 android:paddingBottom="@dimen/_1sdp"
 
                 android:text="01:30 pm"

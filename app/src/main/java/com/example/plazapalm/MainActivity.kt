@@ -121,6 +121,7 @@ open class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
                 }
             }
         }
+
         var dialog: Dialog? = null
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -11,6 +11,6 @@ data class GetMapData(
     val follow: Boolean,
     val location_OnOff: Boolean,
     val user_id: String,
-    val user_lat: Int,
-    val user_long: Int
+    val user_lat: Double,
+    val user_long: Double
 )

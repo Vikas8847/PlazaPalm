@@ -157,6 +157,11 @@ class SettingsVM @Inject constructor(
 //                    pref.storeKey("token",res.body()?.data?.token.toString())
 
                     pref.cleardata("token")
+                    pref.cleardata("lati")
+                    pref.cleardata("longi")
+                    pref.cleardata("business_profile_status")
+                    pref.cleardata("PURCHASE_USERID")
+
 //                    pref.clearPreference()
                     dataStoreUtil.clearDataStore {
                         it
@@ -201,6 +206,8 @@ class SettingsVM @Inject constructor(
                     pref.cleardata("token")
                     pref.cleardata("lati")
                     pref.cleardata("longi")
+                    pref.cleardata("business_profile_status")
+                    pref.cleardata("PURCHASE_USERID")
 
                     view.findNavController().navigate(R.id.action_setting_to_loginFragment)
                     with(CommonMethods) {

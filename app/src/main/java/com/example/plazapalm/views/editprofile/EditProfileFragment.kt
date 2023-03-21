@@ -59,6 +59,7 @@ class EditProfileFragment : Fragment(R.layout.edit_profile_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClicks()
+        checkCameraPermission()
         binding?.vm = viewModel
     }
 
@@ -76,16 +77,11 @@ class EditProfileFragment : Fragment(R.layout.edit_profile_fragment) {
     private fun checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(
-               requireActivity(),
-                arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ), viewModel.REQUEST_PERMISSION.get()
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), viewModel.REQUEST_PERMISSION.get()
             )
         }
     }
+
     /*Show camera and gallery alert dialog..*/
     private fun showCameraGalleryEditProfile() {
         CommonMethods.dialog

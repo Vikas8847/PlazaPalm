@@ -58,6 +58,7 @@
     //10-01-2023 Changes
     <string name="upload_image">Upload Image</string>
     <string name="upload_video">Upload Video</string>
+    <string name="take_video">Take Video</string>
 
     <string name="lower_name">Lower Name</string>
     <string name="top_name">Top Name</string>
@@ -70,7 +71,7 @@
     <string name="testing_nprofile">Testing\nProfile</string>
     <string name="type_here">Type here..</string>
     <string name="block_user">Block User</string>
-    <string name="unblock_user">UnBlock User</string>
+    <string name="unblock_user">Unblock User</string>
     <string name="top_text">Top Text</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
@@ -137,4 +138,5 @@ When you’re signed in, we also collect information that we store with your Goo
     <string name="resend_code">Resend Code</string>
     <string name="send_code">Send Code</string>
 <string name="new_block_text">Tap here to unblock</string>
+    <string name="no_data_found">No Data Found</string>
 </resources>

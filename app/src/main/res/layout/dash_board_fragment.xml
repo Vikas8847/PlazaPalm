@@ -140,7 +140,6 @@
 -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDashBoard"
-
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
@@ -162,10 +161,13 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/nodata_found"
                 android:layout_width="match_parent"
+                android:textColor="@color/black"
                 android:visibility="@{vm.isNodatafound ? View.GONE   : View.VISIBLE}"
                 android:text="@{vm.isNodatafound ? @string/space  : @string/nodata_found}"
                 android:textSize="@dimen/_16sdp"
                 android:gravity="center"
+                app:fastScrollEnabled="false"
+                android:scrollbars="vertical"
                 android:layout_height="match_parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

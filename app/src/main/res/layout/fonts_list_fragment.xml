@@ -49,7 +49,31 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/etChooseFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/dashboard_bg"
+            android:clickable="true"
+            android:elevation="@dimen/_1sdp"
+            android:theme="@style/WallSearchView"
+            android:focusableInTouchMode="true"
+            android:paddingStart="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:iconifiedByDefault="false"
+            android:outlineAmbientShadowColor="@color/black"
+            android:outlineSpotShadowColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/tvChooseFont"
+            app:queryBackground="@null"
+            app:queryHint="Search"
+            />
 
+
+<!--
         <androidx.appcompat.widget.SearchView
             android:id="@+id/etChooseFont"
             android:layout_width="match_parent"
@@ -72,6 +96,7 @@
 
             app:queryHint="Search"
             />
+-->
 
         <View
             android:id="@+id/myview"
@@ -119,11 +144,11 @@
             android:nestedScrollingEnabled="true"
             app:layout_constrainedHeight="true"
             android:paddingTop="@dimen/_5sdp"
+            android:minHeight="@dimen/_500sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/rvChooseFontRecent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="6dp"
-
             tools:listitem="@layout/fonts_list_item" />
 
         <androidx.appcompat.widget.AppCompatTextView

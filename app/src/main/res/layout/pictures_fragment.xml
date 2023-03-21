@@ -58,12 +58,13 @@
 
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_1sdp"
-                    android:text="Pictures"
+                    android:text="Memories"
                     android:textColor="@color/tool_bar_black_color"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivPicturesAdd"
@@ -101,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
-                android:text="No pictures has been uploaded yet!!!"
+                android:text="No Memory has been uploaded yet!!!"
                 android:textColor="@color/tool_bar_black_color"
                 android:textSize="@dimen/_14ssp"
                 android:visibility="@{vm.photosAvailable?mView.VISIBLE:mView.GONE}"
@@ -109,6 +110,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

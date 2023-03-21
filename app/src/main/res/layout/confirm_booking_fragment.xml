@@ -173,7 +173,7 @@
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:singleLine="true"
-                    android:text="@={vm.chooseDate}"
+                    android:text="@={vm.showDate}"
                     android:textColor="@color/white"
                     android:hint="@string/dd_mm_yy"
                     android:textColorHint="@color/white"

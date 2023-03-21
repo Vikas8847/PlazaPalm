@@ -532,8 +532,11 @@ class AddPhotosFragment : Fragment(R.layout.add_photos_fragment), ItemClickListe
                                 var arraylist = ArrayList<AddPhoto>()
 
                                 for (idx in 0 until newPhotoList.size) {
-                                    if (newPhotoList[idx].Image != "") {
-                                        arraylist.add(AddPhoto(newPhotoList[idx].Image,true))
+                                    if (newPhotoList[idx].Image != "" && (newPhotoList[idx].Image!!.contains(".mp4") || newPhotoList[idx].Image!!.contains(".MP4"))) {
+                                        arraylist.add(AddPhoto(newPhotoList[idx].Image,true,2))
+                                    }else if (newPhotoList[idx].Image != "")
+                                    {
+                                        arraylist.add(AddPhoto(newPhotoList[idx].Image,true,1))
                                     }
                                 }
 

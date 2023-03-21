@@ -98,7 +98,7 @@ class SelectCategoryViewModel  @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showCategories(
-        data: List<CategoriesData>,
+        data: ArrayList<CategoriesData>,
         rvCategoryLocation: RecyclerView,
         requireActivity: FragmentActivity,
         clickItem: clickItem

@@ -99,6 +99,7 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:fontFamily="@font/inter_medium"
                     android:paddingVertical="@dimen/_5sdp"
+                    android:visibility="gone"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Photo and video Gallery"
                     android:textColor="@color/white"

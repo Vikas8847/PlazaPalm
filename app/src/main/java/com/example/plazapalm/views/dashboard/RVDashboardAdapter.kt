@@ -1,5 +1,6 @@
 package com.example.plazapalm.views.dashboard
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
@@ -18,29 +19,40 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plazapalm.R
+import com.example.plazapalm.models.CategoriesData
 import com.example.plazapalm.models.FontsListModelResponse
 import com.example.plazapalm.models.ProfileCateData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
-import com.example.plazapalm.utils.*
+import com.example.plazapalm.utils.Constants
+import com.example.plazapalm.utils.FullScreenVideoView
+import com.example.plazapalm.utils.getTextSizeValue
 import com.google.android.gms.maps.model.LatLng
 import com.squareup.picasso.Picasso
 
 class RVDashboardAdapter(
     private var context: Context,
     private var profileList: ArrayList<ProfileCateData>,
-    private var itemClick: DashboardInterface,private var fontList:ArrayList<FontsListModelResponse>,var screenType:String
+    private var itemClick: DashboardInterface,
+    private var fontList: ArrayList<FontsListModelResponse>,
+    var screenType: String
 ) :
     RecyclerView.Adapter<RVDashboardAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvDashBoardItemName: AppCompatTextView = itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemName)
-        var tvDashBoardItemLastName: AppCompatTextView = itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemLastName)
+        var tvDashBoardItemName: AppCompatTextView =
+            itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemName)
+        var tvDashBoardItemLastName: AppCompatTextView =
+            itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemLastName)
         var tvDashBoardItemDescription: AppCompatTextView =
             itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemDescription)
-        var tvDashBoardItemLocation: AppCompatTextView = itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemLocation)
-        var tvDashBoardItemDistance: AppCompatTextView = itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemDistance)
-        var ivDashBoardCat: AppCompatImageView = itemView.findViewById<AppCompatImageView>(R.id.ivDashBoardCat)
-        var videoFullScreen: FullScreenVideoView = itemView.findViewById<FullScreenVideoView>(R.id.videoFullScreen)
+        var tvDashBoardItemLocation: AppCompatTextView =
+            itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemLocation)
+        var tvDashBoardItemDistance: AppCompatTextView =
+            itemView.findViewById<AppCompatTextView>(R.id.tvDashBoardItemDistance)
+        var ivDashBoardCat: AppCompatImageView =
+            itemView.findViewById<AppCompatImageView>(R.id.ivDashBoardCat)
+        var videoFullScreen: FullScreenVideoView =
+            itemView.findViewById<FullScreenVideoView>(R.id.videoFullScreen)
         var ivVideoIcon: ImageView = itemView.findViewById<ImageView>(R.id.ivVideoIcon)
         var ivFavourite: ImageView = itemView.findViewById<ImageView>(R.id.ivFavourite)
         var player_layout: CardView = itemView.findViewById<CardView>(R.id.player_layout)
@@ -48,6 +60,12 @@ class RVDashboardAdapter(
 
     fun getProfileList(): ArrayList<ProfileCateData> {
         return profileList
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateAdapter(dataList : ArrayList<ProfileCateData>){
+        profileList.addAll(dataList)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -62,14 +80,13 @@ class RVDashboardAdapter(
         holder.tvDashBoardItemDescription.text = profileList[position].user_name
         holder.tvDashBoardItemLocation.text = profileList[position].address
 
-        if(screenType.equals("dash")) {
+        if (screenType.equals("dash")) {
             if (profileList[position].isFavourite!!) {
                 holder.ivFavourite.setImageResource(R.drawable.ic_heart_filled_icon)
             } else {
                 holder.ivFavourite.setImageResource(R.drawable.ic_heart_icon)
             }
-        }else
-        {
+        } else {
             holder.ivFavourite.setImageResource(R.drawable.ic_heart_filled_icon)
         }
 
@@ -81,19 +98,22 @@ class RVDashboardAdapter(
             itemClick.onItemClick(position, holder.player_layout)
         }
 
-        textproperties(holder.tvDashBoardItemName,profileList[position],1,fontList)
-        textproperties(holder.tvDashBoardItemLastName,profileList[position],1,fontList)
-        textproperties(holder.tvDashBoardItemDescription,profileList[position],2,fontList)
-        textproperties(holder.tvDashBoardItemLocation,profileList[position],2,fontList)
+        textproperties(holder.tvDashBoardItemName, profileList[position], 1, fontList)
+        textproperties(holder.tvDashBoardItemLastName, profileList[position], 1, fontList)
+        textproperties(holder.tvDashBoardItemDescription, profileList[position], 2, fontList)
+        textproperties(holder.tvDashBoardItemLocation, profileList[position], 2, fontList)
 
-        calculateDistance(holder.tvDashBoardItemDistance,
+        calculateDistance(
+            holder.tvDashBoardItemDistance,
             profileList[position].lat,
             profileList[position].lngValue!!,
             profileList[position],
-            3)
+            3
+        )
 
         if (profileList[position].postProfile_picture[0].contains(".png") || profileList[position].postProfile_picture[0].contains(
-                ".jpg") ||
+                ".jpg"
+            ) ||
             profileList[position].postProfile_picture[0].contains(".jpeg")
         ) {
 
@@ -104,7 +124,8 @@ class RVDashboardAdapter(
                       .error(R.drawable.placeholder)
                       .into(holder.ivDashBoardCat)*/
 
-                Picasso.get().load(IMAGE_LOAD_URL + profileList[position].postProfile_picture[0]).fit().centerCrop()
+                Picasso.get().load(IMAGE_LOAD_URL + profileList[position].postProfile_picture[0])
+                    .fit().centerCrop()
                     .placeholder(R.drawable.placeholder)
                     .into(holder.ivDashBoardCat);
 
@@ -115,11 +136,14 @@ class RVDashboardAdapter(
             holder.ivVideoIcon.visibility = View.GONE
             holder.ivDashBoardCat.visibility = View.VISIBLE
         } else {
-            setVideoImage(holder.videoFullScreen,
+            setVideoImage(
+                holder.videoFullScreen,
                 profileList[position].postProfile_picture[0],
-                holder.ivVideoIcon)
+                holder.ivVideoIcon
+            )
 
-            Picasso.get().load(IMAGE_LOAD_URL + profileList[position].postProfile_picture[0]).fit().centerCrop()
+            Picasso.get().load(IMAGE_LOAD_URL + profileList[position].postProfile_picture[0]).fit()
+                .centerCrop()
                 .placeholder(R.drawable.placeholder)
                 .into(holder.ivDashBoardCat);
 
@@ -191,23 +215,27 @@ class RVDashboardAdapter(
                     destinationTV.setTextColor(Color.parseColor(newColor))
                 }
 
-                if(profileData.frontpage_font_size is Int){
+                if (profileData.frontpage_font_size is Int) {
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
                         destinationTV.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
                         var finalTextSize =
-                            (getTextSizeValue((profileData.frontpage_font_size.toString()
-                                .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()))
+                            (getTextSizeValue(
+                                (profileData.frontpage_font_size.toString()
+                                    .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                            ))
                         finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
                         destinationTV.textSize = finalTextSize.toFloat()
                     }
-                }else
-                {
+                } else {
                     if (profileData.frontpage_font_size.toString().toDouble() == 0.0) {
                         destinationTV.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
                         var finalTextSize =
-                            (getTextSizeValue((profileData.frontpage_font_size.toString().toDouble() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()))
+                            (getTextSizeValue(
+                                (profileData.frontpage_font_size.toString()
+                                    .toDouble() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                            ))
                         finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
                         destinationTV.textSize = finalTextSize.toFloat()
                     }
@@ -252,6 +280,7 @@ class RVDashboardAdapter(
     fun metersToMiles(meters: Double): Double {
         return meters / METERS_IN_MILE
     }
+
     val METERS_IN_MILE = 1609.344
 
     fun setVideoImage(
@@ -298,42 +327,49 @@ class RVDashboardAdapter(
         profileData: ProfileCateData, toptext: Int, fontList: ArrayList<FontsListModelResponse>
     ) {
         // textView.setText(nameValue)
-        if(toptext==1) {
+        if (toptext == 1) {
             if (profileData.is_top_selected!!) {
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(context.resources.getColor(R.color.white))
                 } else {
-                    var newColor=""
-                    if(profileData.frontpage_font_color!!.contains("#")){
-                        newColor=profileData.frontpage_font_color!!
-                    }else
-                    {
-                        newColor="#"+profileData.frontpage_font_color!!
+                    var newColor = ""
+                    if (profileData.frontpage_font_color!!.contains("#")) {
+                        newColor = profileData.frontpage_font_color!!
+                    } else {
+                        newColor = "#" + profileData.frontpage_font_color!!
                     }
                     textView.setTextColor(Color.parseColor(newColor))
                 }
                 //  textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
                 // }
 
-                if(profileData.frontpage_font_size is Int){
+                if (profileData.frontpage_font_size is Int) {
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
                         textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
 
-                        var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                        finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                        var finalTextSize = (getTextSizeValue(
+                            (profileData.frontpage_font_size.toString()
+                                .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                        ))
+                        finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
 
                         textView.textSize = finalTextSize.toFloat()
                     }
-                }else
-                {
+                } else {
                     if (profileData.frontpage_font_size.toString().toDouble() == 0.0) {
                         textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
 
-                        var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toDouble() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                        finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
-                        Log.e("rfejfjefefef===",profileData.first_name+"=="+finalTextSize.toString())
+                        var finalTextSize = (getTextSizeValue(
+                            (profileData.frontpage_font_size.toString()
+                                .toDouble() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                        ))
+                        finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
+                        Log.e(
+                            "rfejfjefefef===",
+                            profileData.first_name + "==" + finalTextSize.toString()
+                        )
                         textView.textSize = finalTextSize.toFloat()
                     }
                 }
@@ -349,60 +385,61 @@ class RVDashboardAdapter(
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
                     //  var fontList= getNewFontsInList()
-                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
-                    if(fontList1.size>0){
+                    var fontList1 =
+                        fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if (fontList1.size > 0) {
                         textView.setTypeface(fontList1[0].fontTypeface)
                     }
                 }
 
-            }else
-            {
+            } else {
                 textView.setTextColor(context.resources.getColor(R.color.white))
                 textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
-                textView.alpha=1f
+                textView.alpha = 1f
                 textView.setTypeface(Typeface.SANS_SERIF)
                 //  var fontList= getNewFontsInList()
                 //  textView.setTypeface(fontList[1].fontTypeface)
             }
-        }
-        else
-        {
+        } else {
             if (profileData.is_bottom_selected!!) {
 
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(context.resources.getColor(R.color.white))
-                } else  {
-                    var newColor=""
-                    if(profileData.frontpage_font_color!!.contains("#")){
-                        newColor=profileData.frontpage_font_color!!
-                    }else
-                    {
-                        newColor="#"+profileData.frontpage_font_color!!
+                } else {
+                    var newColor = ""
+                    if (profileData.frontpage_font_color!!.contains("#")) {
+                        newColor = profileData.frontpage_font_color!!
+                    } else {
+                        newColor = "#" + profileData.frontpage_font_color!!
                     }
                     textView.setTextColor(Color.parseColor(newColor))
                 }
 
 
-
                 //textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
                 //   }
 
-                if(profileData.frontpage_font_size is Int){
+                if (profileData.frontpage_font_size is Int) {
                     if (profileData.frontpage_font_size.toString().toInt() == 0) {
                         textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
-                        var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                        finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                        var finalTextSize = (getTextSizeValue(
+                            (profileData.frontpage_font_size.toString()
+                                .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                        ))
+                        finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
 
                         textView.textSize = finalTextSize.toFloat()
                     }
-                }else
-                {
+                } else {
                     if (profileData.frontpage_font_size.toString().toDouble() == 0.0) {
                         textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
                     } else {
-                        var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toDouble() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                        finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                        var finalTextSize = (getTextSizeValue(
+                            (profileData.frontpage_font_size.toString()
+                                .toDouble() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                        ))
+                        finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
 
                         textView.textSize = finalTextSize.toFloat()
                     }
@@ -417,16 +454,16 @@ class RVDashboardAdapter(
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
                     //var fontList= getNewFontsInList()
-                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
-                    if(fontList1.size>0){
+                    var fontList1 =
+                        fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if (fontList1.size > 0) {
                         textView.setTypeface(fontList1[0].fontTypeface)
                     }
                 }
-            }else
-            {
+            } else {
                 textView.setTextColor(context.resources.getColor(R.color.white))
-                textView.textSize=Constants.DEFAULT_FONT_SIZE.toFloat()
-                textView.alpha=1f
+                textView.textSize = Constants.DEFAULT_FONT_SIZE.toFloat()
+                textView.alpha = 1f
                 textView.setTypeface(Typeface.SANS_SERIF)
                 //  var fontList= getNewFontsInList()
                 //  textView.setTypeface(fontList[1].fontTypeface)

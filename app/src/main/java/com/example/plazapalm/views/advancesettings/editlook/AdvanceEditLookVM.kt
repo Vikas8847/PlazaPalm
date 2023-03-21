@@ -3,6 +3,7 @@ package com.example.plazapalm.views.advancesettings.editlook
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
@@ -10,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -17,6 +19,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.toColorInt
 import androidx.databinding.ObservableBoolean
@@ -249,6 +252,23 @@ class AdvanceEditLookVM @Inject constructor(
             }
 
             searchFunctionality()
+
+            // val searchView = findViewById(R.id.search) as SearchView
+            val searchEditText =
+                etAdvanceEditLookChooseFont.findViewById<View>(androidx.appcompat.R.id.search_src_text) as EditText
+            searchEditText.setTextColor(Color.BLACK)
+            searchEditText.setHintTextColor(Color.GRAY)
+
+            val searchIcon: ImageView =
+                etAdvanceEditLookChooseFont.findViewById(androidx.appcompat.R.id.search_mag_icon)
+            searchIcon.setImageDrawable(
+                ContextCompat.getDrawable(
+                    CommonMethods.context,
+                    R.drawable.ic_search_icon_dashboard
+                )
+            )
+            searchIcon.setColorFilter(R.color.black,  PorterDuff.Mode.SRC_ATOP);
+
         }
         fontBottomSheet?.setContentView(scheduleBinding?.root!!)
         fontBottomSheet?.behavior?.peekHeight=WindowManager.LayoutParams.MATCH_PARENT

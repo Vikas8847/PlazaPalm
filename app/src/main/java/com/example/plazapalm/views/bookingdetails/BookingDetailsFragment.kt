@@ -21,10 +21,17 @@ import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.RequireDataBookAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Response
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
+
+
+
 class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
     private var binding: BookingDetailsFragmentBinding? = null
     private val viewModel: BookingDetailsVM by viewModels()
@@ -78,6 +85,9 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                     val split = date?.split("T")
                     val before = split?.get(0).toString()
 
+                    val zonedDateTime = ZonedDateTime.parse(userdata.get(postion as Int).choose_date)
+                    val dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale("pt", "BR"))
+                    val Fdate = dtf.format(zonedDateTime)
 
                     Log.e("LSDFWEMVCDX", userdata.toString())
 
@@ -92,7 +102,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         viewModel.userLName.set(userdata.get(postion as Int).postProfile_last_name)
                         viewModel.userPostProfileId.set(userdata.get(postion as Int).post_profile_id)
                         viewModel.userType.set(userdata.get(postion as Int).userType)
-                        viewModel.date.set(before.toString())
+//                        viewModel.date.set(before.toString())
                         viewModel.description.set(userdata.get(postion as Int).description)
                         viewModel.location.set(userdata.get(postion as Int).location_text)
                         viewModel.categaryName.set(userdata.get(postion as Int).category_name)
@@ -171,7 +181,7 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                         viewModel.userLName.set(userdata.get(postion as Int).customer_last_name)
                         viewModel.userPostProfileId.set(userdata.get(postion as Int).post_profile_id)
                         viewModel.userType.set(userdata.get(postion as Int).userType)
-                        viewModel.date.set(before.toString())
+                        viewModel.date.set(Fdate.toString())
                         viewModel.description.set(userdata.get(postion as Int).description)
                         viewModel.location.set(userdata.get(postion as Int).location_text)
                         viewModel.categaryName.set(userdata.get(postion as Int).category_name)
@@ -295,12 +305,18 @@ class BookingDetailsFragment : Fragment(R.layout.booking_details_fragment) {
                             Log.e("RESEER", res.body().toString())
 
                             for (idx in 0 until res.body()!!.data.size) {
+
                                 val splitValue = res.body()!!.data[idx].choose_date
                                 val date = splitValue!!.split("T").toTypedArray()
 
                                 Log.e("salkjkl",date[0].toString())
 
-                                viewModel.date.set(date[0])
+                                val zonedDateTime = ZonedDateTime.parse(res.body()!!.data[idx].choose_date)
+                                val dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale("pt", "BR"))
+                                val Fdate = dtf.format(zonedDateTime)
+
+                                viewModel.date.set(Fdate)
+
                                 for (i in 0 until res.body()!!.data[idx].question_answer.size) {
                                     arrayList.add(
                                         Joined(

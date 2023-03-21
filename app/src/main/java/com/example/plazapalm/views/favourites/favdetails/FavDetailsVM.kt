@@ -1,6 +1,6 @@
 package com.example.plazapalm.views.favourites.favdetails
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -13,19 +13,14 @@ import android.view.Window
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.databinding.ObservableParcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
-import com.example.plazapalm.MainActivity.Companion.activity
 import com.example.plazapalm.R
 import com.example.plazapalm.chat.ChatActivity
 import com.example.plazapalm.datastore.DataStoreUtil
-import com.example.plazapalm.datastore.SAVE_MAP_FEATURE
 import com.example.plazapalm.models.*
 import com.example.plazapalm.networkcalls.ApiEnums
 import com.example.plazapalm.networkcalls.ApiProcessor
@@ -37,11 +32,9 @@ import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.navigateBack
 import com.example.plazapalm.utils.navigateWithId
-import com.google.android.gms.common.internal.service.Common
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.util.LinkProperties
-import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -109,6 +102,11 @@ class FavDetailsVM @Inject constructor(
                 setdislike(isLike.get(), isDisLike.get(), 2)
 
             }
+            R.id.clFavDetails -> {
+
+                view.navigateWithId(R.id.action_favDetailsFragment_to_picturesFragment)
+
+            }
 
             R.id.ivFavDetailsLike -> {
                 setdislike(isLike.get(), isDisLike.get(), 1)
@@ -153,7 +151,10 @@ class FavDetailsVM @Inject constructor(
                   }*/
 
                 if (loginUserPId.get().toString().equals(p_id.get().toString())) {
-                    showViewProfileDialog(view)
+                    if (!(CommonMethods.context as Activity).isFinishing) {
+                        //show dialog
+                        showViewProfileDialog(view)
+                    }
                 }else
                 {
                     showFavDetailsDialog(view, isFav.get())

@@ -420,6 +420,7 @@ class QuestionariesVM @Inject constructor(
                                     }
                                 }
                                 }
+
                             questionsAdapter.notifyDataSetChanged()
 
                             CommonMethods.showToast(CommonMethods.context, res.body()?.message!!)

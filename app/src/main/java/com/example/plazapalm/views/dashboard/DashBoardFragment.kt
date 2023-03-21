@@ -15,10 +15,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
@@ -53,6 +56,15 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
     var pID = ""
     private lateinit var mFusedLocation: FusedLocationProviderClient
     private val viewModel: DashBoardVM by viewModels()
+    var currentPage = 1
+    var loading = true
+    private var previousTotal = 0
+    private val visibleThreshold = 5
+    var visibleItemCount = 0
+    var totalItemCount = 0
+    var firstVisibleItem = 0
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -113,11 +125,12 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                 viewModel.getProfileByCategory(
                     "",
                     true,
-                    viewModel.selectedCatId.get().toString()
+                    viewModel.selectedCatId.get().toString(),
+                    1
                 )
             } else {
                 (activity as MainActivity?)!!.setTabMethod(1)
-                viewModel.getProfileByCategory("", true, "")
+                viewModel.getProfileByCategory("", true, "", 1)
             }
         }
 
@@ -304,6 +317,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         viewModel.rvView = binding!!.rvDashBoard
         var fontlist=getNewFontsInList()
         viewModel.fontList=fontlist
+
         //viewModel.rvNewView= binding!!.rvDashBoard
     }
 
@@ -382,7 +396,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     pref.saveCateIdList(gsonValueCateIdList)
 
 
-                    viewModel.getProfileByCategory("", true, "")
+                    viewModel.getProfileByCategory("", true, "", 1)
 
                 }
 
@@ -413,7 +427,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     }
                     viewModel.lati.set(arguments?.getDouble("Filterlatitude")!!)
                     viewModel.longi.set(arguments?.getDouble("Filterlongitude")!!)
-                    viewModel.getProfileByCategory("", true, "")
+                    viewModel.getProfileByCategory("", true, "", 1)
                 }
 
                 arguments?.getStringArrayList("FromLoginScreenCategoriesIds") != null -> {
@@ -458,7 +472,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
 
                     Log.e("DDDDWoij", viewModel.idList.toString())
-                    viewModel.getProfileByCategory("", true, "")
+                    viewModel.getProfileByCategory("", true, "", 1)
                 }
 
                 arguments?.getString("fromOpencate") != null -> {
@@ -499,8 +513,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                     viewModel.lati.set(arguments?.getDouble("latitude")!!)
                     viewModel.longi.set(arguments?.getDouble("longitude")!!)
 
-                    //  viewModel.lati.set(pref.retvieLatlong("lati").toDouble())
-                    //     viewModel.longi.set(pref.retvieLatlong("longi").toDouble())
 
                     Log.e(
                         "LATLANGG",
@@ -508,7 +520,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                             .toString() + "  <<<--- Longiii ---->>>  " +
                                 viewModel.longi.get() + " CIdd--- " + c_id
                     )
-                    viewModel.getProfileByCategory("", true, c_id)
+                    viewModel.getProfileByCategory("", true, c_id, 1)
                 }
 
                 arguments?.getString("comingFromIsfilter") != null -> {
@@ -566,7 +578,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 
                         val geocoder = Geocoder(requireActivity(), Locale.getDefault())
                         val addresses: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
                         val city = addresses[0].locality
                         val state = addresses[0].adminArea
                         val country = addresses[0].countryName
@@ -662,6 +674,117 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                 // swipeRefreshLayout.setRefreshing(false)
             }
         })
+
+
+
+/** Implement pagination */
+
+/*
+        binding?.rvDashBoard?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val mLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                viewModel.visibleItemCount.set(binding?.rvDashBoard!!.getChildCount())
+                viewModel.totalItemCount.set(mLayoutManager.getItemCount())
+                viewModel.firstVisibleItem.set(mLayoutManager.findFirstVisibleItemPosition())
+
+                if (viewModel.loading.get()) {
+                    if (viewModel.totalItemCount.get() > viewModel.previousTotal.get()) {
+                        viewModel.loading.set(false)
+                        viewModel.previousTotal.set(viewModel.totalItemCount.get())
+                    }
+                }
+
+                if (!viewModel.loading.get() && viewModel.totalItemCount.get() - viewModel.visibleItemCount.get()
+                    <= viewModel.firstVisibleItem.get() + viewModel.visibleThreshold.get()) {
+                    // End has been reached
+                    Log.e("Yaeye!", "end called")
+
+                    viewModel.currentPage.get()+1
+                    viewModel.fetchData(viewModel.currentPage.get())
+
+                    // Do something
+                    viewModel.loading.set(true)
+                }
+            }
+        })
+*/
+
+/*
+        binding?.rvDashBoard?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val mLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                visibleItemCount=binding?.rvDashBoard!!.getChildCount()
+                totalItemCount = mLayoutManager.getItemCount()
+                firstVisibleItem=mLayoutManager.findFirstVisibleItemPosition()
+
+                if (loading) {
+                    if (totalItemCount > previousTotal.get()) {
+                        loading =false
+                        previousTotal.set(viewModel.totalItemCount.get())
+                    }
+                }
+
+                if (!viewModel.loading.get() && viewModel.totalItemCount.get() - viewModel.visibleItemCount.get()
+                    <= viewModel.firstVisibleItem.get() + viewModel.visibleThreshold.get()) {
+                    // End has been reached
+                    Log.e("Yaeye!", "end called")
+
+                    viewModel.currentPage.get()+1
+                    viewModel.fetchData(viewModel.currentPage.get())
+
+                    // Do something
+                    viewModel.loading.set(true)
+                }
+            }
+        })
+*/
+
+
+        binding?.rvDashBoard?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val mLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                visibleItemCount = binding?.rvDashBoard!!.getChildCount()
+                totalItemCount = mLayoutManager.getItemCount()
+                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
+
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false
+                        previousTotal = totalItemCount
+                    }
+                }
+
+                if (!loading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) {
+                    // End has been reached
+                    Log.e("Yaeye!", "end called")
+
+                    currentPage++
+                    fetchData(currentPage)
+
+                    // Do something
+                    loading = true
+                }
+            }
+        })
+
     }
+
+    private fun fetchData(currentPage: Int) {
+
+        viewModel.getProfileByCategory("",true,"",currentPage)
+
+    }
+
     // }
+
+
 }

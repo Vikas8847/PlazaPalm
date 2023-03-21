@@ -8,7 +8,9 @@
         <variable
             name="vm"
             type="com.example.plazapalm.views.messageslist.MessagesVM" />
-
+        <variable
+            name="mView"
+            type="android.view.View" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -66,6 +68,16 @@
             </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emtptyMessages"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:visibility="@{vm.emptyMessageList?mView.VISIBLE:mView.GONE}"
+            android:text="No data found"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            android:layout_height="match_parent"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

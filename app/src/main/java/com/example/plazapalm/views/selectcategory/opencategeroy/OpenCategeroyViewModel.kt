@@ -40,12 +40,16 @@ class OpenCategeroyViewModel @Inject constructor(
     var cacheUtil: CacheUtil,
     var pref: PreferenceFile,
     var repository: Repository
-    ) : ViewModel() {
+) : ViewModel() {
 
-    private var clickItem1: clickItem?=null
-    private var requireActivity1: FragmentActivity?=null
-    private var rvCategoryLocation1: RecyclerView?=null
-    private var categoryList: List<CategoriesData>?=null
+    private var clickItem1: clickItem? = null
+
+    @SuppressLint("StaticFieldLeak")
+    private var requireActivity1: FragmentActivity? = null
+
+    @SuppressLint("StaticFieldLeak")
+    private var rvCategoryLocation1: RecyclerView? = null
+    private var categoryList: ArrayList<CategoriesData>? = null
     var position: Int = -1
     var isChecked = ObservableBoolean(false)
     var token = ObservableField("")
@@ -57,9 +61,10 @@ class OpenCategeroyViewModel @Inject constructor(
     var name = ObservableField("")
     var address = ObservableField("")
     var selectCateAdapter: SelectCateAdapter? = null
+    var noData = ObservableBoolean(false)
 
     init {
-        /*get Token from Data store*/
+        /** get Token from Data store*/
         token.set(pref.retrieveKey("token"))
 
     }
@@ -69,14 +74,15 @@ class OpenCategeroyViewModel @Inject constructor(
             R.id.clSearchLocation -> {
                 val bundle = Bundle()
                 bundle.putString("CommingFrom", "OpenCategery")
-                bundle.putString("location_txt",address.get().toString())
+                bundle.putString("location_txt", address.get().toString())
                 view.navigateWithId(R.id.action_openCategeroyFragment_to_addCitiesFragment)
 
             }
-            R.id.clMainCategory->{
+            R.id.clMainCategory -> {
                 //For Hide Keyboard
                 CommonMethods.context.hideKeyboard()
-            }}
+            }
+        }
 
     }
 
@@ -84,29 +90,28 @@ class OpenCategeroyViewModel @Inject constructor(
         rvCategoryLocation: RecyclerView,
         requireActivity: FragmentActivity,
         refreshContainer: SwipeRefreshLayout,
-        loader :Boolean,
-        clickItem: clickItem
+        loader: Boolean,
+        clickItem: clickItem,
+        page: Int
+
     ) = viewModelScope.launch {
-        rvCategoryLocation1=rvCategoryLocation
-        requireActivity1=requireActivity
-        this@OpenCategeroyViewModel.clickItem1 =clickItem
+        rvCategoryLocation1 = rvCategoryLocation
+        requireActivity1 = requireActivity
+        this@OpenCategeroyViewModel.clickItem1 = clickItem
         val body = JSONObject()
         body.put(Constants.AUTHORIZATION, token.get())
         // body.put("lat", "30.8987")
         body.put("lat", latitude.get())
         body.put("long", longitude.get())
         // body.put("long", "76.7179")
-        body.put("offset", page.get()!!)
-        body.put("limit", 100)
+        body.put("offset", page)
+        body.put("limit", 10)
         //body.put("search=", searchText.get())
-        body.put("search=","")
+        body.put("search=", "")
 
-        Log.e(
-            "dsadas",
-            latitude.get().toDouble().toString() + "  <<--DFDF-->>  " + longitude.get().toString()
-                .toString() + name.get() + "XXXX"
-        )
-        Log.e("cateogory_Responseeee===",body.toString())
+        Log.e("dsadas", latitude.get().toDouble().toString() + "  <<--DFDF-->>  " + longitude.get().toString().toString() + name.get() + "XXXX")
+
+        Log.e("cateRseeee===", body.toString())
         repository.makeCall(
             apiKey = ApiEnums.GET_CATEGORIES,
             loader = loader,
@@ -118,9 +123,9 @@ class OpenCategeroyViewModel @Inject constructor(
                         Authorization = token.get().toString(),
                         Lat = latitude.get()!!.toDouble(),
                         Long = longitude.get()!!.toDouble(),
-                        OffSet = page.get()!!,
-                        Limit = 100,
-                        Search =""
+                        OffSet = page,
+                        Limit = 10,
+                        Search = ""
                         //Search = searchText.get().toString()
                     )
                 }
@@ -129,33 +134,35 @@ class OpenCategeroyViewModel @Inject constructor(
                     Log.e("SSSSS", res.body().toString())
 
                     if (res.isSuccessful && res.body() != null) {
-                        refreshContainer.isRefreshing=false
+                        refreshContainer.isRefreshing = false
                         if (res.body()!!.status == 200) {
-                            categoryList=res.body()?.data!!
+                            categoryList = res.body()?.data!!
 
-                          /*  showCategories(
-                                res.body()?.data!!,
-                                rvCategoryLocation,
-                                requireActivity,
-                                clickItem
-                            )*/
+                            /*  showCategories(
+                                  res.body()?.data!!,
+                                  rvCategoryLocation,
+                                  requireActivity,
+                                  clickItem
+                              )*/
 
-                            var tempSearchList=ArrayList<CategoriesData>()
+                            var tempSearchList = ArrayList<CategoriesData>()
                             tempSearchList.clear()
 
-                            for(idx in 0 until categoryList!!.size)
-                            {
-                                if(categoryList!![idx].category_name.toLowerCase().contains(searchText.get().toString().toLowerCase()))
-                                {
+                            for (idx in 0 until categoryList!!.size) {
+                                if (categoryList!![idx].category_name.toLowerCase()
+                                        .contains(searchText.get().toString().toLowerCase())
+                                ) {
                                     tempSearchList.add(categoryList!![idx])
                                 }
                             }
+
                             showCategories(
                                 tempSearchList!!,
                                 rvCategoryLocation1!!,
                                 requireActivity1!!,
                                 this@OpenCategeroyViewModel.clickItem1!!
                             )
+
 
                         } else {
                             CommonMethods.showToast(requireActivity, res.body()!!.message!!)
@@ -170,32 +177,48 @@ class OpenCategeroyViewModel @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showCategories(
-        data: List<CategoriesData>,
+        data: ArrayList<CategoriesData>,
         rvCategoryLocation: RecyclerView,
         requireActivity: FragmentActivity,
         clickItem: clickItem
     ) {
         rvCategoryLocation?.layoutManager = LinearLayoutManager(requireActivity)
-        selectCateAdapter = SelectCateAdapter(requireActivity, data, clickItem, "OpenCategeroy")
-        rvCategoryLocation?.adapter = selectCateAdapter
-        rvCategoryLocation?.adapter?.notifyDataSetChanged()
+        if(selectCateAdapter==null) {
+            selectCateAdapter = SelectCateAdapter(requireActivity, data, clickItem, "OpenCategeroy")
+            rvCategoryLocation?.adapter = selectCateAdapter
+            rvCategoryLocation?.adapter?.notifyDataSetChanged()
+        }else
+        {
+            selectCateAdapter!!.addNewDataList(data)
+        }
+
+
+        if (selectCateAdapter!!.photos != null) {
+            if (selectCateAdapter!!.photos.size == 0) {
+                Log.e("SAAasds", "WORGKL")
+                noData.set(true)
+            } else {
+                noData.set(false)
+
+            }
+        }
 
     }
 
     fun onTextChange(editable: Editable) {
 
-        var tempSearchList=ArrayList<CategoriesData>()
+        var tempSearchList = ArrayList<CategoriesData>()
         tempSearchList.clear()
 
         if (editable.toString().length > 0) {
             Handler().postDelayed({
-               // getProfileByCategory(editable.toString(), false, "")
-                for(idx in 0 until categoryList!!.size)
-                {
-                    if(categoryList!![idx].category_name.toLowerCase().contains(editable.toString().toLowerCase()))
-                        {
-                            tempSearchList.add(categoryList!![idx])
-                        }
+                // getProfileByCategory(editable.toString(), false, "")
+                for (idx in 0 until categoryList!!.size) {
+                    if (categoryList!![idx].category_name.toLowerCase()
+                            .contains(editable.toString().toLowerCase())
+                    ) {
+                        tempSearchList.add(categoryList!![idx])
+                    }
                 }
                 showCategories(
                     tempSearchList!!,
@@ -213,10 +236,40 @@ class OpenCategeroyViewModel @Inject constructor(
                     requireActivity1!!,
                     clickItem1!!
                 )
-              //  getProfileByCategory("", false, "")
+                //  getProfileByCategory("", false, "")
             }, 1000)
         }
 
         Log.e("QQWQWQw", editable.toString())
     }
+
+//     val myScrollListener = object : RecyclerView.OnScrollListener() {
+//        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//            super.onScrollStateChanged(recyclerView, newState)
+//            // Handle the scroll state changed event
+//        }
+//
+//        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//            super.onScrolled(recyclerView, dx, dy)
+//            if (dy > 0) { // Scrolling down
+//
+//                val layoutManager = LinearLayoutManager(CommonMethods.context)
+//
+//                val visibleItemCount = layoutManager.childCount
+//                val totalItemCount = layoutManager.itemCount
+//                val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
+//                if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+//                    // Reached the end of the list, load more data
+//                    currentPage++
+//                    fetchData(currentPage)
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun fetchData(page: Int) {
+//        val newDataList = myViewModel.fetchData(page)
+//        dataList.addAll(newDataList)
+//        adapter.notifyDataSetChanged()
+//    }
 }
