@@ -488,6 +488,12 @@ interface RetrofitApi {
         @Field("user_long") user_long: Double
     ): Response<UpdateLatlngResponse>
 
+    @GET(GET_LATLONG)
+    suspend fun getLatlng(
+        @Header("Authorization") Authorization: String,
+        @Query("user_id") user_id : String
+    ): Response<GetLatLongResponseModel>
+
 
     //  @POST(GALLERYPOST)
     @HTTP(method = "POST", path = GALLERYPOST, hasBody = true)

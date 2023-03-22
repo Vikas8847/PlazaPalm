@@ -45,12 +45,13 @@ class ViewProAddImageAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun setData(img: AddPhoto?) {
-
+            Log.e("rgehgegegeg==", img.toString())
             binding.ivVideoIcon.visibility = View.GONE
             if (img!!.Image != "") {
                 binding.removeImage.visibility = View.VISIBLE
                 if (img.mediaType == 2) {
                     binding.ivVideoIcon.visibility = View.VISIBLE
+                    Log.e("44433ddd===", "VVVVCCCCCXXXX")
                 }
             } else {
                 binding.removeImage.visibility = View.GONE
@@ -58,23 +59,33 @@ class ViewProAddImageAdapter(
 
 
             if (img!!.isValid == true) {
-                Log.e("SSSSSBBb", "VVVVCCCCCXXXX")
 
                 Glide.with(context)
                     .load(IMAGE_LOAD_URL + img.Image)
                     .into(binding.ivUsersImage)
 
-                binding.executePendingBindings()
+                //  binding.executePendingBindings()
             } else {
                 Log.e("SSSSSBBb", "WWWSSSSSSS")
+                binding.ivVideoIcon.visibility = View.GONE
+                if (img.mediaType == 2) {
+                    binding.ivVideoIcon.visibility = View.VISIBLE
+                    Log.e("44433ddd===", "VVVVCCCCCXXXX")
+                }
 
                 Glide.with(context)
                     .load(File(img.Image))
                     .into(binding.ivUsersImage)
 
-                binding.executePendingBindings()
+                //  binding.executePendingBindings()
             }
 
+
+            if (img!!.Image!!.contains(".mp4") || img.mediaType == 2) {
+                binding.ivVideoIcon.visibility = View.VISIBLE
+            } else {
+                binding.ivVideoIcon.visibility = View.GONE
+            }
 
         }
     }

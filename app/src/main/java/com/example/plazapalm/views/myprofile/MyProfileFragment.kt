@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,8 +12,6 @@ import com.example.plazapalm.MainActivity
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.MyProifleFragmentBinding
 import com.example.plazapalm.datastore.DataStoreUtil
-import com.example.plazapalm.datastore.LOGIN_DATA
-import com.example.plazapalm.models.LoginDataModel
 import com.example.plazapalm.pref.PreferenceFile
 import com.example.plazapalm.pref.business_profile_status
 import com.example.plazapalm.utils.CommonMethods
@@ -55,18 +52,27 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
 
     private fun getBusinessStatus() {
-        if (pref.retrieveBoolKey(business_profile_status) != null) {
-            val businessStatus = pref.retrieveBoolKey(business_profile_status)
-            if (businessStatus!!.equals(true)) {
-                binding?.tvUpgrade?.visibility = View.VISIBLE
-                binding?.viewUpgrade?.visibility = View.VISIBLE
+        if (pref.retrieveBoolKey(business_profile_status)!!.equals(true)) {
 
-                binding?.tvViewMyProfile?.visibility = View.VISIBLE
-                binding?.viewProfile?.visibility = View.VISIBLE
+            binding?.tvUpgrade?.visibility = View.VISIBLE
+            binding?.viewUpgrade?.visibility = View.VISIBLE
 
-            }
+            binding?.tvViewMyProfile?.visibility = View.VISIBLE
+            binding?.viewProfile?.visibility = View.VISIBLE
 
-            Log.e("QAAQAAA", businessStatus.toString())
+        } else {
+
+            binding?.tvAdvanceSetting?.visibility = View.GONE
+            binding?.viewAdvanceSettings?.visibility = View.GONE
+
+            binding?.tvQRCode?.visibility = View.GONE
+            binding?.viewQRCode?.visibility = View.GONE
+
+            binding?.tvViewMyProfile?.visibility = View.GONE
+            binding?.viewProfile?.visibility = View.GONE
+
+            binding?.tvUpgrade?.visibility = View.GONE
+            binding?.viewUpgrade?.visibility = View.GONE
 
         }
     }
@@ -104,7 +110,7 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
 
     private fun premiumAccount() {
 
-        if (pref.retrviepurchaseUserId()!="") {
+        if (pref.retrviepurchaseUserId() != "") {
 
             binding?.tvAdvanceSetting?.visibility = View.VISIBLE
             binding?.viewAdvanceSettings?.visibility = View.VISIBLE
@@ -118,45 +124,8 @@ class MyProfileFragment : Fragment(R.layout.my_proifle_fragment) {
             binding?.tvUpgrade?.visibility = View.GONE
             binding?.viewUpgrade?.visibility = View.GONE
 
-        } else {
-
-            /* binding?.tvAdvanceSetting?.visibility = View.GONE
-         binding?.viewAdvanceSettings?.visibility = View.GONE
-         binding?.tvUpgrade?.visibility = View.VISIBLE
-         binding?.viewUpgrade?.visibility = View.VISIBLE*/
-
-            Log.e("SAAHAEED", "WORKINGGGGGG")
         }
 
-//    private fun premiumAccount() {
-//        dataStoreUtil.readObject(LOGIN_DATA, LoginDataModel::class.java) {
-//            val user_id = it?.data?.user_id.toString()
-//            Log.e("SDSFSDf", it?.data?.user_name + "DFDFDDg   " + user_id.toString())
-//            //63ce507ba67c70857439f892
-//            if (user_id =="63fd947c31a7694473a69c72") {
-//
-//                binding?.tvAdvanceSetting?.visibility = View.VISIBLE
-//                binding?.viewAdvanceSettings?.visibility = View.VISIBLE
-//
-//                binding?.tvQRCode?.visibility = View.VISIBLE
-//                binding?.viewQRCode?.visibility = View.VISIBLE
-//
-//                binding?.tvViewMyProfile?.visibility = View.VISIBLE
-//                binding?.viewProfile?.visibility = View.VISIBLE
-//
-//                binding?.tvUpgrade?.visibility = View.GONE
-//                binding?.viewUpgrade?.visibility = View.GONE
-//
-//            } else {
-//
-//                /* binding?.tvAdvanceSetting?.visibility = View.GONE
-//             binding?.viewAdvanceSettings?.visibility = View.GONE
-//             binding?.tvUpgrade?.visibility = View.VISIBLE
-//             binding?.viewUpgrade?.visibility = View.VISIBLE*/
-//
-//                Log.e("SAAHAEED", "WORKINGGGGGG")
-//            }
-//        }
     }
 
     override fun onResume() {

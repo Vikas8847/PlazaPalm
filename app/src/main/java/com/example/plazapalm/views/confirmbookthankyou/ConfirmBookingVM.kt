@@ -56,6 +56,7 @@ class ConfirmBookingVM @Inject constructor(
     var postProfileId = ObservableField("")
 
     var chooseDate = ObservableField("")
+    var showDate = ObservableField("")
     var chooseTime = ObservableField("")
     var description = ObservableField("")
     var categoryName = ObservableField("")
@@ -307,6 +308,7 @@ class ConfirmBookingVM @Inject constructor(
 
                 observableField.set("$year-${monthofYear}-$dayofm")
                 chooseDate.set("$year-${monthofYear}-$dayofm")
+                showDate.set("$dayofm-${monthofYear}-$year")
 
 
 

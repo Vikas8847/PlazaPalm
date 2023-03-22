@@ -1,5 +1,6 @@
 package com.example.plazapalm.views.selectcategory.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -10,12 +11,16 @@ import com.example.plazapalm.models.CategoriesData
 
 class SelectCateAdapter(
     var requireActivity: FragmentActivity,
-    var photos: List<CategoriesData>,
+    var photos: ArrayList<CategoriesData>,
     var clickItem: clickItem,
-    var status : String
+    var status: String
 ) :
     RecyclerView.Adapter<SelectCateAdapter.SelectCateViewHolder>() {
 
+    fun addNewDataList(newphotosList: ArrayList<CategoriesData>) {
+        photos.addAll(newphotosList)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectCateViewHolder {
         val layInflater = LayoutInflater.from(parent.context)
@@ -27,8 +32,9 @@ class SelectCateAdapter(
 
     override fun onBindViewHolder(holder: SelectCateViewHolder, position: Int) {
 
-        if (status.equals("selectcategeroy")){
-            holder.binding.tvSelectCategory.text = photos[position].category_name + " (" + photos[position].count+")"
+        if (status.equals("selectcategeroy")) {
+            holder.binding.tvSelectCategory.text =
+                photos[position].category_name + " (" + photos[position].count + ")"
 
             holder.binding.tvSelectCategory.setOnClickListener {
                 clickItem.click(
@@ -38,10 +44,11 @@ class SelectCateAdapter(
                     "postprofile",
                     0
                 )
-        }
+            }
 
-        }else if (status.equals("OpenCategeroy")){
-            holder.binding.tvSelectCategory.text = photos[position].category_name + " (" + photos[position].count+")"
+        } else if (status.equals("OpenCategeroy")) {
+            holder.binding.tvSelectCategory.text =
+                photos[position].category_name + " (" + photos[position].count + ")"
             holder.binding.tvSelectCategory.setOnClickListener {
                 clickItem.click(
                     photos[position].category_name,
@@ -57,6 +64,8 @@ class SelectCateAdapter(
     }
 
     override fun getItemCount(): Int {
+        Log.d("MyAdapter", "getItemCount() called. Data size: ${photos.size}")
+
         return photos.size
     }
 

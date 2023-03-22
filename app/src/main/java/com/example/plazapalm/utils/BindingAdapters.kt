@@ -18,7 +18,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -40,6 +39,8 @@ import me.relex.circleindicator.CircleIndicator
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -127,10 +128,17 @@ object BindingAdapters {
         textView: TextView,
         value: String,
     ) {
-        val split = value.split("T")
-        val date = split.get(0)
-        textView.text = date
-        Log.e("QOWIEWww", date.toString())
+//        val split = value.split("T")
+//        val date = split.get(0)
+////      val Fdate = date.reversed()
+
+
+        val zonedDateTime = ZonedDateTime.parse(value)
+        val dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale("pt", "BR"))
+        val Fdate = dtf.format(zonedDateTime)
+
+        textView.text = Fdate
+        Log.e("QOWIEWww", Fdate.toString())
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -138,6 +146,7 @@ object BindingAdapters {
         value = ["setPostPsrofileName", "setCustomerName", "userType"],
         requireAll = false
     )
+
     @JvmStatic
     fun setPostPsrofileName(
         textView: TextView,
@@ -186,6 +195,8 @@ object BindingAdapters {
         }
 
     }
+
+
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
@@ -519,7 +530,8 @@ object BindingAdapters {
     ) {
         if (imageUrl != null) {
             Glide.with(context)
-                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
+                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
 //                .apply( RequestOptions().override(700, 400))
                 .into(shapeableImageView)
         } else {
@@ -537,7 +549,8 @@ object BindingAdapters {
         if (imageUrl != null) {
             Glide.with(MainActivity.context.get()!!)
                 .load(IMAGE_LOAD_URL + imageUrl)
-                .override(100, 100).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
+                .override(100, 100).placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .into(heartImage)
 
         } else {
@@ -707,7 +720,8 @@ object BindingAdapters {
     ) {
         if (imageUrl != null) {
             Glide.with(MainActivity.context.get()!!)
-                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
+                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .into(appCompatImageView)
         } else {
         }
@@ -721,7 +735,8 @@ object BindingAdapters {
     ) {
         if (imageUrl != null) {
             Glide.with(MainActivity.context.get()!!)
-                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
+                .load(IMAGE_LOAD_URL + imageUrl).placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .into(appCompatImageView)
 
         } else {
@@ -744,7 +759,7 @@ object BindingAdapters {
 
     @RequiresApi(Build.VERSION_CODES.M)
     @BindingAdapter(
-        value = ["calculateDistance", "destinationLat", "destinationLong", "currentLat", "currentLong","textData","toptext"],
+        value = ["calculateDistance", "destinationLat", "destinationLong", "currentLat", "currentLong", "textData", "toptext"],
         requireAll = false
     )
     @JvmStatic
@@ -793,17 +808,16 @@ object BindingAdapters {
 
         Log.e("ABCDDDDDDD2222==", milesValues.toString())
 
-        if(toptext==3){
-            if (profileData.is_bottom_selected!! ) {
+        if (toptext == 3) {
+            if (profileData.is_bottom_selected!!) {
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
                 } else {
-                    var newColor=""
-                    if(profileData.frontpage_font_color!!.contains("#")){
-                        newColor=profileData.frontpage_font_color!!
-                    }else
-                    {
-                        newColor="#"+profileData.frontpage_font_color!!
+                    var newColor = ""
+                    if (profileData.frontpage_font_color!!.contains("#")) {
+                        newColor = profileData.frontpage_font_color!!
+                    } else {
+                        newColor = "#" + profileData.frontpage_font_color!!
                     }
                     destinationTV.setTextColor(Color.parseColor(newColor))
                 }
@@ -812,40 +826,45 @@ object BindingAdapters {
                     destinationTV.textSize = 12f
                 } else {
                     // destinationTV.textSize = profileData.frontpage_font_size.toFloat()
-                    var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                    finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                    var finalTextSize = (getTextSizeValue(
+                        (profileData.frontpage_font_size.toString()
+                            .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                    ))
+                    finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
                     destinationTV.textSize = finalTextSize.toFloat()
                 }
 
-                if (profileData.frontpage_font_opacity==null || profileData.frontpage_font_opacity.toString().toInt() == 0) {
+                if (profileData.frontpage_font_opacity == null || profileData.frontpage_font_opacity.toString()
+                        .toInt() == 0
+                ) {
                     destinationTV.alpha = 1f
                 } else {
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toString().toFloat())/100f).toFloat()
+                    var finalOpacity = ((profileData.frontpage_font_opacity!!.toString()
+                        .toFloat()) / 100f).toFloat()
                     destinationTV.alpha = finalOpacity
                 }
 
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                    var fontList= getNewFontsInList()
-                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
-                    if(fontList1.size>0){
+                    var fontList = getNewFontsInList()
+                    var fontList1 =
+                        fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if (fontList1.size > 0) {
                         destinationTV.setTypeface(fontList1[0].fontTypeface)
                     }
                 }
-            }else
-            {
+            } else {
                 destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
-                destinationTV.textSize=12f
-                destinationTV.alpha=1f
-                var fontList= getNewFontsInList()
+                destinationTV.textSize = 12f
+                destinationTV.alpha = 1f
+                var fontList = getNewFontsInList()
                 destinationTV.setTypeface(fontList[1].fontTypeface)
             }
-        }else
-        {
+        } else {
             destinationTV.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
-            destinationTV.textSize=12f
-            destinationTV.alpha=1f
-            var fontList= getNewFontsInList()
+            destinationTV.textSize = 12f
+            destinationTV.alpha = 1f
+            var fontList = getNewFontsInList()
             destinationTV.setTypeface(fontList[1].fontTypeface)
         }
     }
@@ -873,8 +892,8 @@ object BindingAdapters {
             swipeLayout.open(true)
         } else {
             Log.e("Value_Check===", "false")
-            swipeLayout.close(true)
             swipeLayout.layoutMode = SwipeLayout.MODE_NORMAL
+            swipeLayout.close(true)
         }
     }
 
@@ -922,14 +941,14 @@ object BindingAdapters {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter(value = ["textproperties","toptext","nameValue"])
+    @BindingAdapter(value = ["textproperties", "toptext", "nameValue"])
     @JvmStatic
     fun textproperties(
         textView: AppCompatTextView,
         profileData: ProfileCateData, toptext: Int, nameValue: String,
     ) {
         textView.setText(nameValue)
-        if(toptext==1) {
+        if (toptext == 1) {
             if (profileData.is_top_selected!!) {
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
@@ -937,12 +956,11 @@ object BindingAdapters {
                     if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                         textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
                     } else {
-                        var newColor=""
-                        if(profileData.frontpage_font_color!!.contains("#")){
-                            newColor=profileData.frontpage_font_color!!
-                        }else
-                        {
-                            newColor="#"+profileData.frontpage_font_color!!
+                        var newColor = ""
+                        if (profileData.frontpage_font_color!!.contains("#")) {
+                            newColor = profileData.frontpage_font_color!!
+                        } else {
+                            newColor = "#" + profileData.frontpage_font_color!!
                         }
                         textView.setTextColor(Color.parseColor(newColor))
                     }
@@ -953,41 +971,45 @@ object BindingAdapters {
                     textView.textSize = 12f
                 } else {
 
-                    var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                    finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                    var finalTextSize = (getTextSizeValue(
+                        (profileData.frontpage_font_size.toString()
+                            .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                    ))
+                    finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
 
                     textView.textSize = finalTextSize.toFloat()
                 }
 
-                if (profileData.frontpage_font_opacity==null || profileData.frontpage_font_opacity.toString().toInt() == 0) {
+                if (profileData.frontpage_font_opacity == null || profileData.frontpage_font_opacity.toString()
+                        .toInt() == 0
+                ) {
                     textView.alpha = 1f
                 } else {
                     //var finalOpacity = (getExactValue(profileData.frontpage_font_opacity * 2.55)).toFloat()
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toString().toFloat())/100f).toFloat()
+                    var finalOpacity = ((profileData.frontpage_font_opacity!!.toString()
+                        .toFloat()) / 100f).toFloat()
                     textView.alpha = finalOpacity
-                    Log.e("dfwfwfwf=w==",finalOpacity.toString())
+                    Log.e("dfwfwfwf=w==", finalOpacity.toString())
                 }
 
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                    var fontList= getNewFontsInList()
-                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
-                    if(fontList1.size>0){
+                    var fontList = getNewFontsInList()
+                    var fontList1 =
+                        fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if (fontList1.size > 0) {
                         textView.setTypeface(fontList1[0].fontTypeface)
                     }
                 }
 
-            }else
-            {
+            } else {
                 textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
                 textView.textSize = 12f
-                textView.alpha=1f
-                var fontList= getNewFontsInList()
+                textView.alpha = 1f
+                var fontList = getNewFontsInList()
                 textView.setTypeface(fontList[1].fontTypeface)
             }
-        }
-        else
-        {
+        } else {
             if (profileData.is_bottom_selected!!) {
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
@@ -996,16 +1018,14 @@ object BindingAdapters {
                     if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                         textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
                     } else {
-                        var newColor=""
-                        if(profileData.frontpage_font_color!!.contains("#")){
-                            newColor=profileData.frontpage_font_color!!
-                        }else
-                        {
-                            newColor="#"+profileData.frontpage_font_color!!
+                        var newColor = ""
+                        if (profileData.frontpage_font_color!!.contains("#")) {
+                            newColor = profileData.frontpage_font_color!!
+                        } else {
+                            newColor = "#" + profileData.frontpage_font_color!!
                         }
                         textView.setTextColor(Color.parseColor(newColor))
                     }
-
 
 
                     //textView.setTextColor(Color.parseColor(profileData.frontpage_font_color))
@@ -1014,32 +1034,38 @@ object BindingAdapters {
                 if (profileData.frontpage_font_size.toString().toInt() == 0) {
                     textView.textSize = 12f
                 } else {
-                    var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                    finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                    var finalTextSize = (getTextSizeValue(
+                        (profileData.frontpage_font_size.toString()
+                            .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                    ))
+                    finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
 
                     textView.textSize = finalTextSize.toFloat()
                 }
-                if (profileData.frontpage_font_opacity == null || profileData.frontpage_font_opacity.toString().toInt() == 0) {
+                if (profileData.frontpage_font_opacity == null || profileData.frontpage_font_opacity.toString()
+                        .toInt() == 0
+                ) {
                     textView.alpha = 1f
                 } else {
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toString().toFloat())/100f).toFloat()
+                    var finalOpacity = ((profileData.frontpage_font_opacity!!.toString()
+                        .toFloat()) / 100f).toFloat()
                     textView.alpha = finalOpacity
                 }
 
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                    var fontList= getNewFontsInList()
-                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
-                    if(fontList1.size>0){
+                    var fontList = getNewFontsInList()
+                    var fontList1 =
+                        fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if (fontList1.size > 0) {
                         textView.setTypeface(fontList1[0].fontTypeface)
                     }
                 }
-            }else
-            {
+            } else {
                 textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
-                textView.textSize=12f
-                textView.alpha=1f
-                var fontList= getNewFontsInList()
+                textView.textSize = 12f
+                textView.alpha = 1f
+                var fontList = getNewFontsInList()
                 textView.setTypeface(fontList[1].fontTypeface)
             }
         }
@@ -1049,11 +1075,10 @@ object BindingAdapters {
     }
 
 
-    fun getExactValue(value:Double):Int
-    {
+    fun getExactValue(value: Double): Int {
         //  var value=27.50
         var bd: BigDecimal = BigDecimal.valueOf(value)
-        bd= bd.setScale(0, RoundingMode.HALF_UP)
+        bd = bd.setScale(0, RoundingMode.HALF_UP)
         return bd.toInt()
     }
 
@@ -1061,7 +1086,7 @@ object BindingAdapters {
     //for Favourite screen
     @RequiresApi(Build.VERSION_CODES.M)
     @BindingAdapter(
-        value = ["calculateDistanceForFavourite", "destinationLat", "destinationLong", "currentLat", "currentLong","textData","toptext"],
+        value = ["calculateDistanceForFavourite", "destinationLat", "destinationLong", "currentLat", "currentLong", "textData", "toptext"],
         requireAll = false
     )
     @JvmStatic
@@ -1218,13 +1243,13 @@ object BindingAdapters {
 
     //for Favourite screen
     @RequiresApi(Build.VERSION_CODES.M)
-    @BindingAdapter(value = ["textpropertiesForFavourite","toptext"])
+    @BindingAdapter(value = ["textpropertiesForFavourite", "toptext"])
     @JvmStatic
     fun textpropertiesForFavourite(
         textView: AppCompatTextView,
         profileData: FavData, toptext: Int,
     ) {
-        if(toptext==1) {
+        if (toptext == 1) {
             if (profileData.is_top_selected!!) {
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
@@ -1233,12 +1258,11 @@ object BindingAdapters {
                     if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                         textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
                     } else {
-                        var newColor=""
-                        if(profileData.frontpage_font_color!!.contains("#")){
-                            newColor=profileData.frontpage_font_color!!
-                        }else
-                        {
-                            newColor="#"+profileData.frontpage_font_color!!
+                        var newColor = ""
+                        if (profileData.frontpage_font_color!!.contains("#")) {
+                            newColor = profileData.frontpage_font_color!!
+                        } else {
+                            newColor = "#" + profileData.frontpage_font_color!!
                         }
                         textView.setTextColor(Color.parseColor(newColor))
                     }
@@ -1250,8 +1274,11 @@ object BindingAdapters {
                 if (profileData.frontpage_font_size.toString().toInt() == 0) {
                     textView.textSize = 12f
                 } else {
-                    var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                    finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                    var finalTextSize = (getTextSizeValue(
+                        (profileData.frontpage_font_size.toString()
+                            .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                    ))
+                    finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
                     textView.textSize = finalTextSize.toFloat()
                 }
 
@@ -1259,41 +1286,39 @@ object BindingAdapters {
                     textView.alpha = 1f
                 } else {
                     //var finalOpacity = (getExactValue(profileData.frontpage_font_opacity * 2.55)).toFloat()
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
+                    var finalOpacity =
+                        ((profileData.frontpage_font_opacity!!.toFloat()) / 100f).toFloat()
                     textView.alpha = finalOpacity
-                    Log.e("dfwfwfwf=w==",finalOpacity.toString())
+                    Log.e("dfwfwfwf=w==", finalOpacity.toString())
                 }
 
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                    var fontList= getNewFontsInList()
-                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
-                    if(fontList1.size>0){
+                    var fontList = getNewFontsInList()
+                    var fontList1 =
+                        fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if (fontList1.size > 0) {
                         textView.setTypeface(fontList1[0].fontTypeface)
                     }
                 }
 
-            }else
-            {
+            } else {
                 textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
-                textView.textSize=12f
-                textView.alpha=1f
-                var fontList= getNewFontsInList()
+                textView.textSize = 12f
+                textView.alpha = 1f
+                var fontList = getNewFontsInList()
                 textView.setTypeface(fontList[1].fontTypeface)
             }
-        }
-        else
-        {
+        } else {
             if (profileData.is_bottom_selected!!) {
                 if (profileData.frontpage_font_color == "" || profileData.frontpage_font_color == "null") {
                     textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
                 } else {
-                    var newColor=""
-                    if(profileData.frontpage_font_color!!.contains("#")){
-                        newColor=profileData.frontpage_font_color!!
-                    }else
-                    {
-                        newColor="#"+profileData.frontpage_font_color!!
+                    var newColor = ""
+                    if (profileData.frontpage_font_color!!.contains("#")) {
+                        newColor = profileData.frontpage_font_color!!
+                    } else {
+                        newColor = "#" + profileData.frontpage_font_color!!
                     }
                     textView.setTextColor(Color.parseColor(newColor))
                 }
@@ -1301,32 +1326,36 @@ object BindingAdapters {
                 if (profileData.frontpage_font_size.toString().toInt() == 0) {
                     textView.textSize = 12f
                 } else {
-                    var finalTextSize = (getTextSizeValue((profileData.frontpage_font_size.toString().toInt() *(Constants.MAX_FONT_SIZE-Constants.MIN_FONT_SIZE))/100.toDouble()))
-                    finalTextSize=finalTextSize+Constants.MIN_FONT_SIZE
+                    var finalTextSize = (getTextSizeValue(
+                        (profileData.frontpage_font_size.toString()
+                            .toInt() * (Constants.MAX_FONT_SIZE - Constants.MIN_FONT_SIZE)) / 100.toDouble()
+                    ))
+                    finalTextSize = finalTextSize + Constants.MIN_FONT_SIZE
                     textView.textSize = finalTextSize.toFloat()
                 }
 
                 if (profileData.frontpage_font_opacity == 0) {
                     textView.alpha = 1f
                 } else {
-                    var finalOpacity =((profileData.frontpage_font_opacity!!.toFloat())/100f).toFloat()
+                    var finalOpacity =
+                        ((profileData.frontpage_font_opacity!!.toFloat()) / 100f).toFloat()
                     textView.alpha = finalOpacity
                 }
 
                 if (profileData.frontpage_bottom_text.toString() == "") {
                 } else {
-                    var fontList= getNewFontsInList()
-                    var fontList1 = fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
-                    if(fontList1.size>0){
+                    var fontList = getNewFontsInList()
+                    var fontList1 =
+                        fontList!!.filter { it.name == profileData.frontpage_bottom_text.toString() }
+                    if (fontList1.size > 0) {
                         textView.setTypeface(fontList1[0].fontTypeface)
                     }
                 }
-            }else
-            {
+            } else {
                 textView.setTextColor(MainActivity.context.get()!!.getColor(R.color.white))
-                textView.textSize=12f
-                textView.alpha=1f
-                var fontList= getNewFontsInList()
+                textView.textSize = 12f
+                textView.alpha = 1f
+                var fontList = getNewFontsInList()
                 textView.setTypeface(fontList[1].fontTypeface)
             }
         }
@@ -1391,7 +1420,7 @@ object BindingAdapters {
                 mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
                 mp.setVolume(0f, 0f)
                 binding.newVideoView.seekTo(position)
-                binding.ivVideoIcon.visibility=View.GONE
+                binding.ivVideoIcon.visibility = View.GONE
                 // imageIcon.visibility=View.GONE
                 if (position == 0) {
                     binding.newVideoView.start()

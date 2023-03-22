@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.example.plazapalm.recycleradapter.AbstractModel
 
 data class CategoriesResponseModel(
-    val data: List<CategoriesData>?,
+    val data: ArrayList<CategoriesData>?,
     val message: String?,
     val status: Int?
 ) : AbstractModel(), Parcelable {

@@ -2,6 +2,7 @@ package com.example.plazapalm.views.advancesettings.pictures
 
 import android.Manifest
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -51,17 +52,18 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListener {
-    private var VideoPhotodialog: Dialog?=null
-    private var photoFile: File?=null
-    private var checkForCamera: String?=""
-    private  var dialog: Dialog?=null
+    private var VideoPhotodialog: Dialog? = null
+    private var photoFile: File? = null
+    private var checkForCamera: String? = ""
+    private var dialog: Dialog? = null
     private var binding: PicturesFragmentBinding? = null
     private val viewModel: PicturesVM by viewModels()
 
     val MY_CAMERA_PERMISSION_CODE = 999
-    val REQUEST_TAKE_GALLERY_VIDEO=123
+    val REQUEST_TAKE_GALLERY_VIDEO = 123
     val GALARY_REQUEST_CODE = 201
     val REQUEST_CODEE = 200
+    val REQUEST_VIDEO_CAPTURE = 101
 
     @Inject
     lateinit var repository: Repository
@@ -70,19 +72,21 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         savedInstanceState: Bundle?,
     ): View? {
         binding = PicturesFragmentBinding.inflate(layoutInflater)
-       // CommonMethods.statusBar(true)
+        // CommonMethods.statusBar(true)
         val old = StrictMode.getThreadPolicy()
-        StrictMode.setThreadPolicy(ThreadPolicy.Builder(old)
-            .permitDiskWrites()
-            .build())
-     //  doCorrectStuffThatWritesToDisk()
+        StrictMode.setThreadPolicy(
+            ThreadPolicy.Builder(old)
+                .permitDiskWrites()
+                .build()
+        )
+        //  doCorrectStuffThatWritesToDisk()
         StrictMode.setThreadPolicy(old)
         return binding?.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("Picture_Screeennn===","1111")
+        Log.e("Picture_Screeennn===", "1111")
         CommonMethods.statusBar(true)
     }
 
@@ -93,7 +97,7 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         setPicturesAdapter()
         initUI()
         viewModel.fetchAllGalleryPhotoMethod()
-        Log.e("OnCreate_Gallery===","onViewCreated")
+        Log.e("OnCreate_Gallery===", "onViewCreated")
     }
 
     private fun initUI() {
@@ -107,9 +111,8 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id)
-        {
-            R.id.ivPicturesAdd->{
+        when (v!!.id) {
+            R.id.ivPicturesAdd -> {
                 showVideoPhotoDialog()
             }
         }
@@ -127,24 +130,25 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
             dialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
             dialog?.setCancelable(false)
             /** Take Photo Button  **/
-            var tvTakePhotoBtn=dialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoBtn)
+            var tvTakePhotoBtn = dialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoBtn)
             tvTakePhotoBtn!!.setText(requireActivity().getString(R.string.take_photo))
 
             tvTakePhotoBtn!!.setOnClickListener {
                 //open camera
-                checkForCamera="1"
+                checkForCamera = "1"
                 permissionMethod(requireActivity())
 
                 dialog?.dismiss()
             }
 
-            var tvTakePhotoGalleryBtn=dialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoGalleryBtn)
+            var tvTakePhotoGalleryBtn =
+                dialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoGalleryBtn)
             tvTakePhotoGalleryBtn!!.setText(requireActivity().getString(R.string.photo_library))
 
             /**Take Gallery Button **/
             dialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoGalleryBtn)
                 ?.setOnClickListener {
-                    checkForCamera="2"
+                    checkForCamera = "2"
                     permissionMethod(requireActivity())
                     dialog?.dismiss()
                 }
@@ -157,8 +161,7 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         }
     }
 
-    fun openGalleryMethod()
-    {
+    fun openGalleryMethod() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, GALARY_REQUEST_CODE)
@@ -173,11 +176,11 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
 
             val selectedImageURI: Uri = data.data!!
             var file = getPath(selectedImageURI)
-            viewModel.UploadMediaMethod(file!!,1)
-          /*  newPhotoList.removeAt(pos!!)
-            Log.e("fnknfsnefksef===",file.toString())
-            newPhotoList.add(pos!!, AddPhoto(File(file).absolutePath, false,1))
-            addPhotosAdapter.updateList(newPhotoList, pos!!)*/
+            viewModel.UploadMediaMethod(file!!, 1)
+            /*  newPhotoList.removeAt(pos!!)
+              Log.e("fnknfsnefksef===",file.toString())
+              newPhotoList.add(pos!!, AddPhoto(File(file).absolutePath, false,1))
+              addPhotosAdapter.updateList(newPhotoList, pos!!)*/
             //  bundle.putParcelableArrayList("photoList",photoList)
             //bundle.putString("DAMEO","DDDD")
             //   pref.storeImage("ADD_PHOTO_URI",photoList)
@@ -191,39 +194,40 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
             if (photoFile != null) {
                 //    Glide.with(this).load(photoFile).into(ivPhoto!!)
 //                    var photoFileData=Uri.fromFile(photoFile) as Uri
-                Log.e("Picture_Screeennn===","2222")
+                Log.e("Picture_Screeennn===", "2222")
                 var photoFileData = photoFile
-                viewModel.UploadMediaMethod(photoFile!!.absolutePath,1)
-         /*       newPhotoList.removeAt(pos!!)
-                newPhotoList.add(pos!!, AddPhoto(photoFileData!!.absolutePath, false,1))
-                addPhotosAdapter.updateList(newPhotoList, pos!!)
-                // addPhotosAdapter.notifyDataSetChanged()
-                //  bundle.putParcelableArrayList("photoList",photoList)
-                //   bundle.putString("DAMEO","xcxcxc")
-                dataStoreUtil.savephoto(ADD_PHOTO_URI, newPhotoList.toString())*/
+                viewModel.UploadMediaMethod(photoFile!!.absolutePath, 1)
+                /*       newPhotoList.removeAt(pos!!)
+                       newPhotoList.add(pos!!, AddPhoto(photoFileData!!.absolutePath, false,1))
+                       addPhotosAdapter.updateList(newPhotoList, pos!!)
+                       // addPhotosAdapter.notifyDataSetChanged()
+                       //  bundle.putParcelableArrayList("photoList",photoList)
+                       //   bundle.putString("DAMEO","xcxcxc")
+                       dataStoreUtil.savephoto(ADD_PHOTO_URI, newPhotoList.toString())*/
             }
-        }else
+        } else
             if (requestCode == REQUEST_TAKE_GALLERY_VIDEO &&
-                resultCode == Activity.RESULT_OK
-            ) {
+                resultCode == Activity.RESULT_OK ) {
                 //For Pick Video from Gallery
-                val selectedImageUri: Uri? = data!!.getData()
+                val selectedImageUri : Uri? = data!!.getData()
                 var filemanagerstring = selectedImageUri!!.path
                 var selectedImagePath = getVideoPathFromGallery(selectedImageUri)
 
+                val file = File(Environment.getExternalStorageDirectory().absolutePath)
+                CompressVideo(viewModel, requireActivity()).execute("false", selectedImageUri.toString(), file.absolutePath)
 
-                val file = File(
-                    Environment.getExternalStorageDirectory()
-                        .absolutePath)
+                //  viewModel.UploadMediaMethod(File(selectedImagePath).absolutePath,2)
 
-                CompressVideo(viewModel,requireActivity()).execute(
-                    "false", selectedImageUri.toString(), file.absolutePath)
+            } else  if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+                val videoUri = data?.data
+                val file = File(Environment.getExternalStorageDirectory().absolutePath)
 
-              //  viewModel.UploadMediaMethod(File(selectedImagePath).absolutePath,2)
+                CompressVideo(viewModel, requireActivity()).execute("false", videoUri.toString(), file.absolutePath)
 
+//                videoView.setVideoURI(videoUri)
+//                videoView.start()
             }
     }
-
 
 
     /**
@@ -240,7 +244,8 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         val projection = arrayOf(MediaStore.Images.Media.DATA)
         //  val cursor: Cursor = requireActivity().contentResolver.query()(uri, projection, null, null, null)
 
-        val cursor: Cursor? = requireActivity().getContentResolver().query(uri, projection, null, null, null)
+        val cursor: Cursor? =
+            requireActivity().getContentResolver().query(uri, projection, null, null, null)
         if (cursor != null) {
             val column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
@@ -252,7 +257,6 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         // this is our fallback here
         return uri.path
     }
-
 
 
     override fun onRequestPermissionsResult(
@@ -276,15 +280,17 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
     }
 
     private fun permissionMethod(context: Activity) {
-        Dexter.withActivity(context).withPermissions(Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        Dexter.withActivity(context).withPermissions(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
+        )
             .withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(multiplePermissionsReport: MultiplePermissionsReport) {
                     if (checkForCamera == "1") {
                         openCameraIntent()
                     } else if (checkForCamera == "2") {
                         openGalleryMethod()
-                    }else{
+                    } else {
                         selectVideoMethod()
                     }
                 }
@@ -300,19 +306,21 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
 
 
     //For Open Gallery
-    fun selectVideoMethod()
-    {
+    fun selectVideoMethod() {
         val intent = Intent()
         intent.type = "video/*"
         intent.action = Intent.ACTION_PICK
-        startActivityForResult(Intent.createChooser(intent, "Select Video"),
-            REQUEST_TAKE_GALLERY_VIDEO)
+        startActivityForResult(
+            Intent.createChooser(intent, "Select Video"),
+            REQUEST_TAKE_GALLERY_VIDEO
+        )
     }
 
     // For get video path from galley
     fun getVideoPathFromGallery(uri: Uri?): String? {
         val projection = arrayOf(MediaStore.Video.Media.DATA)
-        val cursor: Cursor? = requireActivity().contentResolver.query(uri!!, projection, null, null, null)
+        val cursor: Cursor? =
+            requireActivity().contentResolver.query(uri!!, projection, null, null, null)
         return if (cursor != null) {
             // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
             // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
@@ -359,7 +367,7 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
             ".jpg",
             storageDir
         )
-       var imagePath = image.getAbsolutePath()
+        var imagePath = image.getAbsolutePath()
         return image
     }
 
@@ -369,42 +377,60 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         } else {
             VideoPhotodialog = Dialog(CommonMethods.context, android.R.style.Theme_Dialog)
             VideoPhotodialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+            /** khem 21/03/23 */
+//            VideoPhotodialog?.setContentView(R.layout.take_video_layout)
             VideoPhotodialog?.setContentView(R.layout.open_camera_and_gallery)
             VideoPhotodialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             VideoPhotodialog?.window?.attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
             VideoPhotodialog?.setCancelable(false)
+
             /** For Photo Button  **/
-            var tvTakePhotoBtn=VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoBtn)
-            tvTakePhotoBtn!!.setText(requireActivity().getString(R.string.upload_image))
+            /** khem 21/03/23 */
+
+            var tvTakePhotoBtn =
+                VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoBtn)
+
+            tvTakePhotoBtn!!.setText(requireActivity().getString(R.string.take_video))
 
             tvTakePhotoBtn!!.setOnClickListener {
                 //open camera
-                showChooseOptionAccountDialog()
+//                showChooseOptionAccountDialog()
+
+                captureCamera()
+
                 VideoPhotodialog?.dismiss()
             }
 
-            var tvTakePhotoGalleryBtn=VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoGalleryBtn)
+            val tvTakePhotoGalleryBtn =
+                VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoGalleryBtn)
             tvTakePhotoGalleryBtn!!.setText(requireActivity().getString(R.string.upload_video))
 
             /**For Video Button **/
             VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvTakePhotoGalleryBtn)
                 ?.setOnClickListener {
-                    checkForCamera="3"
+                    checkForCamera = "3"
                     permissionMethod(requireActivity())
                     VideoPhotodialog?.dismiss()
                 }
 
             /** Take cancel Button **/
-            VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvCancelBtn)?.setOnClickListener {
-                VideoPhotodialog?.dismiss()
-            }
+            VideoPhotodialog?.findViewById<AppCompatTextView>(R.id.tvCancelBtn)
+                ?.setOnClickListener {
+                    VideoPhotodialog?.dismiss()
+                }
             VideoPhotodialog?.show()
         }
 
     }
 
+    private fun captureCamera() {
+        val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
+    }
 
-    private class CompressVideo(var viewModel: PicturesVM,var context: Activity) :
+
+    private class CompressVideo(var viewModel: PicturesVM, var context: Activity) :
         AsyncTask<String?, String?, String?>() {
         // Initialize dialog
         var dialog: Dialog? = null
@@ -434,9 +460,9 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
             super.onPostExecute(s)
             // Dismiss dialog
             //dialog!!.dismiss()
-            Log.e("sfms,fnmqefqfwfwfwf===",s.toString())
+            Log.e("sfms,fnmqefqfwfwfwf===", s.toString())
             hideProgress()
-            viewModel.UploadMediaMethod(File(s).absolutePath,2)
+            viewModel.UploadMediaMethod(File(s).absolutePath, 2)
         }
     }
 }

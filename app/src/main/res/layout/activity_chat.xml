@@ -95,8 +95,6 @@
             android:onClick="@{vm::onClicks}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvChats"
                 android:layout_width="match_parent"

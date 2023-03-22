@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.plazapalm.R
 import com.example.plazapalm.databinding.FavouritesFragmentBinding
 import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.getNewFontsInList
-import com.google.android.gms.common.internal.service.Common
 import dagger.hilt.android.AndroidEntryPoint
 
 

@@ -9,6 +9,15 @@
             name="vm"
             type="com.example.plazapalm.views.selectcategory.opencategeroy.OpenCategeroyViewModel" />
 
+        <variable
+            name="View"
+            type="android.view.View" />
+
+  <!--      <variable
+            name="scrollListener"
+            type="androidx.recyclerview.widget.RecyclerView.OnScrollListener" />
+
+-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,7 +128,6 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clSearchLocation"
-
             tools:context=".MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -133,6 +141,8 @@
             app:layout_constraintTop_toBottomOf="@id/clSearchLocation"
             app:layout_constraintVertical_bias="1.0"
             tools:layout_editor_absoluteX="16dp"
+            app:fastScrollEnabled="false"
+            android:scrollbars="vertical"
             tools:listitem="@layout/categories_list_items"
             />
 
@@ -149,5 +159,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/listempty_id"
+            android:layout_width="wrap_content"
+            android:text="@{vm.noData ? @string/no_data_found : @string/space}"
+            android:gravity="center"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
