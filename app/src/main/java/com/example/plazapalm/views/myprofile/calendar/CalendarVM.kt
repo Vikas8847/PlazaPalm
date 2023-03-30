@@ -40,20 +40,17 @@ import javax.inject.Inject
 class CalendarVM @Inject constructor(
     private var repository: Repository,
     private var pref: PreferenceFile,
-    private var dataStore: DataStoreUtil
 ) : ViewModel() {
     var calendars4: Calendar? = null
     var calendarBookingList = ArrayList<CalenderData>()
     val adapterCalendar by lazy { RecyclerAdapter<CalenderData>(R.layout.calendar_list_item) }
     val p_Id = ObservableField("")
-    val booking_id = ObservableField("")
     val month = ObservableInt()
     val selectMonth = ObservableInt()
     val year = ObservableInt()
     val click = ObservableBoolean(false)
     val SeletedDate = MutableLiveData<List<String?>?>()
     var calendarList = ArrayList<Calendar>()
-    var colorStatus = ObservableBoolean()
     val isBookStatus = MutableLiveData<Boolean>()
 
     init {
@@ -85,7 +82,7 @@ class CalendarVM @Inject constructor(
                         userImage = IMAGE_LOAD_URL+ R.drawable.placeholder
                     }
 
-                    var intent = Intent(CommonMethods.context, ChatActivity::class.java)
+                    val intent = Intent(CommonMethods.context, ChatActivity::class.java)
                     intent.putExtra("CommingFrom", "CalendarScreen")
                     intent.putExtra("user_Id", adapterCalendar.getAllItems().get(position).post_profile_user_id.toString())
                     intent.putExtra("user_name", adapterCalendar.getAllItems().get(position).postProfile_first_name.toString() + " " + adapterCalendar.getAllItems().get(position).postProfile_last_name.toString())
@@ -131,6 +128,7 @@ class CalendarVM @Inject constructor(
 
                     adapterCalendar.getAllItems()[position]._id
         )
+
         val bookingID = adapterCalendar.getAllItems()[position]._id
 
         val jsonobject = JsonObject()
@@ -141,7 +139,7 @@ class CalendarVM @Inject constructor(
             saveInCache = false,
             getFromCache = false,
             requestProcessor = object : ApiProcessor<Response<DeleteBookingResponse>> {
-                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<DeleteBookingResponse> {
+                override suspend fun sendRequest(retrofitApi : RetrofitApi) : Response<DeleteBookingResponse> {
                     return retrofitApi.deleteBooking(
                         pref.retrieveKey("token").toString(),
                         jsonobject
@@ -163,6 +161,7 @@ class CalendarVM @Inject constructor(
                         } else {
 
                             CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+
                         }
 
                     } else {
@@ -175,6 +174,7 @@ class CalendarVM @Inject constructor(
                     Log.e("SZXCXC",message)
 
 //                    CommonMethods.showToast(CommonMethods.context, message)
+
                 }
             })
     }
@@ -224,8 +224,7 @@ class CalendarVM @Inject constructor(
                                 calendars4!!.set(year.toInt(), month, fDay.toInt())
 
                                 Log.e("FQWQWQQQ1", "$year C ")
-                                Log.e("FQWQWQQQ2", "$month  F ")
-                                Log.e("FQWQWQQQ3", "$fDay  B ")
+
                                 calendarList.add(calendars4!!)
                                 Log.e("bookinggIDD -- ",res.body()!!.data[i]?._id.toString())
                             }

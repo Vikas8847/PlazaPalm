@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.appcompat.widget.AppCompatImageView
@@ -23,6 +24,7 @@ import com.example.plazapalm.models.CategoriesData
 import com.example.plazapalm.models.FontsListModelResponse
 import com.example.plazapalm.models.ProfileCateData
 import com.example.plazapalm.networkcalls.IMAGE_LOAD_URL
+import com.example.plazapalm.utils.CommonMethods
 import com.example.plazapalm.utils.Constants
 import com.example.plazapalm.utils.FullScreenVideoView
 import com.example.plazapalm.utils.getTextSizeValue
@@ -53,7 +55,8 @@ class RVDashboardAdapter(
             itemView.findViewById<AppCompatImageView>(R.id.ivDashBoardCat)
         var videoFullScreen: FullScreenVideoView =
             itemView.findViewById<FullScreenVideoView>(R.id.videoFullScreen)
-        var ivVideoIcon: ImageView = itemView.findViewById<ImageView>(R.id.ivVideoIcon)
+//        var ivVideoIcon: ImageView = itemView.findViewById<ImageView>(R.id.ivVideoIcon)
+        var ivVideoIcon: ProgressBar = itemView.findViewById<ProgressBar>(R.id.ivVideoIcon)
         var ivFavourite: ImageView = itemView.findViewById<ImageView>(R.id.ivFavourite)
         var player_layout: CardView = itemView.findViewById<CardView>(R.id.player_layout)
     }
@@ -74,7 +77,7 @@ class RVDashboardAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.setIsRecyclable(false)
+        holder.setIsRecyclable(true)
         holder.tvDashBoardItemName.text = profileList[position].first_name
         holder.tvDashBoardItemLastName.text = profileList[position].last_name
         holder.tvDashBoardItemDescription.text = profileList[position].user_name
@@ -136,6 +139,7 @@ class RVDashboardAdapter(
             holder.ivVideoIcon.visibility = View.GONE
             holder.ivDashBoardCat.visibility = View.VISIBLE
         } else {
+
             setVideoImage(
                 holder.videoFullScreen,
                 profileList[position].postProfile_picture[0],
@@ -283,11 +287,14 @@ class RVDashboardAdapter(
 
     val METERS_IN_MILE = 1609.344
 
+
+    /**khem 24 march 23 **/
     fun setVideoImage(
-        videoView: VideoView, imageUrl: String?, ivVideoIcon: ImageView,
+        videoView: VideoView, imageUrl: String?,ivVideoIcon : ProgressBar /* ivVideoIcon: ImageView*/ ,
     ) {
         var position = 0
         Log.e("efmgmlwgge===", "dffff")
+
         if (imageUrl != null) {
 
             var videoLink = IMAGE_LOAD_URL + imageUrl

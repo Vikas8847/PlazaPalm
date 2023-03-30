@@ -92,15 +92,15 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
     /**Get Type from previous screen using bundle **/
     private fun getData() {
         if (arguments != null) {
-        Log.e("getDataaaaa====",arguments?.getString("comingFrom").toString())
+            Log.e("getDataaaaa====", arguments?.getString("comingFrom").toString())
             when (arguments?.getString("comingFrom")) {
                 "isFilter" -> {
 
-                  var  lat_value=  arguments?.getString("lat_value")
-                    var  lng_value=arguments?.getString("lng_value")
-                    var location_value= arguments?.getString("location_value")
-                    Log.e("fmvsladmvsdav11===",lat_value.toString())
-                    Log.e("fmvsladmvsdav===",location_value.toString())
+                    var lat_value = arguments?.getString("lat_value")
+                    var lng_value = arguments?.getString("lng_value")
+                    var location_value = arguments?.getString("location_value")
+                    Log.e("fmvsladmvsdav11===", lat_value.toString())
+                    Log.e("fmvsladmvsdav===", location_value.toString())
                     viewmodel.latitude.set(lat_value!!.toDouble())
                     viewmodel.longitude.set(lng_value!!.toDouble())
                     viewmodel.address.set(location_value!!)
@@ -253,7 +253,10 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                         if (dataList.isNotEmpty()) {
                             val bundle = Bundle()
                             bundle.putString("fromCategories", "fromCategoriesFragList")
-                            bundle.putParcelableArrayList("fromCategoriesList", dataList as ArrayList<CategoriesData>)
+                            bundle.putParcelableArrayList(
+                                "fromCategoriesList",
+                                dataList as ArrayList<CategoriesData>
+                            )
 
                             bundle.putDouble("longitude", viewmodel.longitude.get())
                             bundle.putDouble("latitude", viewmodel.latitude.get())
@@ -315,7 +318,11 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     viewmodel.latitude.set(lati.toDouble())
                     viewmodel.address.set(address)
 
-                    Log.e("ADDKFJSDFJSDJF", data.toString() + "CIIDDDD" + viewmodel.latitude.get().toString()+"==="+viewmodel.longitude.get().toString())
+                    Log.e(
+                        "ADDKFJSDFJSDJF",
+                        data.toString() + "CIIDDDD" + viewmodel.latitude.get()
+                            .toString() + "===" + viewmodel.longitude.get().toString()
+                    )
 
                 }
         }
@@ -347,34 +354,57 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
                     if (location == null) {
                         CommonMethods.requestNewLocationData()
                     } else {
-                        viewmodel.currentLatitude.set(location.latitude)
-                        viewmodel.currentLongitude.set(location.longitude)
+                        if (location.latitude != 0.0 && location.longitude != 0.0) {
 
-                        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                        val list: List<Address> =
-                            geocoder.getFromLocation(
-                                location.latitude,
-                                location.longitude,
-                                1
-                            ) as List<Address>
-                        viewmodel.latitude.set(list[0].latitude)
-                        viewmodel.longitude.set(list[0].longitude)
-                        list[0].countryName
-                        viewmodel.address.set(list[0].getAddressLine(0))
-                        Log.e("countryName", "" + list[0].locality + "" + list[0].countryName)
-
-                        pref.storeLatlong(Constants.CURRENT_LOCATION_LAT,viewmodel.latitude.get().toFloat())
-                        pref.storeLatlong(Constants.CURRENT_LOCATION_LONG,viewmodel.longitude.get().toFloat())
+                            try {
 
 
-                        //for current lat long
-                        pref.storeLatlong("lati",location.latitude.toFloat())
-                        pref.storeLatlong("longi",location.longitude.toFloat())
+                                viewmodel.currentLatitude.set(location.latitude)
+                                viewmodel.currentLongitude.set(location.longitude)
 
-                        //pref.storeLatlong("lati", viewmodel.latitude.get().toFloat())
-                       // pref.storeLatlong("longi", viewmodel.longitude.get().toFloat())
+                                val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                                val list: List<Address> = geocoder.getFromLocation(
+                                    location.latitude,
+                                    location.longitude,
+                                    1
+                                ) as List<Address>
 
-                        getData()
+                                viewmodel.latitude.set(list[0].latitude)
+                                viewmodel.longitude.set(list[0].longitude)
+                                list[0].countryName
+
+                                viewmodel.address.set(list[0].getAddressLine(0))
+                                Log.e(
+                                    "countryName",
+                                    "" + list[0].locality + "" + list[0].countryName
+                                )
+
+                                pref.storeLatlong(
+                                    Constants.CURRENT_LOCATION_LAT,
+                                    viewmodel.latitude.get().toFloat()
+                                )
+                                pref.storeLatlong(
+                                    Constants.CURRENT_LOCATION_LONG,
+                                    viewmodel.longitude.get().toFloat()
+                                )
+
+
+                                //for current lat long
+                                pref.storeLatlong("lati", location.latitude.toFloat())
+                                pref.storeLatlong("longi", location.longitude.toFloat())
+
+                                //pref.storeLatlong("lati", viewmodel.latitude.get().toFloat())
+                                // pref.storeLatlong("longi", viewmodel.longitude.get().toFloat())
+
+                                getData()
+                            }catch (e:Exception){
+
+                                Log.e("countryName", "" + e)
+                                println(e)
+                            }
+                        } else {
+                            CommonMethods.showToast(requireActivity(), "Latlng can't be Empty")
+                        }
                     }
                 }
             } else {
@@ -430,12 +460,13 @@ class CategoriesListFragment : Fragment(R.layout.categories_list_fragment) {
         CommonMethods.statusBar(false)
         getLastLocation()
     }
-    private fun refreshLayout(){
+
+    private fun refreshLayout() {
         binding?.refreshContainer?.setOnRefreshListener {
 //            // on below line we are setting is refreshing to false.
 //            binding?.refreshContainer?.isRefreshing = false
 //            getLastLocation()
-            viewmodel.getCategoriesApi("",false)
+            viewmodel.getCategoriesApi("", false)
             binding?.refreshContainer?.isRefreshing = false
         }
     }

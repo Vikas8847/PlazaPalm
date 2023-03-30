@@ -113,6 +113,8 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         })
 */
 
+        /** comment pagination code here **/
+/*
         binding?.rvCategoryLocation?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -134,14 +136,15 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                     // End has been reached
                     Log.e("Yaeye!", "end called")
 
-                    currentPage++
-                    fetchData(currentPage)
+                   // currentPage++
+                    //fetchData(currentPage)
 
                     // Do something
-                    loading = true
+                 //   loading = true
                 }
             }
         })
+*/
 
     }
 
@@ -169,17 +172,18 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
         binding?.tvCategories?.visibility = View.VISIBLE
         viewmodel.isChecked.set(false)
         binding?.rvCategoryLocation?.isSelected = false
+
         viewmodel.getCategoriesApi(
             binding!!.rvCategoryLocation,
             requireActivity(),
             binding!!.refreshContainer,
-            true, this, currentPage
+            true, this, currentPage ,""
         )
 
         /** Get Data from Add cities screen **/
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("bundle")
-            ?.observe(this@OpenCategeroyFragment) { data ->
+            ?.observe(requireActivity()) { data ->
 
                 val datafromLocation = data
                 // Split will return an array
@@ -244,41 +248,46 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
                     if (location == null) {
                         CommonMethods.requestNewLocationData()
                     } else {
-                        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                        val list: List<Address> =
-                            geocoder.getFromLocation(
-                                location.latitude,
-                                location.longitude,
-                                1
-                            ) as List<Address>
-                        viewmodel.latitude.set(list[0].latitude!!)
-                        viewmodel.longitude.set(list[0].longitude!!)
 
-                        //  viewmodel.name.set(list[0].countryName)
-                        // viewmodel.address.set(list[0].countryName)
-                        viewmodel.address.set(list[0].getAddressLine(0))
+                        if (location.latitude != 0.0 && location.longitude != 0.0) {
+                            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                            val list: List<Address> =
+                                geocoder.getFromLocation(
+                                    location.latitude,
+                                    location.longitude,
+                                    1
+                                ) as List<Address>
+                            viewmodel.latitude.set(list[0].latitude!!)
+                            viewmodel.longitude.set(list[0].longitude!!)
 
-                        pref.storeLatlong(
-                            Constants.CURRENT_LOCATION_LAT,
-                            viewmodel.latitude.get().toFloat()
-                        )
-                        pref.storeLatlong(
-                            Constants.CURRENT_LOCATION_LONG,
-                            viewmodel.longitude.get().toFloat()
-                        )
+                            //  viewmodel.name.set(list[0].countryName)
+                            // viewmodel.address.set(list[0].countryName)
+                            viewmodel.address.set(list[0].getAddressLine(0))
 
-
-                        //for current lat long
-                        pref.storeLatlong("lati", location.latitude.toFloat())
-                        pref.storeLatlong("longi", location.longitude.toFloat())
+                            pref.storeLatlong(
+                                Constants.CURRENT_LOCATION_LAT,
+                                viewmodel.latitude.get().toFloat()
+                            )
+                            pref.storeLatlong(
+                                Constants.CURRENT_LOCATION_LONG,
+                                viewmodel.longitude.get().toFloat()
+                            )
 
 
-                        getdata()
-                        Log.e(
-                            "countryName",
-                            "" + list[0].locality + "" + list[0].countryName + "XCXCX" +
-                                    list[0].latitude + "LATTTTT " + list[0].longitude
-                        )
+                            //for current lat long
+                            pref.storeLatlong("lati", location.latitude.toFloat())
+                            pref.storeLatlong("longi", location.longitude.toFloat())
+
+
+                            getdata()
+                            Log.e(
+                                "countryName",
+                                "" + list[0].locality + "" + list[0].countryName + "XCXCX" +
+                                        list[0].latitude + "LATTTTT " + list[0].longitude
+                            )
+                        }else{
+                            Log.e("jhou", location.latitude.toString() +" --- "+  location.longitude.toString())
+                        }
                     }
                 }
 
@@ -308,36 +317,56 @@ class OpenCategeroyFragment : Fragment(R.layout.fragment_open_categeroy), clickI
     override fun onResume() {
         super.onResume()
         CommonMethods.statusBar(false)
+
+//        viewmodel.getCategoriesApi(
+//            binding!!.rvCategoryLocation,
+//            requireActivity(),
+//            binding!!.refreshContainer,
+//            false,
+//            this,
+//            0,
+//            ""
+//        )
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun refreshLayout() {
         binding?.refreshContainer?.setOnRefreshListener {
+
+            binding?.refreshContainer?.isRefreshing = false
+
 //            // on below line we are setting is refreshing to false.
 //            binding?.refreshContainer?.isRefreshing = false
 
-            viewmodel.getCategoriesApi(
+        /*    viewmodel.getCategoriesApi(
                 binding!!.rvCategoryLocation,
                 requireActivity(),
                 binding!!.refreshContainer,
                 false,
                 this,
-                currentPage
+                currentPage,
+                ""
             )
-            binding?.refreshContainer?.isRefreshing = false
+            binding?.refreshContainer?.isRefreshing = false*/
+
         }
 
     }
 
 
     private fun fetchData(page: Int) {
+
         viewmodel.getCategoriesApi(
             binding!!.rvCategoryLocation,
             requireActivity(),
             binding!!.refreshContainer,
             false,
             this,
-            page
+            page,
+            ""
         )
     }
+
+
 }

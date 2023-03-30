@@ -676,7 +676,6 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
         })
 
 
-
 /** Implement pagination */
 
 /*
@@ -746,6 +745,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
 */
 
 
+/*
         binding?.rvDashBoard?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -775,6 +775,7 @@ class DashBoardFragment : Fragment(R.layout.dash_board_fragment) {
                 }
             }
         })
+*/
 
     }
 

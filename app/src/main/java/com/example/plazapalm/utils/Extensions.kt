@@ -13,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.VideoView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.ActivityNavigator
@@ -112,7 +113,7 @@ fun BottomNavigationView.onNavDestinationSelected(
 }
 var profileBinding:AdvanceShowViewProfileBinding?=null
 fun Activity.setVideoPlayMethod(
-    videoView: VideoView, imageUrl: String?, ivVideoIcon: ImageView
+    videoView: VideoView, imageUrl: String?, ivVideoIcon : ProgressBar /*ivVideoIcon: ImageView*/
 ) {
     val position = 0
     if (imageUrl != null) {
@@ -124,6 +125,7 @@ fun Activity.setVideoPlayMethod(
             videoView.seekTo(position)
             ivVideoIcon.visibility = View.GONE
             if (position == 0) {
+
                 videoView.start()
             } else
             {
@@ -139,6 +141,7 @@ fun Activity.setVideoPlayMethod(
             /* Log.d("VideoError", "$mediaPlayer")
              CommonMethods.showToast(CommonMethods.context, "Error in Video Playing..")*/
             true
+
         }
 
         videoView.setOnCompletionListener { mp ->
@@ -150,6 +153,7 @@ fun Activity.setVideoPlayMethod(
         videoView.requestFocus()
         videoView.start()
     } else {
+
     }
 }
 

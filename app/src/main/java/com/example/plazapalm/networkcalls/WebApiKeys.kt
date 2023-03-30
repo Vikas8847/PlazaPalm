@@ -24,7 +24,7 @@ const val UPDATE_PROFILE = "updateProfile"
 const val UPLOAD_MEDIA = "uploadMedia"
 const val GET_CATEGORIES = "getCategory"
 const val GET_POST_PROFILE = "getPostProfile"
-const val DELETE_PROFILE_POST = "postProfileDelete"
+const val DELETE_PROFILE_POST = "postProfileDelete/{name}"
 
 //const val GET_CATEGORIES = "getCategory?lat=30.8987&long=76.7179&offset=1&limit=10&search="
 

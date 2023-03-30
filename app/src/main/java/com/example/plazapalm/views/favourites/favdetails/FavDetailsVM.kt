@@ -398,18 +398,13 @@ class FavDetailsVM @Inject constructor(
                             if (isFav.get()) {
 //                                    tvRemoveFav?.text="Remove from Favourites"
                                 isFav.set(false)
-                                Log.e("TRUE", res.body().toString())
-
-                                var newFavoriteCount = tvFavouriteCountValue.get()!!.toInt() + 1
-
+                                val newFavoriteCount = tvFavouriteCountValue.get()!!.toInt() + 1
                                 tvFavouriteCountValue.set(newFavoriteCount.toString())
 
                             } else {
                                 isFav.set(true)
-//                                    tvRemoveFav?.text="Add from Favourites"
-                                Log.e("FALSE", res.body().toString())
-                                var newFavoriteCount = tvFavouriteCountValue.get()!!.toInt() - 1
-
+//                              tvRemoveFav?.text="Add from Favourites"
+                                val newFavoriteCount = tvFavouriteCountValue.get()!!.toInt() - 1
                                 tvFavouriteCountValue.set(newFavoriteCount.toString())
                             }
 

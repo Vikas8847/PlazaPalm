@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.VideoView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -47,6 +48,7 @@ class ViewPostProfileAdapter(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         Log.e("SDSDSDSDSd", dataList.toString())
+        val ctx = holder.itemView.context
 
         holder.setDAta(requireActivity, dataList, position)
     }
@@ -150,14 +152,17 @@ class ViewPostProfileAdapter(
                       }*/
                     setVideoImage(bindining.videoViewDetailView,IMAGE_LOAD_URL + photos.get(position).Image,bindining.ivVideoIcon)
                 }
+
             }else
             {
+
                 bindining.ivFavOfDesc1Img.visibility = View.GONE
                 bindining.ivFavOfDesc1.visibility = View.GONE
 
                 bindining.videoViewDetailView.visibility = View.GONE
                 bindining.ivVideoIcon.visibility = View.GONE
                 bindining.vPlayer1.visibility = View.GONE
+
             }
             if (!(photos[position].Desc.toString().trim().equals(""))) {
                 bindining.clVEditProDescription.visibility = View.VISIBLE
@@ -255,7 +260,7 @@ class ViewPostProfileAdapter(
 
 
     fun setVideoImage(
-        videoView: VideoView, imageUrl: String?,videoIcon:ImageView
+        videoView: VideoView, imageUrl: String?,videoIcon:ProgressBar /*videoIcon:ImageView*/
     ) {
         var position = 0
         if (imageUrl != null) {

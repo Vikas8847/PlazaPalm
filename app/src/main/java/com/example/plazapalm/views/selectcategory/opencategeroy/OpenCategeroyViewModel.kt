@@ -86,17 +86,247 @@ class OpenCategeroyViewModel @Inject constructor(
 
     }
 
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun showCategories(
+        data: ArrayList<CategoriesData>,
+        rvCategoryLocation: RecyclerView,
+        requireActivity: FragmentActivity,
+        clickItem: clickItem,typeData:Int
+    ) {
+        rvCategoryLocation?.layoutManager = LinearLayoutManager(requireActivity)
+      //  if (selectCateAdapter == null) {
+            selectCateAdapter = SelectCateAdapter(requireActivity, data, clickItem, "OpenCategeroy")
+            rvCategoryLocation?.adapter = selectCateAdapter
+            rvCategoryLocation?.adapter?.notifyDataSetChanged()
+      /*  } else {
+
+      .
+            selectCateAdapter!!.addNewDataList(data)
+            selectCateAdapter!!.notifyDataSetChanged()
+        }*/
+     /*   if(typeData==1) {
+            categoryList!!.clear()
+            categoryList = selectCateAdapter!!.getNewList()
+            Log.e("gfskegsgs===",categoryList!!.size.toString())
+        }*/
+        if (selectCateAdapter!!.categortList != null) {
+            if (selectCateAdapter!!.categortList.size == 0) {
+                Log.e("SAAasds", "WORGKL")
+                noData.set(true)
+            } else {
+                noData.set(false)
+
+            }
+        }
+
+    }
+
+/*
+    fun onTextChange(editable: Editable) {
+        if (editable.toString().length > 0) {
+            Handler().postDelayed({
+
+                getSearchData(editable.toString(), false)
+
+
+//                getCategoriesApi(editable.toString(), false)
+//                getCategoriesApi( null,"" ,"" , false, null , 1,editable.toString())
+
+
+            }, 1000)
+        } else {
+            Handler().postDelayed({
+
+                getSearchData("", false)
+
+
+//                getCategoriesApi( null, null , null,false,null,1,"")
+//                getCategoriesApi("", false)
+            }, 1000)
+        }
+
+        Log.e("QQWQWQw", editable.toString())
+    }
+*/
+
+
+/*
+    private fun getSearchData(searchtext: String, loader: Boolean) = viewModelScope.launch {
+
+
+        val body = JSONObject()
+        body.put(Constants.AUTHORIZATION, token.get())
+        body.put("lat", latitude.get())
+        body.put("long", longitude.get())
+        body.put("offset", page)
+        body.put("limit", 10)
+        body.put("search=", searchtext)
+
+//        body.put("search=", searchText)
+
+        Log.e(
+            "dsadas",
+            latitude.get().toDouble().toString() + "  <<--DFDF-->>  " + longitude.get().toString()
+                .toString() + name.get() + "XXXX"
+        )
+
+        Log.e("cateRseeee===", body.toString())
+        repository.makeCall(
+            apiKey = ApiEnums.GET_CATEGORIES,
+            loader = loader,
+            saveInCache = false,
+            getFromCache = false,
+            requestProcessor = object : ApiProcessor<Response<CategoriesResponseModel>> {
+                override suspend fun sendRequest(retrofitApi: RetrofitApi): Response<CategoriesResponseModel> {
+                    return retrofitApi.getCategories(
+                        Authorization = token.get().toString(),
+                        Lat = latitude.get()!!.toDouble(),
+                        Long = longitude.get()!!.toDouble(),
+                        OffSet = 1,
+                        Limit = 1000,
+                        Search = searchtext
+                        //Search = searchText.get().toString()
+                    )
+                }
+
+                override fun onResponse(res: Response<CategoriesResponseModel>) {
+                    Log.e("SSSSS", res.body().toString())
+
+                    if (res.isSuccessful && res.body() != null) {
+//                        refreshContainer.isRefreshing = false
+                        if (res.body()!!.status == 200) {
+                            categoryList = res.body()?.data!!
+
+                            */
+/*  showCategories(
+                                  res.body()?.data!!,
+                                  rvCategoryLocation,
+                                  requireActivity,
+                                  clickItem
+                              )*//*
+
+
+                            var tempSearchList = ArrayList<CategoriesData>()
+                            tempSearchList.clear()
+
+                            for (idx in 0 until categoryList!!.size) {
+                                if (categoryList!![idx].category_name.toLowerCase()
+                                        .contains(searchText.get().toString().toLowerCase())
+                                ) {
+                                    tempSearchList.add(categoryList!![idx])
+                                }
+                            }
+
+                            showCategories(
+                                tempSearchList!!,
+                                rvCategoryLocation1!!,
+                                requireActivity1!!,
+                                this@OpenCategeroyViewModel.clickItem1!!
+                            )
+
+
+                        } else {
+                            CommonMethods.showToast(CommonMethods.context, res.body()!!.message!!)
+                        }
+                    } else {
+                        CommonMethods.showToast(CommonMethods.context, res.message())
+
+                    }
+                }
+            })
+    }
+*/
+
+
+
+    fun onTextChange(editable: Editable) {
+
+        var tempSearchList = ArrayList<CategoriesData>()
+        tempSearchList.clear()
+
+        if (editable.toString().length > 0) {
+
+                Log.e("sfszfzffsdff333=",categoryList!!.size.toString())
+                // getProfileByCategory(editable.toString(), false, "")
+                for (idx in 0 until categoryList!!.size) {
+                    Log.e("sfszfzffsdff111=",categoryList!![idx].category_name.toLowerCase())
+                    Log.e("sfszfzffsdff222=",editable.toString().toLowerCase())
+                    if (categoryList!![idx].category_name.toLowerCase().contains(editable.toString().toLowerCase())
+                    ) {
+                        tempSearchList.add(categoryList!![idx])
+                    }
+                }
+
+                showCategories(
+                    tempSearchList!!,
+                    rvCategoryLocation1!!,
+                    requireActivity1!!,
+                    clickItem1!!,0
+                )
+
+
+        } else {
+            Handler().postDelayed({
+                showCategories(
+                    categoryList!!,
+                    rvCategoryLocation1!!,
+                    requireActivity1!!,
+                    clickItem1!!,0
+                )
+                //  getProfileByCategory("", false, "")
+            }, 1000)
+        }
+
+        Log.e("QQWQWQw", editable.toString())
+    }
+
+
+//     val myScrollListener = object : RecyclerView.OnScrollListener() {
+//        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//            super.onScrollStateChanged(recyclerView, newState)
+//            // Handle the scroll state changed event
+//        }
+//
+//        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//            super.onScrolled(recyclerView, dx, dy)
+//            if (dy > 0) { // Scrolling down
+//
+//                val layoutManager = LinearLayoutManager(CommonMethods.context)
+//
+//                val visibleItemCount = layoutManager.childCount
+//                val totalItemCount = layoutManager.itemCount
+//                val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
+//                if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+//                    // Reached the end of the list, load more data
+//                    currentPage++
+//                    fetchData(currentPage)
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun fetchData(page: Int) {
+//        val newDataList = myViewModel.fetchData(page)
+//        dataList.addAll(newDataList)
+//        adapter.notifyDataSetChanged()
+//    }
+
+
     fun getCategoriesApi(
         rvCategoryLocation: RecyclerView,
         requireActivity: FragmentActivity,
         refreshContainer: SwipeRefreshLayout,
         loader: Boolean,
         clickItem: clickItem,
-        page: Int
+        page: Int,
+        searchtext: String
 
     ) = viewModelScope.launch {
+
         rvCategoryLocation1 = rvCategoryLocation
         requireActivity1 = requireActivity
+
         this@OpenCategeroyViewModel.clickItem1 = clickItem
         val body = JSONObject()
         body.put(Constants.AUTHORIZATION, token.get())
@@ -109,7 +339,11 @@ class OpenCategeroyViewModel @Inject constructor(
         //body.put("search=", searchText.get())
         body.put("search=", "")
 
-        Log.e("dsadas", latitude.get().toDouble().toString() + "  <<--DFDF-->>  " + longitude.get().toString().toString() + name.get() + "XXXX")
+        Log.e(
+            "dsadas",
+            latitude.get().toDouble().toString() + "  <<--DFDF-->>  " + longitude.get().toString()
+                .toString() + name.get() + "XXXX"
+        )
 
         Log.e("cateRseeee===", body.toString())
         repository.makeCall(
@@ -124,7 +358,7 @@ class OpenCategeroyViewModel @Inject constructor(
                         Lat = latitude.get()!!.toDouble(),
                         Long = longitude.get()!!.toDouble(),
                         OffSet = page,
-                        Limit = 10,
+                        Limit = 1000,
                         Search = ""
                         //Search = searchText.get().toString()
                     )
@@ -160,7 +394,7 @@ class OpenCategeroyViewModel @Inject constructor(
                                 tempSearchList!!,
                                 rvCategoryLocation1!!,
                                 requireActivity1!!,
-                                this@OpenCategeroyViewModel.clickItem1!!
+                                this@OpenCategeroyViewModel.clickItem1!!,1
                             )
 
 
@@ -174,102 +408,4 @@ class OpenCategeroyViewModel @Inject constructor(
                 }
             })
     }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun showCategories(
-        data: ArrayList<CategoriesData>,
-        rvCategoryLocation: RecyclerView,
-        requireActivity: FragmentActivity,
-        clickItem: clickItem
-    ) {
-        rvCategoryLocation?.layoutManager = LinearLayoutManager(requireActivity)
-        if(selectCateAdapter==null) {
-            selectCateAdapter = SelectCateAdapter(requireActivity, data, clickItem, "OpenCategeroy")
-            rvCategoryLocation?.adapter = selectCateAdapter
-            rvCategoryLocation?.adapter?.notifyDataSetChanged()
-        }else
-        {
-            selectCateAdapter!!.addNewDataList(data)
-        }
-
-
-        if (selectCateAdapter!!.photos != null) {
-            if (selectCateAdapter!!.photos.size == 0) {
-                Log.e("SAAasds", "WORGKL")
-                noData.set(true)
-            } else {
-                noData.set(false)
-
-            }
-        }
-
-    }
-
-    fun onTextChange(editable: Editable) {
-
-        var tempSearchList = ArrayList<CategoriesData>()
-        tempSearchList.clear()
-
-        if (editable.toString().length > 0) {
-            Handler().postDelayed({
-                // getProfileByCategory(editable.toString(), false, "")
-                for (idx in 0 until categoryList!!.size) {
-                    if (categoryList!![idx].category_name.toLowerCase()
-                            .contains(editable.toString().toLowerCase())
-                    ) {
-                        tempSearchList.add(categoryList!![idx])
-                    }
-                }
-                showCategories(
-                    tempSearchList!!,
-                    rvCategoryLocation1!!,
-                    requireActivity1!!,
-                    clickItem1!!
-                )
-
-            }, 1000)
-        } else {
-            Handler().postDelayed({
-                showCategories(
-                    categoryList!!,
-                    rvCategoryLocation1!!,
-                    requireActivity1!!,
-                    clickItem1!!
-                )
-                //  getProfileByCategory("", false, "")
-            }, 1000)
-        }
-
-        Log.e("QQWQWQw", editable.toString())
-    }
-
-//     val myScrollListener = object : RecyclerView.OnScrollListener() {
-//        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//            super.onScrollStateChanged(recyclerView, newState)
-//            // Handle the scroll state changed event
-//        }
-//
-//        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//            super.onScrolled(recyclerView, dx, dy)
-//            if (dy > 0) { // Scrolling down
-//
-//                val layoutManager = LinearLayoutManager(CommonMethods.context)
-//
-//                val visibleItemCount = layoutManager.childCount
-//                val totalItemCount = layoutManager.itemCount
-//                val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
-//                if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-//                    // Reached the end of the list, load more data
-//                    currentPage++
-//                    fetchData(currentPage)
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun fetchData(page: Int) {
-//        val newDataList = myViewModel.fetchData(page)
-//        dataList.addAll(newDataList)
-//        adapter.notifyDataSetChanged()
-//    }
 }

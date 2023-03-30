@@ -209,25 +209,20 @@ object BindingAdapters {
 
             if (value.equals("reminderBooking")) {
                 imageView.visibility = View.VISIBLE
-                Log.e("lkds", value.toString())
 
             } else if (value.equals("declined")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds", value.toString())
 
             } else if (value.equals("pending")) {
 //            imageView.text= "Accepted"
                 imageView.visibility = View.VISIBLE
-                Log.e("lkds", value.toString())
 
             } else if (value.equals("accepted")) {
                 imageView.visibility = View.VISIBLE
                 imageView.text = "Cancel Booking"
-                Log.e("lkds", value.toString())
 
             } else {
                 imageView.visibility = View.VISIBLE
@@ -238,21 +233,17 @@ object BindingAdapters {
 
             if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("pending")) {
 //            imageView.text= "Accepted"
                 imageView.visibility = View.GONE
-                Log.e("lkds2", value.toString())
 
             } else if (value.equals("accepted")) {
                 imageView.visibility = View.VISIBLE
                 imageView.text = "Cancel Booking"
-                Log.e("lkds3", value.toString())
 
             } else if (value.equals("declined")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
 
             } else {
@@ -269,52 +260,41 @@ object BindingAdapters {
         Log.e("ZSDZXC", value.toString())
 
         if (userTypeA.equals("customer")) {
-//            declined
             if (value.equals("declined")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("pending")) {
 //            imageView.text= "Accepted"
                 imageView.visibility = View.GONE
-                Log.e("lkds2", value.toString())
 
             } else if (value.equals("reminderBooking")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds3", value.toString())
 
             } else if (value.equals("accepted")) {
-                imageView.text = "Accepted"
-                Log.e("lkds3", value.toString())
+                imageView.visibility = View.GONE
+//                imageView.text = "Accepted"
 
             } else {
-                Log.e("lkds4", value.toString())
                 imageView.visibility = View.VISIBLE
             }
         } else {
             if (value.equals("declined")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("pending")) {
-//            imageView.text= "Accepted"
                 imageView.visibility = View.VISIBLE
-                Log.e("lkds2", value.toString())
 
             } else if (value.equals("accepted")) {
-                imageView.text = "Accepted"
-                Log.e("lkds3", value.toString())
+                imageView.visibility = View.GONE
+//                imageView.text = "Accepted"
 
             } else {
-                Log.e("lkds4", value.toString())
                 imageView.visibility = View.VISIBLE
             }
         }
@@ -322,6 +302,54 @@ object BindingAdapters {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    @BindingAdapter("accpetedShow", "userTypeA")
+    @JvmStatic
+    fun accpetedShow(imageView: AppCompatButton, value: String, userTypeA: String) {
+
+        Log.e("ZSDZXC", value.toString())
+
+        if (userTypeA.equals("customer")) {
+            if (value.equals("declined")) {
+                imageView.visibility = View.GONE
+
+            } else if (value.equals("cancelled")) {
+                imageView.visibility = View.GONE
+
+            } else if (value.equals("pending")) {
+                imageView.visibility = View.GONE
+
+            } else if (value.equals("reminderBooking")) {
+                imageView.visibility = View.GONE
+
+            } else if (value.equals("accepted")) {
+                imageView.visibility = View.VISIBLE
+                imageView.text = "Accepted"
+
+            } else {
+                imageView.visibility = View.VISIBLE
+            }
+        } else {
+            if (value.equals("declined")) {
+                imageView.visibility = View.GONE
+
+            } else if (value.equals("cancelled")) {
+                imageView.visibility = View.GONE
+
+            } else if (value.equals("pending")) {
+//            imageView.text= "Accepted"
+                imageView.visibility = View.GONE
+
+            } else if (value.equals("accepted")) {
+                imageView.visibility = View.VISIBLE
+                imageView.text = "Accepted"
+
+            } else {
+                imageView.visibility = View.VISIBLE
+            }
+        }
+
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     @BindingAdapter("Decline", "userTypeDec")
@@ -332,52 +360,39 @@ object BindingAdapters {
         Log.e("ZSDZXC-- >> ", userTypeDec.toString())
 
         if (userTypeDec.equals("customer")) {
-//            declined
             if (value.equals("declined")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("pending")) {
                 imageView.text = "Accepted"
                 imageView.visibility = View.GONE
-                Log.e("lkds2", value.toString())
 
             } else if (value.equals("reminderBooking")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds3", value.toString())
 
             } else if (value.equals("accepted")) {
 //                imageView.text = "Accepted"
-                Log.e("lkds3", value.toString())
 
             } else {
-                Log.e("lkds4", value.toString())
                 imageView.visibility = View.VISIBLE
             }
         } else {
             if (value.equals("cancelled")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds1", value.toString())
 
             } else if (value.equals("pending")) {
-//            imageView.text= "Accepted"
                 imageView.visibility = View.VISIBLE
-                Log.e("lkds2", value.toString())
 
             } else if (value.equals("accepted")) {
                 imageView.visibility = View.GONE
-                Log.e("lkds3", value.toString())
 
             } else if (value.equals("declined")) {
                 imageView.visibility = View.VISIBLE
-                Log.e("lkds1", value.toString())
 
             } else {
-                Log.e("lkds4", value.toString())
                 imageView.visibility = View.VISIBLE
             }
         }

@@ -63,8 +63,7 @@ class PicturesVM @Inject constructor() : ViewModel() {
                     var bundle = Bundle()
                     bundle.putString("media", list1[position].image.toString())
                     bundle.putString("media_type", list1[position].type.toString())
-                    view.navigateWithId(R.id.action_picturesFragment_to_showPictureVideoFragment,
-                        bundle)
+                    view.navigateWithId(R.id.action_picturesFragment_to_showPictureVideoFragment, bundle)
                 }
             }
         }
