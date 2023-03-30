@@ -3,6 +3,7 @@ package com.example.plazapalm.models
 import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import androidx.annotation.RequiresApi
 
 data class GetPostProfileResponse(
@@ -135,13 +136,44 @@ data class postData(
         parcel.writeString(background_color)
         parcel.writeString(background_type)
         parcel.writeString(border_color)
-        parcel.writeInt(border_opacity!!)
-        parcel.writeInt(border_width!!)
-        parcel.writeString(column_color)
-        parcel.writeInt(column_opacity!!)
-        parcel.writeString(font_color)
-        parcel.writeString(font_name)
-        parcel.writeInt(font_opacity!!)
+
+        try {
+            if (border_opacity != null) {
+                parcel.writeInt(border_opacity!!)
+            }
+            if (border_width != null) {
+                parcel.writeInt(border_width!!)
+            }
+            if (column_color != null) {
+                parcel.writeString(column_color!!)
+            }
+            if (column_opacity != null) {
+                parcel.writeInt(column_opacity!!)
+            }
+            if (font_color != null) {
+                parcel.writeString(font_color!!)
+            }
+            if (font_name != null) {
+                parcel.writeString(font_name!!)
+            }
+            if (font_opacity != null) {
+                parcel.writeInt(font_opacity!!)
+            }
+            if (profile_status != null) {
+                parcel.writeBoolean(profile_status!!)
+            }
+        } catch (e: Exception) {
+            Log.e("sdffe", e.toString())
+        }
+
+//        parcel.writeInt(border_opacity!!)
+//        parcel.writeInt(border_width!!)
+//        parcel.writeString(column_color)
+//        parcel.writeInt(column_opacity!!)
+//        parcel.writeString(font_color)
+//        parcel.writeString(font_name)
+//        parcel.writeInt(font_opacity!!)
+
         parcel.writeBoolean(profile_status!!)
 
     }

@@ -19,7 +19,7 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback20;
+    private final android.view.View.OnClickListener mCallback18;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -41,7 +41,7 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
         this.tvQuestionValue.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback20 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
+        mCallback18 = new com.example.plazapalm.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -137,7 +137,7 @@ public class AddQuestionItemsBindingImpl extends AddQuestionItemsBinding impleme
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.deletereturn.setOnClickListener(mCallback20);
+            this.deletereturn.setOnClickListener(mCallback18);
         }
         if ((dirtyFlags & 0x9L) != 0) {
             // api target 1

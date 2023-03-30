@@ -68,12 +68,12 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivPicturesAdd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:padding="@dimen/_5sdp"
-                    android:src="@drawable/ic_add_image" />
+                    android:src="@drawable/cloudo" />
 
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>

@@ -477,7 +477,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
 
         calculateDistance(
             binding!!.tvFavDetailsDistance,
-            data.get(pos).lat!!,
+            data.get(pos).lat,
             data.get(pos).long!!,
             Constants.TEMP_LATVALUE!!,
             Constants.TEMP_LONGVALUE!!
@@ -531,7 +531,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 //  apply(RequestOptions().override(1200,1200)).placeholder(R.drawable.dash_board_items_bg).error(R.drawable.dash_board_items_bg)
             placeholder(R.drawable.dash_board_items_bg).error(R.drawable.dash_board_items_bg)
                 .into(binding!!.ivFavDetails)
-            binding!!.ivFavDetails.visibility = View.VISIBLE
+            binding!!.ivFavDetails!!.visibility = View.VISIBLE
             binding!!.videoViewDetail.visibility = View.GONE
             binding!!.ivVideoIconDetails.visibility = View.GONE
         } else {
@@ -1009,7 +1009,7 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
                 override fun onError(message: String) {
                     super.onError(message)
                     binding?.displayBack?.visibility = View.GONE
-                    binding?.constraintsDetailEmpty?.visibility = View.VISIBLE
+//                    binding?.constraintsDetailEmpty?.visibility = View.VISIBLE
                     binding?.ivFavDetailsOptions?.visibility = View.INVISIBLE
                     Log.e("zxczxczxc", message)
 
@@ -1104,6 +1104,9 @@ class FavDetailsFragment : Fragment(R.layout.fav_details_fragment), OnMapReadyCa
         }
 
         binding?.rvImages?.layoutManager = LinearLayoutManager(requireContext())
+        val layoutManager = LinearLayoutManager(requireActivity())
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
 
         val metrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(metrics)

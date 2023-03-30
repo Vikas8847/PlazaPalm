@@ -286,9 +286,11 @@ class EditFrontPageVM @Inject constructor(
             profileBinding!!.videVAdvanceShowProfile.visibility = View.VISIBLE
             val videoPath = response.data.postProfile_picture?.get(0)
             Log.e("Photo_Data_Showss==",IMAGE_LOAD_URL + videoPath)
-            MainActivity.activity.setVideoPlayMethod(profileBinding!!.videVAdvanceShowProfile, IMAGE_LOAD_URL + videoPath, profileBinding!!.ivVideoIconDetails)
+            MainActivity.activity.setVideoPlayMethod(profileBinding!!.videVAdvanceShowProfile,
+                IMAGE_LOAD_URL + videoPath, profileBinding!!.ivVideoIconDetails)
         }
     }
+
     private fun topTextSelectedTypeFaces() {
         profileBinding?.apply {
             when {

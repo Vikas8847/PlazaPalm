@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaRecorder
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
@@ -23,6 +24,8 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -64,6 +67,7 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
     val GALARY_REQUEST_CODE = 201
     val REQUEST_CODEE = 200
     val REQUEST_VIDEO_CAPTURE = 101
+    private val MAX_VIDEO_DURATION_SECONDS = 10
 
     @Inject
     lateinit var repository: Repository
@@ -81,6 +85,9 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         )
         //  doCorrectStuffThatWritesToDisk()
         StrictMode.setThreadPolicy(old)
+
+
+
         return binding?.root
     }
 
@@ -167,66 +174,6 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
         startActivityForResult(intent, GALARY_REQUEST_CODE)
 
         dialog?.dismiss()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK && requestCode == GALARY_REQUEST_CODE && data != null) {
-
-            val selectedImageURI: Uri = data.data!!
-            var file = getPath(selectedImageURI)
-            viewModel.UploadMediaMethod(file!!, 1)
-            /*  newPhotoList.removeAt(pos!!)
-              Log.e("fnknfsnefksef===",file.toString())
-              newPhotoList.add(pos!!, AddPhoto(File(file).absolutePath, false,1))
-              addPhotosAdapter.updateList(newPhotoList, pos!!)*/
-            //  bundle.putParcelableArrayList("photoList",photoList)
-            //bundle.putString("DAMEO","DDDD")
-            //   pref.storeImage("ADD_PHOTO_URI",photoList)
-            //  addPhotosAdapter.notifyDataSetChanged()
-            // showPhotoMethod(File(file))
-
-        } else if (requestCode == REQUEST_CODEE &&
-            resultCode == Activity.RESULT_OK
-        ) {
-
-            if (photoFile != null) {
-                //    Glide.with(this).load(photoFile).into(ivPhoto!!)
-//                    var photoFileData=Uri.fromFile(photoFile) as Uri
-                Log.e("Picture_Screeennn===", "2222")
-                var photoFileData = photoFile
-                viewModel.UploadMediaMethod(photoFile!!.absolutePath, 1)
-                /*       newPhotoList.removeAt(pos!!)
-                       newPhotoList.add(pos!!, AddPhoto(photoFileData!!.absolutePath, false,1))
-                       addPhotosAdapter.updateList(newPhotoList, pos!!)
-                       // addPhotosAdapter.notifyDataSetChanged()
-                       //  bundle.putParcelableArrayList("photoList",photoList)
-                       //   bundle.putString("DAMEO","xcxcxc")
-                       dataStoreUtil.savephoto(ADD_PHOTO_URI, newPhotoList.toString())*/
-            }
-        } else
-            if (requestCode == REQUEST_TAKE_GALLERY_VIDEO &&
-                resultCode == Activity.RESULT_OK ) {
-                //For Pick Video from Gallery
-                val selectedImageUri : Uri? = data!!.getData()
-                var filemanagerstring = selectedImageUri!!.path
-                var selectedImagePath = getVideoPathFromGallery(selectedImageUri)
-
-                val file = File(Environment.getExternalStorageDirectory().absolutePath)
-                CompressVideo(viewModel, requireActivity()).execute("false", selectedImageUri.toString(), file.absolutePath)
-
-                //  viewModel.UploadMediaMethod(File(selectedImagePath).absolutePath,2)
-
-            } else  if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
-                val videoUri = data?.data
-                val file = File(Environment.getExternalStorageDirectory().absolutePath)
-
-                CompressVideo(viewModel, requireActivity()).execute("false", videoUri.toString(), file.absolutePath)
-
-//                videoView.setVideoURI(videoUri)
-//                videoView.start()
-            }
     }
 
 
@@ -425,13 +372,15 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
     }
 
     private fun captureCamera() {
+
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, MAX_VIDEO_DURATION_SECONDS)
         startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
+
     }
 
 
-    private class CompressVideo(var viewModel: PicturesVM, var context: Activity) :
-        AsyncTask<String?, String?, String?>() {
+    private class CompressVideo(var viewModel: PicturesVM, var context: Activity) : AsyncTask<String?, String?, String?>() {
         // Initialize dialog
         var dialog: Dialog? = null
         override fun onPreExecute() {
@@ -458,11 +407,79 @@ class PicturesFragment : Fragment(R.layout.pictures_fragment), View.OnClickListe
 
         override fun onPostExecute(s: String?) {
             super.onPostExecute(s)
-            // Dismiss dialog
-            //dialog!!.dismiss()
             Log.e("sfms,fnmqefqfwfwfwf===", s.toString())
             hideProgress()
             viewModel.UploadMediaMethod(File(s).absolutePath, 2)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == GALARY_REQUEST_CODE && data != null) {
+
+            val selectedImageURI: Uri = data.data!!
+            var file = getPath(selectedImageURI)
+            viewModel.UploadMediaMethod(file!!, 1)
+//                  newPhotoList.removeAt(pos!!)
+//              Log.e("fnknfsnefksef===",file.toString())
+//              newPhotoList.add(pos!!, AddPhoto(File(file).absolutePath, false,1))
+//              addPhotosAdapter.updateList(newPhotoList, pos!!)
+            //  bundle.putParcelableArrayList("photoList",photoList)
+            //bundle.putString("DAMEO","DDDD")
+            //   pref.storeImage("ADD_PHOTO_URI",photoList)
+            //  addPhotosAdapter.notifyDataSetChanged()
+            // showPhotoMethod(File(file))
+
+        } else if (requestCode == REQUEST_CODEE &&
+            resultCode == Activity.RESULT_OK
+        ) {
+
+            if (photoFile != null) {
+                //    Glide.with(this).load(photoFile).into(ivPhoto!!)
+//                    var photoFileData=Uri.fromFile(photoFile) as Uri
+                Log.e("Picture_Screeennn===", "2222")
+                var photoFileData = photoFile
+                viewModel.UploadMediaMethod(photoFile!!.absolutePath, 1)
+//                       newPhotoList.removeAt(pos!!)
+//                       newPhotoList.add(pos!!, AddPhoto(photoFileData!!.absolutePath, false,1))
+//                       addPhotosAdapter.updateList(newPhotoList, pos!!)
+//                       // addPhotosAdapter.notifyDataSetChanged()
+//                       //  bundle.putParcelableArrayList("photoList",photoList)
+//                       //   bundle.putString("DAMEO","xcxcxc")
+//                       dataStoreUtil.savephoto(ADD_PHOTO_URI, newPhotoList.toString())
+            }
+        } else if (requestCode == REQUEST_TAKE_GALLERY_VIDEO &&
+            resultCode == Activity.RESULT_OK
+        ) {
+            //For Pick Video from Gallery
+            val selectedImageUri: Uri? = data!!.getData()
+            var filemanagerstring = selectedImageUri!!.path
+            var selectedImagePath = getVideoPathFromGallery(selectedImageUri)
+
+            val file = File(Environment.getExternalStorageDirectory().absolutePath)
+            CompressVideo(viewModel, requireActivity()).execute(
+                "false",
+                selectedImageUri.toString(),
+                file.absolutePath
+            )
+
+            //  viewModel.UploadMediaMethod(File(selectedImagePath).absolutePath,2)
+
+        } else if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+            val videoUri = data?.data
+            val file = File(Environment.getExternalStorageDirectory().absolutePath)
+            CompressVideo(viewModel, requireActivity()).execute("false", videoUri.toString(), file.absolutePath)
+
+            Log.e("jkh7wq", file.absolutePath + "  " + videoUri + "  khem ")
+
+//                binding.videoView.setVideoURI(videoUri)
+//                binding.videoView.start()
+        } else {
+
+            Log.e("jkh7wq", "asdWorking")
+
+        }
+
     }
 }

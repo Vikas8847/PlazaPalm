@@ -56,26 +56,11 @@ class DashBoardVM @Inject constructor(
     var pref: PreferenceFile,
 ) : ViewModel(), clickItem, DashboardInterface {
     private var _id: String? = null
-    var calulatedDistance = ObservableField("")
-
-    //    var destinationLong: Double? = null
-//    var destinationLat: Double? = null
     var destinationLat = ObservableDouble()
     var destinationLong = ObservableDouble()
-
-    var currentPage = ObservableInt(1)
-    var loading = ObservableBoolean(true)
-    var previousTotal = ObservableInt(0)
-    val visibleThreshold = ObservableInt(5)
-    var visibleItemCount = ObservableInt(0)
-    var totalItemCount = ObservableInt(0)
-    var firstVisibleItem = ObservableInt(0)
-
     @SuppressLint("StaticFieldLeak")
-
     var recyclerSelectedEvents: RecyclerView? = null
     var idList = ArrayList<String>()
-    var nameList = ArrayList<String>()
     var token = ObservableField("")
     var status = ObservableField("")
     var searchItems = ObservableField("")
@@ -83,18 +68,12 @@ class DashBoardVM @Inject constructor(
     var longi = ObservableDouble()
     var userMiles = ObservableField("")
     var title = ObservableField("")
-    var isDataVisible = ObservableBoolean(false)
-    var isFav = ObservableBoolean(false)
     var isNodatafound = ObservableBoolean(false)
-    var isNodatafoundqw = ObservableField("")
     var distanceCal = ObservableField("")
     var isClicked: ObservableBoolean = ObservableBoolean(false)
     val distance = ObservableField("")
-    var idCategoriesData = ObservableArrayList<CategoriesData>()
     val adapter by lazy { RecyclerAdapter<ProfileCateData>(R.layout.dash_board_items) }
-
     var selectedCategoriesList = ArrayList<SelectedDataModelList>()
-    var selectedCategoriesLists = ArrayList<SelectedDataModelList>()
     val dashSelectedAdapter by lazy { RecyclerAdapter<SelectedDataModelList>(R.layout.dash_board_events_items) }
     val list_Name by lazy { stringPreferencesKey("idsList") }
     val list_CateName by lazy { stringPreferencesKey("CateNameList") }
@@ -103,8 +82,6 @@ class DashBoardVM @Inject constructor(
     var selectedCatId = ObservableField("")
     var searchValue = ObservableField("")
     var isRVScroll = ObservableBoolean(false)
-
-    //var rvNewView:RecyclerView?=null
     var rvadapter: RVDashboardAdapter? = null
     var fontList: ArrayList<FontsListModelResponse>? = null
 
@@ -215,31 +192,6 @@ class DashBoardVM @Inject constructor(
         }
 
         Log.e("QQWQWQw", editable.toString())
-    }
-
-    fun scrollListener(rvView: RecyclerView) {
-        rvView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-            var ydy = 0
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val offset = dy - ydy
-                ydy = dy
-                var manager = (rvView.layoutManager) as GridLayoutManager
-
-
-                val currentFirstVisible: Int = manager.findFirstVisibleItemPosition()
-
-                //   if (currentFirstVisible > firstVisibleInListview) Log.i("RecyclerView scrolled: ", "scroll up!") else Log.i("RecyclerView scrolled: ", "scroll down!")
-
-                var firstVisibleInListview = currentFirstVisible
-
-
-                //   title.set(adapter.getAllItems().get(firstVisibleInListview).category_name.toString())
-
-                // swipeRefreshLayout.setRefreshing(false)
-            }
-        })
     }
 
 
@@ -400,9 +352,6 @@ class DashBoardVM @Inject constructor(
                         if (res.body() != null) {
                             if (res.body()!!.status == 200) {
 
-                                //lati.set(pref.retvieLatlong(Constants.CURRENT_LOCATION_LAT).toDouble())
-                                // longi.set(pref.retvieLatlong(Constants.CURRENT_LOCATION_LONG).toDouble())
-
 
                                 //  if (res.body()!!.data.size > 0 || adapter!!.getProfileList().size > 0) {
                                 if (res.body()!!.data.size > 0) {
@@ -432,11 +381,13 @@ class DashBoardVM @Inject constructor(
                                                 data.mediaType = 2
                                                 Log.e("rererererer===", data.postProfile_picture[0])
                                             }
+
                                             /*res.body()?.data!![idx].lngValue =
                                                 res.body()?.data!![idx].long*/
                                             profileList.add(data)
                                         }
                                     }
+
                                     /*   adapter.addItems(profileList)
                                        adapter.notifyDataSetChanged()*/
 
@@ -445,27 +396,17 @@ class DashBoardVM @Inject constructor(
 
                                     Log.e("dsxvc" , profileList.toString())
 
-//                                    val hashSet = HashSet<ProfileCateData>()
-//                                    hashSet.addAll(profileList!!)
-//                                    profileList.clear()
-//                                    profileList.addAll(hashSet)
-
-
-
-                                    if (rvadapter==null){
+//                                    if (rvadapter==null){
                                         rvadapter = RVDashboardAdapter(context, profileList, this@DashBoardVM, fontList!!, "dash")
                                         rvView!!.setHasFixedSize(true)
+                                        rvView!!.setNestedScrollingEnabled(false)
                                         rvView!!.layoutManager = GridLayoutManager(context, 2)
                                         rvView!!.adapter = rvadapter
                                         rvadapter!!.notifyDataSetChanged()
 
-                                    }else{
-                                        rvadapter!!.updateAdapter(profileList)
-                                    }
-
-
-
-
+//                                    }else{
+//                                        rvadapter!!.updateAdapter(profileList)
+//                                    }
 
                                     Log.d("DashBoardResponse->", profileList.size.toString())
 
@@ -479,10 +420,7 @@ class DashBoardVM @Inject constructor(
                                             .toString() + "kjljlj;" + destinationLong.get()
                                             .toString()
                                     )
-                                    Log.d(
-                                        "adasWS",
-                                        lati.toString() + "sdfdf" + longi
-                                    )
+
 
                                     calculateLatLngToMiles()
                                     // distanceCal.set(distance.get().toString().split(".")[0])
@@ -493,7 +431,6 @@ class DashBoardVM @Inject constructor(
                                             .equals(""))
                                     ) {
                                         profileResponse.value = true
-                                        Log.e("efefefefefefe====", "efefefefefefef")
                                     }
 
                                     Log.d("viaksdance", distance.get().toString().split(".")[0])

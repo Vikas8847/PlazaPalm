@@ -11,15 +11,21 @@ import com.example.plazapalm.models.CategoriesData
 
 class SelectCateAdapter(
     var requireActivity: FragmentActivity,
-    var photos: ArrayList<CategoriesData>,
+    var categortList: ArrayList<CategoriesData>,
     var clickItem: clickItem,
     var status: String
 ) :
     RecyclerView.Adapter<SelectCateAdapter.SelectCateViewHolder>() {
 
     fun addNewDataList(newphotosList: ArrayList<CategoriesData>) {
-        photos.addAll(newphotosList)
+        categortList.clear()
+        categortList.addAll(newphotosList)
         notifyDataSetChanged()
+    }
+
+    fun getNewList():ArrayList<CategoriesData>
+    {
+        return  categortList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectCateViewHolder {
@@ -34,13 +40,13 @@ class SelectCateAdapter(
 
         if (status.equals("selectcategeroy")) {
             holder.binding.tvSelectCategory.text =
-                photos[position].category_name + " (" + photos[position].count + ")"
+                categortList[position].category_name + " (" + categortList[position].count + ")"
 
             holder.binding.tvSelectCategory.setOnClickListener {
                 clickItem.click(
-                    photos[position].category_name,
+                    categortList[position].category_name,
                     position,
-                    photos[position]._id,
+                    categortList[position]._id,
                     "postprofile",
                     0
                 )
@@ -48,12 +54,12 @@ class SelectCateAdapter(
 
         } else if (status.equals("OpenCategeroy")) {
             holder.binding.tvSelectCategory.text =
-                photos[position].category_name + " (" + photos[position].count + ")"
+                categortList[position].category_name + " (" + categortList[position].count + ")"
             holder.binding.tvSelectCategory.setOnClickListener {
                 clickItem.click(
-                    photos[position].category_name,
+                    categortList[position].category_name,
                     position,
-                    photos[position]._id,
+                    categortList[position]._id,
                     "OpenCategeroy",
                     0
                 )
@@ -64,9 +70,9 @@ class SelectCateAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.d("MyAdapter", "getItemCount() called. Data size: ${photos.size}")
+        Log.d("MyAdapter", "getItemCount() called. Data size: ${categortList.size}")
 
-        return photos.size
+        return categortList.size
     }
 
     class SelectCateViewHolder(var binding: SlectCateItemsBinding) :
